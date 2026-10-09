@@ -6,6 +6,24 @@
 
 > **📌 Important Note**: This repository is the **integrated deployment system** for the Unitree B2W quadrupedal robot with learning-based navigation and locomotion control. It combines the low-level simulation environment, high-level navigation controller, and teleoperation interface for autonomous navigation research and real robot deployment.
 
+## Course Project Extension
+
+This repository is used as the codebase for our course project on autonomous localization and navigation of the Unitree B2-W wheeled-legged robot in confined GPS/network-denied environments.
+
+We reuse the original B2-W Gazebo simulation and low-level ONNX locomotion controller, and extend the system with three independently developed modules:
+
+- Simulation, sensing, and disturbance injection
+- LiDAR-IMU SLAM and localization evaluation
+- Navigation, obstacle avoidance, and system integration
+
+The project-wide ROS 2 topics, TF frames, shared variables, evaluation metrics, and module boundaries are defined in:
+
+[`docs/INTERFACE.md`](docs/INTERFACE.md)
+
+Please read the interface contract before changing shared topics, frames, parameters, or message types.
+
+---
+
 ## Overview
 
 This project provides a complete stack for quadrupedal robot navigation with **two alternative control modes**:
