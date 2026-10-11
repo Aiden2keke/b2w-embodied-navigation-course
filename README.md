@@ -8,6 +8,8 @@
 
 ## Course Project Extension
 
+新用户和 Codex 的统一安装、模型下载、启动与排错入口见根目录 [CODEX_GUIDE.md](CODEX_GUIDE.md)；[AGENTS.md](AGENTS.md) 提供自动读取入口。新克隆需要下载默认运控权重与第三方资产并构建，不能直接复用原开发机的 install 目录。
+
 本机 **Humble + Fortress** 课程入口、安装、录制、回放和评价见 [docs/COURSE_SETUP.md](docs/COURSE_SETUP.md)。实际接口选择见 [docs/INTERFACE_ALIGNMENT.md](docs/INTERFACE_ALIGNMENT.md)，验证证据见 [docs/COURSE_VALIDATION.md](docs/COURSE_VALIDATION.md)。下面保留上游 Jazzy/SRU 的原始使用说明。
 
 可下载的 B2-W / rl_sar 策略、本机控制器适配、固定版本下载和物理检查入口见 [docs/RL_SAR_SETUP.md](docs/RL_SAR_SETUP.md)。实际平衡、停车与导航验收状态见 [docs/LOCOMOTION_STATUS.md](docs/LOCOMOTION_STATUS.md)。

@@ -6,14 +6,12 @@
 
 ## 安装与构建
 
-在仓库根目录执行：
+首次克隆请按根目录 [CODEX_GUIDE.md 的完整准备流程](../CODEX_GUIDE.md#2-新克隆的完整准备流程) 安装依赖、下载 SLAM 和默认运控、创建导出环境并转换 ONNX、构建和验证。该流程也供其他用户的 Codex 读取执行。
+
+已有完整模型与构建结果的机器，在仓库根目录检查：
 
 ```bash
-scripts/setup_course_humble.sh --install
-scripts/fetch_lio_sam.sh
-# 首次下载及 ONNX 转换按 docs/RL_SAR_SETUP.md 执行
 /usr/bin/python3 scripts/prepare_rl_sar.py
-scripts/build_course.sh --symlink-install
 scripts/setup_course_humble.sh --json
 scripts/test_course.sh
 ```

@@ -4,7 +4,7 @@
 
 ## 本机启动
 
-当前下载目录是 `third_party/b2w_rl_sar`，权重、配置、配套机器人资产和派生 ONNX 已准备好。运行：
+默认下载目录是 `third_party/b2w_rl_sar`，不随 Git 分发。新克隆先执行下方下载与 ONNX 转换流程；完整安装顺序见 [CODEX_GUIDE.md](../CODEX_GUIDE.md)。已有权重、配置、配套机器人资产和派生 ONNX 时运行：
 
 ```bash
 scripts/run_course.sh mode:=sim locomotion_backend:=rl_sar gui:=true rviz:=true
