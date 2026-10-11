@@ -1,0 +1,420 @@
+{
+  "success": true,
+  "runtime": "PyTorch 2.5.1+cpu CPU",
+  "input_shape": [
+    1,
+    57
+  ],
+  "output_shape": [
+    1,
+    16
+  ],
+  "finite_output": true,
+  "test_inputs": [
+    "reference_pose_stop",
+    "reference_pose_forward_0.2",
+    "reference_pose_turn_0.2"
+  ],
+  "outputs": {
+    "stop": [
+      -0.15149718523025513,
+      -0.020256325602531433,
+      0.6340758204460144,
+      0.16487722098827362,
+      0.04804489016532898,
+      0.9458970427513123,
+      -0.16743366420269012,
+      -0.04375249892473221,
+      0.582697868347168,
+      0.19829799234867096,
+      -0.15955457091331482,
+      0.665132462978363,
+      0.169790118932724,
+      0.23974387347698212,
+      0.16100704669952393,
+      0.4014118015766144
+    ],
+    "forward": [
+      0.06363695859909058,
+      0.13796821236610413,
+      0.5729649662971497,
+      0.025355741381645203,
+      0.16767320036888123,
+      0.848413348197937,
+      -0.037821099162101746,
+      0.0880047008395195,
+      0.6940575838088989,
+      0.06773962080478668,
+      0.050328224897384644,
+      0.8575136661529541,
+      0.8988372087478638,
+      0.9402084946632385,
+      0.7953853011131287,
+      1.027634620666504
+    ],
+    "turn": [
+      0.03485453128814697,
+      0.03833828866481781,
+      0.543891966342926,
+      0.14773012697696686,
+      0.18534991145133972,
+      0.8294233679771423,
+      -0.024578139185905457,
+      -0.1770748496055603,
+      0.5222983956336975,
+      -0.2633761167526245,
+      -0.10687911510467529,
+      0.5898528695106506,
+      0.15278705954551697,
+      0.14463041722774506,
+      0.05309855937957764,
+      0.35714367032051086
+    ]
+  },
+  "physical_stability_verified": false,
+  "onnx_export": {
+    "success": true,
+    "opset": 17,
+    "batch_inputs": 32,
+    "max_abs_error_vs_torchscript": 1.430511474609375e-06,
+    "finite_output": true
+  },
+  "mujoco_probe": {
+    "runtime": "3.2.7",
+    "model": "rl_sar_zoo/b2w_description/mjcf/scene.xml",
+    "base_dt_s": 0.005,
+    "policy_dt_s": 0.02,
+    "warmup_s": 2,
+    "initial_base_height_m": 0.65,
+    "cases": [
+      {
+        "case": "stand_30s",
+        "fell": false,
+        "sim_duration_s": 29.999999999998316,
+        "segments": [
+          {
+            "command": [
+              0,
+              0,
+              0
+            ],
+            "requested_duration_s": 30,
+            "max_tilt_deg": 18.836394427560688,
+            "min_base_height_m": 0.47257179402556754,
+            "displacement_world_xyz_m": [
+              2.066285168720054,
+              -0.00694032255945317,
+              0.13143588940342704
+            ],
+            "final_base_quaternion_wxyz": [
+              0.9995587324477095,
+              -0.005952901649191453,
+              -0.004093110274844534,
+              -0.028812320242611444
+            ]
+          }
+        ],
+        "final_xy_m": [
+          1.6978126360337165,
+          -0.0036803048070388907
+        ]
+      },
+      {
+        "case": "forward_then_stop",
+        "fell": false,
+        "sim_duration_s": 20.000000000000306,
+        "segments": [
+          {
+            "command": [
+              0.3,
+              0,
+              0
+            ],
+            "requested_duration_s": 10,
+            "max_tilt_deg": 18.869777863357186,
+            "min_base_height_m": 0.47499717130055435,
+            "displacement_world_xyz_m": [
+              3.56748401142599,
+              -0.11857058386670609,
+              0.13666644388065802
+            ],
+            "final_base_quaternion_wxyz": [
+              0.999567414494407,
+              -0.005374496674732929,
+              -0.0018872736545543704,
+              -0.028853714918762704
+            ]
+          },
+          {
+            "command": [
+              0,
+              0,
+              0
+            ],
+            "requested_duration_s": 10,
+            "max_tilt_deg": 0.9468980202956023,
+            "min_base_height_m": 0.6093087570264276,
+            "displacement_world_xyz_m": [
+              0.8529407526227755,
+              -0.04345448181452634,
+              -0.005141600363049004
+            ],
+            "final_base_quaternion_wxyz": [
+              0.9997198957471733,
+              -0.006403021311932991,
+              -0.003344582886463155,
+              -0.022537638089525566
+            ]
+          }
+        ],
+        "final_xy_m": [
+          4.051952231362428,
+          -0.15876504792881815
+        ]
+      },
+      {
+        "case": "turn_then_stop",
+        "fell": false,
+        "sim_duration_s": 20.000000000000306,
+        "segments": [
+          {
+            "command": [
+              0,
+              0,
+              0.3
+            ],
+            "requested_duration_s": 10,
+            "max_tilt_deg": 18.835750801533898,
+            "min_base_height_m": 0.4721286122993352,
+            "displacement_world_xyz_m": [
+              -0.1182779800520013,
+              -0.01317108038875061,
+              0.1365400382379484
+            ],
+            "final_base_quaternion_wxyz": [
+              0.9844269520285127,
+              -0.006286429127665728,
+              0.005517702919211232,
+              0.17559502237583802
+            ]
+          },
+          {
+            "command": [
+              0,
+              0,
+              0
+            ],
+            "requested_duration_s": 10,
+            "max_tilt_deg": 0.9827148250545514,
+            "min_base_height_m": 0.6102352938348115,
+            "displacement_world_xyz_m": [
+              0.7328246766354826,
+              0.13704875683594994,
+              -0.004113104251001087
+            ],
+            "final_base_quaternion_wxyz": [
+              0.994929545696411,
+              -0.006270737194028546,
+              -0.005120666368524579,
+              0.10024797120799621
+            ]
+          }
+        ],
+        "final_xy_m": [
+          0.2460741638971438,
+          0.1271376941996136
+        ]
+      }
+    ],
+    "scope": "temporary headless flat-ground probe; no ROS, LiDAR, SLAM, Nav2, or Fortress integration",
+    "all_cases_without_fall": true,
+    "standing_and_stopping_verified": false,
+    "limitation": "All cases remained upright, but standing drift was 2.066m over 30s, stopping drift after forward was 0.854m over 10s. No deployment stability acceptance."
+  },
+  "sources": {
+    "repository": "https://github.com/fan-ziqi/rl_sar",
+    "revision": "376d42c9b128f963ab08579762d5a216a976ce39",
+    "download_date": "2026-10-10",
+    "license": "Apache-2.0",
+    "selected_robot": "b2w",
+    "selected_policy": "robot_lab",
+    "files": {
+      "policy/b2w/base.yaml": {
+        "bytes": 1787,
+        "sha256": "a883606bdbd5450ed04227b82cde54d9a3fc0eeedb55d61b36bdf43889f8d9f8"
+      },
+      "policy/b2w/robot_lab/config.yaml": {
+        "bytes": 2303,
+        "sha256": "d44bb3c36043f7216f7699a23d904fd01b5fc29ab7c35aabe56dc024d3f1cc74"
+      },
+      "policy/b2w/robot_lab/policy.pt": {
+        "bytes": 796064,
+        "sha256": "38155076408e8eccb22690c6c5be14bd1dcb9149245ca5e493308a9f6ff93b34"
+      },
+      "policy/b2w/robot_lab/policy.onnx": {
+        "bytes": 785091,
+        "sha256": "da31c0c1820b893608e2d02746bbada16d0abb5de6116277e37ccfb02024c564",
+        "derived_from": "policy.pt",
+        "conversion": "PyTorch 2.5.1+cpu, ONNX opset 17"
+      }
+    },
+    "deployment_status": "downloaded; TorchScript CPU and ONNX parity passed; MuJoCo flat-ground probe executed; zero-command drift remains; not integrated with course Fortress controller",
+    "robot_assets": {
+      "repository": "https://github.com/fan-ziqi/rl_sar_zoo",
+      "revision": "7dd30bdc7806898950b354260655d5a7f0ce844e",
+      "version": "1.0.2",
+      "robot": "b2w_description",
+      "license_note": "Robot assets retain upstream source attribution; rl_sar code Apache-2.0 does not determine these asset licenses."
+    }
+  },
+  "mujoco_training_inertia_probe": {
+    "runtime": "3.2.7",
+    "model": "MJCF with inertias from matching rl_sar_zoo URDF; other MJCF dynamics unchanged",
+    "base_dt_s": 0.005,
+    "policy_dt_s": 0.02,
+    "warmup_s": 2,
+    "initial_base_height_m": 0.65,
+    "cases": [
+      {
+        "case": "stand_30s",
+        "fell": false,
+        "sim_duration_s": 29.999999999998316,
+        "segments": [
+          {
+            "command": [
+              0,
+              0,
+              0
+            ],
+            "requested_duration_s": 30,
+            "max_tilt_deg": 9.107584964633356,
+            "min_base_height_m": 0.5361334296592938,
+            "displacement_world_xyz_m": [
+              2.358593895863756,
+              0.015233932260433805,
+              0.07832042272064177
+            ],
+            "final_base_quaternion_wxyz": [
+              0.9999615860920547,
+              -0.006758251363936879,
+              -0.005249824065309853,
+              -0.001895184963996542
+            ]
+          }
+        ],
+        "final_xy_m": [
+          2.1151573821022214,
+          0.03236186523891711
+        ]
+      },
+      {
+        "case": "forward_then_stop",
+        "fell": false,
+        "sim_duration_s": 20.000000000000306,
+        "segments": [
+          {
+            "command": [
+              0.3,
+              0,
+              0
+            ],
+            "requested_duration_s": 10,
+            "max_tilt_deg": 9.158425366060989,
+            "min_base_height_m": 0.5360512576184848,
+            "displacement_world_xyz_m": [
+              3.7490427220679545,
+              -0.0888981156891579,
+              0.08384300839595127
+            ],
+            "final_base_quaternion_wxyz": [
+              0.9997934641961421,
+              -0.0055900522688473704,
+              -0.0033774402817070216,
+              -0.019245081539254832
+            ]
+          },
+          {
+            "command": [
+              0,
+              0,
+              0
+            ],
+            "requested_duration_s": 10,
+            "max_tilt_deg": 0.9374829681939639,
+            "min_base_height_m": 0.6158185791484916,
+            "displacement_world_xyz_m": [
+              0.9053460161343732,
+              -0.030460477081913725,
+              -0.004258997283382415
+            ],
+            "final_base_quaternion_wxyz": [
+              0.9999044958652691,
+              -0.006814216305537502,
+              -0.004509674800377259,
+              -0.01114578116403081
+            ]
+          }
+        ],
+        "final_xy_m": [
+          4.410952224440793,
+          -0.10223065979258832
+        ]
+      },
+      {
+        "case": "turn_then_stop",
+        "fell": false,
+        "sim_duration_s": 20.000000000000306,
+        "segments": [
+          {
+            "command": [
+              0,
+              0,
+              0.3
+            ],
+            "requested_duration_s": 10,
+            "max_tilt_deg": 9.104588354037974,
+            "min_base_height_m": 0.5359909691803048,
+            "displacement_world_xyz_m": [
+              0.009936620112153488,
+              -0.018754517080169977,
+              0.0830511515289386
+            ],
+            "final_base_quaternion_wxyz": [
+              0.9848794817698932,
+              -0.0050873131778641925,
+              0.006326040652540602,
+              0.17305059041494006
+            ]
+          },
+          {
+            "command": [
+              0,
+              0,
+              0
+            ],
+            "requested_duration_s": 10,
+            "max_tilt_deg": 0.9426967497626119,
+            "min_base_height_m": 0.6176344414431867,
+            "displacement_world_xyz_m": [
+              0.782685930158594,
+              0.119061294496133,
+              -0.0017233388244044523
+            ],
+            "final_base_quaternion_wxyz": [
+              0.9969621120086124,
+              -0.006055016968431588,
+              -0.004717162889145852,
+              0.07750891795861868
+            ]
+          }
+        ],
+        "final_xy_m": [
+          0.5491860365092126,
+          0.11743471039444632
+        ]
+      }
+    ],
+    "scope": "temporary headless flat-ground probe; no ROS, LiDAR, SLAM, Nav2, or Fortress integration",
+    "all_cases_without_fall": true
+  }
+}

@@ -1,0 +1,307 @@
+{
+  "tests_passed": 19,
+  "attempts": [
+    {
+      "run": "course_results/rviz_alignment_navigation/20261010T134536.030107Z",
+      "manifest": {
+        "profiles": [
+          "normal"
+        ],
+        "seeds": [
+          0
+        ],
+        "goal": [
+          1.0,
+          -1.0
+        ],
+        "timeout": 45.0,
+        "output_dir": "course_results/rviz_alignment_navigation",
+        "ros_domain_id": 92,
+        "scene": "warehouse",
+        "locomotion_backend": "rl_sar",
+        "pretrained_directory": "/home/xavier/zsx/b2w-embodied-navigation-course/third_party/b2w_rl_sar",
+        "scan_model": "instantaneous_snapshot",
+        "horizontal_samples": 2000,
+        "start_wait_wall_s": 20.0,
+        "physics_rng_seeded": false,
+        "ros_localhost_only": "1",
+        "dds_profile": "fastdds_local.xml",
+        "map_datum": "measured_floor",
+        "locomotion_source": {
+          "repository": "https://github.com/fan-ziqi/rl_sar",
+          "revision": "376d42c9b128f963ab08579762d5a216a976ce39",
+          "download_date": "2026-10-10",
+          "license": "Apache-2.0",
+          "selected_robot": "b2w",
+          "selected_policy": "robot_lab",
+          "files": {
+            "policy/b2w/base.yaml": {
+              "bytes": 1787,
+              "sha256": "a883606bdbd5450ed04227b82cde54d9a3fc0eeedb55d61b36bdf43889f8d9f8"
+            },
+            "policy/b2w/robot_lab/config.yaml": {
+              "bytes": 2303,
+              "sha256": "d44bb3c36043f7216f7699a23d904fd01b5fc29ab7c35aabe56dc024d3f1cc74"
+            },
+            "policy/b2w/robot_lab/policy.pt": {
+              "bytes": 796064,
+              "sha256": "38155076408e8eccb22690c6c5be14bd1dcb9149245ca5e493308a9f6ff93b34"
+            },
+            "policy/b2w/robot_lab/policy.onnx": {
+              "bytes": 785091,
+              "sha256": "da31c0c1820b893608e2d02746bbada16d0abb5de6116277e37ccfb02024c564",
+              "derived_from": "policy.pt",
+              "conversion": "PyTorch 2.5.1+cpu, ONNX opset 17"
+            }
+          },
+          "deployment_status": "Fortress integrated; ROS-clock controller and 51-second flat-ground standing/forward/turn/stopping checks passed; normal confined short-goal navigation passed; rough terrain and hardware not validated",
+          "robot_assets": {
+            "repository": "https://github.com/fan-ziqi/rl_sar_zoo",
+            "revision": "7dd30bdc7806898950b354260655d5a7f0ce844e",
+            "version": "1.0.2",
+            "robot": "b2w_description",
+            "license_note": "Robot assets retain upstream source attribution; rl_sar code Apache-2.0 does not determine these asset licenses."
+          },
+          "course_adaptation": {
+            "config": "course_sim/config/rl_sar.yaml",
+            "feedback": "private raw joint and IMU streams, latest-only",
+            "idle_hold": "learned legs and zero wheel velocity targets",
+            "yaw_command_gain": 1.6
+          }
+        },
+        "policy_sha256": "da31c0c1820b893608e2d02746bbada16d0abb5de6116277e37ccfb02024c564"
+      },
+      "result": {
+        "success": false,
+        "end_reason": "rejected",
+        "collision_count": 0,
+        "collision_missing_reason": null,
+        "path_length_m": 6.549141514506905e-05,
+        "path_length_missing_reason": null,
+        "time_to_goal_s": 0.08749999999999858,
+        "time_missing_reason": null,
+        "planning_latency_ms": null,
+        "planning_latency_missing_reason": "No planner action result",
+        "planning_measurement_status": null,
+        "planning_latency_definition": "ComputePathToPose action round trip, wall clock",
+        "path_source": "slam_base_link",
+        "goal_tolerance_m": 0.3,
+        "goal_id": "20261010T134602.322822Z",
+        "goal_map_xy": [
+          1.0,
+          -1.0
+        ],
+        "timeout_s": 45.0,
+        "collision_force_threshold_n": 50.0,
+        "final_goal_distance_m": 1.6739763114643869,
+        "fault_profile": "normal",
+        "seed": 0,
+        "case_directory": "/home/xavier/zsx/b2w-embodied-navigation-course/course_results/rviz_alignment_navigation/20261010T134536.030107Z/normal-seed0",
+        "goal_sent": true
+      }
+    },
+    {
+      "run": "course_results/rviz_alignment_navigation/20261010T134940.835941Z",
+      "manifest": {
+        "profiles": [
+          "normal"
+        ],
+        "seeds": [
+          0
+        ],
+        "goal": [
+          1.0,
+          -1.0
+        ],
+        "timeout": 45.0,
+        "output_dir": "course_results/rviz_alignment_navigation",
+        "ros_domain_id": 92,
+        "scene": "warehouse",
+        "locomotion_backend": "rl_sar",
+        "pretrained_directory": "/home/xavier/zsx/b2w-embodied-navigation-course/third_party/b2w_rl_sar",
+        "scan_model": "instantaneous_snapshot",
+        "horizontal_samples": 2000,
+        "start_wait_wall_s": 20.0,
+        "physics_rng_seeded": false,
+        "ros_localhost_only": "1",
+        "dds_profile": "fastdds_local.xml",
+        "map_datum": "measured_floor",
+        "locomotion_source": {
+          "repository": "https://github.com/fan-ziqi/rl_sar",
+          "revision": "376d42c9b128f963ab08579762d5a216a976ce39",
+          "download_date": "2026-10-10",
+          "license": "Apache-2.0",
+          "selected_robot": "b2w",
+          "selected_policy": "robot_lab",
+          "files": {
+            "policy/b2w/base.yaml": {
+              "bytes": 1787,
+              "sha256": "a883606bdbd5450ed04227b82cde54d9a3fc0eeedb55d61b36bdf43889f8d9f8"
+            },
+            "policy/b2w/robot_lab/config.yaml": {
+              "bytes": 2303,
+              "sha256": "d44bb3c36043f7216f7699a23d904fd01b5fc29ab7c35aabe56dc024d3f1cc74"
+            },
+            "policy/b2w/robot_lab/policy.pt": {
+              "bytes": 796064,
+              "sha256": "38155076408e8eccb22690c6c5be14bd1dcb9149245ca5e493308a9f6ff93b34"
+            },
+            "policy/b2w/robot_lab/policy.onnx": {
+              "bytes": 785091,
+              "sha256": "da31c0c1820b893608e2d02746bbada16d0abb5de6116277e37ccfb02024c564",
+              "derived_from": "policy.pt",
+              "conversion": "PyTorch 2.5.1+cpu, ONNX opset 17"
+            }
+          },
+          "deployment_status": "Fortress integrated; ROS-clock controller and 51-second flat-ground standing/forward/turn/stopping checks passed; normal confined short-goal navigation passed; rough terrain and hardware not validated",
+          "robot_assets": {
+            "repository": "https://github.com/fan-ziqi/rl_sar_zoo",
+            "revision": "7dd30bdc7806898950b354260655d5a7f0ce844e",
+            "version": "1.0.2",
+            "robot": "b2w_description",
+            "license_note": "Robot assets retain upstream source attribution; rl_sar code Apache-2.0 does not determine these asset licenses."
+          },
+          "course_adaptation": {
+            "config": "course_sim/config/rl_sar.yaml",
+            "feedback": "private raw joint and IMU streams, latest-only",
+            "idle_hold": "learned legs and zero wheel velocity targets",
+            "yaw_command_gain": 1.6
+          }
+        },
+        "policy_sha256": "da31c0c1820b893608e2d02746bbada16d0abb5de6116277e37ccfb02024c564"
+      },
+      "result": {
+        "success": false,
+        "end_reason": "aborted",
+        "collision_count": 0,
+        "collision_missing_reason": null,
+        "path_length_m": 0.3099283073065779,
+        "path_length_missing_reason": null,
+        "time_to_goal_s": 25.992500000000003,
+        "time_missing_reason": null,
+        "planning_latency_ms": 5.007839994505048,
+        "planning_latency_missing_reason": null,
+        "planning_measurement_status": "aborted",
+        "planning_latency_definition": "ComputePathToPose action round trip, wall clock",
+        "path_source": "slam_base_link",
+        "goal_tolerance_m": 0.3,
+        "goal_id": "20261010T135007.041542Z",
+        "goal_map_xy": [
+          1.0,
+          -1.0
+        ],
+        "timeout_s": 45.0,
+        "collision_force_threshold_n": 50.0,
+        "final_goal_distance_m": 1.6561063144720916,
+        "fault_profile": "normal",
+        "seed": 0,
+        "case_directory": "/home/xavier/zsx/b2w-embodied-navigation-course/course_results/rviz_alignment_navigation/20261010T134940.835941Z/normal-seed0",
+        "goal_sent": true
+      }
+    },
+    {
+      "run": "course_results/rviz_alignment_navigation/20261010T135431.604104Z",
+      "manifest": {
+        "profiles": [
+          "normal"
+        ],
+        "seeds": [
+          0
+        ],
+        "goal": [
+          1.0,
+          -1.0
+        ],
+        "timeout": 45.0,
+        "output_dir": "course_results/rviz_alignment_navigation",
+        "ros_domain_id": 92,
+        "scene": "warehouse",
+        "locomotion_backend": "rl_sar",
+        "pretrained_directory": "/home/xavier/zsx/b2w-embodied-navigation-course/third_party/b2w_rl_sar",
+        "scan_model": "instantaneous_snapshot",
+        "horizontal_samples": 2000,
+        "start_wait_wall_s": 20.0,
+        "physics_rng_seeded": false,
+        "ros_localhost_only": "1",
+        "dds_profile": "fastdds_local.xml",
+        "map_datum": "measured_floor",
+        "locomotion_source": {
+          "repository": "https://github.com/fan-ziqi/rl_sar",
+          "revision": "376d42c9b128f963ab08579762d5a216a976ce39",
+          "download_date": "2026-10-10",
+          "license": "Apache-2.0",
+          "selected_robot": "b2w",
+          "selected_policy": "robot_lab",
+          "files": {
+            "policy/b2w/base.yaml": {
+              "bytes": 1787,
+              "sha256": "a883606bdbd5450ed04227b82cde54d9a3fc0eeedb55d61b36bdf43889f8d9f8"
+            },
+            "policy/b2w/robot_lab/config.yaml": {
+              "bytes": 2303,
+              "sha256": "d44bb3c36043f7216f7699a23d904fd01b5fc29ab7c35aabe56dc024d3f1cc74"
+            },
+            "policy/b2w/robot_lab/policy.pt": {
+              "bytes": 796064,
+              "sha256": "38155076408e8eccb22690c6c5be14bd1dcb9149245ca5e493308a9f6ff93b34"
+            },
+            "policy/b2w/robot_lab/policy.onnx": {
+              "bytes": 785091,
+              "sha256": "da31c0c1820b893608e2d02746bbada16d0abb5de6116277e37ccfb02024c564",
+              "derived_from": "policy.pt",
+              "conversion": "PyTorch 2.5.1+cpu, ONNX opset 17"
+            }
+          },
+          "deployment_status": "Fortress integrated; ROS-clock controller and 51-second flat-ground standing/forward/turn/stopping checks passed; normal confined short-goal navigation passed; rough terrain and hardware not validated",
+          "robot_assets": {
+            "repository": "https://github.com/fan-ziqi/rl_sar_zoo",
+            "revision": "7dd30bdc7806898950b354260655d5a7f0ce844e",
+            "version": "1.0.2",
+            "robot": "b2w_description",
+            "license_note": "Robot assets retain upstream source attribution; rl_sar code Apache-2.0 does not determine these asset licenses."
+          },
+          "course_adaptation": {
+            "config": "course_sim/config/rl_sar.yaml",
+            "feedback": "private raw joint and IMU streams, latest-only",
+            "idle_hold": "learned legs and zero wheel velocity targets",
+            "yaw_command_gain": 1.6
+          }
+        },
+        "policy_sha256": "da31c0c1820b893608e2d02746bbada16d0abb5de6116277e37ccfb02024c564"
+      },
+      "result": {
+        "success": true,
+        "end_reason": "succeeded",
+        "collision_count": 0,
+        "collision_missing_reason": null,
+        "path_length_m": 1.5765992859367892,
+        "path_length_missing_reason": null,
+        "time_to_goal_s": 6.7075,
+        "time_missing_reason": null,
+        "planning_latency_ms": 5.703722010366619,
+        "planning_latency_missing_reason": null,
+        "planning_measurement_status": "succeeded",
+        "planning_latency_definition": "ComputePathToPose action round trip, wall clock",
+        "path_source": "slam_base_link",
+        "goal_tolerance_m": 0.3,
+        "goal_id": "20261010T135457.845656Z",
+        "goal_map_xy": [
+          1.0,
+          -1.0
+        ],
+        "timeout_s": 45.0,
+        "collision_force_threshold_n": 50.0,
+        "final_goal_distance_m": 0.22339304832833248,
+        "fault_profile": "normal",
+        "seed": 0,
+        "case_directory": "/home/xavier/zsx/b2w-embodied-navigation-course/course_results/rviz_alignment_navigation/20261010T135431.604104Z/normal-seed0",
+        "goal_sent": true
+      }
+    }
+  ],
+  "passed": true,
+  "final_simulation_filter": {
+    "lidar_self_returns": "excluded_by_visibility_mask",
+    "lidar_self_occlusion_simulated": false
+  }
+}

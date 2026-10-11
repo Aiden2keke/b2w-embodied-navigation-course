@@ -39,6 +39,13 @@ env/
 venv/
 ENV/
 .venv
+.deps/
+third_party/lio_sam/
+third_party/gtsam/
+third_party/aws_warehouse/
+third_party/b2w_rl_sar/
+course_results/
+bags/
 ros2_torch/
 
 # IDE

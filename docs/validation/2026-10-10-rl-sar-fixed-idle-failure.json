@@ -1,0 +1,145 @@
+{
+  "backend": "rl_sar",
+  "scene": "confined",
+  "phases": [
+    {
+      "name": "stand",
+      "command_vx_yaw": [
+        0,
+        0
+      ],
+      "sim_duration_s": 15.000000000000002,
+      "displacement_m": 0.0039004820610676516,
+      "max_tilt_deg": 20.618612181290818,
+      "min_base_height_m": 0.4780873856124659,
+      "start_xyz": [
+        -6.351614522176496,
+        -0.0005783827162323887,
+        0.4780893900468046
+      ],
+      "end_xyz": [
+        -6.347714054314638,
+        -0.0005889073217103552,
+        0.4780873856124659
+      ],
+      "yaw_delta_rad": 6.650076273973741e-05,
+      "max_displacement_from_start_m": 0.0039004820610676516,
+      "passed": true
+    },
+    {
+      "name": "forward",
+      "command_vx_yaw": [
+        0.2,
+        0
+      ],
+      "sim_duration_s": 8.0,
+      "displacement_m": 2.3487697004844246,
+      "max_tilt_deg": 20.618612316168303,
+      "min_base_height_m": 0.475127699652771,
+      "start_xyz": [
+        -6.347714054314638,
+        -0.0005889073217103552,
+        0.4780873856124659
+      ],
+      "end_xyz": [
+        -3.9995361903437585,
+        -0.05331295374126006,
+        0.6207508256053278
+      ],
+      "yaw_delta_rad": -0.0336990465174451,
+      "max_displacement_from_start_m": 2.3487697004844246,
+      "passed": true
+    },
+    {
+      "name": "stop_after_forward",
+      "command_vx_yaw": [
+        0,
+        0
+      ],
+      "sim_duration_s": 10.010000000000002,
+      "displacement_m": 0.23450201930939724,
+      "max_tilt_deg": 21.416708924812024,
+      "min_base_height_m": 0.4701257863545749,
+      "start_xyz": [
+        -3.9995361903437585,
+        -0.05331295374126006,
+        0.6207508256053278
+      ],
+      "end_xyz": [
+        -4.2337104300191335,
+        -0.06570740946327337,
+        0.4770153871740784
+      ],
+      "yaw_delta_rad": 0.05351251649908202,
+      "max_displacement_from_start_m": 0.26024088163993847,
+      "passed": false
+    },
+    {
+      "name": "turn",
+      "command_vx_yaw": [
+        0,
+        0.25
+      ],
+      "sim_duration_s": 8.0,
+      "displacement_m": 0.3634030822263403,
+      "max_tilt_deg": 20.47080324623155,
+      "min_base_height_m": 0.47067296208394405,
+      "start_xyz": [
+        -4.2337104300191335,
+        -0.06570740946327337,
+        0.4770153871740784
+      ],
+      "end_xyz": [
+        -3.897285796030117,
+        -0.20311288903727212,
+        0.6069293778259889
+      ],
+      "yaw_delta_rad": 7.834032906111354,
+      "max_displacement_from_start_m": 0.3734796296008146,
+      "passed": true
+    },
+    {
+      "name": "stop_after_turn",
+      "command_vx_yaw": [
+        0,
+        0
+      ],
+      "sim_duration_s": 10.0,
+      "displacement_m": 0.7508875767374248,
+      "max_tilt_deg": 91.58308203344066,
+      "min_base_height_m": 0.21913259021363532,
+      "start_xyz": [
+        -3.897285796030117,
+        -0.20311288903727212,
+        0.6069293778259889
+      ],
+      "end_xyz": [
+        -3.216348367999596,
+        -0.5195878043240625,
+        0.2205281767453705
+      ],
+      "yaw_delta_rad": -0.6057284608674299,
+      "max_displacement_from_start_m": 0.7677823480756878,
+      "passed": false
+    }
+  ],
+  "success": false,
+  "final_joints": {
+    "FL_hip_joint": -0.09284053613955229,
+    "FL_thigh_joint": 0.7975509985115,
+    "FL_calf_joint": -1.496852122969597,
+    "FL_foot_joint": 8.76173507932637,
+    "FR_hip_joint": 0.1016055797475112,
+    "FR_thigh_joint": 0.8016242976770515,
+    "FR_calf_joint": -1.5010674410570248,
+    "FR_foot_joint": 51.2290074462125,
+    "RL_hip_joint": -0.0929817567696448,
+    "RL_thigh_joint": 0.7975846433246696,
+    "RL_calf_joint": -1.4968359708469536,
+    "RL_foot_joint": -12.700806596181922,
+    "RR_hip_joint": 0.1016272462943322,
+    "RR_thigh_joint": 0.7999231488922045,
+    "RR_calf_joint": -1.5021411241607565,
+    "RR_foot_joint": 21.961671257839605
+  }
+}

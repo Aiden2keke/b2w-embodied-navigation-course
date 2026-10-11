@@ -1,0 +1,45 @@
+{
+  "description_publishers": [
+    {
+      "name": "robot_state_publisher",
+      "namespace": "/"
+    },
+    {
+      "name": "robot_state_publisher",
+      "namespace": "/"
+    }
+  ],
+  "robot_names": [
+    "b2w",
+    "marvin_robot"
+  ],
+  "joint_publishers": [
+    {
+      "name": "sensor_disturbance",
+      "namespace": "/"
+    },
+    {
+      "name": "marvin_robot_node",
+      "namespace": "/"
+    }
+  ],
+  "odom": [
+    -0.3456564042581415,
+    -0.00036529965995189774,
+    -0.17691741722864712
+  ],
+  "map_to_base": [
+    -0.34565472018628185,
+    -0.0003694532925074544,
+    -0.17692066528708897
+  ],
+  "map": {
+    "frame": "map",
+    "origin": [
+      -20.0,
+      -20.0,
+      0.0
+    ]
+  },
+  "symptom": "RViz loaded marvin_description meshes from shared /robot_description; map z=0 was the LiDAR datum rather than floor"
+}

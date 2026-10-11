@@ -1,0 +1,9 @@
+{
+  "duplicate_rejected": true,
+  "owner_survived_duplicate": true,
+  "child_count_before_exit": 5,
+  "remaining_children": [],
+  "whole_session_stopped": true,
+  "lock_released": true,
+  "passed": true
+}

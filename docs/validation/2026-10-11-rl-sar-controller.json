@@ -1,0 +1,14 @@
+{
+  "success": true,
+  "command_sim_hz": 200.00000000000426,
+  "inference_sim_hz": 49.473684210527374,
+  "joint_name_mapping": true,
+  "wheel_position_mask": true,
+  "body_observation_scaling": true,
+  "paused_updates": 0,
+  "stale_command_zeroed": true,
+  "stale_feedback_zero_torque": true,
+  "clock_reset_clears_feedback_actions_commands": true,
+  "finite_limited_torques": true,
+  "physical_balance_test": false
+}

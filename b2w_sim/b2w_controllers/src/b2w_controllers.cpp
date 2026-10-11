@@ -11,6 +11,7 @@
 #include <type_traits>
 
 #include <rclcpp/executors/multi_threaded_executor.hpp>
+#include <rclcpp/create_timer.hpp>
 
 namespace {
 constexpr std::chrono::milliseconds kInferencePeriod{20};   // 50 Hz
@@ -249,12 +250,12 @@ void B2WControllers::setupTimers() {
     inference_group_ = this->create_callback_group(rclcpp::CallbackGroupType::MutuallyExclusive);
     pub_group_ = this->create_callback_group(rclcpp::CallbackGroupType::MutuallyExclusive);
 
-    timer_ = this->create_wall_timer(
+    timer_ = rclcpp::create_timer(this, this->get_clock(),
         kInferencePeriod,
         std::bind(&B2WControllers::inference, this),
         inference_group_);
 
-    timer_pub_ = this->create_wall_timer(
+    timer_pub_ = rclcpp::create_timer(this, this->get_clock(),
         kPublishPeriod,
         std::bind(&B2WControllers::publishJointCommands, this),
         pub_group_);
@@ -309,6 +310,7 @@ void B2WControllers::jointStateCallback(const sensor_msgs::msg::JointState::Shar
             joint_velocities_[i] = msg->velocity[src_index];
     }
     }
+    joint_state_received_ = true;
 }
 
 void B2WControllers::processOdometry() {
@@ -324,9 +326,9 @@ void B2WControllers::processOdometry() {
 }
 
 void B2WControllers::inference() {
-    if (!odometry_received_) {
+    if (!odometry_received_ || !joint_state_received_) {
         if (!odometry_warned_) {
-            RCLCPP_WARN(this->get_logger(), "No odometry data received yet.");
+            RCLCPP_WARN(this->get_logger(), "Waiting for odometry and joint state data.");
             odometry_warned_ = true;
         }
         return;
@@ -422,6 +424,10 @@ void B2WControllers::inference() {
         std::copy(c_out_data, c_out_data + c_in_data_.size(), c_in_data_.begin());
 
         Eigen::Map<Eigen::VectorXf> actions_map(actions_data, kNumJoints);
+        if (!actions_map.allFinite()) {
+            RCLCPP_ERROR(this->get_logger(), "Ignoring non-finite policy action");
+            return;
+        }
         last_actions_ = actions_map.cast<double>();
     } catch (const Ort::Exception &e) {
         RCLCPP_ERROR(this->get_logger(), "ONNX Runtime error: %s", e.what());

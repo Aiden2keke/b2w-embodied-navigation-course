@@ -16,6 +16,7 @@
 #include <eigen3/Eigen/Dense>
 
 #include <array>
+#include <atomic>
 #include <filesystem>
 #include <map>
 #include <memory>
@@ -103,7 +104,8 @@ private:
     Eigen::VectorXd reordered_actions_;
 
     Eigen::Matrix3d rotation_matrix_;
-    bool odometry_received_;
+    std::atomic_bool odometry_received_;
+    std::atomic_bool joint_state_received_{false};
     bool odometry_warned_;
     std::mutex odometry_mutex_;
     std::mutex joint_state_mutex_;

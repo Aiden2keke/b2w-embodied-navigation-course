@@ -1,0 +1,14 @@
+{
+  "default_backend_node_present": true,
+  "map": [
+    800,
+    800,
+    0.05000000074505806
+  ],
+  "samples": 1501,
+  "sim_sample_interval_s": 15.0,
+  "max_tilt_deg": 0.22192865237843232,
+  "min_height_m": 0.658356625951644,
+  "drift_m": 0.00020273859966169532,
+  "scope": "read-only sample of default warehouse GUI/RViz navigation session; no goal sent"
+}

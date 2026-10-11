@@ -1,0 +1,329 @@
+{
+  "backend": "rl_sar",
+  "scene": "confined",
+  "horizontal_samples": 2000,
+  "phases": [
+    {
+      "name": "stand",
+      "command_vx_yaw": [
+        0.0,
+        0.0
+      ],
+      "requested_duration_s": 15,
+      "sim_duration_s": 15.000000000000002,
+      "displacement_m": 0.0006223795984559991,
+      "max_displacement_from_start_m": 0.0006223795984559991,
+      "max_tilt_deg": 0.21996607146498734,
+      "min_base_height_m": 0.6241456431578215,
+      "start_xyz": [
+        -6.041906113892229,
+        -0.009938392285237744,
+        0.6241456143254889
+      ],
+      "end_xyz": [
+        -6.042527724690193,
+        -0.009907466884208,
+        0.624146075236545
+      ],
+      "yaw_delta_rad": -3.8554796849353534e-05,
+      "passed": true
+    },
+    {
+      "name": "forward",
+      "command_vx_yaw": [
+        0.2,
+        0.0
+      ],
+      "requested_duration_s": 8,
+      "sim_duration_s": 8.0,
+      "displacement_m": 2.136445701869542,
+      "max_displacement_from_start_m": 2.136445701869542,
+      "max_tilt_deg": 0.5061387620291813,
+      "min_base_height_m": 0.6190156542798866,
+      "start_xyz": [
+        -6.042527724690193,
+        -0.009907466884208,
+        0.624146075236545
+      ],
+      "end_xyz": [
+        -3.9134054023980354,
+        -0.18665127513244884,
+        0.6241230635666352
+      ],
+      "yaw_delta_rad": -0.03186620725796724,
+      "passed": true
+    },
+    {
+      "name": "stop_after_forward",
+      "command_vx_yaw": [
+        0.0,
+        0.0
+      ],
+      "requested_duration_s": 10,
+      "sim_duration_s": 10.010000000000002,
+      "displacement_m": 0.06771999385233575,
+      "max_displacement_from_start_m": 0.0796852581659894,
+      "max_tilt_deg": 0.47373390794757775,
+      "min_base_height_m": 0.6241149514998854,
+      "start_xyz": [
+        -3.9134054023980354,
+        -0.18665127513244884,
+        0.6241230635666352
+      ],
+      "end_xyz": [
+        -3.846239550785054,
+        -0.19529684882442483,
+        0.6241149514998854
+      ],
+      "yaw_delta_rad": 0.03211024967197472,
+      "passed": true
+    },
+    {
+      "name": "turn",
+      "command_vx_yaw": [
+        0.0,
+        0.25
+      ],
+      "requested_duration_s": 8,
+      "sim_duration_s": 8.0,
+      "displacement_m": 0.12543160080848365,
+      "max_displacement_from_start_m": 0.2518443012033392,
+      "max_tilt_deg": 3.5689527877063076,
+      "min_base_height_m": 0.6019156535784324,
+      "start_xyz": [
+        -3.846239550785054,
+        -0.19529684882442483,
+        0.6241149514998854
+      ],
+      "end_xyz": [
+        -3.7684844022141273,
+        -0.29372054186676033,
+        0.6034021273692918
+      ],
+      "yaw_delta_rad": 2.2675922675703006,
+      "passed": true
+    },
+    {
+      "name": "stop_after_turn",
+      "command_vx_yaw": [
+        0.0,
+        0.0
+      ],
+      "requested_duration_s": 10,
+      "sim_duration_s": 10.0,
+      "displacement_m": 0.034902134420202166,
+      "max_displacement_from_start_m": 0.08144635510958223,
+      "max_tilt_deg": 5.820688994614121,
+      "min_base_height_m": 0.6042477060231094,
+      "start_xyz": [
+        -3.7684844022141273,
+        -0.29372054186676033,
+        0.6034021273692918
+      ],
+      "end_xyz": [
+        -3.769794521776858,
+        -0.2588430050584189,
+        0.6246182975472346
+      ],
+      "yaw_delta_rad": -0.1910896515116689,
+      "passed": true
+    }
+  ],
+  "success": true,
+  "scope": "51 seconds of flat-ground motion; does not verify rough terrain or navigation",
+  "controller_parameters": {
+    "default_dof_pos": [
+      0.0,
+      0.8,
+      -1.5,
+      0.0,
+      0.8,
+      -1.5,
+      0.0,
+      0.8,
+      -1.5,
+      0.0,
+      0.8,
+      -1.5,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "action_scale": [
+      0.125,
+      0.25,
+      0.25,
+      0.125,
+      0.25,
+      0.25,
+      0.125,
+      0.25,
+      0.25,
+      0.125,
+      0.25,
+      0.25,
+      5.0,
+      5.0,
+      5.0,
+      5.0
+    ],
+    "rl_kp": [
+      160.0,
+      160.0,
+      160.0,
+      160.0,
+      160.0,
+      160.0,
+      160.0,
+      160.0,
+      160.0,
+      160.0,
+      160.0,
+      160.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "rl_kd": [
+      5.0,
+      5.0,
+      5.0,
+      5.0,
+      5.0,
+      5.0,
+      5.0,
+      5.0,
+      5.0,
+      5.0,
+      5.0,
+      5.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0
+    ],
+    "fixed_kp": [
+      200.0,
+      200.0,
+      300.0,
+      200.0,
+      200.0,
+      300.0,
+      200.0,
+      200.0,
+      300.0,
+      200.0,
+      200.0,
+      300.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "fixed_kd": [
+      3.0,
+      3.0,
+      3.0,
+      3.0,
+      3.0,
+      3.0,
+      3.0,
+      3.0,
+      3.0,
+      3.0,
+      3.0,
+      3.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0
+    ],
+    "torque_limits": [
+      200.0,
+      200.0,
+      320.0,
+      200.0,
+      200.0,
+      320.0,
+      200.0,
+      200.0,
+      320.0,
+      200.0,
+      200.0,
+      320.0,
+      20.0,
+      20.0,
+      20.0,
+      20.0
+    ],
+    "joint_names": [
+      "FR_hip_joint",
+      "FR_thigh_joint",
+      "FR_calf_joint",
+      "FL_hip_joint",
+      "FL_thigh_joint",
+      "FL_calf_joint",
+      "RR_hip_joint",
+      "RR_thigh_joint",
+      "RR_calf_joint",
+      "RL_hip_joint",
+      "RL_thigh_joint",
+      "RL_calf_joint",
+      "FR_foot_joint",
+      "FL_foot_joint",
+      "RR_foot_joint",
+      "RL_foot_joint"
+    ],
+    "use_sim_time": true,
+    "stand_transition_s": 2.0,
+    "command_timeout_s": 0.5,
+    "feedback_timeout_s": 0.15,
+    "idle_hold": true,
+    "yaw_command_gain": 1.6
+  },
+  "config_sha256": "af815d98bc2cc2c0ca61771e4ccb680843537f2aa2e84b61cf4fd9badadf3fff",
+  "policy_sha256": "da31c0c1820b893608e2d02746bbada16d0abb5de6116277e37ccfb02024c564",
+  "final_joints": {
+    "FL_hip_joint": -0.17481026714878406,
+    "FL_thigh_joint": 0.8074041296877169,
+    "FL_calf_joint": -1.5698533714810272,
+    "FL_foot_joint": 20.992121150614665,
+    "FR_hip_joint": 0.17392068638422886,
+    "FR_thigh_joint": 0.877363959059762,
+    "FR_calf_joint": -1.5772221236226451,
+    "FR_foot_joint": 31.298826903189934,
+    "RL_hip_joint": -0.009332302296207629,
+    "RL_thigh_joint": 0.8054105607487996,
+    "RL_calf_joint": -1.498373322678729,
+    "RL_foot_joint": 14.187389076103372,
+    "RR_hip_joint": -0.005810994797590468,
+    "RR_thigh_joint": 0.8121167828960048,
+    "RR_calf_joint": -1.5123075955563379,
+    "RR_foot_joint": 22.03459028739973
+  },
+  "final_wheel_collision_centers_in_base_m": {
+    "FL": [
+      0.3173699258323111,
+      0.14310331181260502,
+      -0.5153027924098141
+    ],
+    "FR": [
+      0.2847683933781173,
+      -0.14517700359260174,
+      -0.5118243347474329
+    ],
+    "RL": [
+      -0.3573035100649169,
+      0.22685901187545915,
+      -0.5132277037239289
+    ],
+    "RR": [
+      -0.35698350820242863,
+      -0.23559360276287683,
+      -0.5074969749375221
+    ]
+  },
+  "final_wheels_on_expected_sides": true
+}

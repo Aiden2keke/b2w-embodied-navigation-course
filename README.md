@@ -8,6 +8,10 @@
 
 ## Course Project Extension
 
+本机 **Humble + Fortress** 课程入口、安装、录制、回放和评价见 [docs/COURSE_SETUP.md](docs/COURSE_SETUP.md)。实际接口选择见 [docs/INTERFACE_ALIGNMENT.md](docs/INTERFACE_ALIGNMENT.md)，验证证据见 [docs/COURSE_VALIDATION.md](docs/COURSE_VALIDATION.md)。下面保留上游 Jazzy/SRU 的原始使用说明。
+
+可下载的 B2-W / rl_sar 策略、本机控制器适配、固定版本下载和物理检查入口见 [docs/RL_SAR_SETUP.md](docs/RL_SAR_SETUP.md)。实际平衡、停车与导航验收状态见 [docs/LOCOMOTION_STATUS.md](docs/LOCOMOTION_STATUS.md)。
+
 This repository is used as the codebase for our course project on autonomous localization and navigation of the Unitree B2-W wheeled-legged robot in confined GPS/network-denied environments.
 
 We reuse the original B2-W Gazebo simulation and low-level ONNX locomotion controller, and extend the system with three independently developed modules:

@@ -1,0 +1,695 @@
+{
+  "date": "2026-10-10",
+  "platform": "Ubuntu 22.04 / ROS 2 Humble / Gazebo Fortress / native Python 3.10",
+  "normal_runtime_probe": {
+    "duration_wall_s": 20.000838218955323,
+    "topics": {
+      "/tf": {
+        "count": 801
+      },
+      "/tf_static": {
+        "count": 1
+      },
+      "/slam/odom": {
+        "count": 200,
+        "first_stamp": 93.5,
+        "last_stamp": 113.4,
+        "frame_id": "odom",
+        "position": [
+          1.0964775502683086,
+          -0.019834297247760174,
+          -0.17428433922757935
+        ],
+        "quaternion_xyzw": [
+          -0.008554031487658448,
+          -0.007505836466039957,
+          -0.03934600874084313,
+          0.9991608391847724
+        ],
+        "rpy_deg": [
+          -0.9457146092257239,
+          -0.8979882355134368,
+          -4.502765498064116
+        ],
+        "child_frame_id": "base_link",
+        "measured_sim_hz": 9.999999999999996
+      },
+      "/clock": {
+        "count": 7729
+      },
+      "/collision_plate/force_torque": {
+        "count": 1932,
+        "first_stamp": 94.48,
+        "last_stamp": 113.79,
+        "frame_id": "b2w/base_to_collision_plate/force_torque",
+        "force_norm_n": 0.9800310785273966,
+        "measured_sim_hz": 99.99999999999999
+      },
+      "/sim/ground_truth/odom": {
+        "count": 1932,
+        "first_stamp": 94.48,
+        "last_stamp": 113.79,
+        "frame_id": "sim_world",
+        "position": [
+          -4.0071837697802835,
+          -0.2973397163820501,
+          0.7764593921255627
+        ],
+        "quaternion_xyzw": [
+          -0.0016723135519898075,
+          -0.00652382677427195,
+          -0.12143137039377938,
+          0.9925769820703539
+        ],
+        "rpy_deg": [
+          -0.09944032744985876,
+          -0.7653192322157247,
+          -13.949090250274468
+        ],
+        "child_frame_id": "base_link",
+        "measured_sim_hz": 99.99999999999999
+      },
+      "/imu": {
+        "count": 3858,
+        "first_stamp": 94.43,
+        "last_stamp": 113.79,
+        "frame_id": "imu_link",
+        "acceleration": [
+          0.13394142094344663,
+          -0.019037053160113695,
+          9.807527014479337
+        ],
+        "measured_sim_hz": 199.22520661157026
+      },
+      "/pointcloud": {
+        "count": 194,
+        "first_stamp": 94.4,
+        "last_stamp": 113.7,
+        "frame_id": "lidar_link",
+        "points": 61714,
+        "fields": [
+          "x",
+          "y",
+          "z",
+          "intensity",
+          "ring",
+          "time"
+        ],
+        "measured_sim_hz": 10.000000000000002
+      },
+      "/joint_states": {
+        "count": 1935,
+        "first_stamp": 94.4275,
+        "last_stamp": 113.7875,
+        "frame_id": "",
+        "joint_count": 16,
+        "measured_sim_hz": 99.89669421487604
+      },
+      "/map": {
+        "count": 20,
+        "first_stamp": 94.0,
+        "last_stamp": 113.0,
+        "frame_id": "map",
+        "occupied_cells": 554,
+        "free_cells": 15353,
+        "unknown_cells": 112093,
+        "measured_sim_hz": 1.0
+      },
+      "/slam/map_points": {
+        "count": 4,
+        "first_stamp": 95.3,
+        "last_stamp": 110.3,
+        "frame_id": "map",
+        "points": 6899,
+        "fields": [
+          "x",
+          "y",
+          "z",
+          "intensity"
+        ],
+        "measured_sim_hz": 0.2
+      }
+    },
+    "tf_edges": [
+      [
+        "FL_calf",
+        "FL_foot"
+      ],
+      [
+        "FL_hip",
+        "FL_thigh"
+      ],
+      [
+        "FL_thigh",
+        "FL_calf"
+      ],
+      [
+        "FR_calf",
+        "FR_foot"
+      ],
+      [
+        "FR_hip",
+        "FR_thigh"
+      ],
+      [
+        "FR_thigh",
+        "FR_calf"
+      ],
+      [
+        "RL_calf",
+        "RL_foot"
+      ],
+      [
+        "RL_hip",
+        "RL_thigh"
+      ],
+      [
+        "RL_thigh",
+        "RL_calf"
+      ],
+      [
+        "RR_calf",
+        "RR_foot"
+      ],
+      [
+        "RR_hip",
+        "RR_thigh"
+      ],
+      [
+        "RR_thigh",
+        "RR_calf"
+      ],
+      [
+        "base_link",
+        "FL_hip"
+      ],
+      [
+        "base_link",
+        "FR_hip"
+      ],
+      [
+        "base_link",
+        "RL_hip"
+      ],
+      [
+        "base_link",
+        "RR_hip"
+      ],
+      [
+        "base_link",
+        "collision_plate"
+      ],
+      [
+        "base_link",
+        "f_dc_link"
+      ],
+      [
+        "base_link",
+        "f_oc_link"
+      ],
+      [
+        "base_link",
+        "head_Link"
+      ],
+      [
+        "base_link",
+        "imu_link"
+      ],
+      [
+        "base_link",
+        "lidar_link"
+      ],
+      [
+        "base_link",
+        "logo_link"
+      ],
+      [
+        "base_link",
+        "r_dc_link"
+      ],
+      [
+        "base_link",
+        "r_oc_ink"
+      ],
+      [
+        "base_link",
+        "tail_link"
+      ],
+      [
+        "base_link",
+        "zed_x_camera"
+      ],
+      [
+        "map",
+        "odom"
+      ],
+      [
+        "odom",
+        "base_link"
+      ]
+    ],
+    "truth_consumers": [
+      "course_runtime_probe"
+    ],
+    "public_tf_has_truth_frame": false
+  },
+  "normal_navigation": [
+    {
+      "success": true,
+      "end_reason": "succeeded",
+      "collision_count": 0,
+      "collision_missing_reason": null,
+      "path_length_m": 1.0749636863893182,
+      "time_to_goal_s": 3.674999999999997,
+      "planning_latency_ms": 3.0197090236470103,
+      "planning_latency_missing_reason": null,
+      "planning_latency_definition": "ComputePathToPose action round trip, wall clock",
+      "path_source": "slam_base_link",
+      "goal_tolerance_m": 0.3,
+      "goal_id": "20261010T043607.103962Z",
+      "goal_map_xy": [
+        1.0,
+        0.0
+      ],
+      "timeout_s": 45.0,
+      "collision_force_threshold_n": 50.0,
+      "final_goal_distance_m": 0.29140449149292397
+    },
+    {
+      "success": true,
+      "end_reason": "succeeded",
+      "collision_count": 0,
+      "collision_missing_reason": null,
+      "path_length_m": 0.5672111283469443,
+      "time_to_goal_s": 2.332499999999982,
+      "planning_latency_ms": 1.3760419096797705,
+      "planning_latency_missing_reason": null,
+      "planning_latency_definition": "ComputePathToPose action round trip, wall clock",
+      "path_source": "slam_base_link",
+      "goal_tolerance_m": 0.3,
+      "goal_id": "20261010T043734.454594Z",
+      "goal_map_xy": [
+        2.0,
+        0.0
+      ],
+      "timeout_s": 45.0,
+      "collision_force_threshold_n": 50.0,
+      "final_goal_distance_m": 0.288868080051432
+    }
+  ],
+  "disturbance_navigation": [
+    {
+      "success": true,
+      "end_reason": "succeeded",
+      "collision_count": 0,
+      "collision_missing_reason": null,
+      "path_length_m": 1.0595044014590156,
+      "time_to_goal_s": 3.782499999999999,
+      "planning_latency_ms": 2.5680609978735447,
+      "planning_latency_missing_reason": null,
+      "planning_latency_definition": "ComputePathToPose action round trip, wall clock",
+      "path_source": "slam_base_link",
+      "goal_tolerance_m": 0.3,
+      "goal_id": "20261010T043915.889410Z",
+      "goal_map_xy": [
+        1.0,
+        0.0
+      ],
+      "timeout_s": 15.0,
+      "collision_force_threshold_n": 50.0,
+      "final_goal_distance_m": 0.29502503253922413,
+      "fault_profile": "mild",
+      "seed": 0,
+      "case_directory": "/home/xavier/zsx/b2w-embodied-navigation-course/course_results/experiments/20261010T043849.739190Z/mild-seed0",
+      "goal_sent": true
+    },
+    {
+      "success": true,
+      "end_reason": "succeeded",
+      "collision_count": 0,
+      "collision_missing_reason": null,
+      "path_length_m": 1.0970825943296718,
+      "time_to_goal_s": 4.797499999999999,
+      "planning_latency_ms": null,
+      "planning_latency_missing_reason": "No successful planner action result",
+      "planning_latency_definition": "ComputePathToPose action round trip, wall clock",
+      "path_source": "slam_base_link",
+      "goal_tolerance_m": 0.3,
+      "goal_id": "20261010T043948.453688Z",
+      "goal_map_xy": [
+        1.0,
+        0.0
+      ],
+      "timeout_s": 15.0,
+      "collision_force_threshold_n": 50.0,
+      "final_goal_distance_m": 0.27863908372593293,
+      "fault_profile": "medium",
+      "seed": 0,
+      "case_directory": "/home/xavier/zsx/b2w-embodied-navigation-course/course_results/experiments/20261010T043849.739190Z/medium-seed0",
+      "goal_sent": true
+    },
+    {
+      "success": true,
+      "end_reason": "succeeded",
+      "collision_count": 0,
+      "collision_missing_reason": null,
+      "path_length_m": 1.1747778237782718,
+      "time_to_goal_s": 4.112500000000001,
+      "planning_latency_ms": null,
+      "planning_latency_missing_reason": "No successful planner action result",
+      "planning_latency_definition": "ComputePathToPose action round trip, wall clock",
+      "path_source": "slam_base_link",
+      "goal_tolerance_m": 0.3,
+      "goal_id": "20261010T044020.213527Z",
+      "goal_map_xy": [
+        1.0,
+        0.0
+      ],
+      "timeout_s": 15.0,
+      "collision_force_threshold_n": 50.0,
+      "final_goal_distance_m": 0.2870504067553206,
+      "fault_profile": "severe",
+      "seed": 0,
+      "case_directory": "/home/xavier/zsx/b2w-embodied-navigation-course/course_results/experiments/20261010T043849.739190Z/severe-seed0",
+      "goal_sent": true
+    }
+  ],
+  "replay_runtime_probe": {
+    "duration_wall_s": 22.001566204009578,
+    "topics": {
+      "/sim/ground_truth/odom": {
+        "count": 2201,
+        "first_stamp": 235.13,
+        "last_stamp": 257.13,
+        "frame_id": "sim_world",
+        "position": [
+          -3.7780435453703447,
+          -0.7939186588678933,
+          0.757279437803453
+        ],
+        "quaternion_xyzw": [
+          -0.011860187181036264,
+          -0.005067533671575434,
+          -0.21245197849468667,
+          0.9770863896791375
+        ],
+        "rpy_deg": [
+          -1.2047891103587833,
+          -0.8561612597296377,
+          -24.52523697058909
+        ],
+        "child_frame_id": "base_link",
+        "measured_sim_hz": 100.0
+      },
+      "/clock": {
+        "count": 11000
+      },
+      "/imu": {
+        "count": 2963,
+        "first_stamp": 235.116,
+        "last_stamp": 257.116,
+        "frame_id": "imu_link",
+        "acceleration": [
+          0.1456959282549224,
+          -0.2008112586389742,
+          9.798537245225791
+        ],
+        "measured_sim_hz": 134.6363636363638
+      },
+      "/tf_static": {
+        "count": 1
+      },
+      "/pointcloud": {
+        "count": 220,
+        "first_stamp": 235.1,
+        "last_stamp": 257.0,
+        "frame_id": "lidar_link",
+        "points": 61838,
+        "fields": [
+          "x",
+          "y",
+          "z",
+          "intensity",
+          "ring",
+          "time"
+        ],
+        "measured_sim_hz": 9.999999999999998
+      },
+      "/slam/odom": {
+        "count": 220,
+        "first_stamp": 234.9,
+        "last_stamp": 256.8,
+        "frame_id": "odom",
+        "position": [
+          -0.20469047533865153,
+          -0.017352431048134824,
+          -0.1857950274134136
+        ],
+        "quaternion_xyzw": [
+          -0.008610756270054424,
+          -0.006736205704767266,
+          -0.012952572679836535,
+          0.9998563443165895
+        ],
+        "rpy_deg": [
+          -0.9767188655808219,
+          -0.7846065083218433,
+          -1.4776978732756247
+        ],
+        "child_frame_id": "base_link",
+        "measured_sim_hz": 9.999999999999998
+      },
+      "/tf": {
+        "count": 440
+      },
+      "/slam/map_points": {
+        "count": 4,
+        "first_stamp": 237.2,
+        "last_stamp": 252.2,
+        "frame_id": "map",
+        "points": 4268,
+        "fields": [
+          "x",
+          "y",
+          "z",
+          "intensity"
+        ],
+        "measured_sim_hz": 0.2
+      },
+      "/joint_states": {
+        "count": 0
+      },
+      "/collision_plate/force_torque": {
+        "count": 0
+      },
+      "/map": {
+        "count": 0
+      }
+    },
+    "tf_edges": [
+      [
+        "base_link",
+        "collision_plate"
+      ],
+      [
+        "base_link",
+        "f_dc_link"
+      ],
+      [
+        "base_link",
+        "f_oc_link"
+      ],
+      [
+        "base_link",
+        "head_Link"
+      ],
+      [
+        "base_link",
+        "imu_link"
+      ],
+      [
+        "base_link",
+        "lidar_link"
+      ],
+      [
+        "base_link",
+        "logo_link"
+      ],
+      [
+        "base_link",
+        "r_dc_link"
+      ],
+      [
+        "base_link",
+        "r_oc_ink"
+      ],
+      [
+        "base_link",
+        "tail_link"
+      ],
+      [
+        "base_link",
+        "zed_x_camera"
+      ],
+      [
+        "map",
+        "odom"
+      ],
+      [
+        "odom",
+        "base_link"
+      ]
+    ],
+    "truth_consumers": [
+      "course_runtime_probe"
+    ],
+    "public_tf_has_truth_frame": false
+  },
+  "slam_metrics_earlier_normal_run": {
+    "ATE_RMSE_m": 0.06910795113568616,
+    "ATE_unaligned_RMSE_m": 5.554190300755843,
+    "RPE_trans_m": 0.046786760810787274,
+    "RPE_rot_deg": 0.4195966735001506,
+    "alignment": "SE3_no_scale",
+    "matched_poses": 1186,
+    "estimate_coverage": 1.0,
+    "rpe_pairs": 1178,
+    "rpe_interval_s": 1.0,
+    "timestamp_tolerance_s": 0.02,
+    "rpe_missing_reason": null
+  },
+  "model_inference": [
+    {
+      "model": "b2w_sim/b2w_controllers/src/policy/policy_force_new.onnx",
+      "inputs": {
+        "obs": [
+          1,
+          60
+        ],
+        "h_in": [
+          1,
+          1,
+          256
+        ],
+        "c_in": [
+          1,
+          1,
+          256
+        ]
+      },
+      "outputs": [
+        [
+          1,
+          16
+        ],
+        [
+          1,
+          1,
+          256
+        ],
+        [
+          1,
+          1,
+          256
+        ]
+      ],
+      "finite": true
+    },
+    {
+      "model": "rl_nav_controller/deployment_policies/vae_encoder.onnx",
+      "inputs": {
+        "input": [
+          1,
+          1,
+          40,
+          64
+        ]
+      },
+      "outputs": [
+        [
+          1,
+          64,
+          5,
+          8
+        ]
+      ],
+      "finite": true
+    },
+    {
+      "model": "rl_nav_controller/deployment_policies/nav_policy.onnx",
+      "inputs": {
+        "obs": [
+          1,
+          2576
+        ],
+        "h_in": [
+          1,
+          1,
+          512
+        ],
+        "c_in": [
+          1,
+          1,
+          512
+        ]
+      },
+      "outputs": [
+        [
+          1,
+          3
+        ],
+        [
+          1,
+          1,
+          512
+        ],
+        [
+          1,
+          1,
+          512
+        ]
+      ],
+      "finite": true
+    }
+  ],
+  "limitations": [
+    "Single seed and short goals; no statistical robustness claim",
+    "ATE/RPE from earlier normal recording after DDS repair, not the final physics-step configuration",
+    "Exact physical sensor hardware and mounting extrinsics not measured",
+    "WheelSlip compliance enabled; actual kinematic slip ratio not measured",
+    "SRU/manual require joystick; hardware joystick navigation not tested",
+    "Fixed-map mode requires supplied registration; arbitrary-map automatic relocalization not implemented"
+  ],
+  "planning_measurement_recheck": [
+    {
+      "success": true,
+      "end_reason": "succeeded",
+      "collision_count": 0,
+      "collision_missing_reason": null,
+      "path_length_m": 1.128862615869411,
+      "time_to_goal_s": 4.490000000000002,
+      "planning_latency_ms": 1.411881996318698,
+      "planning_latency_missing_reason": null,
+      "planning_measurement_status": "aborted",
+      "planning_latency_definition": "ComputePathToPose action round trip, wall clock",
+      "path_source": "slam_base_link",
+      "goal_tolerance_m": 0.3,
+      "goal_id": "20261010T051251.945846Z",
+      "goal_map_xy": [
+        1.0,
+        0.0
+      ],
+      "timeout_s": 15.0,
+      "collision_force_threshold_n": 50.0,
+      "final_goal_distance_m": 0.2829950380857859,
+      "fault_profile": "medium",
+      "seed": 0,
+      "case_directory": "/home/xavier/zsx/b2w-embodied-navigation-course/course_results/experiments/20261010T051225.795387Z/medium-seed0",
+      "goal_sent": true
+    }
+  ],
+  "fixed_map_lifecycle_active": true,
+  "unit_tests_passed": 12,
+  "all_packages_built": 12,
+  "build_log": "log/latest_build"
+}

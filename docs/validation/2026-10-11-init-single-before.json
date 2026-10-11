@@ -1,0 +1,87 @@
+{
+  "publishers": {
+    "/clock": [
+      {
+        "name": "ros_gz_bridge",
+        "gid": "010f91f769d9ca4c00000000000013030000000000000000"
+      }
+    ],
+    "/tf": [
+      {
+        "name": "b2w_robot_state_publisher",
+        "gid": "010f91f765d9a13a00000000000013030000000000000000"
+      }
+    ],
+    "/joint_states": [
+      {
+        "name": "sensor_disturbance",
+        "gid": "010f91f76dd9352700000000000014030000000000000000"
+      }
+    ],
+    "/sim/raw/imu": [
+      {
+        "name": "ros_gz_bridge",
+        "gid": "010f91f769d9ca4c00000000000018030000000000000000"
+      }
+    ],
+    "/joint_torques": [
+      {
+        "name": "b2w_rl_sar_controller",
+        "gid": "010f91f76bd914ae00000000000028030000000000000000"
+      }
+    ],
+    "/b2w/robot_description": [
+      {
+        "name": "b2w_robot_state_publisher",
+        "gid": "010f91f765d9a13a00000000000015030000000000000000"
+      }
+    ]
+  },
+  "counts": {
+    "/clock": 3998,
+    "/sim/raw/joint_states": 3995,
+    "/joint_torques": 1997,
+    "/sim/body_state": 999,
+    "/sim/raw/imu": 1997,
+    "/tf": 200
+  },
+  "tf_time_reversals": 0,
+  "tf_examples": [],
+  "time": {
+    "/clock": {
+      "start": 10.7625,
+      "end": 20.755,
+      "reversals": 0
+    },
+    "/sim/raw/joint_states": {
+      "start": 10.7675,
+      "end": 20.7525,
+      "reversals": 0
+    },
+    "/sim/body_state": {
+      "start": 10.77,
+      "end": 20.75,
+      "reversals": 0
+    },
+    "/sim/raw/imu": {
+      "start": 10.77,
+      "end": 20.75,
+      "reversals": 0
+    }
+  },
+  "/sim/body_state": {
+    "max_tilt_deg": 0.21995659440402848,
+    "min_height": 0.6241461438021811,
+    "drift": 0.00041229931324042934,
+    "last": {
+      "t": 20.75,
+      "xyz": [
+        -6.042450459333145,
+        -0.00991316869289429,
+        0.6241461444882488
+      ],
+      "tilt": 0.219915274441628
+    }
+  },
+  "passed": true
+}

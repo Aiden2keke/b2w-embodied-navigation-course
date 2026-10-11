@@ -19,6 +19,7 @@ find_package(tf2_ros REQUIRED)
 find_package(tf2 REQUIRED)
 find_package(tf2_geometry_msgs REQUIRED)
 find_package(ament_index_cpp REQUIRED)
+find_package(Eigen3 REQUIRED)
 
 # uncomment the following section in order to fill in
 # further dependencies manually.
@@ -36,6 +37,12 @@ set_target_properties(onnxruntime PROPERTIES
 )
 
 add_executable(b2w_controllers src/b2w_controllers.cpp)
+add_executable(b2w_rl_sar_controller src/rl_sar_controller.cpp)
+target_include_directories(b2w_rl_sar_controller PRIVATE ${ONNXRUNTIME_INCLUDE_DIRS})
+target_link_libraries(b2w_rl_sar_controller PRIVATE onnxruntime Eigen3::Eigen)
+ament_target_dependencies(b2w_rl_sar_controller PUBLIC rclcpp std_msgs sensor_msgs geometry_msgs nav_msgs)
+target_compile_features(b2w_rl_sar_controller PRIVATE cxx_std_17)
+install(TARGETS b2w_rl_sar_controller DESTINATION lib/${PROJECT_NAME})
 
 # Add include directories
 target_include_directories(b2w_controllers PUBLIC

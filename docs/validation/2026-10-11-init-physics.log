@@ -1,0 +1,99 @@
+B2-W ROS_DOMAIN_ID=87 ROS_LOCALHOST_ONLY=1
+[INFO] [launch]: All log files can be found below /home/xavier/.ros/log/2026-10-11-10-53-51-370446-xavier-2421041
+[INFO] [launch]: Default logging verbosity is set to INFO
+[INFO] [ign-1]: process started with pid [2421059]
+[INFO] [robot_state_publisher-2]: process started with pid [2421061]
+[INFO] [create-3]: process started with pid [2421063]
+[INFO] [parameter_bridge-4]: process started with pid [2421065]
+[INFO] [b2w_rl_sar_controller-5]: process started with pid [2421067]
+[INFO] [sensor_disturbance-6]: process started with pid [2421069]
+[create-3] [INFO] [1791687231.485292189] [ros_gz_sim]: Waiting messages on topic [/b2w/robot_description].
+[b2w_rl_sar_controller-5] [INFO] [1791687231.494425789] [b2w_rl_sar_controller]: Loaded rl_sar B2-W policy: 57 observations, 16 actions, 50 Hz policy / 200 Hz torque, /home/xavier/zsx/b2w-embodied-navigation-course/third_party/b2w_rl_sar/policy/b2w/robot_lab/policy.onnx
+[robot_state_publisher-2] [WARN] [1791687231.518401720] [kdl_parser]: The root link base_link has an inertia specified in the URDF, but KDL does not support a root link with an inertia.  As a workaround, you can add an extra dummy link to your URDF.
+[robot_state_publisher-2] [INFO] [1791687231.518496053] [b2w_robot_state_publisher]: got segment FL_calf
+[robot_state_publisher-2] [INFO] [1791687231.518545698] [b2w_robot_state_publisher]: got segment FL_foot
+[robot_state_publisher-2] [INFO] [1791687231.518553053] [b2w_robot_state_publisher]: got segment FL_hip
+[robot_state_publisher-2] [INFO] [1791687231.518558724] [b2w_robot_state_publisher]: got segment FL_thigh
+[robot_state_publisher-2] [INFO] [1791687231.518563928] [b2w_robot_state_publisher]: got segment FR_calf
+[robot_state_publisher-2] [INFO] [1791687231.518569388] [b2w_robot_state_publisher]: got segment FR_foot
+[robot_state_publisher-2] [INFO] [1791687231.518574598] [b2w_robot_state_publisher]: got segment FR_hip
+[robot_state_publisher-2] [INFO] [1791687231.518579577] [b2w_robot_state_publisher]: got segment FR_thigh
+[robot_state_publisher-2] [INFO] [1791687231.518584563] [b2w_robot_state_publisher]: got segment RL_calf
+[robot_state_publisher-2] [INFO] [1791687231.518589530] [b2w_robot_state_publisher]: got segment RL_foot
+[robot_state_publisher-2] [INFO] [1791687231.518594246] [b2w_robot_state_publisher]: got segment RL_hip
+[robot_state_publisher-2] [INFO] [1791687231.518599133] [b2w_robot_state_publisher]: got segment RL_thigh
+[robot_state_publisher-2] [INFO] [1791687231.518603955] [b2w_robot_state_publisher]: got segment RR_calf
+[robot_state_publisher-2] [INFO] [1791687231.518608767] [b2w_robot_state_publisher]: got segment RR_foot
+[robot_state_publisher-2] [INFO] [1791687231.518613653] [b2w_robot_state_publisher]: got segment RR_hip
+[robot_state_publisher-2] [INFO] [1791687231.518618595] [b2w_robot_state_publisher]: got segment RR_thigh
+[robot_state_publisher-2] [INFO] [1791687231.518623478] [b2w_robot_state_publisher]: got segment base_link
+[robot_state_publisher-2] [INFO] [1791687231.518628320] [b2w_robot_state_publisher]: got segment collision_plate
+[robot_state_publisher-2] [INFO] [1791687231.518633247] [b2w_robot_state_publisher]: got segment f_dc_link
+[robot_state_publisher-2] [INFO] [1791687231.518638031] [b2w_robot_state_publisher]: got segment f_oc_link
+[robot_state_publisher-2] [INFO] [1791687231.518642696] [b2w_robot_state_publisher]: got segment head_Link
+[robot_state_publisher-2] [INFO] [1791687231.518647472] [b2w_robot_state_publisher]: got segment imu_link
+[robot_state_publisher-2] [INFO] [1791687231.518652326] [b2w_robot_state_publisher]: got segment lidar_link
+[robot_state_publisher-2] [INFO] [1791687231.518657060] [b2w_robot_state_publisher]: got segment logo_link
+[robot_state_publisher-2] [INFO] [1791687231.518662003] [b2w_robot_state_publisher]: got segment r_dc_link
+[robot_state_publisher-2] [INFO] [1791687231.518666745] [b2w_robot_state_publisher]: got segment r_oc_ink
+[robot_state_publisher-2] [INFO] [1791687231.518671609] [b2w_robot_state_publisher]: got segment tail_link
+[robot_state_publisher-2] [INFO] [1791687231.518676378] [b2w_robot_state_publisher]: got segment zed_x_camera
+[ign-1] [1;33mWarning [Utils.cc:129][0m [/sdf/world[@name="course_world"]/model[@name="aws_robomaker_warehouse_Bucket_01_020"]/link[@name="body"]/pose[@frame=""]:/home/xavier/zsx/b2w-embodied-navigation-course/third_party/aws_warehouse/warehouse.world:L373]: XML Attribute[frame] in element[pose] not defined in SDF.
+[ign-1] [1;33mWarning [Utils.cc:129][0m [/sdf/world[@name="course_world"]/model[@name="aws_robomaker_warehouse_Bucket_01_020"]/link[@name="body"]/collision[@name="collision_0"]/pose[@frame=""]:/home/xavier/zsx/b2w-embodied-navigation-course/third_party/aws_warehouse/warehouse.world:L390]: XML Attribute[frame] in element[pose] not defined in SDF.
+[ign-1] [1;33mWarning [Utils.cc:129][0m [/sdf/world[@name="course_world"]/model[@name="aws_robomaker_warehouse_Bucket_01_021"]/link[@name="body"]/pose[@frame=""]:/home/xavier/zsx/b2w-embodied-navigation-course/third_party/aws_warehouse/warehouse.world:L424]: XML Attribute[frame] in element[pose] not defined in SDF.
+[ign-1] [1;33mWarning [Utils.cc:129][0m [/sdf/world[@name="course_world"]/model[@name="aws_robomaker_warehouse_Bucket_01_021"]/link[@name="body"]/collision[@name="collision_0"]/pose[@frame=""]:/home/xavier/zsx/b2w-embodied-navigation-course/third_party/aws_warehouse/warehouse.world:L441]: XML Attribute[frame] in element[pose] not defined in SDF.
+[ign-1] [1;33mWarning [Utils.cc:129][0m [/sdf/world[@name="course_world"]/model[@name="aws_robomaker_warehouse_Bucket_01_022"]/link[@name="body"]/pose[@frame=""]:/home/xavier/zsx/b2w-embodied-navigation-course/third_party/aws_warehouse/warehouse.world:L475]: XML Attribute[frame] in element[pose] not defined in SDF.
+[ign-1] [1;33mWarning [Utils.cc:129][0m [/sdf/world[@name="course_world"]/model[@name="aws_robomaker_warehouse_Bucket_01_022"]/link[@name="body"]/collision[@name="collision_0"]/pose[@frame=""]:/home/xavier/zsx/b2w-embodied-navigation-course/third_party/aws_warehouse/warehouse.world:L492]: XML Attribute[frame] in element[pose] not defined in SDF.
+[sensor_disturbance-6] [INFO] [1791687231.674056927] [sensor_disturbance]: XT32 snapshot time=0; IMU attitude from gyro/gravity measurements
+[create-3] [INFO] [1791687231.787857057] [ros_gz_sim]: Requested creation of entity.
+[create-3] [INFO] [1791687231.787880183] [ros_gz_sim]: OK creation of entity.
+[INFO] [create-3]: process has finished cleanly [pid 2421063]
+[parameter_bridge-4] [INFO] [1791687232.502205852] [ros_gz_bridge]: Creating GZ->ROS Bridge: [/clock (ignition.msgs.Clock) -> /clock (rosgraph_msgs/msg/Clock)] (Lazy 0)
+[parameter_bridge-4] [INFO] [1791687232.502705953] [ros_gz_bridge]: Creating GZ->ROS Bridge: [/joint_states (ignition.msgs.Model) -> /sim/raw/joint_states (sensor_msgs/msg/JointState)] (Lazy 0)
+[parameter_bridge-4] [INFO] [1791687232.503560906] [ros_gz_bridge]: Creating GZ->ROS Bridge: [/sim/raw/ground_truth/odom (ignition.msgs.Odometry) -> /sim/ground_truth/odom (nav_msgs/msg/Odometry)] (Lazy 0)
+[parameter_bridge-4] [INFO] [1791687232.504136508] [ros_gz_bridge]: Creating GZ->ROS Bridge: [/sim/raw/ground_truth/odom (ignition.msgs.Odometry) -> /sim/body_state (nav_msgs/msg/Odometry)] (Lazy 0)
+[parameter_bridge-4] [INFO] [1791687232.504364916] [ros_gz_bridge]: Creating GZ->ROS Bridge: [/sim/raw/scan/points (ignition.msgs.PointCloudPacked) -> /sim/raw/pointcloud (sensor_msgs/msg/PointCloud2)] (Lazy 0)
+[parameter_bridge-4] [INFO] [1791687232.504657526] [ros_gz_bridge]: Creating GZ->ROS Bridge: [/sim/raw/imu (ignition.msgs.IMU) -> /sim/raw/imu (sensor_msgs/msg/Imu)] (Lazy 0)
+[parameter_bridge-4] [INFO] [1791687232.504931929] [ros_gz_bridge]: Creating GZ->ROS Bridge: [/collision_plate/force_torque (ignition.msgs.Wrench) -> /collision_plate/force_torque (geometry_msgs/msg/WrenchStamped)] (Lazy 0)
+[parameter_bridge-4] [INFO] [1791687232.505254185] [ros_gz_bridge]: Creating GZ->ROS Bridge: [/zed_x_camera (ignition.msgs.Image) -> /zed/zed_node/depth/depth_registered (sensor_msgs/msg/Image)] (Lazy 0)
+[parameter_bridge-4] [INFO] [1791687232.505507343] [ros_gz_bridge]: Creating ROS->GZ Bridge: [/model/b2w/joint/FR_hip_joint/cmd_force (std_msgs/msg/Float64) -> /model/b2w/joint/FR_hip_joint/cmd_force (ignition.msgs.Double)] (Lazy 0)
+[parameter_bridge-4] [INFO] [1791687232.505912293] [ros_gz_bridge]: Creating ROS->GZ Bridge: [/model/b2w/joint/FR_thigh_joint/cmd_force (std_msgs/msg/Float64) -> /model/b2w/joint/FR_thigh_joint/cmd_force (ignition.msgs.Double)] (Lazy 0)
+[parameter_bridge-4] [INFO] [1791687232.506138605] [ros_gz_bridge]: Creating ROS->GZ Bridge: [/model/b2w/joint/FR_calf_joint/cmd_force (std_msgs/msg/Float64) -> /model/b2w/joint/FR_calf_joint/cmd_force (ignition.msgs.Double)] (Lazy 0)
+[parameter_bridge-4] [INFO] [1791687232.506352689] [ros_gz_bridge]: Creating ROS->GZ Bridge: [/model/b2w/joint/FL_hip_joint/cmd_force (std_msgs/msg/Float64) -> /model/b2w/joint/FL_hip_joint/cmd_force (ignition.msgs.Double)] (Lazy 0)
+[parameter_bridge-4] [INFO] [1791687232.506577358] [ros_gz_bridge]: Creating ROS->GZ Bridge: [/model/b2w/joint/FL_thigh_joint/cmd_force (std_msgs/msg/Float64) -> /model/b2w/joint/FL_thigh_joint/cmd_force (ignition.msgs.Double)] (Lazy 0)
+[parameter_bridge-4] [INFO] [1791687232.506796889] [ros_gz_bridge]: Creating ROS->GZ Bridge: [/model/b2w/joint/FL_calf_joint/cmd_force (std_msgs/msg/Float64) -> /model/b2w/joint/FL_calf_joint/cmd_force (ignition.msgs.Double)] (Lazy 0)
+[parameter_bridge-4] [INFO] [1791687232.507016389] [ros_gz_bridge]: Creating ROS->GZ Bridge: [/model/b2w/joint/RR_hip_joint/cmd_force (std_msgs/msg/Float64) -> /model/b2w/joint/RR_hip_joint/cmd_force (ignition.msgs.Double)] (Lazy 0)
+[parameter_bridge-4] [INFO] [1791687232.507226442] [ros_gz_bridge]: Creating ROS->GZ Bridge: [/model/b2w/joint/RR_thigh_joint/cmd_force (std_msgs/msg/Float64) -> /model/b2w/joint/RR_thigh_joint/cmd_force (ignition.msgs.Double)] (Lazy 0)
+[parameter_bridge-4] [INFO] [1791687232.507439838] [ros_gz_bridge]: Creating ROS->GZ Bridge: [/model/b2w/joint/RR_calf_joint/cmd_force (std_msgs/msg/Float64) -> /model/b2w/joint/RR_calf_joint/cmd_force (ignition.msgs.Double)] (Lazy 0)
+[parameter_bridge-4] [INFO] [1791687232.507661725] [ros_gz_bridge]: Creating ROS->GZ Bridge: [/model/b2w/joint/RL_hip_joint/cmd_force (std_msgs/msg/Float64) -> /model/b2w/joint/RL_hip_joint/cmd_force (ignition.msgs.Double)] (Lazy 0)
+[parameter_bridge-4] [INFO] [1791687232.507877447] [ros_gz_bridge]: Creating ROS->GZ Bridge: [/model/b2w/joint/RL_thigh_joint/cmd_force (std_msgs/msg/Float64) -> /model/b2w/joint/RL_thigh_joint/cmd_force (ignition.msgs.Double)] (Lazy 0)
+[parameter_bridge-4] [INFO] [1791687232.508108219] [ros_gz_bridge]: Creating ROS->GZ Bridge: [/model/b2w/joint/RL_calf_joint/cmd_force (std_msgs/msg/Float64) -> /model/b2w/joint/RL_calf_joint/cmd_force (ignition.msgs.Double)] (Lazy 0)
+[parameter_bridge-4] [INFO] [1791687232.508325809] [ros_gz_bridge]: Creating ROS->GZ Bridge: [/model/b2w/joint/FR_foot_joint/cmd_force (std_msgs/msg/Float64) -> /model/b2w/joint/FR_foot_joint/cmd_force (ignition.msgs.Double)] (Lazy 0)
+[parameter_bridge-4] [INFO] [1791687232.508568155] [ros_gz_bridge]: Creating ROS->GZ Bridge: [/model/b2w/joint/FL_foot_joint/cmd_force (std_msgs/msg/Float64) -> /model/b2w/joint/FL_foot_joint/cmd_force (ignition.msgs.Double)] (Lazy 0)
+[parameter_bridge-4] [INFO] [1791687232.508784134] [ros_gz_bridge]: Creating ROS->GZ Bridge: [/model/b2w/joint/RR_foot_joint/cmd_force (std_msgs/msg/Float64) -> /model/b2w/joint/RR_foot_joint/cmd_force (ignition.msgs.Double)] (Lazy 0)
+[parameter_bridge-4] [INFO] [1791687232.509001639] [ros_gz_bridge]: Creating ROS->GZ Bridge: [/model/b2w/joint/RL_foot_joint/cmd_force (std_msgs/msg/Float64) -> /model/b2w/joint/RL_foot_joint/cmd_force (ignition.msgs.Double)] (Lazy 0)
+[ign-1] [1;33m[Wrn] [ColladaLoader.cc:2394] [0m[1;33mTriangle input semantic: '[0m[1;33mCOLOR[0m[1;33m' is currently[0m[1;33m not supported[0m[1;33m[0m
+[parameter_bridge-4] [INFO] [1791687233.602386670] [ros_gz_bridge]: Passing message from ROS std_msgs/msg/Float64 to Gazebo gz.msgs.Double (showing msg only once per type)
+[sensor_disturbance-6] [WARN] [1791687233.606939028] [sensor_disturbance]: Gravity initialization requires valid acceleration
+[ign-1] libEGL warning: egl: failed to create dri2 screen
+[ign-1] libEGL warning: egl: failed to create dri2 screen
+[ign-1] [1;33m[Wrn] [ColladaLoader.cc:2394] [0m[1;33mTriangle input semantic: '[0m[1;33mCOLOR[0m[1;33m' is currently[0m[1;33m not supported[0m[1;33m[0m
+[ign-1] [1;33m[Wrn] [ColladaLoader.cc:2394] [0m[1;33mTriangle input semantic: '[0m[1;33mCOLOR[0m[1;33m' is currently[0m[1;33m not supported[0m[1;33m[0m
+[WARNING] [launch]: user interrupted with ctrl-c (SIGINT)
+[INFO] [sensor_disturbance-6]: sending signal 'SIGINT' to process[sensor_disturbance-6]
+[INFO] [b2w_rl_sar_controller-5]: sending signal 'SIGINT' to process[b2w_rl_sar_controller-5]
+[INFO] [parameter_bridge-4]: sending signal 'SIGINT' to process[parameter_bridge-4]
+[INFO] [robot_state_publisher-2]: sending signal 'SIGINT' to process[robot_state_publisher-2]
+[INFO] [ign-1]: sending signal 'SIGINT' to process[ign-1]
+[parameter_bridge-4] [INFO] [1791687295.335330329] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[b2w_rl_sar_controller-5] [INFO] [1791687295.335330422] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[robot_state_publisher-2] [INFO] [1791687295.335330556] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[b2w_rl_sar_controller-5] [INFO] [1791687295.336934842] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[robot_state_publisher-2] [INFO] [1791687295.337393620] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[parameter_bridge-4] [INFO] [1791687295.337770517] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[sensor_disturbance-6] The following exception was never retrieved: Failed to publish: publisher's context is invalid, at ./src/rcl/publisher.c:389
+[INFO] [robot_state_publisher-2]: process has finished cleanly [pid 2421061]
+[INFO] [parameter_bridge-4]: process has finished cleanly [pid 2421065]
+[INFO] [ign-1]: process has finished cleanly [pid 2421059]
+[INFO] [b2w_rl_sar_controller-5]: process has finished cleanly [pid 2421067]
+[INFO] [sensor_disturbance-6]: process has finished cleanly [pid 2421069]

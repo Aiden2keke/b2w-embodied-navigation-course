@@ -1,0 +1,15 @@
+lidar:
+  model: hesai_xt32
+  frame: lidar_link
+  channels: 32
+  horizontal_samples: 2000
+  min_vertical_deg: -16.0
+  max_vertical_deg: 15.0
+  min_range_m: 0.05
+  max_range_m: 120.0
+  rate_hz: 10.0
+  scan_model: instantaneous_snapshot
+imu:
+  frame: imu_link
+  rate_hz: 200.0
+  attitude_source: gyro_gravity_filter

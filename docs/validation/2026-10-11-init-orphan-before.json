@@ -1,0 +1,50 @@
+{
+  "publishers": {
+    "/clock": [
+      {
+        "name": "ros_gz_bridge",
+        "gid": "010f162efafeaaaf00000000000013030000000000000000"
+      }
+    ],
+    "/tf": [
+      {
+        "name": "pose_adapter",
+        "gid": "010f162e1c03cd7d00000000000014030000000000000000"
+      },
+      {
+        "name": "b2w_robot_state_publisher",
+        "gid": "010f162ef6fe331700000000000013030000000000000000"
+      }
+    ],
+    "/joint_states": [
+      {
+        "name": "sensor_disturbance",
+        "gid": "010f162efefe7e1000000000000014030000000000000000"
+      }
+    ],
+    "/sim/raw/imu": [
+      {
+        "name": "ros_gz_bridge",
+        "gid": "010f162efafeaaaf00000000000018030000000000000000"
+      }
+    ],
+    "/joint_torques": [
+      {
+        "name": "b2w_rl_sar_controller",
+        "gid": "010f162efcfe54ac00000000000028030000000000000000"
+      }
+    ],
+    "/b2w/robot_description": [
+      {
+        "name": "b2w_robot_state_publisher",
+        "gid": "010f162ef6fe331700000000000015030000000000000000"
+      }
+    ]
+  },
+  "counts": {
+    "/path_manager/path_manager_ros/nav_vel": 180
+  },
+  "tf_time_reversals": 0,
+  "tf_examples": [],
+  "passed": false
+}

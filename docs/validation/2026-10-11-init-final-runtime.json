@@ -1,0 +1,122 @@
+{
+  "publishers": {
+    "/clock": [
+      {
+        "name": "ros_gz_bridge",
+        "gid": "010f91f7fc027b9900000000000013030000000000000000"
+      }
+    ],
+    "/tf": [
+      {
+        "name": "pose_adapter",
+        "gid": "010f91f74c07c3ca00000000000014030000000000000000"
+      },
+      {
+        "name": "b2w_robot_state_publisher",
+        "gid": "010f91f7f8024df300000000000013030000000000000000"
+      }
+    ],
+    "/joint_states": [
+      {
+        "name": "sensor_disturbance",
+        "gid": "010f91f70003b9d400000000000014030000000000000000"
+      }
+    ],
+    "/sim/raw/imu": [
+      {
+        "name": "ros_gz_bridge",
+        "gid": "010f91f7fc027b9900000000000018030000000000000000"
+      }
+    ],
+    "/joint_torques": [
+      {
+        "name": "b2w_rl_sar_controller",
+        "gid": "010f91f7fe02070200000000000028030000000000000000"
+      }
+    ],
+    "/b2w/robot_description": [
+      {
+        "name": "b2w_robot_state_publisher",
+        "gid": "010f91f7f8024df300000000000015030000000000000000"
+      }
+    ]
+  },
+  "counts": {
+    "/clock": 8004,
+    "/sim/raw/joint_states": 8001,
+    "/sim/body_state": 2000,
+    "/sim/raw/imu": 4000,
+    "/path_manager/path_manager_ros/nav_vel": 400,
+    "/tf": 791,
+    "/slam/odom": 198,
+    "/joint_torques": 3806
+  },
+  "tf_time_reversals": 0,
+  "tf_examples": [],
+  "time": {
+    "/clock": {
+      "start": 38.5525,
+      "end": 58.56,
+      "reversals": 0
+    },
+    "/sim/raw/joint_states": {
+      "start": 38.5575,
+      "end": 58.5575,
+      "reversals": 0
+    },
+    "/sim/body_state": {
+      "start": 38.56,
+      "end": 58.55,
+      "reversals": 0
+    },
+    "/sim/raw/imu": {
+      "start": 38.56,
+      "end": 58.555,
+      "reversals": 0
+    },
+    "/slam/odom": {
+      "start": 38.3,
+      "end": 58.0,
+      "reversals": 0
+    }
+  },
+  "/sim/body_state": {
+    "max_tilt_deg": 0.2221883820811852,
+    "min_height": 0.6583596173748425,
+    "drift": 0.0007370889639493489,
+    "last": {
+      "t": 58.55,
+      "xyz": [
+        -0.05489646718909351,
+        -0.010533804350387366,
+        0.6583596173748425
+      ],
+      "tilt": 0.22208988458733667
+    }
+  },
+  "/slam/odom": {
+    "max_tilt_deg": 0.2272747675087788,
+    "min_height": 0.6238918474313124,
+    "drift": 0.0009481862030787271,
+    "last": {
+      "t": 58.0,
+      "xyz": [
+        -0.3444813161769616,
+        -0.00022149642367262146,
+        0.6241471869632961
+      ],
+      "tilt": 0.2257483681883861
+    }
+  },
+  "checks": {
+    "body_feedback": true,
+    "body_stable": true,
+    "idle_drift_below_15cm": true,
+    "one_clock": true,
+    "one_controller": true,
+    "one_description": true,
+    "tf_monotonic": true,
+    "sensor_clock_monotonic": true
+  },
+  "passed": true
+}

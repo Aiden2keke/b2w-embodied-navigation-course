@@ -1,0 +1,572 @@
+{
+  "date": "2026-10-10",
+  "native_tests_passed": 13,
+  "scene": {
+    "upstream": "https://github.com/aws-robotics/aws-robomaker-small-warehouse-world.git",
+    "revision": "ee0af733315e78432408c3cd98d378ecee5f767c",
+    "license": "MIT-0",
+    "variant": "no_roof_small_warehouse",
+    "models": 25,
+    "changes": [
+      "Fortress systems and 400 Hz physics",
+      "flatten includes",
+      "absolute file URIs",
+      "remove unused invalid static-body inertias"
+    ],
+    "ground_friction_mu": 1.0,
+    "spawn": [
+      0.0,
+      0.0,
+      1.0
+    ],
+    "map_size_m": [
+      40.0,
+      40.0
+    ]
+  },
+  "rviz": {
+    "root_cause": "plain absolute mesh paths were not valid resource_retriever URIs",
+    "native_mesh_resources_loaded": 17,
+    "visual_robot_confirmed": true,
+    "gazebo_scene_confirmed": true
+  },
+  "sensor_probe": {
+    "duration_wall_s": 10.0007758080028,
+    "topics": {
+      "/imu": {
+        "count": 1996,
+        "first_stamp": 24.105,
+        "last_stamp": 34.09,
+        "frame_id": "imu_link",
+        "acceleration": [
+          0.22875166559313584,
+          0.06743251813474375,
+          9.790961192840637
+        ],
+        "measured_sim_hz": 199.79969954932392
+      },
+      "/joint_states": {
+        "count": 998,
+        "first_stamp": 24.0775,
+        "last_stamp": 34.0475,
+        "frame_id": "",
+        "joint_count": 16,
+        "measured_sim_hz": 100.00000000000001
+      },
+      "/sim/ground_truth/odom": {
+        "count": 999,
+        "first_stamp": 24.12,
+        "last_stamp": 34.11,
+        "frame_id": "sim_world",
+        "position": [
+          1.171118271746843,
+          -0.13313641069758458,
+          0.8183918532966432
+        ],
+        "quaternion_xyzw": [
+          0.0018579407412896958,
+          -0.012488467300919156,
+          -0.08240186628633123,
+          0.9965192013570061
+        ],
+        "rpy_deg": [
+          0.3301879487754839,
+          -1.4086898649949442,
+          -9.458091600499314
+        ],
+        "child_frame_id": "base_link",
+        "measured_sim_hz": 99.89989989989992
+      },
+      "/collision_plate/force_torque": {
+        "count": 999,
+        "first_stamp": 24.12,
+        "last_stamp": 34.11,
+        "frame_id": "b2w/base_to_collision_plate/force_torque",
+        "force_norm_n": 0.9799739609494194,
+        "measured_sim_hz": 99.89989989989992
+      },
+      "/clock": {
+        "count": 3878
+      },
+      "/map": {
+        "count": 11,
+        "first_stamp": 24.0,
+        "last_stamp": 34.0,
+        "frame_id": "map",
+        "occupied_cells": 2377,
+        "free_cells": 93375,
+        "unknown_cells": 544248,
+        "measured_sim_hz": 1.0
+      },
+      "/slam/odom": {
+        "count": 100,
+        "first_stamp": 23.8,
+        "last_stamp": 33.7,
+        "frame_id": "odom",
+        "position": [
+          0.37386896973100847,
+          -0.015853761229967105,
+          -0.17936049259135572
+        ],
+        "quaternion_xyzw": [
+          0.0032166434406625923,
+          -0.01269843631679994,
+          -0.0301976421720726,
+          0.9994581058390248
+        ],
+        "rpy_deg": [
+          0.4124764846788188,
+          -1.4433668879079073,
+          -3.466413851665502
+        ],
+        "child_frame_id": "base_link",
+        "measured_sim_hz": 9.999999999999998
+      },
+      "/tf": {
+        "count": 380
+      },
+      "/pointcloud": {
+        "count": 100,
+        "first_stamp": 24.1,
+        "last_stamp": 34.0,
+        "frame_id": "lidar_link",
+        "points": 63940,
+        "fields": [
+          "x",
+          "y",
+          "z",
+          "intensity",
+          "ring",
+          "time"
+        ],
+        "measured_sim_hz": 10.000000000000002
+      },
+      "/tf_static": {
+        "count": 1
+      },
+      "/slam/map_points": {
+        "count": 2,
+        "first_stamp": 24.8,
+        "last_stamp": 29.8,
+        "frame_id": "map",
+        "points": 13282,
+        "fields": [
+          "x",
+          "y",
+          "z",
+          "intensity"
+        ],
+        "measured_sim_hz": 0.2
+      }
+    },
+    "tf_edges": [
+      [
+        "FL_calf",
+        "FL_foot"
+      ],
+      [
+        "FL_hip",
+        "FL_thigh"
+      ],
+      [
+        "FL_thigh",
+        "FL_calf"
+      ],
+      [
+        "FR_calf",
+        "FR_foot"
+      ],
+      [
+        "FR_hip",
+        "FR_thigh"
+      ],
+      [
+        "FR_thigh",
+        "FR_calf"
+      ],
+      [
+        "RL_calf",
+        "RL_foot"
+      ],
+      [
+        "RL_hip",
+        "RL_thigh"
+      ],
+      [
+        "RL_thigh",
+        "RL_calf"
+      ],
+      [
+        "RR_calf",
+        "RR_foot"
+      ],
+      [
+        "RR_hip",
+        "RR_thigh"
+      ],
+      [
+        "RR_thigh",
+        "RR_calf"
+      ],
+      [
+        "base_link",
+        "FL_hip"
+      ],
+      [
+        "base_link",
+        "FR_hip"
+      ],
+      [
+        "base_link",
+        "RL_hip"
+      ],
+      [
+        "base_link",
+        "RR_hip"
+      ],
+      [
+        "base_link",
+        "collision_plate"
+      ],
+      [
+        "base_link",
+        "f_dc_link"
+      ],
+      [
+        "base_link",
+        "f_oc_link"
+      ],
+      [
+        "base_link",
+        "head_Link"
+      ],
+      [
+        "base_link",
+        "imu_link"
+      ],
+      [
+        "base_link",
+        "lidar_link"
+      ],
+      [
+        "base_link",
+        "logo_link"
+      ],
+      [
+        "base_link",
+        "r_dc_link"
+      ],
+      [
+        "base_link",
+        "r_oc_ink"
+      ],
+      [
+        "base_link",
+        "tail_link"
+      ],
+      [
+        "base_link",
+        "zed_x_camera"
+      ],
+      [
+        "map",
+        "odom"
+      ],
+      [
+        "odom",
+        "base_link"
+      ]
+    ],
+    "truth_consumers": [
+      "course_runtime_probe"
+    ],
+    "public_tf_has_truth_frame": false
+  },
+  "warehouse_navigation": [
+    {
+      "success": true,
+      "end_reason": "succeeded",
+      "collision_count": 0,
+      "collision_missing_reason": null,
+      "path_length_m": 1.533605711222968,
+      "path_length_missing_reason": null,
+      "time_to_goal_s": 5.627500000000001,
+      "time_missing_reason": null,
+      "planning_latency_ms": 3.3854099456220865,
+      "planning_latency_missing_reason": null,
+      "planning_measurement_status": "aborted",
+      "planning_latency_definition": "ComputePathToPose action round trip, wall clock",
+      "path_source": "slam_base_link",
+      "goal_tolerance_m": 0.3,
+      "goal_id": "20261010T062205.485246Z",
+      "goal_map_xy": [
+        1.0,
+        -1.0
+      ],
+      "timeout_s": 45.0,
+      "collision_force_threshold_n": 50.0,
+      "final_goal_distance_m": 0.12374331186268113,
+      "fault_profile": "normal",
+      "seed": 0,
+      "case_directory": "/home/xavier/zsx/b2w-embodied-navigation-course/course_results/warehouse_experiments/20261010T062139.180627Z/normal-seed0",
+      "goal_sent": true
+    }
+  ],
+  "limitations": [
+    "one normal-condition goal is not a robustness benchmark",
+    "initial pre-adjustment checks retained under course_results/warehouse_check",
+    "sensor probe and screenshots preceded final floor friction and goal tolerance adjustments"
+  ],
+  "final_interactive_probe": {
+    "duration_wall_s": 6.002447934006341,
+    "topics": {
+      "/pointcloud": {
+        "count": 61,
+        "first_stamp": 61.3,
+        "last_stamp": 67.3,
+        "frame_id": "lidar_link",
+        "points": 63924,
+        "fields": [
+          "x",
+          "y",
+          "z",
+          "intensity",
+          "ring",
+          "time"
+        ],
+        "measured_sim_hz": 10.0
+      },
+      "/imu": {
+        "count": 1210,
+        "first_stamp": 61.335,
+        "last_stamp": 67.4,
+        "frame_id": "imu_link",
+        "acceleration": [
+          -0.0511036645516253,
+          -0.015390368838984932,
+          9.81718424342747
+        ],
+        "measured_sim_hz": 199.34047815333867
+      },
+      "/joint_states": {
+        "count": 605,
+        "first_stamp": 61.335,
+        "last_stamp": 67.395,
+        "frame_id": "",
+        "joint_count": 16,
+        "measured_sim_hz": 99.66996699669976
+      },
+      "/clock": {
+        "count": 2332
+      },
+      "/sim/ground_truth/odom": {
+        "count": 600,
+        "first_stamp": 61.41,
+        "last_stamp": 67.4,
+        "frame_id": "sim_world",
+        "position": [
+          1.5974109113303285,
+          -0.11204776443401682,
+          0.8139150666841993
+        ],
+        "quaternion_xyzw": [
+          -0.00014634664243053645,
+          0.0028538556671832875,
+          -0.009754582459019369,
+          0.9999483397713811
+        ],
+        "rpy_deg": [
+          -0.019959568086553324,
+          0.3268490633217404,
+          -1.1178720339652979
+        ],
+        "child_frame_id": "base_link",
+        "measured_sim_hz": 99.99999999999984
+      },
+      "/collision_plate/force_torque": {
+        "count": 600,
+        "first_stamp": 61.41,
+        "last_stamp": 67.4,
+        "frame_id": "b2w/base_to_collision_plate/force_torque",
+        "force_norm_n": 0.9799531858677945,
+        "measured_sim_hz": 99.99999999999984
+      },
+      "/tf": {
+        "count": 241
+      },
+      "/map": {
+        "count": 7,
+        "first_stamp": 61.0,
+        "last_stamp": 67.0,
+        "frame_id": "map",
+        "occupied_cells": 3397,
+        "free_cells": 101024,
+        "unknown_cells": 535579,
+        "measured_sim_hz": 1.0
+      },
+      "/slam/odom": {
+        "count": 60,
+        "first_stamp": 61.1,
+        "last_stamp": 67.0,
+        "frame_id": "odom",
+        "position": [
+          0.9180256089608795,
+          -0.05075643743121932,
+          -0.2155435208048483
+        ],
+        "quaternion_xyzw": [
+          0.0009385568756935107,
+          0.018668939841872383,
+          -0.009680890378835343,
+          0.9997784105278753
+        ],
+        "rpy_deg": [
+          0.08687715143693255,
+          2.1403678424704333,
+          -1.1079366179336985
+        ],
+        "child_frame_id": "base_link",
+        "measured_sim_hz": 10.000000000000002
+      },
+      "/tf_static": {
+        "count": 1
+      },
+      "/slam/map_points": {
+        "count": 1,
+        "first_stamp": 64.8,
+        "last_stamp": 64.8,
+        "frame_id": "map",
+        "points": 19436,
+        "fields": [
+          "x",
+          "y",
+          "z",
+          "intensity"
+        ]
+      }
+    },
+    "tf_edges": [
+      [
+        "FL_calf",
+        "FL_foot"
+      ],
+      [
+        "FL_hip",
+        "FL_thigh"
+      ],
+      [
+        "FL_thigh",
+        "FL_calf"
+      ],
+      [
+        "FR_calf",
+        "FR_foot"
+      ],
+      [
+        "FR_hip",
+        "FR_thigh"
+      ],
+      [
+        "FR_thigh",
+        "FR_calf"
+      ],
+      [
+        "RL_calf",
+        "RL_foot"
+      ],
+      [
+        "RL_hip",
+        "RL_thigh"
+      ],
+      [
+        "RL_thigh",
+        "RL_calf"
+      ],
+      [
+        "RR_calf",
+        "RR_foot"
+      ],
+      [
+        "RR_hip",
+        "RR_thigh"
+      ],
+      [
+        "RR_thigh",
+        "RR_calf"
+      ],
+      [
+        "base_link",
+        "FL_hip"
+      ],
+      [
+        "base_link",
+        "FR_hip"
+      ],
+      [
+        "base_link",
+        "RL_hip"
+      ],
+      [
+        "base_link",
+        "RR_hip"
+      ],
+      [
+        "base_link",
+        "collision_plate"
+      ],
+      [
+        "base_link",
+        "f_dc_link"
+      ],
+      [
+        "base_link",
+        "f_oc_link"
+      ],
+      [
+        "base_link",
+        "head_Link"
+      ],
+      [
+        "base_link",
+        "imu_link"
+      ],
+      [
+        "base_link",
+        "lidar_link"
+      ],
+      [
+        "base_link",
+        "logo_link"
+      ],
+      [
+        "base_link",
+        "r_dc_link"
+      ],
+      [
+        "base_link",
+        "r_oc_ink"
+      ],
+      [
+        "base_link",
+        "tail_link"
+      ],
+      [
+        "base_link",
+        "zed_x_camera"
+      ],
+      [
+        "map",
+        "odom"
+      ],
+      [
+        "odom",
+        "base_link"
+      ]
+    ],
+    "truth_consumers": [
+      "course_runtime_probe"
+    ],
+    "public_tf_has_truth_frame": false
+  },
+  "final_interactive_domain": 73
+}

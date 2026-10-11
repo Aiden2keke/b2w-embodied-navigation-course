@@ -1,0 +1,89 @@
+[INFO] [launch]: All log files can be found below /home/xavier/.ros/log/2026-10-10-17-48-53-847025-xavier-1270918
+[INFO] [launch]: Default logging verbosity is set to INFO
+[INFO] [ign-1]: process started with pid [1270936]
+[INFO] [robot_state_publisher-2]: process started with pid [1270938]
+[INFO] [create-3]: process started with pid [1270940]
+[INFO] [parameter_bridge-4]: process started with pid [1270942]
+[INFO] [b2w_rl_sar_controller-5]: process started with pid [1270944]
+[INFO] [sensor_disturbance-6]: process started with pid [1270946]
+[create-3] [INFO] [1791625733.959589016] [ros_gz_sim]: Waiting messages on topic [/robot_description].
+[b2w_rl_sar_controller-5] [INFO] [1791625733.964432992] [b2w_rl_sar_controller]: Loaded rl_sar B2-W policy: 57 observations, 16 actions, 50 Hz policy / 200 Hz torque, /home/xavier/zsx/b2w-embodied-navigation-course/third_party/b2w_rl_sar/policy/b2w/robot_lab/policy.onnx
+[robot_state_publisher-2] [WARN] [1791625733.973616395] [kdl_parser]: The root link base_link has an inertia specified in the URDF, but KDL does not support a root link with an inertia.  As a workaround, you can add an extra dummy link to your URDF.
+[robot_state_publisher-2] [INFO] [1791625733.973681317] [robot_state_publisher]: got segment FL_calf
+[robot_state_publisher-2] [INFO] [1791625733.973715774] [robot_state_publisher]: got segment FL_foot
+[robot_state_publisher-2] [INFO] [1791625733.973718289] [robot_state_publisher]: got segment FL_hip
+[robot_state_publisher-2] [INFO] [1791625733.973720265] [robot_state_publisher]: got segment FL_thigh
+[robot_state_publisher-2] [INFO] [1791625733.973722099] [robot_state_publisher]: got segment FR_calf
+[robot_state_publisher-2] [INFO] [1791625733.973723819] [robot_state_publisher]: got segment FR_foot
+[robot_state_publisher-2] [INFO] [1791625733.973725496] [robot_state_publisher]: got segment FR_hip
+[robot_state_publisher-2] [INFO] [1791625733.973727182] [robot_state_publisher]: got segment FR_thigh
+[robot_state_publisher-2] [INFO] [1791625733.973728842] [robot_state_publisher]: got segment RL_calf
+[robot_state_publisher-2] [INFO] [1791625733.973730481] [robot_state_publisher]: got segment RL_foot
+[robot_state_publisher-2] [INFO] [1791625733.973732146] [robot_state_publisher]: got segment RL_hip
+[robot_state_publisher-2] [INFO] [1791625733.973733775] [robot_state_publisher]: got segment RL_thigh
+[robot_state_publisher-2] [INFO] [1791625733.973735502] [robot_state_publisher]: got segment RR_calf
+[robot_state_publisher-2] [INFO] [1791625733.973737103] [robot_state_publisher]: got segment RR_foot
+[robot_state_publisher-2] [INFO] [1791625733.973738697] [robot_state_publisher]: got segment RR_hip
+[robot_state_publisher-2] [INFO] [1791625733.973740339] [robot_state_publisher]: got segment RR_thigh
+[robot_state_publisher-2] [INFO] [1791625733.973741940] [robot_state_publisher]: got segment base_link
+[robot_state_publisher-2] [INFO] [1791625733.973743624] [robot_state_publisher]: got segment collision_plate
+[robot_state_publisher-2] [INFO] [1791625733.973745425] [robot_state_publisher]: got segment f_dc_link
+[robot_state_publisher-2] [INFO] [1791625733.973747129] [robot_state_publisher]: got segment f_oc_link
+[robot_state_publisher-2] [INFO] [1791625733.973748711] [robot_state_publisher]: got segment head_Link
+[robot_state_publisher-2] [INFO] [1791625733.973750274] [robot_state_publisher]: got segment imu_link
+[robot_state_publisher-2] [INFO] [1791625733.973751879] [robot_state_publisher]: got segment lidar_link
+[robot_state_publisher-2] [INFO] [1791625733.973753543] [robot_state_publisher]: got segment logo_link
+[robot_state_publisher-2] [INFO] [1791625733.973755162] [robot_state_publisher]: got segment r_dc_link
+[robot_state_publisher-2] [INFO] [1791625733.973756746] [robot_state_publisher]: got segment r_oc_ink
+[robot_state_publisher-2] [INFO] [1791625733.973758345] [robot_state_publisher]: got segment tail_link
+[robot_state_publisher-2] [INFO] [1791625733.973759916] [robot_state_publisher]: got segment zed_x_camera
+[sensor_disturbance-6] [INFO] [1791625734.125907348] [sensor_disturbance]: XT32 snapshot time=0; IMU attitude from gyro/gravity measurements
+[create-3] [INFO] [1791625734.242828723] [ros_gz_sim]: Requested creation of entity.
+[create-3] [INFO] [1791625734.242858577] [ros_gz_sim]: OK creation of entity.
+[INFO] [create-3]: process has finished cleanly [pid 1270940]
+[parameter_bridge-4] [INFO] [1791625734.983116915] [ros_gz_bridge]: Creating GZ->ROS Bridge: [/clock (ignition.msgs.Clock) -> /clock (rosgraph_msgs/msg/Clock)] (Lazy 0)
+[parameter_bridge-4] [INFO] [1791625734.983500542] [ros_gz_bridge]: Creating GZ->ROS Bridge: [/joint_states (ignition.msgs.Model) -> /sim/raw/joint_states (sensor_msgs/msg/JointState)] (Lazy 0)
+[parameter_bridge-4] [INFO] [1791625734.984204391] [ros_gz_bridge]: Creating GZ->ROS Bridge: [/sim/raw/ground_truth/odom (ignition.msgs.Odometry) -> /sim/ground_truth/odom (nav_msgs/msg/Odometry)] (Lazy 0)
+[parameter_bridge-4] [INFO] [1791625734.984658048] [ros_gz_bridge]: Creating GZ->ROS Bridge: [/sim/raw/ground_truth/odom (ignition.msgs.Odometry) -> /sim/body_state (nav_msgs/msg/Odometry)] (Lazy 0)
+[parameter_bridge-4] [INFO] [1791625734.984795216] [ros_gz_bridge]: Creating GZ->ROS Bridge: [/sim/raw/scan/points (ignition.msgs.PointCloudPacked) -> /sim/raw/pointcloud (sensor_msgs/msg/PointCloud2)] (Lazy 0)
+[parameter_bridge-4] [INFO] [1791625734.985009736] [ros_gz_bridge]: Creating GZ->ROS Bridge: [/sim/raw/imu (ignition.msgs.IMU) -> /sim/raw/imu (sensor_msgs/msg/Imu)] (Lazy 0)
+[parameter_bridge-4] [INFO] [1791625734.985195747] [ros_gz_bridge]: Creating GZ->ROS Bridge: [/collision_plate/force_torque (ignition.msgs.Wrench) -> /collision_plate/force_torque (geometry_msgs/msg/WrenchStamped)] (Lazy 0)
+[parameter_bridge-4] [INFO] [1791625734.985419091] [ros_gz_bridge]: Creating GZ->ROS Bridge: [/zed_x_camera (ignition.msgs.Image) -> /zed/zed_node/depth/depth_registered (sensor_msgs/msg/Image)] (Lazy 0)
+[parameter_bridge-4] [INFO] [1791625734.985575291] [ros_gz_bridge]: Creating ROS->GZ Bridge: [/model/b2w/joint/FR_hip_joint/cmd_force (std_msgs/msg/Float64) -> /model/b2w/joint/FR_hip_joint/cmd_force (ignition.msgs.Double)] (Lazy 0)
+[parameter_bridge-4] [INFO] [1791625734.985879178] [ros_gz_bridge]: Creating ROS->GZ Bridge: [/model/b2w/joint/FR_thigh_joint/cmd_force (std_msgs/msg/Float64) -> /model/b2w/joint/FR_thigh_joint/cmd_force (ignition.msgs.Double)] (Lazy 0)
+[parameter_bridge-4] [INFO] [1791625734.986021729] [ros_gz_bridge]: Creating ROS->GZ Bridge: [/model/b2w/joint/FR_calf_joint/cmd_force (std_msgs/msg/Float64) -> /model/b2w/joint/FR_calf_joint/cmd_force (ignition.msgs.Double)] (Lazy 0)
+[parameter_bridge-4] [INFO] [1791625734.986142477] [ros_gz_bridge]: Creating ROS->GZ Bridge: [/model/b2w/joint/FL_hip_joint/cmd_force (std_msgs/msg/Float64) -> /model/b2w/joint/FL_hip_joint/cmd_force (ignition.msgs.Double)] (Lazy 0)
+[parameter_bridge-4] [INFO] [1791625734.986251504] [ros_gz_bridge]: Creating ROS->GZ Bridge: [/model/b2w/joint/FL_thigh_joint/cmd_force (std_msgs/msg/Float64) -> /model/b2w/joint/FL_thigh_joint/cmd_force (ignition.msgs.Double)] (Lazy 0)
+[parameter_bridge-4] [INFO] [1791625734.986361774] [ros_gz_bridge]: Creating ROS->GZ Bridge: [/model/b2w/joint/FL_calf_joint/cmd_force (std_msgs/msg/Float64) -> /model/b2w/joint/FL_calf_joint/cmd_force (ignition.msgs.Double)] (Lazy 0)
+[parameter_bridge-4] [INFO] [1791625734.986468967] [ros_gz_bridge]: Creating ROS->GZ Bridge: [/model/b2w/joint/RR_hip_joint/cmd_force (std_msgs/msg/Float64) -> /model/b2w/joint/RR_hip_joint/cmd_force (ignition.msgs.Double)] (Lazy 0)
+[parameter_bridge-4] [INFO] [1791625734.986572360] [ros_gz_bridge]: Creating ROS->GZ Bridge: [/model/b2w/joint/RR_thigh_joint/cmd_force (std_msgs/msg/Float64) -> /model/b2w/joint/RR_thigh_joint/cmd_force (ignition.msgs.Double)] (Lazy 0)
+[parameter_bridge-4] [INFO] [1791625734.986680448] [ros_gz_bridge]: Creating ROS->GZ Bridge: [/model/b2w/joint/RR_calf_joint/cmd_force (std_msgs/msg/Float64) -> /model/b2w/joint/RR_calf_joint/cmd_force (ignition.msgs.Double)] (Lazy 0)
+[parameter_bridge-4] [INFO] [1791625734.986790309] [ros_gz_bridge]: Creating ROS->GZ Bridge: [/model/b2w/joint/RL_hip_joint/cmd_force (std_msgs/msg/Float64) -> /model/b2w/joint/RL_hip_joint/cmd_force (ignition.msgs.Double)] (Lazy 0)
+[parameter_bridge-4] [INFO] [1791625734.986907149] [ros_gz_bridge]: Creating ROS->GZ Bridge: [/model/b2w/joint/RL_thigh_joint/cmd_force (std_msgs/msg/Float64) -> /model/b2w/joint/RL_thigh_joint/cmd_force (ignition.msgs.Double)] (Lazy 0)
+[parameter_bridge-4] [INFO] [1791625734.987029981] [ros_gz_bridge]: Creating ROS->GZ Bridge: [/model/b2w/joint/RL_calf_joint/cmd_force (std_msgs/msg/Float64) -> /model/b2w/joint/RL_calf_joint/cmd_force (ignition.msgs.Double)] (Lazy 0)
+[parameter_bridge-4] [INFO] [1791625734.987149397] [ros_gz_bridge]: Creating ROS->GZ Bridge: [/model/b2w/joint/FR_foot_joint/cmd_force (std_msgs/msg/Float64) -> /model/b2w/joint/FR_foot_joint/cmd_force (ignition.msgs.Double)] (Lazy 0)
+[parameter_bridge-4] [INFO] [1791625734.987291013] [ros_gz_bridge]: Creating ROS->GZ Bridge: [/model/b2w/joint/FL_foot_joint/cmd_force (std_msgs/msg/Float64) -> /model/b2w/joint/FL_foot_joint/cmd_force (ignition.msgs.Double)] (Lazy 0)
+[parameter_bridge-4] [INFO] [1791625734.987409245] [ros_gz_bridge]: Creating ROS->GZ Bridge: [/model/b2w/joint/RR_foot_joint/cmd_force (std_msgs/msg/Float64) -> /model/b2w/joint/RR_foot_joint/cmd_force (ignition.msgs.Double)] (Lazy 0)
+[parameter_bridge-4] [INFO] [1791625734.987519971] [ros_gz_bridge]: Creating ROS->GZ Bridge: [/model/b2w/joint/RL_foot_joint/cmd_force (std_msgs/msg/Float64) -> /model/b2w/joint/RL_foot_joint/cmd_force (ignition.msgs.Double)] (Lazy 0)
+[parameter_bridge-4] [INFO] [1791625736.076407702] [ros_gz_bridge]: Passing message from ROS std_msgs/msg/Float64 to Gazebo gz.msgs.Double (showing msg only once per type)
+[sensor_disturbance-6] [WARN] [1791625736.081202393] [sensor_disturbance]: Gravity initialization requires valid acceleration
+[ign-1] libEGL warning: egl: failed to create dri2 screen
+[ign-1] libEGL warning: egl: failed to create dri2 screen
+[WARNING] [launch]: user interrupted with ctrl-c (SIGINT)
+[INFO] [sensor_disturbance-6]: sending signal 'SIGINT' to process[sensor_disturbance-6]
+[INFO] [b2w_rl_sar_controller-5]: sending signal 'SIGINT' to process[b2w_rl_sar_controller-5]
+[INFO] [parameter_bridge-4]: sending signal 'SIGINT' to process[parameter_bridge-4]
+[INFO] [robot_state_publisher-2]: sending signal 'SIGINT' to process[robot_state_publisher-2]
+[INFO] [ign-1]: sending signal 'SIGINT' to process[ign-1]
+[parameter_bridge-4] [INFO] [1791625797.569680103] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[b2w_rl_sar_controller-5] [INFO] [1791625797.569676792] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[robot_state_publisher-2] [INFO] [1791625797.569677929] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[b2w_rl_sar_controller-5] [INFO] [1791625797.571225427] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[parameter_bridge-4] [INFO] [1791625797.571481849] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[robot_state_publisher-2] [INFO] [1791625797.572358976] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[sensor_disturbance-6] The following exception was never retrieved: Failed to publish: publisher's context is invalid, at ./src/rcl/publisher.c:389
+[INFO] [robot_state_publisher-2]: process has finished cleanly [pid 1270938]
+[INFO] [parameter_bridge-4]: process has finished cleanly [pid 1270942]
+[INFO] [b2w_rl_sar_controller-5]: process has finished cleanly [pid 1270944]
+[INFO] [ign-1]: process has finished cleanly [pid 1270936]
+[INFO] [sensor_disturbance-6]: process has finished cleanly [pid 1270946]

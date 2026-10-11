@@ -1,0 +1,13 @@
+pose_adapter:
+  ros__parameters:
+    base_frame: base_link
+    odom_frame: odom
+    map_frame: map
+    base_to_lidar_xyz: [0.34218, 0.0, 0.17851]
+    base_to_lidar_rpy: [0.0, 0.0, 0.0]
+    # Set these from registration to a saved map; never from evaluation truth.
+    map_alignment_xyz: [0.0, 0.0, 0.0]
+    map_alignment_rpy: [0.0, 0.0, 0.0]
+    # Online mapping establishes z=0 from a measured floor before public TF.
+    # Disable when registering to a saved map with its own coordinate datum.
+    auto_ground_alignment: true
