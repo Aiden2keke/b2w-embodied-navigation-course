@@ -10,6 +10,8 @@
 - 新克隆从第 2 节准备；已配置的机器先执行第 3 节检查，再启动。保留已有模型和依赖目录，按脚本输出处理版本或摘要不匹配。
 - 本指南覆盖仿真。实机部署、崎岖地形、长路线和多层地图需要额外适配与验证。
 
+交互终端为 zsh 时，加载 ROS 使用 `source /opt/ros/humble/setup.zsh`，构建完成后再加载 `source install/setup.zsh`。`setup.bash` 使用 Bash 的 `BASH_SOURCE` 定位自身；在 zsh 中 source 它会把当前目录误当成 prefix，并尝试读取当前目录的 `setup.sh`。源码根目录本来没有这些 setup 文件；workspace 的 setup 文件由 colcon 生成在 `install/` 中。不要为这个错误修改 apt 管理的 `/opt/ros/humble/setup.*`。本指南的 Bash 命令块在 Bash 中执行；带 Bash shebang 的项目脚本从 zsh 直接执行即可，不要 source 它们。
+
 ## 2. 新克隆的完整准备流程
 
 ### 2.1 基础环境
@@ -117,7 +119,7 @@ scripts/run_warehouse.sh mode:=sim
 
 ## 4. 导航目标与其他终端的环境
 
-额外终端先进入同一仓库根目录，并执行：
+额外终端先进入同一仓库根目录。下面是 Bash 的加载顺序；zsh 使用后面的对应脚本：
 
 ```bash
 source /opt/ros/humble/setup.bash
@@ -127,6 +129,13 @@ export ROS_LOCALHOST_ONLY=1
 export FASTRTPS_DEFAULT_PROFILES_FILE="$PWD/course_sim/config/fastdds_local.xml"
 export PYTHONPATH="$PWD/.venv/lib/python3.10/site-packages:${PYTHONPATH:-}"
 export LD_LIBRARY_PATH="$PWD/.deps/lib:$PWD/b2w_sim/b2w_controllers/third_party/onnxruntime/lib64:${LD_LIBRARY_PATH:-}"
+```
+
+zsh 终端使用相同的环境变量配置，只将两个 source 命令换成以下顺序：
+
+```zsh
+source /opt/ros/humble/setup.zsh
+source install/setup.zsh
 ```
 
 入口默认使用域 91、本机通信；若主启动终端显式覆盖了域或通信设置，其他终端同步采用该设置和匹配的 DDS profile。

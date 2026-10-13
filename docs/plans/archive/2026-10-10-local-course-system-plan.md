@@ -1,5 +1,7 @@
 # B2-W 本机课程系统实施计划
 
+> ARCHIVED 2026-10-13：历史实施记录，不再作为当前工作指令。唯一 CURRENT roadmap 是根目录 [PLAN.md](../../../PLAN.md)。下文保留当时的计划与验证边界。
+
 日期：2026-10-10
 
 设计依据：`docs/superpowers/specs/2026-10-10-local-course-system-design.md`，用户已确认。
