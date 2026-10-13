@@ -1,4 +1,5 @@
 from pathlib import Path
+import os
 from ament_index_python.packages import get_package_share_directory
 from launch import LaunchDescription
 from launch.actions import DeclareLaunchArgument, OpaqueFunction
@@ -29,7 +30,11 @@ def setup(context):
         elif executable == 'bt_navigator':
             remaps.append(('goal_pose', '/course_navigation/unused_nav2_goal_pose'))
         nodes.append(Node(package=package, executable=executable, name=executable,
-                          parameters=[config], remappings=remaps, output='log'))
+                          parameters=[config], remappings=remaps, output='log',
+                          arguments=['--ros-args', '--log-level', 'rclcpp:=debug',
+                                     '--log-level', 'planner_server:=debug']
+                          if executable == 'planner_server' and
+                          os.environ.get('B2W_NARROW_NAVFN_DEBUG') == '1' else []))
     if mode == 'online':
         width = float(LaunchConfiguration('map_width').perform(context))
         height = float(LaunchConfiguration('map_height').perform(context))

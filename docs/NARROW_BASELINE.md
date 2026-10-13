@@ -1,0 +1,304 @@
+# Narrow-space baseline characterization
+
+本文件包含实验协议、历史诊断和当前在线证据；唯一当前计划为根目录 `PLAN.md`。baseline 参数全部保持原样。最新结果见末节“固定case Online planner A/B 与单次Smac导航”；之前的“尚未验证”描述仅对应其历史轮次。
+
+## 配置事实和语义
+
+下表的代码片段来自当前文件；Nav2 算法语义对照已安装 Humble 1.1.20 对应上游源码。导航 footprint 是规划近似，不能称为运动中全机身/腿部的实测包络。
+
+| 结论 | 文件与关键片段 | 解释 |
+|---|---|---|
+| 原始导航 footprint 1.40×0.76 m | `course_navigation/config/nav2.yaml`，local/global 两处：`footprint: '[[0.70, 0.38], [0.70, -0.38], [-0.70, -0.38], [-0.70, 0.38]]'` | 矩形 xy 极值差；不是 URDF 随姿态变化的物理宽度。 |
+| padding 后 1.50×0.86 m | 同文件：`footprint_padding: 0.05` | Nav2 给各顶点的带符号 x/y 各加 0.05 m；半长0.75、半宽0.43，内切半径0.43、外接半径约0.8645 m。 |
+| 两 costmap 分辨率0.05 m | 同文件 local/global：`resolution: 0.05` | local rolling 5×5 m；global 跟随 static map 的有限尺寸。 |
+| 投影地图同为0.05 m | `course_navigation/course_navigation/map_node.py`：`declare_parameter('resolution', 0.05)`；`course_navigation/launch/navigation.launch.py`：`'size': [width, height], 'origin': [-width / 2, -height / 2]` | confined 默认20×16 m；warehouse 场景由 `course_bringup/launch/course.launch.py` 的 `nav_args.update(map_width='40.0', map_height='40.0')` 扩至40×40 m。新 fixture 用 confined 默认范围，无修改。 |
+| unknown 为实际观测限制 | `course_navigation/course_navigation/map_projection.py`：`grid = np.full(self.free.shape, -1, dtype=np.int8)`、`grid[self.free] = 0`、`grid[self.occupied] = 100`；`cells()` 使用 `np.floor` | 未观测区域保持unknown；传感器射线和SLAM障碍投影不等同于几何真值图。墙面落格、噪声、SLAM误差会改变实际有效宽度。 |
+| inflation 是代价场 | `course_navigation/config/nav2.yaml` 两层：`inflation_radius: 0.8; cost_scaling_factor: 3.0` | 最近障碍距离 d≤0.43 m为253（inscribed）；0.43<d≤0.8 时约 `floor(252*exp(-3*(d-0.43)))`，不把两侧代价简单相加；影响区外无该层新增代价。0.8 m不是必需的机身净空。 |
+| NavFn 使用带代价的A* | 同文件：`plugin: nav2_navfn_planner/NavfnPlanner; tolerance: 0.3; use_astar: true; allow_unknown: false` | 253/254及unknown不可通行；0..252仍可通行但影响累计代价。因此它可能选更长但低代价路线；现阶段不是过度保守的实验证明。0.3是规划终点搜索容差，不能等同DWB到达容差。 |
+| DWB运动采样 | 同文件：`plugin: dwb_core::DWBLocalPlanner; max_vel_x: 0.4; min_vel_x: 0.0; max_vel_theta: 0.6; vx_samples: 20; vy_samples: 5; vtheta_samples: 20; sim_time: 1.7` | 正常轨迹前进/转向采样；分辨率 `linear_granularity: 0.05; angular_granularity: 0.025`，20 Hz controller。backup recovery 单独记录。 |
+| DWB代价与局部拒绝 | 同文件 critics：`BaseObstacle.scale: 0.02; PathAlign.scale: 32.0; GoalAlign.scale: 24.0; PathDist.scale: 32.0; GoalDist.scale: 24.0; RotateToGoal.scale: 32.0` | 配置选 BaseObstacle 而非 ObstacleFootprint；上游 BaseObstacle 检查轨迹中心所在cell并拒绝253/254/unknown，不逐姿态检查矩形全边缘。yaw角度导致的真实包络不可用内切圆保证。 |
+| 到达/进度阈值 | 同文件：`xy_goal_tolerance: 0.25; yaw_goal_tolerance: 0.3; required_movement_radius: 0.15; movement_time_allowance: 20.0; failure_tolerance: 0.3` | 失败可涉及无法生成合法轨迹、进度或定位；保留controller action status与日志，不把所有 NavigateToPose ABORTED 判作controller失败。 |
+| vy=0在两处约束 | 同文件DWB：`min_vel_y: 0.0; max_vel_y: 0.0; acc_lim_y: 0.0; decel_lim_y: 0.0`；smoother：`max_velocity: [0.4, 0.0, 0.6]; min_velocity: [-0.2, 0.0, -0.6]` 和y加减速度0 | `vy_samples: 5`不会产生非零横移速度；normal FollowPath 与smoother仍只能vx/wz。 |
+| adapter/policy接口保留vy | `course_navigation/course_navigation/velocity_adapter.py`：`msg.linear.x, msg.linear.y, msg.angular.z` 进入gate并写回；`b2w_sim/b2w_controllers/src/rl_sar_controller.cpp`：`msg->linear.y` 与 `obs[6+i]=command_valid?command_[i]:0` | 接口具备y通道不表示本baseline启用了y，也不证明物理横移tracking。本轮只读且记录三段cmd。 |
+| warehouse基础设施 | `scripts/prepare_warehouse.py`：从 `confined.world` 复制 `physics/plugin/light`，保留固定AWS模型，`mu=mu2=1.0`，输出 `warehouse.world` | AWS几何不便精确控制通道宽度；本轮复用同一Fortress模板的floor与静态box，避免新增下载和修改仓库资产。 |
+| world override与spawn已存在 | `course_sim/launch/simulation.launch.py`：`world = LaunchConfiguration('world').perform(context) or ...`；spawn循环读取 `spawn_x/y/z` | harness传独立world和(0,0,1) spawn，使用同一rl_sar/传感器/SLAM/Nav2链，无共享接口或launch修改。 |
+
+上游语义证据：[padFootprint](https://github.com/ros-navigation/navigation2/blob/1.1.20/nav2_costmap_2d/src/footprint.cpp)、[computeCost](https://github.com/ros-navigation/navigation2/blob/1.1.20/nav2_costmap_2d/include/nav2_costmap_2d/inflation_layer.hpp)、[NavFn::setCostmap](https://github.com/ros-navigation/navigation2/blob/1.1.20/nav2_navfn_planner/src/navfn.cpp)、[BaseObstacleCritic](https://github.com/ros-navigation/navigation2/blob/1.1.20/nav2_dwb_controller/dwb_critics/src/base_obstacle.cpp)。这些片段支持代价/碰撞检测语义，不证明实际通过边界。
+
+## 宽度与场景推导
+
+`scripts/narrow_fixture.py:geometry` 从baseline YAML读取两层几何并检查一致性。W=0.86、L=1.50、r=0.05、R=0.8 m：默认宽度取 W 下侧的floor格与前一格（0.85/0.80），上侧ceil格（0.90），W加3/7格后量化（1.00/1.20），2R（1.60）及2R+2r（1.70）。前两项可能在planner阶段就失败，保留作为负对照，不能算controller能力失败。轴对齐真实边界会受栅格相位与观测影响，0.86只是假设模型下的连续几何阈值。旋转时矩形横向包络为 `L*abs(sin(yaw))+W*abs(cos(yaw))`，原地任意转角的最大宽度约1.729 m。
+
+A/B均在封闭房间内，start=(0,0)，相对start goal=(6,0)，choke x∈[2,4]。下方block连到南墙。A上方block从y=Wcase/2到Wcase/2+1.5，上方留宽路 `max(L,2R)+4r=1.8 m`；B把block延伸到北墙，因此任何连续左→右路径均须经过choke。直达中心线长度6 m，默认最窄到最宽A的宽路几何参考中心线约9.95–10.80 m；实际planner路径长度单独记录。这是参考路线长度，不是宽路最短路径的严格证明。gate x=3的线段交点判别narrow/wide，缺crossing或穿block区域为unclassified。
+
+同一world生成规则、同一start/goal、相同Nav2文件与政策摘要；每case独立Gazebo partition/重启，normal profile仅切换传感器seed。物理RNG未由现有启动代码设seed，不能声称物理完全确定。
+
+目标由启动后新鲜map→base_link与初始yaw构造，而不使用真值定位。这依赖启动时机器人保持在world原点、初始朝向基本不变；start_map_xy_yaw记录实际SLAM偏移，fixture坐标分类存在初始漂移/定位误差边界。几何world中的goal与map目标不能在强漂移场景下无条件等同。
+
+## 指标和归因
+
+`scripts/run_narrow_baseline.py` 直接调用ComputePathToPose，等待result后才发NavigateToPose；不发`/goal_pose`，既有goal_manager不产生并发额外规划。记录独立preplan与随后`/plan` BT路径，不把preplan路线当作导航全程唯一规划。
+
+每case输出fixture/world、result、cleanup、runtime、observations.jsonl、map-before-plan、costmap-before-plan、preplan。FollowPath status额外保存goal UUID、goal stamp和数值状态；`controller_abort_observed`明确表示观察窗口内曾出现ABORTED，只是 observed evidence。`controller_action_status_observed` 和 observations.jsonl 保留 UUID、原始 sec/nanosec stamp 与数值 status；没有可靠的 navigation→FollowPath goal 关联和终止原因时，`primary_controller_failure=null`，分类函数不会根据 observed ABORTED 归为 controller failure。结果包括scenario/width/seed、生成路径、chosen route、success、plate collision_count、odom实际path_length、仅成功时time_to_goal、fresh map TF final error、planning roundtrip、cmd各topic样本数/max与完整vx/vy/wz时序、FollowPath abort状态、controller告警、failure taxonomy。minimum clearance暂为null，原因是没有可靠全身边界测量。缺反馈为null，不冒充0。额外订阅`/sim/ground_truth/odom`仅用于评价，保存world轨迹与physical_gate_route / corridor_entered_truth / corridor_passed_truth；不参与Nav2定位或goal生成。
+
+A对两条固定几何参考中心线采样真实raw global costmap，记录unknown/253/254；`route_comparison_eligible`只说明这两条采样中心线可用，不是全走廊/全footprint/地图精确性的证明。unknown/blocked时优先解释为可观测性或geometry限制，不能下“过度保守”结论。地图快照与实际path应共同复核。B先区分planning_failure与navigation结果，再区分未归因的navigation abort、controller observed status/progress日志、timeout、runtime/localization等；不可据NavigateToPose的ABORTED单独断言locomotion失败。
+
+通过能力至少需要多次SUCCEEDED、final error≤0.25m、collision反馈已覆盖且0、实际经过gate及良好定位/odom覆盖。单次规划成功、单次smoke或缺plate反馈均不等同稳定无碰撞通过。当前实现保存真值轨迹并计算采样机器人中心的gate通过（不是全机身净空），仍需复核初始漂移、真值frame与stamp覆盖；正式结果需人工复核后给出全部seed成功的宽度和失败宽度区间，不能以均值掩盖失败。
+
+## 操作
+
+```bash
+# 不启动ROS/Gazebo；查看由当前baseline推导的fixture和manifest
+scripts/run_narrow_baseline.sh --prepare-only --output-dir /tmp/b2w-narrow-prepare
+# 入口短测：B fixture、最宽推导项、seed=0、1m目标、30sim秒timeout；不证明通道通过
+scripts/run_narrow_baseline.sh --smoke --ros-domain-id 97 --output-dir /tmp/b2w-narrow-smoke
+# 用户正式baseline sweep；42个case，agent不执行
+scripts/run_narrow_baseline.sh --scenarios A B --seeds 0 1 2 \
+  --timeout-s 90 --startup-timeout-s 90 --ros-domain-id 97 \
+  --output-dir course_results/narrow-baseline
+```
+
+确保所选domain无其他仿真；若其它会话在97则使用另一空闲domain。每case结束先停止指标采样并取消自己的action，再SIGINT own launch；仍存活时对唯一token且PID starttime一致的本轮进程发SIGTERM/SIGKILL，检查剩余清单。无需`pkill -f`。cleanup失败立即阻止下一case。baseline-integrity.json检查运行前后YAML摘要一致。不设置参数、不启用vy、不换算法。
+
+## 本轮短测证据（2026-10-13）
+
+- 全套29项单测PASS，`/tmp/b2w-narrow-characterization/tests-final.log`。fixture prepare与CLI help可用。
+- 首次6m B/1.70m/seed0已达到map/costmap/SLAM TF/三Nav2 active就绪；candidate centerline 121样本unknown=0、blocked=0、max_cost=151，但ComputePathToPose ABORTED，上游运行日志为合法potential后path extraction失败。结果目录 `smoke-lifecycle/20261013T080112.872655Z`。这是单次规划失败证据，未调用NavigateToPose，不证明controller/locomotion失败。
+- 最终入口1m smoke：NavigateToPose SUCCEEDED；plate collision=0；odom path=0.775433 m；simulation goal time=2.6575 s；fresh TF error=0.230703 m；preplanning action roundtrip=4.293773 ms。最终cmd最大绝对vx/vy/wz=0.4/0/0.24，三段vy均0；23个owned identities，remaining={}，cleanup PASS。结果目录 `smoke-final/20261013T080610.128607Z`。truth entered/passed均false，禁止称为corridor PASS。
+- 此成功smoke的controller_abort=true仅有goal-checker WARN，未发现解释该ABORTED的controller runtime日志；保留原字段与不确定性。后续harness已增加raw action status UUID/stamp证据；新增status日志格式未再跑真实仿真，按要求停止扩展短测。
+- 早期短测仅同一B/1.70m/seed0，未跑任何宽度sweep：sandbox DDS socket被拒；host每spin一次/proc扫描耗12.43ms使TF callback积压；action endpoint先于lifecycle active造成一次ready race；ROS Log.WARN是bytes造成一次回调类型错误。分别通过隔离host smoke、每秒ownership扫描、复用LifecycleReadiness、29项回归短测修正。所有启动会话cleanup均PASS；初始化前只读日志路径失败未启动仿真。
+- 独立只读review的规划timeout归类、观测epoch、失败final error三项问题已修正；review复核无blocker。baseline与policy文件未修改，所有run的baseline-integrity均unchanged=true。
+
+尚未验证：A路线偏好、正式B完整通道成功率/边界、多seed稳定性、A真实地图质量与候选路线可用性、全机身碰撞/clearance。NavFn extraction 诊断见下节。
+
+
+## Review 修复与四距离 planner 诊断（2026-10-13）
+
+范围严格固定 B / 1.70 m / seed0；独立重启四次，目标相对启动后 fresh SLAM map→base_link 的初始 pose，未发送 NavigateToPose，未改 baseline 参数、SLAM 或 policy。`success=false` 在这些原始 result 中表示没有进行完整导航验收；planner 的结果看 `planning_status` / `global_path_generated`。后续 harness 显式增加 `navigation_attempted`，不把 planning success 当作物理通过。
+
+Harness 修复：
+
+- `scripts/run_narrow_baseline.sh:2` 仅 `set -o pipefail`。`course_main` 对定位目录、cd、ROS source、workspace source 分别使用 `if` + FAIL + `return 1`，无 set-e / exit。子进程直接使用已加载环境的 `/usr/bin/python3 /opt/ros/humble/bin/ros2 launch course_bringup course.launch.py`，避免再经过带 set-e 的 run_course.sh；同 domain、DDS profile、OMP=2 与原 launch 参数。
+- `scripts/narrow_fixture.py:81` 的关键逻辑为 `reason.startswith('planner_') -> planning_failure`、`reason=='succeeded' -> none`，其余由实际 end_reason 映射；移除了 `if controller_abort: return 'controller_abort'`。observed status 即使出现 6，也不能更改 navigation timeout / unattributed abort 的 primary 分类。未实现可靠的 NavigateToPose→FollowPath UUID/terminal-cause 关联，因此保持 null，而不是猜测 controller failure。
+- `scripts/run_narrow_baseline.py` 保留 raw status UUID、原始 stamp、数值 status；名称改为 `controller_abort_observed` / `controller_action_status_observed`。warnings/progress 日志仍只是观测。无全局 topic/TF 或消息修改。
+- `course_navigation/launch/navigation.launch.py` 仅在 planner-only harness 传入 `B2W_NARROW_NAVFN_DEBUG=1` 时给 planner 加 `rclcpp:=debug` 和 `planner_server:=debug`；NavFn 内部 logger 名为 rclcpp，只开启 planner_server logger 无法捕获内部 calcPath 分支。默认 launch 行为与 YAML 保持原样。
+
+可重复的单距离入口（每次单独执行，非 sweep）：
+
+```bash
+scripts/run_narrow_baseline.sh --planner-diagnostic --goal-distance 6.0 \
+  --ros-domain-id 97 --output-dir /tmp/b2w-navfn-diagnostic/distance-6
+```
+
+`--planner-diagnostic` 强制唯一 B/1.70m/seed0，distance 只允许 1/3/4.5/6；不能和 --smoke 合并。每次先等待实际 lifecycle active、新鲜定位与地图，再请求 live master `/global_costmap/get_costmap`、保存 raw snapshot、调用 ComputePathToPose、保存 after snapshot、取消自己的 action 并清理 owned processes。after snapshot 返回后规划失败也会保留证据。所有结果记录 pre-navigation action wall roundtrip；它包含 action 通信与调度，不冒充纯算法耗时。
+
+### 每距离实测
+
+证据根目录 `/tmp/b2w-navfn-diagnostic/`；完整机器可读表为 `planner-summary.json`。每个 `distance-*/<timestamp>/B-w1.7000-seed0/` 保存完整 `costmap-before-plan.json` / `costmap-after-plan.json`、`costmap-diagnostic.json`（中心线每样本cost与histogram、floor/round cells）、`preplan.json`、`result.json`、原始 `runtime.log` / `ros-log/planner_server*.log`、`observations.jsonl`、摘录 `navfn-debug.log`、`cleanup.json`。快照由实际在线 costmap 服务返回，不是几何生成图。NavFn 实际 start/goal cells 用 runtime DEBUG 核实；start/end 代价从实际 raw snapshot 读取。
+
+| 相对目标 | ComputePathToPose | planner path 长度 | wall roundtrip | NavFn start→goal cells | raw start/goal cost | 中心线 unknown/253/254 |
+|---|---|---|---|---|---|---|
+| 1.0 m | SUCCEEDED (4) | 1.007098 m | 3.866017 ms | (193,160)→(213,160) | 0 / 0 | 0 / 0 / 0 |
+| 3.0 m | SUCCEEDED (4) | 3.181549 m | 5.703110 ms | (193,160)→(253,160) | 0 / 112 | 0 / 0 / 0 |
+| 4.5 m | SUCCEEDED (4) | 5.110684 m | 8.221310 ms | (193,160)→(283,160) | 0 / 85 | 0 / 0 / 0 |
+| 6.0 m | ABORTED (6) | null | 7.408065 ms | (193,160)→(313,160) | 0 / 0 | 0 / 0 / 0 |
+
+原始 6m result 的 `planning_latency_ms=null` 是旧字段仅填成功的格式，`planning_request_latency_ms=7.408065...` 实际测量已保存；本轮最终代码统一把完成请求的 roundtrip 写入两字段，未重写旧证据。
+
+| 相对目标 | 整张128000-cell raw map unknown / 253 / 254 | 中心线cost范围 | before→after数据变化cell数 |
+|---|---|---|---|
+| 1.0 m | 105828 / 9431 / 798 | 0 | 0 |
+| 3.0 m | 105833 / 9432 / 796 | 0..130 | 0 |
+| 4.5 m | 105836 / 9427 / 804 | 0..151 | 0 |
+| 6.0 m | 105823 / 9432 / 801 | 0..151 | 0 |
+
+整图有unknown/障碍，不宣称整图全free。centerline清空只说明采样可用，不保证gradient extraction成功或全footprint安全。四次独立启动的地图略有差异，所以不能将本表当成同一冻结地图下的精确距离失败阈值；本轮距离组首次失败为6m。物理通过未测试。
+
+### 安装版语义、exact failure 与回放
+
+`source/installed-version.txt`：`ros-humble-nav2-navfn-planner 1.1.20-1jammy.20260915.232217`。实际库 `/opt/ros/humble/lib/libnav2_navfn_planner.so` 中可见 PathCalc debug 文本；安装 header 与官方1.1.20 header校对，版本/库/header/source SHA256 保存于 `source/sha256.txt`。官方文件保存为 `/tmp/b2w-navfn-diagnostic/source/navfn.cpp` 和 `navfn_planner.cpp`。
+
+两个阶段不能混同。`source/navfn_planner.cpp:267` 调用 `planner_->calcNavFnAstar();` 计算potential；`:279` 判断 `potential < POT_HIGH` 找到合法endpoint，然后 `getPlanFromPotential` 才提取路径。`:398` 的预算是 `4 * max(size_x,size_y)`，`:401` 调用 `planner_->calcPath(max_cycles)`，其返回0就失败。400×320 cells意味着1600步；合法endpoint potential不是成功path的保证。`worldToMap:493` 用 `std::round`，与 raw costmap 的 floor cell 各自保存，不能用 floor 坐标替代 NavFn 实际cell。[官方1.1.20 planner源码](https://github.com/ros-navigation/navigation2/blob/1.1.20/nav2_navfn_planner/src/navfn_planner.cpp)
+
+6m live DEBUG 的 exact 序列见 `distance-6/20261013T082832.915846Z/B-w1.7000-seed0/navfn-debug.log`：propagation 使用140 cycles、4609 cells，起始 extraction potential 7125.5；最后 `[PathCalc] No path found, path too long`，之后才是 legal-potential/path-failed ERROR 和 action ABORTED。没有 Zero gradient / high potential / Out of bounds 终止日志。4.5m有 oscillation detected/fix 后成功，6m没有触发该fix。
+
+`source/navfn.cpp:915` 的关键返回片段：
+
+```cpp
+RCLCPP_DEBUG(rclcpp::get_logger("rclcpp"), "[PathCalc] No path found, path too long");
+return 0;
+```
+
+该行位于 n 次循环之后，证明这里的“path too long”实际为 **extraction cycle exhaustion**，并非测得几何路线超过某个米数。[官方1.1.20 NavFn源码](https://github.com/ros-navigation/navigation2/blob/1.1.20/nav2_navfn_planner/src/navfn.cpp)
+
+进一步用 `source/replay_installed.cpp` **链接安装版库**回放各raw snapshot，保持 A*、allow_unknown=false、默认pathStep=0.5 cell、原1600预算、原wrapper清理robot cell与反向endpoint设置。没有编译修改版NavFn，没有改变算法。保存完整potential / gradient arrays 和 path.csv。四次 replay 的propagation cycles、path steps与live debug吻合：38 / 126 / 201 / 0；6m `propagation_success=true, target_potential=7125.48, extraction_return=0, recorded_steps=1600`。
+
+6m回放证据 `extraction-analysis.json` / `installed-replay.path.csv`：
+
+- extraction 从目标反向回溯到起点；第105步起，剩余1496步全困于 cell square x∈[262,263)、y∈[162,163)，没有继续接近起点cell(193,160)。最后100步仍每次约移动0.5 cell，却局限在约0.547×0.593 cell区域。
+- 该cell四角已安装NavFn给出的normalized gradients为 `(0.946864,0.321634)`、`(-0.647371,0.762175)`、`(-0.263010,-0.964793)`、`(-0.254059,-0.967189)`。其bilinear插值有stationary point `(262.502761,162.359893)`，map≈(3.125138,0.117995)，相对初始化SLAM起点≈(3.467339,0.118080)m，即choke内部。
+- `source/navfn.cpp:805` oscillation判据使用当前path坐标和两步前坐标的x/y**完全相等**；最后100步对应比较命中数=0。`:893` 的 zero-gradient 也是精确 x/y==0。`:899` 使用固定pathStep除以梯度norm再移动。回放显示轨迹绕插值驻点持续移动，既没有exact两步重复，也没正好采到exact零梯度，于是耗完1600步。这里描述的是局部subcell振荡陷阱，不是已命中“Zero gradient”失败分支。
+- trap 3×3 raw cost为 `[[111,112,112],[96,96,96],[0,83,83]]`，均<253且不是unknown；其3×3 potential均有限。原raw map中start→goal还存在120步、约6m的4连通可通行cell路径。该图不存在把两端切断的253/254/unknown几何阻塞，但不保证机器人全身通行。
+
+`navfn-extraction.png` 为真实raw cost、回放path与finite potential/gradient可视化。`source/analyze_extraction.py` 为只读分析脚本。live故障分支已直接确认；trap机理来自安装库的相同快照回放，**不是live内存trace**。before/after map.data字节一致、propagation统计与成功path步数吻合，支持回放关联，但service快照与plugin拷贝不是原子操作。没有扩大live测试或修改NavFn来强行消除这一测量边界。
+
+分类：**本次证据支持该实际cost field触发的 NavFn gradient path extraction 限制**，而非中心线blocked/unknown导致的costmap几何断路。尚未证明为何在线cost field与A* potential在此形成这种插值驻点，也未证明是独立于输入的上游实现bug。issue [#4655](https://github.com/ros-navigation/navigation2/issues/4655) 只作相似报告参考，不能作为本例根因证据。
+
+当前不适合把正式 A/B sweep 当作通过能力 benchmark：harness两项review已修复，planner失败可记录，但6m baseline仍有可复现extraction失败、A路线偏好和真实B全程通过还未验证。先审查本bundle，用户明确授权后再决定有限follow-up或正式实验；本轮不进入参数调优。
+
+最终检查：32项unit tests PASS（新增observed-abort分类、round/floor与snapshot分布、workspace source失败、planner-diagnostic强制单case回归），shell语法/compile/diff检查通过。4次各22个owned PID/starttime identities，`remaining={}`，最终没有仍匹配的live owned PID；baseline SHA256与HEAD及四个manifest一致，policy SHA256与四个manifest一致，详见 `final-audit.json`。bundle生成后停止，不commit/push。
+
+## Extraction budget 与 Smac2D 离线follow-up（2026-10-13）
+
+
+结论：**增加 extraction cycle budget 不能解决此case**。该结论限于保存的 Scenario B / width=1.70m / seed=0 / 6m raw costmap、Humble 1.1.20 安装库与原 A* potential；不泛化到所有 NavFn 场景，也不证明任何机器人通道物理通过能力。
+
+### 证据输入与执行边界
+
+已读 AGENTS.md、PLAN.md、docs/NARROW_BASELINE.md、CODEX_GUIDE.md 和现有 installed-library replay。最新 bundle 记录为 `/home/zyd/APRIL_REVIEW_BUNDLES/APRIL_REVIEW_BUNDLE_b2w-embodied-navigation-course_20261013_164150.md`（旧 `bundle.log`），但本轮该文件不存在且目录为空，无法重读其内容；未把旧生成日志当作本轮已审查 bundle。
+
+第一阶段输入：`/tmp/b2w-navfn-diagnostic/distance-6/20261013T082832.915846Z/B-w1.7000-seed0/replay.raw.u8`，400×320 cells，resolution=0.05000000074505806m。SHA256 `f5b9df0a004fff0ba54d678dcd867cdab8228668d1bf575abded3b0165f82412`。原 NavFn robot cell=(193,160)，target cell=(313,160)，wrapper 反向设置内部 start/goal；清空 robot cell 的行为与原 replay 一致。
+
+复制原 `source/replay_installed.cpp` 到本轮 `/tmp`，只把固定预算改为 CLI max_cycles，并增加 steady-clock calcPath 计时。仍链接 `/opt/ros/humble/lib/libnav2_navfn_planner.so`；未编译修改版算法。raw costmap、A*、allow_unknown=false、安装版 cost conversion、pathStep=0.5 cell、start/goal、potential propagation 均不变。各次 potential SHA256 与原文件逐字节一致，完整 path prefix 与原1600及上一 budget 一致；target potential=7125.48，propagation success=true。所有 budget 都是独立新实例。
+
+本轮无 Gazebo、无 NavigateToPose、无正式 sweep、无 baseline 或 policy 修改，无 inflation / DWB / vy / cost_travel_multiplier 调参。第二阶段仅离线调用已安装 Smac2D 的 createPlan；没有 ComputePathToPose action server，也没有重新运行 SLAM/controller/local costmap。保留上轮真实 SLAM raw master 快照，不重建或再次 inflation。
+
+### 1. 各 max_cycles 结果
+
+| max_cycles | extraction | 返回steps / 已记录steps | calcPath wall ms | 最后cell | 最后subcell(x,y) | 最近cell | min到start cell(m) | unique floor cells | trap总steps / 第105步后持续steps | exact fallback / zero-gradient | 成功path length |
+|---|---|---|---|---|---|---|---|---|---|---|
+| 1600 | FAIL | 0 / 1600 | 0.133025 | (262,162) | (262.281403,162.231430) | (261,162) | 3.437555 | 54 | 1498 / 1496 | 0 / 0 | null |
+| 3200 | FAIL | 0 / 3200 | 0.238491 | (262,162) | (262.239380,162.384796) | (261,162) | 3.437555 | 54 | 3098 / 3096 | 0 / 0 | null |
+| 6400 | FAIL | 0 / 6400 | 0.472992 | (262,162) | (262.335602,162.600327) | (261,162) | 3.437555 | 54 | 6298 / 6296 | 0 / 0 | null |
+| 16000 | FAIL | 0 / 16000 | 0.631096 | (262,162) | (262.302887,162.521896) | (261,162) | 3.437555 | 54 | 15898 / 15896 | 0 / 0 | null |
+| 32000 | FAIL | 0 / 32000 | 1.311363 | (262,162) | (262.567657,162.053391) | (261,162) | 3.437555 | 54 | 31898 / 31896 | 0 / 0 | null |
+
+16000失败后才追加32000。所有 budget 的 still_trapped_262_162=true；第105步到最后全部在 `[262,263)×[162,163)`，没有逃出时刻。trap总steps还包含永久困住前两次短暂进入，因此与持续steps差2。最近位置是 `(261.707245,162.455429)`，到整数 robot start cell 为68.751107 cells / 3.437555m；此后 budget 增加没有改善最接近距离。路径长度为null，因为没有成功path；绕trap的累计行程不作为有效路径长度。
+
+wall runtime 主列只测 calcPath 调用（含末尾 DEBUG，排除文件I/O/程序启动）。完整进程墙钟另保存在 budget-results.json，约10.68/12.75/14.39/16.14/23.95ms，不是 action roundtrip，也不是性能基准。DEBUG 全部为 `No path found, path too long`，无 exact oscillation fix、Zero gradient、高potential或越界终止。确认这次1600 exhaustion是trap持续运动的终止条件，不能把问题归为仅需更多步数的长路线。
+
+### 2. 当前 max_cycles_factor 语义
+
+当前[官方 rolling 文档](https://ros-navigation.github.io/mkdocs.nav2.org/rolling/configuration_and_development/configuration_guide/planners_plugins/configuring_navfn/)列出 `<name>.max_cycles_factor`，int默认4；[当前官方源码](https://github.com/ros-navigation/navigation2/blob/main/nav2_navfn_planner/src/navfn_planner.cpp)以最大 costmap cell 维度乘该factor，再调用calcPath。当前 parameter_handler.cpp 声明默认4，动态更新要求整数>0。
+
+400-cell最大维度对应 factors 4/8/16/40/80，正是本轮1600/3200/6400/16000/32000。**对本case，单独增加factor不是已得到支持的最小解决方案**；在测试范围内只延长同一trap循环。没有测试新版完整NavFn，不把这个结果扩展为新版实现必然失败，也不声称数学上证明无限budget永不逃离。
+
+[官方1.1.20源码](https://github.com/ros-navigation/navigation2/blob/1.1.20/nav2_navfn_planner/src/navfn_planner.cpp)仍硬编码 `4 * max_dimension`，没有此参数。本机安装为 `ros-humble-nav2-navfn-planner 1.1.20-1jammy.20260915.232217`。**未将rolling参数或新版plugin拼写写入Humble配置**。
+
+### 3. SmacPlanner2D 执行方式与配置
+
+16000仍失败后创建 `course_navigation/config/nav2_smac2d_diag.yaml`，与baseline文本只有一行差异：GridBased.plugin从 `nav2_navfn_planner/NavfnPlanner` 改为 `nav2_smac_planner/SmacPlanner2D`。完整YAML结构比较验证其余键和值一致，包括global/local costmap、footprint、padding、inflation、allow_unknown=false、controller与原policy；SLAM源码/config不变。原 `use_astar: true` 保留，Smac不消费这个NavFn专用键。
+
+先检查 `ros2 pkg executables nav2_smac_planner`（空：这是plugin包，无独立可执行）、pkg prefix、apt版本与本机 `smac_plugin_2d.xml`，实际pluginlib name为斜杠名称、C++ type为 `nav2_smac_planner::SmacPlanner2D`。安装包 `1.1.20-1jammy.20260915.232226`。通过pluginlib实际加载安装库 `libnav2_smac_planner_2d.so`，执行configure/activate/createPlan/deactivate/cleanup。
+
+`FrozenCostmap`只是离线输入适配器：创建Costmap2DROS壳和LayeredCostmap内存，设置原frame/unknown/footprint/padding，载入已inflated raw master bytes；不configure/activate成本地图层或生成在线地图。所有primary replay的raw byte输入和输出SHA256相同。footprint padding后为约±0.75/±0.43m，与baseline一致。[Humble Smac2D源码](https://github.com/ros-navigation/navigation2/blob/1.1.20/nav2_smac_planner/src/smac_planner_2d.cpp)的2D collision checker固有地使用radius/inscribed语义；这不是全矩形/腿部包络的物理通行验证。
+
+Smac固有默认参数（来自实际parameter dump）原样使用：cost_travel_multiplier=1.0、downsample_costmap=false、max_iterations=1000000、max_on_approach_iterations=1000、max_planning_time=2.0及内部smoother默认值；tolerance沿用0.3、allow_unknown沿用false。未试多个值，也未写新调参字段。
+
+### 4. 1/3/4.5/6m planner-only结果
+
+以下primary tests用各距离上轮保存的真实raw snapshot和已记录的SLAM map请求世界坐标。status是插件createPlan返回非空path且无exception，action_status=null；planning latency是createPlan steady-clock耗时，包含Smac内部smoothing，不与旧NavFn action往返直接比速度。
+
+| 距离 | Smac插件status | poses | path length(m) | createPlan latency(ms) | Smac floor start→goal cells | 整图unknown/253/254 | path顶点unknown/253/254 |
+|---|---|---|---|---|---|---|---|
+| 1.0 | SUCCESS | 21 | 1.000000 | 0.207000 | (193,159)→(213,159) | 105828/9431/798 | 0/0/0 |
+| 3.0 | SUCCESS | 61 | 3.056684 | 0.834333 | (193,159)→(253,159) | 105833/9432/796 | 0/0/0 |
+| 4.5 | SUCCESS | 91 | 4.557671 | 0.902524 | (193,159)→(283,160) | 105836/9427/804 | 0/0/0 |
+| 6.0 | SUCCESS | 121 | 6.065065 | 1.084256 | (193,159)→(313,159) | 105823/9432/801 | 0/0/0 |
+
+落格边界：NavFn使用round，Smac使用Costmap2D::worldToMap的floor。同一已记录世界坐标下，NavFn全部起点y=160，而Smac起点y=159；6m goal也为y=159。上轮action use_start=false，live插件实际取TF的时刻与记录初始pose不是原子关联，不能宣称保存的double坐标完全等同live插件输入；NavFn第一阶段则使用由live DEBUG确认的原整数cells，完全一致。
+
+为确认成功不只依赖上述落格差异，追加一个单次离线6m同cell control：同一6m raw，将Smac起终点置于原NavFn `(193,160)→(313,160)` 的cell中心，无配置/代价改动。结果SUCCESS，121 poses，length=6.044869m，createPlan=0.982536ms，raw字节仍不变。control世界坐标与primary不同，独立标明，不替代同世界坐标的primary表。
+
+**SmacPlanner2D在该固定case成功生成path，而NavFn失败。** 这只说明一个冻结case避开了NavFn gradient extraction trap；不能宣称Smac整体更优。四份snapshot略有差异，不是同图的距离阈值sweep。path顶点代价统计不保证整条连续路径/矩形全包络净空。
+
+### 5. 正式 planner 对比关卡
+
+尚未进入，也不把本轮诊断当作正式improved benchmark。现有证据足以支持review后提出受控planner对比，但尚无Smac在线ComputePathToPose、online SLAM/costmap运行一致性、A路线偏好、多seed结果或真实通道通过/碰撞验证；因此本轮不宣布正式planner benchmark已就绪。未开始cost/inflation/DWB/vy调参、实际通道导航或A/B sweep。
+
+### 6. 验证与清理
+
+主运行采用隔离ROS_DOMAIN_ID=186；5个primary/control调用各登记1个owned PID/starttime，均正常退出0，remaining={}。最初sandbox试调用的DDS初始化报告socket/接口权限错误，但直接插件仍返回path；原日志保存在smac2d/sandbox-attempt。为消除该初始化缺口，随后在授权host环境重复相同输入、配置和installed plugin，作为primary表；5次primary/control日志无DDS初始化错误，路径与sandbox同输入结果一致。这不是正式重复benchmark。
+
+全程无set-e/set-euo测试wrapper或pkill-f，无导航action。NavFn是同步短命child，无后台任务；Smac用既有OwnedProcesses，只处理自己的token+PID identity。最终baseline/policy/原harness/安装库完整性和owned残留复核见final-audit.json；测试、语法、compile与diff检查结果见tests.log/checks.json。只新增诊断YAML并更新本PLAN/实验说明，原baseline不变。不commit、不push。
+
+### 7. Bundle
+
+本报告、机器可读结果、source、logs、cleanup、hash manifest与项目diff在最终bundle调用前备齐。用户指定~/bin/april-review-bundle含set-euo；调用时仅过滤这一开关行，在同一Bash脚本体中执行其余原逻辑，原工具文件不改。bundle生成后立即停止，不回写文档；实际路径以最终工具输出和最终回复为准。
+
+## 固定case Online planner A/B 与单次Smac导航（2026-10-13）
+
+**在B/1.70m/seed0/6m这一固定online case中，SmacPlanner2D完成规划并使导航成功通过。** 本轮NavFn在线ComputePathToPose也SUCCEEDED，没有复现旧冻结快照中的NavFn失败；因此没有在线成功率优势证据，不宣称Smac整体更优、最优planner或最小可通行宽度。
+
+### 范围、输入与执行协议
+
+证据根目录 `/tmp/b2w-online-planner-ab/`。用户指定的最新review bundle `APRIL_REVIEW_BUNDLE_b2w-embodied-navigation-course_20261013_165953.md` 在执行前不存在，目录只有另一项目bundle；保留这个审查输入缺口，没有声称读过该文件。已读取AGENTS/PLAN/本说明/CODEX_GUIDE与接口文件，环境ready和rl_sar bundle验证通过。
+
+唯一fixture为Scenario B / width=1.70m / seed0 / relative distance=6.0m，world spawn=(0,0,1)，choke x∈[2,4]。三次fixture.world SHA256完全一致：`8589e21db500abc3d9c59257fd45949aed39275eb132467383309264b0c276f8`。独立启动ROS_DOMAIN_ID=187/188/189，各有唯一IGN_PARTITION和owner token；Gazebo真值只评价，不进入SLAM/Nav2。目标由各次fresh SLAM map→base_link初始pose/yaw构造，不复用另一次启动的map坐标。保存 `start_map_xy_yaw`、`start_truth_eval_xy_yaw`、完整 `planning_start_tf_estimate`、`goal_pose_world_map` 和 floor/round cells。由于ComputePathToPose use_start=false，probe起点是TF估计，不是插件原子输入；NavFn整数cells另由runtime DEBUG核对。
+
+readiness一致：planner/controller/BT实际lifecycle active=[3,3,3]、action/service可用、fresh TF age≤0.5s、SLAM odom接收age<0.5s且stamp age≤0.5s、online /map stamp age≤3s；就绪后参数只读dump、2秒settled interval并再次fresh检查。raw master由 `/global_costmap/get_costmap` 返回，保存JSON与原始u8 before/after，既有inflation只在真实costmap链中运行；不是几何生成图或冻结替代输入。service快照不是planner拷贝的原子trace。
+
+`--nav-params-file`仅选择现有baseline或已有Smac诊断YAML，两文件本轮均未修改，文本仍只有plugin一行不同。footprint/padding/inflation、DWB、SLAM配置、locomotion policy均保持原样；vy三段仍为0。实际Smac cost_travel_multiplier=1.0为安装插件原默认值，未设置或试其他值。runtime dump还确认所有非planner节点参数一致。
+
+### 阶段1：真实online planner-only
+
+每次仅一次ComputePathToPose，无NavigateToPose；action终态与插件加载日志、原始result/path、耗时和raw地图均已保存。planner-only raw result中的success=false表示未进行导航，判断规划应看planning_status=4。
+
+| 配置 / domain | 实际加载插件 | ComputePathToPose | path长度(m) | 墙钟往返(ms) | 整图unknown / 253 / 254 | 中心线unknown / 253 / 254 |
+|---|---|---|---|---|---|---|
+| NavFn / 187 | nav2_navfn_planner/NavfnPlanner | SUCCEEDED (4) | 6.154882 | 9.383127 | 105832 / 9427 / 794 | 0 / 0 / 0 |
+| Smac / 188 | nav2_smac_planner/SmacPlanner2D | SUCCEEDED (4) | 6.053571 | 10.845375 | 105835 / 9423 / 797 | 0 / 0 / 0 |
+
+两次各121个中心线样本cost范围0..151，完整cost/histogram/cells见各 `costmap-diagnostic.json`。NavFn实际robot→target round cells=(193,160)→(313,160)，runtime内部反向设start/goal；Smac基于保存世界pose推得floor cells=(193,159)→(313,160)，同样保留NavFn round映射，不混用两种语义。
+
+| raw bytes SHA256 | before | after |
+|---|---|---|
+| NavFn | `6c419256e2b945c28934568d5f373b1ffc6220b84a26db994589abdefb7cd132` | 与before一致 |
+| Smac | `0d15a30c5891219c99f65eed6ebd47735ad178e6f8e2ef4154e8eb03c04fb183` | 与before一致 |
+
+同400×320/resolution/origin栅格，独立启动之间**527/128000 cells不同（0.4117%）**；相对start route neighborhood x∈[-0.8,6.8], |y|≤1.3共有7904 cells，其中82不同、2个unknown转换、4个不可通行分类转换。choke中心x∈[2,4], |y|<0.85共有1360 cells，其中40不同、max |cost delta|=83、1个不可通行分类转换。两次pose导出的区域统计一致；坐标/阈值和计算代码见 `analyze_planner_ab.py`。
+
+**输入cost field差异是直接planner优劣对比的confound**，不能因为整图百分比小就假定NavFn对通道梯度变化不敏感。本轮只确认两者在线可完成这一各自观测case；路径长和roundtrip仅描述，不用于排名，roundtrip也不是纯算法耗时。与原6m离线raw SHA256 `f5b9df0a004fff0ba54d678dcd867cdab8228668d1bf575abded3b0165f82412` 相比，当前NavFn/Smac输入分别1221/964 cells变化；当前NavFn成功不能推翻旧冻结输入上的extraction trap证据。本轮未再次做离线replay。
+
+原始路径：
+- NavFn：`/tmp/b2w-online-planner-ab/navfn/20261013T091018.976929Z/B-w1.7000-seed0`。
+- Smac：`/tmp/b2w-online-planner-ab/smac/20261013T091125.669526Z/B-w1.7000-seed0`。
+- 两目录各包含runtime-parameters.json、planner_server加载/运行日志、raw前后、costmap-diagnostic、compute-path-result、preplan、result、cleanup。
+- 汇总 `planner-ab-summary.json`，图 `planner-ab-costmaps.png`。
+
+### 阶段2：单次Smac GUI真实导航
+
+仅Smac阶段1实际成功后进入；domain189，GUI=true/RViz=true，独立相同fixture、readiness和6m相对目标。阶段2先做一次单独preplan安全关卡（SUCCEEDED，length=6.053571m，roundtrip=11.384557ms），然后仅发送**一次NavigateToPose**；BT正常重规划另计。完整路径 `/tmp/b2w-online-planner-ab/navigation/20261013T091318.131156Z/B-w1.7000-seed0`。
+
+| 指标 | 实际值及定义 |
+|---|---|
+| NavigateToPose / BT | SUCCEEDED (4)；bt_navigator runtime Goal succeeded |
+| FollowPath | 最终goal SUCCEEDED (4)，controller runtime Reached the goal |
+| 规划及重规划 | 导航期间14次/plan发布，首条后13次；日志共15个ComputePath请求，含1次独立preplan及14次BT规划 |
+| recovery | feedback max number_of_recoveries=0 |
+| collision plate | rising-edge计数0，1395样本，无>50N；max force=1.118986N；不是全身覆盖 |
+| SLAM odom轨迹长度 | 5.846329m，不是global plan长度 |
+| 真值评价轨迹长度 | 5.889731m；1395样本，sim_world frame |
+| time to goal | 13.942500仿真秒；不含用户观察hold |
+| final error | 0.238153m，fresh map→base_link到map目标；不是Gazebo真值误差 |
+| corridor_entered_truth / passed_truth | true / true；采样机器人中心进入并穿过gate，非全身clearance证明 |
+| 定位新鲜度 | 29次样本TF与SLAM odom stamp age=0.305..0.410s；odom wall age=0.0138..0.11984s；map age=0.0075..1.0075s |
+| 三段cmd最大abs vy | raw / smoothed / nav_vel均0 |
+| 三段最大abs vx,wz | raw=(0.4,0.6)，smoothed/nav_vel=(0.4,0.24) |
+| progress/controller warnings | 仅一次默认general_goal_checker提示；无progress checker失败或No valid trajectories日志 |
+
+保存原始BT event logs、planner/BT/FollowPath action UUID+stamp+status、全部global plans、三段cmd、完整SLAM odom、带frame/stamp真值、全部plate样本、feedback与rosout。FollowPath共14个UUID，13个旧goal终态observed ABORTED(6)，最终goal SUCCEEDED(4)，runtime同期逐次Passing new path to controller；这些observed状态**不改写**本次NavigateToPose成功结果，primary_controller_failure=null。本轮没有独立验证各旧goal终止原因，不将ABORTED孤立归因DWB、tracking或Smac失败。BT `/status`采样窗口仅收到EXECUTING(2)，最终成功由action result和BT日志确认，未伪称topic捕获了所有终态。
+
+本次raw measurement_scope还保留旧harness标签full_corridor_baseline；实际配置/参数/日志均为Smac诊断配置。最终代码仅修正未来online-navigation输出为fixed_online_navigation，未重写已执行raw evidence。该修正无需再跑导航。
+
+### 人工观察与正常teardown
+
+目标结束后保持GUI/RViz运行，保存 `result-before-cleanup.json`、窗口树与owned GUI PID证据；直到用户本轮明确回复“观察完成”才写确认信号，既有harness随后SIGINT own launch并验证退出。未提前关闭GUI。
+
+用户人工视觉评价原样记录于 `human-observation.json`：进入窄道=是；运动平稳、有轻微减速；未观察到碰撞；global plan合理；RobotModel与地图基本对齐；真正通过choke=是；最终正常到达=是；其他为“窄道内略微变慢、转向较谨慎”。没有单独给“频繁停车”评分，保留其平稳/轻微减速原评价，不擅自补评分。自动速度样本近零只作原始描述，不当成人工停车评价。
+
+NavFn/Smac/导航各登记22/22/26个owned PID/starttime，全部cleanup PASS、remaining={}、launch exit=0。host复核全部已登记live身份和本轮domain/owner token进程消失、Gazebo/RViz窗口关闭；域187/188/189 session lock均通过LOCK_EX|LOCK_NB获取后立即释放。lock文件按原实现仍保留旧PID文本，**可获取锁才是已释放证据**，没有删除lock文件或启动新仿真来验锁。其他用户/root不可读environ记录在审计中；只对本轮可见owned身份及所属用户进程作结论，不声称清理了所有宿主机任务。
+
+baseline/Smac YAML、policy、SLAM YAML和此前launch观测配置SHA256与本轮开始一致。当前HEAD=193170687179a8e86d096c86eb44a632aa971fc9，最新reflog时间2026-10-13 15:21:22+08:00，早于本轮17:10测试；PLAN原历史审计引用66db515...并非本轮起始HEAD。首次host审计所有cleanup项目已通过，仅硬编码旧HEAD检查失败，保存为cleanup-audit-stale-plan-reference.json；修正审计依据为reflog时间后通过，不掩盖旧检查错误。本轮未commit/push。
+
+最终检查包括34项pytest、Python compile、shell syntax和diff-check；日志与退出码在tests-final.log/checks.json，清理证据在cleanup-host-audit.json。没有正式sweep、Scenario A、多seed/其他width、cost_travel_multiplier/inflation/DWB/vy调参。bundle调用保留原工具逻辑，仅过滤其set-euo开关行，原~/bin工具文件不修改。唯一剩余交付动作是生成用户指定april-review-bundle后停止，生成结果与路径以最终工具输出为准；bundle之后不再回写本文件。

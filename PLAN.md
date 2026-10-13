@@ -16,48 +16,78 @@
 
 ## 范围、当前状态和评审关卡
 
-- 分支：`improve/narrow-navigation`；审计基准 HEAD：`66db5152b3b617d0e5ac5ed65b031573255a4169`；开始时工作区干净。
+- 分支：`improve/narrow-navigation`；历史审计基准 HEAD：`66db5152b3b617d0e5ac5ed65b031573255a4169`；当前HEAD见NOW；上一轮开始时工作区干净；本轮继承已有未提交harness/文档改动。
 - 目标：在 B2-W + LIO-SAM + Nav2 baseline 上先复现真实窄空间失败，再做可回退、单变量或少变量改动。
-- 不改 locomotion policy，不跑长实验，不 push，不 merge main。本轮不修改导航配置、公共 topic/TF、消息类型或模块边界。
+- 不改 locomotion policy，不跑长实验，不 push，不 merge main。本轮复用baseline与上一轮已有的独立单plugin诊断配置；不改公共 topic/TF、消息类型或模块边界。
 - 已读 `AGENTS.md`、`CODEX_GUIDE.md`、`docs/INTERFACE.md`、`docs/INTERFACE_ALIGNMENT.md`、`docs/COURSE_VALIDATION.md`、`docs/RL_SAR_SETUP.md`、`docs/LOCOMOTION_STATUS.md`。参数 SSoT 为当前 YAML/C++/Python 实现；历史 JSON 仅证明当时的有限验收范围。
 - 已应用 using-superpowers、systematic-debugging、brainstorming、writing-plans、verification-before-completion，以及 OpenAI Docs 的模型选择流程。本轮设计属于已有实验流程的有界扩展；用户要求的唯一根计划和评审关卡优先于 Skill 的额外计划/提交流程。不派生子 agent。
 - 旧实施计划归档至 `docs/plans/archive/2026-10-10-local-course-system-plan.md`。历史 design/validation 保留为证据，不是另一个当前 roadmap。无新增 HANDOFF。
-- **本轮交付是只读诊断与计划，不是 harness 实现。** 用户要求“代码、测试或 PLAN.md 一旦发生实质修改”即生成 review bundle 并停止，因此本文件首次落盘后进入评审，不继续写 harness 或 M2 配置。总体目标和 M1 尚未完成。
+- 历史轮次只读与 timing 交付已结束；本轮范围以最新用户请求和下方 NOW 为准。旧实验/交付记录只作历史证据。
 
-## NOW — Milestone 1：只读诊断 + 最小复现 harness
+## NOW — 固定case Online planner A/B 与Smac导航完成（2026-10-13）
 
-- [x] 核对分支、项目入口、接口约束、相关 Skill/SSoT 和历史验证。
-- [x] 核查可用模型信息与官方价格，给出按风险调整的路由建议。
-- [x] 静态追踪完整导航链路、参数、地图语义与低层命令接口；形成下方候选表。
-- [x] 执行环境预检及 5 项只读逻辑探针，并检查本次进程清理。
-- [x] 明确 harness 的场景、指标、故障分类、日志和清理设计。
-- [x] 运行环境恢复：真实 Ubuntu 22.04 host 的 Humble/Fortress、bridge/Nav2、colcon/rosdep CLI、项目 venv、GTSAM、rl_sar ONNX 和 warehouse 就绪；12 包构建、环境检查、20 项 tests、无目标启动 smoke 与 cleanup 均通过。启动节点和参数文件路径已记录；完整运行参数 dump 与 action/lifecycle 验收属于后续 harness。
-- [ ] 实现最小 harness，完成有意义的短单测。
-- [ ] 单次真实 smoke：启动、发 goal、收指标、结束、清理均有证据；不能用离线探针代替。
-- [ ] 生成实现后的 review bundle，并给用户经过 smoke 验证的长测命令。
+固定Scenario B / width=1.70m / seed0 / relative goal=6m；本轮无正式sweep、无调参、无policy改动、无commit/push。证据根目录 `/tmp/b2w-online-planner-ab/`，完整报告见 `docs/NARROW_BASELINE.md` 末节及证据report.md。
 
-环境恢复结果（2026-10-13）：真实 host `zyd-MS-7D97` / 用户 `zyd` / Ubuntu 22.04.5 / Python 3.10.12，分支仍为 `improve/narrow-navigation`。用户已完成系统依赖安装。本次没有执行新的 sudo 系统安装、apt upgrade，或修改 NVIDIA/CUDA/kernel。Humble、Nav2 1.1.20、ros_gz_bridge 0.244.26、Fortress 6.18.0 验收通过。
+- [x] 已读AGENTS/PLAN/NARROW_BASELINE/CODEX_GUIDE及接口；指定20261013_165953 review bundle不存在，记录审查输入缺口。
+- [x] harness扩展参数文件选择、固定单case GUI导航、明确观察完成才清理、runtime dump、BT/action/status/三段cmd/定位/plate完整观测；CLI和观察gate红绿测试。环境ready，rl_sar bundle校验通过。
+- [x] NavFn/domain187独立启动，lifecycle=[3,3,3]及fresh SLAM/map/TF后读取live master；一次ComputePath SUCCEEDED，path=6.154882m，roundtrip=9.383127ms；没有NavigateToPose，cleanup PASS。
+- [x] Smac/domain188同流程；actual loaded plugin已确认，一次ComputePath SUCCEEDED，path=6.053571m，roundtrip=10.845375ms；没有NavigateToPose，cleanup PASS。runtime cost_travel_multiplier=1.0为默认值，未改动；非planner节点参数与NavFn一致。
+- [x] 两个独立raw hash不同，527/128000 cells变化，choke中心40/1360变化；各自before/after不变，中心线unknown/253/254均0，max cost151。**未复现NavFn失败；输入差异构成直接算法对比confound，不作planner优劣排名。** 对旧冻结图分别1221/964 cells变化，不能推翻原离线trap证据。
+- [x] 仅Smac在线成功后进入domain189 GUI/RViz单次6m导航；先一次preplan安全关卡，然后一次NavigateToPose SUCCEEDED。SLAM path=5.846329m，time=13.9425仿真秒，fresh map error=0.238153m，plate计数0（1395样本），truth entered/passed均true。14条global plans，首条后13次重规划；feedback recovery=0；TF age0.305..0.410s，三段vy=0。旧FollowPath observed ABORTED不作primary failure，最终FollowPath成功。
+- [x] 目标结束保留GUI。用户已回复“观察完成”：正常进入/通过choke/到达，运动平稳、轻微减速、转向谨慎、未观察碰撞、plan合理、RobotModel/map基本对齐。完整原评价在human-observation.json；没有擅自补独立停车评分。
+- [x] 确认后SIGINT own launch，22/22/26个owned identities均已退出，remaining={}，launch exit0。host复核窗口与domain后台进程均消失，域187/188/189锁均可非阻塞重新获取；锁文件保留旧PID文本但不持锁。不清理其他会话。
+- [x] 原baseline/Smac YAML/policy/SLAM/既有launch观测配置摘要不变；34项pytest及compile/shell/diff checks通过。报告、原始证据、cleanup、完整性与manifest备齐。
 
-source 异常已复现并裁决：zsh 的 `BASH_SOURCE[0]` 为空，`setup.bash:6` 因此将 cwd 设为 `AMENT_CURRENT_PREFIX`，`:11` 误读源码根目录 `setup.sh`。不需要 prefix 污染也能复现；启动文件未发现旧 workspace source，`dpkg -V ros-humble-ros-workspace` 无异常。干净 zsh source `setup.zsh`、干净 Bash source `setup.bash`、用户 zsh 子进程 source `setup.zsh` 均通过。正常运行采用 Humble `setup.zsh` → 项目 `install/setup.zsh`。未修改系统 setup 或用户 shell 配置，已补充 CODEX_GUIDE 的对应说明。
+**在B/1.70m/seed0/6m这一固定online case中，SmacPlanner2D完成规划并使导航成功通过。** 不泛化到Smac整体优势、最优planner或最小通行宽度。本轮NavFn在线规划也成功；不把不同地图path length/roundtrip当公平性能benchmark。
 
-GTSAM 固定 revision 构建为 4.1.1 并安装到 `.deps`；LIO-SAM 固定 commit 和已有补丁校验通过，四个 executable 已构建并在 smoke 中启动。项目 `.venv` 完成 requirements，NumPy 1.24.4、ONNX Runtime 1.23.2，继承系统 SciPy 1.8.0/PyYAML 5.4.1；仅在 venv 补齐 cffi 后 `pip check` PASS，系统 NumPy 仍为 1.21.5。固定 pretrained policy 导出 ONNX 成功，输入 `[batch,57]`、输出 `[batch,16]`，数值对照最大绝对误差 `1.24e-05`，ONNX SHA256 `da31c0c1820b893608e2d02746bbada16d0abb5de6116277e37ccfb02024c564`。原权重未替换。warehouse 25 个模型与 50 个资源 URI 完整，未重复下载。
+当前HEAD=193170687179a8e86d096c86eb44a632aa971fc9；reflog最新提交为15:21:22+08:00，早于本轮17:10启动。此前66db515...只是历史审计基准。host审计首次旧HEAD硬编码检查失败已保留，实际cleanup均通过；更新为reflog时间证据后完整审计PASS。
 
-完整 colcon build：12 包完成，约 63 秒，return code 0。stderr 保留未使用 Python 变量、CMP0074 和 OpenCV/TBB 链接警告。环境检查 `ready: true`，构建后 20 项 tests PASS。独立域 96、独立 Gazebo partition 的约 27 秒 warehouse/navigation bringup smoke 未发送 goal：clock 8261 条、点云 147 条、原始关节 8259 条、原始 IMU 4131 条，Gazebo/bridge/描述/控制器/LIO-SAM/Nav2 进入启动阶段；cleanup PASS，本轮 24 个进程身份已记录且无运行残留。SIGINT 后的 KeyboardInterrupt/退出码 -2/lifecycle 关闭竞争保留在日志，不冒充启动前崩溃。未验收 Nav2 全部 active、目标到达、物理 tracking 或窄空间实验；rosdep CLI 可用但 init/update 尚未执行。
+唯一剩余交付动作：调用用户指定 `~/bin/april-review-bundle` 后立即停止，不commit/push，不进入新实验。生成是否成功及实际路径以最终工具输出和回复为准，不在bundle后回写本PLAN；下一轮应审查本轮bundle，后续范围须由用户另行指定。
 
-本次证据目录：`/tmp/b2w-env-resume-20261013T033710Z/`。上一轮 bundle 原路径已不存在，上轮未完成结论由保留的 `/tmp/b2w-env-setup-20261013T024746Z/final-status.json` 和会话报告核对。按要求重新生成 review bundle 后停止；review 通过后可继续本 milestone 的 harness，不能进入 Milestone 2。
+## 上一轮已完成 — NavFn budget反证与Smac2D冻结快照诊断（2026-10-13）
 
-### 当前 NOW 补充：Baseline Reproduction timing（2026-10-13）
+本轮用户仅授权离线诊断：不启动Gazebo、不修改baseline、不发NavigateToPose、不跑正式sweep、不调任何navigation参数。先复用6m installed-library replay，仅变calcPath max_cycles；16000仍失败后新增独立Smac2D诊断配置并复用已有四距离raw snapshots。用户明确授权的单plugin诊断优先于下方历史milestone的“不替换”限制，不改变默认导航插件。证据根目录 `/tmp/b2w-navfn-budget-diagnostic/`。
 
-用户本轮授权覆盖上述历史“只读诊断”交付范围：仅定位传感器时间链、最小修复、短验收和 review；不实现 narrow-space harness，不进入 M2，不改 Nav2/LIO-SAM 算法、参数或 rl_sar 策略，不 commit/push。
+- [x] 已读AGENTS/本PLAN/NARROW_BASELINE/CODEX_GUIDE和原replay。最新bundle记录路径为旧bundle.log中的20261013_164150，但文件不存在且目录为空，无法重读；此缺口明确保留。
+- [x] 1600/3200/6400/16000均FAIL，随后追加32000仍FAIL。返回steps全0，npath分别耗尽各budget；第105步后持续困于cell(262,162)，unique cells=54、min距原start cell=3.437555m，exact fallback和zero-gradient均0。各次potential、原1600及相邻预算path prefix逐字节一致。结论仅为“增加 extraction cycle budget 不能解决此case”。
+- [x] 网页/官方当前源码确认rolling已有max_cycles_factor默认4，本机Humble1.1.20硬编码4；只增factor不获本case证据支持。没有把rolling参数写入Humble配置。
+- [x] ros2 pkg executables/pkg prefix、apt包和installed XML确认Smac plugin名 `nav2_smac_planner/SmacPlanner2D`。新增 `course_navigation/config/nav2_smac2d_diag.yaml`，全文只有plugin一行与baseline不同；其余配置、SLAM和policy不变。
+- [x] Smac2D installed plugin createPlan离线1/3/4.5/6m均SUCCESS，path length分别1.000000/3.056684/4.557671/6.065065m。保存raw、path、plugin status、latency、cells/counts、parameters和logs；raw输入输出一致。没有运行action server，action_status=null，不能称live ComputePathToPose结果。
+- [x] 说明同世界pose下NavFn round与Smac floor的cell差异；追加6m原NavFn同cells control也SUCCESS、约6.044869m。只得出“SmacPlanner2D在该固定case成功生成path，而NavFn失败”，不宣称整体更优。
+- [x] Primary四距离+control均owned PID正常退出，remaining={}；此前sandbox DDS受限试调用也清理完毕，primary使用隔离host DDS环境复核。完整性、tests与最终cleanup证据在bundle调用前保存。
 
-- [x] 从实际源码恢复 raw/public IMU 和点云链路；确认已有三线程 executor、独立 callback groups 和保留原 header stamp。
-- [x] 25 s 同窗口 raw/public probe 与临时 callback profiling：raw IMU 200 Hz、cloud 10 Hz、新鲜；原 cloud callback p50 130.37 ms，编码 p50 95.98 ms；Humble `PointCloud2.data` 的 bytes setter 每扫描进行约 307 万次 Python 元素校验，导致 cloud depth=5 积压，并干扰同进程 IMU 调度。
-- [x] 唯一运行代码修复为 `cloud_format.encode` 使用 `array('B').frombytes()`；payload、stamp、frame、字段布局、噪声/dropout、executor 和 QoS 保持原语义。新增 `scripts/check_sensor_timing.py` 和最小回归测试；旧 encoder 测试先失败（约 460 万次 Python 调用），修复后全套 **23 tests PASS**。
-- [x] 相同 warehouse sim / normal / seed=0、相同 ROS domain=91 / localhost=0 与临时 profiling 的 before/after：public cloud 7.269→10 Hz、age p95 647.5→75 ms；public IMU age p95 92.5→10 ms；encode p50 95.98→0.548 ms。两次短会话各 9 个 owned processes，cleanup PASS。
-- [x] 一次原始 `scripts/run_warehouse.sh` 完整 GUI baseline，未发 goal：Gazebo warehouse/B2-W、RViz RobotModel/点云实际可见；7 个 Nav2 lifecycle 全 active，NavigateToPose 可用；SLAM odom 10 Hz、最大 header gap 0.1 s，map_points 持续更新，稳定采样 Waiting-for-IMU=0。25 个 owned processes teardown 后无残留，lock 释放、cleanup PASS；本次完整会话 Gazebo clean exit。
-- [ ] **完整 freshness 验收尚未通过，禁止发目标。** 第一次 TF 最大 age=0.500 s，按严格小于判失败；复核采用既有 adapter 的含边界 `<=0.5 s` 语义，稳定采样仍有 max=0.5075 s、p95=0.4575 s。不能把主要 backlog 消除、SLAM 10 Hz 或 lifecycle active 等同于完整 baseline PASS。稳定 public IMU age p95/max=52.5/110 ms，cloud=122.5/155 ms。既有 `(1,-1)` 目标未发送，导航指标 unavailable。
+唯一剩余收尾动作：生成用户指定april review bundle后立即停止，不commit/push；实际路径以工具输出及最终回复为准，不回写本PLAN。正式planner benchmark尚未开始/未宣称就绪；先审查本bundle，再决定独立在线planner验证与正式对比范围。未启动cost_travel_multiplier/inflation/DWB/vy/实际通道导航/A-B sweep。
 
-证据：`/tmp/b2w-timing-20261013/diagnosis.md`、`timing-before/after-sim/baseline-steady.json`、callback summaries、`freshness-first/steady.json`、tests、owned-process cleanup 和 runtime logs。补充离线 profiling 发现现有 `pose_adapter.cloud` 的地图 bytes setter 也有 30–44 ms callback 开销；**尚未证明它造成 TF 尾部超界，未修改该模块**。原 undeclared `fault_profile` warning 来自上轮查询一个 launch 变量而非节点参数，不能归为 timing 根因。当前保留边界问题供 review 裁决；按用户要求生成 bundle 后停止，不把任何 baseline 状态写成 narrow-space milestone 完成。
+## 上一轮已完成 — Harness review 修复与固定 NavFn extraction 诊断（2026-10-13）
+
+本轮按最新 review 修复 harness shell 自动中止与 controller abort 误归因，仅诊断 B / 1.70 m / seed0 的 1 / 3 / 4.5 / 6 m ComputePathToPose；每个距离独立短测并清理 owned processes，不发送 NavigateToPose。baseline 参数与 policy 完全不变。只加观测：planner/rclcpp DEBUG、实际 raw master costmap 前后快照、floor/round cell 与中心线代价分布。不调参、不跑 42-case sweep、不 commit、不 push；最终生成 april review bundle 后停止。
+
+- [x] 读取项目入口、现行实验说明与 review 要求。`~/APRIL_REVIEW_BUNDLES` 本轮读取为空，上一轮 bundle 文件无法重读；现存 `/tmp/b2w-narrow-characterization/review.md` 已读。上一轮 bundle 动作按用户本轮明确反馈已完成，不再保留为待办。
+- [x] 修复 wrapper 的 set-e 语义与 observed ABORTED 的 primary failure 归因；32项unit tests PASS，shell/compile/diff checks PASS。
+- [x] 核对已安装 Humble 1.1.20 与官方源码的 propagation / extraction 两阶段；live DEBUG确认6m的 calcPath返回0为1600-step cycle exhaustion（path too long）。
+- [x] 四个固定距离独立planner-only诊断已完成：1/3/4.5m规划成功（1.007098/3.181549/5.110684m），6m ABORTED。实际raw costmap、cells、counts、status、length、latency、DEBUG保存在 `/tmp/b2w-navfn-diagnostic/`。未发送导航目标。
+- [x] 安装库离线回放确认6m extraction第105步起困于cell(262,162)内，直到1600步耗尽；相对起点约3.47m，choke内部。归为本代价场下NavFn extraction限制，不是253/254/unknown几何断路；尚未证明cost field驻点的生成原因或独立上游bug。源码片段、实测、回放边界见 `docs/NARROW_BASELINE.md`。4次各22个owned identities cleanup PASS、remaining={}；baseline与HEAD/所有manifest一致，policy摘要一致。
+- [x] 最终bundle输入与诊断报告已准备；所有代码、测试、文档在调用前完成。
+
+本轮唯一收尾动作：调用用户指定 `~/bin/april-review-bundle` 后立即停止；是否完成及实际路径以命令输出和本轮最终回复为准，bundle生成后不再回写本文件。下一轮状态为审查本诊断bundle，不将bundle调用保留为跨轮待办，不进入正式A/B sweep或参数调优。
+
+以下为上一轮 characterization 已完成记录与证据边界，非另一 roadmap。
+
+用户本机 warehouse baseline 已完整复现 PASS（用户提供）：NavigateToPose SUCCEEDED；collision=0；path=1.557 m；time=5.085 s；final error=0.226 m；TF/nav/runtime 正常。视觉评价为平稳、少量停顿、正常转弯、地图基本对齐、无碰撞、到达。该结果覆盖旧 freshness 未通过的历史状态，但不证明窄路边界。
+
+- [x] 读取 AGENTS / CODEX_GUIDE / INTERFACE / INTERFACE_ALIGNMENT、现行 Nav2 YAML、map projector、warehouse/world generator 和启动链。
+- [x] 静态分析配置与对应 Humble 1.1.20 上游语义；路径、片段、推导见 `docs/NARROW_BASELINE.md`（实验说明，不是 roadmap）。
+- [x] 设计 A/B：复用 confined 的 Fortress 系统、floor 与 box 模型，通过现有 world override 启动全部原有模块。每 case 独立重启，同 start=(0,0)、相对 goal=(6,0)，2 m 长 choke；A 上方存在 1.8 m 宽绕行，B 封死绕行。
+- [x] 宽度由实际 YAML 自动推导：padding 后 1.50×0.86 m，resolution=0.05 m；默认 0.80/0.85/0.90/1.00/1.20/1.60/1.70 m，覆盖内切阈值两侧、栅格余量与 inflation 叠加边界。不是安全宽度或已验证通过阈值。
+- [x] 实现最小 harness：fixture/manifest，独立预规划再 NavigateToPose，map/raw costmap/preplan/BT paths、odom/三段 cmd/plate/rosout、结果和失败分类，唯一 token + PID starttime 清理；baseline/policy SHA256。
+- [x] 有意义的几何、路线分类和故障分类 tests；初次缺模块红测后实现转绿。正式全套最终 29 tests PASS（含真实Humble日志级别回归、进程归属清理与unowned保留）。
+- [x] 独立 B/1.70m/seed0 6m目标预规划短测：map/costmap/SLAM TF/三Nav2 active就绪后，中心线121样本unknown=0/blocked=0；NavFn合法potential后path extraction失败，未发导航目标，不归为controller失败。追加明确标注的入口1m harness smoke：SUCCEEDED、collision=0、path=0.775433m、time=2.6575s、error=0.230703m、planning roundtrip=4.293773ms；未进入/通过corridor。Codex未跑宽度sweep。
+- [x] 核查指标、baseline完整性与清理：全部已启动短测会话remaining={}；最终smoke23个owned identities，三段vy=0；29 tests PASS，diff-check PASS。提供正式用户命令见实验说明。独立review三项P2已修正，复核无blocker。后续新增raw controller status日志格式仅做编译/单测检查，未重跑真实仿真。
+- [x] 上一轮 bundle 动作已完成（本轮用户确认）；当前 bundle 目录为空，路径不可重读。
+
+测量边界：保持 online 地图与 SLAM 定位；真值不进入 Nav2。A 保存两条几何候选中心线在实际 costmap 中的 unknown/blocked 样本，存在这些干扰时禁止归因为“planner 过度保守”。预规划与 BT 重规划分别保存，延迟仅为 pre-navigation action 墙钟往返。plate 碰撞反馈不是全身覆盖，缺数据为 null；minimum clearance 无可靠全身数据时为 null。重复 normal seeds 仅控制传感器噪声 RNG，不宣称 physics deterministic。B 仅规划成功、实际进入且完成的 case 能支持 controller/locomotion 通过能力；规划失败不能算作 controller 极限。
+
+实现文件：`scripts/narrow_fixture.py`、`scripts/narrow_processes.py`、`scripts/run_narrow_baseline.py`、`scripts/run_narrow_baseline.sh`、`tests/test_narrow_benchmark.py`。无 baseline/config/公共接口/运控源码修改。证据目录 `/tmp/b2w-narrow-characterization/`。
 
 ## 后续 milestone（均未开始）
 
@@ -213,11 +243,11 @@ GTSAM 固定 revision 构建为 4.1.1 并安装到 `.deps`；LIO-SAM 固定 comm
 
 现有缺口依据：`scripts/run_experiments.py:23–31` 没有 world/start/config/width 参数；`:78` 用26 s等待+弱 readiness；`:88–94` 只在父进程存活时清理且没有最终后代清单；`:99` 把失败合并为 startup_or_runtime_failure。`metrics.py:42` 没有 vy 指标。故当前 runner 不能冒充所要求的 narrow-space harness。
 
-## 长测交付状态
+## 历史长测交付状态（已由当前 NOW 覆盖）
 
 **本轮不发布可执行的 narrow baseline/improved 多 seed 或宽度扫描命令。** 原因是 harness 尚未实现、真实 smoke 未通过，用户规定的“短测通过后给长测命令”条件未满足。不会提供指向不存在脚本/配置的伪可复制命令。实现后 CLI 应覆盖 `--smoke`、`--nav-params`、`--width`、`--seeds`、`--timeout-s`、`--ros-domain-id`、`--output-dir`，并从实际 `--help` 与已通过 smoke 的入口导出命令。
 
-## 本轮打包与停止
+## 历史打包与停止（已由当前 NOW 覆盖）
 
 提交给 review 的内容仅为本文件、旧计划归档及 `/tmp/b2w-narrow-diagnosis-ls7ys2r7/` 的实际检查证据。调用用户指定 `~/bin/april-review-bundle`，把上述日志显式传入（该脚本的固定项目文档列表没有 PLAN.md，但其 untracked 内容收集会包含新计划）。打包后不进入实现、不改参数、不提交、不 push。
 
