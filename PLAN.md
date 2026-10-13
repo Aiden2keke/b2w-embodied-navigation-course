@@ -24,7 +24,22 @@
 - 旧实施计划归档至 `docs/plans/archive/2026-10-10-local-course-system-plan.md`。历史 design/validation 保留为证据，不是另一个当前 roadmap。无新增 HANDOFF。
 - 历史轮次只读与 timing 交付已结束；本轮范围以最新用户请求和下方 NOW 为准。旧实验/交付记录只作历史证据。
 
-## NOW — 固定case Online planner A/B 与Smac导航完成（2026-10-13）
+## NOW — Same-server / same-costmap Scenario-A planner comparison（2026-10-13）
+
+固定 Scenario A / width=1.70 m / seed=0 / relative goal=6 m。只比较 global planner route preference；不发 NavigateToPose、不驱动机器人、不调参、不 sweep、不 commit/push。唯一证据根目录 `/tmp/b2w-same-server-planner-ab/`。
+
+- [x] 读取 AGENTS、PLAN、NARROW_BASELINE、CODEX_GUIDE、接口与现存 review。最新 bundle 20261013_173737 的生成记录仍在，但当前 bundle 目录为空，无法重读；按用户本轮明确 review 结论修正同输入问题。
+- [x] 新建 `course_navigation/config/nav2_dual_planner_diag.yaml`：同一 planner_server 加载 NavFn / Smac2D，使用安装 XML 名称；所有非 planner 配置与 baseline 一致。
+- [x] 新增 `scripts/narrow_planner_comparison.py` 与 harness 固定单 case 开关。readiness 后固定一次 fresh map→base_link 显式 PoseStamped，两个 use_start=true 请求只改变 planner_id；顺序 NavFn→Smac2D，三个 live master raw hash 及 grid geometry 完全一致才 eligible。
+- [x] 单元测试先验证相同输入/请求顺序/hash confound gate/长度与 descriptive raw-cost exposure/固定 case 限制，再实现并运行全部 unit tests。
+- [x] 按指南检查环境与 policy，仅运行一次 A/1.70m/seed0/6m planner-only short smoke。保存 plugin 加载日志与 runtime 参数、exact request、status、path、路线、长度、wall roundtrip、raw stats 和 unknown/253/254 样本。
+- [x] 若 raw map 变化，报告 confound 并停止实验，不冻结地图、不改 update_frequency、不重试。保存 owned token+PID identity cleanup 与完整性证据。
+- [x] 文件路径、关键片段和结论关联已写入实验说明与证据 report；所有交付材料在 bundle 前完成。
+- [ ] 唯一剩余动作：调用用户指定 april-review-bundle 的受控副本（原脚本含禁止set-e/exit，保留打包逻辑并去掉该set/guard改return），之后立即停止，不再回写 PLAN。
+
+结果：dual planner加载成功，同一planner_server PID3315652/starttime34145262与lifecycle前后[3,3,3]；两个请求仅planner_id不同。NavFn ABORTED、空path、chosen_route=unclassified；Smac2D SUCCEEDED、chosen_route=narrow、length=6.065064519m、descriptive raw exposure=18.072379085cost·m（统一before参考图，非内部objective）。before/between raw hash=33e13df9...，after=b123085d...，316/128000 cells变化，**comparison_eligible=false**；按授权边界停止实验，没有重试/冻结map/调update_frequency。42项unit tests通过，23个owned identities已退出、remaining={}、domain192锁释放、host audit PASS；原baseline/policy/SLAM/launch/HEAD摘要不变。当前HEAD=b9acbd55b717388f2425a0bc3f6ee5323ebf32d1。
+
+## 上一轮已完成 — 固定case Online planner A/B 与Smac导航（2026-10-13）
 
 固定Scenario B / width=1.70m / seed0 / relative goal=6m；本轮无正式sweep、无调参、无policy改动、无commit/push。证据根目录 `/tmp/b2w-online-planner-ab/`，完整报告见 `docs/NARROW_BASELINE.md` 末节及证据report.md。
 

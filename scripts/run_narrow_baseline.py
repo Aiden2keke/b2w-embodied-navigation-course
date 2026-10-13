@@ -73,7 +73,8 @@ def run_case(args, case, design):
     env = os.environ.copy()
     env.update(IGN_PARTITION='b2w-narrow-'+token, B2W_NARROW_OWNER=token,
                IGN_LOG_PATH=str(case/'gazebo-log'), OMP_NUM_THREADS='2')
-    diagnostic=args.planner_diagnostic or args.online_navigation
+    comparison=args.same_server_planner_comparison
+    diagnostic=args.planner_diagnostic or args.online_navigation or comparison
     if diagnostic: env['B2W_NARROW_NAVFN_DEBUG']='1'
     owner = OwnedProcesses(token)
     record = dict(scenario_id=design['scenario_id'], corridor_width_m=design['corridor_width_m'],
@@ -96,6 +97,7 @@ def run_case(args, case, design):
     record.update(ros_domain_id=os.environ['ROS_DOMAIN_ID'],ign_partition=env['IGN_PARTITION'],
                   owner_token=token,nav_params_file=str(args.nav_params_file),
                   nav_params_sha256=digest(args.nav_params_file),gui=args.gui,rviz=args.rviz)
+    if comparison: record['comparison_eligible']=False
     os.environ['ROS_LOG_DIR']=str(case/'ros-log')
     env['ROS_LOG_DIR']=os.environ['ROS_LOG_DIR']
     rclpy.init()
@@ -278,6 +280,87 @@ def run_case(args, case, design):
                 record['actual_planner_plugin']=dumps['planner_server'].get('GridBased.plugin')
             # A settled observation interval after actual readiness, not a substitute for it.
             spin_until(lambda:False,2.)
+            if comparison:
+                from geometry_msgs.msg import PoseStamped
+                from narrow_planner_comparison import compare_planners, PLUGIN_TYPES
+                import copy
+                import xml.etree.ElementTree as ET
+                params=dumps['planner_server']
+                if params.get('planner_plugins') != list(PLUGIN_TYPES):
+                    raise RuntimeError('dual_planner_ids_not_loaded')
+                loaded={key:params.get(key+'.plugin') for key in PLUGIN_TYPES}
+                if loaded != PLUGIN_TYPES: raise RuntimeError('dual_planner_types_not_loaded')
+                actual={}
+                for key, package, xml in [('NavFn','nav2_navfn_planner','global_planner_plugin.xml'),
+                                         ('Smac2D','nav2_smac_planner','smac_plugin_2d.xml')]:
+                    cls=ET.parse(f'/opt/ros/humble/share/{package}/{xml}').find('class')
+                    if cls.get('name') != loaded[key]: raise RuntimeError('pluginlib_name_mismatch')
+                    actual[key]=dict(id=key,pluginlib_name=loaded[key],cpp_type=cls.get('type'))
+                def lifecycle_snapshot():
+                    return [await_future(client.call_async(GetState.Request()),5).current_state.id for client in states]
+                def planner_identity():
+                    identities={}
+                    for pid,identity in owner.scan().items():
+                        try:
+                            if b'/planner_server' in Path(f'/proc/{pid}/cmdline').read_bytes():
+                                identities[pid]=identity
+                        except OSError: continue
+                    return identities
+                before_states=lifecycle_snapshot()
+                if before_states != [3,3,3]: raise RuntimeError('startup_not_active')
+                before_pids=planner_identity()
+                if len(before_pids) != 1: raise RuntimeError('planner_server_identity_not_unique')
+                # One fresh TF sample becomes the exact immutable input for both planners.
+                tf=buffer.lookup_transform('map','base_link',Time())
+                tf_age=node.get_clock().now().nanoseconds*1e-9-tf.header.stamp.sec-tf.header.stamp.nanosec*1e-9
+                if not 0 <= tf_age <= .5: raise RuntimeError('localization_stale')
+                state['tf_age_s']=tf_age
+                input_freshness=freshness()
+                if not (input_freshness['odom_wall_age_s'] is not None and input_freshness['odom_wall_age_s'] < .5
+                        and 0 <= input_freshness['odom_stamp_age_s'] <= .5
+                        and input_freshness['map_stamp_age_s'] is not None
+                        and 0 <= input_freshness['map_stamp_age_s'] <= 3.):
+                    raise RuntimeError('localization_stale')
+                start=PoseStamped(); start.header=copy.deepcopy(tf.header)
+                start.pose.position.x=tf.transform.translation.x
+                start.pose.position.y=tf.transform.translation.y
+                start.pose.position.z=tf.transform.translation.z
+                start.pose.orientation=copy.deepcopy(tf.transform.rotation)
+                q=start.pose.orientation
+                yaw=math.atan2(2*(q.w*q.z+q.x*q.y),1-2*(q.y*q.y+q.z*q.z))
+                ox,oy=start.pose.position.x,start.pose.position.y
+                target=PoseStamped(); target.header=copy.deepcopy(start.header)
+                target.pose.position.x=ox+6.*math.cos(yaw)
+                target.pose.position.y=oy+6.*math.sin(yaw)
+                target.pose.orientation.z=math.sin(yaw/2); target.pose.orientation.w=math.cos(yaw/2)
+                write(case/'explicit-start-tf.json',dict(tf=message_to_ordereddict(tf),age_s=tf_age))
+                write(case/'map-before-plan.json',message_to_ordereddict(state['map']))
+                if not costmap_client.service_is_ready(): raise RuntimeError('costmap_service_not_ready')
+                def snapshot():
+                    return message_to_ordereddict(await_future(costmap_client.call_async(GetCostmap.Request()),5).map)
+                def compute(explicit_request):
+                    emit('planning_request',dict(message=message_to_ordereddict(explicit_request)))
+                    return request(planner,explicit_request,15)
+                paired=compare_planners(case,start,target,snapshot,compute,[ox,oy,yaw],1.7)
+                after_states=lifecycle_snapshot()
+                session_pids=planner_identity()
+                paired.update(actual_loaded_plugins=actual,planner_server_owned_pid_start_ticks=session_pids,
+                    planner_server_identity_before=before_pids,planner_server_identity_after=session_pids,
+                    lifecycle_states_before=before_states,lifecycle_states_after=after_states,
+                    lifecycle_session=dict(owner_token=token,ign_partition=env['IGN_PARTITION'],
+                        ros_domain_id=os.environ['ROS_DOMAIN_ID'],launch_pid=process.pid),
+                    explicit_start_tf_age_s=tf_age,explicit_input_freshness=input_freshness,navigation_goals_sent=0)
+                if after_states != before_states or session_pids != before_pids:
+                    paired['comparison_eligible']=False
+                    paired['confounds'].append('planner server identity/lifecycle check failed')
+                for key,info in actual.items(): paired['planners'][key]['actual_loaded_plugin']=info
+                write(case/'comparison.json',paired)
+                record.update(comparison_eligible=paired['comparison_eligible'],
+                    actual_loaded_plugins=actual,start_map_xy_yaw=[ox,oy,yaw],
+                    comparison_file=str(case/'comparison.json'),navigation_goals_sent=0,
+                    global_path_generated=all(p['compute_path_status']==4 for p in paired['planners'].values()))
+                reason='planner_comparison_completed' if paired['comparison_eligible'] else 'planner_comparison_confounded'
+                return record
             if not spin_until(fresh_inputs,5): raise RuntimeError('localization_stale')
             origin=pose()
             if origin is None: raise RuntimeError('localization_stale')
@@ -437,7 +520,7 @@ def run_case(args, case, design):
         record['controller_evidence']=state['logs']
         record['controller_timeout']=any(m['name']=='controller_server' and 'progress' in m['text'].lower() for m in state['logs']) or None
         record['end_reason']=reason
-        record['failure_taxonomy']='none' if reason=='planner_diagnostic_succeeded' else classify_failure(
+        record['failure_taxonomy']='none' if reason in ('planner_diagnostic_succeeded','planner_comparison_completed') else classify_failure(
             reason,record['global_path_generated'],record['controller_abort_observed'],record['collision_count'])
         record['duration_wall_s']=time.monotonic()-wall_start
         record['localization_freshness_at_finish']=freshness()
@@ -480,6 +563,8 @@ def main():
     parser.add_argument('--prepare-only',action='store_true',help='Generate fixtures/manifest without ROS or simulation')
     parser.add_argument('--smoke',action='store_true',help='One B fixture entry-bay 1m goal at widest width; checks harness, not corridor passage')
     parser.add_argument('--planner-diagnostic',action='store_true',help='One fixed B/1.70m/seed0 planning-only case with NavFn DEBUG; never sends NavigateToPose')
+    parser.add_argument('--same-server-planner-comparison',action='store_true',
+        help='One A/1.70m/seed0/6m dual-planner pair, identical explicit start/goal; no NavigateToPose')
     parser.add_argument('--goal-distance',type=float,choices=[1.,3.,4.5,6.],default=6.)
     parser.add_argument('--nav-params-file',type=Path,default=BASELINE)
     parser.add_argument('--online-navigation',action='store_true',help='One B/1.70m/seed0/6m GUI navigation; holds until explicit observation acknowledgement')
@@ -488,6 +573,12 @@ def main():
     parser.add_argument('--hold-for-observation',action='store_true')
     args=parser.parse_args()
     if args.timeout_s<=0 or args.startup_timeout_s<=0: parser.error('Timeouts must be positive')
+    if args.same_server_planner_comparison:
+        if args.smoke or args.planner_diagnostic or args.online_navigation or args.hold_for_observation:
+            parser.error('same-server comparison is a separate planner-only short smoke')
+        args.scenarios=['A']; args.widths=[1.7]; args.seeds=[0]; args.goal_distance=6.
+        args.nav_params_file=ROOT/'course_navigation/config/nav2_dual_planner_diag.yaml'
+        args.gui=args.rviz=False
     args.nav_params_file=args.nav_params_file.resolve()
     if not args.nav_params_file.is_file(): parser.error('nav params file does not exist')
     if args.online_navigation:
@@ -513,9 +604,10 @@ def main():
         map_mode='online',physics_rng_seeded=False,footprint_is_navigation_approximation=True,
         mapping_confounds='Unknown or blocked candidate cells invalidate route preference attribution',
         prepare_only=args.prepare_only,smoke=args.smoke,planner_diagnostic=args.planner_diagnostic,
+        same_server_planner_comparison=args.same_server_planner_comparison,
         nav_params_file=str(args.nav_params_file),nav_params_sha256=digest(args.nav_params_file),
         gui=args.gui,rviz=args.rviz,hold_for_observation=args.hold_for_observation,
-        goal_distance_m=args.goal_distance if args.planner_diagnostic or args.online_navigation else None)
+        goal_distance_m=args.goal_distance if args.planner_diagnostic or args.online_navigation or args.same_server_planner_comparison else None)
     policy=ROOT/'third_party/b2w_rl_sar/policy/b2w/robot_lab/policy.onnx'
     if policy.exists(): manifest['policy_sha256']=digest(policy)
     write(run/'manifest.json',manifest)
@@ -529,8 +621,9 @@ def main():
                     if args.smoke: design['goal_relative_start_xy']=[1.,0.]
                     if args.planner_diagnostic or args.online_navigation: design['goal_relative_start_xy']=[args.goal_distance,0.]
                     design['measurement_scope']='planner_only_diagnostic' if args.planner_diagnostic else (
+                        'same_server_planner_only_comparison' if args.same_server_planner_comparison else (
                         'fixed_online_navigation' if args.online_navigation else (
-                        'entry_bay_harness_smoke' if args.smoke else 'full_corridor_baseline'))
+                        'entry_bay_harness_smoke' if args.smoke else 'full_corridor_baseline')))
                     write(case/'fixture.json',design)
                     if args.prepare_only: continue
                     result=run_case(args,case,design); results.append(result)
