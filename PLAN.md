@@ -46,6 +46,19 @@ GTSAM 固定 revision 构建为 4.1.1 并安装到 `.deps`；LIO-SAM 固定 comm
 
 本次证据目录：`/tmp/b2w-env-resume-20261013T033710Z/`。上一轮 bundle 原路径已不存在，上轮未完成结论由保留的 `/tmp/b2w-env-setup-20261013T024746Z/final-status.json` 和会话报告核对。按要求重新生成 review bundle 后停止；review 通过后可继续本 milestone 的 harness，不能进入 Milestone 2。
 
+### 当前 NOW 补充：Baseline Reproduction timing（2026-10-13）
+
+用户本轮授权覆盖上述历史“只读诊断”交付范围：仅定位传感器时间链、最小修复、短验收和 review；不实现 narrow-space harness，不进入 M2，不改 Nav2/LIO-SAM 算法、参数或 rl_sar 策略，不 commit/push。
+
+- [x] 从实际源码恢复 raw/public IMU 和点云链路；确认已有三线程 executor、独立 callback groups 和保留原 header stamp。
+- [x] 25 s 同窗口 raw/public probe 与临时 callback profiling：raw IMU 200 Hz、cloud 10 Hz、新鲜；原 cloud callback p50 130.37 ms，编码 p50 95.98 ms；Humble `PointCloud2.data` 的 bytes setter 每扫描进行约 307 万次 Python 元素校验，导致 cloud depth=5 积压，并干扰同进程 IMU 调度。
+- [x] 唯一运行代码修复为 `cloud_format.encode` 使用 `array('B').frombytes()`；payload、stamp、frame、字段布局、噪声/dropout、executor 和 QoS 保持原语义。新增 `scripts/check_sensor_timing.py` 和最小回归测试；旧 encoder 测试先失败（约 460 万次 Python 调用），修复后全套 **23 tests PASS**。
+- [x] 相同 warehouse sim / normal / seed=0、相同 ROS domain=91 / localhost=0 与临时 profiling 的 before/after：public cloud 7.269→10 Hz、age p95 647.5→75 ms；public IMU age p95 92.5→10 ms；encode p50 95.98→0.548 ms。两次短会话各 9 个 owned processes，cleanup PASS。
+- [x] 一次原始 `scripts/run_warehouse.sh` 完整 GUI baseline，未发 goal：Gazebo warehouse/B2-W、RViz RobotModel/点云实际可见；7 个 Nav2 lifecycle 全 active，NavigateToPose 可用；SLAM odom 10 Hz、最大 header gap 0.1 s，map_points 持续更新，稳定采样 Waiting-for-IMU=0。25 个 owned processes teardown 后无残留，lock 释放、cleanup PASS；本次完整会话 Gazebo clean exit。
+- [ ] **完整 freshness 验收尚未通过，禁止发目标。** 第一次 TF 最大 age=0.500 s，按严格小于判失败；复核采用既有 adapter 的含边界 `<=0.5 s` 语义，稳定采样仍有 max=0.5075 s、p95=0.4575 s。不能把主要 backlog 消除、SLAM 10 Hz 或 lifecycle active 等同于完整 baseline PASS。稳定 public IMU age p95/max=52.5/110 ms，cloud=122.5/155 ms。既有 `(1,-1)` 目标未发送，导航指标 unavailable。
+
+证据：`/tmp/b2w-timing-20261013/diagnosis.md`、`timing-before/after-sim/baseline-steady.json`、callback summaries、`freshness-first/steady.json`、tests、owned-process cleanup 和 runtime logs。补充离线 profiling 发现现有 `pose_adapter.cloud` 的地图 bytes setter 也有 30–44 ms callback 开销；**尚未证明它造成 TF 尾部超界，未修改该模块**。原 undeclared `fault_profile` warning 来自上轮查询一个 launch 变量而非节点参数，不能归为 timing 根因。当前保留边界问题供 review 裁决；按用户要求生成 bundle 后停止，不把任何 baseline 状态写成 narrow-space milestone 完成。
+
 ## 后续 milestone（均未开始）
 
 **Milestone 2：独立配置中的最小改动实验。** 前提为 M1 完成、bundle 审查通过、失败证据明确。先验证 lateral 命令和实际 tracking，再考虑 `course_navigation/config/nav2_narrow_v1.yaml`；baseline 文件保持原样。只依据有效命令范围、adapter 限制、Nav2 语义和短测 tracking 选择值，不把 C++ clamp 当作物理安全速度证明。随后才按证据依次评估 padding/inflation、unknown。第一轮不替换 NavFn 或 DWB。

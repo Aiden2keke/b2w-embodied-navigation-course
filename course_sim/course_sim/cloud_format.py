@@ -1,4 +1,5 @@
 """Decode strided PointCloud2 layouts and preserve known XT32 beam geometry."""
+from array import array
 import numpy as np
 from sensor_msgs.msg import PointCloud2, PointField
 
@@ -64,5 +65,9 @@ def encode(points, header):
                       point_step=24, row_step=24 * len(points), is_dense=True)
     for name, datatype in [('x', 7), ('y', 7), ('z', 7), ('intensity', 7), ('ring', 4), ('time', 7)]:
         msg.fields.append(PointField(name=name, offset=OUTPUT.fields[name][1], datatype=datatype, count=1))
-    msg.data = points.astype(OUTPUT, copy=False).tobytes()
+    # Humble validates bytes one element at a time; its uint8 array path avoids
+    # that Python work for full scans while retaining exactly the same payload.
+    data = array('B')
+    data.frombytes(points.astype(OUTPUT, copy=False).tobytes())
+    msg.data = data
     return msg
