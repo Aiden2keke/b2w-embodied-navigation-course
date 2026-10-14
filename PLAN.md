@@ -16,7 +16,7 @@
 
 ## 范围、当前状态和评审关卡
 
-- 分支：`improve/narrow-navigation`；历史审计基准 HEAD：`66db5152b3b617d0e5ac5ed65b031573255a4169`；当前HEAD见NOW；上一轮开始时工作区干净；本轮继承已有未提交harness/文档改动。
+- 分支：`improve/narrow-navigation`；历史审计基准 HEAD：`66db5152b3b617d0e5ac5ed65b031573255a4169`；当前HEAD见NOW；本规划轮开始时tracked工作区干净，仅继承untracked `video/`；旧harness/文档已在当前HEAD中。
 - 目标：在 B2-W + LIO-SAM + Nav2 baseline 上先复现真实窄空间失败，再做可回退、单变量或少变量改动。
 - 不改 locomotion policy，不跑长实验，不 push，不 merge main。本轮复用baseline与上一轮已有的独立单plugin诊断配置；不改公共 topic/TF、消息类型或模块边界。
 - 已读 `AGENTS.md`、`CODEX_GUIDE.md`、`docs/INTERFACE.md`、`docs/INTERFACE_ALIGNMENT.md`、`docs/COURSE_VALIDATION.md`、`docs/RL_SAR_SETUP.md`、`docs/LOCOMOTION_STATUS.md`。参数 SSoT 为当前 YAML/C++/Python 实现；历史 JSON 仅证明当时的有限验收范围。
@@ -24,7 +24,311 @@
 - 旧实施计划归档至 `docs/plans/archive/2026-10-10-local-course-system-plan.md`。历史 design/validation 保留为证据，不是另一个当前 roadmap。无新增 HANDOFF。
 - 历史轮次只读与 timing 交付已结束；本轮范围以最新用户请求和下方 NOW 为准。旧实验/交付记录只作历史证据。
 
-## NOW — LIGHT failure frozen causal diagnosis (2026-10-14)
+## NOW — Smac2D + BaseObstacle + footprint legality gate implemented (2026-10-14)
+
+**Current authorized action:** execute the already-reviewed design in this workspace. The candidate YAML and regression test now exist. Only offline/static validation is authorized; no Gazebo/Nav2, goals, live parameter changes, commit or push. Evidence: `/tmp/b2w-footprint-gate-implementation`; final bundle directory: `/home/zyd/APRIL_REVIEW_BUNDLES`. No additional plan-only checkpoint or agents.
+
+**Implementation status:** exact two-line insertion completed; RED was 2 missing-candidate failures / 3 passes, then all **53** specified config/frozen-critic/observer tests passed in 4.59s. A fresh temporary no-node/no-DDS pluginlib probe compiled and instantiated both installed critics successfully. No live result exists.
+
+**Goal:** create one independent diagnostic derived from current Smac2D + DWB, preserving BaseObstacle and adding ObstacleFootprint as a perimeter-legality gate with a bounded, small positive soft score. This is a diagnostic single-variable experiment, not the new baseline.
+
+**Architecture / stack:** copy `course_navigation/config/nav2_smac2d_diag.yaml` verbatim, insert one critic immediately after BaseObstacle and its positive scale. Use installed ROS 2 Humble Nav2 1.1.20 pluginlib/DWB, PyYAML and pytest. Preserve the existing launch and LIGHT observer; no public topic, TF, message or module-boundary change is needed. Execution stays inline in this authorized workspace; no worktree or extra roadmap is required for this config-only change.
+
+**Current HEAD:** `945afc9e8af2d9782fe0e901dfed5624431e44f3` on `improve/narrow-navigation`; local HEAD, cached origin ref and live `git ls-remote` agree. The plan-only turn used `b30055eba0f576a6ad170baf9979ff60b12f5c18`; the user subsequently committed/pushed four video files through Git LFS. Video contents, index pointers and `.gitattributes` are protected; no commit or branch change by this implementation turn.
+
+**Inputs read / provenance:** `AGENTS.md`, `CODEX_GUIDE.md`, this plan, diagnosis and source configs. Approved plan-only bundle `APRIL_REVIEW_BUNDLE_b2w-embodied-navigation-course_20261014_155445.md` was absent from the requested directory but read from `/home/zyd/.local/share/Trash/files/` without restoring or modifying it; SHA256 `6ba98fc567f8c9ca6062f2178e4b39fd4eba49d0c0039863e0fb2bee0f031634` matches the prior saved verifier. It embeds the inherited plan verbatim. Historical evidence HEADs below identify their original captures, not the current repository state.
+
+### Scientific motivation and constraints
+
+Four exact frozen local map/recorded-pose inputs at simulation stamps **95.3975, 95.9975, 96.5975, 97.1975** are center-legal for installed BaseObstacle and perimeter-illegal for installed ObstacleFootprint because perimeter cells have cost254. First DWB feasibility failure at **95.035** precedes the first saved mismatch. The first rejecting critic and exact failing rollout are unknown; LIGHT did not subscribe to evaluation. These snapshots demonstrate an approximation gap, not the initial cause or a feasible alternate trajectory. Center253 can be Base-illegal while the perimeter is Footprint-legal: replacement loses an existing rejection. **KEEP BaseObstacle; ADD the gate.**
+
+- Freeze baseline `nav2.yaml` and source diagnostic `nav2_smac2d_diag.yaml` byte-for-byte. Their SHA256 values are respectively `d63852ab2eed9c6cc1c258aaf2bdc2b11753ff9d9969e1885785d3cab2a87046` and `97e4eb2bcf58faa3f3a19728b4d17437b9dfe615d07964902e24bb5057a98e9e`.
+- Preserve SmacPlanner2D, the absent `cost_travel_multiplier` key (installed default **1.0**, do not newly set it), and all planner parameters.
+- Preserve BaseObstacle.scale **0.02**, every old critic name/order/scale (including implicit Oscillation.scale=1), and defaults such as `sum_scores=false`.
+- Preserve controller20Hz, failure_tolerance0.3, all vx/vy/wz/speed/sample/acceleration/deceleration settings, reverse vx and disabled vy, both costmaps, footprint/padding/inflation, smoother, SLAM, RL policy and adapter.
+- No DWB source change, weight tuning, debug subscription, interface change, autonomous warehouse experiment or success claim from one passage. No `set -e`, `set -euo pipefail`, `exit`, or `pkill -f` execution. Existing launch wrappers contain automatic-abort options; user-run commands below bypass those wrappers without modifying them.
+
+### A. Versioned and installed semantics: evidence before configuration
+
+Installed packages `ros-humble-dwb-core` and `ros-humble-dwb-critics` report **1.1.20**. Official sources are pinned to tag1.1.20, not rolling. Local copies and paths below were read; use `nl -ba` for exact line references when preparing the implementation report. Installed constants in `/opt/ros/humble/include/nav2_costmap_2d/nav2_costmap_2d/cost_values.hpp` are `INSCRIBED_INFLATED_OBSTACLE=253`, `LETHAL_OBSTACLE=254`, `NO_INFORMATION=255`, `MAX_NON_OBSTACLE=252`.
+
+1. [Official BaseObstacle source](https://github.com/ros-navigation/navigation2/blob/1.1.20/nav2_dwb_controller/dwb_critics/src/base_obstacle.cpp), local `/tmp/b2w-light-causal-review/official/base_obstacle.cpp`, `scorePose` / `isValidCost`:
+
+   ```cpp
+   unsigned char cost = costmap_->getCost(cell_x, cell_y);
+   if (!isValidCost(cost)) {
+     throw dwb_core::
+           IllegalTrajectoryException(name_, "Trajectory Hits Obstacle.");
+   }
+   // isValidCost:
+   return cost != nav2_costmap_2d::LETHAL_OBSTACLE &&
+          cost != nav2_costmap_2d::INSCRIBED_INFLATED_OBSTACLE &&
+          cost != nav2_costmap_2d::NO_INFORMATION;
+   ```
+
+   Why: every rollout pose's **center cell** is checked;253/254/255 and off-grid centers throw. Base inherits `TrajectoryCritic::getScale()` returning `scale_`, without resolution normalization.
+
+2. [Official ObstacleFootprint source](https://github.com/ros-navigation/navigation2/blob/1.1.20/nav2_dwb_controller/dwb_critics/src/obstacle_footprint.cpp), local `/tmp/b2w-light-causal-review/official/obstacle_footprint.cpp`, `getOrientedFootprint`, `scorePose`, `lineCost`, `pointCost`:
+
+   ```cpp
+   new_pt.x = pose.x + footprint_spec[i].x * cos_th - footprint_spec[i].y * sin_th;
+   new_pt.y = pose.y + footprint_spec[i].x * sin_th + footprint_spec[i].y * cos_th;
+   ```
+
+   ```cpp
+   line_cost = lineCost(x0, x1, y0, y1);
+   footprint_cost = std::max(line_cost, footprint_cost);
+   ```
+
+   ```cpp
+   if (cost == nav2_costmap_2d::LETHAL_OBSTACLE) {
+     throw dwb_core::
+           IllegalTrajectoryException(name_, "Trajectory Hits Obstacle.");
+   } else if (cost == nav2_costmap_2d::NO_INFORMATION) {
+     throw dwb_core::
+           IllegalTrajectoryException(name_, "Trajectory Hits Unknown Region.");
+   }
+   return cost;
+   ```
+
+   Why: `prepare()` obtains the padded `getRobotFootprint()`. `scorePose` rotates/translates it and checks rasterized edges, including the closing edge; `lineCost` uses LineIterator.254/255 throw;253 is accepted and scored. Center is checked for map bounds, not center cost. No interior fill or 3D moving-leg collision envelope is checked. Maximum legal pose raw cost is **253**. Both critics inherit BaseObstacle `scoreTrajectory`: `double pose_score = scorePose(traj.poses[i]); score = static_cast<double>(sum_scores_) * score + pose_score;`. `sum_scores` defaults false, so all sampled poses are checked and the returned legal trajectory score is the **last pose** cost, not the sum or maximum over poses.
+
+3. [Official DWB source](https://github.com/ros-navigation/navigation2/blob/1.1.20/nav2_dwb_controller/dwb_core/src/dwb_local_planner.cpp), local `/tmp/b2w-warehouse-diagnosis/official/dwb_local_planner.cpp`, `scoreTrajectory`:
+
+   ```cpp
+   cs.scale = critic->getScale();
+   if (cs.scale == 0.0) {
+     score.scores.push_back(cs);
+     continue;
+   }
+   double critic_score = critic->scoreTrajectory(traj);
+   ```
+
+   Why: zero scale skips scoring and every scoring exception. **scale=0 is not a hard-only gate.** Preserve `short_circuit_trajectory_evaluation=true`: earlier rejection or a partial score exceeding the current best may prevent later critics running. Inserting immediately after BaseObstacle retains existing cheap center rejection and puts the added check before alignment/distance scoring. A winning, fully competitive trajectory must reach the gate; do not claim the critic executes on every discarded candidate.
+
+4. Installed `/opt/ros/humble/include/dwb_critics/obstacle_footprint.hpp`, matching [official header1.1.20](https://github.com/ros-navigation/navigation2/blob/1.1.20/nav2_dwb_controller/dwb_critics/include/dwb_critics/obstacle_footprint.hpp):
+
+   ```cpp
+   double getScale() const override {return costmap_->getResolution() * scale_;}
+   ```
+
+   Why: configured scale is multiplied by actual local resolution, so copying BaseObstacle's numeric scale does not preserve its effective scale.
+
+5. Installed XML `/opt/ros/humble/share/dwb_critics/default_critics.xml`:
+
+   ```xml
+   <class type="dwb_critics::ObstacleFootprintCritic" base_class_type="dwb_core::TrajectoryCritic">
+   ```
+
+   `DWBLocalPlanner::resolveCriticClassName` appends `Critic` when absent and searches default namespace `dwb_critics`; `loadCritics` uses `createUniqueInstance`. YAML shorthand **ObstacleFootprint** resolves to this registered type. Retain the existing shorthand convention; do not invent a slash-form plugin name or add an unnecessary `.class` override.
+
+### B/C. Exact implemented delta and numerical soft-score bound
+
+Created `course_navigation/config/nav2_smac2d_footprint_gate_diag.yaml` from current Smac diagnostic bytes. Exact behavior delta under `controller_server.ros__parameters.FollowPath`:
+
+```diff
+       - BaseObstacle
++      - ObstacleFootprint
+       - GoalAlign
+ ...
+       BaseObstacle.scale: 0.02
++      ObstacleFootprint.scale: 0.000001
+```
+
+No `ObstacleFootprint.sum_scores` override: installed default false is required by the bound. No other YAML key/value/order change. A YAML comment may explain the diagnostic-only weight, but regression should prefer the exact two-line insertion below to make the allowed change auditable.
+
+Use actual configured local resolution `r=0.05 m`, Footprint maximum legal raw score `Fmax=253`, Base maximum legal raw score `Bmax=252`, and existing Base scale `b=0.02`. Choose a documented threshold **epsilon=1e-5** of the maximum Base legal contribution (0.001%, a diagnostic confound budget, not a production tuning target):
+
+```text
+Base weighted legal maximum = 252 * 0.02 = 5.04
+Footprint weighted legal maximum = 253 * r * s
+Require (253 * r * s) / 5.04 <= 1e-5
+s <= (1e-5 * 5.04) / (253 * 0.05) = 3.984189723320158e-6
+Choose s = 1e-6 > 0, below that ceiling.
+Effective Footprint scale = 0.05 * 1e-6 = 5e-8
+Footprint weighted legal maximum = 253 * 5e-8 = 1.265e-5
+Ratio <= 1.265e-5 / 5.04 = 2.509920634920635e-6
+      = 0.0002509920634920635% of Base's legal maximum.
+```
+
+The saved raw-map metadata uses float32 `.05000000074505806`; substituting that resolution yields ratio about `2.50992067232e-6`, still below epsilon. Nav2 uses its costmap resolution double; compute the regression bound from the YAML resolution and verify the recorded runtime resolution for a user trial. This bound is absolute over a legal trajectory under default `sum_scores=false`, not relative to its actual Base score (which may be0). It cannot guarantee unchanged ordering for ties or score margins≤1.265e-5, nor eliminate short-circuit effects. The purpose is to execute `IllegalTrajectoryException` legality semantics with negligible bounded additional legal score; do not call this a tuned production weight or mathematically pure hard-only gate.
+
+### D. Implemented regression acceptance
+
+**Files:** new YAML and `tests/test_footprint_gate_config.py` implemented; diagnosis and this root plan updated. No modifications to launch/observer, old configs, installed plugins or DWB source. Test consumes current baseline/source bytes and candidate YAML; it produces proof that removing the two insertions exactly recovers the source diagnostic.
+
+- [x] Capture hashes/branch/HEAD and protected-file inventory before execution; reject an unexpected source hash instead of adapting the test to new unrelated config changes.
+- [x] Added the approved pytest file first: RED confirmed the missing candidate. Implemented regression code:
+
+```python
+from copy import deepcopy
+from hashlib import sha256
+from pathlib import Path
+import math
+import xml.etree.ElementTree as ET
+import pytest
+import yaml
+
+ROOT = Path(__file__).resolve().parents[1]
+CONFIG = ROOT / 'course_navigation/config'
+SOURCE = CONFIG / 'nav2_smac2d_diag.yaml'
+CANDIDATE = CONFIG / 'nav2_smac2d_footprint_gate_diag.yaml'
+HASHES = {
+    'nav2.yaml': 'd63852ab2eed9c6cc1c258aaf2bdc2b11753ff9d9969e1885785d3cab2a87046',
+    'nav2_smac2d_diag.yaml': '97e4eb2bcf58faa3f3a19728b4d17437b9dfe615d07964902e24bb5057a98e9e',
+}
+
+def load(path):
+    return yaml.safe_load(path.read_bytes())
+
+def follow(doc):
+    return doc['controller_server']['ros__parameters']['FollowPath']
+
+@pytest.mark.parametrize('name,expected', HASHES.items())
+def test_protected_config_hash(name, expected):
+    assert sha256((CONFIG / name).read_bytes()).hexdigest() == expected
+
+def test_exact_two_line_insertion_and_all_other_settings():
+    original = SOURCE.read_bytes()
+    assert original.count(b'      - BaseObstacle\n') == 1
+    assert original.count(b'      BaseObstacle.scale: 0.02\n') == 1
+    expected = original.replace(
+        b'      - BaseObstacle\n',
+        b'      - BaseObstacle\n      - ObstacleFootprint\n', 1).replace(
+        b'      BaseObstacle.scale: 0.02\n',
+        b'      BaseObstacle.scale: 0.02\n      ObstacleFootprint.scale: 0.000001\n', 1)
+    assert CANDIDATE.read_bytes() == expected
+    source, candidate = load(SOURCE), load(CANDIDATE)
+    before, after = follow(source), follow(candidate)
+    assert after['critics'].count('BaseObstacle') == 1
+    assert after['critics'].count('ObstacleFootprint') == 1
+    idx = before['critics'].index('BaseObstacle') + 1
+    assert after['critics'] == before['critics'][:idx] + ['ObstacleFootprint'] + before['critics'][idx:]
+    restored = deepcopy(candidate)
+    follow(restored)['critics'].remove('ObstacleFootprint')
+    assert follow(restored).pop('ObstacleFootprint.scale') == 1e-6
+    assert restored == source
+    # Exact bytes plus restored-tree equality preserve all old scales/defaults,
+    # vx/vy/reverse/accel/decel/frequency/tolerance, both costmaps and smoother.
+    for key in ('local_costmap', 'global_costmap', 'planner_server', 'velocity_smoother'):
+        assert candidate[key] == source[key]
+    planner = source['planner_server']['ros__parameters']['GridBased']
+    assert planner['plugin'] == 'nav2_smac_planner/SmacPlanner2D'
+    assert 'cost_travel_multiplier' not in planner  # Keep installed default1.0.
+
+def test_legal_score_bound():
+    doc = load(CANDIDATE)
+    params = follow(doc)
+    resolution = doc['local_costmap']['local_costmap']['ros__parameters']['resolution']
+    scale = params['ObstacleFootprint.scale']
+    assert resolution == 0.05
+    assert params['BaseObstacle.scale'] == 0.02
+    assert not params.get('BaseObstacle.sum_scores', False)
+    assert not params.get('ObstacleFootprint.sum_scores', False)
+    assert math.isfinite(scale) and 0 < scale <= (1e-5 * 252 * 0.02) / (253 * resolution)
+    contribution = resolution * scale * 253
+    assert contribution == pytest.approx(1.265e-5)
+    assert contribution / (252 * params['BaseObstacle.scale']) <= 1e-5
+
+def test_installed_plugin_xml_resolution():
+    from ament_index_python.packages import get_package_share_directory
+    xml = Path(get_package_share_directory('dwb_critics')) / 'default_critics.xml'
+    tree = ET.parse(xml)
+    classes = tree.findall('.//class')
+    matches = [c for c in classes if c.attrib['type'] == 'dwb_critics::ObstacleFootprintCritic']
+    assert len(matches) == 1
+    assert matches[0].attrib['base_class_type'] == 'dwb_core::TrajectoryCritic'
+    assert tree.find('.//library').attrib['path'] == 'dwb_critics'
+```
+
+- [x] Copy current source bytes and perform exactly those two insertions; rerun to GREEN. YAML parsing must succeed for all three files. The exact-byte test rules out extra settings, duplicate keys and unintended comment/format rewrites. Whole-tree equality includes footprint, padding and inflation; inventory hashes separately preserve SLAM/policy/adapter outside this YAML.
+- [x] Resolve/create the installed plugin through **pluginlib**, beyond XML parsing: temporary C++ probe under `/tmp`, `pluginlib::ClassLoader<dwb_core::TrajectoryCritic> loader("dwb_core", "dwb_core::TrajectoryCritic");`, assert `loader.isClassAvailable("dwb_critics::ObstacleFootprintCritic")`, call `loader.createUniqueInstance` for it and BaseObstacle, destroy objects before loader. Link with ament dependencies `dwb_core` and `pluginlib`. Do not call rclcpp init, initialize/configure/activate plugins or create nodes/DDS. Save class/type/library path and result; missing plugin is a validation failure, not a skip.
+- [x] Preserve installed-library semantic tests, including center253/254/255 rejection, perimeter253 acceptance/254/255 rejection, interior-only lethal/unknown acceptance, closing edge, yaw and off-grid. These test legality, not navigation success.
+
+Exact allowed unit-test command at execution time (the new test file must exist first):
+
+```zsh
+cd /home/zyd/program/b2w-embodied-navigation-course
+source /opt/ros/humble/setup.zsh
+PYTHONDONTWRITEBYTECODE=1 /usr/bin/python3 -m pytest -p no:cacheprovider \
+  tests/test_footprint_gate_config.py tests/test_frozen_obstacle_critic.py \
+  tests/test_warehouse_observer.py -q
+git diff --check
+sha256sum course_navigation/config/nav2.yaml course_navigation/config/nav2_smac2d_diag.yaml
+```
+
+Only config/unit, YAML parsing, plugin/static checks. No `scripts/test_course.sh`, runtime smoke, replay of navigation, long warehouse test, startup or goal dispatch by the agent. Capture exit codes explicitly; do not use automatic shell abort/exit. Existing tests compile their tiny offline harness under `/tmp`.
+
+### E. Exact user-run commands and protocol (after candidate exists and static checks pass)
+
+Commands below are **prepared for the user**, not executed by the agent. Read guide sections3–4 first; use an already prepared warehouse/install/policy. Terminate any previous same-domain session normally in its owning terminal before starting a fresh trial. GUI+RViz are required. Direct launch uses existing `nav_params_file` support; no wrapper/source change is needed.
+
+Terminal1 (zsh):
+
+```zsh
+cd /home/zyd/program/b2w-embodied-navigation-course
+source /opt/ros/humble/setup.zsh
+source install/setup.zsh
+export ROS_DOMAIN_ID=91
+export ROS_LOCALHOST_ONLY=1
+export IGN_PARTITION="b2w-warehouse-footprint-gate-$ROS_DOMAIN_ID-$$"
+export FASTRTPS_DEFAULT_PROFILES_FILE="$PWD/course_sim/config/fastdds_local.xml"
+export PYTHONPATH="$PWD/.venv/lib/python3.10/site-packages:${PYTHONPATH:-}"
+export LD_LIBRARY_PATH="$PWD/.deps/lib:$PWD/b2w_sim/b2w_controllers/third_party/onnxruntime/lib64:${LD_LIBRARY_PATH:-}"
+export OPENBLAS_NUM_THREADS=1
+export OMP_NUM_THREADS=2
+/usr/bin/python3 /opt/ros/humble/bin/ros2 launch course_bringup course.launch.py \
+  mode:=navigation scene:=warehouse gui:=true rviz:=true \
+  nav_params_file:="$PWD/course_navigation/config/nav2_smac2d_footprint_gate_diag.yaml"
+```
+
+Wait for SLAM/TF/map and Nav2 readiness, not an arbitrary sleep. Terminal1 must show `Using critic "ObstacleFootprint" (dwb_critics::ObstacleFootprintCritic)` and retain BaseObstacle. Runtime snapshots from the observer must confirm Smac2D, unchanged defaults/limits, scale and local resolution.
+
+Terminal2 (zsh; same domain/DDS settings):
+
+```zsh
+cd /home/zyd/program/b2w-embodied-navigation-course
+source /opt/ros/humble/setup.zsh
+source install/setup.zsh
+export ROS_DOMAIN_ID=91
+export ROS_LOCALHOST_ONLY=1
+export FASTRTPS_DEFAULT_PROFILES_FILE="$PWD/course_sim/config/fastdds_local.xml"
+export PYTHONPATH="$PWD/.venv/lib/python3.10/site-packages:${PYTHONPATH:-}"
+export LD_LIBRARY_PATH="$PWD/.deps/lib:$PWD/b2w_sim/b2w_controllers/third_party/onnxruntime/lib64:${LD_LIBRARY_PATH:-}"
+export OPENBLAS_NUM_THREADS=1
+export OMP_NUM_THREADS=2
+/usr/bin/python3 scripts/observe_warehouse_narrow_failure.py \
+  --label smac2d-footprint-gate-light --duration 0 \
+  --output-root /tmp/b2w-warehouse-observer
+```
+
+Do **not** add `--dwb-debug`. Existing LIGHT observer only attaches; Ctrl+C there stops only observation. Manually use approximately the same narrow-aisle RViz map goal as the captured route; do not substitute Gazebo world coordinates.
+
+1. Test **one outbound traversal** first. If it succeeds, return through the **same aisle**. At most **three round trips**; stop repetitions at the first failure. Record each direction/action outcome; one traversal is insufficient to claim improvement.
+2. If it stalls, leave target/config/map/session untouched for **at least25 simulation seconds**, measured from `/clock`, before Ctrl+C **only the observer**. Do not send a replacement goal, cancel, retune, pause/reset or close the GUI in that window.
+3. Record entry refused / aisle passed / aisle stall. Under LIGHT, refusal is an observed outcome; without critic score/rejection telemetry, do not assert that ObstacleFootprint was the rejecting critic. Record runtime plugin/scale confirmation separately.
+4. Record controller20Hz timing/missed-rate warnings and active navigation command-receipt intervals, simulation versus wall duration, TF/signal freshness and observer health. Whole-attach receipt Hz includes idle and is not a measured controller loop rate. Existing unstamped Twist receipts cannot prove computation latency; absence of a warning cannot certify meeting every50ms deadline.
+5. If all three round trips succeed, report only success on this bounded user trial / original intermittent failure not reproduced. Compare timing and route/map context; do not certify physical clearance or promote a baseline.
+
+### F. Decision boundary: argue before recommending
+
+**AGAINST:** the added footprint gate may make this aisle or its entry turns infeasible; frozen mismatches do not prove a valid alternative rollout. First95.035 failure precedes saved mismatches, so the first rollout rejection remains unexplained. Padded perimeter legality does not fill the interior or measure the moving-leg physical envelope. Extra rasterization may hurt controller timing. Tiny positive scoring can affect near-ties; retaining early critics/short-circuit evaluation prevents claims of universal gate execution on all discarded candidates.
+
+**FOR:** exact same-map installed-library replay demonstrates four center/perimeter disagreements. Keeping BaseObstacle preserves center253 rejection and all other existing legality predicates; replacement would lose it. Adding the gate directly tests the demonstrated rectangular-perimeter approximation gap with a bounded soft-score confound and unchanged planner, motion limits, geometry, mapping and tracking chain.
+
+**VERDICT:** recommend only an isolated **diagnostic single-variable experiment**, not a new baseline, production weight, root-cause proof or physical-safety claim. Reverse/abandon this diagnostic if the aisle becomes untraversable, controller timing degrades, the same failure remains, or evidence shows another critic, tracking or map/TF mechanism dominates. Return to original Smac diagnostic for comparison; do not compensate by changing vy, reverse vx, planner, cost_travel_multiplier, inflation, footprint, RL or SLAM in the same trial.
+
+### G. Implementation delivery
+
+- [x] Verified current branch/local/live remote HEAD before edits; captured 283 tracked file hashes excluding inherited `PLAN.md`, plus LFS/index snapshots.
+- [x] Implemented candidate and approved regression with RED/GREEN; preserved frozen installed-library semantic tests. 53 tests pass. Both critics instantiate through installed pluginlib without nodes/DDS.
+- [x] Updated diagnosis and sole root plan; kept exact commands in section E for the user only. No user experiment or live result.
+- [x] Final checks passed: all three YAMLs parse; Python compiles in memory; protected baseline/source hashes unchanged; all 283 inventoried tracked files except the authorized diagnosis match their starting hashes. All four video content SHA256/size match HEAD LFS pointers; index pointers and `.gitattributes` unchanged. Diff/whitespace audit passed. Evidence: `/tmp/b2w-footprint-gate-implementation/static-integrity.json`.
+- [ ] Final operation: run controlled `april-review-bundle` copy (remove only forbidden automatic-abort/exit lines) into `/home/zyd/APRIL_REVIEW_BUNDLES`; verify absolute path/SHA256, branch/HEAD, bundled diff and no video changes, then STOP. No post-bundle edits, commit or push. Actual bundle path/hash are returned in the final report.
+
+Historical plan-only delivery completed as bundle `155445`, verified SHA256 above. Its pending implementation language is superseded by this NOW section.
+
+## 历史已完成 — LIGHT failure frozen causal diagnosis (2026-10-14)
 
 User A–G is the authorized bounded design. Apply debugging, brainstorming, writing-plans, TDD and verification; execute inline in this existing workspace, preserve inherited observer/doc/video edits. No extra plan, no implementation agents, no commit/push. One read-only reviewer is dispatched under the requesting-code-review skill. HEAD 0c31f08e19ce51849f2c06b107e8a89b2ff55ef7. Required original input exists: `/tmp/b2w-warehouse-observer/20261014T065029.802588Z-smac2d-light-smoke`; never modify it. Evidence output `/tmp/b2w-light-causal-review`.
 
@@ -33,9 +337,9 @@ User A–G is the authorized bounded design. Apply debugging, brainstorming, wri
 - [x] E: RED timing regression with 95.x failure and 99.47 stationary onset; add explicit six-second, epoch/goal-bounded precursor chronology using original event seq/receipt/header timestamps, last raw receipt and action transitions. Preserve A–E and null first_causal_layer/missing commands; GREEN tests.
 - [x] F: document AGAINST/FOR/neutral verdict and reversal conditions, physical-evidence limits; no diagnostic navigation YAML yet.
 - [x] G: relevant unit tests, offline replay, compile/static scope checks, original evidence/config integrity; update diagnosis and this plan before bundling.
-- [ ] Final operation: controlled copy of `~/bin/april-review-bundle`, remove only prohibited automatic-abort/exit lines; preserve output exactly `/home/zyd/APRIL_REVIEW_BUNDLES`; verify bundle path/SHA256 then STOP. No live ROS/Gazebo/navigation action or parameter mutation.
+- [x] Historical final bundle was generated: `20261014_152842`, SHA256 `281b314c00b1e7e62d12696ea8a6561caeb928df23d1e56d1a2b965fdbd12b72`, verified again from its recovered Trash copy in the current planning turn. This is not a pending operation.
 
-Result: pre-failure raw/smooth/final receipts each20.0009Hz over83.640–95.035; no multi-second observer backlog indicated. Four local same-map center-legal/perimeter-illegal snapshots95.3975–97.1975, late inverse legality at97.7925. First rejecting critic and physical contact unresolved. Summary adds bounded precursor without changing A–E.48 relevant tests, offline11 selected/26 sweep maps, C++/Python/static checks pass;2324 evidence files and270 protected tracked files unchanged. Read-only reviewer found no critical/important issues; two minor timestamp/header precision findings corrected. Final bundle is the sole remaining operation; its path/SHA256 and success are reported by the final tool output, with no post-bundle plan edits.
+Result: pre-failure raw/smooth/final receipts each20.0009Hz over83.640–95.035; no multi-second observer backlog indicated. Four local same-map center-legal/perimeter-illegal snapshots95.3975–97.1975, late inverse legality at97.7925. First rejecting critic and physical contact unresolved. Summary adds bounded precursor without changing A–E.48 relevant tests, offline11 selected/26 sweep maps, C++/Python/static checks pass;2324 evidence files and270 protected tracked files unchanged. Read-only reviewer found no critical/important issues; two minor timestamp/header precision findings corrected. Historical bundle delivery is complete; current work is exclusively the NOW plan above.
 
 ## 上一轮已完成 — Observer transparency: LIGHT default and self-health (2026-10-14)
 
@@ -157,7 +461,7 @@ Inherited observer/doc implementation is retained. User A–F authorized LIGHT d
 
 实现文件：`scripts/narrow_fixture.py`、`scripts/narrow_processes.py`、`scripts/run_narrow_baseline.py`、`scripts/run_narrow_baseline.sh`、`tests/test_narrow_benchmark.py`。无 baseline/config/公共接口/运控源码修改。证据目录 `/tmp/b2w-narrow-characterization/`。
 
-## 后续 milestone（均未开始）
+## 历史 deferred milestones（当前以 NOW footprint-gate 计划为准）
 
 **Milestone 2：独立配置中的最小改动实验。** 前提为 M1 完成、bundle 审查通过、失败证据明确。先验证 lateral 命令和实际 tracking，再考虑 `course_navigation/config/nav2_narrow_v1.yaml`；baseline 文件保持原样。只依据有效命令范围、adapter 限制、Nav2 语义和短测 tracking 选择值，不把 C++ clamp 当作物理安全速度证明。随后才按证据依次评估 padding/inflation、unknown。第一轮不替换 NavFn 或 DWB。
 
