@@ -1,0 +1,8 @@
+cmake_minimum_required(VERSION 3.16)
+project(frozen_obstacle_critic)
+find_package(ament_cmake REQUIRED)
+find_package(dwb_critics REQUIRED)
+add_executable(frozen_obstacle_critic critic.cpp)
+target_compile_features(frozen_obstacle_critic PRIVATE cxx_std_17)
+target_compile_options(frozen_obstacle_critic PRIVATE -Wall -Wextra -Wpedantic)
+ament_target_dependencies(frozen_obstacle_critic dwb_critics)

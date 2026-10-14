@@ -24,18 +24,29 @@
 - 旧实施计划归档至 `docs/plans/archive/2026-10-10-local-course-system-plan.md`。历史 design/validation 保留为证据，不是另一个当前 roadmap。无新增 HANDOFF。
 - 历史轮次只读与 timing 交付已结束；本轮范围以最新用户请求和下方 NOW 为准。旧实验/交付记录只作历史证据。
 
-## NOW — 0.0 observer-fix closeout（2026-10-14）
+## NOW — LIGHT failure frozen causal diagnosis (2026-10-14)
 
-唯一目标：当前修复后的 replay code/binary，仅一次 Scenario A / width1.70 / seed0 / goal6m 的 SmacPlanner2D cost_travel_multiplier=0.0。source SHA256 `33e13df9eca0acdd072c86af6fedef0bfbe89631095b61d07ade46569771e22b`。证据 `/tmp/b2w-smac-observer-closeout/`。0.5/1/2/4沿用上一轮strict PASS，不重跑。禁止Gazebo/live SLAM/NavigateToPose/warehouse/其他multiplier，baseline与planner源码不改，不commit/push；若SIGSEGV保存证据STOP，禁止第二次replay。
+User A–G is the authorized bounded design. Apply debugging, brainstorming, writing-plans, TDD and verification; execute inline in this existing workspace, preserve inherited observer/doc/video edits. No extra plan, no implementation agents, no commit/push. One read-only reviewer is dispatched under the requesting-code-review skill. HEAD 0c31f08e19ce51849f2c06b107e8a89b2ff55ef7. Required original input exists: `/tmp/b2w-warehouse-observer/20261014T065029.802588Z-smac2d-light-smoke`; never modify it. Evidence output `/tmp/b2w-light-causal-review`.
 
-- [x] 读取指定入口、最新232440 bundle并核对branch/HEAD与上一轮状态；现有observer复制消息，在plugin cleanup/DSO teardown前释放消息与subscription。
-- [x] 编译当前replay，相关unit tests；保存源码/binary摘要与保护配置完整性。
-- [x] 单次0.0：source SHA、完整applied_request、actual 0.0及其余runtime参数、loaded/before/after hash、createPlan、final/unsmoothed path、route、wall time、deactivate/cleanup、returncode=0、remaining={}和strict_case_verified=true全部验收。
-- [x] PASS时更新sensitivity最终表：五值均narrow，仅说明本frozen case无wide/narrow切换；不选最佳权重、不泛化。保留旧0.0=-11异常证据。
-- [x] 45项tests、CMake build、Python compile/diff-check、owned cleanup与完整性审计通过；所有报告与证据备齐。
-- [ ] 最后交付动作：生成april review bundle后立即停止，不再回写PLAN；实际成功与路径以最终工具输出为准。
+- [x] A/B: audit mode/timing/freshness and active-interval command receipts; extract source-linked action/log/command/truth chronology with separate wall-header and simulation-receive clocks; verify official 1.1.20 controller semantics.
+- [x] C/D: add isolated installed-library C++ critic harness and offline replay; test perimeter-only versus filled geometry, 253/254/255 and boundaries; compare each saved local/global map using recorded exact-stamp pose and already-padded footprint, hashes and skew.
+- [x] E: RED timing regression with 95.x failure and 99.47 stationary onset; add explicit six-second, epoch/goal-bounded precursor chronology using original event seq/receipt/header timestamps, last raw receipt and action transitions. Preserve A–E and null first_causal_layer/missing commands; GREEN tests.
+- [x] F: document AGAINST/FOR/neutral verdict and reversal conditions, physical-evidence limits; no diagnostic navigation YAML yet.
+- [x] G: relevant unit tests, offline replay, compile/static scope checks, original evidence/config integrity; update diagnosis and this plan before bundling.
+- [ ] Final operation: controlled copy of `~/bin/april-review-bundle`, remove only prohibited automatic-abort/exit lines; preserve output exactly `/home/zyd/APRIL_REVIEW_BUNDLES`; verify bundle path/SHA256 then STOP. No live ROS/Gazebo/navigation action or parameter mutation.
 
-结果：0.0 strict_case_verified=true、121 poses/narrow、length6.000000089406967m、descriptive exposure375.2000055909157cost·m、planning_wall_ms0.475532、returncode0、remaining={}。observer在cleanup/DSO前释放已核对，本case正常teardown闭环；旧精确SIGSEGV栈仍unavailable。五值最终均strict PASS/narrow，科学结论不变。仅一次新plugin进程，baseline/policy/HEAD不变，不commit/push。
+Result: pre-failure raw/smooth/final receipts each20.0009Hz over83.640–95.035; no multi-second observer backlog indicated. Four local same-map center-legal/perimeter-illegal snapshots95.3975–97.1975, late inverse legality at97.7925. First rejecting critic and physical contact unresolved. Summary adds bounded precursor without changing A–E.48 relevant tests, offline11 selected/26 sweep maps, C++/Python/static checks pass;2324 evidence files and270 protected tracked files unchanged. Read-only reviewer found no critical/important issues; two minor timestamp/header precision findings corrected. Final bundle is the sole remaining operation; its path/SHA256 and success are reported by the final tool output, with no post-bundle plan edits.
+
+## 上一轮已完成 — Observer transparency: LIGHT default and self-health (2026-10-14)
+
+Inherited observer/doc implementation is retained. User A–F authorized LIGHT default causal-core subscriptions, optional `--dwb-debug` (`/evaluation`, `/received_global_plan`, `/transformed_global_plan`, `/local_plan`), pure clock/rate/age/freshness health, and manifest/summary output bytes. Command ages are receive-clock ages, never transport latency; missing/stale causal values stay null. No navigation configuration/interface change or agent-run experiment.
+
+- [x] Read entry/guide/interfaces/observer/tests and official Nav2 Humble 1.1.20 subscriber gates.
+- [x] RED 9 new failures /21 prior passes; GREEN/final30 observer tests, compile/help/static PASS. Existing helper and evaluation callback semantics retained.
+- [x] Completed user smoke `/tmp/b2w-warehouse-observer/20261014T060802.404851Z-smac2d-smoke`:60.0594 wall seconds,388 samples,no errors/stall,24 expected topics and7 parameter nodes. User reports forward/narrow passage and later return success; no deterministic stall conclusion.
+- [x] Whole-attach421 raw/evaluation receipts(~7.01Hz) are not a controller-rate measurement. TF map→base p50/p95/max3.6025/6.9630/8.7375s, odom→base2.8250/4.2945/5.5500s motivated the later user-run LIGHT timing smoke. Backlog/drop hypotheses were not established causality.
+- [x] Read-only review had no findings;270 protected tracked files and HEAD unchanged; no live session/process touched. Evidence `/tmp/b2w-observer-light-review/`.
+- [x] Historical bundle generation completed per saved bundle.log/verifier: `/home/zyd/APRIL_REVIEW_BUNDLES/APRIL_REVIEW_BUNDLE_b2w-embodied-navigation-course_20261014_144352.md`, SHA256`68b7d4cf899a5086098b74249a0ca556c8b5b67b622d92dadd87a4c6045e5c77`. That old bundle file is currently absent; the saved log/verifier remain. This is not a pending task for this review.
 
 ## 上一轮已完成 — 可复用 frozen replay + Smac 小型 sensitivity diagnostic（2026-10-13）
 
