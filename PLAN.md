@@ -24,7 +24,49 @@
 - 旧实施计划归档至 `docs/plans/archive/2026-10-10-local-course-system-plan.md`。历史 design/validation 保留为证据，不是另一个当前 roadmap。无新增 HANDOFF。
 - 历史轮次只读与 timing 交付已结束；本轮范围以最新用户请求和下方 NOW 为准。旧实验/交付记录只作历史证据。
 
-## NOW — Same-server / same-costmap Scenario-A planner comparison（2026-10-13）
+## NOW — 0.0 observer-fix closeout（2026-10-14）
+
+唯一目标：当前修复后的 replay code/binary，仅一次 Scenario A / width1.70 / seed0 / goal6m 的 SmacPlanner2D cost_travel_multiplier=0.0。source SHA256 `33e13df9eca0acdd072c86af6fedef0bfbe89631095b61d07ade46569771e22b`。证据 `/tmp/b2w-smac-observer-closeout/`。0.5/1/2/4沿用上一轮strict PASS，不重跑。禁止Gazebo/live SLAM/NavigateToPose/warehouse/其他multiplier，baseline与planner源码不改，不commit/push；若SIGSEGV保存证据STOP，禁止第二次replay。
+
+- [x] 读取指定入口、最新232440 bundle并核对branch/HEAD与上一轮状态；现有observer复制消息，在plugin cleanup/DSO teardown前释放消息与subscription。
+- [x] 编译当前replay，相关unit tests；保存源码/binary摘要与保护配置完整性。
+- [x] 单次0.0：source SHA、完整applied_request、actual 0.0及其余runtime参数、loaded/before/after hash、createPlan、final/unsmoothed path、route、wall time、deactivate/cleanup、returncode=0、remaining={}和strict_case_verified=true全部验收。
+- [x] PASS时更新sensitivity最终表：五值均narrow，仅说明本frozen case无wide/narrow切换；不选最佳权重、不泛化。保留旧0.0=-11异常证据。
+- [x] 45项tests、CMake build、Python compile/diff-check、owned cleanup与完整性审计通过；所有报告与证据备齐。
+- [ ] 最后交付动作：生成april review bundle后立即停止，不再回写PLAN；实际成功与路径以最终工具输出为准。
+
+结果：0.0 strict_case_verified=true、121 poses/narrow、length6.000000089406967m、descriptive exposure375.2000055909157cost·m、planning_wall_ms0.475532、returncode0、remaining={}。observer在cleanup/DSO前释放已核对，本case正常teardown闭环；旧精确SIGSEGV栈仍unavailable。五值最终均strict PASS/narrow，科学结论不变。仅一次新plugin进程，baseline/policy/HEAD不变，不commit/push。
+
+## 上一轮已完成 — 可复用 frozen replay + Smac 小型 sensitivity diagnostic（2026-10-13）
+
+唯一目标两项：泛化CLI但不放松原gate；同一 frozen A/1.70m/seed0/6m做0.0/0.5/1.0/2.0/4.0五次Smac独立fresh replay。source SHA256 `33e13df9eca0acdd072c86af6fedef0bfbe89631095b61d07ade46569771e22b`。证据 `/tmp/b2w-smac-sensitivity/`。不启动Gazebo/live SLAM/NavigateToPose，不做正式sweep，不改baseline YAML/inflation/footprint/DWB/vy/policy，不commit/push。
+
+- [x] 读取AGENTS/CODEX_GUIDE/PLAN/docs与指定212847 bundle（在回收站找到），核对HEAD=9640ca95fce5c0554bbb5343754bf86deb7dbebf；读取接口文件，只有离线观察器变更。
+- [x] 先红8失败/13通过，重构source/expected-sha必填CLI、fixture元数据原样输出/width读取、严格完整输入/参数/hash gate。允许只跑Smac和单key/tmp overlay；默认仍fresh独立pair。相关45项unit tests绿。
+- [x] 原A pair通过已保存响应的full harness逐项回归；fresh 1.0稳定字段逐项一致且final CSV逐字节一致，NavFn复用旧FAIL不重跑。
+- [x] 恰好运行5个短命offline进程；4项严格PASS，0.0路径保存后对象/DSO teardown SIGSEGV。透明保存异常；修正观察器寿命后剩余4次正常。未重跑0.0，没有第6次。
+- [ ] **五case严格验收未全部完成**：0.0 exact runtime params / applied PoseStamped读回 / wall time结果未落盘，恢复证据只允许partial，strict_case_verified=false。本轮不追加运行。
+- [x] five observed final/unsmoothed routes均narrow，4个有效case均narrow，无wide切换；只得有限“不支持此权重解释本frozen case绕宽路”的结论。0.0 exposure差异为部分证据，非最终选优。核对官方1.1.20默认1.0与Node2D child raw/252边代价公式，不套rolling。
+- [x] 5个owned identities均退出、remaining={}，host domain193=[]；配置/policy/HEAD摘要不变。独立记录0.0 returncode=-11，其余0；完成前验证和所有报告在bundle前完成。
+- [x] 上轮已生成232440 bundle：运行april-review-bundle受控副本（原set-e/exit与用户禁令冲突，沿用已授权做法），生成后立即停止，不再回写PLAN。实际路径/成功以最终输出为准。
+
+工具重构和1.0回归已完成；sensitivity交付为四个严格结果加一个partial异常case，不能报五case全部通过。详见docs末节与report.md；不从单case挑最佳权重。下一步仅由用户审查bundle后另行授权。
+
+## 上一轮已完成 — Frozen same-input planner replay（2026-10-13）
+
+唯一case：最新 Scenario A / width=1.70 m / seed0 / relative goal=6 m。只复用上一轮 `/tmp/b2w-same-server-planner-ab/smoke/20261013T113843.426811Z/A-w1.7000-seed0/` 保存的 before master raw、JSON、NavFn/Smac2D exact requests；原始raw缺失立即STOP，绝不启动仿真生成替代图。无Gazebo/live SLAM/NavigateToPose、无参数修改、无sweep、无commit/push。唯一证据根目录 `/tmp/b2w-frozen-planner-replay/`。
+
+- [x] 读取AGENTS、CODEX_GUIDE、PLAN、NARROW_BASELINE与上一轮report/bundle.log。最新记录bundle为20261013_194403，但当前目录为空，无法重读；明确保留缺口。
+- [x] 校验原始raw SHA256等于上一轮before hash、JSON数据与raw一致、grid size/resolution/origin/frame、两个请求只差planner_id、完整start/goal与use_start=true；保存input-audit.json。
+- [x] 复用FrozenCostmap适配器与本机Humble1.1.20 pluginlib，增加完整PoseStamped读入/回读、plugin load/createPlan/异常及生命周期记录。每planner独立fresh process/costmap，从同raw重载，保留原配置与默认参数。
+- [x] 先做拒绝缺raw/hash失配/geometry失配/request差异的unit tests，再运行相关tests与仅此一个frozen pair；保存加载前、configure后、createPlan后内存与source raw SHA，完整runtime DEBUG及owned PID/starttime/returncode cleanup。
+- [x] 复用path_metrics与route分类，记录floor/实际NavFn round cells、pose count、几何length、createPlan wall time、每raw-cost sample及min/mean/p95/max/unknown/253/254/descriptive exposure；exposure明确非内部objective。
+- [x] 按两planner实际结果写有限结论、未验证边界、integrity、tests/cleanup与实验说明；不增max_cycles诊断、不调参。
+- [x] 前轮212847 bundle已生成并在本轮从回收站读取；不作为本轮待办。
+
+结果：same_input_verified=true。原before raw SHA256 `33e13df9eca0acdd072c86af6fedef0bfbe89631095b61d07ade46569771e22b`，400×320/res=0.05000000074505806/origin=(-10,-8)/map；exact PoseStamped传入并回读相同。NavFn加载成功、createPlan正常返回空path，日志为PathCalc path too long；Smac2D加载/规划成功，121 poses、narrow、length=6.065064518899199m、descriptive exposure=18.072379085130063cost·m，非内部objective。各source/memory SHA完全一致，floor=(193,159)→(313,159)，NavFn runtime round=(193,160)→(313,160)。这是一份冻结输入上的算法行为差异证据，不泛化整体优劣，不是route-preference对比。29项相关unit tests通过；3个owned进程均returncode0、remaining={}（含保留的首次adapter校验失败NavFn调用），host审计PASS；参数/policy/HEAD摘要未变。证据与边界见docs末节和 `/tmp/b2w-frozen-planner-replay/report.md`。
+
+## 上一轮已完成 — Same-server / same-costmap Scenario-A planner comparison（2026-10-13）
 
 固定 Scenario A / width=1.70 m / seed=0 / relative goal=6 m。只比较 global planner route preference；不发 NavigateToPose、不驱动机器人、不调参、不 sweep、不 commit/push。唯一证据根目录 `/tmp/b2w-same-server-planner-ab/`。
 
@@ -35,7 +77,7 @@
 - [x] 按指南检查环境与 policy，仅运行一次 A/1.70m/seed0/6m planner-only short smoke。保存 plugin 加载日志与 runtime 参数、exact request、status、path、路线、长度、wall roundtrip、raw stats 和 unknown/253/254 样本。
 - [x] 若 raw map 变化，报告 confound 并停止实验，不冻结地图、不改 update_frequency、不重试。保存 owned token+PID identity cleanup 与完整性证据。
 - [x] 文件路径、关键片段和结论关联已写入实验说明与证据 report；所有交付材料在 bundle 前完成。
-- [ ] 唯一剩余动作：调用用户指定 april-review-bundle 的受控副本（原脚本含禁止set-e/exit，保留打包逻辑并去掉该set/guard改return），之后立即停止，不再回写 PLAN。
+- [x] 上轮bundle已生成（bundle.log记录20261013_194403）；本轮该文件缺失，保留审查输入缺口，不再作为当前待办。
 
 结果：dual planner加载成功，同一planner_server PID3315652/starttime34145262与lifecycle前后[3,3,3]；两个请求仅planner_id不同。NavFn ABORTED、空path、chosen_route=unclassified；Smac2D SUCCEEDED、chosen_route=narrow、length=6.065064519m、descriptive raw exposure=18.072379085cost·m（统一before参考图，非内部objective）。before/between raw hash=33e13df9...，after=b123085d...，316/128000 cells变化，**comparison_eligible=false**；按授权边界停止实验，没有重试/冻结map/调update_frequency。42项unit tests通过，23个owned identities已退出、remaining={}、domain192锁释放、host audit PASS；原baseline/policy/SLAM/launch/HEAD摘要不变。当前HEAD=b9acbd55b717388f2425a0bc3f6ee5323ebf32d1。
 

@@ -1,6 +1,6 @@
 # Narrow-space baseline characterization
 
-本文件包含实验协议、历史诊断和当前在线证据；唯一当前计划为根目录 `PLAN.md`。baseline 参数全部保持原样。最新结果见末节“Same-server / same-costmap Scenario-A planner comparison”；之前的“尚未验证”描述仅对应其历史轮次。
+本文件包含实验协议、历史诊断和当前在线证据；唯一当前计划为根目录 `PLAN.md`。baseline 参数全部保持原样。最新结果见末节“0.0 observer-fix closeout”；之前的“尚未验证”描述仅对应其历史轮次。
 
 ## 配置事实和语义
 
@@ -367,3 +367,229 @@ raw-cost指标统一引用 **before-planner-1** snapshot，按2D返回path每seg
 cleanup.json登记23个owned PID/starttime，remaining={}、launch_returncode=0；host独立复核 matching_owner_or_domain_processes=[]、域192锁可非阻塞获取、passed=true。未处理其他会话；353个不可读environ记录可见性边界。baseline Nav2/旧Smac诊断/SLAM YAML/原launch/policy与开始时SHA256一致，HEAD仍为 `b9acbd55b717388f2425a0bc3f6ee5323ebf32d1`；完整性证据 integrity-final.json。
 
 review bundle将包含代码、唯一PLAN、实验说明及关键日志/汇总/精确请求/hash/cleanup。原 `~/bin/april-review-bundle` 含禁止的 `set -euo pipefail` / `exit 1`；按上一轮相同做法在/tmp生成受控执行副本，去掉该set开关，把guard的exit改为函数return，保留其余打包逻辑，原工具不修改。调用后立即停止，不再回写PLAN、不commit/push；实际bundle路径以调用输出为准。
+
+
+## Frozen same-input planner replay（2026-10-13）
+
+在完全相同 frozen online costmap、start、goal 下，SmacPlanner2D 成功生成 narrow path，而 NavFn 未生成 path。
+
+这是本机 Humble 1.1.20 安装插件在一个固定输入上的算法行为差异证据，不能泛化为 Smac 整体优于 NavFn。本轮没有 NavFn wide path，不能称为 narrow/wide route-preference 比较或启动 cost preference 调参。
+
+### Frozen input 与完整消息
+
+来源：`/tmp/b2w-same-server-planner-ab/smoke/20261013T113843.426811Z/A-w1.7000-seed0/` 中实际保存的 costmap-before-planner-1.json、costmap-before-planner-1.raw.u8、NavFn-request.json、Smac2D-request.json。没有重建地图、再次inflation或生成替代输入。raw SHA256=`33e13df9eca0acdd072c86af6fedef0bfbe89631095b61d07ade46569771e22b`，128000 bytes；JSON data逐字节相同。上一轮before/between/after的size/resolution/origin一致；本轮只用before原raw，不使用after变化图。frame=map，400×320，resolution=0.05000000074505806 m，origin position=(-10,-8,0)、orientation xyzw=(0,0,0,1)。
+
+两个原始请求去掉planner_id后完全一致，use_start=true。以下是直接传入两个createPlan的完整PoseStamped；C++从实际message回读并逐字段核对，未重建xy/yaw：
+
+```json
+{
+  "use_start": true,
+  "start": {
+    "header": {
+      "stamp": {
+        "sec": 21,
+        "nanosec": 800000000
+      },
+      "frame_id": "map"
+    },
+    "pose": {
+      "position": {
+        "x": -0.342263059846654,
+        "y": -2.1484376320766273e-05,
+        "z": 0.6253661716939958
+      },
+      "orientation": {
+        "x": -0.0002004063763108634,
+        "y": 0.0019433711632007129,
+        "z": -2.0175364453512124e-05,
+        "w": 0.999998091367559
+      }
+    }
+  },
+  "goal": {
+    "header": {
+      "stamp": {
+        "sec": 21,
+        "nanosec": 800000000
+      },
+      "frame_id": "map"
+    },
+    "pose": {
+      "position": {
+        "x": 5.657736935078343,
+        "y": -0.0002682637193574311,
+        "z": 0.0
+      },
+      "orientation": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": -2.0564945257404033e-05,
+        "w": 0.9999999997885415
+      }
+    }
+  }
+}
+```
+
+共同Costmap2D floor start→goal=(193,159)→(313,159)。NavFn实际安装库DEBUG确认round start→goal=(193,160)→(313,160)；其内部日志start=world goal、goal=robot start，按reverse endpoint语义映射。Smac原生使用floor。落格差异是各插件算法语义，未移动world poses使其cells相同。
+
+共同footprint='[[0.70,0.38],[0.70,-0.38],[-0.70,-0.38],[-0.70,0.38]]'，padding=0.05、track_unknown_space=true、allow_unknown=false、tolerance=0.3。安装库float解析/padding的实际padded顶点为±0.7499999888241291 / ±0.4299999959766865 m；两者逐值相同，并与安装版表示核对。NavFn use_astar=true，其余原参数不变；Smac cost_travel_multiplier=1.0及原有smoother/iteration/time默认值逐项与上一轮runtime dump一致，没有调参。
+
+### Plugin replay 与不变性
+
+复用前轮FrozenCostmap适配器，新增 `scripts/frozen_planner_plugin/replay_plugin.cpp` 与 `scripts/frozen_planner_replay.py`。CMake直接使用/opt/ros/humble已安装依赖；pluginlib名称来自本机XML：nav2_navfn_planner/NavfnPlanner、nav2_smac_planner/SmacPlanner2D。包版本、实际DSO/XML/binary SHA在installed-library-audit.json。
+
+每个plugin独立fresh process、node、plugin实例和FrozenCostmap；只创建Costmap2DROS壳/LayeredCostmap内存，不configure/activate任何costmap layer，不重新inflate，不启动SLAM/Gazebo/controller/BT/action server。两者均从同一source raw重新读入。每次source-before/source-after、loaded memory/configure后before-plan/after-plan五项SHA全部等于上述33e13df9…，确认source和master适配没有变化。NavFn自身clearRobotCell行为在本输入上也没有改变bytes。
+
+### 算法层结果
+
+| 指标 | NavFn | Smac2D |
+|---|---|---|
+| plugin load / configure / activate | SUCCESS | SUCCESS |
+| createPlan returned / exception | 正常返回空path / null | 正常返回非空path / null |
+| createPlan success | FAIL | SUCCESS |
+| returned poses / route | 0 / unclassified | 121 / narrow |
+| geometric path length | unavailable（空path） | 6.065064518899199 m |
+| createPlan wall time | 1.24364 ms | 1.414851 ms |
+| raw cost sample count | 0（无path） | 360 |
+| raw cost min / mean / p95 / max | unavailable | 0 / 2.9972222222222222 / 0 / 83 |
+| descriptive integrated raw-cost exposure | unavailable | 18.072379085130063 cost·m |
+| unknown / 253 / 254 samples | 无样本（JSON counts=0不表示free path） | 0 / 0 / 0 |
+
+raw-cost样本取共同frozen before master：2D返回path每段均分为间距≤resolution/2的子段，以中点floor cell取raw cost；统计是未加权min/mean/nearest-rank p95/max。exposure=∑raw_cost(midpoint)·ds，包括255/253/254；越界则null。**这是共同frozen costmap上的描述量，不是NavFn或Smac的内部objective。** 不是连续collision检查、footprint clearance或物理通过证明。wall time为steady_clock覆盖createPlan（含内部smoothing/DEBUG/异常处理），不是action roundtrip；单次DEBUG-enabled样本不支持速度排名。
+
+完整返回path见各plugin/replay.path.csv，完整samples见summary.json与raw-cost-samples.csv，汇总comparison-summary.json保留输入/参数/hash/cleanup和全部metrics。action_status=null，不能称为本轮live ComputePathToPose或NavigateToPose结果。
+
+### NavFn exact installed-library failure
+
+NavFn/runtime.log原文：
+
+```text
+[DEBUG] [1791897705.150885081] [rclcpp]: [NavFn] Setting start to 313,160
+[DEBUG] [1791897705.150888746] [rclcpp]: [NavFn] Setting goal to 193,160
+[DEBUG] [1791897705.151868286] [rclcpp]: [NavFn] Used 140 cycles, 4609 cells visited (37%), priority buf max 198
+[DEBUG] [1791897705.151880059] [rclcpp]: [NavFn] Setting start to 313,160
+[DEBUG] [1791897705.151889206] [rclcpp]: [Path] Pot fn boundary, following grid (7125.5/1)
+[DEBUG] [1791897705.151959799] [rclcpp]: [PathCalc] No path found, path too long
+[ERROR] [1791897705.151961585] [planner_server]: Failed to create a plan from potential when a legal potential was found. This shouldn't happen.
+[WARN] [1791897705.151980013] [planner_server]: NavFn: failed to create plan with tolerance 0.30.
+```
+
+与此前same-server live abort的140cycles/4609visited及legal potential→extraction failure分支一致；旧live service快照仍不是plugin内存的原子trace；可关联历史extraction trap证据。但本轮没有提取potential/gradient或新证明subcell trap位置/机理，没有增加max_cycles或任何额外budget诊断。
+
+### 验证、cleanup、边界与打包
+
+新增10项input/footprint守卫测试；相关unit tests合计29项PASS（tests-final.log）。原raw缺失/hash失配/JSON raw失配/grid geometry/request start/goal/use_start/frame不一致会在plugin加载前停止。安装版float footprint回归验证原值可接受、padding变动和缺顶点不可接受。编译通过，无算法源码重编译/修改。
+
+透明保留adapter-first-attempt：首次NavFn正常执行并返回空path/returncode0，但postprocessing将安装版float顶点误与double字面值做1e-12比较而报错，且NodeOptions日志级别没有启用process-wide NavFn DEBUG。该尝试Smac未运行；三份memory raw hash仍相同。先读取实际footprint、安装float字段及旧成功adapter输出，修正测试/校验并开启rclcpp+planner_server DEBUG后，仅重做同一输入的有效pair。总计3个短命进程（NavFn2次、Smac1次），不是sweep/新case/新输入；保留所有首次证据，没有隐去adapter错误。
+
+有效pair PID/starttime=3381608/34763364、3381621/34763390，首次3379390/34746621；均正常returncode0，deactivate/cleanup完成，owned remaining={}。独立host审计matching_owned_or_domain193=[]；354个不可读/proc项作为可见性边界保留。无pkill-f/无set-e或exit。integrity-final.json确认9项配置/launch/policy和HEAD=9640ca95fce5c0554bbb5343754bf86deb7dbebf未变。
+
+未验证：live导航/SLAM时序、DWB/locomotion、碰撞/全机身净空、真实通道通过、多width/seed/map泛化、路线偏好的cost objective、速度优劣、新版Nav2。上一轮记录的20261013_194403 april bundle当前不存在，目录为空，无法重读；已读上一轮report/bundle.log与本轮明确协议，不声称完成缺失bundle审查。
+
+本轮唯一PLAN NOW为Frozen same-input planner replay。完成所有代码/文档/检查后调用~/bin/april-review-bundle受控副本：只移除禁止set-euo行，将not-repo guard的exit改为函数return，保留打包逻辑和原工具文件。显式包含完整输入审计、原raw的base64、结果/样本/日志/cleanup/integrity/tests/source diff。调用后立即停止，不commit、不push、不再回写PLAN；实际bundle路径以工具输出为准。
+
+
+## Frozen replay 可复用工具与 Smac sensitivity diagnostic（2026-10-13）
+
+本轮仅实现可复用 frozen replay，并在同一 Scenario A / 1.70m / seed0 / relative goal=6m 上执行五次 Smac cost_travel_multiplier 离线诊断。**四个值严格PASS，0.0因观察器销毁阶段SIGSEGV只有部分证据；不能宣称五case全部验收通过。** 五条已保存的final与unsmoothed path均narrow，没有wide或planning fail；NavFn沿用前轮空path FAIL/unclassified参考，没有重复运行。证据根目录 `/tmp/b2w-smac-sensitivity/`。
+
+指定最新review bundle在 `/home/zyd/.local/share/Trash/files/APRIL_REVIEW_BUNDLE_b2w-embodied-navigation-course_20261013_212847.md` 找到并读取；与本轮分支 improve/narrow-navigation / HEAD 9640ca95fce5c0554bbb5343754bf86deb7dbebf一致。初次根目录/常用bundle目录找不到的情况不是最终审查缺口。
+
+### 可复用入口与严格gate
+
+`scripts/frozen_planner_replay.py` 移除 SOURCE、EXPECTED_SHA和A/1.70/seed0/6m allowlist。`--source <case-directory>` / `--expected-sha <sha256>` 必填；`--binary <replay_plugin>` 必填；`--output <dir>` 指定证据位置（默认/tmp旧目录，拒绝复用已存在的planner输出子目录）。fixture完整读取source/fixture.json，scenario/width/seed/relative goal原样写入input-audit、summary和comparison；路线分类使用fixture实际宽度。工具支持该仓库fixture的既有gate-x=3m/上方绕路分类定义，不意味着适用于任意地图布局。
+
+source目录仍须具备原before raw/JSON、between-planners JSON geometry reference、comparison.json记录SHA、NavFn/Smac2D exact requests、fixture.json与runtime-parameters.json。不是无校验raw loader；raw不存在、SHA失配、JSON bytes不等raw、几何不等已保存参考或非法、旋转origin、请求除planner_id外不同、use_start非true、frame不一致都会拒绝。加强有限数值、完整PoseStamped字段/合法stamp/非零quaternion校验；完整xyz、xyzw、stamp和frame经C++读入/回读，不重建xy/yaw。
+
+仍逐项核对加载的全部plugin参数与source runtime dump（含默认参数），相等集合校验同时拒绝额外或缺失key。只在显式`--planner Smac2D --cost-travel-multiplier <finite nonnegative value>`下允许这一key的预期差异；其余参数严格相等。覆盖写入/tmp本case的parameters-overlay.yaml，不改任何repo YAML。默认`--planner both`保留fresh独立pair流程；`--planner Smac2D`只加载Smac。costmap/footprint runtime contract仍严格验证，source-before/source-after与loaded/configured-before-plan/after-plan内存hash全部相等才验收；最后检查还加强source-before不符时在启动plugin前拒绝并将该hash写command.json。各planner仍独立fresh process / FrozenCostmap，无layers更新或再inflation。
+
+本轮调用范式（五个值逐一执行，非正式sweep）：
+
+```sh
+/usr/bin/python3 scripts/frozen_planner_replay.py \
+  --source /tmp/b2w-same-server-planner-ab/smoke/20261013T113843.426811Z/A-w1.7000-seed0 \
+  --expected-sha 33e13df9eca0acdd072c86af6fedef0bfbe89631095b61d07ade46569771e22b \
+  --binary /tmp/b2w-smac-sensitivity/build/replay_plugin \
+  --output /tmp/b2w-smac-sensitivity/1.0 \
+  --planner Smac2D --cost-travel-multiplier 1.0
+```
+
+### 输入不变性与回归
+
+唯一source raw SHA256 `33e13df9eca0acdd072c86af6fedef0bfbe89631095b61d07ade46569771e22b`。400×320 / resolution=0.05000000074505806 / origin=(-10,-8) / frame=map。exact start、goal与前节完整PoseStamped一致（start=(-0.342263059846654,-0.000021484376320766273,0.6253661716939958)，goal=(5.657736935078343,-0.0002682637193574311,0)），四个严格case全部applied_request读回一致。所有五case三份内存raw摘要及起始input-audit/source最终摘要一致。0.0包装器未完成其postprocessing，source_before变量和完整message/params读回result未持久化；不得将恢复字段冒充已通过原严格gate。
+
+回归分两层：unit test用前轮两plugin已保存响应执行重构后的完整pair入口，逐项核对旧summary（原runtime gate和hash额外字段更名/增加，cleanup改为mock），不新增plugin进程；本轮fresh 1.0的全部稳定结果字段、raw采样列表、全部实际参数、完整请求、footprint、floor cells等与旧Smac逐项一致，final path CSV逐字节一致。wall time、ROS path timestamp和fresh process身份自然不同，不声称这些非确定量相等。`reference-regression.json`列出字段与排除理由。NavFn旧FAIL仅作为原证据复用，不称本轮再次验证NavFn算法。
+
+### 五值结果与搜索路径
+
+| actual multiplier | strict runtime gate | createPlan | poses | final route | length m | raw min / mean / p95 / max | descriptive exposure cost·m | unknown / 253 / 254 samples | wall ms |
+|---|---|---|---|---|---|---|---|---|---|---|
+| 0.0 | partial / teardown SIGSEGV | SUCCESS | 121 | narrow | 6.000000089 | 0 / 62.533333333 / 151 / 151 | 375.200005591 | 0 / 0 / 0 | unavailable |
+| 0.5 | PASS | SUCCESS | 121 | narrow | 6.065168877 | 0 / 2.997222222 / 0 / 83 | 18.072379085 | 0 / 0 / 0 | 1.005270 |
+| 1.0 | PASS | SUCCESS | 121 | narrow | 6.065064519 | 0 / 2.997222222 / 0 / 83 | 18.072379085 | 0 / 0 / 0 | 1.009533 |
+| 2.0 | PASS | SUCCESS | 121 | narrow | 6.065168877 | 0 / 2.997222222 / 0 / 83 | 18.072379085 | 0 / 0 / 0 | 1.006195 |
+| 4.0 | PASS | SUCCESS | 121 | narrow | 6.065168877 | 0 / 2.997222222 / 0 / 83 | 18.072379085 | 0 / 0 / 0 | 1.085045 |
+
+wall time仅描述各次createPlan，包括内部smoothing与DEBUG；不作速度排名。raw-cost统计使用前节共同frozen raw与同一midpoint≤resolution/2采样方法，exposure是描述量而非planner objective或净空/碰撞证明。max raw已列在stats最后一项。0.0有240个样本；其余各360。
+
+Humble安装plugin的unsmoothed_plan lifecycle发布器在smoothing之前发布（有subscriber才发布）。适配器仅添加进程内观察器，createPlan后spin_some保存debug message，未改planner源码、smoother参数或关闭smoothing。每case保存完整消息JSON和CSV：replay.unsmoothed.path.* / replay.path.*，对应raw samples CSV。所有unsmoothed均121 poses/narrow：0.0 length=6.000000089406967m，非零均6.207106873679644m、raw min/mean/p95/max=0/2.656/0/83、exposure=16.481329006873718cost·m。非零final几何确有smoothing改变；0.0的raw/final位置相同。不能把final的细微差异理解成宽/窄路线变化。
+
+### 0.0异常与观察器边界
+
+首次0.0 createPlan已返回并保存非空final/unsmoothed path、parameters.txt、三份内存raw；日志显示deactivate/cleanup/插件和costmap销毁已执行。但进程在对象/DSO teardown发生SIGSEGV（PID3445195/starttime35459798、returncode=-11），最后result.json未写出。恢复证据写 `0.0/Smac2D/summary.recovered.json`：actual multiplier=0.0从实际parameters.txt核对，其他参数仅核对到value_to_string精度；完整exact params/applied PoseStamped读回与createPlan steady-clock wall time均unavailable。strict_case_verified=false；不伪造这些字段，不把teardown failure说成planning fail或wide。
+
+排查定位到新增观察器跨plugin/class-loader寿命保留debug message shared_ptr的风险；无core/backtrace，因此这是生命周期根因假设，非精确崩溃栈证明。修正为复制消息到可执行文件拥有的存储并在plugin cleanup/DSO unload前释放；新增configured.json提前保存runtime读回。剩余0.5/1.0/2.0/4.0四次全部正常returncode0，消息各收1条、生命周期cleanup成功、全部原gate通过。依用户只准五次，不重跑0.0；本轮五case严格验收仍未全部完成。没有为消除异常启动第六次或修改planner算法。
+
+### 官方 Humble 1.1.20 语义与有限结论
+
+官方[SmacPlanner2D 1.1.20](https://github.com/ros-navigation/navigation2/blob/1.1.20/nav2_smac_planner/src/smac_planner_2d.cpp#L67-L69)声明cost_travel_multiplier默认1.0并读入_search_info.cost_penalty；本轮1.0实际加载值与原默认/reference一致。[Node2D 1.1.20](https://github.com/ros-navigation/navigation2/blob/1.1.20/nav2_smac_planner/src/node_2d.cpp#L59-L74)的边代价为 `step_length_cells × (1 + multiplier × child_raw_cost / 252)`，正交长度1、对角sqrt(2)。[initMotionModel](https://github.com/ros-navigation/navigation2/blob/1.1.20/nav2_smac_planner/src/node_2d.cpp#L87-L100)将search_info.cost_penalty赋给Node2D静态字段；文件静态initializer=2.0不是plugin运行默认。0.0只取消该项代价偏好，collision/unknown gate仍执行；未使用rolling默认。源码审计见official-source-audit.json，安装库版本/hash与前轮一致。
+
+四个严格case全部narrow，部分0.0证据亦narrow：没有支持“cost_travel_multiplier造成此frozen input宽路绕行”的路线切换证据。已保存的0.0与非零paths具有不同cost exposure，说明观察到路径对cost权重有局部代价敏感性，不能将此等同于宽/窄路线的因果敏感性；因0.0原严格runtime gate缺失，这一点仍属部分证据。不能宣称完全验收的五值全部narrow，也不能从这一个case选最终最佳权重。
+
+尚不能推出：其他map/width/seed/start/goal上的路线因果、Smac/NavFn整体优劣、NavFn extraction失败的根因就是这一Smac参数、live导航/SLAM/controller/locomotion行为、实际碰撞/净空/物理通过、性能排名或最佳权重。NavFn参考FAIL无路线，不与Smac成功path组成narrow/wide成功路线对照。
+
+### Tests / cleanup / integrity / bundle
+
+红阶段8失败/13通过，source审计后变化的prelaunch gate另有1失败/25通过红证据；绿阶段45项相关unit tests通过；保留tests-red.log、tests-green.log和未source ROS时的测试环境失败日志（修复环境后通过，非planner实验重试）。CMake两次构建均成功，只构建适配器。完成前再次运行相关tests、Python compile、shell syntax与git diff --check。
+
+恰好五个owned plugin进程：3445195/35459798、3446263/35468087、3446283/35468123、3446302/35468160、3446319/35468196。0.0=-11，其余returncode0；全部remaining={}。独立host审计matching_owned_or_domain193=[]、passed=true，348项/proc不可读记录可见性边界。无pkill-f，无禁止set-e/exit，无Gazebo/live SLAM/NavigateToPose；无commit/push。九项保护配置/launch/policy与HEAD摘要不变。只有唯一PLAN与本docs更新当前状态。
+
+全部交付完成后运行~/bin/april-review-bundle的/tmp受控副本：仅移除原禁止set-euo行、把not-repo exit guard改成函数return，保留打包逻辑/原脚本。包含五case原始数据、0.0异常恢复证据、完整回归/源语义/cleanup/integrity/tests、原raw base64及NavFn参考；打包后立即停止，不回写PLAN、不额外replay。bundle路径以最后调用输出为准。
+
+
+## 0.0 observer-fix closeout（2026-10-14）
+
+**0.0 strict验收PASS；observer生命周期修复在此固定case闭环。** 本轮只运行一次修复后当前代码新编译的SmacPlanner2D replay，Scenario A / width1.70 / seed0 / goal6m；0.5/1/2/4保留上一轮strict PASS，无重复运行。旧0.0 SIGSEGV证据完整保留，不将失败记录改写为成功。未启动Gazebo、live SLAM、NavigateToPose或warehouse，未改变baseline参数或planner源码；未commit/push。
+
+最新232440 bundle已从 `/home/zyd/.local/share/Trash/files/APRIL_REVIEW_BUNDLE_b2w-embodied-navigation-course_20261013_232440.md` 读取核对。branch=`improve/narrow-navigation`，HEAD=`9640ca95fce5c0554bbb5343754bf86deb7dbebf`。本轮证据根目录 `/tmp/b2w-smac-observer-closeout/`；最终汇总同时更新 `/tmp/b2w-smac-sensitivity/diagnostic-summary.json`，上一轮partial汇总备份为本轮 `diagnostic-summary.previous.json`。旧 `/tmp/b2w-smac-sensitivity/0.0/Smac2D/summary.recovered.json` 与 -11 cleanup原样保留。
+
+### Strict验收与observer寿命
+
+14项验收全部true，见 `strict-acceptance.json`。source-before/source-after、loaded/before-plan/after-plan及source原值全部SHA256=`33e13df9eca0acdd072c86af6fedef0bfbe89631095b61d07ade46569771e22b`。完整applied_request的frame/stamp/xyz/xyzw/use_start/planner_id逐字段等于原source请求；actual multiplier=0.0，其他全部plugin参数与source runtime dump严格相等，costmap contract和padded footprint亦验证通过。`replay.configured.json`、`replay.result.json`、`summary.json`均已落盘，`strict_case_verified=true`。
+
+现有C++ observer callback复制Path到可执行文件拥有的存储，`scripts/frozen_planner_plugin/replay_plugin.cpp:195` 的 `unsmoothed.reset(); raw_sub.reset();` 在`:197`的deactivate/cleanup及后续class-loader作用域结束前执行；本轮没有新增planner或observer修改。当前源码SHA=`3f9ece6695a2d9f5e6c0d5b02c8f7bbc10689bd93e7450fe726e48796a193836`；新编译binary SHA=`2d58b0e657c040eeed90b19a08cb70a5939962d9a52df61bba64f3c74ed5f186`，与上一轮修复后的binary相同。静态寿命审计、runtime Deactivating→Cleaning up→Destroying日志、最终result落盘和process returncode=0共同闭环本case teardown验证。旧故障无core/backtrace，仍不能声称证明了SIGSEGV的精确栈位置或所有异常路径寿命安全。
+
+### 最终sensitivity表
+
+| actual multiplier | 验收 | createPlan | poses | route | final length m | raw min / mean / p95 / max | descriptive exposure cost·m | wall ms |
+|---|---|---|---|---|---|---|---|---|
+| 0.0 | strict PASS | SUCCESS | 121 | narrow | 6.000000089407 | 0 / 62.533333333333 / 151 / 151 | 375.200005590916 | 0.475532 |
+| 0.5 | strict PASS | SUCCESS | 121 | narrow | 6.065168877445 | 0 / 2.997222222222 / 0 / 83 | 18.072379085130 | 1.005270 |
+| 1.0 | strict PASS | SUCCESS | 121 | narrow | 6.065064518899 | 0 / 2.997222222222 / 0 / 83 | 18.072379085130 | 1.009533 |
+| 2.0 | strict PASS | SUCCESS | 121 | narrow | 6.065168877445 | 0 / 2.997222222222 / 0 / 83 | 18.072379085130 | 1.006195 |
+| 4.0 | strict PASS | SUCCESS | 121 | narrow | 6.065168877445 | 0 / 2.997222222222 / 0 / 83 | 18.072379085130 | 1.085045 |
+
+只有0.0行为证据来自本轮；其余四行是原保存结果，wall time不作性能排名。五值final和unsmoothed route均narrow，unknown/253/254 samples均0。0.0 final与unsmoothed各121 poses，length均 `6.000000089406967` m，raw min/mean/p95/max=0/62.53333333333333/151/151，descriptive exposure=`375.2000055909157` cost·m，240 samples；smoothing未改变pose位置。unsmoothed publisher可用，收到一条消息，完整CSV/JSON均已保存。0.0 final CSV与旧失败调用已保存CSV逐字节一致；仅补齐完整runtime/applied request/wall time与正常退出的strict证据。
+
+完整路径：`/tmp/b2w-smac-observer-closeout/0.0/Smac2D/replay.path.csv`、`replay.path.json`；搜索路径：同目录 `replay.unsmoothed.path.csv`、`replay.unsmoothed.path.json`。对应final/unsmoothed raw-cost samples CSV均保存。nonzero unsmoothed结果仍为旧121 poses / narrow / length6.207106873679644m / exposure16.481329006873718cost·m。
+
+**科学结论不变：本frozen case的0/0.5/1/2/4均为narrow，仅说明未观察到wide/narrow route switch。** 0.0从partial升级为strict PASS改变的是证据完整度；不选择最佳权重，不泛化其他case，不把descriptive raw-cost exposure当planner内部objective、净空或物理碰撞证明，不作速度排名。
+
+### Tests、cleanup与交付
+
+相关unit tests共45项PASS（frozen replay + planner comparison 34项，narrow benchmark 11项）；当前CMake configure/build PASS、Python compile PASS、git diff --check PASS。Smac/NavFn安装库和plugin XML SHA均与上一轮一致；九项保护配置/launch/policy、branch/HEAD均不变。本轮未编辑replay或tests，只闭环验证与更新文档/证据。
+
+唯一新owned PID/starttime=`3765102/39590047`，deactivate/cleanup完成、process returncode=0、remaining={}。host独立审计本轮与历史六个identity均已退出、matching_owned_or_domain193=[]、passed=true；354个/proc environ不可读条目记录可见性边界。无额外plugin进程，无禁止shell自动中止开关/exit或pkill-f。
+
+交付前所有验证与文档完成；最后调用~/bin/april-review-bundle的/tmp受控副本（只移除原禁止shell开关、guard改函数return，原工具不改），包含新strict证据、五值最终表、旧0.0异常、源码/binary摘要、完整请求、路径、hash、cleanup和tests。bundle生成后立即停止，不回写PLAN、不commit/push。实际路径以最终工具输出为准。
