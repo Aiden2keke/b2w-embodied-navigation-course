@@ -1,6 +1,172 @@
 # Warehouse narrow-aisle execution failure diagnosis
 
-> Current review (2026-10-14): the exact user-run LIGHT evidence below now reproduces the aisle stall. Healthy pre-failure receipts are compatible with20Hz. The installed1.1.20 frozen critic comparison shows four center-legal/perimeter-illegal local poses. First rejecting critic and physical contact remain unresolved. Earlier smoke/transparency statements below are historical; the captured-failure review is authoritative. The separate footprint-gate diagnostic is now implemented and statically validated; no live experiment was run by Codex.
+> Current review (2026-10-15): exact user-run footprint-gate stall independently verified; healthy pre-failure command receipts, local no-valid-control before stationarity, and no measured plate-contact spike. All reverse trajectories on the three saved footprint-illegal states fail at pose index0. Verdict2: min_vel_x alone cannot escape this gate trap. No live parameters changed. The current review below supersedes the historical sections that follow.
+
+# Footprint-gate warehouse stall and reverse-x feasibility — 2026-10-15
+
+Branch `improve/narrow-navigation`, HEAD `5a2199f`; initially clean worktree. Exact current input is `/tmp/b2w-warehouse-observer/20261014T090829.047739Z-smac2d-footprint-gate-light`; prior input is `20261014T065029.802588Z-smac2d-light-smoke` in the same parent. Both exist and were read without regeneration. The user saw entry into the narrow aisle, then a persistent stop, with no visible physical collision. Only offline analysis/compile/tests and two documentation files change in the repository. Temporary diagnostic code and results stay in `/tmp/b2w-reverse-gate-review`. No Gazebo, live Nav2/observer, navigation goal, parameter change, commit, push or process signalling.
+
+**Verdict 2: reverse-x is structurally blocked by the current gate at the saved illegal poses; another approach is needed.** On all three failed-state frozen inputs, every generated reverse trajectory is rejected at its initial pose. No sampled frozen input demonstrates baseline obstacle-infeasibility becoming feasible by adding reverse. This is an exact installed obstacle-semantics conclusion for the saved inputs, not identification of the first live rejecting critic. Do not change `min_vel_x` as a stand-alone remedy for this trap.
+
+## A. Runtime and observer health
+
+Decoded raw `runtime-parameters.json` confirms `GridBased.plugin=nav2_smac_planner/SmacPlanner2D`; DWB critics in order are RotateToGoal, Oscillation, BaseObstacle, ObstacleFootprint, GoalAlign, PathAlign, PathDist, GoalDist. BaseObstacle.scale=0.02, ObstacleFootprint.scale=1e-6, both sum_scores=false, controller_frequency=20 Hz, failure_tolerance=0.3 s. `FollowPath.min_vel_x=0`, x maximum=.4; y min/max/acceleration/deceleration=0. Smoother y max/min/acceleration/deceleration=0. The recorded generator is `dwb_plugins::StandardTrajectoryGenerator`, sim_time=1.7, spatial granularity=.05 m/.025 rad, discretize_by_time=false, include_last_point=true, limit_vel_cmd_in_traj=false. These match the current YAMLs, whose only mutual difference is the footprint critic insertion/scale. Saved runtime values are capture-time evidence; no claim of continuously observed parameter immutability.
+
+Health interval: controller-start seq18449 at105.2225 to first invalid log seq29846 at119.9075, end exclusive by monotonic receipt time. Duration14.953372336 wall /14.685 simulation seconds; ratio0.982052722. Raw first-zero seq29845 arrives just before the exception log at the same119.9075 receive tick, so the raw count below includes that boundary zero. BT navigation begin is105.210; it is distinct from controller start.
+
+| Topic stage | Receipts | Receive Hz wall / sim | Wall interarrival p50 / p95 / max (s) |
+|---|---:|---|---|
+| raw | 300 | 20.062364 /20.429009 | .049774 /.057297 /.071778 |
+| smooth/shared behavior topic | 299 | 19.995490 /20.360912 | .049970 /.057323 /.065074 |
+| final nav_vel | 299 | 19.995490 /20.360912 | .049987 /.056702 /.063388 |
+
+144/144 active aligned samples have fresh raw, smooth, final, SLAM, truth and wrench. Active map→base TF age p50/p95/max=.40375/.464625/.49 s; odom→base=.4025/.462/.49 s. No pre-failure desired-loop-rate warning, observer errors `[]`, or missing parameter nodes. Whole attach:94.229573666 wall /92.81 simulation seconds, ratio.984934945,912 samples, one clock epoch. All20 LIGHT topics have receipts; the four omitted DWB debug topics have no subscription or data event. Whole-run raw/smooth averages9.7316/11.0687 Hz include stopped periods and do not diagnose a slow controller. The first controller rate warning is120.3525, after initial failure and abort.
+
+**Observer-health verdict:** pre-failure command receipts and causal coverage are healthy and compatible with20 Hz; no sustained multi-second callback backlog is indicated. The .4–.49 s observer-local TF lag remains material for state matching. Unstamped commands do not expose transport latency; drops and absolute non-perturbation are unproven. No evaluation/rejection telemetry was collected in LIGHT.
+
+## B. Exact first-goal chronology
+
+Times below are simulation RECEIVE times, except explicit goal/map/TF header stamps. Rosout headers are Unix wall time, not simulation time; BT inner transition timestamps are also wall time. No synthetic conversion was made. Source event seqs and full integer timestamps are retained in audit/chronology JSON. Millisecond cross-topic ordering is receipt ordering only.
+
+| Event | Simulation receive s | Original event seq |
+|---|---:|---:|
+| narrow goal map(-4.5107851028,5.6061468124), header105.125 | 105.1250 | 18364 |
+| BT navigator begins | 105.2100 | 18429 |
+| controller begins | 105.2225 | 18449 |
+| last nonzero raw: vx=.37894736842105275,vy=0,wz=0 | 119.8575 | 29805 |
+| raw first exact zero | 119.9075 | 29845 |
+| first No valid trajectories out of419 | 119.9075 | 29846 |
+| first Controller patience exceeded / FollowPath abort log | 120.1925 | 30073 /30076 |
+| smooth falls below .02 m/s threshold, vx=.0039473684 | 120.5700 | 30388 |
+| final falls below .02 m/s threshold, same residual vx | 120.5975 | 30406 |
+| smooth first exact zero | 120.6175 | 30420 |
+| final first exact zero | 120.6450 | 30441 |
+| first threshold-defined truth stationary interval starts | 121.4550 | samples.jsonl; interval through141.2075 |
+| NavigateToPose ABORTED/status and Goal failed | 141.2675 | status47480; log47479 /47481 |
+
+The Navigate UUID is `6645918566be4c83b86972942a92ef29` (acceptance stamp105.205). First stationarity is an interval detector result (≥3 s, extent≤.04 m and yaw≤.1 rad), not an instantaneous stop or collision time. Truth interval extent=.00861473 m/.01296753 rad; SLAM extent=.02804259 m/.02946598 rad. This physically stationary evidence follows the command decay. No failed-to-make-progress log occurs for this goal. Installed1.1.20 ControllerServer tolerates controller PlannerException with zero commands until more than .3 s since its last valid control, then aborts; receipt gap from last valid raw to patience is .335 s. Repeated FollowPath retries reset that execution's timing. The observed first causal layer is DWB no-valid-control (`NoLegalTrajectoriesException`,419 candidates) → zero command/braking → stationary robot. The first live rejecting critic remains unknown.
+
+## C. Physical-contact evidence
+
+Raw plate force norm from force xyz, using wrench HEADER simulation stamps:
+
+| Window | Samples | p50 / p95 / max N | >50 N |
+|---|---:|---|---:|
+| failure±2 s:117.9075–121.9075 | 400 | .979874 /1.027765 /1.170574 | 0 |
+| first goal before failure | 1478 | .982929 /1.101331 /1.552977 | 0 |
+| first failure to goal abort | 2136 | .980000 /.980046 /1.047972 | 0 |
+| whole run | 9278 | .980000 /1.027336 /1.596426 | 0 |
+
+No force spike supports a plate-contact explanation around failure, consistent with the user's visual observation. The plate is a limited-coverage joint-wrench sensor with inertial/gravity load. It cannot prove absence of body/leg/shelf contact. Cost253 is inflation; cost254 perimeter overlap is map/footprint geometry, not a physical contact measurement. No full-body collision pair telemetry or articulated swept-envelope validation exists here.
+
+## D. Exact frozen footprint timeline
+
+Each map raw SHA/size/origin orientation, pose frame/stamp and already-padded footprint/skew were checked before calling installed `BaseObstacle::scorePose` and `ObstacleFootprint::scorePose`. No filled-polygon approximation is used. Local maps are100×100, resolution.05000000074505806 m, frameodom; padded vertices approximately(±.75,±.43) m, with recorded floating-point vertices used without rounding or extra padding.
+
+| Map header s | Metadata | Center cell x,y,cost | Base legal | Exact perimeter | First rejecting cell x,y,cost | Saved pose age / map-footprint skew s |
+|---|---|---|---|---|---|---|
+| 118.6225 | 0028847.json | 46,50,96 | yes | legal,max253 | none | .4525 /.0225 |
+| 119.2150 | 0029310.json | 46,50,130 | yes | legal,max253 | none | .4600 /.0150 |
+| 119.8175 | 0029775.json | 46,50,171 | yes | illegal | 31,59,254 | .4325 /.0175 |
+| 120.3800 | 0030214.json | 46,50,202 | yes | illegal | 32,59,254 | .4600 /.1800 |
+| 120.9550 | 0030672.json | 48,50,204 | yes | illegal | 35,60,254 | .4750 /.1550 |
+
+Metadata paths are relative to the source `costmaps/`. Complete raw SHA256, map origin, pose, padded shape, footprint source seq and all velocity evidence are in `snapshots.json`. First rejecting perimeter cell is in installed edge/LineIterator order, independently traced using installed pointCost. Base rejects253/254/255 at the center; footprint accepts253 and rejects254/255 on the perimeter including its closing edge. Interior cost is not a filled-body collision check.
+
+**TF boundary:** saved `pose_at_costmap_stamp.stamp_s` equals the map stamp: it is an exact-stamp TF reconstructed after delayed TF arrived. Its `age_s` is observer clock minus requested TF stamp when enrichment succeeded; it records completion delay, not a .4325 s spatial extrapolation or an older pose substituted into119.8175. Nevertheless, observer-local latest TF lag before failure is ~.4 s, so the119.8175 reconstructed pose is **not established as the controller's119.8175/119.9075 internal pose**. The last valid raw119.8575 can coexist with this offline illegal119.8175 pose. LIGHT lacks the synchronized internal map, pose and rejected rollout needed to attribute the first live failure specifically to the gate.
+
+## E. Commands, recoveries and global availability
+
+First-goal raw commands remain zero after119.9075 through their last receipt141.245, apart from receipt gaps. Final commands brake as tabulated, and every recorded final command after120.645 until abort is exactly zero. There is **no negative final vx after failure, no nonzero commanded vy at any stage during the goal, and no nonzero final wz after failure**. Measured SLAM lateral drift is a different quantity.
+
+Spin BT RUNNING→FAILURE:121.730→121.8575,128.4675→128.6025,135.375→135.500. Spin-associated shared `/course_navigation/cmd_vel` pulses at121.730,128.4675,135.3775 havewz=.6; each is overwritten by zero after.0125/.0275/.015 s. None appears in final nav_vel. The shared topic receives both behavior_server output and the smoother, per launch remaps; per-message publisher identity is not recorded, so exact pulse suppression cause is unproven. No recovery rotation is delivered to the robot, and the stationary truth interval has only.013 rad yaw extent.
+
+BackUp BT RUNNING→FAILURE at127.575→127.6075 and134.4025→134.435. **An attempted recovery is not an executed reverse:** no negative vx appears on raw, shared smooth/behavior, or final topic. No behavior-server backup motion reached final nav_vel. Wait completes121.8575→126.905,128.6025→133.715,135.500→140.5575. Local/global costmap clearing and FollowPath retries also occur.120.38 is after a local context clear;120.955 is after a local/global recovery clear, so these maps are separate frozen states, not a continuously unchanged obstacle map.
+
+22 nonempty `/plan` messages belong to the first goal; **7 after first failure**, at120.3425,120.9900,126.9075,127.7350,133.7150,134.6775,140.5600. They contain61–65 poses, lengths3.333–3.532 m and endpoint error.023612 m. BT ComputePathToPose successes support continued global route availability. No planner lethal-start exception occurs in this goal. These are available goal-reaching global plans under the global planner's model; neither exact rectangle-swept viability nor locally executable control is certified. **Global planning availability persists while local control remains infeasible.**
+
+## F. Comparison with prior Smac LIGHT failure (mechanism only)
+
+This is **not a controlled A/B**: goals differ (-4.5108,5.6061) versus(-4.1030,5.3277); SLAM maps, headings and starting states differ. Both runtime planners are Smac2D, min_vel_x=0,vy disabled, and both have healthy pre-failure command receipts near20 Hz. The prior critic chain has BaseObstacle but no ObstacleFootprint.
+
+| Mechanism | Current footprint gate | Prior no footprint gate |
+|---|---|---|
+| first invalid / patience | 119.9075 /120.1925 | 95.035 /95.340 |
+| raw response | zero, no later nonzero raw in goal | zero95.035, brief resumed raw95.5575, sustained invalid97.2575 |
+| sustained smooth/final zero | 120.6175 /120.645 | 97.7875 /97.8225, then recovery pulses |
+| first truth stationary start | 121.455 | 99.470 |
+| Navigate failure | 141.2675 | 120.9975 |
+| planner after first failure | 7 nonempty plans; no lethal-start log | 2 nonempty plans then12 lethal-start logs, first98.0175 |
+| recovery final rotation | none; shared pulses did not reach final | angular pulses99.070–99.1725,107.065–107.165,115.0275–115.1275 |
+| reverse/vy commands | none | none |
+| frozen footprint mismatch | first selected illegal119.8175 before invalid log | earliest saved mismatch95.3975 after first invalid95.035 |
+
+**Yes, both first fail at the observed DWB feasibility layer, then command reduction and stationarity**, with retries/recoveries changing the later sequence. The prior run's later global failure is downstream of its first local failure. This does not prove the same rejecting critic, geometric root cause or collision. Prior force max1.712564 N/5986 raw samples also provides no >50 N plate event.
+
+## G. Offline action-space feasibility
+
+`escape.cpp` constructs only in-memory Costmap2D, thin protected-input setters, installed XYThetaIterator/OneDVelocityIterator, installed StandardTrajectoryGenerator and installed BaseObstacle/ObstacleFootprint critics. It calls installed `startNewIteration`, `nextTwist`, `generateTrajectory` and both `scoreTrajectory` methods; no rclcpp init, node, DDS, costmap lifecycle or navigation server. CMake/ldd prove installed1.1.20 libraries: `libstandard_traj_generator.so`, `libdwb_critics.so`. Scales are positive, so obstacle legality cannot be disabled by zero scaling. The full DWB chain (Oscillation history, RotateToGoal, alignment/distance, plan transforms, short-circuit winner selection) is **not replayed**; “obstacle-legal” never means “all critics accepted.”
+
+A uses all recorded parameters. B changes **only the offline x lower sampling bound to−.10 m/s**, y commands remain0; that is a probe range, not a production limit. Native grids have419(A) and440(B) candidates; B includes84 negative-x candidates and regrids its positive-x candidates. For a strict additive comparison, retain all419 A candidates and append only those84 new negative-x samples:503 total. C, optional and offline only, uses baseline x with y±.05 and y acceleration/deceleration±.10 to make lateral commands reachable;2015 native samples. No simultaneous reverse+lateral action space is tested.
+
+Two velocity evidence alignments are evaluated with each SAME frozen pose/map: (1) last SLAM odom header≤map stamp, age.015–.080 s, which arrived .32–.37 s later; (2) latest observer receipt≤map stamp, whose header age is.315–.4175 s. Both use recorded body-frame twist and controller component thresholds. Neither is asserted to be controller-private odom. Y command=0 does not imply measured startingvy=0: nonzero measured drift is retained; with existing y acceleration0 the installed rollout can preserve it. This behavior and installed spatial discretization are deliberately preserved.
+
+Obstacle-legal trajectories, displayed as stamp-matched / receive-causal results:
+
+| Map s | A legal /419 | B native legal /440 | NEW negative-x legal /84 | Strict additive A+negative legal /503 | C legal /2015 |
+|---|---|---|---|---|---|
+| 118.6225 | 35 /36 | 46 /50 | 16 /17 | 51 /53 | 164 /170 |
+| 119.2150 | 20 /11 | 30 /17 | 12 /8 | 32 /19 | 43 /33 |
+| 119.8175 | 0 /0 | 0 /0 | 0 /0 | 0 /0 | 0 /0 |
+| 120.3800 | 0 /0 | 0 /0 | 0 /0 | 0 /0 | 0 /0 |
+| 120.9550 | 0 /0 | 0 /0 | 0 /0 | 0 /0 | 0 /0 |
+
+Every440 native reverse trajectory at each of the last3 snapshots, including all84 negative-x candidates, is footprint-rejected at **pose index0**. StandardTrajectoryGenerator prepends start_pose and BaseObstacle::scoreTrajectory tests every pose through virtual scorePose. Therefore **any** generated direction with this same already-illegal start will fail this gate before moving, beyond the particular tested reverse magnitude. Earlier critics can reject sooner in live scoring; they cannot turn an illegal footprint trajectory into a winning legal one.
+
+**min_vel_x < 0 alone cannot solve the footprint-gate collision trap under current critic semantics.** The optional lateral space is equally start-blocked. No tested snapshot has A=0 and added reverse>0. Before failure, minimum-magnitude sampled legal reverse isvx=−.02105263158,vy=0,wz=0 in both alignments. Save it as a pre-failure possibility only: A already has legal trajectories there. `minimum-reverse-geometry.json` preserves map SHA, input velocity, rollout poses and transformed padded footprint vertices; all candidate summaries are retained separately. “Minimum” is over the sample grid, not continuous optimization. Coarse spatial discretization can use a single1.7 s step for this small straight command; the installed acceleration projection can then omit the actual transient braking sweep. This, unvalidated tracking and unreplayed critics preclude physical safety or successful escape claims.
+
+## H. Reverse tracking gap and later USER-RUN smoke design
+
+Adapter VelocityGate preserves signedvx, limits hypot(vx,vy)≤.5 and |wz|≤.6, and zeros on stale command/state/TF failure. Smoother accepts x down to−.2, but DWB minx=0 supplies no reverse. C++ rl_sar accepts/clampsvx to[−1,1],vy to[−.5,.5],wz to[−1,1], then puts commands into policy observations (yaw gain1.6). These are input contracts, **not negative-x locomotion validation**. Existing runtime tests use fixed feedback; physical script phases and the7 inspected validation JSON files with phase records collectively cover stand/forward/stop/turn/stop (some stopped earlier), no negativevx. No reverse tracking evidence was found in inspected repository/local results; this cannot assert that no unrecorded human test ever occurred. Signed physical reverse remains unvalidated.
+
+Design only for a later user-run, no execution or runnable controller change now:
+
+1. Open flat space, no aisle or goal; inspect at least1 m clear beyond the padded footprint to the rear and sides. Use the established adapter→rl_sar chain with SLAM active and **one** command source into adapter input `/course_navigation/cmd_vel`; no competing smoother/behavior/Nav2 output. This isolates tracking without changing controller tuning, policy or gains.
+2. Record clock, requested command, final nav_vel, SLAM odom/TF, evaluation truth odom, plate wrench, roll/pitch/base height. Require fresh feedback and stable zero first. Proposed sequence: zero3 simulation seconds;vx=−.05,vy=wz=0 for2 s (nominal−.10 m); zero5 s. Publish commands continuously at20 Hz with a wall-time watchdog. Use explicit zero on user stop and feedback loss. No forward/lateral phase or narrow-aisle trial.
+3. Evaluate **signed** displacement projected onto each stream's own initial body heading, signed bodyvx, command integral, lateral displacement, yaw, stopping distance and stability; do not compare SLAM and truth absolute origins. Proposed diagnostic checks: both streams show rearward displacement at least.03 m, no opposite-direction excursion>.02 m, lateral≤.05 m, |yaw change|≤.10 rad, and displacement after final zero≤.05 m. Record actual ratios/errors without tuning to pass. Stop immediately on visible contact, instability, stale feedback or failure to follow the intended direction; existing25°/.4 m body thresholds are emergency bounds, not a desired operating margin.
+
+Even a passed open-space probe would establish only limited reverse tracking. It would not unblock the current DWB start-pose gate, validate rear clearance, authorize a live aisle attempt, or justify enabling lateral motion simultaneously.
+
+## I. Major decision: allow reverse vx in DWB
+
+**AGAINST:** exact installed semantics reject every reverse from the three saved illegal poses at time0; changing minx alone cannot escape. Negativevx tracking is unvalidated, and rear/leg swept clearance is not measured. Current-state TF lag, transient braking and controller/private-state mismatch could put the robot outside predicted legal space. Earlier/stateful critics can veto reverse even before the gate. Native sample regridding changes positive candidates, so total legal counts are not a clean reverse benefit metric.
+
+**FOR:** the first observed failure is local controller no-valid-control, with no force/visual evidence establishing physical contact. Current normal DWB commands offer neither reverse nor lateral escape; final commands contain neither. Reverse adds one translation sign while preserving commandedvy=0 and is a smaller action-space expansion than lateral motion. Two pre-failure frozen states have obstacle-legal negativevx candidates.
+
+**VERDICT 2:** structurally blocked as the next escape from the recorded footprint-illegal trap; another approach is needed before a live reverse-only diagnostic is justified. Prioritize a review of how to remain footprint-legal during tracking/braking with delayed state and a rectangle-valid local route; preserve real geometry and collision predicates while gathering synchronized internal state/critic evidence. This is an investigation direction, **not authorization to shrink footprint/inflation, bypass the gate, alter parameters or switch controllers**. Reconsider reverse for prevention or escape only if a same-state baseline-infeasible/reverse-feasible input is demonstrated before entering the gate, then validate reverse tracking and rear clearance separately. No simultaneousvy+reverse change.
+
+## J. Verification and reproducibility
+
+All58 offline tests passed in4.66 s with no warnings in the final run (53 existing config/critic/observer plus5 temporary adapter/semantic checks). Synthetic checks establish correct installed reverse rollout in a free map,253 acceptance/254–255 start rejection independent of direction, and the saved-state feasibility distinction. Initial pytest emitted2 cache-location warnings because a common root with `/tmp` resolved to `/`; the final verification uses an explicit writable cache path. C++17 compile uses-Wall/-Wextra/-Wpedantic; no warnings in build log. Python compile/static checks, final diff/integrity and library versions/hashes are saved in this evidence directory. The installed critic tests are offline; no physical tracking is validated by them.
+
+Reproduce only offline in a sourced Humble shell:
+
+```zsh
+source /opt/ros/humble/setup.zsh
+cmake -S /tmp/b2w-reverse-gate-review -B /tmp/b2w-reverse-gate-review/build -DCMAKE_PREFIX_PATH=/opt/ros/humble
+cmake --build /tmp/b2w-reverse-gate-review/build -j2
+/usr/bin/python3 /tmp/b2w-reverse-gate-review/analyze.py
+/usr/bin/python3 -m pytest /tmp/b2w-reverse-gate-review/test_probe.py tests/test_footprint_gate_config.py tests/test_frozen_obstacle_critic.py tests/test_warehouse_observer.py -o cache_dir=/tmp/b2w-reverse-gate-review/pytest-cache -q
+```
+
+Versioned primary semantics: [StandardTrajectoryGenerator1.1.20](https://github.com/ros-navigation/navigation2/blob/1.1.20/nav2_dwb_controller/dwb_plugins/src/standard_traj_generator.cpp), [XYThetaIterator](https://github.com/ros-navigation/navigation2/blob/1.1.20/nav2_dwb_controller/dwb_plugins/src/xy_theta_iterator.cpp), [kinematic parameters](https://github.com/ros-navigation/navigation2/blob/1.1.20/nav2_dwb_controller/dwb_plugins/src/kinematic_parameters.cpp), [BaseObstacle](https://github.com/ros-navigation/navigation2/blob/1.1.20/nav2_dwb_controller/dwb_critics/src/base_obstacle.cpp), [ObstacleFootprint](https://github.com/ros-navigation/navigation2/blob/1.1.20/nav2_dwb_controller/dwb_critics/src/obstacle_footprint.cpp), [DWB](https://github.com/ros-navigation/navigation2/blob/1.1.20/nav2_dwb_controller/dwb_core/src/dwb_local_planner.cpp), [ControllerServer](https://github.com/ros-navigation/navigation2/blob/1.1.20/nav2_controller/src/controller_server.cpp). These sources were checked against installed headers/libraries, not substituted for the installed calls. Final integrity:6168 original evidence files and284 protected repository files unchanged; only PLAN.md and this diagnosis changed, with index/branch/HEAD unchanged. Final review bundle operation follows all checks, writes only the requested `/home/zyd/APRIL_REVIEW_BUNDLES`, reports absolute path/SHA256 and stops.
+
+
+---
+
+# Historical reviews through 2026-10-14 (superseded by the current review above)
+
+> Historical review (2026-10-14): the exact user-run LIGHT evidence below now reproduces the aisle stall. Healthy pre-failure receipts are compatible with20Hz. The installed1.1.20 frozen critic comparison shows four center-legal/perimeter-illegal local poses. First rejecting critic and physical contact remain unresolved. Earlier smoke/transparency statements below are historical; the captured-failure review is authoritative. The separate footprint-gate diagnostic is now implemented and statically validated; no live experiment was run by Codex.
 
 Historical captured evidence scope: branch `improve/narrow-navigation`, HEAD `0c31f08e19ce51849f2c06b107e8a89b2ff55ef7`, current source/config, supplied GUI recordings and the completed user-run 2026-10-14 smoke. No warehouse experiment, goal, cancellation, navigation parameter change, commit or push was performed. Root `PLAN.md` is the only current plan. The first causal layer of the stall is **unresolved**. Apparent physical contact remains a hypothesis.
 
