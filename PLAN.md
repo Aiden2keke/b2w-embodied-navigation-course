@@ -24,7 +24,65 @@
 - 旧实施计划归档至 `docs/plans/archive/2026-10-10-local-course-system-plan.md`。历史 design/validation 保留为证据，不是另一个当前 roadmap。无新增 HANDOFF。
 - 历史轮次只读与 timing 交付已结束；本轮范围以最新用户请求和下方 NOW 为准。旧实验/交付记录只作历史证据。
 
-## NOW — B2-W low-speed policy-command calibration and repeatability
+## NOW — proven raw → public sensor startup backlog (2026-10-16)
+
+**Scope / result:** sensor backlog repair validated on `improve/narrow-navigation`,
+HEAD `d9cc78f5b387015f5f0cc315d9fd08b088f091b5` unchanged. **Full public
+localization startup FAIL**: /slam/odom=0 and map→base_link unavailable; unchanged
+pose_adapter reports unsupported/not-yet-ready floor plane. STOP reached: no
+further live sessions, LIO weakening, calibration or tuning. Sole current plan.
+
+- [x] Authenticate clean starting worktree/branch/HEAD; read CODEX_GUIDE,
+  interfaces, actual source/launch/entrypoints and historical1931706.
+- [x] Audit: original one Python process, MultiThreadedExecutor(3), separate
+  IMU/cloud/joint mutually-exclusive groups, cloud depth5 and IMU depth200;
+  zero timers, automatic clock + six parameter services. RNG streams independent.
+  Full cloud callback ~32ms, vectorized; no per-point Python loop.1931706's bulk
+  encoding fix is preserved. Exact10-question audit/snippets: evidence report.
+- [x] ONE baseline bounded zero-motion warehouse session:45s warmup +12s probe,
+  mode:=slam control_source:=none, no goals or command messages. Public IMU p95
+  .9975s, cloud .2415s, cloud−latest IMU .900s; raw .0075/.035s. Intermittent LIO
+  cloud_info32, mapping1 (age7.5075s), public odom0, valid localization TF0/24.
+- [x] Before implementation compare AGAINST/FOR threads and process splitting:
+  original already has3 threads/groups; no GIL/executor isolation. Extra process
+  adds lifecycle/participant but independent RNG and attitude permit identical
+  callbacks. Choose separate cloud process + single-thread executor each. Keep
+  all queues/algorithms/headers/frames/profiles. Primitive-level production GIL
+  versus MTE overhead attribution remains unresolved; do not invent a hotspot.
+- [x] RED7; minimal split in sensor_disturbance, simulation launch and setup;
+  new regression tests. Same-process3-thread native GIL negative control gets0
+  IMUs, independent process test progresses during1.5s cloud callback. Review
+  found synthetic test traffic inherited production names/domain: isolate with
+  domain215 + UUID remaps, guard RED then GREEN. Review follow-up: no remaining
+  critical/important source findings; reviewer could not access parent /tmp logs.
+- [x] Final27 relevant tests PASS; course_sim build1 package PASS; compile4 +
+  YAML3 + diff check PASS. Original/new10 IMUs exact,10 full clouds all fields
+  equal, joints equal; all3 callback ASTs unchanged. Existing encoding tests pass.
+- [x] ONE fresh bounded zero-motion warehouse validation with same probe:
+  raw IMU/cloud p95 .0075/.038s; public IMU/cloud .020/.106s; cloud−latest IMU
+  −.050s, all timing targets PASS. cloud_info98 + mapping98 (~10Hz stamp rate,
+  8.165Hz wall), zero IMU-wait logs vs168 baseline. /slam/odom0 and TF0/24:
+  **full acceptance FAIL**, four supported-floor-plane waits; no cause/tuning
+  claim beyond that observed gate. No additional simulation or movement.
+- [x] Owned cleanup PASS both sessions (11/12 observed identities, zero survivors,
+  launch return0); independent domain196 publishers all0 and lock available.
+ 295 initial non-PLAN tracked hashes: only3 intended production sources differ,
+  remaining292 unchanged. Index/branch/HEAD unchanged. No commit or push.
+- [ ] Final operation only: generate exactly ONE normal review bundle under
+  /home/zyd/APRIL_REVIEW_BUNDLES, include complete compressed evidence and
+  report, verify actual path/SHA256, then STOP without post-bundle edits.
+
+**Evidence:** `/tmp/b2w-sensor-backlog-20261016/report.md`, before/after summaries,
+raw synchronous samples, launch logs, independent cleanup, profile, RED/GREEN,
+original/new numerical comparison and integrity records. Final bundle path/SHA
+are printed by the final operation and returned to the user; not guessed here.
+
+**Frozen:** LIO-SAM, pose adapter/ground alignment, Nav2/planner/DWB/policy/
+calibration/tuning, original sensor stamps, normal/fault noise semantics.
+Changed files: this PLAN; sensor_disturbance.py; simulation.launch.py; setup.py;
+new tests/test_sensor_isolation.py. No roadmap/HANDOFF/branch/goal/nonzero command.
+
+## HISTORICAL — B2-W low-speed policy-command calibration and repeatability
 
 **Scope (2026-10-16):** measurement/audit/tooling only on `improve/narrow-navigation`, committed HEAD `460111a9a37105874df694235b0b561906779cf5`. No branch, additional roadmap, HANDOFF, staging, commit, push, production calibration, or nonzero live experiment. Committed source is SSoT; reviewed captures are evidence. Previous velocity characterization is historical below, with all evidence retained.
 

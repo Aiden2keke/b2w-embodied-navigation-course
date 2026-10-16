@@ -15,5 +15,8 @@ setup(
     install_requires=['setuptools'], zip_safe=True,
     maintainer='B2-W course team', maintainer_email='course@example.invalid',
     description='B2-W course simulation, localization and navigation integration',
-    license='MIT', entry_points={'console_scripts': ['sensor_disturbance = course_sim.sensor_disturbance:main', 'record_course = course_sim.record:main']},
+    license='MIT', entry_points={'console_scripts': [
+        'sensor_disturbance = course_sim.sensor_disturbance:main',
+        'sensor_cloud_disturbance = course_sim.sensor_disturbance:cloud_main',
+        'record_course = course_sim.record:main']},
 )

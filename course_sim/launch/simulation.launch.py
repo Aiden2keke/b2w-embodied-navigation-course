@@ -90,6 +90,8 @@ def setup(context):
         controller,
         Node(package='course_sim', executable='sensor_disturbance', parameters=[{
             k: v for k, v in fault.items() if k != 'slip_ratio'}, {'seed': seed, 'use_sim_time': True}], output='screen'),
+        Node(package='course_sim', executable='sensor_cloud_disturbance', parameters=[{
+            k: v for k, v in fault.items() if k != 'slip_ratio'}, {'seed': seed, 'use_sim_time': True}], output='screen'),
     ]
 
 
