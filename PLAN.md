@@ -24,63 +24,54 @@
 - 旧实施计划归档至 `docs/plans/archive/2026-10-10-local-course-system-plan.md`。历史 design/validation 保留为证据，不是另一个当前 roadmap。无新增 HANDOFF。
 - 历史轮次只读与 timing 交付已结束；本轮范围以最新用户请求和下方 NOW 为准。旧实验/交付记录只作历史证据。
 
-## NOW — proven raw → public sensor startup backlog (2026-10-16)
+## NOW — ground-plane readiness audit: unresolved, no production fix (2026-10-16)
 
-**Scope / result:** sensor backlog repair validated on `improve/narrow-navigation`,
-HEAD `d9cc78f5b387015f5f0cc315d9fd08b088f091b5` unchanged. **Full public
-localization startup FAIL**: /slam/odom=0 and map→base_link unavailable; unchanged
-pose_adapter reports unsupported/not-yet-ready floor plane. STOP reached: no
-further live sessions, LIO weakening, calibration or tuning. Sole current plan.
+**Result:** prior failed ground-plane gate is **class 8: unresolved**. ONE fresh
+bounded zero-motion diagnostic session on unchanged production `ba88a16` passed:
+actual ground datum z=0.800939415738 m; /slam/odom100; map→base_link TF24/24.
+This does not prove the preceding failure repaired. No further simulation/fix.
 
-- [x] Authenticate clean starting worktree/branch/HEAD; read CODEX_GUIDE,
-  interfaces, actual source/launch/entrypoints and historical1931706.
-- [x] Audit: original one Python process, MultiThreadedExecutor(3), separate
-  IMU/cloud/joint mutually-exclusive groups, cloud depth5 and IMU depth200;
-  zero timers, automatic clock + six parameter services. RNG streams independent.
-  Full cloud callback ~32ms, vectorized; no per-point Python loop.1931706's bulk
-  encoding fix is preserved. Exact10-question audit/snippets: evidence report.
-- [x] ONE baseline bounded zero-motion warehouse session:45s warmup +12s probe,
-  mode:=slam control_source:=none, no goals or command messages. Public IMU p95
-  .9975s, cloud .2415s, cloud−latest IMU .900s; raw .0075/.035s. Intermittent LIO
-  cloud_info32, mapping1 (age7.5075s), public odom0, valid localization TF0/24.
-- [x] Before implementation compare AGAINST/FOR threads and process splitting:
-  original already has3 threads/groups; no GIL/executor isolation. Extra process
-  adds lifecycle/participant but independent RNG and attitude permit identical
-  callbacks. Choose separate cloud process + single-thread executor each. Keep
-  all queues/algorithms/headers/frames/profiles. Primitive-level production GIL
-  versus MTE overhead attribution remains unresolved; do not invent a hotspot.
-- [x] RED7; minimal split in sensor_disturbance, simulation launch and setup;
-  new regression tests. Same-process3-thread native GIL negative control gets0
-  IMUs, independent process test progresses during1.5s cloud callback. Review
-  found synthetic test traffic inherited production names/domain: isolate with
-  domain215 + UUID remaps, guard RED then GREEN. Review follow-up: no remaining
-  critical/important source findings; reviewer could not access parent /tmp logs.
-- [x] Final27 relevant tests PASS; course_sim build1 package PASS; compile4 +
-  YAML3 + diff check PASS. Original/new10 IMUs exact,10 full clouds all fields
-  equal, joints equal; all3 callback ASTs unchanged. Existing encoding tests pass.
-- [x] ONE fresh bounded zero-motion warehouse validation with same probe:
-  raw IMU/cloud p95 .0075/.038s; public IMU/cloud .020/.106s; cloud−latest IMU
-  −.050s, all timing targets PASS. cloud_info98 + mapping98 (~10Hz stamp rate,
-  8.165Hz wall), zero IMU-wait logs vs168 baseline. /slam/odom0 and TF0/24:
-  **full acceptance FAIL**, four supported-floor-plane waits; no cause/tuning
-  claim beyond that observed gate. No additional simulation or movement.
-- [x] Owned cleanup PASS both sessions (11/12 observed identities, zero survivors,
-  launch return0); independent domain196 publishers all0 and lock available.
- 295 initial non-PLAN tracked hashes: only3 intended production sources differ,
-  remaining292 unchanged. Index/branch/HEAD unchanged. No commit or push.
-- [ ] Final operation only: generate exactly ONE normal review bundle under
-  /home/zyd/APRIL_REVIEW_BUNDLES, include complete compressed evidence and
-  report, verify actual path/SHA256, then STOP without post-bundle edits.
+- [x] Authenticate improve/narrow-navigation; initial HEAD/worktree/index clean.
+  Remote branch=ba88a16f841dc3e9c41ce6b53f98dccc2f0c75f7; origin default HEAD=
+  66db5152b3b617d0e5ac5ed65b031573255a4169. Guide/interfaces/source/plan read.
+- [x] Runtime imports authenticated through build symlinks. Correct chain:
+  /pointcloud → LIO features/keyframe transforms/voxels → map_global(lio_world)
+  → pose_adapter.cloud → decode → ground_alignment → ground_ready/alignment
+  → incremental callback → /slam/odom + TF. No direct public-cloud subscription.
+- [x] Full exact estimator audit/decision tree; no threshold changes. Preserve
+  all original None branches and nonidentity measured datum requirements.
+- [x] ONE67s bounded zero-command warehouse diagnosis; domain197; normal/seed0;
+  save10 raw+10 public+9 actual map_global original CDR and lossless XYZ.
+  Offline real-function branch tracing: all29 PASS, zero None returns. Map crop
+  4948, best2883≥593.76, final2872, rank3, tilt2.858°, broad XY support.
+  Repeated map snapshots are one unique spatial map; not9 independent maps.
+- [x] Geometry: URDF/generated SDF/static TF mount [0.34218,0,0.17851], zero RPY;
+  public coordinates/rings/stamps preserved, measured radial noise~0.005m.
+  Ground mesh units/pose authenticated; floor top extent~world z0.034m.
+  Split cloud/imu/joints ASTs unchanged; independent RNG mapping preserved.
+- [x] Known-good1931706 log datum0.8011m, /slam/odom/TF existed. Estimator,
+  adapter/decode/sensor/world-generator configs unchanged. No historical actual
+  good or failed pointcloud found; old ignored world hash unavailable.
+- [x] AGAINST/FOR/neutral: no rejected current input and no proven wrong
+  assumption; no production correction justified. Session variability is plausible
+  only. Reverse only on exact rejected map input proving a concrete defect;
+  conservative thresholds alone without principled replacement still mean STOP.
+- [x]28 existing relevant tests PASS; AST6/YAML4 + generated SDF parse PASS;
+  git diff --check PASS. No RED/GREEN added because no production bug fixed.
+- [x] Current IMU/cloud p95 .020/.110s; cloud_info100, mapping100, slam100;
+  ground established, TF24/24; zero floor waits, one transient startup IMU wait,
+  no persistent IMU wait; zero observed commands. No post-fix session needed.
+- [x] Owned cleanup PASS13 identities/zero survivors; independent domain publishers
+  all0 and lock available. Teardown required Gazebo TERM/KILL escalation; launch
+  return-15 is retained, not reported as graceful exit0.
+- [x] Only this NOW changes; all production/test/config files, index, branch and
+  HEAD unchanged. No goal, movement command, tuning, HANDOFF, branch, commit/push.
 
-**Evidence:** `/tmp/b2w-sensor-backlog-20261016/report.md`, before/after summaries,
-raw synchronous samples, launch logs, independent cleanup, profile, RED/GREEN,
-original/new numerical comparison and integrity records. Final bundle path/SHA
-are printed by the final operation and returned to the user; not guessed here.
-
-**Frozen:** LIO-SAM, pose adapter/ground alignment, Nav2/planner/DWB/policy/
-calibration/tuning, original sensor stamps, normal/fault noise semantics.
-Changed files: this PLAN; sensor_disturbance.py; simulation.launch.py; setup.py;
-new tests/test_sensor_isolation.py. No roadmap/HANDOFF/branch/goal/nonzero command.
+**Evidence:** `/tmp/b2w-ground-gate-20261016/report.md`, original CDR/XYZ,
+offline per-frame exact matrices/rejection checks/statistics, source snapshots,
+history, logs, tests and integrity. Final operation creates exactly ONE review
+archive under `/home/zyd/APRIL_REVIEW_BUNDLES`; actual path/SHA256 in final reply.
+After bundling STOP. Unresolved prior cause remains explicitly unresolved.
 
 ## HISTORICAL — B2-W low-speed policy-command calibration and repeatability
 
