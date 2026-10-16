@@ -24,9 +24,47 @@
 - 旧实施计划归档至 `docs/plans/archive/2026-10-10-local-course-system-plan.md`。历史 design/validation 保留为证据，不是另一个当前 roadmap。无新增 HANDOFF。
 - 历史轮次只读与 timing 交付已结束；本轮范围以最新用户请求和下方 NOW 为准。旧实验/交付记录只作历史证据。
 
-## NOW — B2-W control-chain audit and open-space velocity steps (2026-10-15)
+## NOW — B2-W low-speed policy-command calibration and repeatability
 
-> **For execution:** this is the sole current roadmap. Historical milestones below do not authorize tuning or live experiments. No sub-agents are requested.
+**Scope (2026-10-16):** measurement/audit/tooling only on `improve/narrow-navigation`, committed HEAD `460111a9a37105874df694235b0b561906779cf5`. No branch, additional roadmap, HANDOFF, staging, commit, push, production calibration, or nonzero live experiment. Committed source is SSoT; reviewed captures are evidence. Previous velocity characterization is historical below, with all evidence retained.
+
+**Hypothesis:** `actual physical vx = f(policy vx command)`. Require `f(0)=0`; the positive moving branch should be monotonic if supported by observations. Never extrapolate beyond measured support. An approximately affine moving branch is a hypothesis, not a conclusion. Select the lowest-complexity model that survives fresh validation; production inverse calibration is deferred until user-run data are reviewed.
+
+**AGAINST:** one ascending four-speed capture cannot establish repeatability, dead-zone behavior, contact/no-slip equivalence, or a fixed command mapping independent of state. Input calibration cannot remove yaw, braking or plant variability. **FOR:** final and authenticated policy commands match requests while independent truth/SLAM show elevated steady vx. If wheel targets already encode this elevation and actual wheels track them, a mapping explanation gains support. **Neutral:** authenticate geometry/sign/order and split command→target→actual wheel→body before fitting. Reverse the preference if fresh repeats are unstable, frame/timing/geometry interpretation fails, or appropriate targets plus tracking/contact evidence explain the bias.
+
+**Implementation sequence (sole current plan):**
+
+- [x] Authenticate branch/HEAD/origin/worktree, preserve baseline hashes for production/model files and the entire reviewed raw run.
+- [x] Authenticate deployed generated URDF/SDF, visual mesh, vendored geometry, pinned candidate robot_lab reference and wheel forward signs; derive four steady-window causal tables from existing native events only.
+- [x] Regressions first, then minimally add comma-separated `--speeds` to the existing runner/core. Default remains [.10,.20,.30,.40], each 3s zero→5s target→4s zero. Experimental input envelope [.04,.40] m/s (union of requested protocols and defaults); distinct finite points, no clamp. Readiness, 20Hz path, ownership, cleanup and vy=wz=0 unchanged. All duration consumers derive 12×N; keep bounded wall watchdog.
+- [x] Add pure offline calibration analysis into a fresh output directory: M0 identity, M1 proportional, M2 nonzero affine, M3 monotonic measured knots; explicit zero, unsupported-domain nulls, repeat aggregation, residual/LOSO/error/domain reporting. No production model selection and no polynomial, neural model or cubic fallback needed at this stage.
+- [x] Prepare Protocol A (three independent .20 sessions) and gated Protocol B (.04,.07,.10,.13,.20), exact USER-RUN commands labelled `DO NOT RUN UNTIL CHATGPT REVIEW PASSES`; do not execute either.
+- [x] Run bounded static/unit/offline checks only, verify default semantics against committed source, preserve all existing run files, production bytes, HEAD/index. No ROS/Gazebo integration smoke needed unless static evidence proves insufficient.
+- [ ] Generate exactly ONE review bundle under `/home/zyd/APRIL_REVIEW_BUNDLES` with approved controlled helper, verify path/SHA256, then STOP.
+
+**Frozen scope:** RL/ONNX/PT, Kp/Kd/wheel damping/action scales, yaw_command_gain, idle_hold, Nav2 velocities/DWB/smoother/footprint/inflation/planner/SLAM and production command semantics. Truth stays evaluation-only. No aisle/planner/controller/behavior experiments. No unrelated process termination.
+
+**Completed diagnostic result:** deployed collision radius .1125m authenticated from
+reconstructed launch URDF/SDF; visual/upstream mesh bounds differ. Four forward
+wheel signs are +1, order FR/FL/RR/RL by name. Mean target wheel predictions
+.168073/.270384/.371409/.459380m/s already encode the positive bias; per-wheel
+tracking errors are large and cancel in the mean. Evidence favors average policy
+mapping while preserving coupled plant/contact uncertainty. No production model
+chosen. Audit/protocols: `docs/VELOCITY_CALIBRATION_AUDIT.md`.
+
+**Validation:** 78 bounded unit/static/offline tests PASS, 2 live-ROS tests
+excluded; default dry-run and all8 reviewed derived files byte-identical in NEW
+outputs. Independent read-only review's float32 repeat grouping, full source
+contract pooling and truth/SLAM validity findings fixed with RED/GREEN regressions;
+recheck has no critical/important finding. Live origin read-only SHA matches
+460111a9a37105874df694235b0b561906779cf5. Evidence root
+`/tmp/b2w-calibration-audit-20261016`; no motion/live stack, no production bytes
+changed. Final remaining action is the single controlled bundle and verification;
+its actual path/SHA is returned by that final operation, with no post-bundle edit.
+
+## HISTORICAL — B2-W control-chain audit and open-space velocity steps (2026-10-15)
+
+> **Historical execution contract, superseded by NOW above.** Historical milestones do not authorize tuning or live experiments. No sub-agents were requested in that stage.
 
 **Execution status (independent Sol review):** independent review, harness repairs, unit/static validation, mandatory zero-motion smoke, ONE complete 48-s characterization, exact offline replay and final-code zero smoke have passed. Only final bundle generation/verification remains. The full nonzero characterization was executed by the Sol agent despite the project’s long-test separation rule, without the required explicit user exception in that turn. It is retained as agent-run diagnostic evidence, not a user-run formal experiment. No repeat is needed merely to repair provenance. Earlier Luna static-only records remain historical evidence and do not grant authorization. No tuning, extra roadmap, commit or push. Input bundle recovered read-only from Trash; SHA256 matches `206bed7b814f5e7890e910f5ca365acf9a08aaccb4b82fc1fff3cbef7d5dd129`; embedded worktree files exactly match inherited bytes.
 

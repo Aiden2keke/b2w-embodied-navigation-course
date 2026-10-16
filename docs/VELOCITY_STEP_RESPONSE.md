@@ -219,3 +219,21 @@ Re-analyze an existing run without ROS or child processes:
 ```zsh
 /usr/bin/python3 scripts/run_velocity_steps.py --analyze /absolute/path/to/run-directory
 ```
+
+## Current offline calibration stage (2026-10-16)
+
+The default invocation still requests `[0.10,0.20,0.30,0.40]` over exactly 48
+simulation seconds. The existing runner now also accepts `--speeds 0.20` or
+`--speeds 0.04,0.07,0.10,0.13,0.20`; every point retains 3 s zero → 5 s target
+→ 4 s zero. Inputs must be distinct finite values in [.04,.40] m/s, with
+explicit errors and no clamp. This experiment envelope does not assert measured
+support or authorize motion. All command/readiness/cleanup paths stay unchanged.
+
+[The calibration audit and USER-RUN protocols](VELOCITY_CALIBRATION_AUDIT.md)
+authenticate geometry and wheel signs, split policy targets from actual wheels
+and body velocity, and give exact commands labelled **DO NOT RUN UNTIL CHATGPT
+REVIEW PASSES**. Protocol A repeats come before Protocol B review/authorization.
+Neither was executed in this stage. Pure `scripts/fit_velocity_calibration.py`
+reads completed native run directories and writes JSON/CSV/Markdown into a fresh
+external output directory; it never starts ROS/Gazebo or changes input results.
+Production inverse calibration remains deferred.

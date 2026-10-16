@@ -24,7 +24,7 @@ ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from scripts.velocity_step_core import analyze_run, make_sequence, requested_at
+from scripts.velocity_step_core import DEFAULT_SPEEDS, analyze_run, make_sequence, requested_at
 
 SOURCE_WORLD = ROOT / 'course_sim/worlds/confined.world'
 NAV_CONFIG = ROOT / 'course_navigation/config/nav2.yaml'
@@ -163,7 +163,7 @@ def generate_fixture_world(source: Path, generated: Path) -> dict:
             'ground_truth_usage': 'evaluation_only; never used for readiness values, phase timing, command selection, correction or safety control'}
 
 
-def build_manifest(run_dir: Path, domain: int, token: str, gui: bool, fixture: dict) -> dict:
+def build_manifest(run_dir: Path, domain: int, token: str, gui: bool, fixture: dict, speeds=DEFAULT_SPEEDS) -> dict:
     rate = request_rate_hz()
     smoother_rate = float(re.search(r'(?m)^\s+smoothing_frequency:\s*([0-9.]+)\s*$', NAV_CONFIG.read_text()).group(1))
     return {'schema_version': 1, 'run_directory': str(run_dir.resolve()),
@@ -171,8 +171,8 @@ def build_manifest(run_dir: Path, domain: int, token: str, gui: bool, fixture: d
             'ros_domain_id': domain, 'ign_partition': f'b2w-velocity-step-{token}',
             'owner_token_sha256': hashlib.sha256(token.encode()).hexdigest(), 'gui': gui,
             'requested_rate_hz': rate, 'rate_basis': 'unchanged course_navigation/config/nav2.yaml controller_frequency; verified against unchanged smoother frequency',
-            'smoother_rate_hz': smoother_rate, 'sequence': make_sequence(),
-            'sequence_duration_sim_s': 48., 'requested_topic': REQUEST_TOPIC,
+            'smoother_rate_hz': smoother_rate, 'sequence': make_sequence(speeds),
+            'sequence_duration_sim_s': make_sequence(speeds)[-1]['end_s'], 'requested_topic': REQUEST_TOPIC,
             'raw_topic': RAW_TOPIC, 'shared_topic': SHARED_TOPIC, 'final_topic': FINAL_TOPIC,
             'truth_topic': TRUTH_TOPIC, 'slam_topic': SLAM_TOPIC,
             'executor':'rclpy SingleThreadedExecutor; runner and recorder registered for entire session',
@@ -245,11 +245,16 @@ def _latest(indexed, topic, t, *, source_time=False):
     return rows[i] if i>=0 else None
 
 
+def speed_filename(speed):
+    label=f'{speed:.2f}' if speed == round(speed,2) else repr(float(speed))
+    return f'speed-{label}.json'
+
+
 def _write_outputs(run_dir: Path, manifest: dict, events: list[dict], analysis=None):
     analysis = analysis or analyze_run(events, manifest)
     (run_dir/'per-speed').mkdir(exist_ok=True)
     for row in analysis['per_speed']:
-        _write_json(run_dir/'per-speed'/f"speed-{row['requested_vx_mps']:.2f}.json", row)
+        _write_json(run_dir/'per-speed'/speed_filename(row['requested_vx_mps']), row)
     _write_json(run_dir/'summary.json', analysis)
     columns = ['requested_vx_mps', 'truth_steady_vx_mps', 'truth_gain', 'truth_bias_mps',
                'slam_steady_vx_mps', 'rise_time_10_90_s', 'truth_peak_vx_mps',
@@ -285,7 +290,7 @@ def _write_outputs(run_dir: Path, manifest: dict, events: list[dict], analysis=N
     with (run_dir/'timeseries.csv').open('w', newline='', encoding='utf-8') as stream:
         writer = csv.DictWriter(stream, fieldnames=headers); writer.writeheader()
         if start is not None:
-            for i in range(round(48/grid_dt)):
+            for i in range(round(manifest['sequence'][-1]['end_s']/grid_dt)):
                 elapsed=i*grid_dt; now=start+elapsed; phase=next((p for p in manifest['sequence'] if p['start_s']<=elapsed<p['end_s']),None)
                 sample={'sim_s':now,'elapsed_s':elapsed,'trial':phase['trial'] if phase else None,
                         'phase':phase['phase'] if phase else 'complete'}
@@ -337,9 +342,9 @@ def _analyze_dir(run_dir: Path):
     return 0
 
 
-def _dry_run(gui):
+def _dry_run(gui, speeds=DEFAULT_SPEEDS):
     print(json.dumps({'dry_run':True,'ros_imported':False,'children_launched':False,'motion_published':False,
-        'request_hz':request_rate_hz(),'sequence':make_sequence(),'duration_sim_s':48.,
+        'request_hz':request_rate_hz(),'sequence':make_sequence(speeds),'duration_sim_s':make_sequence(speeds)[-1]['end_s'],
         'tested_chain':['requested Twist','/course_navigation/cmd_vel_raw','unchanged nav2_velocity_smoother',
                         '/course_navigation/cmd_vel','unchanged velocity_adapter',FINAL_TOPIC,'rl_sar','Gazebo'],
         'fixture_source_sha256':sha256(SOURCE_WORLD),'gui':bool(gui)},indent=2,allow_nan=False))
@@ -394,7 +399,7 @@ class _OwnedLaunches:
                 'launch_returncodes':{label:process.poll() for label,process,_ in self.processes}}
 
 
-def _make_ros_node(directory, recorder):
+def _make_ros_node(directory, recorder, speeds=DEFAULT_SPEEDS):
     import rclpy
     from rclpy.node import Node
     from rclpy.clock import Clock, ClockType
@@ -413,7 +418,7 @@ def _make_ros_node(directory, recorder):
             self.last={}; self.final_zero_since=None; self.first_joint_sim=None; self.controller_debug_sim=None
             self.clock_rollback=False
             self.latest_imu=None; self.latest_final=None; self.experiment_start=None; self.run_start_wall=None
-            self.abort_reason=None; self.complete=False; self.sequence=make_sequence(); self.last_audit_wall=0.
+            self.abort_reason=None; self.complete=False; self.sequence=make_sequence(speeds); self.last_audit_wall=0.
             self.zero_only=True; self.clock_advances=0
             self.lifecycle_active=False; self.lifecycle_client=self.create_client(GetState,'/velocity_smoother/get_state')
             self.lifecycle_future=None; self.tf=Buffer(); self.tf_listener=TransformListener(self.tf,self)
@@ -607,7 +612,7 @@ def _make_ros_node(directory, recorder):
             vx,vy,wz=requested_at(self.sequence,elapsed)
             phase=next((p for p in self.sequence if p['start_s']<=elapsed<p['end_s']),None)
             self.recorder.record_request(vx,phase or {'phase':'complete'},elapsed)
-            if elapsed>=48.:
+            if elapsed>=self.sequence[-1]['end_s']:
                 self.complete=True
 
     return HarnessNode
@@ -642,7 +647,7 @@ def run_experiment(args):
     stamp=dt.datetime.now(dt.timezone.utc).strftime('%Y%m%dT%H%M%S%fZ')
     run_dir=root/stamp; run_dir.mkdir(parents=False,exist_ok=False)
     token=secrets.token_hex(16); fixture=generate_fixture_world(SOURCE_WORLD,run_dir/'velocity_step_fixture.sdf')
-    manifest=build_manifest(run_dir,args.ros_domain_id,token,args.gui,fixture)
+    manifest=build_manifest(run_dir,args.ros_domain_id,token,args.gui,fixture,args.speeds)
     manifest['mode']='readiness_smoke' if args.readiness_smoke else 'characterization'
     _write_json(run_dir/'manifest.json',manifest)
     env=dict(os.environ); env.update({'ROS_DOMAIN_ID':str(args.ros_domain_id),'ROS_LOCALHOST_ONLY':'1',
@@ -681,7 +686,7 @@ def run_experiment(args):
         from scripts.velocity_step_recorder import create_recorder
         rclpy=ros_runtime; previous_handlers=_initialize_ros()
         recorder=create_recorder(run_dir)
-        Harness=_make_ros_node(run_dir,recorder); node=Harness()
+        Harness=_make_ros_node(run_dir,recorder,args.speeds); node=Harness()
         executor=_make_executor(node,recorder)
         ready_deadline=time.monotonic()+READINESS_TIMEOUT_S; readiness={}; next_ready_check=0.
         while time.monotonic()<ready_deadline:
@@ -778,8 +783,19 @@ def run_experiment(args):
     return 0 if termination in ('completed','readiness_smoke_completed') and manifest.get('cleanup',{}).get('passed') else 1
 
 
+def parse_speeds(value):
+    try:
+        values=tuple(float(part.strip()) for part in value.split(','))
+        make_sequence(values)
+    except (ValueError,TypeError) as exc:
+        raise argparse.ArgumentTypeError(f'invalid --speeds: {exc}') from exc
+    return values
+
+
 def make_parser():
     parser=argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--speeds',type=parse_speeds,default=DEFAULT_SPEEDS,
+        help='distinct comma-separated policy-command experiment inputs in [0.04,0.40] m/s; default .10,.20,.30,.40; 12 sim seconds per point')
     parser.add_argument('--output-root',default='/tmp/b2w-velocity-steps')
     parser.add_argument('--ros-domain-id',type=int,default=194)
     parser.add_argument('--gui',dest='gui',action='store_true',default=True)
@@ -793,7 +809,7 @@ def make_parser():
 
 def main(argv=None):
     args=make_parser().parse_args(argv)
-    if args.dry_run:return _dry_run(args.gui)
+    if args.dry_run:return _dry_run(args.gui,args.speeds)
     if args.analyze:return _analyze_dir(Path(args.analyze).expanduser().resolve())
     try:return run_experiment(args)
     except Exception as exc:

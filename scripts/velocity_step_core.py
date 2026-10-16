@@ -16,8 +16,10 @@ DEFAULT_GAPS = {'truth': .15, 'slam': .35, 'command': .15}
 def make_sequence(speeds=DEFAULT_SPEEDS, settle_s: float = 3., hold_s: float = 5., stop_s: float = 4.) -> list[dict[str, Any]]:
     values = tuple(float(v) for v in speeds)
     durations = (float(settle_s), float(hold_s), float(stop_s))
-    if len(values) != 4 or not all(math.isfinite(v) and v > 0 for v in values):
-        raise ValueError('exactly four finite positive speeds are required')
+    if not values or not all(math.isfinite(v) and .04 <= v <= .40 for v in values):
+        raise ValueError('speeds must be finite positive experiment inputs in [0.04, 0.40] m/s')
+    if len(set(values)) != len(values):
+        raise ValueError('duplicate speed targets are not allowed')
     if not all(math.isfinite(d) and d > 0 for d in durations):
         raise ValueError('all phase durations must be finite and positive')
     result = []
