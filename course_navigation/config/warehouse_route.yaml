@@ -1,0 +1,29 @@
+# Canonical user-selected positions. No jitter, world-frame substitution or rebase.
+schema_version: 1
+route_id: warehouse-user-selected-20261016
+frame_id: map
+evaluation_tolerance_m: 0.05  # Evaluation only; never overrides Nav2/goal_manager.
+map_reproducibility: unverified_across_fresh_startups
+critical_segment: [G1, G2]
+goals:
+  - name: G1
+    position: [-0.18571805953979492, 7.189985752105713]
+    orientation: corridor_heading
+  - name: G2
+    position: [-4.47874116897583, 6.116940498352051]
+    orientation: corridor_heading
+  - name: G3
+    position: [-3.928757667541504, 3.436979293823242]
+    orientation: null
+  - name: G4
+    position: [0.5741653442382812, 6.976665496826172]
+    orientation: null
+  - name: G5
+    position: [5.592322826385498, 2.1632280349731445]
+    orientation: null
+observed_evidence:
+  source: user_observation_and_existing_goal_manager_json
+  start_to_G1: succeeded_with_original_manager_tolerance
+  G1_to_G2: first_known_failure_segment_later_replaced
+  G3_to_G5: issued_after_G1_to_G2_failure_not_independent_failures
+  captured_RViz_quaternion: accidental_do_not_use

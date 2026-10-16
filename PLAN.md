@@ -24,54 +24,71 @@
 - 旧实施计划归档至 `docs/plans/archive/2026-10-10-local-course-system-plan.md`。历史 design/validation 保留为证据，不是另一个当前 roadmap。无新增 HANDOFF。
 - 历史轮次只读与 timing 交付已结束；本轮范围以最新用户请求和下方 NOW 为准。旧实验/交付记录只作历史证据。
 
-## NOW — ground-plane readiness audit: unresolved, no production fix (2026-10-16)
+## NOW — WORLD truth PRIMARY + session map DIAGNOSTIC composite (2026-10-16)
 
-**Result:** prior failed ground-plane gate is **class 8: unresolved**. ONE fresh
-bounded zero-motion diagnostic session on unchanged production `ba88a16` passed:
-actual ground datum z=0.800939415738 m; /slam/odom100; map→base_link TF24/24.
-This does not prove the preceding failure repaired. No further simulation/fix.
+Branch `improve/narrow-navigation`; HEAD unchanged
+`33b20fd8b86fed523c794b62325dea362d629500`. Inherited dirty benchmark/staging/
+diagnostic work retained. This NOW was updated before implementation; no second
+roadmap/HANDOFF, commit or push. Current change is evaluation/visualization only.
 
-- [x] Authenticate improve/narrow-navigation; initial HEAD/worktree/index clean.
-  Remote branch=ba88a16f841dc3e9c41ce6b53f98dccc2f0c75f7; origin default HEAD=
-  66db5152b3b617d0e5ac5ed65b031573255a4169. Guide/interfaces/source/plan read.
-- [x] Runtime imports authenticated through build symlinks. Correct chain:
-  /pointcloud → LIO features/keyframe transforms/voxels → map_global(lio_world)
-  → pose_adapter.cloud → decode → ground_alignment → ground_ready/alignment
-  → incremental callback → /slam/odom + TF. No direct public-cloud subscription.
-- [x] Full exact estimator audit/decision tree; no threshold changes. Preserve
-  all original None branches and nonidentity measured datum requirements.
-- [x] ONE67s bounded zero-command warehouse diagnosis; domain197; normal/seed0;
-  save10 raw+10 public+9 actual map_global original CDR and lossless XYZ.
-  Offline real-function branch tracing: all29 PASS, zero None returns. Map crop
-  4948, best2883≥593.76, final2872, rank3, tilt2.858°, broad XY support.
-  Repeated map snapshots are one unique spatial map; not9 independent maps.
-- [x] Geometry: URDF/generated SDF/static TF mount [0.34218,0,0.17851], zero RPY;
-  public coordinates/rings/stamps preserved, measured radial noise~0.005m.
-  Ground mesh units/pose authenticated; floor top extent~world z0.034m.
-  Split cloud/imu/joints ASTs unchanged; independent RNG mapping preserved.
-- [x] Known-good1931706 log datum0.8011m, /slam/odom/TF existed. Estimator,
-  adapter/decode/sensor/world-generator configs unchanged. No historical actual
-  good or failed pointcloud found; old ignored world hash unavailable.
-- [x] AGAINST/FOR/neutral: no rejected current input and no proven wrong
-  assumption; no production correction justified. Session variability is plausible
-  only. Reverse only on exact rejected map input proving a concrete defect;
-  conservative thresholds alone without principled replacement still mean STOP.
-- [x]28 existing relevant tests PASS; AST6/YAML4 + generated SDF parse PASS;
-  git diff --check PASS. No RED/GREEN added because no production bug fixed.
-- [x] Current IMU/cloud p95 .020/.110s; cloud_info100, mapping100, slam100;
-  ground established, TF24/24; zero floor waits, one transient startup IMU wait,
-  no persistent IMU wait; zero observed commands. No post-fix session needed.
-- [x] Owned cleanup PASS13 identities/zero survivors; independent domain publishers
-  all0 and lock available. Teardown required Gazebo TERM/KILL escalation; launch
-  return-15 is retained, not reported as graceful exit0.
-- [x] Only this NOW changes; all production/test/config files, index, branch and
-  HEAD unchanged. No goal, movement command, tuning, HANDOFF, branch, commit/push.
+- [x] Authenticated authoritative pinned AWS no-roof warehouse + generated world:
+  25 static authored collision meshes, exact native mesh decoding and SDF poses.
+  Feasibility STOP gate passed: exact all-height collision projection is possible;
+  no screenshot, hand drawing, guessed bounds, AABB replacement or invented TF.
+- [x] Canonical PNG/JSON/projected-triangle JSON in `course_navigation/maps/`.
+  WORLD frame; 700×1046; .02m/pixel; pixel centers
+  `x=xmin+(col+.5)*r`, `y=ymax-(row+.5)*r`. Source/image/geometry SHA256s saved.
+  Two independent generations are byte-identical across all three artifacts.
+- [x] PRIMARY = canonical WORLD floorplan + passive `/sim/ground_truth/odom`
+  truth Path. DIAGNOSTIC = retained same-run `/map` + map→base_link SLAM Path.
+  Truth source `sim_world` is an evaluation-only identity label for the existing
+  zero-offset simulator worldPose output; no TF is published or fed navigation.
+- [x] Optional evaluation-only map→world SE(2) waypoint labeling: exact-stamp TF/
+  truth pairs, ≥30 distinct stamps, ≥1m spatial span, RMS≤.05m, max≤.10m.
+  Rejected/insufficient fit means no WORLD waypoint labels. Never a control input.
+- [x] Main artifact `overlays/route-comparison.png`: PRIMARY left / DIAGNOSTIC
+  right (presentation-only correction; unchanged experimental milestone). Standalone full/segment panels remain. Missing truth/floorplan/source
+  identity leaves PRIMARY unavailable; missing/corrupt diagnostic data does not
+  suppress valid PRIMARY. Unavailable panels remain explicit in the composite.
+- [x] Local horizontal UI correction only: complete standalone panels pasted
+  side by side, no resize/crop; unequal heights use centered white padding.
+  MOCK preview 3000×1350, LEFT [0,0,1500,1350], RIGHT [1500,0,3000,1350].
+  Horizontal RED/GREEN tests and selected offline regressions: **133 passed**;
+  diff check and owned cleanup PASS. All six standalone preview PNGs unchanged.
+  Correction evidence: `/tmp/b2w-horizontal-composite-20261016/`.
+- [x] Human visual criterion remains no large loop / major bypass; no numeric
+  detour score. All-height projection includes overhead geometry and does not
+  certify body clearance. Actual detour/physical success remains untested.
+- [x] RED/GREEN floorplan, truth, registration, composite, source mismatch,
+  diagnostic-corruption isolation and reporting tests. Initial WORLD delivery suite:
+  **132 passed** (20 truth/floorplan tests + existing 112 selected tests).
+  `git diff --check` and new-text whitespace PASS; only owned-process cleanup
+  **PASS**, no owned survivors. Initial unsourced ROS-message import failure
+  retained in logs; sourced offline suite passed without starting any ROS node.
+- [x] Read-only reviewer findings fixed: authenticate collision mesh bytes in
+  addition to world XML; isolate corrupt diagnostic artifacts per panel; avoid
+  Pillow/SciPy imports in default dry provenance; recognize PRIMARY-only status.
+- [x] Pre-task source-hash audit: only six existing files changed this turn;
+  seven new files. All other preexisting file hashes unchanged, including route
+  config, goal_manager, Nav2/controller/sensor/LIO/policy/calibration files.
+  `load_route`, `critical_goals`, `evaluate_goal`, `run_critical`, `find_metrics`
+  ASTs identical to turn start. Existing safety/cancel tests retained.
 
-**Evidence:** `/tmp/b2w-ground-gate-20261016/report.md`, original CDR/XYZ,
-offline per-frame exact matrices/rejection checks/statistics, source snapshots,
-history, logs, tests and integrity. Final operation creates exactly ONE review
-archive under `/home/zyd/APRIL_REVIEW_BUNDLES`; actual path/SHA256 in final reply.
-After bundling STOP. Unresolved prior cause remains explicitly unresolved.
+Navigation contract unchanged: exact frozen map goals/headings; G1 navigation
+success + complete TF + <=.05m staging admission before critical G1→G2; stop at
+G2 or first failure, no G3–G5 live continuation or correction. Historical G1
+.064844853m remains original navigation success under .3m, but does not pass
+new staging admission. Truth never affects goals, SLAM, Nav2, control, staging,
+safety or phase progression. Cross-startup absolute-map reproducibility remains
+UNVERIFIED; accepted evaluation registration does not establish it.
+
+No agent live ROS/Gazebo/Nav2, nonzero commands, parameter changes, commit/push.
+Evidence root `/tmp/b2w-world-floorplan-20261016/`: RED/GREEN, final-selected.log,
+cleanup JSONs, audit.json, deterministic rebuild and explicitly MOCK preview.
+Code path + snippet + causal interpretation and significant-choice AGAINST/FOR/
+verdict/unknown/reversal evidence are in `docs/NARROW_BASELINE.md` WORLD section.
+Final delivery step after this snapshot: exactly one normal april-review-bundle
+using the approved helper, report path + SHA256, then STOP.
 
 ## HISTORICAL — B2-W low-speed policy-command calibration and repeatability
 

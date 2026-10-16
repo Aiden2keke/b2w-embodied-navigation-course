@@ -593,3 +593,467 @@ Humble安装plugin的unsmoothed_plan lifecycle发布器在smoothing之前发布�
 唯一新owned PID/starttime=`3765102/39590047`，deactivate/cleanup完成、process returncode=0、remaining={}。host独立审计本轮与历史六个identity均已退出、matching_owned_or_domain193=[]、passed=true；354个/proc environ不可读条目记录可见性边界。无额外plugin进程，无禁止shell自动中止开关/exit或pkill-f。
 
 交付前所有验证与文档完成；最后调用~/bin/april-review-bundle的/tmp受控副本（只移除原禁止shell开关、guard改函数return，原工具不改），包含新strict证据、五值最终表、旧0.0异常、源码/binary摘要、完整请求、路径、hash、cleanup和tests。bundle生成后立即停止，不回写PLAN、不commit/push。实际路径以最终工具输出为准。
+# Canonical warehouse G1→G2 benchmark — 2026-10-16
+
+The user-selected route SSoT is
+[`course_navigation/config/warehouse_route.yaml`](../course_navigation/config/warehouse_route.yaml).
+This is the warehouse route; the older generated A/B fixtures below retain their
+own historical purpose. The only current roadmap is the root `PLAN.md` NOW.
+
+`scripts/run_warehouse_route.py` is a thin consumer of the existing `/goal_pose`
+and `goal_manager` pipeline. Its default is offline dry-run. Live execution is
+**USER-RUN ONLY**, requires literal `--execute`, and attaches to an existing idle
+warehouse session. The agent has not run this live path. No live/navigation
+success or across-startup physical repeatability is claimed by offline tests.
+
+The five positions are frozen exactly in the YAML. There is no jitter, random
+goal seed, initial-pose rebase or Gazebo-world transform. `0.05 m` is an XY endpoint
+evaluation tolerance only. G1/G2 both use `atan2(G2.y-G1.y, G2.x-G1.x)`:
+
+```text
+yaw = -2.8966601449198057 rad = -165.9664009876583 degrees
+quaternion xyzw = (0, 0, -0.9925103760697063, 0.12216035933955931)
+```
+
+The captured RViz quaternion was accidental and is excluded. G3–G5 orientations
+are `null` (deferred); the critical executable cannot select these goals. It
+performs Start→G1, requires navigation success and .05m staging admission before
+G1→G2, and stops after G2 success or failure. No retries, extra goals, planner-only preflight action or auto-launch.
+This fixes target headings; the planner can still choose a nonstraight path,
+and actual G1 arrival heading still uses unchanged Nav2 angular tolerance.
+
+Navigation sequencing requires both observed Nav2 `STATUS_SUCCEEDED=4` and
+existing `goal_manager.success=true`, with available fresh boundary TF evidence.
+The separate .05m evaluation never changes navigation parameters or goal poses.
+After G1, failed navigation/evidence stops with `staging_failed`; successful
+navigation with failed .05m evaluation stops with `staging_evaluation_failed`.
+Only navigation success, complete TF evidence and `evaluation_passed=true` admit
+G2. These remain separate result fields; there is no retry or correction. Overall
+benchmark `success` requires G2 navigation success, its .05m endpoint evaluation,
+and cleanup PASS. A missing TF/error remains null/unavailable, never zero.
+The benchmark evaluates position, not an independently certified yaw tolerance.
+
+## Map-frame authentication and limitation
+
+**Decision: absolute map-coordinate physical reproducibility across fresh
+warehouse startups is UNVERIFIED, including at .05m.** Identical spawn/world
+defaults make broadly similar online maps plausible; they do not register a new
+SLAM map to the original user-selected route. The route is a deterministic
+command contract in `map`, not a saved-map localization solution. Do not infer
+`map=(Gazebo world − spawn)` or invent an alignment from the goals.
+
+| Code/evidence path and key snippet | Causal interpretation and limit |
+| --- | --- |
+| `course_sim/launch/simulation.launch.py`: `('x', 0. if scene == 'warehouse' else -6.), ('y', 0.), ('z', 1.)` | Warehouse spawn defaults are fixed, but this initializes the physical model, not an absolute public map registration. |
+| `scripts/fetch_lio_sam.sh` pins LIO-SAM; existing `third_party/lio_sam/src/mapOptmization.cpp`: `transformTobeMapped[i] = 0`; at first keyframe `if (!useImuHeadingInitialization) transformTobeMapped[2] = 0` | LIO begins in its own initial estimation frame. The local downloaded source was inspected; it is not a new tracked dependency. |
+| `course_slam/config/lio_sam.yaml`: `useImuHeadingInitialization: false`; `course_slam/config/adapter.yaml`: `map_alignment_xyz: [0.0, 0.0, 0.0]`, `map_alignment_rpy: [0.0, 0.0, 0.0]` | Default startup has no persisted old-map registration or absolute heading anchor. |
+| `course_slam/course_slam/ground_alignment.py`: `alignment[:3, :3] = rotation`; `alignment[2, 3] = -plane[2] / length` | The floor normal/datum is estimated from that session's measured cloud. Floor fitting does not identify warehouse XY/yaw landmarks. |
+| `course_slam/course_slam/pose_adapter.py`: `self.alignment = alignment`; `base = self.alignment @ lidar @ self.lidar_base`; `self.broadcast(self.map, self.odom, self.correction, ...)` | Public localization combines a per-session floor estimate, extrinsics and LIO correction. No old-map relocalization is introduced here. |
+| `docs/INTERFACE_ALIGNMENT.md`: online origin uses initial pointcloud ground; `CODEX_GUIDE.md` §5: fixed maps still require SLAM registration to the old map | Project conventions explicitly distinguish online mapping from registered fixed-map reuse. |
+| Historical `docs/NARROW_BASELINE.md` online planner A/B section: `目标由各次fresh SLAM map→base_link初始pose/yaw构造，不复用另一次启动的map坐标` | Prior fixture runs used fresh-start-relative targets. Their grid differences do not establish warehouse landmark error or certify these absolute coordinates. |
+| `/tmp/b2w-ground-gate-20261016/report.md`: known-good ground z≈.8011m versus fresh .800939415738m; prior failure unresolved | Existing zero-motion evidence establishes readiness in one rerun. Ground z alone cannot quantify cross-session warehouse XY/yaw reproducibility. |
+
+No historical landmark registration, paired same-physical-waypoint residuals or
+old-map transform with error bounds was found in the relevant saved evidence.
+That is an evidence gap, not proof that the coordinates always drift by >.05m.
+Reversal requires independent registration evidence across fresh warehouse
+startups bounding physical landmark/route error at the required tolerance.
+
+## Preserved observed route evidence
+
+These existing local metric files were read, hashed and copied as small JSON
+evidence to `/tmp/b2w-warehouse-route-20261016/historical-evidence.json` without
+modifying originals. They are ignored runtime outputs and may be unavailable on
+another checkout; the statements below preserve the observed scope.
+
+| Existing `course_results/navigation/` file | Key snippet | Interpretation |
+| --- | --- | --- |
+| `20261016T083151.972156Z.json` | `"success": true`, `"end_reason": "succeeded"`, `"final_goal_distance_m": 0.06484485334757964`, `"goal_tolerance_m": 0.3` | Start→G1 remains a navigation success under the original .3m criterion; its .064844853m endpoint is not a pass of the new .05m staging-admission contract. |
+| `20261016T083236.246776Z.json` | `"success": false`, `"end_reason": "replaced"`, `"planning_measurement_status": "aborted"` | User-observed G1→G2 is the first known failure segment; the recorded final manager reason is replacement, not proof of a terminal NavigateToPose ABORTED result. |
+| `20261016T083310.822671Z.json` | G3: `"end_reason": "replaced"` | Issued from the preceding failure state, not an independent failure trial. |
+| `20261016T083322.077354Z.json` | G4: `"end_reason": "aborted"` | Same dependent sequence; do not count as an independent route failure. |
+| `20261016T083330.878149Z.json` | G5: `"end_reason": "shutdown"` | Same dependent sequence; shutdown is not an independent traversal result. |
+
+## Implementation decisions and evidence
+
+The major choices were argued against before support during implementation:
+
+| Choice | Strong argument AGAINST | Argument FOR | Neutral verdict / biggest unknown / reversal condition |
+| --- | --- | --- | --- |
+| Freeze absolute route | Unregistered fresh maps may send identical numbers to different physical places. | Replacing user-selected coordinates with relative targets would change the experiment. | Freeze verbatim and mark comparability unverified; unknown is original-to-fresh registration; reverse on independent registration evidence, never a guessed transform. |
+| Reuse `/goal_pose` + manager JSON | File IO is not transactional; concurrent goals can contaminate association and cancellation. | Existing manager owns Nav2 actions, timeout, planning measurement and metrics. A second action/recorder stack would duplicate these. | Add minimal boundary metadata and exact header+pose association; unknown is user-run timing; reconsider if the existing interface cannot associate requests reliably. |
+| Require .05m G1 staging admission independently of navigation success | This can stop a run despite Nav2/manager success, including the historical .0648m offset. | The user explicitly requires the critical segment to begin within the canonical .05m staging neighborhood, without tightening controls. | Preserve navigation/evaluation flags; stop with staging_evaluation_failed before G2 when only evaluation fails. Historical navigation success remains true. Unknown is live admission frequency; change only under a revised explicit staging contract. |
+| Require terminal cancellation evidence | UUID may be unavailable when cancellation precedes acceptance; conservative cleanup can fail even with no remaining action. | A Trigger response only acknowledges manager callback completion. Claiming stopped navigation from that alone is false. | Track newly observed UUIDs; confirm terminal status or report FAIL. Unknown is acceptance timing; simplify only if a future identity-aware interface supplies terminal acknowledgment. |
+
+| Implemented path and key snippet | Causal interpretation |
+| --- | --- |
+| `scripts/run_warehouse_route.py`: `if not execute: ... return report` before `(transport_factory or RosGoalTransport)()` | Default path never constructs transport or imports ROS; no goals/commands are emitted. |
+| Same file, `critical_goals`: `for g in (a, b)`; G1 branch: `if not segment['evaluation_passed']: ... staging_evaluation_failed`; break after critical outcome | G3–G5 cannot enter the execution sequence, including after success or failure. |
+| Same file, `find_metrics`: `data.get('goal_pose') == sent`, excluding preexisting paths | Same XY with a different stamp/orientation is not accepted as this run's result; duplicate matches fail. Partial JSON writes are retried. |
+| Same file, `manifest`: `route_sha256`, `config_sha256`, `head`, `source_sha256`, optional `warehouse_world_sha256` | Provenance records exact on-disk route/config/source content and HEAD. File hashes do not prove the already running stack loaded those files; the manifest states this limit. |
+| `course_navigation/course_navigation/goal_manager.py`: `self.goal_message = message_to_ordereddict(msg)`; `self.nav2_status = status` only in `result()` | Exact stamped request is recorded; raw Nav2 status is observed, not inferred from a timeout/replacement string. |
+| Same file, `map_base_snapshot`: `if 0 <= age <= 0.5`; record `start_map_base_link`, `end_map_base_link` | Stamped complete map→base_link transforms are sampled at manager admission/finish; stale/unavailable boundary evidence stays null. This is not a continuous TF recorder. |
+| Same file: `record = self.active.finish(...)`; harness retains `goal_manager_metrics` and source path/SHA | Existing path length, collision, time and planner metrics are reused verbatim, with their original missing-data semantics. |
+| `scripts/run_warehouse_route.py`, `attach_monitors`: `qos_profile_sensor_data`; `close`: `all(s in (4, 5, 6) ...)` | Monitor accepts the same best-effort goal sources as the manager; cancellation acknowledgment alone is insufficient. Foreign goals suppress global cancel. |
+| Same file, `send_and_wait`: pending obligation remains unless raw `nav2_status` is terminal or reason is `rejected` | Manager timeout/clock-reset metrics do not discharge asynchronous action cancellation. |
+| `course_navigation/package.xml`: `<exec_depend>rosidl_runtime_py</exec_depend>` | The metadata converter is explicitly declared, avoiding reliance on an incidental transitive installation. |
+
+`report.json` is checkpointed with an atomic rename, including before publish.
+`prepared_pose` means a stamped request was prepared; `sent_pose`/`sent_poses`
+mean `Publisher.publish()` returned (not proof of DDS delivery). The manager's
+matching `goal_pose` is evidence of admission. Exact fields are retained without
+rounding. A route snapshot is a generated run artifact, not a second editable
+route config. Reports contain no replay/tuning logic.
+
+The lightweight attach preflight checks one manager, active Nav2 lifecycle,
+discovered status publisher, observed idle status where available, goal subscriber
+discovery and fresh map TF. An unused action server may have no initial status
+sample. **Prerequisite: fresh idle warehouse and exclusive goal production.**
+Do not click RViz goals or run another action client during execution. Topic
+monitoring cannot provide a transactional exclusivity lock; unknown legacy goals
+queued before attachment are not authenticated by a missing status sample.
+On interference the harness stops and avoids canceling an observed foreign goal.
+On its own interruption/error/manager timeout it requests cancellation and waits
+boundedly for owned terminal action status; absent evidence is cleanup FAIL.
+It destroys only its ROS resources, never launches or signals session processes.
+
+## Exact commands — USER-RUN ONLY for live execution
+
+From the repository root, offline dry-run needs no sourced ROS environment:
+
+```bash
+cd /home/zyd/program/b2w-embodied-navigation-course
+/usr/bin/python3 scripts/run_warehouse_route.py --mode critical \
+  --output-root /tmp/b2w-warehouse-route-dry
+```
+
+For live use, first build the changed package through the existing build script
+if the checkout is not using current source symlinks. This is a build, not a live
+benchmark. Follow `CODEX_GUIDE.md` prerequisites; no installs are performed by
+the route harness. End an old simulation in its own terminal before a fresh
+startup; do not start a second stack in the same domain. **Terminal 1, USER-RUN:**
+
+```bash
+cd /home/zyd/program/b2w-embodied-navigation-course
+scripts/build_course.sh --symlink-install --packages-select course_navigation
+ROS_DOMAIN_ID=91 scripts/run_warehouse.sh \
+  results_directory:=/tmp/b2w-warehouse-route-metrics
+```
+
+Wait for localization/Nav2 readiness. Visually verify the frozen map-frame
+targets refer to the intended warehouse corridor. This is a user check, not a
+quantified cross-startup registration certificate. If correspondence is uncertain,
+retain dry-run and collect registration evidence before spending a live trial.
+**Terminal 2, Bash, USER-RUN ONLY:**
+
+```bash
+cd /home/zyd/program/b2w-embodied-navigation-course
+source /opt/ros/humble/setup.bash
+source install/setup.bash
+export ROS_DOMAIN_ID=91
+export ROS_LOCALHOST_ONLY=1
+export FASTRTPS_DEFAULT_PROFILES_FILE="$PWD/course_sim/config/fastdds_local.xml"
+export PYTHONPATH="$PWD/.venv/lib/python3.10/site-packages:${PYTHONPATH:-}"
+export LD_LIBRARY_PATH="$PWD/.deps/lib:$PWD/b2w_sim/b2w_controllers/third_party/onnxruntime/lib64:${LD_LIBRARY_PATH:-}"
+export OPENBLAS_NUM_THREADS=1
+/usr/bin/python3 scripts/run_warehouse_route.py --mode critical --execute \
+  --output-root /tmp/b2w-warehouse-route-live
+```
+
+The existing absolute `results_directory` is read from `/goal_manager` and is
+required for unambiguous local file access. Runtime timeout and manager tolerance
+are recorded, not overwritten. The default Nav2 configuration remains unchanged;
+if the user starts an existing diagnostic config, retain that startup command/log
+as loaded-config evidence. No new planner, DWB, footprint, costmap, smoother,
+policy, sensor, LIO, recovery or calibration settings are introduced.
+
+Offline verification uses `tests/test_warehouse_route.py` plus existing narrow,
+readiness, metrics/math, ground-alignment and observer regression suites. It
+includes real ROS message conversion and real transport methods against fake
+IO, without `rclpy.init`, nodes, actions or command publication. Final counts and
+owned-process cleanup evidence are in the root NOW and the single review bundle.
+
+## Warehouse trajectory overlays — retained DIAGNOSTIC localization evidence
+
+Future USER-RUN critical benchmarks automatically capture small evidence
+sidecars and render images after transport teardown. The default remains a
+ROS-free dry-run: no capture subscriptions, plotting, goals or motion. Existing
+G1 admission (`navigation_success`, complete TF and .05m evaluation), G2 outcomes,
+failure stops and cancellation gates are unchanged. G3–G5 are not auto-executed.
+
+**DIAGNOSTIC map source: the exact same-session `/map` OccupancyGrid used by navigation.**
+The following map-local evidence remains available; PRIMARY comparison evidence
+and the default composite are defined in the WORLD section below.
+The default warehouse launch builds an online map; no saved static navigation
+map YAML/PGM was found in the relevant environment/config/results locations.
+`scripts/save_course_map.sh` already saves `/map` through Nav2 map_saver when a
+user requests a static artifact. Capturing OccupancyGrid fields directly avoids
+an additional export process and retains unknown/probability cells exactly.
+If fixed-map mode is selected, its map_server publishes the same `/map` interface.
+
+| Source/code path + key snippet | Causal interpretation / choice |
+| --- | --- |
+| `course_navigation/launch/navigation.launch.py`: `if mode == 'online'` creates `map_projector`; fixed mode creates `nav2_map_server` | `/map` is the current stack's map interface in either supported map mode. |
+| `course_navigation/course_navigation/map_node.py`: `create_publisher(OccupancyGrid, '/map', qos)`; `msg.header.frame_id = self.frame`; `msg.data = self.grid.data().reshape(-1).tolist()` | This is an existing map-frame occupancy raster, not geometry synthesized for the plot. |
+| `course_navigation/course_navigation/map_projection.py`: `grid[self.free] = 0`, `grid[self.occupied] = 100`; initial value `-1` | Free, occupied and unknown stay distinguishable; unknown is not evidence of a clear corridor. |
+| `scripts/save_course_map.sh`: `nav2_map_server map_saver_cli` | Existing static exports originate from the same `/map`; no separate floorplan is substituted. |
+| `scripts/observe_warehouse_narrow_failure.py`: `topic.endswith('/costmap_raw')` saves raw master maps | Older observer artifacts are inflated navigation costs, including odom-frame local maps. They are not an uninflated canonical floorplan and are from different startups. |
+| `scripts/prepare_warehouse.py` / `course_sim/launch/simulation.launch.py`: generated warehouse world and robot spawn | Gazebo world geometry is not registered to the online SLAM map by these files. Projecting its meshes with a guessed transform would violate the route's frame contract. |
+| `scripts/narrow_planner_comparison.py:path_metrics`: `integrated_raw_cost_exposure_cost_m` and `exposure_definition` | This is descriptive costmap exposure for planner diagnostics, not a visual detour rule. No such scoring system is added. |
+| `course_navigation/course_navigation/goal_manager.py`: `self.active.pose(...)` and `self.active.finish(...)` | Existing manager path length/error remain secondary metadata; this task does not alter that implementation. |
+
+**AGAINST `/map`:** online coverage can be incomplete and change with SLAM.
+**FOR:** it is the actual navigation obstacle map in the required frame, with no
+hand-drawn geometry, world transform or inflation reinterpretation. **Verdict:**
+save exact snapshots and show unknown cells. Biggest unknown is whether a future
+run observes the corridor walls sufficiently. Reconsider if a registered static
+map becomes the actual navigation source; its `/map` output remains suitable.
+Cross-startup absolute-map reproducibility stays **UNVERIFIED**, as above.
+Sharing a frame name is not registration; unrelated old maps/traces are rejected.
+
+Capture uses `RosGoalTransport`'s existing TF buffer. `capture_pose()` calls
+`lookup_transform('map', 'base_link', Time())`, keeps the original pose/stamp,
+requires TF age in [0,.5] s, and samples at most 10 Hz into a standard
+`nav_msgs/Path`-shaped dictionary. This is **SLAM localization trajectory**, not
+Gazebo truth or certified physical body clearance. No new localization stack,
+action client, planner preflight or velocity publisher is introduced. The passive `/map`
+subscription matches transient-local/reliable map QoS. Truth capture below is
+a separate evaluation-only subscription, with no new node or recorder.
+No planned path overlay is added: the current route benchmark does not already
+capture one, and an older observer's `/plan` belongs to a different session.
+
+**AGAINST automatic capture:** extra work can perturb timing or fail storage.
+**FOR:** the existing TF buffer avoids a parallel recorder and captures evidence
+with each explicit user trial. **Verdict:** passive sidecars; errors do not change
+navigation outcomes. Biggest unknown is live overhead/availability, untested here;
+prefer already-captured same-run paths if available in future. Rendering occurs
+offline after cleanup; pending-goal cancellation precedes map serialization.
+Successful-segment serialization can add inter-segment wall time and is not a
+measurement of controller timing. No live non-perturbation claim is made.
+
+Artifacts inside the printed benchmark run directory:
+
+```text
+route-snapshot.json                  generated copy of the canonical config
+report.json                          original outcomes + visualization status
+evidence/index.json                  run/route binding, errors, segment sources
+evidence/00-Start-G1.path.json        stamped map-frame nav_msgs/Path fields
+evidence/01-G1-G2.path.json           only when that segment was executed
+evidence/map-<sha256>.json            exact OccupancyGrid, original header/info/data
+overlays/full-route.png              actual executed prefix, all G1..G5 nominal labels
+overlays/Start-G1.png                 full context + segment detail
+overlays/G1-G2.png                    full context + corridor/detail view
+overlays/trajectory-overlays.json     per-image provenance and secondary metrics
+```
+
+Every image row records `route_id`, `segment_id`, benchmark HEAD, source `/map`
+file/hash/header, image path and exact waypoint XY. Existing manager path length
+and endpoint error are included per segment when present. The full overview uses
+the latest available matching segment map; each segment uses its own end-of-
+capture snapshot. Map stamps are retained; this is not a historical map mosaic.
+The offline renderer supports supplied artifacts for all five segments, but the
+live critical benchmark continues to stop at G2. Unexecuted goals stay nominal
+markers; they do not get trajectory lines. Separate segments are never joined by
+invented connecting lines. A full image with missing capture says **INCOMPLETE**.
+
+`scripts/warehouse_route_evidence.py:observe_clock()` invalidates all run segments
+on an observed backward clock, including between segments. The transport clears
+its cached map on that reset. `path_chunks()` disconnects gaps >.5s and rejects
+mixed frames/nonmonotonic poses. `map_geometry()` validates ROS occupancy values,
+dimensions and planar origin quaternion; plotting respects resolution, origin
+translation/yaw and bottom-up row order. No cells are manually filled for real
+evidence. `RouteEvidence.finish()` releases failed capture as unavailable, so
+one storage failure cannot poison the next segment. No map/path means no diagnostic
+trajectory PNG; the composite explicitly shows its unavailable panel.
+`route_content_sha256` binds the captured config; sent goal name/frame/XY are
+checked against it, and map/path SHA checks reject mismatched or corrupt inputs.
+These are consistency checks, not a new registration certificate.
+
+The composite below is the primary human-facing artifact: visually check its
+PRIMARY truth panel for a large loop/major bypass
+and intended-corridor traversal. Context panels include the whole map; detail
+bounds include all captured segment points so a bypass is not cropped out.
+Start/end markers, nominal G1..G5 and unknown/occupied legend are shown. Gaps,
+unknown walls or incomplete capture can make the verdict inconclusive. The
+report deliberately leaves `detour_judgment: null` for human review. No automatic
+numeric detour threshold or planner ranking is introduced.
+
+Use the exact USER-RUN startup and Bash environment in the preceding section.
+The existing command now also captures and generates overlays automatically:
+
+```bash
+# USER-RUN ONLY, in the sourced terminal for the existing idle warehouse:
+/usr/bin/python3 scripts/run_warehouse_route.py --mode critical --execute \
+  --output-root /tmp/b2w-warehouse-route-vis-live
+```
+
+For offline re-rendering of a saved run (no ROS environment needed), replace
+`RUN_DIRECTORY` with the exact directory printed by the benchmark and choose
+a new output directory. Existing images are never overwritten:
+
+```bash
+/usr/bin/python3 scripts/plot_warehouse_route.py RUN_DIRECTORY \
+  --output-directory /tmp/b2w-overlay-review --label method-name
+```
+
+System Python Matplotlib is available on this machine; no installation was run.
+This delivery ran only offline/mock tests. Inspected example PNGs under
+`/tmp/b2w-route-overlays-20261016/mock-preview/overlays-checked/` explicitly say
+**MOCK MAP + MOCK TRAJECTORY — NOT WAREHOUSE EVIDENCE**. They test rendering;
+they do not establish a real corridor traversal or no-detour result. Actual
+canonical-route overlays require a future USER-RUN capture; old endpoint-only
+metrics cannot reconstruct a continuous trajectory.
+
+## WORLD truth PRIMARY + session map DIAGNOSTIC (current evidence contract)
+
+The default human-facing artifact is **`overlays/route-comparison.png`**, one
+horizontal figure: LEFT **PRIMARY: world truth floorplan + truth trajectory**;
+RIGHT **DIAGNOSTIC: session map + SLAM trajectory**. Judge “no obvious detour”
+primarily from the left panel: no large loop / major bypass between adjacent
+waypoints, with traversal through the intended corridor. The right panel helps
+explain localization/map effects. It remains available and is not the primary
+comparison map. No numeric detour scoring or automatic pass is added.
+
+The canonical artifacts are `course_navigation/maps/warehouse_ground_truth_floorplan.png`,
+`.json` and `.geometry.json`. The authoritative source is the pinned AWS small
+warehouse `ee0af733315e78432408c3cd98d378ecee5f767c`, its no-roof world,
+and `scripts/prepare_warehouse.py`'s generated
+`third_party/aws_warehouse/warehouse.world`. All 25 static collision meshes are
+loaded by the installed simulator's `ignition-common4-graphics` mesh loader,
+including COLLADA units/node transforms, then transformed by SDF model, link,
+collision poses and mesh scale. This is an **all-height orthographic projection
+of authored collision triangles**, including overhead objects. GroundB support
+is light, other collision projections dark, outside support gray. It is not a
+height-sliced or inflated traversability/clearance map. No bounding-box
+replacement, hand drawing, screenshot, guessed pose or guessed bounds is used.
+Projected triangle vertices are retained in the geometry JSON; pixel-center
+triangle coverage is the explicit rasterization rule.
+
+**AGAINST this floorplan:** projecting overhead collisions does not establish
+body clearance, and visual collision meshes can differ from visual textures.
+**FOR:** authored static collision triangles define a reproducible, fixed WORLD
+reference without registering SLAM or choosing an undocumented height slice.
+**Verdict:** canonical collision projection for visual route comparison.
+Biggest unknown: real traversal/clearance and live evidence availability remain
+untested. Reverse the projection choice only with an explicit new height/surface
+contract and regenerated provenance; do not silently substitute a screenshot.
+
+Exact image/world contract, also stored in the metadata:
+
+```text
+frame_id: world; resolution: 0.02 m/pixel; width: 700; height: 1046
+xmin: -6.99023499       xmax: 7.00976501
+ymin: -10.45333252      ymax: 10.466667480000002
+image row 0 is north/top; column 0 is west/left
+pixel-center x = xmin + (column + 0.5) * resolution
+pixel-center y = ymax - (row + 0.5) * resolution
+column = (x - xmin) / resolution - 0.5
+row    = (ymax - y) / resolution - 0.5
+```
+
+Bounds start at the exact transformed source minimum and round the dimensions
+up to whole .02m cells; the last row/column includes deterministic padding. JSON
+records raw source-file SHA256s (world, models, collision meshes, preparer,
+extractor, builder), portable normalized world SHA, loader version, image SHA
+and projected-geometry SHA. World identity normalizes only absolute mesh URI
+prefixes, not geometry/poses. Run manifests additionally hash collision mesh
+bytes; PRIMARY requires both the normalized world and collision hashes to match.
+These are **on-disk provenance checks**, not proof of a future simulator's loaded
+runtime scene. Keep the user's warehouse startup/log as runtime evidence.
+
+| Code path + key snippet | Causal interpretation |
+| --- | --- |
+| `scripts/prepare_warehouse.py`: `REVISION = 'ee0af733315e78432408c3cd98d378ecee5f767c'`; `ET.SubElement(model, 'pose').text = wrapper.findtext('pose', '0 0 0 0 0 0')` | The existing environment generator pins authored assets and retains world placement; its output is the geometric authority. |
+| `scripts/warehouse_collision_mesh.cc`: `MeshManager::Instance()->Load(argv[1])`, `sub->Vertex(index)` | The offline extractor uses the installed simulator mesh decoder, not a new approximate COLLADA parser; no simulator or ROS node starts. |
+| `scripts/warehouse_truth_floorplan.py`: `pose_matrix(model) @ pose_matrix(link) @ pose_matrix(collision)`; `(triangles*scale) @ transform[:3, :3].T + transform[:3, 3]` | Transformed authored triangles define exact WORLD geometry. Unsupported named relative frames/shapes fail rather than being guessed. |
+| `scripts/warehouse_truth_floorplan.py:rasterize`: `points = pixel_to_world(...)`; `region[inside] = ...` | Real triangle membership at the documented pixel centers determines the raster. AABB bounds only limit computation. |
+| `course_sim/course_sim/description.py`: `plugin.find('odom_frame').text = 'sim_world'`; `sub(plugin, 'odom_topic', '/sim/raw/ground_truth/odom')` | Truth uses an existing simulator output with a frame label that must be authenticated, rather than assumed to be SLAM `map`. |
+| `b2w_sim/b2w_description_ros2/urdf/b2w_description_rsl.urdf`: `<robot_base_frame>base_link</robot_base_frame>`; no `xyz_offset`/`rpy_offset` in the odometry plugin | The existing truth plugin has no configured pose offset; converted SDF has root `base_link` with identity link pose. |
+| `course_sim/config/bridge_rl_sar.yaml`: `ros_topic_name: /sim/ground_truth/odom`, `direction: GZ_TO_ROS` | The evaluation harness reuses the existing bridge; it changes no public topics or TF publishers. |
+| `scripts/warehouse_route_evidence.py:sample_truth`: `pose['header']['frame_id'] = 'world'`; `truth_source` retains `source_frame_ids` | Only saved evaluation data aliases authenticated zero-offset `sim_world` to WORLD. Original source frame is recorded; no TF is broadcast. |
+| `scripts/run_warehouse_route.py:pair_truth_evidence`: `lookup_transform('map', 'base_link', Time(seconds=..., nanoseconds=...))` | Registration pairs use TF at the exact truth timestamp; unavailable synchronized TF yields no pair, not an interpolated/guessed registration. |
+| `scripts/warehouse_truth_overlay.py:fit_registration`: `minimum_pairs=30`, `minimum_span_m=1.`, `rms_limit_m=.05`, `maximum_residual_limit_m=.10` | All distinct synchronized samples fit one proper SE(2) map→world transform. No outlier removal. Rejection leaves WORLD waypoint labels unavailable. |
+| `scripts/warehouse_truth_overlay.py`: `waypoints = ... @ ...rotation... + ...translation...` | Registration is consumed only by the renderer to label frozen map goals; it never returns navigation inputs. |
+| `scripts/plot_warehouse_route.py`: `role='DIAGNOSTIC'`; `render_primary_and_composite(...)` | Existing `/map` full-route and per-segment PNGs remain, now clearly diagnostic. Map/path corruption is reported per panel, so valid truth can still render. Run/route identity mismatches still reject the operation. |
+| `scripts/warehouse_truth_overlay.py`: `composite.paste(left_image, (0, left_y))`; `composite.paste(right_image, (left_image.width, right_y))` | One combined PNG shows PRIMARY left / DIAGNOSTIC right without resampling or cropping. Complete panels retain aspect ratio; shorter panels are vertically centered with white padding. |
+| `scripts/run_warehouse_route.py`: `if args.execute:` rendering after `run_critical(...)` | Plotting runs after transport teardown, never during navigation; the default dry run creates no subscription, node, plot or goal. |
+
+The installed Fortress 6.18.0 publisher implementation explicitly uses
+`rawPose = worldPose(this->model.Entity(), _ecm)` and applies the configured
+pose offset (zero here). This authenticates the **WORLD-coordinate meaning** of
+the `sim_world` label; it is not an invented SLAM→world transform.
+Source: [official OdometryPublisher.cc, 6.18.0](https://raw.githubusercontent.com/gazebosim/gz-sim/ignition-gazebo6_6.18.0/src/systems/odometry_publisher/OdometryPublisher.cc).
+Absolute **SLAM map coordinates across fresh startups remain UNVERIFIED**.
+Accepted per-run evaluation registration does not establish cross-startup
+navigation repeatability and is never fed back to SLAM/Nav2/goals.
+
+Truth is a passive, evaluation-only subscription to `/sim/ground_truth/odom`,
+sampled at most 10 Hz while a segment is active. WORLD x/y are saved as standard
+stamped Path-shaped data. Registration attempts buffered exact-time TF lookups;
+30 distinct timestamps and ≥1m map spatial extent are required, with RMS ≤.05m
+and maximum residual ≤.10m. All samples participate; inconsistent/insufficient
+registration means no WORLD G1..G5 labels. Trajectories/start/end still render.
+Map goals, SLAM, Nav2, control, staging admission, safety, benchmark progression,
+cancellation, endpoint evaluation and G2 success never read truth or the fit.
+Missing truth, canonical files, matching provenance or diagnostic maps produces
+explicit unavailable/incomplete panels, never a navigation failure or guessed
+map. Old runs without truth cannot acquire it from endpoint metrics.
+
+**AGAINST passive capture:** extra callbacks/IO can affect timing and live
+availability is untested. **FOR:** reuse one existing transport, TF buffer,
+truth topic and compact per-segment sidecars. **Verdict:** evaluation-only;
+truth errors are contained and rendering occurs after teardown. Biggest unknown
+is live capture overhead; reverse to externally captured same-run artifacts if
+measured overhead is unacceptable. No live non-perturbation claim is made.
+
+Additional artifacts per run (the earlier diagnostic images remain):
+
+```text
+evidence/00-Start-G1.truth.path.json   WORLD truth, original stamp, source frame in index
+evidence/00-Start-G1.registration.json synchronized map_xy/world_xy pairs
+# Equivalent 01-G1-G2 files only if that critical segment was executed.
+overlays/world-truth-full-route.png   standalone PRIMARY, executed prefix only
+overlays/world-truth-Start-G1.png     standalone PRIMARY segment
+overlays/world-truth-G1-G2.png        standalone PRIMARY critical segment
+# WORLD segment PNGs require valid canonical floorplan + truth capture.
+overlays/full-route.png              retained standalone DIAGNOSTIC
+overlays/Start-G1.png                 retained DIAGNOSTIC context + detail
+overlays/G1-G2.png                    retained DIAGNOSTIC corridor/detail
+overlays/route-comparison.png         DEFAULT: PRIMARY left / DIAGNOSTIC right
+overlays/trajectory-overlays.json     image roles, sources, coordinates, registration,
+                                     residuals, composite rectangles, unavailable reasons
+```
+
+A full-route image always means the executed prefix, not an implicit G3–G5
+trial. Captured segments are never joined by fabricated connecting lines;
+within-segment gaps >.5s are disconnected. All actual points remain inside plot
+bounds, including detours outside the floorplan. Secondary WORLD path length
+sums captured chunks only; endpoint error remains the existing map-frame
+measurement, explicitly labeled as such. No new success metric is introduced.
+
+The USER-RUN startup/environment and critical `--execute` command above remain
+valid and now generate the composite automatically. The agent ran no live ROS,
+Gazebo, Nav2 or motion. Safe offline re-rendering uses the same existing CLI:
+
+```bash
+/usr/bin/python3 scripts/plot_warehouse_route.py RUN_DIRECTORY \
+  --output-directory /tmp/b2w-world-comparison-review --label method-name
+```
+
+To reproduce canonical artifacts **offline**, with existing installed development
+libraries and pinned assets, compile the extractor and run the deterministic
+builder (no dependency installation or simulation):
+
+```bash
+c++ -std=c++17 -Wall -Wextra -Wpedantic scripts/warehouse_collision_mesh.cc \
+  -o /tmp/b2w-warehouse-collision-mesh \
+  $(pkg-config --cflags --libs ignition-common4-graphics)
+/usr/bin/python3 scripts/warehouse_truth_floorplan.py \
+  --mesh-exporter /tmp/b2w-warehouse-collision-mesh \
+  --output-directory /tmp/b2w-warehouse-floorplan-rebuild
+```
+
+Pillow/Matplotlib are needed only for offline rendering; SciPy for regeneration.
+No dependency installation occurred. Mock preview artifacts in
+`/tmp/b2w-horizontal-composite-20261016/mock-preview/` explicitly label synthetic
+truth/SLAM data. They verify images, not physical traversal or no-detour success.

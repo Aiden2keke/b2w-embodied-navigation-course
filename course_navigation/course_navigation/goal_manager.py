@@ -23,6 +23,7 @@ from course_slam.transforms import pose_matrix
 from .metrics import RunMetrics
 from lifecycle_msgs.srv import GetState
 from .lifecycle_readiness import LifecycleReadiness
+from rosidl_runtime_py.convert import message_to_ordereddict
 
 
 class GoalManager(Node):
@@ -63,6 +64,9 @@ class GoalManager(Node):
             self.get_logger().error('Publish /goal_pose in map; use RViz fixed frame map')
             return
         self.finish(False, 'replaced')
+        self.goal_message = message_to_ordereddict(msg)
+        self.start_map_base_link = self.map_base_snapshot()
+        self.nav2_status = None  # Only a received action result supplies this.
         self.pending = msg
         self.active = RunMetrics(self.sim_time(), (msg.pose.position.x, msg.pose.position.y), self.tolerance)
         if self.last_odom is not None:
@@ -137,6 +141,7 @@ class GoalManager(Node):
         except Exception:
             self.finish(False, 'action_error')
             return
+        self.nav2_status = status
         self.finish(status == GoalStatus.STATUS_SUCCEEDED, {
             GoalStatus.STATUS_SUCCEEDED: 'succeeded', GoalStatus.STATUS_CANCELED: 'canceled',
             GoalStatus.STATUS_ABORTED: 'aborted'}.get(status, 'action_error'))
@@ -194,19 +199,30 @@ class GoalManager(Node):
             f = msg.wrench.force
             self.active.collision(self.sim_time(), math.sqrt(f.x*f.x + f.y*f.y + f.z*f.z), self.force_threshold)
 
-    def finish(self, success, reason):
-        if self.active is None:
-            return
+    def map_base_snapshot(self):
+        """Small, stamped boundary evidence; never substitute stale TF."""
         try:
             transform = self.tf.lookup_transform('map', 'base_link', Time())
             stamp = transform.header.stamp.sec + transform.header.stamp.nanosec * 1e-9
-            if 0 <= self.sim_time() - stamp <= 0.5:
-                p = transform.transform.translation
-                self.active.goal_position = (p.x, p.y)
+            age = self.sim_time() - stamp
+            if 0 <= age <= 0.5:
+                return dict(message_to_ordereddict(transform), age_s=age)
         except TransformException:
             pass
+        return None
+
+    def finish(self, success, reason):
+        if self.active is None:
+            return
+        end_map_base_link = self.map_base_snapshot()
+        if end_map_base_link is not None:
+            p = end_map_base_link['transform']['translation']
+            self.active.goal_position = (p['x'], p['y'])
         record = self.active.finish(self.sim_time(), success, reason)
         record.update(goal_id=self.goal_id, goal_map_xy=list(self.active.goal), timeout_s=self.timeout,
+                      goal_pose=self.goal_message, nav2_status=self.nav2_status,
+                      start_map_base_link=self.start_map_base_link,
+                      end_map_base_link=end_map_base_link,
                       collision_force_threshold_n=self.force_threshold,
                       final_goal_distance_m=math.dist(self.active.goal_position, self.active.goal)
                       if self.active.goal_position is not None else None)
