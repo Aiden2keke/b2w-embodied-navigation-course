@@ -24,71 +24,102 @@
 - 旧实施计划归档至 `docs/plans/archive/2026-10-10-local-course-system-plan.md`。历史 design/validation 保留为证据，不是另一个当前 roadmap。无新增 HANDOFF。
 - 历史轮次只读与 timing 交付已结束；本轮范围以最新用户请求和下方 NOW 为准。旧实验/交付记录只作历史证据。
 
-## NOW — WORLD truth PRIMARY + session map DIAGNOSTIC composite (2026-10-16)
+## NOW — USER-RUN velocity-calibration Protocol A (2026-10-16)
 
-Branch `improve/narrow-navigation`; HEAD unchanged
-`33b20fd8b86fed523c794b62325dea362d629500`. Inherited dirty benchmark/staging/
-diagnostic work retained. This NOW was updated before implementation; no second
-roadmap/HANDOFF, commit or push. Current change is evaluation/visualization only.
+Branch `improve/narrow-navigation`; authenticated starting HEAD, local origin
+tracking ref and live read-only origin SHA all equal
+`e7f1eec7316be920fc27a100527d2d9c271b9b11`; the inherited worktree has the
+previous task’s PLAN-only change. Warehouse route visualization is completed;
+its committed evidence remains in `docs/NARROW_BASELINE.md`. This correction
+changes only this NOW. No experiment,
+ROS/Gazebo, nonzero motion, commit/push, second roadmap or HANDOFF.
 
-- [x] Authenticated authoritative pinned AWS no-roof warehouse + generated world:
-  25 static authored collision meshes, exact native mesh decoding and SDF poses.
-  Feasibility STOP gate passed: exact all-height collision projection is possible;
-  no screenshot, hand drawing, guessed bounds, AABB replacement or invented TF.
-- [x] Canonical PNG/JSON/projected-triangle JSON in `course_navigation/maps/`.
-  WORLD frame; 700×1046; .02m/pixel; pixel centers
-  `x=xmin+(col+.5)*r`, `y=ymax-(row+.5)*r`. Source/image/geometry SHA256s saved.
-  Two independent generations are byte-identical across all three artifacts.
-- [x] PRIMARY = canonical WORLD floorplan + passive `/sim/ground_truth/odom`
-  truth Path. DIAGNOSTIC = retained same-run `/map` + map→base_link SLAM Path.
-  Truth source `sim_world` is an evaluation-only identity label for the existing
-  zero-offset simulator worldPose output; no TF is published or fed navigation.
-- [x] Optional evaluation-only map→world SE(2) waypoint labeling: exact-stamp TF/
-  truth pairs, ≥30 distinct stamps, ≥1m spatial span, RMS≤.05m, max≤.10m.
-  Rejected/insufficient fit means no WORLD waypoint labels. Never a control input.
-- [x] Main artifact `overlays/route-comparison.png`: PRIMARY left / DIAGNOSTIC
-  right (presentation-only correction; unchanged experimental milestone). Standalone full/segment panels remain. Missing truth/floorplan/source
-  identity leaves PRIMARY unavailable; missing/corrupt diagnostic data does not
-  suppress valid PRIMARY. Unavailable panels remain explicit in the composite.
-- [x] Local horizontal UI correction only: complete standalone panels pasted
-  side by side, no resize/crop; unequal heights use centered white padding.
-  MOCK preview 3000×1350, LEFT [0,0,1500,1350], RIGHT [1500,0,3000,1350].
-  Horizontal RED/GREEN tests and selected offline regressions: **133 passed**;
-  diff check and owned cleanup PASS. All six standalone preview PNGs unchanged.
-  Correction evidence: `/tmp/b2w-horizontal-composite-20261016/`.
-- [x] Human visual criterion remains no large loop / major bypass; no numeric
-  detour score. All-height projection includes overhead geometry and does not
-  certify body clearance. Actual detour/physical success remains untested.
-- [x] RED/GREEN floorplan, truth, registration, composite, source mismatch,
-  diagnostic-corruption isolation and reporting tests. Initial WORLD delivery suite:
-  **132 passed** (20 truth/floorplan tests + existing 112 selected tests).
-  `git diff --check` and new-text whitespace PASS; only owned-process cleanup
-  **PASS**, no owned survivors. Initial unsourced ROS-message import failure
-  retained in logs; sourced offline suite passed without starting any ROS node.
-- [x] Read-only reviewer findings fixed: authenticate collision mesh bytes in
-  addition to world XML; isolate corrupt diagnostic artifacts per panel; avoid
-  Pillow/SciPy imports in default dry provenance; recognize PRIMARY-only status.
-- [x] Pre-task source-hash audit: only six existing files changed this turn;
-  seven new files. All other preexisting file hashes unchanged, including route
-  config, goal_manager, Nav2/controller/sensor/LIO/policy/calibration files.
-  `load_route`, `critical_goals`, `evaluate_goal`, `run_critical`, `find_metrics`
-  ASTs identical to turn start. Existing safety/cancel tests retained.
+- [x] Recover Protocol A from committed `docs/VELOCITY_CALIBRATION_AUDIT.md`
+  and `docs/VELOCITY_STEP_RESPONSE.md`; verify both CLI help outputs and parse
+  the exact three commands offline. No invocation of the live runner path.
+- [ ] USER-RUN only, after ChatGPT review passes: THREE sequential independent
+  fresh sessions at policy-command 0.20 m/s; wait for completion and cleanup
+  before the next. Domain 194 must be free. From the prepared repo, source
+  `/opt/ros/humble/setup.zsh` then `install/setup.zsh`:
 
-Navigation contract unchanged: exact frozen map goals/headings; G1 navigation
-success + complete TF + <=.05m staging admission before critical G1→G2; stop at
-G2 or first failure, no G3–G5 live continuation or correction. Historical G1
-.064844853m remains original navigation success under .3m, but does not pass
-new staging admission. Truth never affects goals, SLAM, Nav2, control, staging,
-safety or phase progression. Cross-startup absolute-map reproducibility remains
-UNVERIFIED; accepted evaluation registration does not establish it.
+```zsh
+# DO NOT RUN UNTIL CHATGPT REVIEW PASSES; USER-RUN ONLY
+/usr/bin/python3 scripts/run_velocity_steps.py --speeds 0.20 --ros-domain-id 194 --gui --output-root /tmp/b2w-user-calibration-A1
+/usr/bin/python3 scripts/run_velocity_steps.py --speeds 0.20 --ros-domain-id 194 --gui --output-root /tmp/b2w-user-calibration-A2
+/usr/bin/python3 scripts/run_velocity_steps.py --speeds 0.20 --ros-domain-id 194 --gui --output-root /tmp/b2w-user-calibration-A3
+```
 
-No agent live ROS/Gazebo/Nav2, nonzero commands, parameter changes, commit/push.
-Evidence root `/tmp/b2w-world-floorplan-20261016/`: RED/GREEN, final-selected.log,
-cleanup JSONs, audit.json, deterministic rebuild and explicitly MOCK preview.
-Code path + snippet + causal interpretation and significant-choice AGAINST/FOR/
-verdict/unknown/reversal evidence are in `docs/NARROW_BASELINE.md` WORLD section.
-Final delivery step after this snapshot: exactly one normal april-review-bundle
-using the approved helper, report path + SHA256, then STOP.
+Each session: exactly 12 simulation seconds, [0,3) zero → [3,8) 0.20 →
+[8,12) zero; vy=wz=0, raw requests 20 Hz. Readiness and final >=1.2 wall-second
+zero flush are additional; completion may occur on the next 20 Hz callback.
+Readiness timeout 120 wall seconds; motion watchdog 240 wall seconds.
+`run_velocity_steps.py` creates `OUTPUT_ROOT/<UTC %Y%m%dT%H%M%S%fZ>/` with
+`exist_ok=False`. A1/A2/A3 are distinct roots, not three levels in one session.
+Keep the exact printed run directories and every native artifact/partial failure;
+do not silently replace failed runs. If roots contain older attempts, the
+committed `20*` aggregation glob must be narrowed to the exact intended runs.
+
+- [ ] After all three completed, cleaned sessions, USER-RUN offline aggregation
+  into a fresh directory outside all input runs (committed command):
+
+```zsh
+/usr/bin/python3 scripts/fit_velocity_calibration.py /tmp/b2w-user-calibration-A1/20* /tmp/b2w-user-calibration-A2/20* /tmp/b2w-user-calibration-A3/20* --output-dir /tmp/b2w-user-calibration-A-fit-01
+```
+
+- [ ] Return all three complete run directories to ChatGPT, including
+  `manifest.json`, `events.jsonl`, `timeseries.csv`, `per-speed/speed-0.20.json`,
+  `summary.json`, `summary.csv`, `summary.md`, fixture/config and process logs;
+  include terminal completion/cleanup JSONs and any failures. Return aggregate
+  `calibration.json`, `observations.csv`, `report.md` and fitter terminal JSON.
+  This handoff enumerates generated artifacts; committed docs do not define a
+  separate mandatory ChatGPT upload subset. Native events + manifest are required
+  by the existing analyzer; saved summaries do not replace them.
+- [ ] Review steady policy input, all four target/actual wheel rates and means,
+  truth/SLAM vx, target/stop yaw and lateral drift, requested/final-zero stop
+  delays and stopping path. Existing `metric_repeatability` reports supported
+  run counts, mean, sample std and range; missing/invalid stays null. Yaw/lateral
+  drift, stopping metrics, SLAM speed and wheel spread are required diagnostics,
+  not hard Protocol A gates.
+
+**Prospectively registered Protocol A criteria, chosen for this review before
+seeing its three results; these are newly chosen review criteria, not inherited
+upstream/project constants.**
+
+- **A_DATA_VALID_PASS:** all three sessions have `status == completed`,
+  `cleanup == true`, compatible captured source/policy/fixture contracts, and
+  no duplicate session; each has `truth.steady_state_valid == true`, no clock
+  rollback or invalid epoch, and final-command steady mean within 0.005 m/s of
+  requested 0.20 m/s. Existing analysis validity also requires the final fixed
+  2-s steady window to have >=95% coverage and |slope|<=0.02 m/s². Policy obs[6]
+  must be an authenticated constant captured plateau; obs[6:9] must match the
+  requested pure-forward command within 1e-6; required streams must be supported;
+  truth body twist must be `base_link`.
+- **A_REPEATABILITY_PASS:** across the three valid truth steady vx values,
+  range(max-min) <=0.020 m/s AND sample standard deviation <=0.010 m/s.
+- Keep **PERSISTENT_BIAS_SUPPORTED** separate from both gates. Report the three
+  signed biases (truth steady vx minus requested 0.20 m/s), their mean/range/
+  sample standard deviation and sign consistency. No numeric persistent-bias
+  threshold is pre-registered; ChatGPT interprets these only after repeatability
+  validity is established.
+
+DATA_VALID_PASS and REPEATABILITY_PASS are distinct decisions. Protocol B
+authorization requires DATA_VALID_PASS + REPEATABILITY_PASS + ChatGPT review;
+fitter exit status never authorizes it automatically. Missing/invalid metrics
+remain null and cannot count as passing observations.
+
+Protocol B remains **GATED: DO NOT RUN until A_DATA_VALID_PASS +
+A_REPEATABILITY_PASS + ChatGPT review**: [0.04, 0.07, 0.10, 0.13, 0.20] m/s
+(60 sim s). No automatic authorization from the fitter.
+Model semantics unchanged: M0 identity; M1 proportional; M2 affine nonzero moving
+branch; M3 monotonic piecewise-linear measured knot means. Explicit f(0)=0;
+no zero-to-first-knot bridge or extrapolation. Prefer the simplest model surviving
+fresh validation; in-sample R² does not select it. Protocol A has one distinct
+speed, so M2/M3 are unidentifiable; three repeats do not establish a universal
+inverse. Production inverse calibration remains deferred.
+
+Frozen: RL/ONNX/PT, Kp/Kd, damping, action scale, yaw gain, idle_hold, smoother,
+Nav2, planner, SLAM, sensors, footprint and calibration behavior. Truth remains
+evaluation-only. Next action belongs to the user after review; agent STOP.
 
 ## HISTORICAL — B2-W low-speed policy-command calibration and repeatability
 
