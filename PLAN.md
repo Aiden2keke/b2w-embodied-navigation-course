@@ -24,62 +24,46 @@
 - 旧实施计划归档至 `docs/plans/archive/2026-10-10-local-course-system-plan.md`。历史 design/validation 保留为证据，不是另一个当前 roadmap。无新增 HANDOFF。
 - 历史轮次只读与 timing 交付已结束；本轮范围以最新用户请求和下方 NOW 为准。旧实验/交付记录只作历史证据。
 
-## NOW — USER-RUN velocity-calibration Protocol A (2026-10-16)
+## NOW — Protocol A COMPLETE; Protocol B NEXT USER-RUN only (2026-10-17)
 
-Branch `improve/narrow-navigation`; authenticated starting HEAD, local origin
-tracking ref and live read-only origin SHA all equal
-`e7f1eec7316be920fc27a100527d2d9c271b9b11`; the inherited worktree has the
-previous task’s PLAN-only change. Warehouse route visualization is completed;
-its committed evidence remains in `docs/NARROW_BASELINE.md`. This correction
-changes only this NOW. No experiment,
-ROS/Gazebo, nonzero motion, commit/push, second roadmap or HANDOFF.
+Authenticated branch `improve/narrow-navigation`, HEAD and live origin:
+`67e5996e8ae6d58dae1a48f60c4d21a7bbe0a6d2`; initially clean worktree,
+one worktree. No commit/push. This task changes offline tooling/tests and this
+single root plan only; no ROS/Gazebo or Protocol B execution.
 
-- [x] Recover Protocol A from committed `docs/VELOCITY_CALIBRATION_AUDIT.md`
-  and `docs/VELOCITY_STEP_RESPONSE.md`; verify both CLI help outputs and parse
-  the exact three commands offline. No invocation of the live runner path.
-- [ ] USER-RUN only, after ChatGPT review passes: THREE sequential independent
-  fresh sessions at policy-command 0.20 m/s; wait for completion and cleanup
-  before the next. Domain 194 must be free. From the prepared repo, source
-  `/opt/ros/humble/setup.zsh` then `install/setup.zsh`:
+- [x] Protocol A complete, formal successful runs ONLY:
+  - A1: `/tmp/b2w-user-calibration-A1/20261016T164743450172Z`
+  - A2: `/tmp/b2w-user-calibration-A2/20261016T164838041526Z`
+  - A3: `/tmp/b2w-user-calibration-A3/20261016T164924297491Z`
+  - Reviewed aggregate: `/tmp/b2w-user-calibration-A-fit-02`
+- [x] ChatGPT formal review: **A_DATA_VALID_PASS = PASS**;
+  **A_REPEATABILITY_PASS = PASS**.
+- [x] Truth steady vx: A1 `0.2707337537522054`, A2 `0.2707250960281916`,
+  A3 `0.27075113630777076` m/s. Mean `0.27073666202938923` m/s;
+  sample std `1.3261508107061475e-05` m/s; range
+  `2.6040279579142567e-05` m/s. Requested/policy input = `0.20` m/s;
+  mean signed bias ≈ `+0.070736659` m/s (captured float input).
+- [x] Separate scientific interpretation: **PERSISTENT_BIAS_SUPPORTED = YES**.
+  Requested/raw/shared/final/policy obs remain ~0.20; mean policy wheel target,
+  actual wheel rate and truth body vx correspond to ~0.271 m/s. This supports a
+  repeatable downstream policy-command→wheel-target mapping bias, not a proven
+  universal proportional calibration law. One distinct nonzero speed leaves
+  M2/M3 unidentifiable.
+- Old failed attempts `20261016T163014422221Z` (A1),
+  `20261016T163127997642Z` (A2), `20261016T163222558569Z` (A3) are diagnostic
+  evidence only, excluded from formal A statistics. Existing artifacts immutable.
+- [x] Repair null/missing/failed/partial manifest admission with RED/GREEN tests.
+- [x] Replay only the exact three successful directories into fresh offline output;
+  compare reviewed aggregate without altering original artifacts.
+- [x] Recover and document exact Protocol B commands from current committed source.
+- [x] Complete offline validation and integrity/process checks; no commit/push.
+- Final delivery action: exactly one normal `~/bin/april-review-bundle`, then STOP.
 
-```zsh
-# DO NOT RUN UNTIL CHATGPT REVIEW PASSES; USER-RUN ONLY
-/usr/bin/python3 scripts/run_velocity_steps.py --speeds 0.20 --ros-domain-id 194 --gui --output-root /tmp/b2w-user-calibration-A1
-/usr/bin/python3 scripts/run_velocity_steps.py --speeds 0.20 --ros-domain-id 194 --gui --output-root /tmp/b2w-user-calibration-A2
-/usr/bin/python3 scripts/run_velocity_steps.py --speeds 0.20 --ros-domain-id 194 --gui --output-root /tmp/b2w-user-calibration-A3
-```
-
-Each session: exactly 12 simulation seconds, [0,3) zero → [3,8) 0.20 →
-[8,12) zero; vy=wz=0, raw requests 20 Hz. Readiness and final >=1.2 wall-second
-zero flush are additional; completion may occur on the next 20 Hz callback.
-Readiness timeout 120 wall seconds; motion watchdog 240 wall seconds.
-`run_velocity_steps.py` creates `OUTPUT_ROOT/<UTC %Y%m%dT%H%M%S%fZ>/` with
-`exist_ok=False`. A1/A2/A3 are distinct roots, not three levels in one session.
-Keep the exact printed run directories and every native artifact/partial failure;
-do not silently replace failed runs. If roots contain older attempts, the
-committed `20*` aggregation glob must be narrowed to the exact intended runs.
-
-- [ ] After all three completed, cleaned sessions, USER-RUN offline aggregation
-  into a fresh directory outside all input runs (committed command):
-
-```zsh
-/usr/bin/python3 scripts/fit_velocity_calibration.py /tmp/b2w-user-calibration-A1/20* /tmp/b2w-user-calibration-A2/20* /tmp/b2w-user-calibration-A3/20* --output-dir /tmp/b2w-user-calibration-A-fit-01
-```
-
-- [ ] Return all three complete run directories to ChatGPT, including
-  `manifest.json`, `events.jsonl`, `timeseries.csv`, `per-speed/speed-0.20.json`,
-  `summary.json`, `summary.csv`, `summary.md`, fixture/config and process logs;
-  include terminal completion/cleanup JSONs and any failures. Return aggregate
-  `calibration.json`, `observations.csv`, `report.md` and fitter terminal JSON.
-  This handoff enumerates generated artifacts; committed docs do not define a
-  separate mandatory ChatGPT upload subset. Native events + manifest are required
-  by the existing analyzer; saved summaries do not replace them.
-- [ ] Review steady policy input, all four target/actual wheel rates and means,
-  truth/SLAM vx, target/stop yaw and lateral drift, requested/final-zero stop
-  delays and stopping path. Existing `metric_repeatability` reports supported
-  run counts, mean, sample std and range; missing/invalid stays null. Yaw/lateral
-  drift, stopping metrics, SLAM speed and wheel spread are required diagnostics,
-  not hard Protocol A gates.
+Protocol B is authorized solely as the **NEXT USER-RUN** stage by the reviewed A
+verdict. Agent must not execute it. Production inverse calibration remains deferred.
+M0/M1/M2/M3 comparison only after B data review; no automatic production-model
+selection, no extrapolation beyond measured support. B completion itself does not
+authorize production inverse calibration.
 
 **Prospectively registered Protocol A criteria, chosen for this review before
 seeing its three results; these are newly chosen review criteria, not inherited
@@ -102,24 +86,97 @@ upstream/project constants.**
   threshold is pre-registered; ChatGPT interprets these only after repeatability
   validity is established.
 
-DATA_VALID_PASS and REPEATABILITY_PASS are distinct decisions. Protocol B
-authorization requires DATA_VALID_PASS + REPEATABILITY_PASS + ChatGPT review;
-fitter exit status never authorizes it automatically. Missing/invalid metrics
-remain null and cannot count as passing observations.
+### Exact Protocol B USER-RUN contract (not executed by agent)
 
-Protocol B remains **GATED: DO NOT RUN until A_DATA_VALID_PASS +
-A_REPEATABILITY_PASS + ChatGPT review**: [0.04, 0.07, 0.10, 0.13, 0.20] m/s
-(60 sim s). No automatic authorization from the fitter.
-Model semantics unchanged: M0 identity; M1 proportional; M2 affine nonzero moving
-branch; M3 monotonic piecewise-linear measured knot means. Explicit f(0)=0;
-no zero-to-first-knot bridge or extrapolation. Prefer the simplest model surviving
-fresh validation; in-sample R² does not select it. Protocol A has one distinct
-speed, so M2/M3 are unidentifiable; three repeats do not establish a universal
-inverse. Production inverse calibration remains deferred.
+Recovered from committed `docs/VELOCITY_CALIBRATION_AUDIT.md` Protocol B,
+`scripts/run_velocity_steps.py::make_parser/run_experiment`, and
+`scripts/velocity_step_core.py::make_sequence`; verified by CLI help and offline
+parser/dry-run only. Source snippets: `settle_s=3., hold_s=5., stop_s=4.`,
+`'vy': 0., 'wz': 0.`, and `cursor += duration` cause five unchanged 12-s blocks
+(3 s zero → 5 s target → 4 s zero), totaling 60 nominal sim seconds.
+Readiness and final zero flush are additional. No command/control change.
 
-Frozen: RL/ONNX/PT, Kp/Kd, damping, action scale, yaw gain, idle_hold, smoother,
-Nav2, planner, SLAM, sensors, footprint and calibration behavior. Truth remains
-evaluation-only. Next action belongs to the user after review; agent STOP.
+From the prepared repository, with domain 194 free, USER-RUN ONLY:
+
+```zsh
+cd /home/zyd/program/b2w-embodied-navigation-course
+source /opt/ros/humble/setup.zsh
+source install/setup.zsh
+/usr/bin/python3 scripts/run_velocity_steps.py --speeds 0.04,0.07,0.10,0.13,0.20 --ros-domain-id 194 --gui --output-root /tmp/b2w-user-calibration-B
+```
+
+Fresh output-root convention: reserve `/tmp/b2w-user-calibration-B` for this one
+B attempt (absent at preparation). Runner appends UTC `%Y%m%dT%H%M%S%fZ`
+and uses `run_dir.mkdir(..., exist_ok=False)`: exact run directory is
+`/tmp/b2w-user-calibration-B/<runner-generated UTC stamp>`. Preserve failures;
+no overwrites. If this root is already populated at future execution, reserve a
+new unused root before invoking the runner and use its exact printed directory.
+The future UTC stamp is not defined in current docs/source and cannot be known
+before the USER-RUN. Do not invent a timestamp or use a broad aggregation glob.
+
+After completion and owned cleanup, copy the exact `run_directory` printed by
+the runner into the following zsh prompt, including the UTC leaf. This passes
+one exact directory to the offline fitter. `/tmp/b2w-user-calibration-B-fit-01`
+was absent at preparation and must still be fresh; if occupied, select a new
+unused fit directory, outside the run.
+
+```zsh
+read -r 'B_RUN_DIR?Paste the exact Protocol B run_directory: '
+/usr/bin/python3 scripts/fit_velocity_calibration.py "$B_RUN_DIR" --output-dir /tmp/b2w-user-calibration-B-fit-01
+```
+
+Return the complete exact B run directory: `manifest.json`, `events.jsonl`,
+`timeseries.csv`, all five `per-speed/speed-*.json`, `summary.json`,
+`summary.csv`, `summary.md`, fixture/config snapshots and process logs; preserve
+and return partial failures separately. Include runner terminal completion and
+cleanup JSON. Return fitter terminal JSON plus fit `calibration.json`,
+`observations.csv`, `report.md`. Native events + manifest are indispensable;
+saved summaries do not replace them. No separate mandatory upload subset is
+defined by committed docs.
+
+No automatic production-model selection. Compare M0/M1/M2/M3 only after B data
+are reviewed. No extrapolation outside measured support or zero-to-first-knot
+bridge. B completion does not authorize production inverse calibration.
+
+### Offline repair and validation evidence
+
+- Root cause: `scripts/run_velocity_steps.py::build_manifest` initializes
+  `'termination': None`; old fitter `manifest.get('termination', {})` returns
+  that None rather than the default, so the next `.get(...)` crashes.
+- Minimal admission fix in `scripts/fit_velocity_calibration.py::analyze_directories`:
+  `termination=manifest.get('termination') or {}`; null/missing termination,
+  noncompleted final status, unpassed cleanup, missing sequence/start or missing
+  native events emit `{directory, reason_code, status}` in `rejected_inputs`.
+  `continue` precedes hashing/session pooling/event extraction, so rejected runs
+  contribute no observations, repeatability or model data. Final status takes
+  precedence. Duplicate/contract rejection remains fail-closed. All-invalid CLI
+  emits rejection artifacts and returns 1; mixed inputs retain only admitted runs.
+  Fully valid inputs retain the previous schema and output bytes.
+- Focused RED: 10 failures on old code; GREEN: 10 passed. Includes null/missing,
+  aborted, instrumentation failure, overriding final abort, cleanup null,
+  missing sequence/start/events, mixed invalid + three valid A-shaped captures.
+- Offline calibration/step regressions: 71 passed, 2 ROS-only tests deselected.
+  Initial unfiltered selection: 71 passed, 2 failed importing unavailable
+  `rclpy`; neither reached ROS initialization. No live stack was launched.
+- Both CLI `--help` passed; Protocol B dry-run only confirms 60-s sequence.
+- Exact A replay into `/tmp/b2w-protocol-a-close-20261017/exact-A-replay`:
+  `calibration.json`, `observations.csv`, `report.md` ALL byte-identical to
+  `/tmp/b2w-user-calibration-A-fit-02`. Three independent observations, one
+  distinct input, M2/M3 invalid/unidentifiable. Mean signed bias vs captured
+  policy input = `+0.070736659049157` m/s; vs decimal request =
+  `+0.07073666202938923` m/s. Pre-registered thresholds unchanged.
+- Integrity: 80 original input/aggregate files unchanged by SHA256; all 19
+  capture source/policy/provenance hashes match. Only the three authorized files
+  differ from HEAD, index unchanged, `git diff --check` PASS. 120 historical
+  owned PID/start identities have no survivors; no live ROS/Gazebo candidates.
+  Six-directory diagnostic emits three explicit old-run rejections and otherwise
+  equals the exact successful three-run aggregate.
+- Logs: `/tmp/b2w-protocol-a-close-20261017/` (RED/GREEN, regressions,
+  CLI help, dry-run, exact replay verification, integrity/process checks).
+
+Frozen: RL/ONNX/PT, Kp/Kd/damping/action scale, yaw gain/idle_hold,
+smoother, Nav2/planner/SLAM, sensors, footprint/costmaps, command semantics and
+production calibration. Truth remains evaluation-only.
 
 ## HISTORICAL — B2-W low-speed policy-command calibration and repeatability
 

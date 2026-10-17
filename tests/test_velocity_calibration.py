@@ -150,7 +150,8 @@ def test_input_copies_do_not_count_as_independent_runs(tmp_path):
     from scripts import fit_velocity_calibration as cli
     for name in ('a','b'):
         d=tmp_path/name;d.mkdir()
-        (d/'manifest.json').write_text(json.dumps({'termination':{'status':'completed'},'cleanup':{'passed':True}}))
+        (d/'manifest.json').write_text(json.dumps({'sequence':make_sequence((.2,)),
+            'experiment_start_sim_s':0.,'termination':{'status':'completed'},'cleanup':{'passed':True}}))
         (d/'events.jsonl').write_text('')
     assert cli.main([str(tmp_path/'a'),str(tmp_path/'b'),'--output-dir',str(tmp_path/'fit')])!=0
 
@@ -296,3 +297,61 @@ def test_truth_fit_does_not_depend_on_valid_slam_and_varying_policy_is_rejected(
     row=cli.extract_observations(events,m,'run')[0]
     assert row['valid_for_fit'] is False
     assert any('constant' in s for s in row['invalid_reasons'])
+
+
+@pytest.mark.parametrize('change,code,status', [
+    ({'termination':None}, 'termination_missing_or_null', None),
+    ({'remove':'termination'}, 'termination_missing_or_null', None),
+    ({'termination':{'status':'aborted'}}, 'run_not_completed', 'aborted'),
+    ({'termination':{'status':'instrumentation_precondition_failed'}},
+     'run_not_completed', 'instrumentation_precondition_failed'),
+    ({'termination':{'status':'completed','final_status':'aborted'}},
+     'run_not_completed', 'aborted'),
+    ({'cleanup':None}, 'cleanup_not_passed', 'completed'),
+    ({'remove':'sequence'}, 'incomplete_manifest', 'completed'),
+    ({'remove':'experiment_start_sim_s'}, 'incomplete_manifest', 'completed'),
+    ({'remove_events':True}, 'events_missing', 'completed'),
+])
+def test_rejected_manifest_never_contributes_even_with_valid_native_events(tmp_path,change,code,status):
+    from scripts import fit_velocity_calibration as cli
+    run=tmp_path/'rejected'
+    manifest,_=native_fixture(run)
+    for key,value in change.items():
+        if key=='remove':manifest.pop(value)
+        elif key=='remove_events':(run/'events.jsonl').unlink()
+        else:manifest[key]=value
+    (run/'manifest.json').write_text(json.dumps(manifest))
+    before={p.name:p.read_bytes() for p in run.iterdir()}
+    result=cli.analyze_directories([run])
+    assert result['observations']==[] and result['inputs']==[]
+    assert result['truth']['independent_runs']==0
+    assert result['slam']['independent_runs']==0
+    assert result['metric_repeatability']==[]
+    assert result['rejected_inputs']==[{'directory':str(run),'reason_code':code,'status':status}]
+    assert cli.main([str(run),'--output-dir',str(tmp_path/'fit')])==1
+    saved=json.loads((tmp_path/'fit/calibration.json').read_text())
+    assert saved['rejected_inputs']==result['rejected_inputs']
+    assert before=={p.name:p.read_bytes() for p in run.iterdir()}
+
+
+def test_mixed_invalid_runs_do_not_change_three_valid_protocol_a_aggregate(tmp_path):
+    from scripts import fit_velocity_calibration as cli
+    good=[tmp_path/f'A{i}' for i in range(3)]
+    for i,d in enumerate(good):native_fixture(d,run_token='x'*(i+1))
+    baseline=cli.analyze_directories(good)
+    bad=[]
+    for i,status in enumerate((None,'aborted','instrumentation_precondition_failed')):
+        d=tmp_path/f'bad{i}';d.mkdir();bad.append(d)
+        (d/'manifest.json').write_text(json.dumps({'termination':None if status is None else {'status':status}}))
+    mixed=cli.analyze_directories([bad[0],good[0],bad[1],good[1],bad[2],good[2]])
+    rejected=mixed.pop('rejected_inputs')
+    assert len(rejected)==3
+    assert mixed==baseline
+    assert len(mixed['observations'])==3
+    assert mixed['truth']['independent_runs']==3
+    assert mixed['truth']['repeatability'][0]['mean']==pytest.approx(.27)
+    assert mixed['truth']['models']['M2']['valid'] is False
+    assert cli.main([str(d) for d in good+bad]+['--output-dir',str(tmp_path/'mixed-fit')])==0
+    saved=json.loads((tmp_path/'mixed-fit/calibration.json').read_text())
+    assert saved.pop('rejected_inputs')==rejected
+    assert saved==baseline

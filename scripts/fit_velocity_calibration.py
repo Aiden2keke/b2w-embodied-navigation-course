@@ -228,12 +228,21 @@ def metric_repeatability(observations):
 
 
 def analyze_directories(directories):
-    observations=[];inputs=[];seen=set();sessions=set();contract=None
+    observations=[];inputs=[];rejected=[];seen=set();sessions=set();contract=None
     for directory in directories:
         manifest=json.loads((directory/'manifest.json').read_text());raw=directory/'events.jsonl'
-        status=manifest.get('termination',{});status=status.get('final_status') or status.get('status')
-        if status!='completed' or manifest.get('cleanup',{}).get('passed') is not True:
-            raise ValueError(f'input is not a completed, cleaned velocity experiment: {directory}')
+        termination=manifest.get('termination') or {}
+        status=termination.get('final_status') or termination.get('status')
+        reason=None
+        if not termination:reason='termination_missing_or_null'
+        elif status!='completed':reason='run_not_completed'
+        elif (manifest.get('cleanup') or {}).get('passed') is not True:reason='cleanup_not_passed'
+        elif not manifest.get('sequence') or manifest.get('experiment_start_sim_s') is None:
+            reason='incomplete_manifest'
+        elif not raw.is_file():reason='events_missing'
+        if reason:
+            rejected.append({'directory':str(directory),'reason_code':reason,'status':status})
+            continue  # Rejected sessions never reach event extraction or any fit.
         h=digest(raw);session=manifest.get('owner_token_sha256')
         if h in seen or (session and session in sessions):raise ValueError('duplicate raw capture/session is not an independent run')
         seen.add(h)
@@ -249,7 +258,8 @@ def analyze_directories(directories):
         inputs.append({'directory':str(directory),'raw_sha256':h,'file_hashes':snapshots})
     truth=[r for r in observations if r['valid_for_fit']]
     slam=[{**r,'v':r['slam_v']} for r in observations if r['valid_for_slam_fit']]
-    return {'schema_version':1,'offline_only':True,'inputs':inputs,'observations':observations,
+    return {**({'rejected_inputs':rejected} if rejected else {}),
+        'schema_version':1,'offline_only':True,'inputs':inputs,'observations':observations,
         'truth':compare_models(truth),'slam':compare_models(slam),'metric_repeatability':metric_repeatability(observations),
         'zero_state':'f(0)=0 is explicit; zero windows are not moving fit points or evidence for the unmeasured gap to the lowest knot',
         'production_calibration':'deferred; no production command or file changed by this tool'}
@@ -277,6 +287,7 @@ def markdown(result):
         for r in group['repeatability']:lines.append('| '+' | '.join([fmt(r['u']),str(r['n_runs']),fmt(r['mean']),fmt(r['std']),fmt(r['range'])])+' |')
         lines+=['','Signed residual means by speed:','']
         for kind,m in group['models'].items():lines.append(f"- {kind}: "+', '.join(f"{fmt(r['u'])}: {fmt(r['mean_signed_residual'])}" for r in m['residuals_by_speed']))
+    if result.get('rejected_inputs'):lines+=['','Rejected inputs: '+json.dumps(result['rejected_inputs'])]
     lines+=['','Exclusions: '+json.dumps([{'run':r['run_id'],'trial':r['trial'],'truth_reasons':r['invalid_reasons'],'slam_reasons':r['slam_invalid_reasons']} for r in result['observations'] if r['invalid_reasons'] or r['slam_invalid_reasons']]),'']
     return '\n'.join(lines)
 
@@ -301,9 +312,10 @@ def main(argv=None):
         with (output/'observations.csv').open('w',newline='') as stream:
             writer=csv.DictWriter(stream,fieldnames=columns);writer.writeheader()
             for row in result['observations']:writer.writerow({k:json.dumps(row[k],allow_nan=False) if isinstance(row[k],(dict,list)) else row[k] for k in columns})
-        print(json.dumps({'output_directory':str(output),'observations':len(result['observations']),
+        print(json.dumps({**({'rejected_inputs':result['rejected_inputs']} if result.get('rejected_inputs') else {}),
+            'output_directory':str(output),'observations':len(result['observations']),
             'truth_independent_runs':result['truth']['independent_runs'],'raw_inputs_unchanged':True,'production_model_selected':False}))
-        return 0
+        return 0 if result['inputs'] else 1
     except (OSError,ValueError,KeyError,RuntimeError) as exc:
         print(f'offline calibration failed: {exc}',file=sys.stderr);return 1
 
