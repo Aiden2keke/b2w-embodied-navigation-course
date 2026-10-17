@@ -24,7 +24,229 @@
 - 旧实施计划归档至 `docs/plans/archive/2026-10-10-local-course-system-plan.md`。历史 design/validation 保留为证据，不是另一个当前 roadmap。无新增 HANDOFF。
 - 历史轮次只读与 timing 交付已结束；本轮范围以最新用户请求和下方 NOW 为准。旧实验/交付记录只作历史证据。
 
-## NOW — Protocol A COMPLETE; Protocol B NEXT USER-RUN only (2026-10-17)
+## NOW — Protocol B CLOSED; frozen held-out Protocol C NEXT USER-RUN only (2026-10-17)
+
+Authenticated branch `improve/narrow-navigation`, local HEAD and live origin
+`04d5ac064390110b22046d6ac2efb4e186a67550`; one worktree, initially clean.
+No staging/commit/push. Official B run and fit are immutable, byte-for-byte:
+- `/tmp/b2w-user-calibration-B/20261017T033124367894Z`
+- `/tmp/b2w-user-calibration-B-fit-01`
+- Frozen `calibration.json` SHA256:
+  `15b371aa80afe5cef8461d077fae0bc8bb0a180ae92ea5ff6c669c9b04d352bc`.
+
+### Reviewed Protocol B facts and interpretation
+
+No exclusions. Decimal inputs below label the captured Float32 ONNX plateaus;
+all prediction uses the exact frozen model inputs/parameters, without rounding.
+
+| policy u | truth v (m/s) |
+|---:|---:|
+| .04 | .1068173727577565 |
+| .07 | .1373134859334345 |
+| .10 | .16859705352852788 |
+| .13 | .19962706979823627 |
+| .20 | .27052833048110847 |
+
+- M0: RMSE `.0685906653` m/s.
+- M1 proportional: k=`1.5095576181`, RMSE `.0298836498` m/s.
+- M2 moving affine: `v = 1.0245445280935277*u + 0.0659258536489146`;
+  MAE `.0002908712`, RMSE `.0003221142`, max `.0005104324`,
+  LOSO MAE `.0004687871` m/s. **PRIMARY CANDIDATE**, not production-selected.
+- M3 monotonic PWL: five measured knots, in-sample error=0 by construction;
+  LOSO MAE `.0003237130` m/s. **BACKUP CANDIDATE**. Its tiny LOSO improvement
+  does not yet justify extra complexity. M0/M1 are not competitive on B.
+- Production selection remains **NONE**. B LOSO is internal validation within
+  one ascending session, not independent held-out evidence.
+
+**Support contract:** zero is the separate explicit state `f(0)=0`; the affine
+intercept is never physical output at u=0. Moving support is only approximately
+u in `[.04,.20]` (exact frozen endpoints `.03999999910593033` and
+`.20000000298023224`). No evidence for `0<u<.04`; no extrapolation and no
+zero-to-first-knot bridge. Supported M2 inverse output is approximately
+`[.1069,.2705]` m/s (frozen measured/fitted intersection
+`[.10690763385664151,.27052833048110847]`). Forward predictions use the moving
+input domain, not the inverse output intersection.
+
+### Preregistered prospective Protocol C — before any C observations exist
+
+ONE fresh independent **USER-RUN** session, ordered policy inputs
+`[.055,.085,.115,.165]`. Each keeps the EXISTING 12-s block:
+3 s zero → 5 s target → 4 s zero; vy=wz=0. Total nominal sequence 48 sim s;
+readiness/zero flush additional. Inputs are policy commands, not desired
+corrected physical speeds. Do not run C in this agent stage.
+
+**MODEL VALIDATION PASS**, separately for each frozen M0/M1/M2/M3:
+all four C observations data-valid; all four predictions supported;
+truth max_abs_error <= `.005` m/s AND truth RMSE <= `.003` m/s;
+predicted and observed moving mappings remain monotonic (nondecreasing).
+Data validity retains native fixed final 2-s windows, >=95% coverage,
+|slope|<=.02 m/s², no clock rollback/epoch crossing, authenticated constant
+policy plateaus matching pure-forward requests, supported command streams,
+truth body frame `base_link`, completed run and successful cleanup.
+No missing/invalid observations may be excluded to obtain PASS.
+
+**MODEL SELECTION:** evaluate complexity in exactly `M0 -> M1 -> M2 -> M3`
+order; select the FIRST satisfying the full held-out PASS. If M2 passes,
+select M2 even if M3 has smaller error. M3 only if M0/M1/M2 fail and M3 passes.
+If none pass, production inverse remains blocked. These numeric thresholds and
+selection rules are **new prospective preregistration**, not historical project
+constants. No C data may refit M0/M1/M2/M3, alter knots, tune thresholds, or
+retrospectively change these gates. Production calibration is deferred until
+USER runs C and ChatGPT reviews results; validator selection is only a held-out
+candidate recommendation and never activates a production inverse.
+
+### Offline implementation and verification plan
+
+Bounded independent CLI `scripts/validate_velocity_calibration.py`: read frozen
+B JSON, call existing native observation extraction only for C, reuse supported
+forward prediction and residual metrics. Never call `analyze_directories`,
+`compare_models`, or `fit_model` on C. Read hash-pinned B manifests referenced by
+frozen JSON to verify distinct session identity and unchanged policy/control/
+geometry/fixture contract; retain those source runs when moving the JSON.
+Reject reused sessions, wrong sequence, failed/partial runs or invalid truth.
+Report each frozen model's per-point prediction, observed-minus-predicted
+residual, support status, MAE/RMSE/max, monotonicity and PASS/selection. Fresh
+output directory outside B/frozen-fit/C; hash inputs before/after; no input
+writes. No ROS/Gazebo/live motion or production/config changes.
+
+- [x] Authenticate provenance; snapshot all 20 original B/B-fit file hashes.
+- [x] RED tests: frozen M0/M1/M2/M3 predictions; changing C truth cannot change
+  predictions; disable all fitter entrypoints; support/extrapolation/zero gap;
+  invalid C admission; threshold/order/monotonicity gates; immutable inputs.
+- [x] Implement minimal separate validator; GREEN and relevant offline regressions.
+- [x] Read-only causal lower-bound audit; exact CLI help/dry-run; integrity and
+  `git diff --check`; record final evidence and commands below.
+### C commands recovered from the current parser — USER-RUN ONLY
+
+`make_parser` exposes `--speeds`, `--ros-domain-id`, `--gui`, `--output-root`;
+`parse_speeds` calls `make_sequence`. Its `.04..40` envelope accepts all four C
+inputs. Runner dry-run confirms 48 s, existing 20 Hz chain, zero vy/wz and no
+ROS imports/processes/motion. `/tmp/b2w-user-calibration-C` is absent at this
+preparation. Domain 194 must be free; use the existing runner ownership checks.
+Exactly ONE invocation below launches a fresh independent session; the agent
+has not executed it. Preserve any failure separately; do not pool or auto-retry.
+
+```zsh
+cd /home/zyd/program/b2w-embodied-navigation-course
+source /opt/ros/humble/setup.zsh
+source install/setup.zsh
+/usr/bin/python3 scripts/run_velocity_steps.py --speeds 0.055,0.085,0.115,0.165 --ros-domain-id 194 --gui --output-root /tmp/b2w-user-calibration-C
+```
+
+Runner creates `/tmp/b2w-user-calibration-C/<UTC stamp>` with `exist_ok=False`;
+copy the exact printed `run_directory` including its UTC leaf. Do not invent
+that future stamp or glob captures. Keep the entire native run including
+`manifest.json`, `events.jsonl`, summaries, timeseries, per-speed files,
+fixture/config and logs; retain completion/cleanup terminal output.
+
+After USER completion/cleanup, exact **offline frozen-validator** command:
+
+```zsh
+read -r 'C_RUN_DIR?Paste the exact Protocol C run_directory: '
+/usr/bin/python3 scripts/validate_velocity_calibration.py /tmp/b2w-user-calibration-B-fit-01/calibration.json "$C_RUN_DIR" --expected-sha256 15b371aa80afe5cef8461d077fae0bc8bb0a180ae92ea5ff6c669c9b04d352bc --output-dir /tmp/b2w-user-calibration-C-validation-01
+```
+
+The expected-SHA gate rejects any pre-validation edit to the official frozen JSON.
+The output path must be absent (it is absent at preparation), outside B/B-fit/C.
+Keep referenced original B runs in place: frozen JSON pins B manifest/file
+hashes; validator uses those manifests for session identity and full source/
+policy/fixture compatibility, without reanalyzing or fitting B or C. Return
+`validation.json`, terminal output and full C artifacts for ChatGPT review.
+Exit 1 rejects invalid input/data; exit 0 means data-valid analysis completed,
+**not** that a model passed. Inspect each `passed` and `held_out_selection`;
+`production_selection` always remains null. The report includes frozen model
+snapshots, support status, residuals, MAE/RMSE/max and monotonicity. Missing or
+unsupported points stay null and prevent PASS; no subset can earn selection.
+Do not feed C to `fit_velocity_calibration.py`. Production remains deferred.
+
+Preparation executed only the above runner command with `--dry-run` appended,
+and validator `--help`/`--dry-run` with the nonexistent C path
+`/tmp/b2w-user-calibration-C/NOT-RUN`; dry-run does not read/create C or write
+output. Native synthetic unit tests exercise ordinary validator execution.
+
+### Causal audit: why the .04 runner lower bound exists (READ-ONLY)
+
+Source chain and exact causal snippets:
+- `scripts/run_velocity_steps.py:786-792`, `parse_speeds`:
+  `values=tuple(float(part.strip()) for part in value.split(',')); make_sequence(values)`.
+  It translates `ValueError` to an argparse error, before live work.
+- `scripts/velocity_step_core.py:16-20`, `make_sequence`:
+  `if not values or not all(math.isfinite(v) and .04 <= v <= .40 for v in values):`
+  then `raise ValueError('speeds must be finite positive experiment inputs in [0.04, 0.40] m/s')`.
+- `scripts/run_velocity_steps.py:797-798` CLI help repeats that experiment envelope.
+- `git blame` attributes both the new `.04 <= v <= .40` condition and CLI
+  `--speeds` addition to `d9cc78f5b387015f5f0cc315d9fd08b088f091b5`
+  (`feat(nav): add B2-W velocity calibration diagnostics`). Parent code required
+  exactly four positive speeds; that change opened a custom experiment range.
+- `docs/VELOCITY_CALIBRATION_AUDIT.md:278-283`: experiment envelope spans the
+  requested low-speed protocol and unchanged defaults; **"This bound is not
+  measured support."** Historical PLAN implementation text likewise calls it
+  the union of requested protocols and defaults.
+
+Verdict: a deliberate **experiment-range input guard**, not a demonstrated
+hardware/policy safety threshold, proven minimum attainable speed, or inherited
+Nav2 physical lower bound. Now B separately establishes evidence beginning at
+approximately .04; preserving this guard is appropriate in this stage. It is
+not evidence that values below .04 work or are safe. Bound unchanged.
+
+Related low-level source, without changing or experimentally testing it:
+`rl_sar_controller.cpp:101` clamps vx to `[-1,1]`, without a .04 floor;
+`:135-138` checks command freshness and `idle_hold_` with all three
+`abs(command_[i])<.01`; `course_sim/config/rl_sar.yaml:144` sets `idle_hold: true`.
+`:148` puts consumed command in `obs[6+i]`. These are separate control facts,
+not permission to lower the experiment range or proof of low-speed response.
+
+Implication for eventual low-speed Nav2 calibration: M2 can currently invert
+only the explicit zero plus supported moving outputs approximately
+[.1069,.2705] m/s. Desired physical speeds in (0,.1069) have no supported
+M2 inverse. Never substitute the affine intercept at zero, extrapolate, join
+zero to the first knot, or silently clip such requests to the first knot.
+Successful interior C predictions will still not characterize the missing
+transition. A later separately reviewed low-speed/transition experiment and
+Nav2 stop/creep behavior decision are needed before extending production support;
+no lower-bound, Nav2, smoother, controller, policy or production changes now.
+
+### Completed offline verification and review evidence
+
+- RED: 38 failures before the independent validator existed. Additional focused
+  RED: PWL-domain/knot mismatch status (1 failure), expected frozen-SHA gate
+  (1 failure). GREEN: **48 validator tests passed**.
+- Changing native synthetic C truth by +.02 m/s leaves every M0/M1/M2/M3
+  prediction unchanged and changes errors/selection. Disabling all
+  `fit_model`/`compare_models`/`analyze_directories` entrypoints still allows
+  validation. Frozen parameters/knots come only from the B JSON.
+- Tests cover all four frozen predictors; zero, unmeasured gap, extrapolation,
+  inconsistent PWL support; completed/cleanup/sequence/session/hash/policy/source/
+  fixture rejection; missing truth, bad frame, slope, policy components,
+  command mismatch, clock epochs/rollback; inclusive RMSE and max-error gates;
+  monotonicity, whole-four-point eligibility, complexity order, M3 backup and
+  M2 preference even when M3 has smaller error; fresh external output guards;
+  immutable B/C bytes and expected-SHA mismatch rejection before output.
+- Final relevant offline regression command:
+  `/usr/bin/python3 -m pytest -q tests/test_frozen_velocity_validation.py tests/test_velocity_calibration.py tests/test_velocity_steps.py -k 'not real_ros_executor and not interrupt_keeps_ros_context'`
+  → **119 passed, 2 live-ROS tests deselected**. No ROS/Gazebo/live motion.
+  In-memory Python compile, runner/fitter/validator CLI help and runner/validator
+  dry-runs PASS. Normal validator CLI tests use synthetic captures only.
+- Read-only review via requesting-code-review: no critical/important findings;
+  the minor preregistered-digest enforcement suggestion was implemented with
+  RED/GREEN, rechecked, and resolved. Final review: no remaining findings.
+- Integrity: **20 B/B-fit files unchanged**, including exact frozen JSON SHA
+  above; **309 other original tracked files unchanged**; **19 captured source/
+  policy hashes unchanged**. Original tracked change is only PLAN; two new files
+  are the validator and its tests. Index unchanged; HEAD/branch/origin stable;
+  `git diff --check` PASS. C run/output paths remain absent. No production
+  calibration change, staging, commit or push.
+- Evidence: `/tmp/b2w-protocol-b-close-20261017/` contains original hash
+  manifests, reviewed B summary, RED/GREEN/regression logs, CLI help/dry-runs,
+  lower-bound source/history, review report and final `integrity.json`.
+- Scope after delivery: **C NEXT USER-RUN ONLY**; no C observation exists in
+  this stage. Production selection remains NONE until user execution/review.
+
+- Final action: exactly ONE normal `~/bin/april-review-bundle` including this
+  plan, source/tests and evidence `/tmp/b2w-protocol-b-close-20261017`, verify
+  path/SHA/status, then STOP. No post-bundle edits or additional experiments.
+
+## HISTORICAL — Protocol A closure; Protocol B preparation (2026-10-17)
 
 Authenticated branch `improve/narrow-navigation`, HEAD and live origin:
 `67e5996e8ae6d58dae1a48f60c4d21a7bbe0a6d2`; initially clean worktree,
