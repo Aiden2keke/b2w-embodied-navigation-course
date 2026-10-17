@@ -1057,3 +1057,126 @@ Pillow/Matplotlib are needed only for offline rendering; SciPy for regeneration.
 No dependency installation occurred. Mock preview artifacts in
 `/tmp/b2w-horizontal-composite-20261016/mock-preview/` explicitly label synthetic
 truth/SLAM data. They verify images, not physical traversal or no-detour success.
+
+# Full warehouse route harness — offline preparation, 2026-10-17
+
+The root `PLAN.md` NOW sets the acceptance hierarchy: **SYSTEM SUCCESS** is one
+fresh session continuously completing `Start -> G1 -> G2 -> G3 -> G4 -> G5`.
+**NARROW LEG SUCCESS** is the successful `G1 -> G2` leg in that same sequence.
+Passing G2 and failing later retains `narrow_leg_pass=true`, while
+`full_route_pass=false`. Failing before/reaching G2 makes both false. Only all five
+sequentially accepted goals and successful owned cleanup earn FULL_ROUTE_PASS.
+This flag is navigation/staging acceptance, not physical-clearance certification.
+The earlier sections' two-goal execution restrictions describe `--mode critical`,
+which remains the default with its original reports, stop reasons and semantics.
+`--mode full` is the explicit five-goal opt-in. This stage ran no live stack.
+
+The canonical route YAML is unchanged and remains the only editable position
+source. `full_goals(config)` consumes its five ordered positions, validating
+names/order/uniqueness/finite XY/orientation declarations before any transport.
+Generated `route-snapshot.json` and planned/sent poses are evidence snapshots,
+not additional editable route definitions. Tests independently pin all five XY,
+order and G1/G2 heading so canonical drift fails validation.
+
+Orientation audit and chosen rule:
+
+| Source path + key snippet | Interpretation |
+| --- | --- |
+| `course_navigation/course_navigation/goal_manager.py:goal`: `pose_matrix(msg.pose)`; `tick`: `goal.pose = target` | A valid pose quaternion is technically required; the existing path has no position-only request type. The sent orientation reaches NavigateToPose unchanged. |
+| `scripts/run_warehouse_route.py:critical_goals`: `atan2(b['position'][1] - a['position'][1], b['position'][0] - a['position'][0])` | Existing G1/G2 arithmetic exactly yields the user-confirmed clicked heading, yaw `-2.8966601449198057`, quaternion z/w `(-0.9925103760697063, 0.12216035933955931)`. Full mode reuses it unchanged, labeled `canonical_clicked`. Older accidental-quaternion notes refer to the previously excluded capture, not this user-confirmed heading. |
+| `scripts/run_warehouse_route.py:full_goals`: `(goals[i], goals[i+1]) if i < 4 else (goals[3], goals[4])` | G3 yaw is bearing G3→G4 (`0.6661992265321878` rad); G4 and G5 yaw are bearing G4→G5 (`-0.7645785058120054` rad). All three are explicitly `runner_derived_transit`, never user-clicked poses; YAML orientations remain null. |
+| `scripts/run_warehouse_route.py:evaluate_full_goal`: `orientation_error_gate=False`; reused `evaluate_goal`: `math.hypot(...)` | Runner evaluates XY only. No added yaw-success threshold. NavigateToPose retains its existing angular behavior; a derived yaw can still affect Nav2's existing goal checker. |
+| `course_navigation/course_navigation/metrics.py:finish`: `bool(action_succeeded and reached)` | Manager success remains separate from raw action status and already requires its own position tolerance. No manager/controller tolerances are tightened. |
+
+Full state machine: validate → attach once to fresh idle existing session → for
+each of Start-G1, G1-G2, G2-G3, G3-G4, G4-G5: existing transport readiness → prepare
+and checkpoint exact stamped request → publish once via `/goal_pose` → wait for
+exact manager metrics → evaluate gates → append completed waypoint or stop at
+first failed gate. There is one NavigateToPose request per leg through the
+manager. Nav2's existing internal planning/BT behavior is unchanged; the runner
+never retries a terminal failure, replaces/corrects a goal, skips, shortens,
+teleports or repositions. No further goal follows a failure.
+
+| Source path + key snippet | Causal interpretation |
+| --- | --- |
+| `scripts/run_warehouse_route.py:run_full`: `transport.send_and_wait(goal['pose'], on_sent)` once in the ordered `for`; `if not segment['success']: ... break` | Exactly one publication per leg through the existing manager, fail-fast without retry or replacement. |
+| Same file, `evaluate_full_goal`: `navigation_success`; `0 <= age <= .5`; reused `evaluation_passed=error is not None and error <= tolerance` | Every leg needs action SUCCEEDED=4, manager success=true, complete fresh start/end map→base_link TF and endpoint error ≤.05m. The .05m value is staging/evaluation only. |
+| Same file, unchanged `RosGoalTransport.require_ready`: `len(managers) == 1 and idle and fresh`; unchanged `send_and_wait`: `self.require_ready(...)` | Each publication still requires the original readiness/ownership discipline. Boundary freshness uses manager TF, not truth. No new localization publisher or action client. |
+| Same file, unchanged `find_metrics`: `data.get('goal_pose') == sent`; `run_full`: `Metrics do not match exact sent PoseStamped` | Full header/stamp/pose association excludes previous/same-XY results. Embedded raw metrics and file/hash retain complete partial evidence. |
+| Same file, unchanged `RosGoalTransport.close`: `foreign_goal_not_canceled`; `all(s in (4, 5, 6) ...)` | On own interruption/timeout, existing bounded manager cancel requires owned action terminal evidence. Never publish cmd_vel or cancel observed foreign goals. Session processes are untouched; only runner ROS resources are destroyed. |
+| Same file, `run_full`: `evidence.epoch_invalid`, `begin < last_request_sim`, `manager_begin < last_sim`, `finish < manager_begin`; recheck after `transport.close()` | Observed clock reset/interference prevents full PASS, including between segments or during final capture. Truth pose values never gate advancement. |
+| Same file, `run_full`: `completed_waypoints == order` AND `len(segments) == 5` AND `all(s['success'] ...)` AND successful stop reason/cleanup | Full PASS cannot come from critical-only success or an incomplete prefix. Narrow PASS is set only after successful G1-G2 and retained on later route failure. |
+| Same file, `main`: `runner = run_critical if args.mode == 'critical' else run_full`; `if not execute: return report` in full runner | Default/explicit dry-run validates and writes planned evidence without constructing transport or importing ROS. Critical runner, transport, metric association and existing manifest implementation remain unchanged. |
+
+Freshness/exclusivity remain the reviewed attach prerequisites: start one fresh
+idle warehouse session; no other goal producers, clicks or manual intervention.
+Monitoring is not a transactional session lock and cannot authenticate unseen
+legacy queued goals. This harness deliberately preserves that existing ownership
+contract. Absolute map XY reproducibility across fresh startups remains
+**UNVERIFIED**; no coordinate rebase/registration or physical-landmark guarantee
+was added. Keep the startup command/log with evidence of the loaded config.
+
+`report.json` full schema uses `route_mode=full`, `route_order`, `planned_goals`,
+`segments`, `completed_waypoints`, `failed_leg`, `narrow_leg_pass`,
+`full_route_pass`, `no_retry=true`, total wall/sim duration and cleanup. Each
+attempted segment contains `leg_id`, `from`, `to`, orientation provenance/rule,
+exact `sent_pose` once publish returned, action terminal status (null if unknown),
+manager terminal status/success, original complete manager metrics/file/hash,
+start/end boundary TF including stamp/age/freshness, endpoint error, success and
+failure reason. Prepared but unpublished requests retain `prepared_pose` and
+`publish_state=prepared` and never appear as sent. Unattempted goals have only
+planned entries, never fabricated terminal results.
+
+Timing bases are explicit: `goal_start_sim_time_s` is the exact sent request
+stamp; `goal_end_sim_time_s` reconstructs manager finish clock from end TF stamp
+plus its recorded age. `goal_manager_start_sim_time_s` similarly reconstructs manager admission clock;
+monotonicity is checked within each node, never by comparing independent clock
+receipts across nodes. These are request/manager boundaries, not controller or
+action-acceptance timestamps. Wall fields are runner UNIX receipt times; total
+wall duration uses monotonic elapsed time from attachment through cleanup,
+excluding rendering. Total sim duration spans first request to last available
+manager finish, including inter-leg intervals; unsupported values remain null.
+Manager `time_to_goal_s` retains its original meaning in embedded metrics.
+
+Existing manifest config hashes cover every navigation/SLAM YAML, including all
+planner/controller configurations, with the original on-disk-only scope caveat.
+Full mode adds `production_calibration.state=no_production_inverse` and hashes
+of the current velocity adapter, rl_sar YAML and controller source. This describes
+the current unmodified checkout; it does not activate calibration or certify
+live parameter values. Preserve startup/config-selection logs as runtime evidence.
+The same passive TF/map/truth sidecars and post-cleanup renderer work for the
+executed five-leg prefix; missing truth/maps remain explicit, never fabricated.
+
+Future formal command, **USER-RUN ONLY, NOT EXECUTED HERE**, after the root NOW's
+C held-out → candidate review → diagnostic production candidate → preregistered
+open-space gate. Once that gate passes, do not add fit-oriented experiments before
+the full route unless a safety/instrumentation blocker exists. This preparation
+selects no new calibration or navigation config.
+
+For one fresh warehouse session, after ending any old session in its own terminal,
+the existing startup in terminal 1 is:
+`ROS_DOMAIN_ID=91 scripts/run_warehouse.sh results_directory:=/tmp/b2w-user-full-warehouse-route-metrics-01`.
+It uses the current launch configuration; retain the exact authorized candidate
+startup/config log when that future stage is reached. Do not run multiple stacks
+in the domain. Wait for the existing readiness checks. In terminal 2, one copyable
+full-route invocation with the current zsh environment:
+
+```zsh
+cd /home/zyd/program/b2w-embodied-navigation-course
+source /opt/ros/humble/setup.zsh
+source install/setup.zsh
+export ROS_DOMAIN_ID=91
+export ROS_LOCALHOST_ONLY=1
+export FASTRTPS_DEFAULT_PROFILES_FILE="$PWD/course_sim/config/fastdds_local.xml"
+export PYTHONPATH="$PWD/.venv/lib/python3.10/site-packages:${PYTHONPATH:-}"
+export LD_LIBRARY_PATH="$PWD/.deps/lib:$PWD/b2w_sim/b2w_controllers/third_party/onnxruntime/lib64:${LD_LIBRARY_PATH:-}"
+export OPENBLAS_NUM_THREADS=1
+/usr/bin/python3 scripts/run_warehouse_route.py --mode full --execute --output-root /tmp/b2w-user-full-warehouse-route-01
+```
+
+Run once, with no retry, manual correction, replacement goals or route changes.
+Preserve the printed UTC run directory in full, the manager results directory
+and startup logs, including failures. Runner creates a fresh UTC leaf with
+`exist_ok=False`; never invent a future timestamp or overwrite partial evidence.
+Only `--help` and `--mode full --dry-run` were run against the real CLI here;
+synthetic transports test execution offline without starting ROS.

@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""Canonical warehouse critical route benchmark; dry-run unless --execute."""
+"""Canonical warehouse critical/full route benchmark; dry-run unless --execute."""
 import argparse
 import copy
 from collections import deque
@@ -124,6 +124,181 @@ def run_critical(config, *, execute=False, transport_factory=None, checkpoint=la
                 report['cleanup'] = dict(passed=False, error=repr(error))
         if not report['cleanup']['passed']:
             report['success'] = False
+        checkpoint(report)
+    return report
+
+
+def full_goals(config):
+    """Consume canonical XY only; deferred clicked headings stay null in the SSoT."""
+    try:
+        goals = config['goals']
+        if (config['schema_version'] != 1 or config['frame_id'] != 'map'
+                or config['critical_segment'] != ['G1', 'G2']
+                or config['evaluation_tolerance_m'] != .05
+                or [g['name'] for g in goals] != ['G1', 'G2', 'G3', 'G4', 'G5']
+                or [g['orientation'] for g in goals] != ['corridor_heading'] * 2 + [None] * 3
+                or any(len(g['position']) != 2 or not all(
+                    type(v) in (int, float) and math.isfinite(v) for v in g['position']) for g in goals)
+                or len({tuple(g['position']) for g in goals}) != 5):
+            raise ValueError('Invalid canonical full warehouse route contract')
+    except (KeyError, TypeError) as error:
+        raise ValueError('Malformed canonical full warehouse route') from error
+    result = critical_goals(config)
+    for goal in result:
+        goal['orientation_provenance'] = 'canonical_clicked'
+        goal['orientation_rule'] = 'existing shared G1->G2 corridor heading'
+    for i in range(2, 5):
+        a, b = (goals[i], goals[i+1]) if i < 4 else (goals[3], goals[4])
+        yaw = math.atan2(b['position'][1] - a['position'][1],
+                         b['position'][0] - a['position'][0])
+        goal = copy.deepcopy(result[0])
+        goal.update(name=goals[i]['name'], yaw_rad=yaw,
+                    orientation_provenance='runner_derived_transit',
+                    orientation_rule=f'bearing {a["name"]}->{b["name"]}')
+        goal['pose']['pose']['position'].update(x=goals[i]['position'][0], y=goals[i]['position'][1])
+        goal['pose']['pose']['orientation'].update(z=math.sin(yaw / 2), w=math.cos(yaw / 2))
+        result.append(goal)
+    return result
+
+
+def evaluate_full_goal(goal, metrics, tolerance):
+    """Generalize critical staging; no independent yaw-error acceptance gate."""
+    result = evaluate_goal(goal, metrics, tolerance)
+    boundaries = {}
+    for key, source in [('start', 'start_map_base_link'), ('end', 'end_map_base_link')]:
+        boundary = metrics.get(source)
+        age = boundary.get('age_s') if isinstance(boundary, dict) else None
+        fresh = (type(age) in (int, float) and math.isfinite(age) and 0 <= age <= .5
+                 and boundary.get('header', {}).get('frame_id') == 'map'
+                 and boundary.get('child_frame_id') == 'base_link')
+        boundaries[key] = dict(source='goal_manager map->base_link TF', age_s=age,
+                               max_age_s=.5, fresh=bool(fresh))
+    reason = ('navigation_failed' if not result['navigation_success'] else
+              'boundary_localization_unavailable_or_stale' if not result['evidence_complete']
+              or not all(b['fresh'] for b in boundaries.values()) else
+              'endpoint_evaluation_failed' if not result['evaluation_passed'] else None)
+    result.update(boundary_localization=boundaries, success=reason is None, failure_reason=reason,
+                  action_terminal_status=metrics.get('nav2_status'),
+                  goal_manager_terminal_status=metrics.get('end_reason'),
+                  goal_manager_success=metrics.get('success'), orientation_error_gate=False)
+    return result
+
+
+def run_full(config, *, execute=False, transport_factory=None, checkpoint=lambda report: None):
+    """One owned attach session, one manager request per leg, fail-fast, no retry."""
+    goals = full_goals(config)  # Validate even dry-run, before constructing any transport.
+    order = [g['name'] for g in goals]
+    report = dict(mode='full', route_mode='full', route_order=order, dry_run=not execute,
+                  planned_goals=goals, sent_poses=[], segments=[], completed_waypoints=[],
+                  failed_leg=None, narrow_leg_pass=False, full_route_pass=False, success=False,
+                  no_retry=True, stop_reason='dry_run', total_route_duration_wall_s=None,
+                  total_route_duration_sim_s=None,
+                  session_contract='One fresh idle warehouse session; exclusive goal production required; '
+                      'attach monitoring is not a transactional session lock',
+                  cleanup=dict(passed=True, child_processes=[], ros_initialized=False,
+                               session_processes_touched=False))
+    checkpoint(report)
+    if not execute:
+        return report
+    transport, segment = None, None
+    started_wall = time.monotonic()
+    first_sim, last_sim = None, None
+    last_request_sim = None
+    try:
+        transport = (transport_factory or RosGoalTransport)()
+        report['goal_manager_runtime'] = transport.start()
+        for i, goal in enumerate(goals):
+            previous = 'Start' if i == 0 else order[i-1]
+            segment = dict(name=goal['name'], leg_id=f'{previous}-{goal["name"]}',
+                           segment=f'{previous}→{goal["name"]}', **{'from': previous, 'to': goal['name']},
+                           orientation_provenance=goal['orientation_provenance'],
+                           orientation_rule=goal['orientation_rule'], yaw_rad=goal['yaw_rad'],
+                           action_terminal_status=None, goal_manager_terminal_status=None,
+                           goal_start_wall_time_s=None, goal_end_wall_time_s=None,
+                           goal_start_sim_time_s=None, goal_end_sim_time_s=None,
+                           goal_manager_start_sim_time_s=None,
+                           end_map_base_link=None, endpoint_error_m=None,
+                           boundary_localization=None, success=False, failure_reason='incomplete_attempt')
+            report['segments'].append(segment)
+            report['failed_leg'] = segment['leg_id']  # Remains set on partial IO/interruption.
+            def on_sent(sent, state='published'):
+                segment['publish_state'] = state
+                if state == 'prepared':
+                    segment['prepared_pose'] = copy.deepcopy(sent)
+                else:
+                    segment['sent_pose'] = copy.deepcopy(sent)
+                    segment['goal_start_wall_time_s'] = time.time()
+                    stamp = sent['header']['stamp']
+                    segment['goal_start_sim_time_s'] = stamp['sec'] + stamp['nanosec'] * 1e-9
+                    report['sent_poses'].append(copy.deepcopy(sent))
+                checkpoint(report)
+            result = transport.send_and_wait(goal['pose'], on_sent)
+            segment['goal_end_wall_time_s'] = time.time()
+            metrics = result['metrics']
+            segment.update(goal_manager_metrics=metrics, metrics_file=result['metrics_file'],
+                           metrics_sha256=result['metrics_sha256'])
+            if segment.get('sent_pose') is None or metrics.get('goal_pose') != segment['sent_pose']:
+                raise RuntimeError('Metrics do not match exact sent PoseStamped')
+            segment.update(evaluate_full_goal(goal, metrics, config['evaluation_tolerance_m']))
+            begin = segment['goal_start_sim_time_s']
+            if first_sim is None:
+                first_sim = begin
+            for key, boundary_key, time_key in [
+                    ('start', 'start_map_base_link', 'goal_manager_start_sim_time_s'),
+                    ('end', 'end_map_base_link', 'goal_end_sim_time_s')]:
+                if segment['boundary_localization'][key]['fresh']:
+                    boundary = metrics[boundary_key]
+                    stamp = boundary['header']['stamp']
+                    segment[time_key] = stamp['sec'] + stamp['nanosec'] * 1e-9 + boundary['age_s']
+            manager_begin = segment['goal_manager_start_sim_time_s']
+            finish = segment['goal_end_sim_time_s']
+            evidence = getattr(transport, 'evidence', None)
+            # Separate nodes receive /clock independently. Compare each node's
+            # own timeline, never a runner publish against a manager observation.
+            if (getattr(transport, 'foreign_goal', False) or (evidence is not None and evidence.epoch_invalid)
+                    or (last_request_sim is not None and begin < last_request_sim)
+                    or (manager_begin is not None and last_sim is not None and manager_begin < last_sim)
+                    or (finish is not None and manager_begin is not None and finish < manager_begin)):
+                segment.update(success=False, failure_reason='session_interference_or_clock_reset')
+            last_request_sim = begin
+            last_sim = finish
+            if not segment['success']:
+                report['stop_reason'] = segment['failure_reason']
+                break
+            report['completed_waypoints'].append(goal['name'])
+            if segment['leg_id'] == 'G1-G2':
+                report['narrow_leg_pass'] = True
+            report['failed_leg'] = None
+            checkpoint(report)
+        else:
+            report['stop_reason'] = 'full_route_succeeded'
+    except KeyboardInterrupt:
+        report['stop_reason'] = 'interrupted'
+    except Exception as error:
+        report.update(stop_reason='transport_error', error=repr(error))
+    finally:
+        if segment is not None and report['failed_leg'] is not None:
+            if segment['failure_reason'] == 'incomplete_attempt':
+                segment['failure_reason'] = report['stop_reason']
+            segment['goal_end_wall_time_s'] = segment['goal_end_wall_time_s'] or time.time()
+        if transport is not None:
+            try:
+                report['cleanup'] = transport.close()
+            except Exception as error:
+                report['cleanup'] = dict(passed=False, error=repr(error))
+            evidence = getattr(transport, 'evidence', None)
+            if (getattr(transport, 'foreign_goal', False)
+                    or (evidence is not None and evidence.epoch_invalid)):
+                report['stop_reason'] = 'session_interference_or_clock_reset'
+        report['total_route_duration_wall_s'] = time.monotonic() - started_wall
+        if first_sim is not None and last_sim is not None and last_sim >= first_sim:
+            report['total_route_duration_sim_s'] = last_sim - first_sim
+        report['full_route_pass'] = (report['completed_waypoints'] == order
+            and len(report['segments']) == 5 and all(s['success'] for s in report['segments'])
+            and report['stop_reason'] == 'full_route_succeeded' and report['cleanup']['passed'])
+        report['success'] = report['full_route_pass']
+        if not report['cleanup']['passed'] and report['stop_reason'] == 'full_route_succeeded':
+            report['stop_reason'] = 'cleanup_failed'
         checkpoint(report)
     return report
 
@@ -492,9 +667,11 @@ def manifest():
 
 def main(argv=None, *, transport_factory=None):
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--mode', choices=['critical'], default='critical')
-    parser.add_argument('--execute', action='store_true',
-                        help='USER-RUN ONLY: send G1 then G2 through existing goal_manager')
+    parser.add_argument('--mode', choices=['critical', 'full'], default='critical')
+    execution = parser.add_mutually_exclusive_group()
+    execution.add_argument('--execute', action='store_true',
+                        help='USER-RUN ONLY: send selected route through existing goal_manager')
+    execution.add_argument('--dry-run', action='store_true', help='Offline plan only (also the default)')
     parser.add_argument('--output-root', type=Path, default=Path('/tmp/b2w-warehouse-route'))
     parser.add_argument('--ready-timeout', type=float, default=45., help='Bounded attach/readiness wall seconds')
     args = parser.parse_args(argv)
@@ -503,6 +680,15 @@ def main(argv=None, *, transport_factory=None):
     config = load_route()
     provenance = manifest()
     provenance['route_id'] = config['route_id']
+    if args.mode == 'full':
+        full_goals(config)
+        calibration_paths = [ROOT / 'course_navigation/course_navigation/velocity_adapter.py',
+                             ROOT / 'course_sim/config/rl_sar.yaml',
+                             ROOT / 'b2w_sim/b2w_controllers/src/rl_sar_controller.cpp']
+        provenance['production_calibration'] = dict(state='no_production_inverse',
+            identity='Current unmodified adapter / rl_sar command mapping; no inverse calibration artifact',
+            sha256={str(p.relative_to(ROOT)): digest(p) for p in calibration_paths},
+            scope='On-disk source/config identity only; not authenticated live parameter values')
     output = args.output_root.resolve() / datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%S.%fZ')
     output.mkdir(parents=True, exist_ok=False)
     write(output / 'route-snapshot.json', config)
@@ -511,7 +697,8 @@ def main(argv=None, *, transport_factory=None):
         temporary = output / 'report.json.tmp'
         write(temporary, report)
         temporary.replace(output / 'report.json')
-    report = run_critical(config, execute=args.execute, checkpoint=checkpoint,
+    runner = run_critical if args.mode == 'critical' else run_full
+    report = runner(config, execute=args.execute, checkpoint=checkpoint,
                           transport_factory=transport_factory or (lambda: RosGoalTransport(args.ready_timeout, output)))
     # Rendering is offline, after run_critical's transport.close(); never changes
     # navigation success, staging admission or cleanup outcomes.

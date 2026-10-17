@@ -24,7 +24,186 @@
 - 旧实施计划归档至 `docs/plans/archive/2026-10-10-local-course-system-plan.md`。历史 design/validation 保留为证据，不是另一个当前 roadmap。无新增 HANDOFF。
 - 历史轮次只读与 timing 交付已结束；本轮范围以最新用户请求和下方 NOW 为准。旧实验/交付记录只作历史证据。
 
-## NOW — Protocol B CLOSED; frozen held-out Protocol C NEXT USER-RUN only (2026-10-17)
+## NOW — FULL warehouse route harness preparation ONLY (2026-10-17)
+
+Authenticated `improve/narrow-navigation`: HEAD and live origin both
+`def1ee833b812d94faacfa09032104dcc0e58717`; sole worktree initially clean.
+This stage is offline harness work only: no Protocol C, warehouse navigation,
+ROS/Gazebo/live action, production calibration, tuning, commit or push.
+
+**SYSTEM SUCCESS:** one fresh owned warehouse session continuously completes
+`Start -> G1 -> G2 -> G3 -> G4 -> G5`. Only reaching G5 sequentially with every
+advancement gate passing is `FULL_ROUTE_PASS`. This is the highest-level
+acceptance; velocity-fit accuracy is subordinate and does not certify clearance.
+
+**NARROW LEG SUCCESS:** `G1 -> G2` succeeds in that same route session.
+G1->G2 PASS followed by later failure means narrow-leg improvement and
+`FULL_ROUTE_FAIL`. Failure before/reaching G2 means `NARROW_LEG_FAIL` and
+`FULL_ROUTE_FAIL`. Critical-only success is never full-route success.
+No auto-retry, replacement goal, teleport, manual reposition, goal skipping,
+automatic correction, or route shortening in a formal attempt.
+
+**Milestone order:** Protocol C held-out -> model review/candidate selection ->
+diagnostic production candidate -> preregistered open-space calibration validation
+-> **FULL warehouse route**. Once a candidate passes its preregistered open-space
+gate, do not add more fit-oriented experiments before the full route unless a
+safety/instrumentation blocker is found. Production inverse remains deferred.
+
+Implementation checklist (the sole current plan; user-specified scope):
+- [x] Authenticate branch/HEAD/live origin/clean worktree; read project entry.
+- [x] Audit canonical route, runner, goal_manager, evidence and existing tests/docs;
+  document source snippets and orientation/advancement/ownership semantics.
+- [x] RED first: full order, provenance, fail-fast/no retry, separate verdicts,
+  inclusive 0.05m staging boundary, malformed input, dry-run and artifact schema.
+- [x] Minimal `--mode full`, canonical YAML remains SSoT; preserve critical mode.
+  Orientation rule is fixed below after source audit. Each goal must have
+  action SUCCEEDED + goal_manager success + fresh boundary TF/localization +
+  endpoint position error <=0.05m. Evaluation tolerance never tunes Nav2.
+- [x] GREEN relevant existing/new offline tests, help/dry-run only; preserve partial
+  evidence and owned cleanup; record exact future USER-RUN command (do not run).
+- [x] Verify protected sources/configs/models/captures unchanged; finalize this PLAN,
+  no AGENTS/Skill/HANDOFF changes. Final delivery operation remains exactly ONE
+  normal april-review-bundle with RED/GREEN/dry-run/integrity evidence; verify
+  path/SHA256/status and STOP. No additional experiments or post-bundle edits.
+
+### Implemented full-route contract and source audit
+
+- `scripts/run_warehouse_route.py:full_goals`: reuse `critical_goals(config)` for
+  G1/G2, label `canonical_clicked`. Existing arithmetic exactly matches confirmed
+  yaw `-2.8966601449198057` and quaternion z/w
+  `(-0.9925103760697063, 0.12216035933955931)`. No critical-mode change.
+- `course_navigation/course_navigation/goal_manager.py:goal`: `pose_matrix(msg.pose)`;
+  `tick`: `goal.pose = target`. Valid pose orientation is required and reaches
+  NavigateToPose unchanged; position-only semantics are not implemented here.
+- Chosen **RUNNER-DERIVED TRANSIT YAW**: G3 bearing G3→G4 =
+  `0.6661992265321878`; G4 bearing G4→G5 and G5 inbound G4→G5 =
+  `-0.7645785058120054` rad. `full_goals`: `(goals[i], goals[i+1]) if i < 4
+  else (goals[3], goals[4])`; provenance `runner_derived_transit` for all three.
+  These are not clicked poses; YAML G3–G5 orientations remain null. All canonical
+  positions/ordering/YAML bytes unchanged. `evaluate_full_goal` sets
+  `orientation_error_gate=False`: no new yaw gate; existing Nav2 angular behavior
+  remains in force because valid orientations are sent.
+- Full state machine in `run_full`: validate → attach exactly once → ordered
+  `Start-G1, G1-G2, G2-G3, G3-G4, G4-G5` → readiness → prepared checkpoint →
+  publish once via unchanged transport/goal_manager → exact metrics association
+  → evaluate gates → append completed waypoint or break at first failure →
+  existing owned cleanup → aggregate → offline rendering. No retries, replacements,
+  corrections, skipping, teleport/reposition or shortening. An attempt may stop
+  before five goals, but an incomplete prefix never earns FULL_ROUTE_PASS.
+- Per-leg gates: reused `evaluate_goal` requires `nav2_status == 4 and
+  metrics['success'] is True`, complete boundary TF and `error <= tolerance`.
+  `evaluate_full_goal` explicitly checks both map→base_link ages in `[0,.5]` s;
+  .05m applies on every leg as staging/evaluation only. `goal_manager` already
+  filters snapshots with `if 0 <= age <= 0.5`; `RunMetrics.finish` independently
+  requires `action_succeeded and reached`. None of those production files changed.
+- `run_full`: `if not segment['success']: ... break` prevents the next goal;
+  `completed_waypoints == order`, five successful segments, successful stop reason
+  and cleanup are all required for `full_route_pass`. `narrow_leg_pass` is set
+  only on successful `G1-G2`, retained if a later leg fails. Missing raw action
+  status, manager failure, missing/stale TF or >.05m error fails the leg.
+- `RosGoalTransport` is unchanged: `/goal_pose` producer only; no direct action or
+  cmd_vel publisher. Existing `require_ready` precedes every request, exact sent
+  header/pose matches manager metrics; existing `close` cancels only owned pending
+  work, requires observed terminal status, avoids foreign cancel and destroys
+  only runner ROS resources. Session processes are untouched. Fresh idle startup
+  and exclusive goal production remain prerequisites, not a transactional lock.
+- Observed epoch reset/interference blocks full PASS, including final cleanup.
+  Review found mixed-node /clock receipt comparison could falsely reject a valid
+  session. RED/GREEN fix compares runner requests only to runner requests and
+  manager boundary observation times only to manager times; existing epoch monitor
+  remains. This was a new-full-mode bug, not a critical/production semantic fix.
+
+### Full report/evidence semantics
+
+`route_mode=full`, `route_order=[G1,G2,G3,G4,G5]`, complete planned goals,
+`completed_waypoints`, `failed_leg` (null if no leg failed), `narrow_leg_pass`,
+`full_route_pass`, `no_retry=true`, total wall/sim duration and owned cleanup.
+Each attempted segment has leg_id/from/to, exact stamped sent pose (only after
+publish returns), orientation provenance/rule, raw action terminal status,
+manager terminal status/success, embedded complete metrics and original file/hash,
+start/end simulation and UNIX wall receipts, endpoint map TF/pose, XY error,
+freshness, success and failure reason. Prepared but unpublished requests retain
+prepared_pose separately; unattempted goals have no fabricated results.
+
+Timing: start sim is runner sent stamp, manager start/end sim are boundary TF
+stamp+age, wall per-leg fields are runner receipts. Total wall uses monotonic
+elapsed attach-through-cleanup; total sim is first sent request to last available
+manager finish. Unsupported timing stays null; these are not exact action/controller
+timestamps. Existing passive per-leg TF/map/truth capture and post-cleanup rendering
+are reused; truth values/registration never control advancement.
+
+Existing manifest retains all Nav2/SLAM config hashes, source/world/mesh identity
+and its on-disk-only caveat. Full mode adds production calibration identity/state
+`no_production_inverse` plus velocity-adapter/controller-source/rl_sar-config hashes.
+This records the current unchanged checkout; loaded runtime configuration still
+requires startup evidence. No production inverse/calibration is installed here.
+Absolute fresh-map physical registration remains UNVERIFIED. Full PASS is not a
+physical-clearance certificate. Detailed path/snippet/interpretation tables and
+artifact definitions: `docs/NARROW_BASELINE.md`, full harness section.
+
+### Completed offline verification and integrity
+
+Evidence root: `/tmp/b2w-full-route-harness-20261017/`.
+- Initial RED: 60 expected missing-full-API failures. Additional partial-preparation/
+  final-epoch RED: 2 failures; clock review RED: 2 failures. GREEN: **72 full tests**.
+- Final command (source environment only, no ROS initialization):
+  `/usr/bin/python3 -m pytest -q tests/test_warehouse_route.py tests/test_warehouse_route_full.py tests/test_warehouse_route_overlays.py tests/test_warehouse_truth_floorplan.py`
+  → **145 passed** (72 full + 73 existing route/overlay/floorplan tests).
+- Covers exact order/XY/headings/provenance; all five independent fail-fast legs;
+  abort/cancel/unknown action/manager failure; complete/fresh TF; inclusive .05m;
+  no retry; separate narrow/full verdicts; full only after G5 and cleanup;
+  malformed/missing/duplicate inputs; exceptions/interruption/prepared evidence;
+  clock reset and harmless node skew; schema/hash/source immutability; default and
+  explicit dry-run, including a fresh process guarding imports before module load.
+- Critical equivalence: **21 execution cases + default dry-run** yield exactly
+  equal reports against HEAD code. All preexisting non-main runner definitions
+  (including load_route, critical_goals, evaluate_goal, run_critical,
+  find_metrics, RosGoalTransport and manifest) remain byte-for-byte unchanged.
+- Read-only requesting-code-review: timestamp issue above reproduced and fixed
+  with RED/GREEN; reviewer recheck found no remaining important findings.
+- Real CLI `--help`, full/critical `--dry-run`, in-memory compile and
+  `git diff --check` pass. No real CLI execution, ROS/Gazebo/live goals or C.
+- Before/after hashes: **836 protected files unchanged** = 309 other tracked
+  files + 527 local assets/captures/evidence files. Canonical route SHA256
+  `16cc4dd5d1c4f64ef9d875b2e2b16a554e60c4089d19838ed92a3d4b0c5adc9d`;
+  frozen B-fit calibration SHA remains
+  `15b371aa80afe5cef8461d077fae0bc8bb0a180ae92ea5ff6c669c9b04d352bc`.
+  Protected scope includes A/B captures/aggregates, policy ONNX/PT, adapter,
+  controller C++, all Nav2/SLAM/sensor/geometry configs, warehouse assets/world,
+  canonical truth floorplan, existing goal_manager/evidence/tests and validator.
+  No C path or future route output was created. HEAD/branch/index unchanged.
+
+### Exact future formal route command — USER-RUN ONLY, NOT EXECUTED
+
+After C review/candidate/open-space gate, start ONE fresh idle warehouse session
+in terminal 1 using existing entrypoint and absolute metrics directory:
+`ROS_DOMAIN_ID=91 scripts/run_warehouse.sh results_directory:=/tmp/b2w-user-full-warehouse-route-metrics-01`.
+Both future output roots are absent now. This is the current launch configuration;
+retain the exact authorized candidate startup/config log at that later stage.
+No new planner/controller/calibration config is selected by this preparation.
+Wait for readiness; no competing goals/clicks/manual intervention. Terminal 2:
+
+```zsh
+cd /home/zyd/program/b2w-embodied-navigation-course
+source /opt/ros/humble/setup.zsh
+source install/setup.zsh
+export ROS_DOMAIN_ID=91
+export ROS_LOCALHOST_ONLY=1
+export FASTRTPS_DEFAULT_PROFILES_FILE="$PWD/course_sim/config/fastdds_local.xml"
+export PYTHONPATH="$PWD/.venv/lib/python3.10/site-packages:${PYTHONPATH:-}"
+export LD_LIBRARY_PATH="$PWD/.deps/lib:$PWD/b2w_sim/b2w_controllers/third_party/onnxruntime/lib64:${LD_LIBRARY_PATH:-}"
+export OPENBLAS_NUM_THREADS=1
+/usr/bin/python3 scripts/run_warehouse_route.py --mode full --execute --output-root /tmp/b2w-user-full-warehouse-route-01
+```
+
+Exactly one invocation; preserve the printed UTC run directory, manager results
+and startup logs, including partial failure. No retry/manual correction/replacement
+or shorter route. Do not invent the future UTC stamp. Agent has NOT executed this
+command or startup. Final remaining delivery action: exactly ONE normal
+`~/bin/april-review-bundle <repo> <RED/GREEN/dry-run/integrity evidence files>`;
+verify bundle path/SHA256 and git status, then STOP without post-bundle edits.
+
+## HISTORICAL — Protocol B CLOSED; frozen held-out Protocol C NEXT USER-RUN only (2026-10-17)
 
 Authenticated branch `improve/narrow-navigation`, local HEAD and live origin
 `04d5ac064390110b22046d6ac2efb4e186a67550`; one worktree, initially clean.
