@@ -1,5 +1,7 @@
 """Limit commands and stop when command/localization becomes stale."""
 import math
+import json
+from . import m2_inverse
 import time
 import rclpy
 from rclpy.executors import ExternalShutdownException
@@ -38,6 +40,13 @@ class VelocityGate:
 class VelocityAdapter(Node):
     def __init__(self):
         super().__init__('velocity_adapter')
+        self.m2_enabled = self.declare_parameter('m2_inverse_enabled', False).value
+        self.m2_diagnostic = None
+        if self.m2_enabled:
+            from std_msgs.msg import String
+            self.m2_message_type = String
+            self.m2_diagnostic = self.create_publisher(String, m2_inverse.DIAGNOSTIC_TOPIC, 10)
+            self.get_logger().info('M2 strict diagnostic candidate: ' + json.dumps(m2_inverse.identity(), sort_keys=True))
         self.gate = VelocityGate(self.declare_parameter('max_linear', 0.5).value,
                                  self.declare_parameter('max_angular', 0.6).value,
                                  self.declare_parameter('timeout_s', 0.5).value)
@@ -66,14 +75,36 @@ class VelocityAdapter(Node):
             self.gate.state_time = time.monotonic()
 
     def command(self, msg):
+        if self.m2_enabled:
+            # Check before legacy limiting as well: never hide an unsupported request.
+            self.convert_m2((msg.linear.x, msg.linear.y, msg.angular.z))
         self.gate.set_command((msg.linear.x, msg.linear.y, msg.angular.z), time.monotonic())
+
+    def convert_m2(self, command):
+        try:
+            result = m2_inverse.transform(command, enabled=True)
+        except m2_inverse.UnsupportedVelocity as exc:
+            self.report_m2(command, None, 'unsupported', str(exc))
+            self.get_logger().fatal(str(exc) + '; strict candidate terminates; no inverse fallback')
+            raise  # Stop at the design boundary; do not publish a substitute Twist.
+        self.report_m2(command, result, 'accepted', None)
+        return result
+
+    def report_m2(self, desired, policy, status, reason):
+        msg = self.m2_message_type()
+        msg.data = json.dumps({'candidate': m2_inverse.identity(), 'status': status,
+                               'desired': desired, 'policy': policy, 'reason': reason})
+        self.m2_diagnostic.publish(msg)
 
     def publish(self):
         out = Twist()
         try:
             if self.require_tf:
                 self.tf.lookup_transform('map', 'base_link', Time())
-            out.linear.x, out.linear.y, out.angular.z = self.gate.output(time.monotonic())
+            command = self.gate.output(time.monotonic())
+            if self.m2_enabled:
+                command = self.convert_m2(command)
+            out.linear.x, out.linear.y, out.angular.z = command
         except TransformException:
             pass
         self.pub.publish(out)

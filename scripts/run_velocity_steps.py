@@ -163,7 +163,7 @@ def generate_fixture_world(source: Path, generated: Path) -> dict:
             'ground_truth_usage': 'evaluation_only; never used for readiness values, phase timing, command selection, correction or safety control'}
 
 
-def build_manifest(run_dir: Path, domain: int, token: str, gui: bool, fixture: dict, speeds=DEFAULT_SPEEDS) -> dict:
+def build_manifest(run_dir: Path, domain: int, token: str, gui: bool, fixture: dict, speeds=DEFAULT_SPEEDS, *, transition_diagnostic=False) -> dict:
     rate = request_rate_hz()
     smoother_rate = float(re.search(r'(?m)^\s+smoothing_frequency:\s*([0-9.]+)\s*$', NAV_CONFIG.read_text()).group(1))
     return {'schema_version': 1, 'run_directory': str(run_dir.resolve()),
@@ -171,8 +171,8 @@ def build_manifest(run_dir: Path, domain: int, token: str, gui: bool, fixture: d
             'ros_domain_id': domain, 'ign_partition': f'b2w-velocity-step-{token}',
             'owner_token_sha256': hashlib.sha256(token.encode()).hexdigest(), 'gui': gui,
             'requested_rate_hz': rate, 'rate_basis': 'unchanged course_navigation/config/nav2.yaml controller_frequency; verified against unchanged smoother frequency',
-            'smoother_rate_hz': smoother_rate, 'sequence': make_sequence(speeds),
-            'sequence_duration_sim_s': make_sequence(speeds)[-1]['end_s'], 'requested_topic': REQUEST_TOPIC,
+            'smoother_rate_hz': smoother_rate, 'sequence': make_sequence(speeds, transition_diagnostic=transition_diagnostic),
+            'sequence_duration_sim_s': make_sequence(speeds, transition_diagnostic=transition_diagnostic)[-1]['end_s'], 'requested_topic': REQUEST_TOPIC,
             'raw_topic': RAW_TOPIC, 'shared_topic': SHARED_TOPIC, 'final_topic': FINAL_TOPIC,
             'truth_topic': TRUTH_TOPIC, 'slam_topic': SLAM_TOPIC,
             'executor':'rclpy SingleThreadedExecutor; runner and recorder registered for entire session',
@@ -254,7 +254,9 @@ def _write_outputs(run_dir: Path, manifest: dict, events: list[dict], analysis=N
     analysis = analysis or analyze_run(events, manifest)
     (run_dir/'per-speed').mkdir(exist_ok=True)
     for row in analysis['per_speed']:
-        _write_json(run_dir/'per-speed'/speed_filename(row['requested_vx_mps']), row)
+        filename=speed_filename(row['requested_vx_mps'])
+        if manifest.get('mode')=='route_low_speed_transition':filename=f"trial-{row['trial']:02d}-{filename}"
+        _write_json(run_dir/'per-speed'/filename, row)
     _write_json(run_dir/'summary.json', analysis)
     columns = ['requested_vx_mps', 'truth_steady_vx_mps', 'truth_gain', 'truth_bias_mps',
                'slam_steady_vx_mps', 'rise_time_10_90_s', 'truth_peak_vx_mps',
@@ -399,7 +401,7 @@ class _OwnedLaunches:
                 'launch_returncodes':{label:process.poll() for label,process,_ in self.processes}}
 
 
-def _make_ros_node(directory, recorder, speeds=DEFAULT_SPEEDS):
+def _make_ros_node(directory, recorder, speeds=DEFAULT_SPEEDS, *, transition_diagnostic=False):
     import rclpy
     from rclpy.node import Node
     from rclpy.clock import Clock, ClockType
@@ -418,7 +420,7 @@ def _make_ros_node(directory, recorder, speeds=DEFAULT_SPEEDS):
             self.last={}; self.final_zero_since=None; self.first_joint_sim=None; self.controller_debug_sim=None
             self.clock_rollback=False
             self.latest_imu=None; self.latest_final=None; self.experiment_start=None; self.run_start_wall=None
-            self.abort_reason=None; self.complete=False; self.sequence=make_sequence(speeds); self.last_audit_wall=0.
+            self.abort_reason=None; self.complete=False; self.sequence=make_sequence(speeds, transition_diagnostic=transition_diagnostic); self.last_audit_wall=0.
             self.zero_only=True; self.clock_advances=0
             self.lifecycle_active=False; self.lifecycle_client=self.create_client(GetState,'/velocity_smoother/get_state')
             self.lifecycle_future=None; self.tf=Buffer(); self.tf_listener=TransformListener(self.tf,self)
@@ -647,13 +649,23 @@ def run_experiment(args):
     stamp=dt.datetime.now(dt.timezone.utc).strftime('%Y%m%dT%H%M%S%fZ')
     run_dir=root/stamp; run_dir.mkdir(parents=False,exist_ok=False)
     token=secrets.token_hex(16); fixture=generate_fixture_world(SOURCE_WORLD,run_dir/'velocity_step_fixture.sdf')
-    manifest=build_manifest(run_dir,args.ros_domain_id,token,args.gui,fixture,args.speeds)
+    transition_diagnostic=getattr(args,'transition_diagnostic',False)
+    if transition_diagnostic:
+        from scripts.low_speed_transition import plan as transition_plan, source_hashes as transition_sources
+        manifest=build_manifest(run_dir,args.ros_domain_id,token,args.gui,fixture,args.speeds,transition_diagnostic=True)
+        manifest.update({'transition_protocol':transition_plan(),'transition_source_hashes':transition_sources(),
+                         'm2_inverse_enabled':False,'validated_condition':'pure_forward_vy0_wz0',
+                         'truth_stop_speed_mps':transition_plan()['gates']['truth_stop_speed_mps']})
+    else:
+        manifest=build_manifest(run_dir,args.ros_domain_id,token,args.gui,fixture,args.speeds)
     manifest['mode']='readiness_smoke' if args.readiness_smoke else 'characterization'
+    if transition_diagnostic:manifest['mode']='route_low_speed_transition'
     _write_json(run_dir/'manifest.json',manifest)
     env=dict(os.environ); env.update({'ROS_DOMAIN_ID':str(args.ros_domain_id),'ROS_LOCALHOST_ONLY':'1',
         'IGN_PARTITION':f"b2w-velocity-step-{token}",'FASTRTPS_DEFAULT_PROFILES_FILE':str(ROOT/'course_sim/config/fastdds_local.xml'),
         'B2W_NARROW_OWNER':token,'PYTHONPATH':str(ROOT/'.venv/lib/python3.10/site-packages')+os.pathsep+env.get('PYTHONPATH',''),
         'LD_LIBRARY_PATH':str(ROOT/'.deps/lib')+os.pathsep+str(ROOT/'b2w_sim/b2w_controllers/third_party/onnxruntime/lib64')+os.pathsep+env.get('LD_LIBRARY_PATH','')})
+    if transition_diagnostic:env['PYTHONPATH']=str(ROOT/'course_navigation')+os.pathsep+env['PYTHONPATH']
     # The recorder is the owning ROS participant too; keep it in the exact
     # isolated domain/profile passed to the children, without the child token.
     for key in ('ROS_DOMAIN_ID','ROS_LOCALHOST_ONLY','FASTRTPS_DEFAULT_PROFILES_FILE','PYTHONPATH','LD_LIBRARY_PATH'):
@@ -673,7 +685,11 @@ def run_experiment(args):
         launches.start('velocity_smoother',smoother_args)
         launches.start('smoother_lifecycle_manager',[ros2,'run','nav2_lifecycle_manager','lifecycle_manager','--ros-args',
             '-r','__node:=velocity_step_lifecycle_manager','--params-file',str(manager_params)])
-        launches.start('velocity_adapter',[ros2,'run','course_navigation','velocity_adapter','--ros-args','-p','use_sim_time:=true'])
+        adapter_args=[ros2,'run','course_navigation','velocity_adapter','--ros-args','-p','use_sim_time:=true']
+        if transition_diagnostic:
+            adapter_args=[sys.executable,'-c','from course_navigation.velocity_adapter import main; main()',
+                          '--ros-args','-p','use_sim_time:=true','-p','m2_inverse_enabled:=false']
+        launches.start('velocity_adapter',adapter_args)
     except BaseException as exc:
         cleanup=launches.cleanup()
         manifest['termination']={'status':'launch_start_failed','reason':f'{type(exc).__name__}: {exc}'}
@@ -686,7 +702,9 @@ def run_experiment(args):
         from scripts.velocity_step_recorder import create_recorder
         rclpy=ros_runtime; previous_handlers=_initialize_ros()
         recorder=create_recorder(run_dir)
-        Harness=_make_ros_node(run_dir,recorder,args.speeds); node=Harness()
+        Harness=(_make_ros_node(run_dir,recorder,args.speeds,transition_diagnostic=True) if transition_diagnostic
+                 else _make_ros_node(run_dir,recorder,args.speeds))
+        node=Harness()
         executor=_make_executor(node,recorder)
         ready_deadline=time.monotonic()+READINESS_TIMEOUT_S; readiness={}; next_ready_check=0.
         while time.monotonic()<ready_deadline:
@@ -741,26 +759,40 @@ def run_experiment(args):
     finally:
         # Stop sequence selection before servicing any further timers. Both
         # nodes remain owned by the same executor throughout repeated zero flush.
-        if node is not None and executor is not None and rclpy and rclpy.ok():
-            node.zero_only=True
-            node.publish_zero(); flush_until=time.monotonic()+FLUSH_S
-            try:
-                while time.monotonic()<flush_until:
-                    executor.spin_once(timeout_sec=.05)
-            except Exception as exc:
-                manifest['zero_flush_error']=f'{type(exc).__name__}: {exc}'
-                termination='zero_flush_failed'; reason=manifest['zero_flush_error']
-        if executor is not None:
-            executor.shutdown()
-            for owned_node in (node,recorder):
-                if owned_node is not None: executor.remove_node(owned_node)
-        if node is not None: node.destroy_node()
-        if recorder is not None:
-            recorder.destroy_node()
-            manifest['recorder_health']=recorder.close()
-        if rclpy and rclpy.ok(): rclpy.shutdown()
-        cleanup=launches.cleanup(); manifest['cleanup']=cleanup
-        for sig,handler in previous_handlers.items(): signal.signal(sig,handler)
+        if transition_diagnostic:
+            from scripts.low_speed_transition import flush_zero
+            flush_error=flush_zero(node,executor,rclpy)
+            if flush_error:
+                manifest['zero_flush_error']=flush_error;termination='zero_flush_failed';reason=flush_error
+        else:
+            if node is not None and executor is not None and rclpy and rclpy.ok():
+                node.zero_only=True
+                node.publish_zero(); flush_until=time.monotonic()+FLUSH_S
+                try:
+                    while time.monotonic()<flush_until:
+                        executor.spin_once(timeout_sec=.05)
+                except Exception as exc:
+                    manifest['zero_flush_error']=f'{type(exc).__name__}: {exc}'
+                    termination='zero_flush_failed'; reason=manifest['zero_flush_error']
+        if transition_diagnostic:
+            # The new diagnostic inherits the reviewed guaranteed cleanup path.
+            from scripts.m2_open_space import teardown
+            result=teardown(executor,node,recorder,rclpy,launches,previous_handlers)
+            manifest['recorder_health']=result['recorder_health'];manifest['cleanup']=result['cleanup']
+            manifest['teardown_errors']=result['errors']
+            if result['errors']:termination='teardown_failed';reason='; '.join(result['errors'])
+        else:
+            if executor is not None:
+                executor.shutdown()
+                for owned_node in (node,recorder):
+                    if owned_node is not None: executor.remove_node(owned_node)
+            if node is not None: node.destroy_node()
+            if recorder is not None:
+                recorder.destroy_node()
+                manifest['recorder_health']=recorder.close()
+            if rclpy and rclpy.ok(): rclpy.shutdown()
+            cleanup=launches.cleanup(); manifest['cleanup']=cleanup
+            for sig,handler in previous_handlers.items(): signal.signal(sig,handler)
         if manifest['termination'] is None:manifest['termination']={'status':termination,'reason':reason}
         else:
             manifest['termination'].update({'final_status':termination,'reason':reason or manifest['termination'].get('reason')})

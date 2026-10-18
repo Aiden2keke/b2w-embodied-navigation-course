@@ -24,7 +24,149 @@
 - 旧实施计划归档至 `docs/plans/archive/2026-10-10-local-course-system-plan.md`。历史 design/validation 保留为证据，不是另一个当前 roadmap。无新增 HANDOFF。
 - 历史轮次只读与 timing 交付已结束；本轮范围以最新用户请求和下方 NOW 为准。旧实验/交付记录只作历史证据。
 
-## NOW — FULL warehouse route harness preparation ONLY (2026-10-17)
+## NOW — structural low-speed support blocker; transition diagnostic (2026-10-18)
+
+Highest-level acceptance remains **FULL_ROUTE_PASS**: Start -> G1 -> G2 -> G3 -> G4 -> G5.
+Previous stage authenticated branch `improve/narrow-navigation`, initially clean worktree, HEAD and live origin
+`eb3aeb37526a9d2a8452bf6364a286c55021311b` (read-only live lookup).
+
+- Formal C: `/tmp/b2w-user-calibration-C/20261017T104226682472Z`.
+- Frozen validation: `/tmp/b2w-user-calibration-C-validation-01/validation.json`.
+- Frozen B: `/tmp/b2w-user-calibration-B-fit-01/calibration.json`, SHA256
+  `15b371aa80afe5cef8461d077fae0bc8bb0a180ae92ea5ff6c669c9b04d352bc`.
+- **C DATA VALID PASS**, observed_monotonic=true. Held-out truth:
+  u=.055 -> v=.12206408203827651; u=.085 -> v=.15295192621044565;
+  u=.115 -> v=.18423769301428736; u=.165 -> v=.2354430135573286.
+- **M2 VALIDATION PASS**: MAE=.0003071140364180498,
+  RMSE=.0003557242162431472, max_abs_error=.0004892164972506163,
+  R2=.9999278975002264; all_predictions_supported=true; predicted_monotonic=true.
+- M3 also passes; remains backup. M2 selected by preregistered complexity rule
+  M0 -> M1 -> M2 -> M3. held_out_selection=M2; production_selection=NONE;
+  refit_performed=false. Production calibration remains deferred.
+- Frozen M2 v=1.0245445280935277*u + .0659258536489146.
+  Zero is separate: desired v=0 -> u=0. Moving u support
+  [.03999999910593033,.20000000298023224]; inverse desired v domain
+  [.10690763385664151,.27052833048110847]. No validated inverse below the
+  positive lower bound, no extrapolation, bridge or silent clamping.
+- No more fit-oriented experiments unless a demonstrated route-relevant unsupported-domain
+  blocker requires work on that route-control support gap. No C2/C3.
+
+**B. LOW_SPEED_SUPPORT_BLOCKER**. **NORMAL_NAV2_M2_READY = false**.
+The unchanged committed `course_navigation/config/nav2.yaml` specifies
+OPEN_LOOP, smoothing_frequency=20Hz, max_accel_x=.5m/s²,
+max_decel_x=-.5m/s², min/max vx=-.2/.4m/s and zero x deadband.
+Nominal delta_v_up=.5/20=.025m/s: startup from exact zero traverses
+.025,.050,.075,.100, all positive and below M2 V_MIN=.10690763385664151.
+Deceleration from a supported state toward zero also traverses the gap.
+The strict candidate sits AFTER smoother, and checks support before legacy
+limiting: first ordinary positive startup command rejects/terminates.
+This proves the normal-chain blocker without exact frozen G1/G2 timing evidence.
+Previous classification C was incorrect as a route integration decision.
+
+Separate HIGH-SPEED RISK: current Nav2 permits .4m/s, above M2 V_MAX
+.27052833048110847. Analog captures contain high commands; this does NOT
+prove every frozen route reaches .4. Oct16 missing command timeline remains a
+limitation for exact frozen support fractions, high-speed demand, braking vs
+traversal, recovery attribution and simultaneous angular-command distribution.
+
+Experimental operating condition: **validated_condition=pure_forward_vy0_wz0**.
+B/C validate pure forward only. Preserving vy/wz in the diagnostic transform
+is not evidence that the vx mapping is invariant during turning/lateral motion.
+Keep strict candidate default false, zero separate, same inverse/support math,
+explicit unsupported diagnostics; no production launch enables it.
+
+Next experiment: ONE route-relevant LOW-SPEED TRANSITION diagnostic, prepared
+but NOT RUN. Read deployed idle_hold strict threshold, debug/Float32 timing and
+existing .04 experiment-range guard before choosing exact points. Preserve
+pure forward, 3s zero ->5s target ->4s zero, native truth/SLAM/policy/wheel
+instrumentation, source/capture authentication and owned cleanup. Exact zero
+is a separate reference. No refit through zero, bridge/clamp/pass-through or
+hysteresis is preselected. Interpret prospectively as continuous low-speed
+branch, dead-zone/minimum moving-speed discontinuity, or unsuitable/unstable;
+finite observations cannot prove arbitrary continuity or repeatability.
+
+**Sequence:** LOW-SPEED TRANSITION -> choose/validate route-compatible command
+semantics -> ONE M2/candidate open-space end-to-end check -> normal Nav2
+integration check -> FULL warehouse route. Existing direct-shared
+.12/.15/.20/.25 check is retained but DEFERRED: bypassing smoother cannot clear
+this structural blocker. Exact G1/G2 inverse-OFF capture is not a prerequisite
+for proving the blocker. No C2/C3 or in-domain fit-accuracy campaign.
+
+Repair checklist (sole current plan):
+- [x] Verify review against current smoother/adapter source and correct PLAN first.
+- [x] RED/GREEN YAML-derived startup/deceleration audit and historical classification.
+- [x] Scope identity/diagnostics/report to pure_forward_vy0_wz0 without changing math/defaults.
+- [x] Audit idle_hold and runner resolution/guard; preregister ONE USER-RUN transition
+  protocol and interpretation; preserve existing production/controller/YAML behavior.
+- [x] Guarded offline regressions with ROS initialization forbidden; protected hashes,
+  diff --check, review and exactly ONE replacement normal april-review-bundle.
+
+No ROS initialization, Gazebo/Nav2/live motion, commit or push. Previous bundle
+failed independent review and is retained unchanged as historical evidence.
+
+### Completed repair evidence and exact deferred sequence
+
+- YAML-derived nominal startup toward .15m/s: .025 LOW, .050 LOW, .075 LOW,
+  .100 LOW, .125 SUPPORTED (first crossing). From .125 back to zero:
+  .100/.075/.050/.025 LOW, then exact ZERO. Audit reads current feedback,
+  frequency, acceleration/deceleration, min/max velocities, deadband and scaling;
+  unsupported configuration stops the calculation. This is structural command
+  evidence, not physical motion data. Repeated audit outputs are byte-identical.
+- High-side risk remains separate: DWB/smoother allow .4m/s; no exact frozen-route
+  high fraction or necessity of reaching .4 is claimed. Oct16 missing timeline
+  still limits fractions, braking/traversal, recovery and simultaneous wz scope.
+- Scoped identity: `m2-strict-v1`, validated_condition=pure_forward_vy0_wz0;
+  turning_lateral_invariance_validated=false, exposed through diagnostic identity
+  and reports. Same zero/interior/endpoints/support/default-off transform.
+- ONE preregistered transition session: policy u
+  [0,.005,.010,.015,.020,.030,.040,.010,.040], nine 3/5/4s blocks =108sim s.
+  idle_hold=true and all |double command components|<.01; .005 is represented
+  distinctly in Float32 debug but wheels are zero-overridden. .010 is the strict
+  double boundary, despite its Float32 observation being slightly below .01.
+  Learned leg balance remains; physical zero/low-speed controllability is unknown.
+- Legacy .04 experiment guard is unchanged for ordinary CLI. Only explicit
+  transition_diagnostic opens [0,.04] and repeats; no safety threshold is inferred.
+  20Hz commands /50Hz policy nominal, fixed final2s windows. Diagnostic stop
+  threshold explicitly .005m/s for supported .5s quiet (yaw<=.05rad/s), because
+  legacy .02 cannot resolve low-speed stopping; legacy default remains .02.
+- DATA/interpretation gates are fixed in docs/LOW_SPEED_TRANSITION.md and
+  scripts/low_speed_transition.py before data. All9 authenticated observations,
+  no exclusions; exact pure-forward plateaus/current YAML/policy/wheel/torque
+  identity and coverage, truth+SLAM validity and owned cleanup. Prospective
+  drift/stop/zero-reference/repeat/B-endpoint consistency gates are explicit.
+  A=compatible continuous branch on tested grid; B=observed dead-zone/minimum
+  sampled moving speed; C=unsuitable or insufficient. None proves arbitrary
+  continuity/global attainability or selects production interpolation/hysteresis.
+  Actual minimum truth speed and increment from zero reference remain separate.
+- New USER-RUN command (prepared, NOT RUN):
+  `/usr/bin/python3 scripts/low_speed_transition.py --execute --ros-domain-id 196 --output-root /tmp/b2w-user-low-speed-transition-01`.
+  Source ROS and install environment as documented; harness owns one isolated
+  sim/SLAM session, unchanged smoother/default-off adapter and cleanup.
+- Retained future command, **DEFERRED / DO NOT RUN YET**:
+  `/usr/bin/python3 scripts/m2_open_space.py --execute --ros-domain-id 195 --output-root /tmp/b2w-user-m2-open-space-01`.
+  Its prospective tracking/stability gates remain unchanged; direct-shared input
+  intentionally bypasses smoother and cannot clear this blocker.
+- Order: LOW-SPEED TRANSITION -> choose/validate route-compatible command
+  semantics -> ONE candidate open-space end-to-end check -> normal Nav2
+  integration check -> FULL warehouse route. No exact G1/G2 historical capture
+  prerequisite to prove the low-speed blocker; no C2/C3 or in-domain RMSE work.
+- Final guarded regression: **360 passed, 1 known live ROS test deselected**.
+  Both rclpy.init and Context.init forbidden; no ROS initialization occurred.
+  RED/GREEN covers structural proof, synthetic YAML, scope/deferral, range guard,
+  native9-point data, cleanup, measurement resolution, repeated export isolation,
+  torque/plateau/hash authentication and invalid-data exit. Fitting is forbidden
+  in positive native-report tests. Independent repair review: no remaining
+  important findings,42 new-module tests passed before final minimum-speed test.
+- Integrity: **712 protected existing files unchanged**; Nav2 YAML matches HEAD
+  byte-for-byte, existing adapter source unchanged within repair, default
+  sequence/native analysis match HEAD. A/B/C raw/derived, frozenB/C-validation,
+  canonical route/full harness, ONNX/PT/controller/SLAM/footprint protected.
+  Neither future live output root exists. No stage/commit/push. Evidence root
+  `/tmp/b2w-low-speed-transition-review-20261018/`; docs are evidence/preregistration,
+  not another current plan. Exactly ONE replacement normal review bundle is the
+  final delivery operation; report its returned path/SHA and status, then STOP.
+
+## HISTORICAL — FULL warehouse route harness preparation ONLY (2026-10-17)
 
 Authenticated `improve/narrow-navigation`: HEAD and live origin both
 `def1ee833b812d94faacfa09032104dcc0e58717`; sole worktree initially clean.

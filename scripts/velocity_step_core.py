@@ -13,12 +13,16 @@ DEFAULT_SPEEDS = (.10, .20, .30, .40)
 DEFAULT_GAPS = {'truth': .15, 'slam': .35, 'command': .15}
 
 
-def make_sequence(speeds=DEFAULT_SPEEDS, settle_s: float = 3., hold_s: float = 5., stop_s: float = 4.) -> list[dict[str, Any]]:
+def make_sequence(speeds=DEFAULT_SPEEDS, settle_s: float = 3., hold_s: float = 5., stop_s: float = 4., *, transition_diagnostic: bool = False) -> list[dict[str, Any]]:
     values = tuple(float(v) for v in speeds)
     durations = (float(settle_s), float(hold_s), float(stop_s))
-    if not values or not all(math.isfinite(v) and .04 <= v <= .40 for v in values):
+    if transition_diagnostic:
+        # Separate opt-in experiment range; the normal A/B/C guard stays intact.
+        if not values or not all(math.isfinite(v) and 0. <= v <= .04 for v in values):
+            raise ValueError('transition diagnostic inputs must be finite in [0, 0.04]')
+    elif not values or not all(math.isfinite(v) and .04 <= v <= .40 for v in values):
         raise ValueError('speeds must be finite positive experiment inputs in [0.04, 0.40] m/s')
-    if len(set(values)) != len(values):
+    if not transition_diagnostic and len(set(values)) != len(values):
         raise ValueError('duplicate speed targets are not allowed')
     if not all(math.isfinite(d) and d > 0 for d in durations):
         raise ValueError('all phase durations must be finite and positive')
@@ -303,6 +307,8 @@ def _phase_summary(events, truth_topic, twist_rows, phase_start, phase_end, obse
 
 def analyze_run(events: list[dict], manifest: dict) -> dict:
     sequence=manifest.get('sequence') or make_sequence()
+    stop_speed=float(manifest.get('truth_stop_speed_mps',.02))
+    if not math.isfinite(stop_speed) or stop_speed<=0:raise ValueError('truth stop speed must be finite and positive')
     # Keep native event stamps untouched; move only the relative schedule into
     # the recorded simulation clock epoch. A smoke has no experiment windows.
     origin=manifest.get('experiment_start_sim_s')
@@ -406,12 +412,12 @@ def analyze_run(events: list[dict], manifest: dict) -> dict:
                 wz=abs(yaws[i]-yaws[i-1])/dt
                 pose_intervals.append((max(stop_start,poses[i-1][0]),min(stop_end,poses[i][0]),speed,wz))
         for i,(candidate,interval_end,speed,wz) in enumerate(pose_intervals):
-            if speed>.02 or wz>.05:continue
+            if speed>stop_speed or wz>.05:continue
             covered_until=interval_end
             if covered_until-candidate>=.5-1e-9:
                 truth_stop=candidate;break
             for next_start,next_end,next_speed,next_wz in pose_intervals[i+1:]:
-                if next_start>covered_until+1e-9 or next_speed>.02 or next_wz>.05:break
+                if next_start>covered_until+1e-9 or next_speed>stop_speed or next_wz>.05:break
                 covered_until=max(covered_until,next_end)
                 if covered_until-candidate>=.5-1e-9:
                     truth_stop=candidate;break
@@ -479,6 +485,7 @@ def analyze_run(events: list[dict], manifest: dict) -> dict:
                'censored_path_distance_m':_path_metrics(events,topics['truth'],requested_zero,stop_end,float(max_gaps['truth']))['path_distance_m'] if truth_stop is None and requested_zero is not None else None,
                'censored_net_displacement_m':_path_metrics(events,topics['truth'],requested_zero,stop_end,float(max_gaps['truth']))['net_displacement_m'] if truth_stop is None and requested_zero is not None else None,
                'stop_censored':truth_stop is None}
+        if 'truth_stop_speed_mps' in manifest:stop['truth_stop_speed_threshold_mps']=stop_speed
         target_coupling=_phase_summary(events,topics['truth'],stopv,t0,t1,t1,float(max_gaps['truth']))
         stop_coupling=_phase_summary(events,topics['truth'],stopv,stop_start,truth_stop or stop_end,observed_end,float(max_gaps['truth']))
         row.update({'truth':outputs['truth'],'slam':outputs['slam'],'pipeline':pipeline,'stop':stop,
