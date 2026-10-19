@@ -31,7 +31,7 @@ def create_server(editor,output_root,port=8765):
             if not self.local_host(): return self.send(403,dict(error='Use the printed 127.0.0.1 URL'))
             path=urlsplit(self.path).path
             if path=='/bootstrap':
-                return self.send(200,dict(token=token,initial=editor.initial,map=editor.map.meta,
+                return self.send(200,dict(token=token,initial=editor.initial,canonical=editor.canonical,import_history=editor.import_history,map=editor.map.meta,
                     occupancy_policy=editor.map.occupancy_policy,identity=editor.map.identity,sources=editor.sources,footprint=editor.footprint,
                     costmaps={name:cm.meta for name,cm in editor.costmaps.items()}))
             if path=='/map.png' or path in [f'/{name}-costmap.png' for name in editor.costmaps]:

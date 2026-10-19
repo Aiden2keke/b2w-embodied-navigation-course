@@ -17,3 +17,8 @@ export class History{
  redo(){this.index=Math.min(this.states.length-1,this.index+1);return this.current();}
  reset(){this.push(this.initial);return this.current();}
 }
+
+// A planar map origin is a rigid rotation: Euclidean circles stay circles.
+export function toleranceCircle(meta,xy,zoom,offset){
+ return {center:mapToPixel(meta,...xy).map((v,i)=>(v+.5)*zoom+offset[i]),radiusPx:.25/meta.resolution*zoom};
+}

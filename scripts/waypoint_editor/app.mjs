@@ -1,10 +1,10 @@
-import {pixelToMap,mapToPixel,transform,clone,History,moveVertex} from './model.mjs';
+import {pixelToMap,mapToPixel,transform,clone,History,moveVertex,toleranceCircle} from './model.mjs';
 const $=id=>document.getElementById(id), canvas=$('map'),ctx=canvas.getContext('2d');
 let data,state,history,image,zoom=1,offset=[0,0],selection='G1',polygonSelection=null,draft=[],drag=null,sweepResults=null;
 const costmapImages={};
 const status=message=>$('status').textContent=message;
 function pose(name){const g=state.goals.find(g=>g.name===name);return g?[...g.position,g.yaw_rad]:state.markers[name];}
-function setPose(name,p){const g=state.goals.find(g=>g.name===name);if(g){g.position=p.slice(0,2);g.yaw_rad=p[2];}else state.markers[name]=p;}
+function setPose(name,p){const g=state.goals.find(g=>g.name===name);if(g){g.position=p.slice(0,2);g.yaw_rad=p[2];if(g.quaternion)g.quaternion={x:0,y:0,z:Math.sin(p[2]/2),w:Math.cos(p[2]/2)};}else state.markers[name]=p;}
 function screen(xy){const p=mapToPixel(data.map,...xy);return [(p[0]+.5)*zoom+offset[0],(p[1]+.5)*zoom+offset[1]];}
 function world(p){return pixelToMap(data.map,(p[0]-offset[0])/zoom-.5,(p[1]-offset[1])/zoom-.5);}
 function local(e){const r=canvas.getBoundingClientRect();return [e.clientX-r.left,e.clientY-r.top];}
@@ -13,7 +13,7 @@ function line(points,color,width=1,closed=false){if(!points.length)return;ctx.be
 function dot(xy,color,r=5){ctx.beginPath();ctx.arc(...screen(xy),r,0,Math.PI*2);ctx.fillStyle=color;ctx.fill();}
 function arrowTip(p){return [p[0]+Math.cos(p[2])*.95,p[1]+Math.sin(p[2])*.95];}
 function drawPose(name,p,color,original=false){
- line(transform(data.footprint,p),color,original?1:2,true);line([p.slice(0,2),arrowTip(p)],color,2);
+ if($(original?'original-footprints':'candidate-footprints').checked)line(transform(data.footprint,p),color,original?1:2,true);line([p.slice(0,2),arrowTip(p)],color,2);
  dot(p.slice(0,2),color,original?3:6);if(!original)dot(arrowTip(p),color,4);
  ctx.fillStyle=color;const q=screen(p);ctx.font='bold 13px sans-serif';ctx.fillText(name+(original?' original':''),q[0]+8,q[1]-9);
  if(!original&&name===selection){ctx.strokeStyle='white';ctx.beginPath();ctx.arc(...q,10,0,Math.PI*2);ctx.stroke();}
@@ -44,7 +44,12 @@ function draw(){
    line(transform(data.footprint,[...p.slice(0,2),a]),result?(result.clear?'#3ee6a455':'#ff455555'):'#e0e0e022',1,true);
   }
  }
- data.initial.goals.forEach(g=>drawPose(g.name,[...g.position,g.yaw_rad],'#ffb84d',true));
+ if($('xy-circles').checked)for(const g of state.goals){
+  const circle=toleranceCircle(data.map,g.position,zoom,offset);
+  ctx.save();ctx.beginPath();ctx.arc(...circle.center,circle.radiusPx,0,Math.PI*2);
+  ctx.fillStyle='#ffe34d4b';ctx.fill();ctx.strokeStyle='#ffe34d';ctx.lineWidth=1;ctx.setLineDash([3,2]);ctx.stroke();ctx.restore();
+ }
+ data.canonical.goals.forEach(g=>drawPose(g.name,[...g.position,g.yaw_rad],'#ffb84d',true));
  state.goals.forEach(g=>drawPose(g.name,[...g.position,g.yaw_rad],'#00e4ee'));
  Object.entries(state.markers).forEach(([name,p])=>drawPose(name,p,'#ff8fff'));
 }
@@ -52,7 +57,7 @@ function refresh(){
  const names=state.goals.map(g=>g.name).concat(Object.keys(state.markers));if(!names.includes(selection))selection='G1';
  $('selected').replaceChildren(...names.map(name=>{const o=document.createElement('option');o.value=name;o.textContent=name;return o;}));$('selected').value=selection;
  const p=pose(selection);['x','y','yaw'].forEach((id,i)=>$(id).value=p[i]);
- $('values').textContent=JSON.stringify({original:data.initial.goals,candidate:state.goals,markers:state.markers},null,2);
+ $('values').textContent=JSON.stringify({original:data.canonical.goals,candidate:state.goals,markers:state.markers,polygons:state.polygons},null,2);
  $('undo').disabled=history.index===0;$('redo').disabled=history.index===history.states.length-1;draw();
 }
 function changed(){history.push(state);sweepResults=null;$('checks').textContent='Changed — run geometry checks again';refresh();}
@@ -64,6 +69,7 @@ $('redo').onclick=()=>{state=history.redo();sweepResults=null;refresh();$('check
 $('reset').onclick=()=>{state=history.reset();draft=[];polygonSelection=null;sweepResults=null;refresh();$('checks').textContent='Reset — recheck';};
 function fit(){zoom=Math.min(canvas.clientWidth/data.map.width,canvas.clientHeight/data.map.height)*.94;offset=[(canvas.clientWidth-data.map.width*zoom)/2,(canvas.clientHeight-data.map.height*zoom)/2];draw();}
 $('fit').onclick=fit;$('selected').onchange=()=>{selection=$('selected').value;polygonSelection=null;sweepResults=null;refresh();};
+for(const id of ['original-footprints','candidate-footprints','xy-circles'])$(id).onchange=draw;
 $('grid').onchange=draw;$('costmaps').onchange=draw;$('sweep').onchange=()=>{sweepResults=null;draw();};
 $('mode').onchange=()=>{draft=[];draw();};
 $('apply').onclick=()=>{const p=['x','y','yaw'].map(id=>Number($(id).value));if(p.some(v=>!Number.isFinite(v)||Math.abs(v)>1e6)||['x','y','yaw'].some(id=>$(id).value.trim()===''))return status('Enter finite x, y, yaw');setPose(selection,p);changed();};
@@ -108,7 +114,7 @@ canvas.onpointercancel=()=>{if(drag?.before)state=drag.before;drag=null;refresh(
 window.addEventListener('keydown',e=>{if(['INPUT','SELECT','TEXTAREA'].includes(e.target.tagName))return;if(e.key==='Escape'){draft=[];if(drag?.before)state=drag.before;drag=null;refresh();}if((e.ctrlKey||e.metaKey)&&e.key==='z'){e.preventDefault();$(e.shiftKey?'redo':'undo').click();}});
 window.addEventListener('resize',draw);
 try{
- data=await (await fetch('/bootstrap')).json();state=clone(data.initial);history=new History(state);image=new Image();image.src='/map.png';await image.decode();
+ data=await (await fetch('/bootstrap')).json();state=clone(data.initial);history=new History(state);$('reset').textContent=data.import_history.length?'Reset imported candidate':'Reset canonical';$('load-info').textContent=data.import_history.length?JSON.stringify(data.import_history,null,2):'Canonical starting state. Reset is undoable.';image=new Image();image.src='/map.png';await image.decode();
  for(const name of Object.keys(data.costmaps)){const im=new Image();im.src=`/${name}-costmap.png`;await im.decode();costmapImages[name]=im;}
  $('identity').textContent=JSON.stringify({map:data.identity,occupancy_policy:data.occupancy_policy,sources:data.sources,padded_footprint:data.footprint},null,2);refresh();fit();
  status('Ready. Gray 205 is conservatively blocked as unknown. Original positions are shown in this saved map; cross-session registration is unverified.');

@@ -1,4 +1,4 @@
-# Offline warehouse waypoint editor (Stage 3)
+# Offline warehouse waypoint editor (Stage 3.1)
 
 From the repository root, run:
 
@@ -15,6 +15,43 @@ Use the mouse wheel to zoom at the cursor; middle/right drag or Pan mode moves t
 Undo/redo includes poses, yaw, polygons and passage markers. Reset restores the initial set and clears annotations; reset itself is undoable. Escape cancels an unfinished drawing or drag. Ctrl+Z and Ctrl+Shift+Z work outside input controls. Edits live in browser memory until export; refreshing discards edits. An exported candidate is an inspection artifact; importing an earlier candidate for continued editing is not provided.
 
 **Check all poses** checks every goal and passage marker using the complete filled padded footprint. Enable **Rotational sweep** to draw 73 poses over 360° at 5° spacing; Check also checks those samples at the selected pose. The current footprint is the configured rectangle ±0.70×±0.38 m plus Nav2 signed-coordinate padding 0.05 m, giving ±0.75×±0.43 m (1.50×0.86 m). Corridor polygons are annotations for visual alignment, not a route or an automatic feasibility constraint. Restricted polygons block intersecting footprints. There is no automatic route optimization, straight-line route test, between-goal collision guarantee, or automatic deployment.
+
+## XY regions and acceptance meanings
+
+Three independent concepts appear in the UI:
+
+| Concept | Meaning | What this editor establishes |
+| --- | --- | --- |
+| XY tolerance | `distance(robot_base_xy, goal_xy) <= 0.25 m` in map-frame Euclidean XY | Yellow disc centered on each candidate G1–G5; visualization/metadata only |
+| Nav2 action success | Runtime action result, potentially also involving heading and controller state | Not evaluated by this offline tool |
+| Geometric safety | Collision/occupancy checks on the full configured padded footprint | Static center-pose checks and optional discrete yaw samples only |
+
+A center pose with `clear: true` does **not** mark its entire tolerance region collision-free. Every disc remains `region_safety_checked: false`, regardless of center geometry. The radius is fixed at exactly 0.25 m: five native pixels on the supplied 0.05 m/pixel map, then multiplied by the current uniform zoom. Origin rotation preserves Euclidean distance. Pan affects only center translation; dragging/numeric edits update the circle center; resizing/DPI never changes metric size. Raster boundaries have ordinary pixel sampling limits.
+
+Independent checkboxes show/hide original canonical footprints, candidate padded footprints and candidate XY discs. Centers, headings and annotations remain identifiable. Toggles are screen preferences; exported PNG always includes all three layers. Wheel zoom provides local detail without enlarging the metric radius. Yellow filled discs with dashed screen outlines differ from cyan/orange footprint outlines, heading arrows and purple/red polygons.
+
+Future design note only: G1–G4 should eventually allow continuous region-based passage without unnecessary stops, while G5 remains the final stopping goal. That requires a separate runtime review. This change does not modify goal_manager, Nav2 XY/yaw tolerances, the canonical runner, practical/strict acceptance gates, automatic waypoint advancement or goal publication. Historical benchmark results retain their original interpretation.
+
+## Reloading a saved candidate
+
+Reload is explicit and opt-in. For the user's relocated V1 backup:
+
+```sh
+/usr/bin/python3 scripts/edit_warehouse_waypoints.py \
+  --map /home/zyd/b2w-course-evidence/waypoints/20261019-v1/warehouse.yaml \
+  --candidate /home/zyd/b2w-course-evidence/waypoints/20261019-v1/candidate-16nlistv/candidate.yaml \
+  --output /tmp/b2w-waypoint-candidates-stage31
+```
+
+Open `http://127.0.0.1:8765`. `--candidate` accepts a version 1 or version 2 offline candidate; it never selects a map implicitly. Pass the same verified costmaps at launch if the candidate used them. G1–G5 positions and individual yaw values, corridor/restricted polygons, entrance/exit poses and JSON-compatible annotation metadata are restored without rounding, registration, translation or yaw normalization. The orange overlay always uses the original canonical route. **Reset imported candidate** restores the exact loaded editing baseline, including annotations; Reset itself remains undoable. Without `--candidate`, **Reset canonical** restores the launch's canonical baseline. Reloading the browser discards unsaved edits and reloads this launch baseline; export before closing, then explicitly launch with the new candidate for further editing.
+
+The importer requires supported schema fields, finite poses, consistent yaw/quaternion, both map SHA256 values and complete metadata/dimensions, canonical route snapshot, configured padded footprint, occupancy policy, relevant source configuration hashes and matching costmap identities. Recorded absolute map paths are provenance, not identity: old `/tmp` paths can differ from the verified persistent paths. Configuration/source roles also require an unambiguous basename-and-hash match. All recorded sources must be accounted for. A version 2 candidate additionally carries named Nav2/route configuration hashes.
+
+If a sibling `manifest.yaml` is available, its schema, map/source identities and **all four** output-file hashes must match; missing or altered companion artifacts fail import. Output names are fixed and cannot request arbitrary paths. A standalone candidate without a manifest is permitted but visibly recorded as `manifest_verified: false`; its map/schema/configuration checks still apply. Invalid schema/map/route/footprint/configuration/manifest data fails before opening the HTTP server with an understandable CLI error. No conversion between distinct SLAM maps is attempted. Imported YAML metadata must be finite JSON-compatible data, with string mapping keys, so it can be restored safely in the browser.
+
+Version 1 predates tolerance metadata. Import explicitly migrates it to version 2 with radius 0.25 m, preserving all goal coordinates and yaw. The UI's loaded-candidate details and subsequent YAML/manifest record `migration: {from_version: 1, to_version: 2, default_xy_radius_m: 0.25, poses_unchanged: true}`, source candidate SHA256, original map identity and manifest verification/hash. Version 2 reimports append provenance without repeating the v1 migration. Old provenance hashes remain records; the selected candidate and its available manifest/artifacts are verified on each launch.
+
+The original V1 directory is read-only input. Subsequent exports use fresh unique `candidate-*` directories, including when reusing an export parent directory. Writes remain restricted to dedicated directories below `/tmp`; source-containing roots, imported candidate directories and their descendants are rejected. Source and imported artifact drift during a session blocks check/export. There is no HTTP file-open or arbitrary filesystem write endpoint.
 
 ## Coordinates and map identity
 
@@ -65,19 +102,40 @@ Supply `--local-costmap /tmp/local.json` and/or `--global-costmap /tmp/global.js
 - `candidate.yaml`: explicit candidate kind/version, `deployable: false`, exact goals and quaternions, passage markers, polygons, original canonical snapshot, source identity/config hashes, footprint and geometry results.
 - `waypoints.csv`: exact x/y/yaw for G1–G5 plus any passage markers.
 - `annotations.yaml`: corridor/restricted polygons and passage poses.
-- `annotated.png`: full map extent at 3× native pixels, original/candidate footprints, headings, labels, polygons and markers.
+- `annotated.png`: full map extent at 3× native pixels, original/candidate footprints, headings, labels, polygons, markers and semitransparent XY tolerance discs. The legend is appended below the map without obscuring or stretching it.
 - `manifest.yaml`: source/config identities and SHA256 for the other four output files.
 
 The existing parser in `scripts/run_warehouse_route.py` and tests in `tests/test_warehouse_route.py` and `tests/test_warehouse_route_full.py` require canonical schema version 1, G1/G2 `orientation: corridor_heading`, and G3–G5 `orientation: null`; the runner derives headings. Independently edited yaw cannot be silently substituted into that contract. Therefore this editor exports a **separate candidate schema**, preserving canonical names and `position: [x,y]`, plus explicit `yaw_rad`/quaternion and a complete original canonical snapshot. Candidate YAML has no top-level canonical `schema_version` and cannot be consumed as a canonical route. A later reviewed schema/deployment change would be needed to use these poses in navigation.
 
+Version 2 adds three fields to the separate candidate schema: `xy_tolerance`, `configuration_identity` and `import_history`. The manifest now also declares `candidate_schema_version: 2` and repeats those fields. Canonical route/configuration schemas are unchanged. The fixed tolerance metadata is:
+
+```yaml
+xy_tolerance:
+  radius_m: 0.25
+  metric: map_frame_euclidean_xy
+  reference: robot_base_center
+  region_safety_checked: false
+  runtime_action_success: false
+```
+
+The last two flags mean the editor establishes neither region safety nor runtime action success; they are not runtime navigation results. Clients cannot change the radius in a validation/export request. Display checkboxes do not change candidate data.
+
 ## Bounded offline verification
 
 ```sh
-/usr/bin/python3 -m pytest tests/test_waypoint_editor.py -q
+/usr/bin/python3 -m pytest tests/test_waypoint_editor.py tests/test_waypoint_editor_stage31.py -q
 node tests/test_waypoint_editor_ui.cjs
 node --check scripts/waypoint_editor/app.mjs
-# Optional real Chrome integration, installed google-chrome and Node 22+:
+# Real Chrome integration, installed google-chrome and Node 22+:
+# Default: generated V1 candidate with annotations and rotated map origin.
 node tests/waypoint_editor_browser.cjs
+# Original canonical launch path, using the default source map:
+B2W_EDITOR_CANONICAL=1 node tests/waypoint_editor_browser.cjs
+# Also check the exact persistent user V1 (the Python integration test skips without this variable):
+B2W_EDITOR_V1_BACKUP=/home/zyd/b2w-course-evidence/waypoints/20261019-v1 \
+  /usr/bin/python3 -m pytest tests/test_waypoint_editor_stage31.py -q
+B2W_EDITOR_V1_BACKUP=/home/zyd/b2w-course-evidence/waypoints/20261019-v1 \
+  node tests/waypoint_editor_browser.cjs
 # Existing parser/route regression, without starting any ROS node:
 bash -c 'source /opt/ros/humble/setup.bash && /usr/bin/python3 -m pytest tests/test_warehouse_route.py tests/test_warehouse_route_full.py -q'
 ```

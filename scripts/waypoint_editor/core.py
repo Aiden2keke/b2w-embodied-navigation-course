@@ -9,8 +9,10 @@ import math
 from pathlib import Path
 import tempfile
 
-from PIL import Image, ImageDraw
+from PIL import Image, ImageDraw, ImageFont
 import yaml
+
+from .candidate import XY_TOLERANCE, load_candidate
 
 ROOT = Path(__file__).resolve().parents[2]
 DISCLAIMER = ('Offline filled-footprint geometry only; no physical collision-free feasibility proof. '
@@ -143,7 +145,22 @@ class Editor:
                               yaw_rad=heading(a['position'],b['position'])))
         self.sources={str(p):sha(p) for p in (self.map.path,self.map.image_path,self.config_path,self.route_path)}
         self.costmaps={}
-        self.initial=dict(map_identity=copy.deepcopy(self.map.identity),goals=goals,polygons=[],markers={})
+        self.initial=dict(map_identity=copy.deepcopy(self.map.identity),goals=goals,polygons=[],markers={},
+                          xy_tolerance=copy.deepcopy(XY_TOLERANCE))
+        self.canonical=copy.deepcopy(self.initial)
+        self.import_history=[]
+        self.import_sources={}
+        self.configuration_identity=dict(nav_config_sha256=sha(self.config_path),route_sha256=sha(self.route_path))
+
+    def import_candidate(self,path):
+        self.assert_sources()
+        try:
+            state,history,sources=load_candidate(self,path,sha)
+        except (KeyError,TypeError,OverflowError,RecursionError) as error:
+            raise ValueError('Malformed or incompatible candidate/manifest schema') from error
+        self.initial=state
+        self.import_history=history
+        self.import_sources=sources
 
     def import_costmap(self,path,name):
         path=Path(path).resolve()
@@ -167,10 +184,11 @@ class Editor:
         self.sources[str(path)]=sha(path)
 
     def assert_sources(self):
-        if any(sha(p)!=h for p,h in self.sources.items()): raise ValueError('Source files changed; restart and inspect identity')
+        if any(sha(p)!=h for p,h in {**self.sources,**self.import_sources}.items()): raise ValueError('Source files changed; restart and inspect identity')
 
     def validate(self,state):
         if state.get('map_identity')!=self.map.identity: raise ValueError('Map identity mismatch')
+        if state.get('xy_tolerance')!=XY_TOLERANCE: raise ValueError('Require fixed 0.25 m XY tolerance metadata')
         if [g['name'] for g in state['goals']]!=['G1','G2','G3','G4','G5']: raise ValueError('Require G1–G5')
         for g in state['goals']:
             if len(g['position'])!=2: raise ValueError('Invalid XY')
@@ -220,13 +238,17 @@ class Editor:
         # Export only into /tmp, never repo, canonical configuration, or arbitrary source dirs.
         if not output_root.is_relative_to(Path('/tmp')) or output_root==Path('/tmp'): raise ValueError('Exports require a dedicated directory below /tmp')
         if any(Path(p).is_relative_to(output_root) for p in self.sources): raise ValueError('Export root contains source files')
+        if any(output_root.is_relative_to(Path(p).parent) for p in self.import_sources):
+            raise ValueError('Export root is inside imported candidate directory')
         output_root.mkdir(parents=True,exist_ok=True)
         folder=Path(tempfile.mkdtemp(prefix='candidate-',dir=output_root))
         goals=[]
         for g in state['goals']:
             a=g['yaw_rad']
             goals.append(dict(g,quaternion=dict(x=0.,y=0.,z=math.sin(a/2),w=math.cos(a/2))))
-        result=dict(kind='offline_waypoint_candidate',candidate_schema_version=1,frame_id='map',
+        result=dict(kind='offline_waypoint_candidate',candidate_schema_version=2,frame_id='map',
+            xy_tolerance=copy.deepcopy(XY_TOLERANCE), configuration_identity=self.configuration_identity,
+            import_history=self.import_history,
             deployable=False,occupancy_policy=self.map.occupancy_policy,source_map=self.map.identity,source_hashes=self.sources,
             costmap_metadata={name:cm.meta for name,cm in self.costmaps.items()},
             canonical_route_snapshot=self.route,goals=goals,markers=state['markers'],polygons=state['polygons'],
@@ -238,7 +260,8 @@ class Editor:
             writer.writerows([g['name'],*g['position'],g['yaw_rad']] for g in goals)
             writer.writerows([k,*v] for k,v in state['markers'].items())
         self.render(state,folder/'annotated.png')
-        manifest=dict(occupancy_policy=self.map.occupancy_policy,sources=self.sources,map_identity=self.map.identity,outputs={p.name:sha(p) for p in folder.iterdir()},limitations=DISCLAIMER)
+        manifest=dict(candidate_schema_version=2,xy_tolerance=copy.deepcopy(XY_TOLERANCE),
+            configuration_identity=self.configuration_identity,import_history=self.import_history,occupancy_policy=self.map.occupancy_policy,sources=self.sources,map_identity=self.map.identity,outputs={p.name:sha(p) for p in folder.iterdir()},limitations=DISCLAIMER)
         (folder/'manifest.yaml').write_text(yaml.safe_dump(manifest,sort_keys=False))
         return folder
 
@@ -246,18 +269,35 @@ class Editor:
         # Draw at 3x native resolution, preserving full map extent and aspect ratio.
         scale=3
         im=self.map.image.convert('RGB').resize((self.map.image.width*scale,self.map.image.height*scale),Image.NEAREST)
+        # Alpha composition preserves the map while keeping the metric region visible.
+        overlay=Image.new('RGBA',im.size,(0,0,0,0)); circles=ImageDraw.Draw(overlay)
+        radius=XY_TOLERANCE['radius_m']/self.map.meta['resolution']*scale
+        for g in state['goals']:
+            x,y=[(v+.5)*scale for v in map_to_pixel(self.map.meta,*g['position'])]
+            circles.ellipse((x-radius,y-radius,x+radius,y+radius),fill=(255,227,77,75),outline=(255,227,77,230),width=1)
+        im=Image.alpha_composite(im.convert('RGBA'),overlay).convert('RGB')
         draw=ImageDraw.Draw(im)
+        try: font=ImageFont.truetype('DejaVuSans.ttf',20)
+        except OSError: font=ImageFont.load_default()
         def px(p): return tuple((v+.5)*scale for v in map_to_pixel(self.map.meta,*p))
         for p in state['polygons']:
             points=[px(v) for v in p['points']]; draw.line(points+points[:1],fill='red' if p['kind']=='restricted' else 'purple',width=3)
-        for goals,color in ((self.initial['goals'],'orange'),(state['goals'],'cyan')):
+        for goals,color in ((self.canonical['goals'],'orange'),(state['goals'],'cyan')):
             for g in goals:
                 pose=[*g['position'],g['yaw_rad']]; center=px(pose[:2])
                 poly=[px(v) for v in transform_polygon(self.footprint,pose)]
                 draw.line(poly+poly[:1],fill=color,width=2)
                 end=px([pose[0]+math.cos(pose[2]),pose[1]+math.sin(pose[2])])
-                draw.line([center,end],fill=color,width=3); draw.text(center,g['name'],fill=color)
+                draw.line([center,end],fill=color,width=3); draw.text((center[0]+radius+4,center[1]-radius-20),g['name'],fill=color,font=font)
         for name,pose in state['markers'].items():
-            x,y=px(pose[:2]); draw.ellipse([x-7,y-7,x+7,y+7],outline='magenta',width=3); draw.text((x+8,y),name,fill='magenta')
-        draw.rectangle([0,0,im.width,35],fill='white'); draw.text((5,5),'OFFLINE CANDIDATE | orange original / cyan candidate | geometry only; fresh SLAM registration unverified',fill='black')
+            x,y=px(pose[:2]); draw.ellipse([x-7,y-7,x+7,y+7],outline='magenta',width=3); draw.text((x+8,y),name,fill='magenta',font=font)
+        # Legend below the map, so it cannot obscure any metric geometry.
+        result=Image.new('RGB',(max(im.width,1600),im.height+90),'white');result.paste(im,(0,0))
+        legend=ImageDraw.Draw(result)
+        for i,text in enumerate([
+            'OFFLINE CANDIDATE | orange canonical / cyan candidate footprints & headings | purple corridor / red restricted',
+            'Yellow discs: XY <= 0.25 m from goal (robot base center). Region safety NOT checked; NOT Nav2 action success.',
+            'Static checks use full padded footprint at center pose only. Fresh SLAM registration unverified.'
+        ]): legend.text((5,im.height+5+26*i),text,fill='black',font=font)
+        im=result
         im.save(path)
