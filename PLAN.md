@@ -24,7 +24,68 @@
 - 旧实施计划归档至 `docs/plans/archive/2026-10-10-local-course-system-plan.md`。历史 design/validation 保留为证据，不是另一个当前 roadmap。无新增 HANDOFF。
 - 历史轮次只读与 timing 交付已结束；本轮范围以最新用户请求和下方 NOW 为准。旧实验/交付记录只作历史证据。
 
-## NOW — Oct 19 Stage 4: exact checked candidate path; offline complete, route blocked; STOP for review
+## NOW — Unattended G1–G5: BLOCKED_GEOMETRY before motion (Oct 20)
+
+Latest user authorization: bounded unattended **Gazebo only**, local provisional
+scoped checkpoint commits, no push/merge/reset, no policy/footprint/collision waiver.
+This supersedes historical audit-only / USER-RUN / per-run approval boundaries.
+Single current roadmap: this NOW and the preserved
+`~/b2w-course-evidence/unattended/SOL_EXECUTION_PLAN.md` (findings verified below).
+Experimental worktree: `/tmp/b2w-unattended-worktree-20261019`, branch
+`experiment/unattended-g1-g5-20261019`; original dirty checkout preserved.
+Evidence: `~/b2w-course-evidence/unattended/runs/20261019T154246Z/`.
+Baseline HEAD: `8f2f5ea673f21a129b0f199a8ee92c71fc988ce6`; 388 files archived
+and SHA256 verified before edits, including tracked historical videos.
+
+**Campaign stopped on unresolved geometry and physical/evidence gates.**
+No Gazebo stack, ROS node, goal or motion experiment was started. No measured
+G1–G5 result or verified final stop. FULL_ROUTE_PASS=false; 0/3 fresh accepts.
+Hard limits: 21,600 live-stack wall seconds, 10 motion experiments, 2 critical
+trials per controller family, 3 families total. Used: **0 seconds / 0 motion**.
+
+- [x] Read guide/interfaces/Astra memo and plan; preserve full inherited baseline.
+- [x] Isolated worktree; exact inherited provisional checkpoint `f9591a1` after
+  208 baseline regressions and two package builds. Original worktree preserved.
+- [x] Independently confirm P0/P1; repair F1 structural cadence and F2 adapter
+  stale-TF/duplicate/clock/state bugs, red→green; scoped checkpoint `8c1c454`.
+- [x] Rebuild installed-library Smac probe: reproduce G1→G2 128/309 and G3→G4
+  127/439 occupied-footprint conflicts; hypothetical full path has 12 early
+  future-region samples. Actual registered Start remains unavailable.
+- [x] New conservative interval SAT covers the complete perpendicular .35 m
+  capsule at x=-2.5 and every rectangle yaw. All 72 leaf witnesses for an extra
+  7.5 mm half-extent envelope are occupied cells; unknowns stay blocked. A finer
+  search finds a 5 mm clear slice pose: nominal connected-route feasibility is
+  still unresolved, not analytically disproved by finite zero-sample searches.
+- [x] Confirm independent blockers: no automatic route-local registration/error
+  bound; generated robot has 22 collision links/no contact sensors; no independent
+  truth/stop coverage; base64 grid journal budget ~157 s; asynchronous odom/TF
+  reproduction fails. F8/F9, full G3/G4/G5 remain unimplemented/unqualified.
+- [x] Stop before E0/E1 as Task 2 permits: no defensible combined uncertainty
+  bound below the corridor's <7.5 mm extra-envelope upper bound. No tuning or
+  controller fallback can waive this gate; no retries consume motion slots.
+- [x] Validation: 441 distinct selected offline tests pass across broad run and
+  two scoped rechecks (loopback sandbox denial and optional V1 path resolved);
+  129 repaired-contract regressions; 6 geometry tests; native endpoint guard
+  RED/GREEN; two isolated course packages rebuild. All failures retained.
+- [x] Scoped provisional geometry/handoff checkpoints, offline reproduction,
+  append-only ledger and hashed final review bundle; commit/artifact identities
+  are in the evidence root's `checkpoints.json` and delivery manifest.
+
+Full outcome, audit dispositions, planning metrics, all attempts, limitations and
+reproducers: [UNATTENDED_G1_G5_2026-10-20.md](docs/UNATTENDED_G1_G5_2026-10-20.md).
+No physical pass is claimed. Provisional local checkpoints require later
+independent review. Task 1 is partially repaired, not a complete G1 readiness PASS.
+
+Minimum unblock: establish sensor-supported corridor/map registration and local
+boundary/error bounds; independently prove any projection correction in a derived
+map, or certify a connected route and combined tracking/latency/body/braking error
+budget below the geometric upper bound. Preserve the full padding. Then finish
+recording/coherent sampling/cleanup, predictive body checks and independent full
+contact/evaluation/final-hold evidence before any bounded live trial. Original-
+prefix dependency symlinks/wrappers in the experimental checkout are not live
+qualified. No scope, footprint, waypoint, policy or physical environment waiver.
+
+## Historical — Oct 19 Stage 4: exact checked candidate path; offline complete, route blocked; STOP for review
 
 Authorized scope: implement and test offline at HEAD
 `8f2f5ea673f21a129b0f199a8ee92c71fc988ce6`. No live ROS initialization,
