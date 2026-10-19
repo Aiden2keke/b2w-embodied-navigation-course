@@ -50,6 +50,15 @@ class VelocityAdapter(Node):
         self.gate = VelocityGate(self.declare_parameter('max_linear', 0.5).value,
                                  self.declare_parameter('max_angular', 0.6).value,
                                  self.declare_parameter('timeout_s', 0.5).value)
+        limit_topic = self.declare_parameter('speed_limit_topic', '').value
+        self.speed_limit = None
+        if limit_topic:
+            if self.m2_enabled:
+                raise ValueError('Adaptive RPP uses direct policy commands; M2 must remain disabled')
+            from nav2_msgs.msg import SpeedLimit
+            from .adaptive_speed import CommandLimit
+            self.speed_limit = CommandLimit(self.gate.limits[0], self.gate.timeout)
+            self.create_subscription(SpeedLimit, limit_topic, self.receive_speed_limit, 10)
         source = self.declare_parameter('input_topic', '/course_navigation/cmd_vel').value
         state_topic = self.declare_parameter('state_topic', '/slam/odom').value
         self.require_tf = self.declare_parameter('require_localization_tf', True).value
@@ -80,6 +89,10 @@ class VelocityAdapter(Node):
             self.convert_m2((msg.linear.x, msg.linear.y, msg.angular.z))
         self.gate.set_command((msg.linear.x, msg.linear.y, msg.angular.z), time.monotonic())
 
+    def receive_speed_limit(self, msg):
+        stamp = msg.header.stamp.sec + msg.header.stamp.nanosec * 1e-9
+        self.speed_limit.receive(msg.speed_limit, msg.percentage, stamp, time.monotonic())
+
     def convert_m2(self, command):
         try:
             result = m2_inverse.transform(command, enabled=True)
@@ -102,6 +115,9 @@ class VelocityAdapter(Node):
             if self.require_tf:
                 self.tf.lookup_transform('map', 'base_link', Time())
             command = self.gate.output(time.monotonic())
+            if getattr(self, 'speed_limit', None) is not None:
+                command = self.speed_limit.apply(command, self.get_clock().now().nanoseconds*1e-9,
+                                                 time.monotonic())
             if self.m2_enabled:
                 command = self.convert_m2(command)
             out.linear.x, out.linear.y, out.angular.z = command

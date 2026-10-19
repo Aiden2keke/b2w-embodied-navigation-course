@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""Canonical warehouse critical/full route benchmark; dry-run unless --execute."""
+"""Canonical warehouse route: strict benchmark or practical advancement; default dry-run."""
 import argparse
 import copy
 from collections import deque
@@ -184,11 +184,34 @@ def evaluate_full_goal(goal, metrics, tolerance):
     return result
 
 
-def run_full(config, *, execute=False, transport_factory=None, checkpoint=lambda report: None):
+def evaluate_practical_goal(goal, metrics, tolerance):
+    """Navigation success advances; historical position evidence remains diagnostic."""
+    result = evaluate_full_goal(goal, metrics, tolerance)
+    warnings = []
+    if (not result['evidence_complete']
+            or not all(b['fresh'] for b in result['boundary_localization'].values())):
+        warnings.append('boundary_localization_unavailable_or_stale')
+    error = result['endpoint_error_m']
+    if error is not None and error > tolerance:
+        warnings.append('strict_endpoint_tolerance_exceeded')
+    if error is not None and error > .4:
+        warnings.append('outside_practical_arrival_neighborhood')
+    result.update(success=result['navigation_success'],
+                  failure_reason=None if result['navigation_success'] else 'navigation_failed',
+                  warnings=warnings, endpoint_error_gate=False)
+    return result
+
+
+def run_full(config, *, execute=False, advancement='strict', transport_factory=None,
+             checkpoint=lambda report: None):
     """One owned attach session, one manager request per leg, fail-fast, no retry."""
+    if advancement not in ('strict', 'practical'):
+        raise ValueError('Unknown advancement policy')
+    practical = advancement == 'practical'
     goals = full_goals(config)  # Validate even dry-run, before constructing any transport.
     order = [g['name'] for g in goals]
     report = dict(mode='full', route_mode='full', route_order=order, dry_run=not execute,
+                  advancement=advancement, practical_route_completed=False, strict_full_route_pass=False,
                   planned_goals=goals, sent_poses=[], segments=[], completed_waypoints=[],
                   failed_leg=None, narrow_leg_pass=False, full_route_pass=False, success=False,
                   no_retry=True, stop_reason='dry_run', total_route_duration_wall_s=None,
@@ -197,6 +220,11 @@ def run_full(config, *, execute=False, transport_factory=None, checkpoint=lambda
                       'attach monitoring is not a transactional session lock',
                   cleanup=dict(passed=True, child_processes=[], ros_initialized=False,
                                session_processes_touched=False))
+    if practical:
+        report['practical_arrival_neighborhood_m'] = [.3, .4]
+        report['advancement_contract'] = ('Nav2 SUCCEEDED and goal_manager success; endpoint error '
+            'is diagnostic, not an advancement gate. Fresh current localization and idle Nav2 '
+            'are required by send_and_wait/require_ready before every goal; bounded readiness wait.')
     checkpoint(report)
     if not execute:
         return report
@@ -222,6 +250,14 @@ def run_full(config, *, execute=False, transport_factory=None, checkpoint=lambda
             report['segments'].append(segment)
             report['failed_leg'] = segment['leg_id']  # Remains set on partial IO/interruption.
             def on_sent(sent, state='published'):
+                if practical and state == 'prepared':
+                    evidence = getattr(transport, 'evidence', None)
+                    stamp = sent['header']['stamp']
+                    request_sim = stamp['sec'] + stamp['nanosec'] * 1e-9
+                    if (getattr(transport, 'foreign_goal', False)
+                            or (evidence is not None and evidence.epoch_invalid)
+                            or (last_request_sim is not None and request_sim < last_request_sim)):
+                        raise RuntimeError('Session interference or clock reset before publish')
                 segment['publish_state'] = state
                 if state == 'prepared':
                     segment['prepared_pose'] = copy.deepcopy(sent)
@@ -239,7 +275,8 @@ def run_full(config, *, execute=False, transport_factory=None, checkpoint=lambda
                            metrics_sha256=result['metrics_sha256'])
             if segment.get('sent_pose') is None or metrics.get('goal_pose') != segment['sent_pose']:
                 raise RuntimeError('Metrics do not match exact sent PoseStamped')
-            segment.update(evaluate_full_goal(goal, metrics, config['evaluation_tolerance_m']))
+            evaluator = evaluate_practical_goal if practical else evaluate_full_goal
+            segment.update(evaluator(goal, metrics, config['evaluation_tolerance_m']))
             begin = segment['goal_start_sim_time_s']
             if first_sim is None:
                 first_sim = begin
@@ -266,12 +303,12 @@ def run_full(config, *, execute=False, transport_factory=None, checkpoint=lambda
                 report['stop_reason'] = segment['failure_reason']
                 break
             report['completed_waypoints'].append(goal['name'])
-            if segment['leg_id'] == 'G1-G2':
+            if segment['leg_id'] == 'G1-G2' and not practical:
                 report['narrow_leg_pass'] = True
             report['failed_leg'] = None
             checkpoint(report)
         else:
-            report['stop_reason'] = 'full_route_succeeded'
+            report['stop_reason'] = 'practical_route_completed' if practical else 'full_route_succeeded'
     except KeyboardInterrupt:
         report['stop_reason'] = 'interrupted'
     except Exception as error:
@@ -293,11 +330,15 @@ def run_full(config, *, execute=False, transport_factory=None, checkpoint=lambda
         report['total_route_duration_wall_s'] = time.monotonic() - started_wall
         if first_sim is not None and last_sim is not None and last_sim >= first_sim:
             report['total_route_duration_sim_s'] = last_sim - first_sim
-        report['full_route_pass'] = (report['completed_waypoints'] == order
+        completed = (report['completed_waypoints'] == order
             and len(report['segments']) == 5 and all(s['success'] for s in report['segments'])
-            and report['stop_reason'] == 'full_route_succeeded' and report['cleanup']['passed'])
-        report['success'] = report['full_route_pass']
-        if not report['cleanup']['passed'] and report['stop_reason'] == 'full_route_succeeded':
+            and report['stop_reason'] in ('full_route_succeeded', 'practical_route_completed')
+            and report['cleanup']['passed'])
+        report['full_route_pass'] = report['strict_full_route_pass'] = completed and not practical
+        report['practical_route_completed'] = completed and practical
+        report['success'] = completed
+        if not report['cleanup']['passed'] and report['stop_reason'] in (
+                'full_route_succeeded', 'practical_route_completed'):
             report['stop_reason'] = 'cleanup_failed'
         checkpoint(report)
     return report
@@ -335,6 +376,7 @@ class RosGoalTransport:
         self.cancel_confirmation_timeout = 3.
         self.evidence = None
         self.latest_map = None
+        self.speed_recorder = None
         self.truth_registration_pending = deque(maxlen=32)
         if evidence_directory is not None:
             from warehouse_route_evidence import RouteEvidence
@@ -364,6 +406,9 @@ class RosGoalTransport:
         self.publisher = self.node.create_publisher(PoseStamped, '/goal_pose', 10)
         self.cancel = self.node.create_client(Trigger, '/course_navigation/cancel_goal')
         self.attach_monitors()
+        if self.evidence is not None:
+            from route_speed_recording import RouteSpeedRecorder
+            self.speed_recorder = RouteSpeedRecorder(self.node, self.evidence.run)
         try:
             self.attach_map_evidence()
         except Exception as error:
@@ -623,6 +668,11 @@ class RosGoalTransport:
                 except Exception as error:
                     self.evidence_error(error)
             if self.node is not None:
+                if self.speed_recorder is not None:
+                    try:
+                        self.speed_recorder.close()
+                    except Exception as error:
+                        self.evidence_error(error)
                 self.node.destroy_node()
             if self.initialized and self.rclpy.ok():
                 self.rclpy.shutdown()
@@ -640,7 +690,12 @@ def manifest():
                   source_sha256={str(p.relative_to(ROOT)): digest(p) for p in
                       [Path(__file__), ROOT / 'course_navigation/course_navigation/goal_manager.py',
                        ROOT / 'scripts/warehouse_route_evidence.py', ROOT / 'scripts/plot_warehouse_route.py',
-                       ROOT / 'scripts/warehouse_truth_floorplan.py', ROOT / 'scripts/warehouse_truth_overlay.py']},
+                       ROOT / 'scripts/warehouse_truth_floorplan.py', ROOT / 'scripts/warehouse_truth_overlay.py',
+                       ROOT / 'scripts/route_speed_recording.py',
+                       ROOT / 'course_navigation/course_navigation/adaptive_speed.py',
+                       ROOT / 'course_navigation/course_navigation/adaptive_profile.py',
+                       ROOT / 'course_navigation/course_navigation/speed_governor.py',
+                       ROOT / 'course_navigation/launch/navigation.launch.py']},
                   config_scope='On-disk artifacts; not proof of loaded Nav2 runtime configuration',
                   map_reproducibility='unverified_across_fresh_startups')
     world = ROOT / 'third_party/aws_warehouse/warehouse.world'
@@ -668,6 +723,8 @@ def manifest():
 def main(argv=None, *, transport_factory=None):
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--mode', choices=['critical', 'full'], default='critical')
+    parser.add_argument('--advancement', choices=['strict', 'practical'], default='strict',
+                        help='Full route only: strict .05 m benchmark (default) or practical Nav2 success')
     execution = parser.add_mutually_exclusive_group()
     execution.add_argument('--execute', action='store_true',
                         help='USER-RUN ONLY: send selected route through existing goal_manager')
@@ -675,6 +732,8 @@ def main(argv=None, *, transport_factory=None):
     parser.add_argument('--output-root', type=Path, default=Path('/tmp/b2w-warehouse-route'))
     parser.add_argument('--ready-timeout', type=float, default=45., help='Bounded attach/readiness wall seconds')
     args = parser.parse_args(argv)
+    if args.mode != 'full' and args.advancement != 'strict':
+        parser.error('--advancement practical requires --mode full; critical mode is unchanged')
     if not math.isfinite(args.ready_timeout) or args.ready_timeout <= 0:
         parser.error('--ready-timeout must be positive and finite')
     config = load_route()
@@ -699,6 +758,7 @@ def main(argv=None, *, transport_factory=None):
         temporary.replace(output / 'report.json')
     runner = run_critical if args.mode == 'critical' else run_full
     report = runner(config, execute=args.execute, checkpoint=checkpoint,
+                          **({'advancement': args.advancement} if args.mode == 'full' else {}),
                           transport_factory=transport_factory or (lambda: RosGoalTransport(args.ready_timeout, output)))
     # Rendering is offline, after run_critical's transport.close(); never changes
     # navigation success, staging admission or cleanup outcomes.

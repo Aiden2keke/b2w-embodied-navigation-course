@@ -1,0 +1,8 @@
+cmake_minimum_required(VERSION 3.16)
+project(stage4_smac_probe)
+find_package(ament_cmake REQUIRED)
+find_package(nav2_smac_planner REQUIRED)
+find_package(nav2_costmap_2d REQUIRED)
+add_executable(stage4_smac_probe probe.cpp)
+target_compile_features(stage4_smac_probe PRIVATE cxx_std_17)
+ament_target_dependencies(stage4_smac_probe nav2_smac_planner nav2_costmap_2d)

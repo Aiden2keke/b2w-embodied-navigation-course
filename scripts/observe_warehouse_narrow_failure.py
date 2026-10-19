@@ -104,8 +104,15 @@ def build_parser():
     parser.add_argument('--label', default='warehouse', help='Run label, e.g. navfn or smac2d')
     parser.add_argument('--output-root', type=Path, default=Path('/tmp/b2w-warehouse-observer'))
     parser.add_argument('--duration', type=float, default=300., help='Wall seconds; 0 waits for Ctrl+C')
-    parser.add_argument('--dwb-debug', action='store_true',
+    debug = parser.add_mutually_exclusive_group()
+    debug.add_argument('--dwb-debug', action='store_true',
                         help='Opt in to expensive DWB evaluation and debug plan subscriptions; default is LIGHT')
+    debug.add_argument('--dwb-failure-window', action='store_true',
+                       help='Bounded raw CDR + full messages around first observed all-invalid evaluation; attach only')
+    parser.add_argument('--window-before', type=float, default=3., help='Failure-window prehistory WALL seconds (0..10)')
+    parser.add_argument('--window-after', type=float, default=2., help='Failure-window tail WALL seconds (0..10)')
+    parser.add_argument('--window-memory-mib', type=int, default=64, help='Retained encoded records, 1..256 MiB')
+    parser.add_argument('--window-disk-mib', type=int, default=256, help='Total capture directory budget, 2..1024 MiB')
     return parser
 
 
@@ -114,6 +121,9 @@ def main():
     args = parser.parse_args()
     if not math.isfinite(args.duration) or args.duration < 0:
         parser.error('--duration must be finite and nonnegative')
+    if args.dwb_failure_window:
+        from dwb_failure_window import record_window
+        return record_window(args, parser, expected_topics(True), PARAMETER_NODES)
     topics = expected_topics(args.dwb_debug)
     mode = 'dwb-debug' if args.dwb_debug else 'light'
     # Delayed imports let --help and all pure unit tests work without ROS.
@@ -460,4 +470,4 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    raise SystemExit(main())

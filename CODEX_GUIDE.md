@@ -100,6 +100,10 @@ scripts/setup_course_humble.sh --json
 scripts/run_warehouse.sh
 ```
 
+可选 SmacPlanner2D + Humble RPP + 几何自适应速度的一次完整路线测试见
+[ADAPTIVE_SPEED.md](docs/ADAPTIVE_SPEED.md)。必须显式提供实测走廊宽度
+`w_ref`；默认仍为原 DWB。该功能只完成离线测试，实际速度由用户路线测试记录。
+
 `run_warehouse.sh` 会在首次使用时准备仓库资产。选择其他模式时只运行所需的一条：
 
 ```bash

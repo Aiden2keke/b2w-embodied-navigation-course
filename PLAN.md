@@ -24,7 +24,162 @@
 - 旧实施计划归档至 `docs/plans/archive/2026-10-10-local-course-system-plan.md`。历史 design/validation 保留为证据，不是另一个当前 roadmap。无新增 HANDOFF。
 - 历史轮次只读与 timing 交付已结束；本轮范围以最新用户请求和下方 NOW 为准。旧实验/交付记录只作历史证据。
 
-## NOW — structural low-speed support blocker; transition diagnostic (2026-10-18)
+## NOW — Oct 19 Stage 4: exact checked candidate path; offline complete, route blocked; STOP for review
+
+Authorized scope: implement and test offline at HEAD
+`8f2f5ea673f21a129b0f199a8ee92c71fc988ce6`. No live ROS initialization,
+Gazebo, motion, goals, commit, push, merge, reset, clean or system changes.
+Inherited adaptive/overlay/diagnostic work, policy, SLAM, canonical route,
+source map, persistent V1 and prior evidence remain preserved. User authorization
+and the single-bundle gate supersede skill design-approval/commit ceremonies.
+
+- [x] Verify branch/HEAD; snapshot inherited dirty hashes before changes.
+- [x] Inspect installed Humble Nav2 1.1.20 contracts, launch goal producers,
+  Smac2D+DWB and process-scoped endpoint guard; preserve default NavFn rollback.
+- [x] Add separate hash-bound exact candidate V1→V2 execution selection;
+  complete export manifest required, candidate stays non-deployable.
+- [x] Add same-session stationary map capture, distributed landmarks/occupied-grid
+  identity alignment, 120 s entry certificate, graph/config/guard checks.
+- [x] Select one ComputePathThroughPoses and FollowPath on the identical checked
+  Path. No intermediate goal pruning, retry, recovery or competing goal_manager.
+  Independent ordered inclusive .25 m measured passage and final fresh stop;
+  historical .05 m canonical runner preserved. Full-body collision coverage
+  remains unknown, so live transport cannot claim FULL_ROUTE_PASS.
+- [x] Run installed Smac Node2D+smoother without ROS/DDS on the reconstructed
+  saved-map costmap. Five center paths exist for hypothetical Start=(0,0), but
+  padded footprint blocks G1→G2 (128 samples) and G3→G4 (127). Actual Start,
+  dynamic master costmaps and registration are unavailable offline. Pre-motion
+  gate rejects unsafe paths; there is no runtime path/route PASS.
+- [x] Diagnose retained first DWB window: 419/419 BaseObstacle rejections,
+  public center cost220, rollout reaches253, .465 s grid age. Missing map→odom
+  and controller-private inputs prevent definitive root-cause attribution.
+  Second window has no data. No collision/footprint thresholds weakened.
+- [x] Add targeted core/transport/installed-search tests, launch/default and
+  inherited canonical/editor/DWB regressions; two course packages build.
+  Evidence and complete operational report: `/tmp/b2w-stage4/` and
+  `docs/STAGE4_CANDIDATE_ROUTE.md`. Internal review findings fixed; this does
+  not constitute the independent post-bundle ChatGPT Review PASS.
+- [x] Provide a bounded USER-RUN critical procedure with registration and
+  planner-only capture before motion. **Current geometry blocks motion.** Full
+  route is deferred until short-run review plus new explicit authorization.
+- [ ] Final operation: generate exactly ONE april-review-bundle with scoped
+  report, tests/build, native search, source integrity and internal review;
+  report path/SHA256 and STOP, with no edits afterward. Independent ChatGPT
+  Review PASS must precede requesting one narrowly scoped local Stage 4 commit
+  in a later turn. No commit/push this turn.
+
+Remaining mission blockers: safe full padded-footprint path shaping through the
+mandatory corridor and G3→G4; hypothetical Start→G1 also crosses future G4 before
+G1, so full ordered preflight rejects it. All endpoint/5° sweep checks are clear
+but do not resolve continuous approach, physical tracking/braking, fresh SLAM
+registration, dynamic costmap or full-body collision evidence. No automatic live
+experiment or geometry/safety waiver is authorized by this implementation.
+
+
+## Historical — Oct 19 Nav2 1.1.20 fail-closed overlay; STOP for independent review
+
+Scope: minimal endpoint-transform guard in an isolated `.deps/nav2-controller-1.1.20`
+workspace. Preserve all inherited adaptive work. No Gazebo, live goals, apt/system
+changes, global shell changes, commit or push. No tolerance/route/acceptance changes.
+
+- [x] Pin release archive and package identity; prepare only nav2_controller source
+  and verify public headers against the installed 1.1.20 package.
+- [x] Add focused offline regression using the exact isGoalReached method body,
+  real tf_help and SimpleGoalChecker: stale transform must reject without checker
+  call/state mutation; transformed distant goal rejects; legitimate arrival passes.
+  Record RED before applying the minimal guard, then GREEN.
+- [x] Build the isolated package; verify headers, exports/dependencies and runtime
+  executable/library resolution in the same opt-in environment used by launch.
+- [x] Provide explicit process-scoped activation/rollback; record unresolved
+  map→odom staleness separately. No extra controller instrumentation needed.
+- [x] Run focused project offline checks/build (125 passed; controller + 2 course
+  packages built), inspect diff/inherited integrity (24 inherited / 44 raw files
+  unchanged), clean owned processes. Runtime resolution and ABI checks passed.
+Final delivery gate: generate april-review-bundle, report SHA256 and STOP.
+Bundle identity is in the delivery; no post-bundle edits.
+
+## Historical — Oct 18 adaptive state-machine repair; STOP for independent review
+
+Latest user authorization: repair control semantics using the retained Oct 18
+run and reviewed diagnosis. This supersedes the diagnosis-only scope below.
+No Gazebo, calibration, commit or push. Work in this inherited dirty checkout;
+preserve its changes and raw evidence. This is the sole NOW milestone.
+Starting HEAD: `7eb8c685d13cc53af0a2987fa625b55a8949da00`.
+
+**Design:** OPEN is normal travel after fresh, valid perception/localization/path
+and full-footprint geometry have confirmed safety. NARROW enters immediately
+for upcoming width <= W_ref + .10 m or footprint-side clearance <= .15 m;
+overlap, unknown and off-map checks remain conservative. Heading and curvature
+remain diagnostic inputs; RPP owns their speed regulation. Release requires
+the current entire padded footprint (including rear) and forward samples to
+clear the restriction, plus .03 m geometric hysteresis for .5 s. Braking horizon
+remains max(1 m, (v_measured²-.18²)+/(2*.20) + v_measured*.80 + .20 m).
+Retain the horizon that detected a restriction until confirmed release: slowing
+must not hide a still-upcoming choke and release OPEN before passage.
+Require the supplied path to cover that checking horizon; truncated fresh paths
+cannot establish OPEN (including during the final approach).
+W_ref=1.0 m is the user's approximate measurement. Physical targets stay
+OPEN .50 / NARROW .18 m/s; command ceilings .43 / .11 are provisional.
+
+- [x] Read CODEX_GUIDE.md, interface contracts, Oct 18 diagnosis and state machine;
+  fingerprint retained run and snapshot inherited changes before semantics edits.
+- [x] Add focused failing offline regressions in tests/test_adaptive_speed.py
+  and trace-derived fixtures: start clearance .15–.35 m, ordinary heading/curve,
+  upcoming choke, measured-speed braking, rear exit, hysteresis chatter,
+  stale/invalid inputs. Use real CostGrid and Governor; retained summaries are
+  reduced fixtures, not an exact replay (input costmaps/paths were not recorded).
+- [x] Repair Governor.update and adaptive_speed.yaml: geometry-only entry,
+  .03 m/.5 s release; preserve footprint checks, braking and freshness/watchdog.
+- [x] Run focused geometry/node/launch/recorder/route regressions and build
+  course_navigation + course_bringup with scripts/build_course.sh; retain logs
+  under /tmp/b2w-adaptive-state-review/. No simulation or goals.
+  Result: 218 tests pass; both packages build. Braking-horizon retention and
+  path coverage have four confirmed red→green regressions (slowing before
+  entry / data loss / truncated path / short path at startup).
+- [x] Update docs/ADAPTIVE_SPEED.md and a separate repair report; retain the
+  historical diagnosis. Report G1 .302 m residual displacement and ~120 degree
+  frozen-heading turn separately. Preserve headings, goal acceptance, collision
+  behavior, canonical route, SmacPlanner2D/RPP, policy and SLAM.
+- [x] Verify all 89 retained raw file hashes, audit owned process groups (zero
+  remaining members), and check diff. Final evidence is ready for ONE bundle
+  generated with ~/bin/april-review-bundle.
+- [ ] Independent review of that bundle; STOP before any live run. Delivery report:
+  `docs/ADAPTIVE_STATE_REPAIR_2026-10-18.md`.
+
+## Historical — Oct 18 adaptive run diagnosis; STOP for review
+
+Latest user scope: existing evidence only from `/tmp/b2w-adaptive-route/route/`,
+metrics, ROS logs, current source and this plan. Preserve the raw run. No Gazebo,
+calibration, commit or push. Frozen coordinates/headings and advancement stay
+unchanged; route-contract changes require explicit user approval.
+
+- [x] Analyze the 16:07–16:09 run: 988/988 NARROW, only 15 genuinely release-eligible
+  samples, longest eligible interval 1.125 s versus required 2 s. Low commands
+  precede the controller/locomotion boundary; no lost OPEN command demonstrated.
+- [x] Align 68 RPP collision warnings; first ~112.54 sim s has fresh .44 s TF.
+  Independent truth establishes .302 m residual displacement after final vx
+  stops. Frozen target requires about 120° heading change. Later static-map
+  proxy supports overlap at the actual displaced pose, while sampled canonical
+  G1-center turns remain clear; exact runtime collision branch is unavailable.
+- [x] Fix confirmed misleading reason diagnostics only: blocked release margin,
+  heading error versus path curvature, overlap priority, actual hold duration.
+  No confirmed safe motion/configuration tuning fix follows from retained data.
+- [x] Add three focused red→green offline regressions; 57 relevant tests pass;
+  course_navigation symlink build passes. 400-update comparison preserves mode,
+  limit and hysteresis state. Existing OPEN ceiling and anticipatory slowing,
+  collision checking, footprint and freshness protection remain unchanged.
+- [x] Preserve raw hashes, audit validation process ownership and whitespace.
+- [ ] Independent review of ONE bundle generated with `~/bin/april-review-bundle`;
+  STOP. No user-run command is executed by the agent.
+
+Diagnosis, snippets, limitations, route-contract approval options and next
+user-run commands: `docs/ADAPTIVE_RUN_2026-10-18.md`. Derived numerical and
+verification evidence: `/tmp/b2w-oct18-review/`. Inherited adaptive implementation
+and practical runner changes remain uncommitted and preserved. The diagnostic
+patch does not claim improved physical speed or a successful G1 turn. Re-read
+this diagnosis before using older run instructions; use a new output root.
+
+## Historical — structural low-speed support blocker; transition diagnostic
 
 Highest-level acceptance remains **FULL_ROUTE_PASS**: Start -> G1 -> G2 -> G3 -> G4 -> G5.
 Previous stage authenticated branch `improve/narrow-navigation`, initially clean worktree, HEAD and live origin

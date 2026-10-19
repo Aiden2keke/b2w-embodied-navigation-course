@@ -2,6 +2,14 @@
 
 本文件记录本机实现采用的默认值，不替代三人共同确认 [INTERFACE.md](INTERFACE.md) 的流程。原接口文件保持不变。
 
+可选 `adaptive_speed:=true` 在 C 导航模块内部新增
+`/course_navigation/speed_limit`（`nav2_msgs/msg/SpeedLimit`）和
+`/course_navigation/speed_status`（`std_msgs/msg/String` JSON）。前者供 RPP 与
+adapter 心跳限幅，后者仅供记录。几何输入为本地 costmap、RPP 路径、SLAM odom/TF；
+点云仅检查 header/size 新鲜度。真值仅进入测试记录，不进入限速决策。
+原公共速度 topic 和 TF 保持既定定义。配置、回退与验收边界见
+[ADAPTIVE_SPEED.md](ADAPTIVE_SPEED.md)。
+
 | 项目 | 本机实现 | 需要确认/测量的内容 |
 |---|---|---|
 | 机器人 | 仓库 B2-W URDF；原有策略与开源 rl_sar 16 关节策略可选 | 实机具体版本和已有传感器清单；新控制器见 [RL_SAR_SETUP.md](RL_SAR_SETUP.md) |
