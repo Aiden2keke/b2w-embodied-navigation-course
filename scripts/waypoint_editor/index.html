@@ -1,0 +1,19 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>B2-W offline waypoint editor</title>
+<link rel="stylesheet" href="/style.css">
+<header><strong>B2-W · Offline waypoint editor</strong><span>No ROS connection · Candidate export only</span></header>
+<main><section id="viewport"><canvas id="map"></canvas><output id="cursor">Map coordinates</output><div id="legend">Orange: original · Cyan: candidate · Magenta: passage markers · Purple: corridor · Red: restricted</div></section>
+<aside><p class="warning">Geometry checks ≠ proven physical collision-free feasibility. Unknown / occupied / outside / restricted areas block. Gray 205 is conservatively unknown. Fresh SLAM requires verified registration.</p>
+<div class="row"><button id="undo">Undo</button><button id="redo">Redo</button><button id="reset">Reset original</button><button id="fit">Fit map</button></div>
+<label>Mode <select id="mode"><option value="edit">Select / move / heading</option><option value="pan">Pan</option><option value="corridor">Draw corridor polygon</option><option value="restricted">Draw restricted polygon</option><option value="entrance">Place passage entrance</option><option value="exit">Place passage exit</option></select></label>
+<p class="hint">Wheel: zoom at cursor. Middle/right drag: pan. Drag cyan point to move, arrow tip to rotate. Polygon: click vertices, Finish; edit vertices in Select mode.</p>
+<div class="row"><button id="finish">Finish polygon</button><button id="cancel">Cancel drawing</button><button id="delete">Delete selected annotation</button></div>
+<label>Selected pose <select id="selected"></select></label>
+<div class="fields"><label>x (m)<input id="x" type="number" step="any"></label><label>y (m)<input id="y" type="number" step="any"></label><label>yaw (rad)<input id="yaw" type="number" step="any"></label></div><button id="apply">Apply exact pose</button>
+<label><input id="costmaps" type="checkbox" checked> Imported local/global costmap overlays</label>
+<label><input id="grid" type="checkbox" checked> 1 m grid in map frame</label>
+<label><input id="sweep" type="checkbox"> Rotational sweep at selected pose (5° samples)</label>
+<button id="check">Check all poses + selected sweep</button><pre id="checks">Not checked</pre>
+<button id="export">Export candidate YAML / CSV / polygons / PNG / manifest</button><p id="status" role="status"></p>
+<details><summary>Map / configuration identity</summary><pre id="identity"></pre></details>
+<details><summary>Original / candidate exact values</summary><pre id="values"></pre></details>
+</aside></main><script type="module" src="/app.mjs"></script></html>
