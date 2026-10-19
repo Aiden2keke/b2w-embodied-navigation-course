@@ -69,7 +69,8 @@ def goals():
 
 def sample(t,x,**kw):
     return dict(sim=t,wall=t,x=x,y=0.,yaw=0.,tf_stamp=t,odom_stamp=t,map_odom_stamp=t,
-                slam_map_age=.1,clock_age=.01,pose_age=.01,tf_receipt_age=.01,
+                slam_map_age=.1,slam_map_wall_age=.1,slam_map_wall_budget=7.5,
+                clock_age=.01,pose_age=.01,tf_receipt_age=.01,
                 speed=0.,wz=0.,command_speed=0.,command_wz=0.,safety='clear',**kw)
 
 

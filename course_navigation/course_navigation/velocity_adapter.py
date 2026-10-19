@@ -66,6 +66,9 @@ class VelocityAdapter(Node):
         self.create_subscription(Twist, source, self.command, 10)
         self.create_subscription(Odometry, state_topic, self.state, 20)
         self.last_stamp = None
+        self.localization_fault = False
+        self.clock_stamp = self.clock_wall = self.last_wall = None
+        self.tf_state = {}
         self.tf = Buffer()
         self.listener = TransformListener(self.tf, self)
         self.create_timer(0.05, self.publish, clock=Clock(clock_type=ClockType.STEADY_TIME))
@@ -73,15 +76,63 @@ class VelocityAdapter(Node):
     def state(self, msg):
         stamp = msg.header.stamp.sec + msg.header.stamp.nanosec * 1e-9
         now = self.get_clock().now().nanoseconds * 1e-9
+        wall = time.monotonic()
         p, q = msg.pose.pose.position, msg.pose.pose.orientation
-        if not all(math.isfinite(v) for v in [p.x, p.y, p.z, q.x, q.y, q.z, q.w]):
+        v, w = msg.twist.twist.linear, msg.twist.twist.angular
+        expected_frame = 'odom' if self.require_tf else 'sim_world'
+        if self.last_stamp is not None and stamp < self.last_stamp:
+            self.localization_fault = True
+        if (not self.clock_valid(now, wall) or msg.header.frame_id != expected_frame or
+                msg.child_frame_id != 'base_link' or
+                not 0 <= msg.header.stamp.nanosec < 1000000000 or
+                not all(math.isfinite(x) for x in [p.x, p.y, p.z, q.x, q.y, q.z, q.w,
+                                                   v.x, v.y, v.z, w.x, w.y, w.z]) or
+                abs(q.x*q.x + q.y*q.y + q.z*q.z + q.w*q.w - 1.) > .01 or
+                not 0 <= now - stamp <= self.gate.timeout):
             self.gate.state_time = None
             return
-        if self.last_stamp is not None and stamp < self.last_stamp:
-            self.gate.command_time = None
+        if stamp == self.last_stamp:
+            return  # A cached sample never renews the wall watchdog.
         self.last_stamp = stamp
-        if 0 <= now - stamp <= self.gate.timeout and q.x*q.x + q.y*q.y + q.z*q.z + q.w*q.w > 0.5:
-            self.gate.state_time = time.monotonic()
+        self.gate.state_time = wall
+
+    def clock_valid(self, sim, wall):
+        """Rollback latches the session closed; suspension expires in wall time."""
+        if (not math.isfinite(sim) or not math.isfinite(wall) or sim < 0 or
+                (self.clock_stamp is not None and sim < self.clock_stamp) or
+                (self.last_wall is not None and wall < self.last_wall)):
+            self.localization_fault = True
+        if self.clock_stamp is None or sim > self.clock_stamp:
+            self.clock_wall = wall
+        self.clock_stamp, self.last_wall = sim, wall
+        return (not self.localization_fault and self.clock_wall is not None and
+                0 <= wall - self.clock_wall <= self.gate.timeout)
+
+    def localization_valid(self):
+        sim = self.get_clock().now().nanoseconds * 1e-9
+        wall = time.monotonic()
+        if (not self.clock_valid(sim, wall) or self.last_stamp is None or
+                not 0 <= sim - self.last_stamp <= self.gate.timeout):
+            return False
+        for parent, child in [('map', 'odom'), ('odom', 'base_link')]:
+            tf = self.tf.lookup_transform(parent, child, Time())
+            t, q = tf.transform.translation, tf.transform.rotation
+            stamp = tf.header.stamp.sec + tf.header.stamp.nanosec * 1e-9
+            old = self.tf_state.get((parent, child))
+            if old is not None and stamp < old[0]:
+                self.localization_fault = True
+                return False
+            if (tf.header.frame_id != parent or tf.child_frame_id != child or
+                    not 0 <= tf.header.stamp.nanosec < 1000000000 or
+                    not all(math.isfinite(v) for v in [t.x, t.y, t.z, q.x, q.y, q.z, q.w]) or
+                    abs(q.x*q.x + q.y*q.y + q.z*q.z + q.w*q.w - 1.) > .01 or
+                    not 0 <= sim - stamp <= self.gate.timeout):
+                return False
+            if old is None or stamp > old[0]:
+                self.tf_state[parent, child] = stamp, wall
+            if not 0 <= wall - self.tf_state[parent, child][1] <= self.gate.timeout:
+                return False
+        return True
 
     def command(self, msg):
         if self.m2_enabled:
@@ -113,7 +164,9 @@ class VelocityAdapter(Node):
         out = Twist()
         try:
             if self.require_tf:
-                self.tf.lookup_transform('map', 'base_link', Time())
+                if not self.localization_valid():
+                    self.pub.publish(out)
+                    return
             command = self.gate.output(time.monotonic())
             if getattr(self, 'speed_limit', None) is not None:
                 command = self.speed_limit.apply(command, self.get_clock().now().nanoseconds*1e-9,

@@ -22,11 +22,14 @@ class RouteEvidence:
         if self.failure:return
         try:
             keys=['sim','wall','x','y','yaw','tf_stamp','odom_stamp','map_odom_stamp','slam_map_age',
+                  'slam_map_wall_age','slam_map_wall_budget',
                   'clock_age','pose_age','tf_receipt_age','speed','wz','command_speed','command_wz']
             if any(type(s[k]) not in (int,float) or not math.isfinite(s[k]) for k in keys):raise ValueError()
             if (any(not 0<=s['sim']-s[k]<=.5 for k in ('tf_stamp','odom_stamp','map_odom_stamp')) or
                 any(not 0<=s[k]<=.5 for k in ('clock_age','pose_age','tf_receipt_age')) or
-                not 0<=s['slam_map_age']<=2.):raise ValueError()
+                not 0<=s['slam_map_age']<=7.5 or
+                not 7.5<=s['slam_map_wall_budget']<=20. or
+                not 0<=s['slam_map_wall_age']<=s['slam_map_wall_budget']):raise ValueError()
         except (KeyError,TypeError,ValueError):self.fail('stale_or_missing_localization');return
         if self.last:
             if any(s[k]<=self.last[k] for k in ('sim','wall','tf_stamp','odom_stamp')):self.fail('clock_reset_or_duplicate');return

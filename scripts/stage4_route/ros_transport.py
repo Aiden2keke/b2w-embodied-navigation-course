@@ -15,6 +15,7 @@ from uuid import uuid4
 import yaml
 from .contract import ROOT,load_selection,digest,object_hash,write_new,check_registration
 from .spatial import MapAlignment,footprint_clear,saved_grid,assess_path
+from .freshness import StructuralMapCadence
 
 
 def stamp(t):return t.sec+t.nanosec*1e-9
@@ -46,6 +47,7 @@ class RosTransport:
         self.tf=Buffer();self.listener=TransformListener(self.tf,self.node)
         self.nav=ActionClient(self.node,FollowPath,'/follow_path')
         self.messages={};self.receipts={};self.statuses={};self.failure=None;self.handle=None
+        self.structural = StructuralMapCadence()
         self.send_future=None;self.result_future=None;self.owned_id=None;self.preflight_id=None;self.child_ids={};self.last_pose_stamp=None
         self.saved=None;self.audit=dict(child_processes=[],action_outcomes=[],cleanup={},collision_coverage='plate_only_full_body_unknown')
         self.qos=QoSProfile(depth=10,reliability=ReliabilityPolicy.BEST_EFFORT)
@@ -86,6 +88,14 @@ class RosTransport:
         encoded=(json.dumps(record,separators=(',',':'))+'\n').encode()
         if self.bytes+len(encoded)>256*1024**2:self.failure='raw_evidence_limit';return
         self.raw.write(encoded);self.bytes+=len(encoded)
+        if topic == '/slam/map_points':
+            try:
+                self.structural.observe(stamp(msg.header.stamp), self.sim(), now)
+                self.audit['structural_map_cadence'] = dict(
+                    startup_wall_periods_s=list(self.structural.periods),
+                    wall_budget_s=self.structural.wall_budget, source_budget_s=7.5)
+            except ValueError as exc:
+                self.failure = str(exc)
         if topic in ('/goal_pose','/course_navigation/unused_nav2_goal_pose'):self.failure='competing_goal'
         if topic.endswith('/_action/status'):
             self.statuses[topic]=msg
@@ -164,13 +174,14 @@ class RosTransport:
         if any(self.age(t)>.5 for t in ('/path_manager/path_manager_ros/nav_vel','/pointcloud','/imu')):safety='unknown'
         result=dict(sim=now,wall=time.monotonic(),x=p.x,y=p.y,yaw=angle,
                     tf_stamp=stamp(mb.header.stamp),map_odom_stamp=stamp(mo.header.stamp),odom_stamp=stamp(odom.header.stamp),
-                    slam_map_age=max(self.age('/slam/map_points'),now-stamp(self.messages['/slam/map_points'].header.stamp)),
+                    **self.structural.ages(now,time.monotonic()),
                     clock_age=self.age('/clock'),pose_age=self.age('/slam/odom'),tf_receipt_age=self.age('/tf'),
                     speed=speed,wz=wz,command_speed=math.hypot(cmd.linear.x,cmd.linear.y),command_wz=cmd.angular.z,safety=safety)
         if (any(not math.isfinite(v) for v in result.values() if type(v) in (int,float)) or
             any(not 0<=now-result[k]<=.5 for k in ('tf_stamp','map_odom_stamp','odom_stamp')) or
             any(not 0<=result[k]<=.5 for k in ('clock_age','pose_age','tf_receipt_age')) or
-            not 0<=result['slam_map_age']<=2):raise ValueError('Stale/missing/nonfinite SLAM/TF evidence')
+            not 0<=result['slam_map_age']<=7.5 or
+            not 0<=result['slam_map_wall_age']<=result['slam_map_wall_budget']):raise ValueError('Stale/missing/nonfinite SLAM/TF evidence')
         self.previous_sample=result
         return result
 
