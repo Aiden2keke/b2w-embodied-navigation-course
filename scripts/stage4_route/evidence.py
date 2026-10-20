@@ -1,5 +1,6 @@
 """Independent ordered measured-passage evidence, never an action advancement driver."""
 import math
+import copy
 
 
 def distance(p,a,b):
@@ -9,9 +10,16 @@ def distance(p,a,b):
 
 
 class RouteEvidence:
-    def __init__(self,goals,*,start,count=5):
-        if count not in (2,5):raise ValueError('Only critical or full execution')
-        self.goals=goals[:count];self.start=start;self.events=[];self.path=[];self.failure=None
+    def __init__(self,goals,*,start,count=5,start_index=0):
+        if (type(count) is not int or type(start_index) is not int or len(goals)!=5 or
+                count<1 or start_index<0 or start_index+count>5):
+            raise ValueError('Select a contiguous segment of the original five goals')
+        if len(start)!=2 or any(type(v) not in (int,float) or not math.isfinite(v) for v in start):
+            raise ValueError('Start must contain two finite numeric coordinates')
+        self.original_goals=copy.deepcopy(goals);self.start_index=start_index
+        self.goals=self.original_goals[start_index:start_index+count];self.start=list(start);self.events=[];self.path=[];self.failure=None
+        if start_index and math.dist(start,goals[start_index-1]['position'])>.25:
+            raise ValueError('Segment Start must be in the preceding original goal region')
         self.minimum=[None]*count;self.inside_since=None;self.last=None;self.stop_since=None
         self.status=None;self.terminal_sim=None;self.narrow_samples=0;self.path_length=0.
 
@@ -42,13 +50,20 @@ class RouteEvidence:
         errors=[math.hypot(s['x']-g['position'][0],s['y']-g['position'][1]) for g in self.goals]
         for i,d in enumerate(errors):self.minimum[i]=d if self.minimum[i] is None else min(d,self.minimum[i])
         i=len(self.events)
+        phase=self.start_index+min(i,len(self.goals)-1)
+        for future in self.original_goals[phase+1:]:
+            if math.hypot(s['x']-future['position'][0],s['y']-future['position'][1])<=.25:
+                self.fail('out_of_order_'+future['name']);return
         if i<len(self.goals):
-            if any(d<=.25 for d in errors[i+1:]):
-                self.fail('out_of_order_'+self.goals[next(k for k in range(i+1,len(errors)) if errors[k]<=.25)]['name']);return
             a=self.start if i==0 else self.goals[i-1]['position'];b=self.goals[i]['position']
-            band=.35 if i==1 else 3.0
+            band=.35 if phase==1 else 3.0
             if distance((s['x'],s['y']),a,b)>band:self.fail('disallowed_detour');return
-            if i==1:self.narrow_samples+=1
+            if self.start_index and len(self.path)==1 and math.dist((s['x'],s['y']),self.start)>.03:
+                self.fail('segment_start_pose_mismatch');return
+            if (self.start_index and len(self.path)==1 and
+                    math.dist((s['x'],s['y']),self.original_goals[self.start_index-1]['position'])>.25):
+                self.fail('segment_start_outside_preceding_region');return
+            if phase==1:self.narrow_samples+=1
             if errors[i]<=.25:
                 if self.inside_since is None:self.inside_since=s
                 if s['sim']-self.inside_since['sim']>=.1-1e-9:
@@ -76,11 +91,17 @@ class RouteEvidence:
               not self.failure and
               self.last['tf_stamp']-self.stop_since['tf_stamp']>=5. and
               self.last['wall']-self.stop_since['wall']>=3.)
-        narrow=len(self.events)>=2 and self.narrow_samples>=2
-        practical=(not self.failure and len(self.events)==len(self.goals) and narrow and self.status==4 and stop and cleanup)
-        return dict(result=('FULL_ROUTE_PASS' if practical and safety_complete and len(self.goals)==5 else
+        includes_narrow=self.start_index<=1<self.start_index+len(self.goals)
+        narrow=includes_narrow and len(self.events)>1-self.start_index and self.narrow_samples>=2
+        practical=(not self.failure and len(self.events)==len(self.goals) and
+                   (narrow or not includes_narrow) and self.status==4 and stop and cleanup)
+        full_scope=self.start_index==0 and len(self.goals)==5
+        segment_pass=bool(practical and safety_complete and not full_scope)
+        return dict(result=('FULL_ROUTE_PASS' if practical and safety_complete and full_scope else
+                            'SEGMENT_PASS' if segment_pass else
                             'PRACTICAL_ROUTE_PASS_SAFETY_UNCERTAIN' if practical else 'ROUTE_FAIL'),
-                    full_route_pass=bool(practical and safety_complete and len(self.goals)==5),
+                    full_route_pass=bool(practical and safety_complete and full_scope),
+                    segment_pass=segment_pass,original_goal_start_index=self.start_index,
                     practical_route_pass=bool(practical),historical_005m_benchmark='not_run_unmodified',
                     failure=self.failure,region_events=self.events,narrow_passage_confirmed=narrow,
                     action_status=self.status,terminal_stop_confirmed=bool(stop),cleanup_passed=cleanup,

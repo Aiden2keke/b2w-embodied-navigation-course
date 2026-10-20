@@ -55,10 +55,14 @@ def saved_grid(map_path):
                 data=[0 if c=='free' else 255 if c=='unknown' else 254 for row in reversed(m.cells) for c in row])
 
 
-def assess_path(path,goals,start,grids):
+def assess_path(path,goals,start,grids,*,start_pose=None):
     """Necessary sampled planning gate only; never supplies physical passage events."""
     from .evidence import distance
     if not path:raise ValueError('Empty preflight path')
+    if start_pose is not None:
+        if (len(start_pose)!=3 or not all(math.isfinite(v) for v in start_pose) or
+                math.dist(start_pose[:2],start)>1e-9):raise ValueError('Invalid measured Start connection')
+        path=[list(start_pose),*path]
     samples=[]
     for p,q in zip(path,path[1:]):
         delta=math.remainder(q[2]-p[2],math.tau)
@@ -86,4 +90,5 @@ def assess_path(path,goals,start,grids):
                 per_goal_planned_minimum_xy_m=minimum,samples=len(samples),
                 physical_passage_proven=False,
                 continuous_clearance_proven=continuous['continuous_clearance_proven'],
+                initial_connection_checked=start_pose is not None,
                 continuous_certificate=continuous)

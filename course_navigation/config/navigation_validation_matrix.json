@@ -1,0 +1,616 @@
+{
+  "schema_version": 1,
+  "scope": "Gazebo-only; validation matrix is NOT motion authorization",
+  "runner": "scripts/navigation_validation.py",
+  "result_semantics": {
+    "PASS": "Only stated verification level passed",
+    "FAIL": "Failed, missing, stale, skipped, not implemented or not executed; inspect reason",
+    "offline_exit_zero": "Offline suites passed only; all_requirements_pass and physical statuses remain separate"
+  },
+  "owners": {
+    "executor": "Luna: exact deterministic commands/evidence; no safety edits, motion authorization, retries or test weakening",
+    "reviewer": "Parent: independent safety decisions, fixes, qualification, owned motion experiment authorization"
+  },
+  "budgets": {
+    "inherited_live_stack_wall_s": 211.30824790301267,
+    "inherited_motion_attempts": 0,
+    "inherited_stationary_starts": 5,
+    "live_stack_wall_limit_s": 21600,
+    "motion_limit": 10,
+    "families": 3,
+    "critical_trials_per_family": 2,
+    "planner_only_wall_s": 30,
+    "E1_sim_wall_s": [
+      90,
+      180
+    ],
+    "critical_sim_wall_s": [
+      180,
+      300
+    ],
+    "full_sim_wall_s": [
+      600,
+      900
+    ]
+  },
+  "global_abort": [
+    "forbidden/unknown/self contact",
+    "stale or ambiguous localization/registration/perception",
+    "filled-body/stopping-envelope violation",
+    "future-region entry",
+    "clock/frame/map discontinuity",
+    "foreign command/goal/action producer",
+    "recorder queue/disk/flush failure",
+    "controller deadline or progress failure (.15 m/20 s retained)",
+    "owned action ABORTED/CANCELED or unresolved cancel",
+    "wall/sim/attempt budget reached"
+  ],
+  "gates": [
+    {
+      "id": "O01",
+      "level": "offline",
+      "suite": "focused",
+      "requires": [],
+      "requirement": "Source identities, immutable selected V1\u2192V2 goals/map/profile and .25 m radius",
+      "source": "test_stage4_route.py; contract.py; stage4_selection_policy.json",
+      "expected": "Exact hash-bound selection; tampering and unverified migration rejected",
+      "command": "See suites in dry-run command manifest",
+      "missing": "not_executed_or_failed",
+      "stop_condition": "FAIL/missing/stale/ambiguous/timeout: no dependent motion; retain logs; parent diagnoses before changed-evidence retry"
+    },
+    {
+      "id": "O02",
+      "level": "offline",
+      "suite": "focused",
+      "requires": [],
+      "requirement": "Coherent source-time localization and separate advancing receipt freshness",
+      "source": "test_coherent_localization.py; test_stage4_transport.py",
+      "expected": "Finite normalized quaternions; map\u2192odom\u2192base at odom time; source/receipt \u2264.5 s; duplicates cannot renew",
+      "command": "See suites in dry-run command manifest",
+      "missing": "not_executed_or_failed",
+      "stop_condition": "FAIL/missing/stale/ambiguous/timeout: no dependent motion; retain logs; parent diagnoses before changed-evidence retry"
+    },
+    {
+      "id": "O03",
+      "level": "offline",
+      "suite": "focused",
+      "requires": [],
+      "requirement": "Continuous filled padded-body geometry, initial/terminal turns, unknown and off-map",
+      "source": "test_continuous_geometry.py; test_route_geometry.py",
+      "expected": "All closed nonfree cells and between-pose rotation/translation checked; bounded unresolved search fails",
+      "command": "See suites in dry-run command manifest",
+      "missing": "not_executed_or_failed",
+      "stop_condition": "FAIL/missing/stale/ambiguous/timeout: no dependent motion; retain logs; parent diagnoses before changed-evidence retry"
+    },
+    {
+      "id": "O04",
+      "level": "offline",
+      "suite": "focused",
+      "requires": [],
+      "requirement": "Full serialized recording, capacity, flush and replay failure behavior",
+      "source": "test_binary_journal.py; test_stage4_transport.py",
+      "expected": "No data loss/truncation/overflow can pass; measured capacity >=5 wall s and 2\u00d7max(mean,peak)\u00d7(trial+60 s)",
+      "command": "See suites in dry-run command manifest",
+      "missing": "not_executed_or_failed",
+      "stop_condition": "FAIL/missing/stale/ambiguous/timeout: no dependent motion; retain logs; parent diagnoses before changed-evidence retry"
+    },
+    {
+      "id": "O05",
+      "level": "offline",
+      "suite": "native",
+      "requires": [],
+      "requirement": "Every-step contact reporting paths and sticky transient veto",
+      "source": "scripts/contact_observer; tests/test_contact_evidence.py",
+      "expected": "Native reporting tests pass all inventory paths; does not prove engine construction",
+      "command": "See suites in dry-run command manifest",
+      "missing": "not_executed_or_failed",
+      "stop_condition": "FAIL/missing/stale/ambiguous/timeout: no dependent motion; retain logs; parent diagnoses before changed-evidence retry"
+    },
+    {
+      "id": "O06",
+      "level": "offline",
+      "suite": "focused",
+      "requires": [],
+      "requirement": "Ordered .25 m passage and terminal stop evidence regressions",
+      "source": "test_stage4_route.py; evidence.py",
+      "expected": "\u2265.1 sim s region confirmation; no future region entry; \u22655 source s AND \u22653 wall s rest; creep fails",
+      "command": "See suites in dry-run command manifest",
+      "missing": "not_executed_or_failed",
+      "stop_condition": "FAIL/missing/stale/ambiguous/timeout: no dependent motion; retain logs; parent diagnoses before changed-evidence retry"
+    },
+    {
+      "id": "O07",
+      "level": "offline",
+      "suite": "harness",
+      "requires": [],
+      "requirement": "Validation cannot convert skips, missing data, source drift or timeout into qualification",
+      "source": "tests/test_navigation_validation_runner.py",
+      "expected": "Exclusive outputs; strict JUnit; timeout log retained; motion_authorized=false",
+      "command": "See suites in dry-run command manifest",
+      "missing": "not_executed_or_failed",
+      "stop_condition": "FAIL/missing/stale/ambiguous/timeout: no dependent motion; retain logs; parent diagnoses before changed-evidence retry"
+    },
+    {
+      "id": "O08",
+      "level": "offline",
+      "suite": "focused",
+      "requires": [
+        "O01"
+      ],
+      "requirement": "Unqualified motion dispatch interlock at CLI and direct transport",
+      "source": "tests/test_unqualified_motion.py; motion_qualification.py",
+      "expected": "No flag/environment/JSON override; reject before ROS construction and FollowPath",
+      "command": "See suites in dry-run command manifest",
+      "missing": "not_executed_or_failed",
+      "stop_condition": "FAIL/missing/stale/ambiguous/timeout: no dependent motion; retain logs; parent diagnoses before changed-evidence retry"
+    },
+    {
+      "id": "O09",
+      "level": "offline",
+      "suite": "focused",
+      "requires": [
+        "O05"
+      ],
+      "requirement": "Paired contact intervals and final watermark regression",
+      "source": "tests/test_contact_intervals.py; contact_intervals.py",
+      "expected": "Bounded integer buffer; contiguous source intervals; immediate sticky veto; duplicates cannot renew wall freshness; last-report-before-end fails",
+      "command": "See suites in dry-run command manifest",
+      "missing": "not_executed_or_failed",
+      "stop_condition": "FAIL/missing/stale/ambiguous/timeout: no dependent motion; retain logs; parent diagnoses before changed-evidence retry"
+    },
+    {
+      "id": "O10",
+      "level": "offline",
+      "suite": "focused",
+      "requires": [
+        "O06"
+      ],
+      "requirement": "Independent segment evaluation and original future-goal exclusions",
+      "source": "tests/test_segment_evidence.py; evidence.py",
+      "expected": "Previous-goal region and first measured Start required; original goal names/order and narrow phase retained; even a passed segment can never be FULL_ROUTE_PASS",
+      "command": "See suites in dry-run command manifest",
+      "missing": "not_executed_or_failed",
+      "stop_condition": "FAIL/missing/stale/ambiguous/timeout: no dependent motion; retain logs; parent diagnoses before changed-evidence retry"
+    },
+    {
+      "id": "O11",
+      "level": "offline",
+      "suite": "focused",
+      "requires": [
+        "O03"
+      ],
+      "requirement": "Measured initial translation/yaw connection in preflight geometry",
+      "source": "tests/test_start_connection.py; spatial.py; ros_transport.py:preflight",
+      "expected": "Certificate includes actual measured Start and yaw through first checked Path pose; initial connection obstacle/rotation collision fails",
+      "command": "See suites in dry-run command manifest",
+      "missing": "not_executed_or_failed",
+      "stop_condition": "FAIL/missing/stale/ambiguous/timeout: no dependent motion; retain logs; parent diagnoses before changed-evidence retry"
+    },
+    {
+      "id": "O12",
+      "level": "offline",
+      "suite": "focused",
+      "requires": [
+        "O03"
+      ],
+      "requirement": "Prepared immutable grid reach kernel and expiry regressions",
+      "source": "tests/test_predictive_reach.py; predictive_reach.py",
+      "expected": "Filled body plus caller-supplied whole-stop reach/uncertainty; explicit occupancy unknown normalization and frame/epoch/time/deadline rejection; NOT runtime veto/stop qualification",
+      "command": "See suites in dry-run command manifest",
+      "missing": "not_executed_or_failed",
+      "stop_condition": "FAIL/missing/stale/ambiguous/timeout: no dependent motion; retain logs; parent diagnoses before changed-evidence retry"
+    },
+    {
+      "id": "R01",
+      "level": "live",
+      "suite": null,
+      "requires": [
+        "O01",
+        "O07"
+      ],
+      "requirement": "Current session environment, source/binary/model/profile identities",
+      "source": "setup_course_humble.sh --json; prepare_rl_sar.py; actual resolved copy install",
+      "expected": "Environment ready:true; fixed unchanged policy; loaded hashes and exact effective parameters recorded",
+      "command": "/usr/bin/python3 scripts/navigation_validation.py --output /tmp/NEW-EXCLUSIVE-DIRECTORY",
+      "missing": "Requires current-session independently reviewed physical evidence and implemented gates: setup_course_humble.sh --json; prepare_rl_sar.py; actual resolved copy install",
+      "stop_condition": "FAIL/missing/stale/ambiguous/timeout: no dependent motion; retain logs; parent diagnoses before changed-evidence retry"
+    },
+    {
+      "id": "R02",
+      "level": "live",
+      "suite": null,
+      "requires": [
+        "R01"
+      ],
+      "requirement": "Single owned Gazebo/ROS domain and no competing goals/actions/commands",
+      "source": "ros_transport.py:graph; launch lease and owned PID/starttime/PGID",
+      "expected": "Unique clock/SLAM/adapter; exact expected producers; owned UUID; foreign producer abort",
+      "command": "/usr/bin/python3 scripts/navigation_validation.py --output /tmp/NEW-EXCLUSIVE-DIRECTORY",
+      "missing": "Requires current-session independently reviewed physical evidence and implemented gates: ros_transport.py:graph; launch lease and owned PID/starttime/PGID",
+      "stop_condition": "FAIL/missing/stale/ambiguous/timeout: no dependent motion; retain logs; parent diagnoses before changed-evidence retry"
+    },
+    {
+      "id": "R03",
+      "level": "live",
+      "suite": null,
+      "requires": [
+        "R01",
+        "O02"
+      ],
+      "requirement": "Live sensors/clock/body stability and coherent localization",
+      "source": "check_initialization.py; coherent_localization; session journal",
+      "expected": "Fast source/receipt \u2264.5 s, monotonic clock, no >.3 source/.5 wall sample gaps, no >.2 m jumps",
+      "command": "/usr/bin/python3 scripts/navigation_validation.py --output /tmp/NEW-EXCLUSIVE-DIRECTORY",
+      "missing": "Requires current-session independently reviewed physical evidence and implemented gates: check_initialization.py; coherent_localization; session journal",
+      "stop_condition": "FAIL/missing/stale/ambiguous/timeout: no dependent motion; retain logs; parent diagnoses before changed-evidence retry"
+    },
+    {
+      "id": "R04",
+      "level": "live",
+      "suite": null,
+      "requires": [
+        "R03"
+      ],
+      "requirement": "Structural SLAM cadence and >=30 sim s passive observation",
+      "source": "StructuralMapCadence; stationary.py",
+      "expected": "Source age \u22647.5 s; measured wall allowance in [7.5,20] s; >=3 advancing maps; retained raw points/TF",
+      "command": "/usr/bin/python3 scripts/navigation_validation.py --output /tmp/NEW-EXCLUSIVE-DIRECTORY",
+      "missing": "Requires current-session independently reviewed physical evidence and implemented gates: StructuralMapCadence; stationary.py",
+      "stop_condition": "FAIL/missing/stale/ambiguous/timeout: no dependent motion; retain logs; parent diagnoses before changed-evidence retry"
+    },
+    {
+      "id": "L01",
+      "level": "live",
+      "suite": null,
+      "requires": [
+        "R04",
+        "O01"
+      ],
+      "requirement": "Automatic sensor-only saved/live registration, independent holdout and ambiguity rejection",
+      "source": "contract.py currently operator pairs only; sensor-fit-complete.json historical diagnostic",
+      "expected": "Noncollinear fit/holdout geometry; conservative local uncertainty fits reserve; no truth/world substitution; two fresh passive starts; \u226430 wall s / \u22642 new-observation attempts",
+      "command": "/usr/bin/python3 scripts/navigation_validation.py --output /tmp/NEW-EXCLUSIVE-DIRECTORY",
+      "missing": "Requires current-session independently reviewed physical evidence and implemented gates: contract.py currently operator pairs only; sensor-fit-complete.json historical diagnostic",
+      "stop_condition": "FAIL/missing/stale/ambiguous/timeout: no dependent motion; retain logs; parent diagnoses before changed-evidence retry"
+    },
+    {
+      "id": "L02",
+      "level": "live",
+      "suite": null,
+      "requires": [
+        "L01"
+      ],
+      "requirement": "Same-session frame/map/epoch/graph binding, expiry and moving drift monitor",
+      "source": "check_registration; missing automatic local bound monitor",
+      "expected": "Exact hashes/GIDs and observation times; age \u2264120 s; rollback/map/frame/uncertainty drift abort",
+      "command": "/usr/bin/python3 scripts/navigation_validation.py --output /tmp/NEW-EXCLUSIVE-DIRECTORY",
+      "missing": "Requires current-session independently reviewed physical evidence and implemented gates: check_registration; missing automatic local bound monitor",
+      "stop_condition": "FAIL/missing/stale/ambiguous/timeout: no dependent motion; retain logs; parent diagnoses before changed-evidence retry"
+    },
+    {
+      "id": "P01",
+      "level": "live",
+      "suite": null,
+      "requires": [
+        "R02",
+        "R04",
+        "O03"
+      ],
+      "requirement": "Zero-action Nav2 readiness: effective Smac2D+DWB, costmaps and footprint",
+      "source": "verify_runtime; nav2_smac2d_diag.yaml; current live costmaps",
+      "expected": "No FollowPath; recorded active lifecycle/plugins, controller 20 Hz, padded 1.50\u00d7.86 m, unknown blocked, local odom/global map frames coherent",
+      "command": "/usr/bin/python3 scripts/navigation_validation.py --output /tmp/NEW-EXCLUSIVE-DIRECTORY",
+      "missing": "Requires current-session independently reviewed physical evidence and implemented gates: verify_runtime; nav2_smac2d_diag.yaml; current live costmaps",
+      "stop_condition": "FAIL/missing/stale/ambiguous/timeout: no dependent motion; retain logs; parent diagnoses before changed-evidence retry"
+    },
+    {
+      "id": "P02",
+      "level": "live",
+      "suite": null,
+      "requires": [
+        "P01",
+        "L02"
+      ],
+      "requirement": "Exact segment path certificate including actual Start/heading and stop pockets",
+      "source": "preflight; assess_path; continuous.certify_path",
+      "expected": "Sensor-supported filled body plus registration/tracking/latency/braking reserve; no future disk entry; post-smoothing actual FollowPath bytes checked; \u226430 wall s",
+      "command": "/usr/bin/python3 scripts/navigation_validation.py --output /tmp/NEW-EXCLUSIVE-DIRECTORY",
+      "missing": "Requires current-session independently reviewed physical evidence and implemented gates: preflight; assess_path; continuous.certify_path",
+      "stop_condition": "FAIL/missing/stale/ambiguous/timeout: no dependent motion; retain logs; parent diagnoses before changed-evidence retry"
+    },
+    {
+      "id": "C01",
+      "level": "live",
+      "suite": null,
+      "requires": [
+        "O03",
+        "P01"
+      ],
+      "requirement": "Predictive filled-body/uncertainty/braking veto in effective adapter path",
+      "source": "Missing runtime integration; current sample checks instantaneous footprint only",
+      "expected": "Cached immutable saved/live/local/global grids; own frames/source times; actual motion+command latency+conservative stop; unknown/offmap/frame/stale/deadline/no progress fail closed",
+      "command": "/usr/bin/python3 scripts/navigation_validation.py --output /tmp/NEW-EXCLUSIVE-DIRECTORY",
+      "missing": "Requires current-session independently reviewed physical evidence and implemented gates: Missing runtime integration; current sample checks instantaneous footprint only",
+      "stop_condition": "FAIL/missing/stale/ambiguous/timeout: no dependent motion; retain logs; parent diagnoses before changed-evidence retry"
+    },
+    {
+      "id": "C02",
+      "level": "live",
+      "suite": null,
+      "requires": [
+        "C01"
+      ],
+      "requirement": "Replay deadline qualification and independent owned-stack abort",
+      "source": "Missing action-independent adapter latch/ownership supervisor",
+      "expected": "Cycle p99 <50 ms at20 Hz; freeze worst abort latency; unresolved/late handle, rejected cancel, dead controller, localization and recorder faults produce zero and measured physical stop",
+      "command": "/usr/bin/python3 scripts/navigation_validation.py --output /tmp/NEW-EXCLUSIVE-DIRECTORY",
+      "missing": "Requires current-session independently reviewed physical evidence and implemented gates: Missing action-independent adapter latch/ownership supervisor",
+      "stop_condition": "FAIL/missing/stale/ambiguous/timeout: no dependent motion; retain logs; parent diagnoses before changed-evidence retry"
+    },
+    {
+      "id": "K01",
+      "level": "live",
+      "suite": null,
+      "requires": [
+        "O05",
+        "R03"
+      ],
+      "requirement": "All-body physical contact coverage or independent geometry evaluator",
+      "source": "26 ECS entities alone insufficient; non-foot engine mapping unproved",
+      "expected": "Positive all non-foot engine construction/mapping or independently bounded collision evaluator; source inventory hashes; preserve self-collision settings; unknown coverage INCONCLUSIVE",
+      "command": "/usr/bin/python3 scripts/navigation_validation.py --output /tmp/NEW-EXCLUSIVE-DIRECTORY",
+      "missing": "Requires current-session independently reviewed physical evidence and implemented gates: 26 ECS entities alone insufficient; non-foot engine mapping unproved",
+      "stop_condition": "FAIL/missing/stale/ambiguous/timeout: no dependent motion; retain logs; parent diagnoses before changed-evidence retry"
+    },
+    {
+      "id": "K02",
+      "level": "live",
+      "suite": null,
+      "requires": [
+        "K01"
+      ],
+      "requirement": "Contact sequence/interval closure through accepted stop timestamp",
+      "source": "Missing route ContactEvidence wiring/end-watermark; v2 observer metadata available",
+      "expected": "Coherent inventory/contact sequence; every physics step; sticky forbidden veto; report interval end >=accepted stop/end; lost/duplicate/late-tail reports fail",
+      "command": "/usr/bin/python3 scripts/navigation_validation.py --output /tmp/NEW-EXCLUSIVE-DIRECTORY",
+      "missing": "Requires current-session independently reviewed physical evidence and implemented gates: Missing route ContactEvidence wiring/end-watermark; v2 observer metadata available",
+      "stop_condition": "FAIL/missing/stale/ambiguous/timeout: no dependent motion; retain logs; parent diagnoses before changed-evidence retry"
+    },
+    {
+      "id": "B01",
+      "level": "live",
+      "suite": null,
+      "requires": [
+        "O04",
+        "R02"
+      ],
+      "requirement": "Current-session recording/disk/rate budget and seal",
+      "source": "BinaryJournal; verify_recording_capacity",
+      "expected": ">=5 wall s measured throughput; >=2\u00d7max(mean,.5s peak,current bucket)\u00d7(trial+60s), hard queue/disk failures veto; successful seal and full replay",
+      "command": "/usr/bin/python3 scripts/navigation_validation.py --output /tmp/NEW-EXCLUSIVE-DIRECTORY",
+      "missing": "Requires current-session independently reviewed physical evidence and implemented gates: BinaryJournal; verify_recording_capacity",
+      "stop_condition": "FAIL/missing/stale/ambiguous/timeout: no dependent motion; retain logs; parent diagnoses before changed-evidence retry"
+    },
+    {
+      "id": "E1",
+      "level": "live",
+      "suite": null,
+      "requires": [
+        "L02",
+        "P01",
+        "C02",
+        "K02",
+        "B01"
+      ],
+      "requirement": "Open-pocket locomotion/stop calibration before corridor",
+      "source": "Local saved/live geometry historical only; bootstrap stop allowance must be frozen anew",
+      "expected": "\u226490 sim/180 wall s; 1 motion slot; start .05 forward; .10/.15 only within measured margin; joints/roll/pitch/yaw/slip/SLAM+evaluation speed/lag/postzero excursion recorded; no corridor entry",
+      "command": "/usr/bin/python3 scripts/navigation_validation.py --output /tmp/NEW-EXCLUSIVE-DIRECTORY",
+      "missing": "Requires current-session independently reviewed physical evidence and implemented gates: Local saved/live geometry historical only; bootstrap stop allowance must be frozen anew",
+      "stop_condition": "FAIL/missing/stale/ambiguous/timeout: no dependent motion; retain logs; parent diagnoses before changed-evidence retry"
+    },
+    {
+      "id": "S01",
+      "level": "live",
+      "suite": null,
+      "requires": [
+        "E1",
+        "P02",
+        "K02",
+        "B01"
+      ],
+      "requirement": "Independent Start\u2192G1 qualification and execution",
+      "source": "Missing single-segment motion runner; count currently only 2/5",
+      "expected": "Current local corridor-independent path/uncertainty/stop gates; exact G1 identity and .25 m passage; G2\u2013G5 forbidden; \u2264180 sim/300 wall s ceiling, tighter frozen limit before run",
+      "command": "/usr/bin/python3 scripts/navigation_validation.py --output /tmp/NEW-EXCLUSIVE-DIRECTORY",
+      "missing": "Requires current-session independently reviewed physical evidence and implemented gates: Missing single-segment motion runner; count currently only 2/5",
+      "stop_condition": "FAIL/missing/stale/ambiguous/timeout: no dependent motion; retain logs; parent diagnoses before changed-evidence retry"
+    },
+    {
+      "id": "V01",
+      "level": "live",
+      "suite": null,
+      "requires": [
+        "S01"
+      ],
+      "requirement": "G1 sensor viewpoint and SLAM/costmap update before G1\u2192G2",
+      "source": "Retain raw lidar, SLAM map, exact transforms and revision hashes at G1",
+      "expected": "Certify observation approach/turn/stop from sensor free volume; observe both critical boundaries; no source-world guides or entering uncertified passage for visibility",
+      "command": "/usr/bin/python3 scripts/navigation_validation.py --output /tmp/NEW-EXCLUSIVE-DIRECTORY",
+      "missing": "Requires current-session independently reviewed physical evidence and implemented gates: Retain raw lidar, SLAM map, exact transforms and revision hashes at G1",
+      "stop_condition": "FAIL/missing/stale/ambiguous/timeout: no dependent motion; retain logs; parent diagnoses before changed-evidence retry"
+    },
+    {
+      "id": "M01",
+      "level": "live",
+      "suite": null,
+      "requires": [
+        "V01",
+        "O01"
+      ],
+      "requirement": "Derived map provenance and explicit execution adapter",
+      "source": "map_derivation.py metadata-only parent exists; sensor correction/execution adapter absent",
+      "expected": "Original goals/PGM/source preserved; parent/raw message hashes/TF/algorithm/changed cells and evidence; unknown blocked; no erosion/free stripe; reload native map counts",
+      "command": "/usr/bin/python3 scripts/navigation_validation.py --output /tmp/NEW-EXCLUSIVE-DIRECTORY",
+      "missing": "Requires current-session independently reviewed physical evidence and implemented gates: map_derivation.py metadata-only parent exists; sensor correction/execution adapter absent",
+      "stop_condition": "FAIL/missing/stale/ambiguous/timeout: no dependent motion; retain logs; parent diagnoses before changed-evidence retry"
+    },
+    {
+      "id": "P03",
+      "level": "live",
+      "suite": null,
+      "requires": [
+        "M01",
+        "L02",
+        "E1",
+        "C02"
+      ],
+      "requirement": "Connected heading-aware mandatory corridor path and quantitative reserve",
+      "source": "Start-only raw 300-scan replay rear boundary unobserved; source-world clearance evaluation only",
+      "expected": "Fit tangent from sensor boundaries; aligned entry, bounded heading through full bottleneck, tail exits before turn; registration+map+body+tracking+latency+braking positive reserve",
+      "command": "/usr/bin/python3 scripts/navigation_validation.py --output /tmp/NEW-EXCLUSIVE-DIRECTORY",
+      "missing": "Requires current-session independently reviewed physical evidence and implemented gates: Start-only raw 300-scan replay rear boundary unobserved; source-world clearance evaluation only",
+      "stop_condition": "FAIL/missing/stale/ambiguous/timeout: no dependent motion; retain logs; parent diagnoses before changed-evidence retry"
+    },
+    {
+      "id": "S12",
+      "level": "live",
+      "suite": null,
+      "requires": [
+        "S01",
+        "P03",
+        "K02",
+        "B01"
+      ],
+      "requirement": "Independent G1\u2192G2 critical segment",
+      "source": "No qualified live trial",
+      "expected": "Mandatory portal full-body traversal/tail exit; exact ordered .25 m goals; no collision; terminal stop/cleanup; \u2264180 sim/300 wall s; max2 critical trials/family",
+      "command": "/usr/bin/python3 scripts/navigation_validation.py --output /tmp/NEW-EXCLUSIVE-DIRECTORY",
+      "missing": "Requires current-session independently reviewed physical evidence and implemented gates: No qualified live trial",
+      "stop_condition": "FAIL/missing/stale/ambiguous/timeout: no dependent motion; retain logs; parent diagnoses before changed-evidence retry"
+    },
+    {
+      "id": "S23",
+      "level": "live",
+      "suite": null,
+      "requires": [
+        "S12",
+        "P02"
+      ],
+      "requirement": "Independent G2\u2192G3 segment",
+      "source": "No qualified live trial",
+      "expected": "Current Start connection, future-region exclusion, filled-body reserve, .25 m G3 passage, verified stop and cleanup; \u2264180 sim/300 wall s ceiling",
+      "command": "/usr/bin/python3 scripts/navigation_validation.py --output /tmp/NEW-EXCLUSIVE-DIRECTORY",
+      "missing": "Requires current-session independently reviewed physical evidence and implemented gates: No qualified live trial",
+      "stop_condition": "FAIL/missing/stale/ambiguous/timeout: no dependent motion; retain logs; parent diagnoses before changed-evidence retry"
+    },
+    {
+      "id": "D34",
+      "level": "live",
+      "suite": null,
+      "requires": [
+        "O03",
+        "M01"
+      ],
+      "requirement": "Reviewed G3\u2192G4 alternative and consistent contract revision",
+      "source": "continuous-detour.json: .020 m extra/.029010 m residual; needs >4.937524033 m band plus actual uncertainty",
+      "expected": "Exact endpoint headings/rotations; selection/planner/evaluator bound to same explicit revised ordinary corridor polygon/band; preserve G1\u2192G2 and all goals; recertify smoothing",
+      "command": "/usr/bin/python3 scripts/navigation_validation.py --output /tmp/NEW-EXCLUSIVE-DIRECTORY",
+      "missing": "Requires current-session independently reviewed physical evidence and implemented gates: continuous-detour.json: .020 m extra/.029010 m residual; needs >4.937524033 m band plus actual uncertainty",
+      "stop_condition": "FAIL/missing/stale/ambiguous/timeout: no dependent motion; retain logs; parent diagnoses before changed-evidence retry"
+    },
+    {
+      "id": "S34",
+      "level": "live",
+      "suite": null,
+      "requires": [
+        "S23",
+        "D34",
+        "P02"
+      ],
+      "requirement": "Independent G3\u2192G4 critical geometry/control segment",
+      "source": "No qualified live trial",
+      "expected": "Current map/frame and actual start; approved alternative if justified; .25 m G4 passage; future G5 excluded; verified stop/cleanup; \u2264180 sim/300 wall s ceiling",
+      "command": "/usr/bin/python3 scripts/navigation_validation.py --output /tmp/NEW-EXCLUSIVE-DIRECTORY",
+      "missing": "Requires current-session independently reviewed physical evidence and implemented gates: No qualified live trial",
+      "stop_condition": "FAIL/missing/stale/ambiguous/timeout: no dependent motion; retain logs; parent diagnoses before changed-evidence retry"
+    },
+    {
+      "id": "S45",
+      "level": "live",
+      "suite": null,
+      "requires": [
+        "S34",
+        "P02"
+      ],
+      "requirement": "Independent G4\u2192G5 segment and final yaw",
+      "source": "No qualified live trial",
+      "expected": "Exact G5 identity/yaw, .25 m region, yaw error \u2264.3 rad, full final hold and collision closure; \u2264180 sim/300 wall s ceiling",
+      "command": "/usr/bin/python3 scripts/navigation_validation.py --output /tmp/NEW-EXCLUSIVE-DIRECTORY",
+      "missing": "Requires current-session independently reviewed physical evidence and implemented gates: No qualified live trial",
+      "stop_condition": "FAIL/missing/stale/ambiguous/timeout: no dependent motion; retain logs; parent diagnoses before changed-evidence retry"
+    },
+    {
+      "id": "T01",
+      "level": "live",
+      "suite": null,
+      "requires": [
+        "S01",
+        "S12",
+        "S23",
+        "S34",
+        "S45"
+      ],
+      "requirement": "Continuous transitions without stitched starts",
+      "source": "Missing segment transition runner/physical evidence",
+      "expected": "One uninterrupted session preserves regions/portal/tail order, command ownership, turning and braking certificates at every join; any map/config change recertifies",
+      "command": "/usr/bin/python3 scripts/navigation_validation.py --output /tmp/NEW-EXCLUSIVE-DIRECTORY",
+      "missing": "Requires current-session independently reviewed physical evidence and implemented gates: Missing segment transition runner/physical evidence",
+      "stop_condition": "FAIL/missing/stale/ambiguous/timeout: no dependent motion; retain logs; parent diagnoses before changed-evidence retry"
+    },
+    {
+      "id": "F01",
+      "level": "live",
+      "suite": null,
+      "requires": [
+        "T01",
+        "B01",
+        "K02"
+      ],
+      "requirement": "One complete fresh Start\u2192G5 route",
+      "source": "No full-route run",
+      "expected": "\u2264600 sim/900 wall s; all five ordered .25 m regions, mandatory passage, collision-safe, G5 final yaw, \u22655 source/3 wall s hold; all hold poses within region; actual speed\u2264.03 m/s yaw\u2264.03 rad/s command\u2264.01 excursion\u2264.03 m; contact closes hold",
+      "command": "/usr/bin/python3 scripts/navigation_validation.py --output /tmp/NEW-EXCLUSIVE-DIRECTORY",
+      "missing": "Requires current-session independently reviewed physical evidence and implemented gates: No full-route run",
+      "stop_condition": "FAIL/missing/stale/ambiguous/timeout: no dependent motion; retain logs; parent diagnoses before changed-evidence retry"
+    },
+    {
+      "id": "F03",
+      "level": "live",
+      "suite": null,
+      "requires": [
+        "F01"
+      ],
+      "requirement": "Three consecutive fresh complete accepts seeds0/1/2",
+      "source": "0/3 accepts; no seed-qualified route",
+      "expected": "Same frozen map/config/route/library hashes; any change resets count; total\u226410 motion slots/3 families/2 critical trials per family; \u226421600 total live-stack wall s",
+      "command": "/usr/bin/python3 scripts/navigation_validation.py --output /tmp/NEW-EXCLUSIVE-DIRECTORY",
+      "missing": "Requires current-session independently reviewed physical evidence and implemented gates: 0/3 accepts; no seed-qualified route",
+      "stop_condition": "FAIL/missing/stale/ambiguous/timeout: no dependent motion; retain logs; parent diagnoses before changed-evidence retry"
+    },
+    {
+      "id": "A01",
+      "level": "live",
+      "suite": null,
+      "requires": [
+        "F03"
+      ],
+      "requirement": "Independent raw replay, metrics, video, review bundle and successful artifact archive",
+      "source": "No successful artifacts eligible for repository",
+      "expected": "Recompute all accepts from complete raw journal; matching route/collision/stop outcome, all hashes, commands, failures, budgets, processes, sim-time video; archive only independently verified success after final success",
+      "command": "/usr/bin/python3 scripts/navigation_validation.py --output /tmp/NEW-EXCLUSIVE-DIRECTORY",
+      "missing": "Requires current-session independently reviewed physical evidence and implemented gates: No successful artifacts eligible for repository",
+      "stop_condition": "FAIL/missing/stale/ambiguous/timeout: no dependent motion; retain logs; parent diagnoses before changed-evidence retry"
+    }
+  ]
+}

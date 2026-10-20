@@ -22,6 +22,9 @@ def main(argv=None):
     e=sub.add_parser('run');e.add_argument('--selection',type=Path,required=True);e.add_argument('--session',type=Path,required=True);e.add_argument('--mode',choices=['critical','full'],default='critical');e.add_argument('--execute-user-run',action='store_true',required=True)
     a=p.parse_args(argv)
     try:
+        if a.command=='run':
+            from stage4_route.motion_qualification import require_motion_qualification
+            require_motion_qualification()
         if a.command=='select':
             path=select_candidate(a.candidate,a.map,a.output);print(path);return 0
         if a.command=='register':

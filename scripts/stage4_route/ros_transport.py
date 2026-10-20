@@ -405,7 +405,8 @@ class RosTransport:
             cm=self.messages['/global_costmap/costmap_raw']
             if cm.header.frame_id!='map' or self.age('/global_costmap/costmap_raw')>2:raise ValueError('Missing fresh global costmap')
             poses=[[p.pose.position.x,p.pose.position.y,yaw(p.pose.orientation)] for p in path.poses]
-            report=assess_path(poses,goals,[s['x'],s['y']],[self.saved,grid(cm,True)])
+            report=assess_path(poses,goals,[s['x'],s['y']],[self.saved,grid(cm,True)],
+                               start_pose=[s['x'],s['y'],s['yaw']])
             report.update(action_status=result.status,path=poses,global_costmap_sha256=object_hash(grid(cm,True)))
             self.audit['preflight']=report
             self.checked_path=path
@@ -429,6 +430,8 @@ class RosTransport:
         from unique_identifier_msgs.msg import UUID
         self.failure=self.failure or self.journal.failure
         if self.failure:raise ValueError(self.failure)
+        from .motion_qualification import require_motion_qualification
+        require_motion_qualification()
         self.verify_recording_capacity(getattr(self,'run_wall_limit',None))
         if self.graph()!=self.registration_graph:raise ValueError('Session changed before preflight')
         self.preflight(goals)

@@ -46,6 +46,10 @@ class ContactEvidence:
 
     def contacts(self, pairs, *, stamp, wall):
         self._update('contacts', stamp, wall)
+        self.check_pairs(pairs)
+
+    def check_pairs(self, pairs):
+        """Veto immediately, before paired metadata can establish freshness."""
         for pair in pairs:
             if len(pair) != 2 or any(not isinstance(n, str) or not n for n in pair):
                 self.failure = self.failure or 'invalid_contact_pair'

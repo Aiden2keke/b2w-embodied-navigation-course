@@ -24,7 +24,55 @@
 - 旧实施计划归档至 `docs/plans/archive/2026-10-10-local-course-system-plan.md`。历史 design/validation 保留为证据，不是另一个当前 roadmap。无新增 HANDOFF。
 - 历史轮次只读与 timing 交付已结束；本轮范围以最新用户请求和下方 NOW 为准。旧实验/交付记录只作历史证据。
 
-## NOW — Resume after geometry review: sensor/model reconciliation (Oct 20)
+## NOW — Validation-driven segment qualification (Oct 20)
+
+Latest user instruction explicitly assigns deterministic validation to Luna and
+independent safety assessment/fixes/qualification to the parent. This supersedes
+the historical no-subagent note below. Continue only in the existing isolated
+`/tmp/b2w-unattended-worktree-20261019` experimental branch; preserve the original
+checkout and all sealed evidence. Baseline checkpoint: `8f5d695`.
+
+Validation contract: [LUNA_VALIDATION_HANDOFF.md](docs/LUNA_VALIDATION_HANDOFF.md)
+and `course_navigation/config/navigation_validation_matrix.json`. The Bash wrapper
+`scripts/run_navigation_validation.sh` runs deterministic offline tests, writes an
+exclusive external checklist/log directory and never authorizes motion. All live
+requirements remain FAIL until current-session independent evidence is available.
+
+- [x] Luna reproduced the 98-test baseline, native observer CTest, and verified
+  the prior 420-file/5,957,109,524-byte sealed bundle plus incremental Git bundle.
+- [x] Deliver complete validation matrix, commands, expected outcomes, dependencies,
+  evidence paths, time/attempt ceilings and explicit stop conditions to Luna.
+- [x] Close unsafe legacy CLI/direct-transport motion dispatch with a default-deny
+  interlock. No runtime flag/environment/JSON boolean can bypass qualification.
+- [x] Add paired/contiguous contact interval evaluation and final-watermark tests.
+  Exact historical replay: 62,763 records, 943 pairs, no contact veto, but final
+  47.5 ms unclosed. This is a failed end-coverage test, not collision safety PASS.
+- [x] Add independent segment evidence with original identities/future-goal checks,
+  previous-goal Start region and measured Start agreement. No segment is full pass.
+- [x] Include actual measured Start/yaw→first Path connection in preflight proof.
+- [x] Add offline immutable prepared-grid reach kernel. Historical 640k-cell map,
+  2,000 calls p99 about19 microseconds; assumed reach bounds, no live timing claim.
+- [ ] Integrate predictive veto into the sole effective adapter publication path;
+  qualify an action-independent owned inhibit/abort, all-body physics coverage,
+  automatic sensor-only local registration bounds and stop/contact closure.
+- [ ] Qualify local E1, then Start→G1 using only its local safety requirements.
+  Do not require full-corridor visibility for this independently safe segment.
+  Stop at G1 to update/validate sensor SLAM/costmaps before G1→G2.
+- [ ] Qualify G1→G2, G2→G3, G3→G4 and G4→G5 separately; explicit G3→G4 alternative
+  contract revision required if selected. Then continuous transitions and fresh
+  full-route integration; retain three accepted fresh seeds0/1/2 requirement.
+
+Specific current motion blockers: no qualified independent abort/complete-chain
+physical stop; no proven non-foot engine coverage or independent body evaluator;
+no conservative current-session sensor registration/error reserve. The offline
+kernel/evaluator and historical short-step data do not resolve these. Do not spend
+motion slots or repeat the old occluded stationary view to bypass them. No new
+live stack or motion was started by this continuation. Inherited budget remains
+211.308248/21600 live-stack wall seconds, zero/10 motion attempts, five stationary
+starts, three families and two critical trials per family ceilings. No successful
+route artifacts are eligible for repository curation.
+
+## Historical — Resume after geometry review: sensor/model reconciliation (Oct 20)
 
 Latest user instruction authorizes autonomous scoped development, stationary
 Gazebo observation, sensor/map capture, planner-only tests and provisional local
