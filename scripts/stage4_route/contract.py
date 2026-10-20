@@ -79,6 +79,8 @@ def select_candidate(candidate,map_path,output):
 
 def load_selection(path):
     s=json.loads(Path(path).read_text())
+    if s.get('kind') != 'stage4_explicit_execution_selection':
+        raise ValueError('Not an execution selection; geometry/derivation artifacts cannot authorize motion')
     if s!=selection_document(s['candidate'],s['source_map']['yaml_path']):
         raise ValueError('Execution selection differs from authenticated source adaptation')
     return s

@@ -10,6 +10,24 @@ import time
 import numpy as np
 
 
+def geometry_analysis(slice_result):
+    """Describe a necessary geometry test without claiming path or motion readiness.
+
+    A reference-grid exclusion blocks that envelope's route, while still allowing
+    passive evidence collection to identify map/model errors. A sampled clear
+    pose proves only that the slice is not wholly excluded.
+    """
+    if slice_result['all_poses_blocked']:
+        status = 'EXCLUDED'
+    elif slice_result.get('clear_example') is not None:
+        status = 'CLEAR_POSE_FOUND'
+    else:
+        status = 'UNRESOLVED'
+    return dict(slice_status=status, connected_path_status='UNRESOLVED',
+                sensor_map_status='UNRESOLVED', motion_ready=False,
+                next_stage='GEOMETRY_EVIDENCE')
+
+
 class RectangleGrid:
     def __init__(self, grid, *, half_length=.75, half_width=.43):
         self.grid = grid

@@ -11,7 +11,7 @@ from pathlib import Path
 import sys
 import numpy as np
 from stage4_route.contract import select_candidate, load_selection, digest, write_new, ROOT
-from stage4_route.route_geometry import RectangleGrid, capsule_slice, exclude_slice
+from stage4_route.route_geometry import RectangleGrid, capsule_slice, exclude_slice, geometry_analysis
 from stage4_route.spatial import saved_grid
 from waypoint_editor.core import Map, transform_polygon, polygons_overlap
 
@@ -57,7 +57,9 @@ def audit(candidate, map_path, output):
         result['independent_witness_samples_checked']=9*len(result['witnesses'])
         results.append(result)
     excluded=[r['extra_half_extent_m'] for r in results if r['all_poses_blocked']]
-    report=dict(result='BLOCKED_GEOMETRY',full_route_pass=False,motion_authorized_by_report=False,
+    state=geometry_analysis(next(r for r in results if r['extra_half_extent_m']==.0075))
+    report=dict(result='BLOCKED_GEOMETRY' if excluded else 'GEOMETRY_UNRESOLVED',
+                **state, full_route_pass=False,motion_authorized_by_report=False,
                 selection_sha256=digest(selected),source_map=s['source_map'],goals=s['goals'],
                 code_sha256={str(p.relative_to(ROOT)):digest(p) for p in [Path(__file__).resolve(),ROOT/'scripts/stage4_route/route_geometry.py']},
                 padded_footprint_m=[1.5,.86],existing_padding_per_side_m=.05,
@@ -74,7 +76,7 @@ def audit(candidate, map_path, output):
                     'No same-session sensor registration, source-map projection defect proof, or physical width measurement',
                     'World collision geometry has no independently established map/world transform',
                     'No Start pose, measured braking envelope, complete contact coverage or predictive DWB body critic'],
-                next_action='Establish sensor-based corridor/map registration and its local uncertainty; prove any projection correction independently in a derived map, or establish a complete combined error envelope below the certified bound. Re-run geometry before motion.')
+                next_action='Continue bounded stationary/offline sensor boundary and registration investigation. A reference-raster exclusion does not block passive evidence acquisition. Prove corrections in a separately bound derived map; certify connected swept-body geometry and uncertainty before motion.')
     write_new(output/'geometry-report.json',report)
     plot(m,s,report,output/'geometry.png')
     return report
@@ -106,7 +108,7 @@ def main(argv=None):
     p.add_argument('--candidate',type=Path,required=True);p.add_argument('--map',type=Path,required=True);p.add_argument('--output',type=Path,required=True)
     a=p.parse_args(argv);r=audit(a.candidate,a.map,a.output)
     print(json.dumps({k:r[k] for k in ['result','full_route_pass','extra_envelope_excluded_at_or_above_m','gate_G2_passed']}))
-    return 2
+    return 2 if r['result']=='BLOCKED_GEOMETRY' else 3
 
 
 if __name__=='__main__':sys.exit(main())

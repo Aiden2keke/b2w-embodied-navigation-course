@@ -76,10 +76,14 @@ def assess_path(path,goals,start,grids):
             a=start if index==0 else goals[index-1]['position'];b=goals[index]['position']
             if distance(p[:2],a,b)>(.35 if index==1 else 3.):detours.append(i)
             if errors[index]<=.25:index+=1
-    return dict(passed=not bad and not detours and not out_of_order and index==len(goals) and
+    from .continuous import certify_path
+    continuous=certify_path(path,grids)
+    return dict(passed=continuous['continuous_clearance_proven'] and not bad and not detours and not out_of_order and index==len(goals) and
                 math.dist(path[-1][:2],goals[-1]['position'])<=.25 and
                 abs(math.remainder(path[-1][2]-goals[-1]['yaw_rad'],math.tau))<=.3,
                 sampled_footprint_blocked=len(bad),first_blocked_pose=samples[bad[0]] if bad else None,
                 disallowed_detour_samples=len(detours),out_of_order_planned_samples=len(out_of_order),ordered_planned_regions=index,
                 per_goal_planned_minimum_xy_m=minimum,samples=len(samples),
-                physical_passage_proven=False,continuous_clearance_proven=False)
+                physical_passage_proven=False,
+                continuous_clearance_proven=continuous['continuous_clearance_proven'],
+                continuous_certificate=continuous)
