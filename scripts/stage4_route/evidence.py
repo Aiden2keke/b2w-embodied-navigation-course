@@ -10,12 +10,14 @@ def distance(p,a,b):
 
 
 class RouteEvidence:
-    def __init__(self,goals,*,start,count=5,start_index=0):
+    def __init__(self,goals,*,start,count=5,start_index=0,portal=None):
         if (type(count) is not int or type(start_index) is not int or len(goals)!=5 or
                 count<1 or start_index<0 or start_index+count>5):
             raise ValueError('Select a contiguous segment of the original five goals')
         if len(start)!=2 or any(type(v) not in (int,float) or not math.isfinite(v) for v in start):
             raise ValueError('Start must contain two finite numeric coordinates')
+        from .portal import CorridorPortal
+        self.portal=CorridorPortal(portal) if portal is not None else None
         self.original_goals=copy.deepcopy(goals);self.start_index=start_index
         self.goals=self.original_goals[start_index:start_index+count];self.start=list(start);self.events=[];self.path=[];self.failure=None
         if start_index and math.dist(start,goals[start_index-1]['position'])>.25:
@@ -46,6 +48,9 @@ class RouteEvidence:
             if delta>.2:self.fail('pose_jump');return
             self.path_length+=delta
         self.last=s;self.path.append(dict(s))
+        if self.portal is not None:
+            self.portal.observe(s)
+            if self.portal.failure:self.fail(self.portal.failure);return
         if s.get('safety')!='clear':self.fail('unsafe_or_missing_costmap_collision_evidence');return
         errors=[math.hypot(s['x']-g['position'][0],s['y']-g['position'][1]) for g in self.goals]
         for i,d in enumerate(errors):self.minimum[i]=d if self.minimum[i] is None else min(d,self.minimum[i])
@@ -56,7 +61,8 @@ class RouteEvidence:
                 self.fail('out_of_order_'+future['name']);return
         if i<len(self.goals):
             a=self.start if i==0 else self.goals[i-1]['position'];b=self.goals[i]['position']
-            band=.35 if phase==1 else 3.0
+            from .constraints import segment_band
+            band=segment_band(phase)
             if distance((s['x'],s['y']),a,b)>band:self.fail('disallowed_detour');return
             if self.start_index and len(self.path)==1 and math.dist((s['x'],s['y']),self.start)>.03:
                 self.fail('segment_start_pose_mismatch');return
@@ -92,7 +98,8 @@ class RouteEvidence:
               self.last['tf_stamp']-self.stop_since['tf_stamp']>=5. and
               self.last['wall']-self.stop_since['wall']>=3.)
         includes_narrow=self.start_index<=1<self.start_index+len(self.goals)
-        narrow=includes_narrow and len(self.events)>1-self.start_index and self.narrow_samples>=2
+        ordered_narrow=includes_narrow and len(self.events)>1-self.start_index and self.narrow_samples>=2
+        narrow=bool(ordered_narrow and self.portal is not None and self.portal.passed)
         practical=(not self.failure and len(self.events)==len(self.goals) and
                    (narrow or not includes_narrow) and self.status==4 and stop and cleanup)
         full_scope=self.start_index==0 and len(self.goals)==5
@@ -104,6 +111,9 @@ class RouteEvidence:
                     segment_pass=segment_pass,original_goal_start_index=self.start_index,
                     practical_route_pass=bool(practical),historical_005m_benchmark='not_run_unmodified',
                     failure=self.failure,region_events=self.events,narrow_passage_confirmed=narrow,
+                    ordered_narrow_regions_diagnostic=ordered_narrow,
+                    portal_events=self.portal.events if self.portal is not None else {},
+                    corridor_evidence_missing=bool(includes_narrow and self.portal is None),
                     action_status=self.status,terminal_stop_confirmed=bool(stop),cleanup_passed=cleanup,
                     collision_coverage_complete=safety_complete,path_length_m=self.path_length,
                     per_goal_minimum_xy_error_m=dict(zip([g['name'] for g in self.goals],self.minimum)),

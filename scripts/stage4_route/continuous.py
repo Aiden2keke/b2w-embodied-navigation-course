@@ -12,36 +12,7 @@ from scipy.spatial import cKDTree
 from .route_geometry import RectangleGrid
 
 
-class ClearanceGrid(RectangleGrid):
-    def __init__(self, grid):
-        super().__init__(grid)
-        self.tree = cKDTree(self.points)
-
-    def clearance(self, pose, *, cap=.5):
-        x, y, a = self.local_pose(pose)
-        c, s = math.cos(a), math.sin(a)
-        lx, ly = self.length*abs(c)+self.width*abs(s), self.length*abs(s)+self.width*abs(c)
-        boundary = min(x-lx, y-ly, self.grid['width']*self.resolution-x-lx,
-                       self.grid['height']*self.resolution-y-ly)
-        if boundary <= 0:
-            return boundary
-        col, row = math.floor(x/self.resolution), math.floor(y/self.resolution)
-        if self.data[row, col] >= 253:
-            return 0.
-        h = self.resolution/2
-        radius = math.hypot(self.length, self.width) + h*math.sqrt(2) + cap
-        ids = self.tree.query_ball_point([x, y], radius)
-        if not ids:
-            return min(boundary, cap)
-        dx, dy = (self.points[ids]-[x,y]).T
-        gaps = np.maximum.reduce([
-            abs(dx)-lx-h, abs(dy)-ly-h,
-            abs(c*dx+s*dy)-self.length-h*(abs(c)+abs(s)),
-            abs(-s*dx+c*dy)-self.width-h*(abs(c)+abs(s))])
-        # Each positive SAT gap is a lower bound on Euclidean separation;
-        # points outside the search radius have separation >=cap.
-        return float(min(boundary, cap, np.min(gaps)))
-
+from course_navigation.stage4_geometry import ClearanceGrid
 
 def certify_path(path, grids, *, extra=0., max_depth=20, cpu_limit=30., max_checks=100000):
     if (not path or not grids or not math.isfinite(extra) or extra < 0 or

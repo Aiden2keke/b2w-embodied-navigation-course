@@ -15,7 +15,10 @@ MATRIX = ROOT / 'course_navigation/config/navigation_validation_matrix.json'
 FOCUSED = ['stage4_route', 'stage4_transport', 'coherent_localization', 'route_geometry',
            'binary_journal', 'contact_evidence', 'continuous_geometry', 'geometry_audit_states',
            'navigation_map_derivation', 'stationary_capture', 'unqualified_motion',
-           'contact_intervals', 'segment_evidence', 'start_connection', 'predictive_reach']
+           'contact_intervals', 'segment_evidence', 'start_connection', 'predictive_reach',
+           'stage4_safety_guard','stage4_dispatch_deployment','stage4_segment_execution',
+           'corridor_portal','stage4_contact_wiring','stage4_bounds','independent_stop',
+           'navigation_watchdog']
 
 
 def junit_passed(path, *, expected_modules=()):

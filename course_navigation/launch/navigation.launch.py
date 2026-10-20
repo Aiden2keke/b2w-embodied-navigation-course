@@ -62,6 +62,9 @@ def setup(context):
     manager_enabled = LaunchConfiguration('goal_manager_enabled', default='true').perform(context).lower()
     if manager_enabled not in ('true', 'false'):
         raise ValueError('goal_manager_enabled must be true or false')
+    guard_manifest = LaunchConfiguration('stage4_guard_manifest', default='').perform(context)
+    if guard_manifest and (adaptive or manager_enabled != 'false' or not Path(guard_manifest).is_absolute()):
+        raise ValueError('Stage4 requires absolute guard manifest, adaptive_speed:=false and goal_manager_enabled:=false')
     mode = LaunchConfiguration('map_mode').perform(context)
     map_file = LaunchConfiguration('map_file').perform(context)
     if mode not in ['online','fixed'] or (mode == 'fixed' and not Path(map_file).is_file()):
@@ -105,6 +108,7 @@ def setup(context):
              name='lifecycle_manager_navigation', parameters=[{'use_sim_time': True,
              'autostart': True, 'node_names': [s[1] for s in servers]}], output='screen'),
         Node(package='course_navigation', executable='velocity_adapter', parameters=[{'use_sim_time': True,
+             'stage4_guard_manifest': guard_manifest,
              **({'max_linear': cfg.open_command, 'speed_limit_topic': SPEED_TOPIC} if adaptive else {})}], output='screen'),
         Node(package='course_navigation', executable='goal_manager', parameters=[{'use_sim_time': True,
              'results_directory': LaunchConfiguration('results_directory'),
@@ -118,6 +122,7 @@ def setup(context):
 
 def generate_launch_description():
     return LaunchDescription([
+        DeclareLaunchArgument('stage4_guard_manifest', default_value=''),
         DeclareLaunchArgument('goal_manager_enabled', default_value='true'),
         DeclareLaunchArgument('map_mode', default_value='online'),
         DeclareLaunchArgument('map_file', default_value=''),

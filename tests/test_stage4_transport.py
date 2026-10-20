@@ -174,6 +174,7 @@ def test_recording_close_failure_invalidates_nested_cleanup_audit(tmp_path):
 def test_late_owned_acceptance_is_still_cancelled_and_never_passes_deadline(tmp_path,first_spin_advance):
     t=transport();t.raw_path=tmp_path/'raw';t.raw_path.write_bytes(b'')
     t.owned_id='1'*32;t.handle=None;t.result_future=None
+    t.guard_config=dict(session_id='cleanup-test',inhibit_path=str(tmp_path/'inhibit.json'))
     t.nav=NS(destroy=lambda:None);t.node=NS(destroy_node=lambda:None);t.rclpy=NS(shutdown=lambda:None)
     now=[0.];done=[False];cancels=[]
     result=NS(done=lambda:done[0])

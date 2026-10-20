@@ -64,10 +64,10 @@ def selection_document(candidate,map_path):
         policy_sha256=digest(POLICY),source_v1_sha256=p['source_v1_sha256'],
         source_map=e.map.identity,configuration_identity=c['configuration_identity'],
         runtime_config=str(RUNTIME),runtime_config_sha256=digest(RUNTIME),
-        execution=EXECUTION,source_code_sha256={str(p.relative_to(ROOT)):digest(p) for p in sorted((ROOT/'scripts/stage4_route').glob('*.py'))},frame_id='map',radius_m=.25,
+        execution=EXECUTION,source_code_sha256={str(p.relative_to(ROOT)):digest(p) for p in sorted([*(ROOT/'scripts/stage4_route').glob('*.py'),*(ROOT/'course_navigation/course_navigation').glob('stage4_*.py'),ROOT/'course_navigation/course_navigation/velocity_adapter.py'])},frame_id='map',radius_m=.25,
         goals=copy.deepcopy(c['goals']),
-        constraints=dict(narrow_center_band_m=.35,other_segment_band_m=3.0,
-                         basis='acceptance restriction derived from ordered candidate centerlines; not measured physical corridor width'),
+        constraints=__import__('stage4_route.constraints',fromlist=['constraints']).constraints(),
+        route_constraints_sha256=digest(ROOT/'course_navigation/config/stage4_route_constraints.json'),
         candidate_deployable=False,integrity='SHA256 content binding; no digital signature or production approval')
 
 
@@ -107,7 +107,7 @@ def registration(capture,pairs,*,alignment_p95):
         raise ValueError('Map registration uncertain or non-identity: do not execute saved coordinates')
     return dict(kind='stage4_same_session_registration',capture=copy.deepcopy(capture),pairs=copy.deepcopy(pairs),
         fit=dict(xy_offset_m=offset.tolist(),yaw_rad=yaw,max_residual_m=float(max(residual))),
-        occupied_alignment_p95_m=alignment_p95,
+        occupied_alignment_p95_m=alignment_p95,physical_bound_qualified=False,
         uncertainty='Operator landmark correspondence plus occupied-grid agreement; not global relocalization. Reject non-identity; no TF is published.')
 
 

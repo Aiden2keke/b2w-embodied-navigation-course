@@ -12,6 +12,7 @@ import time
 from collections import deque
 from uuid import uuid4
 import yaml
+import hashlib
 from .contract import ROOT,load_selection,digest,object_hash,write_new,check_registration
 from .spatial import MapAlignment,footprint_clear,saved_grid,assess_path
 from .freshness import StructuralMapCadence
@@ -29,6 +30,7 @@ def yaw(q):
 
 def grid(msg,costmap=False):
     m=msg.metadata if costmap else msg.info;o=m.origin
+    if abs(o.orientation.x)>1e-6 or abs(o.orientation.y)>1e-6:raise ValueError('Nonplanar grid origin')
     return dict(width=m.size_x if costmap else m.width,height=m.size_y if costmap else m.height,
                 resolution=m.resolution,origin=[o.position.x,o.position.y,yaw(o.orientation)],data=list(msg.data))
 
@@ -83,7 +85,7 @@ def select_coherent_localization(buffer,history,seen,*,sim,wall):
 
 
 class RosTransport:
-    def __init__(self,directory):
+    def __init__(self,directory,*,deployment=None):
         # Importing this module for offline tests is safe; construction is live opt-in.
         import rclpy
         from rclpy.action import ActionClient
@@ -93,6 +95,8 @@ class RosTransport:
         from tf2_ros import Buffer,TransformListener
         self.rclpy=rclpy;rclpy.init();self.node=Node('stage4_route_'+uuid4().hex[:8],parameter_overrides=[rclpy.parameter.Parameter('use_sim_time',value=True)])
         self.directory=Path(directory);self.raw_path=self.directory/('raw-'+uuid4().hex+'.sqlite3')
+        self.deployment_path=Path(deployment) if deployment else self.directory/'deployment.json'
+        self.grid_revisions={}
         self.journal=BinaryJournal(self.raw_path,max_bytes=64*1024**3)
         self.localization_tf={}
         self.odom_history=deque(maxlen=16)
@@ -140,6 +144,9 @@ class RosTransport:
                     self.failure=self.failure or 'odometry_clock_regression'
             else:self.odom_history.append((msg,now))
         data=serialize_message(msg)
+        if topic in ('/map','/local_costmap/costmap_raw','/global_costmap/costmap_raw'):
+            if not hasattr(self,'grid_revisions'):self.grid_revisions={}
+            self.grid_revisions[topic]=hashlib.sha256(data).hexdigest()
         if not hasattr(self,'recording_first_wall'):
             self.recording_first_wall=self.recording_window_wall=now
             self.recorded_input_bytes=self.recording_window_bytes=0
@@ -164,6 +171,7 @@ class RosTransport:
                     self.failure=self.failure or 'localization_tf_clock_regression';continue
                 if previous is None or source>previous['stamp']:
                     self.localization_tf[key]=dict(stamp=source,wall=now)
+        if '/b2w/evaluation/' in topic and hasattr(self,'contacts'):self.observe_contact(topic,msg,now)
         if topic == '/slam/map_points':
             try:
                 self.structural.observe(stamp(msg.header.stamp), self.sim(), now)
@@ -186,6 +194,22 @@ class RosTransport:
             if not all(math.isfinite(v) for v in (f.x,f.y,f.z)) or math.sqrt(f.x*f.x+f.y*f.y+f.z*f.z)>50:self.failure='collision_or_invalid_wrench'
         if topic=='/rosout' and msg.level>=40 and msg.name in ('controller_server','DWBLocalPlanner','planner_server','bt_navigator'):
             self.audit['action_outcomes'].append(dict(sim=self.sim(),node=msg.name,message=msg.msg))
+
+    def observe_contact(self,topic,msg,wall):
+        try:
+            if topic.endswith('/collision_inventory'):self.contacts.inventory(json.loads(msg.data),wall=wall)
+            else:self.contacts.contact_message(msg,wall=wall)
+            if self.contacts.failure:raise ValueError(self.contacts.failure)
+        except Exception as exc:
+            self.failure=self.failure or 'contact_evidence:'+repr(exc)
+            try:self.request_independent_abort(self.failure)
+            except Exception as abort_exc:self.audit['contact_abort_error']=repr(abort_exc)
+
+    def contact_closure(self,start,end):
+        closed=bool(hasattr(self,'contacts') and self.contacts.intervals.closed(start=start,end=end,sim=self.sim(),wall=time.monotonic()))
+        return dict(reporting_closed_through_end=closed,accepted_start_sim=start,accepted_end_sim=end,
+            physical_coverage_qualified=False,safety_complete=False,
+            reason='Non-foot engine mapping/self coverage and conservative independent geometry remain unqualified')
 
     def spin(self):self.rclpy.spin_once(self.node,timeout_sec=.02)
 
@@ -308,21 +332,26 @@ class RosTransport:
             self.get_parameters('/'+name,expected)
         for name in ('local_costmap','global_costmap'):
             self.get_parameters('/'+name+'/'+name,flat(cfg[name][name]['ros__parameters']))
-        self.get_parameters('/velocity_adapter',dict(use_sim_time=True,m2_inverse_enabled=False,speed_limit_topic='',require_localization_tf=True,input_topic='/course_navigation/cmd_vel',state_topic='/slam/odom',max_linear=.5,max_angular=.6,timeout_s=.5))
+        from .deployment import load_deployment,verify_controller
+        self.deployment=load_deployment(self.deployment_path)
+        from course_navigation.stage4_control import read_control
+        self.guard_config=read_control(self.deployment['guard_manifest'])
+        self.guard_manifest_sha256=digest(self.deployment['guard_manifest'])
+        if not hasattr(self,'contacts'):
+            from course_navigation.stage4_contact_stream import ContactStream
+            inv=Path(self.guard_config['collision_inventory_path'])
+            if digest(inv)!=self.guard_config['collision_inventory_sha256']:raise ValueError('Source collision inventory changed')
+            self.contacts=ContactStream(json.loads(inv.read_text())['collisions'],first_sequence=self.guard_config['contact_first_sequence'])
+        if (self.guard_manifest_sha256!=self.deployment['guard_manifest_sha256'] or
+                self.guard_config['session_id']!=self.deployment['session_id']):
+            raise ValueError('Guard deployment content/session mismatch')
+        self.get_parameters('/velocity_adapter',dict(use_sim_time=True,m2_inverse_enabled=False,speed_limit_topic='',require_localization_tf=True,input_topic='/course_navigation/cmd_vel',state_topic='/slam/odom',max_linear=.5,max_angular=.6,timeout_s=.5,
+            stage4_guard_manifest=self.deployment['guard_manifest'],stage4_guard_sha256=self.guard_manifest_sha256,
+            stage4_session_id=self.deployment['session_id']))
         # Mandatory reviewed endpoint-transform guard: verify executable AND mapped library.
-        prefix=ROOT/'.deps/nav2-controller-1.1.20/install/nav2_controller'
-        exe=prefix/'lib/nav2_controller/controller_server';library=prefix/'lib/libcontroller_server_core.so'
-        processes=[]
-        for proc in Path('/proc').iterdir():
-            if not proc.name.isdigit():continue
-            try:
-                if (proc/'exe').resolve()==exe.resolve() and str(library) in (proc/'maps').read_text():
-                    processes.append(dict(pid=int(proc.name),exe_sha256=digest(exe),library_sha256=digest(library)))
-            except (OSError,PermissionError):pass
         policy=json.loads((ROOT/'course_navigation/config/stage4_runtime_identity.json').read_text())
-        if len(processes)!=1 or any(processes[0][k]!=policy[k] for k in ('exe_sha256','library_sha256')):
-            raise ValueError('Require one verified endpoint-transform-guard controller process')
-        self.audit['controller_process']=processes[0]
+        self.audit['controller_process']=verify_controller(self.deployment,policy)
+        self.audit['deployment_sha256']=digest(self.deployment_path)
         # Lifecycle must be ACTIVE, not merely a responding action server.
         from lifecycle_msgs.srv import GetState
         for name in ('planner_server','controller_server','bt_navigator','velocity_smoother'):
@@ -347,7 +376,7 @@ class RosTransport:
                 if self.messages['/map'].header.frame_id!='map' or self.age('/map')>2:raise ValueError('Missing live map')
                 p95=self.alignment.check(live)
                 self.verify_runtime(selection)
-                c=dict(session_id=uuid4().hex,graph=graph,wall=time.time(),sim=self.sim(),selection_sha256=digest(selection_path),
+                c=dict(session_id=self.deployment['session_id'],graph=graph,wall=time.time(),sim=self.sim(),selection_sha256=digest(selection_path),
                        live_map_sha256=object_hash(live),live_map=live,pose=s,alignment_p95_m=p95, runtime=self.audit)
                 return c
             except (KeyError,ValueError,LookupError) as exc:last_error=repr(exc)
@@ -363,6 +392,18 @@ class RosTransport:
         current={**session,'graph':self.graph()}
         check_registration(cert,current,wall=time.time(),sim=self.sim())
         self.verify_runtime(selection)
+        if session['session_id']!=self.deployment['session_id']:raise ValueError('Deployment session differs from registration')
+        self.selection=selection
+        portal=self.directory/'corridor-portal.json'
+        self.corridor_portal=None
+        if portal.exists():
+            from .portal import CorridorPortal
+            value=json.loads(portal.read_text());CorridorPortal(value)
+            if (value['session_id']!=session['session_id'] or value['registration_sha256']!=digest(self.directory/'registration.json') or
+                    value['map_sha256']!=session['live_map_sha256']):raise ValueError('Portal differs from current sensor/registration session')
+            sensor=Path(value['sensor_evidence_path'])
+            if digest(sensor)!=value['sensor_sha256']:raise ValueError('Portal sensor evidence changed')
+            self.corridor_portal=value
         self.alignment.check(grid(self.messages['/map']))
         self.registration_graph=session['graph'];self.last_alignment=0.;self.last_graph=0.
         sample=self.sample()
@@ -405,13 +446,27 @@ class RosTransport:
             cm=self.messages['/global_costmap/costmap_raw']
             if cm.header.frame_id!='map' or self.age('/global_costmap/costmap_raw')>2:raise ValueError('Missing fresh global costmap')
             poses=[[p.pose.position.x,p.pose.position.y,yaw(p.pose.orientation)] for p in path.poses]
-            report=assess_path(poses,goals,[s['x'],s['y']],[self.saved,grid(cm,True)],
-                               start_pose=[s['x'],s['y'],s['yaw']])
+            live=self.messages['/map']
+            if live.header.frame_id!='map' or self.age('/map')>2 or not 0<=self.sim()-stamp(live.header.stamp)<=2:
+                raise ValueError('Missing fresh registered live map')
+            certified_revisions=dict(self.grid_revisions)
+            live_grid=grid(live);live_grid['data']=[0 if v==0 else 255 if v<0 else 254 for v in live_grid['data']]
+            report=assess_path(poses,goals,[s['x'],s['y']],[self.saved,grid(cm,True),live_grid],
+                               start_pose=[s['x'],s['y'],s['yaw']],start_index=getattr(self,'segment_start_index',0),
+                               all_goals=self.selection['goals'])
             report.update(action_status=result.status,path=poses,global_costmap_sha256=object_hash(grid(cm,True)))
             self.audit['preflight']=report
             self.checked_path=path
             if not report['passed']:raise ValueError('Pre-motion sampled path/corridor/footprint check FAILED; no navigation goal sent')
             if self.graph()!=self.registration_graph:raise ValueError('Session changed during preflight')
+            # Ingest callbacks queued during expensive geometry. A change rejects
+            # this attempt; it cannot silently acquire a fresh certificate.
+            self.ingest_dispatch_updates()
+            if certified_revisions!=self.grid_revisions:raise ValueError('Grid changed while certifying path')
+            self.verify_dispatch_inputs()
+            from .dispatch import DispatchCertificate
+            self.certificate_start=s
+            self.dispatch_certificate=DispatchCertificate.issue(self.dispatch_bindings(),wall=time.monotonic(),sim=self.sim())
         finally:
             # A planner cannot move the robot; cancel only this exact pending plan.
             deadline=time.monotonic()+2
@@ -424,6 +479,67 @@ class RosTransport:
                     self.audit['preflight_cancel_confirmed']=f.done()
             # Retain owned UUID: queued statuses can arrive after the result response.
             client.destroy()
+
+    def ingest_dispatch_updates(self):
+        deadline=time.monotonic()+.1
+        while time.monotonic()<deadline:self.spin()
+        if self.failure or self.journal.failure:raise ValueError(self.failure or self.journal.failure)
+
+    def verify_dispatch_inputs(self):
+        from course_navigation.stage4_control import read_control
+        from course_navigation.stage4_geometry import grid_revision
+        cert=json.loads((self.directory/'registration.json').read_text())
+        current={**cert['capture'],'session_id':self.deployment['session_id'],'graph':self.graph()}
+        check_registration(cert,current,wall=time.time(),sim=self.sim())
+        if digest(self.deployment['guard_manifest'])!=self.guard_manifest_sha256:
+            raise ValueError('Loaded guard manifest changed')
+        health=read_control(self.guard_config['adapter_heartbeat_path'])
+        if (health['session_id']!=self.deployment['session_id'] or health['adapter']!=self.deployment['adapter'] or
+                type(health['wall']) not in (int,float) or not math.isfinite(health['wall']) or
+                not 0<=time.monotonic()-health['wall']<=.15 or health['prepared']['failure']):
+            raise ValueError('Missing fresh fault-free adapter preparation acknowledgement')
+        expected={'saved':grid_revision(self.saved,'costmap')[1]}
+        for name,topic,encoding,costmap,frame in (
+                ('live','/map','occupancy',False,'map'),
+                ('global','/global_costmap/costmap_raw','costmap',True,'map'),
+                ('local','/local_costmap/costmap_raw','costmap',True,'odom')):
+            msg=self.messages[topic];source=stamp(msg.header.stamp)
+            if msg.header.frame_id!=frame or not 0<=self.sim()-source<=2. or not 0<=self.age(topic)<=2.:
+                raise ValueError('Dispatch grid stale/frame mismatch')
+            expected[name]=grid_revision(grid(msg,costmap),encoding)[1]
+            ack=health['prepared']['grids'][name]
+            if abs(ack['source']-source)>1e-9 or not 0<=time.monotonic()-ack['receipt']<=2.:
+                raise ValueError('Prepared grid source/receipt acknowledgement differs')
+        if {k:v['sha256'] for k,v in health['prepared']['grids'].items()}!=expected:
+            raise ValueError('Adapter prepared revisions differ from certified geometry')
+
+    def dispatch_bindings(self):
+        from rclpy.serialization import serialize_message
+        return dict(path=hashlib.sha256(serialize_message(self.checked_path)).hexdigest(),
+            grids=dict(self.grid_revisions),saved_grid=object_hash(self.saved),
+            registration=digest(self.directory/'registration.json'),deployment=digest(self.deployment_path),
+            guard_manifest=digest(self.deployment['guard_manifest']),
+            pinned_guard_manifest=self.guard_manifest_sha256,guard_session=self.guard_config['session_id'],
+            graph=object_hash(self.graph()),start_pose=[self.certificate_start[k] for k in ('x','y','yaw')],
+            start_source=self.certificate_start['tf_stamp'],frame=self.checked_path.header.frame_id)
+
+    def validate_dispatch(self,current):
+        start=self.certificate_start
+        if (math.dist([current['x'],current['y']],[start['x'],start['y']])>.03 or
+                abs(math.remainder(current['yaw']-start['yaw'],math.tau))>.02):
+            raise ValueError('Measured Start changed after path certification')
+        self.dispatch_certificate.validate(self.dispatch_bindings(),wall=time.monotonic(),sim=self.sim())
+        self.verify_dispatch_inputs()
+
+    def request_independent_abort(self,reason):
+        from course_navigation.stage4_control import latch_inhibit
+        # The loaded adapter configuration is immutable for this session. Never
+        # let a replaced pathname redirect the abort away from the active guard.
+        config=self.guard_config
+        latch_inhibit(config['inhibit_path'],reason)
+        if not hasattr(self,'abort_watermark'):self.abort_watermark=dict(sim=self.sim(),wall=time.monotonic())
+        self.audit['independent_abort']=dict(requested=True,session_id=config['session_id'],reason=str(reason),
+                                            physical_stop_verified=False)
 
     def send(self,goals,execution):
         from nav2_msgs.action import FollowPath
@@ -438,10 +554,13 @@ class RosTransport:
         self.failure=self.failure or self.journal.failure
         if self.failure:raise ValueError(self.failure)
         self.verify_recording_capacity(getattr(self,'run_wall_limit',None))
+        self.ingest_dispatch_updates()
         current=self.sample()
         if current['safety']!='clear' or current['speed']>.03 or abs(current['wz'])>.03 or current['command_speed']>.01 or abs(current['command_wz'])>.01:raise ValueError('Robot moved during preflight')
+        self.validate_dispatch(current)  # no spin/wait between this check and submission
         # Execute the identical ROS Path object whose samples were checked above.
-        action=FollowPath.Goal();action.path=self.checked_path
+        from rclpy.serialization import serialize_message,deserialize_message
+        action=FollowPath.Goal();action.path=deserialize_message(serialize_message(self.checked_path),type(self.checked_path))
         action.controller_id=execution['controller_id'];action.goal_checker_id=execution['goal_checker_id']
         uid=uuid4();self.owned_id=uid.hex
         self.audit['follow_path_uuid']=self.owned_id
@@ -487,9 +606,17 @@ class RosTransport:
         terminal_wall=started if terminal else None
         terminal_watermark=None
         phase_failed=False;resting=None;last_sample=None
-        source_span=wall_span=0.
+        source_span=wall_span=0.;independent_stop=None
         self.audit['cleanup']={}
         try:
+            if self.send_future is not None:
+                try:self.request_independent_abort('owned_transport_closing')
+                except Exception as exc:
+                    phase_failed=True;self.failure=self.failure or 'independent_abort_failed:'+repr(exc)
+                    self.audit['independent_abort']=dict(requested=False,error=repr(exc),physical_stop_verified=False)
+            if hasattr(self,'abort_watermark'):
+                from .stopping import IndependentStop
+                independent_stop=IndependentStop(self.abort_watermark)
             if terminal:terminal_watermark=self.sim()
             while time.monotonic()<stop_deadline:
                 self.spin()
@@ -513,6 +640,7 @@ class RosTransport:
                     phase_failed=True;self.failure=self.failure or 'owned_action_terminal_timeout'
                 try:
                     s=self.sample()
+                    if independent_stop is not None:independent_stop.observe(s)
                     if hasattr(self,'cleanup_observer') and s['tf_stamp']>getattr(self,'last_cleanup_tf',getattr(self,'last_pose_stamp',None) or 0)+.05:
                         self.cleanup_observer(s);self.last_cleanup_tf=s['tf_stamp']
                     stopped=(terminal and terminal_watermark is not None and math.isfinite(terminal_watermark) and
@@ -545,7 +673,7 @@ class RosTransport:
                 terminal_observed_wall_s=terminal_wall-started if terminal_wall is not None else None,
                 stop_source_start_s=resting['tf_stamp'] if resting is not None else None,
                 stop_source_span_s=source_span,stop_wall_span_s=wall_span,
-                final_sample=last_sample)
+                final_sample=last_sample,independent_stop=independent_stop.report() if independent_stop else dict(confirmed=False,reason='no_inhibit_watermark'))
         except Exception as exc:
             self.failure=self.failure or 'cleanup_exception:'+repr(exc)
             self.audit['cleanup'].update(passed=False,stationary_confirmed=False,error=repr(exc))

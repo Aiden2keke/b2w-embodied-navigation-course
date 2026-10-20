@@ -55,10 +55,14 @@ def saved_grid(map_path):
                 data=[0 if c=='free' else 255 if c=='unknown' else 254 for row in reversed(m.cells) for c in row])
 
 
-def assess_path(path,goals,start,grids,*,start_pose=None):
+def assess_path(path,goals,start,grids,*,start_pose=None,start_index=0,all_goals=None):
     """Necessary sampled planning gate only; never supplies physical passage events."""
     from .evidence import distance
     if not path:raise ValueError('Empty preflight path')
+    from .constraints import segment_band
+    if type(start_index) is not int or not 0<=start_index<5:raise ValueError('Original phase required')
+    if all_goals is None:all_goals=goals
+    if goals!=all_goals[start_index:start_index+len(goals)]:raise ValueError('Original goal identities required')
     if start_pose is not None:
         if (len(start_pose)!=3 or not all(math.isfinite(v) for v in start_pose) or
                 math.dist(start_pose[:2],start)>1e-9):raise ValueError('Invalid measured Start connection')
@@ -75,10 +79,11 @@ def assess_path(path,goals,start,grids,*,start_pose=None):
         if any(not footprint_clear(g,p) for g in grids):bad.append(i)
         errors=[math.dist(p[:2],g['position']) for g in goals]
         minimum=[min(a,b) for a,b in zip(minimum,errors)]
+        if index==len(goals) and any(math.dist(p[:2],g['position'])<=.25 for g in all_goals[start_index+index:]):out_of_order.append(i)
         if index<len(goals):
-            if any(d<=.25 for d in errors[index+1:]):out_of_order.append(i)
+            if any(math.dist(p[:2],g['position'])<=.25 for g in all_goals[start_index+index+1:]):out_of_order.append(i)
             a=start if index==0 else goals[index-1]['position'];b=goals[index]['position']
-            if distance(p[:2],a,b)>(.35 if index==1 else 3.):detours.append(i)
+            if distance(p[:2],a,b)>segment_band(start_index+index):detours.append(i)
             if errors[index]<=.25:index+=1
     from .continuous import certify_path
     continuous=certify_path(path,grids)

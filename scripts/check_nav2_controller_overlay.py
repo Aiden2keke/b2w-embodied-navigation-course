@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 """Offline launch/ELF resolution proof. Run with with_nav2_controller_overlay.sh."""
+import os
 import ctypes
 import hashlib
 import json
@@ -11,7 +12,7 @@ from launch import LaunchContext
 from launch_ros.substitutions import ExecutableInPackage
 
 root = Path(__file__).resolve().parents[1]
-prefix = root / '.deps/nav2-controller-1.1.20/install/nav2_controller'
+prefix = Path(os.environ.get('B2W_CONTROLLER_PREFIX', str(root / '.deps/nav2-controller-1.1.20/install/nav2_controller'))).resolve()
 assert Path(get_package_prefix('nav2_controller')) == prefix
 executable = Path(ExecutableInPackage(
     package='nav2_controller', executable='controller_server').perform(LaunchContext()))

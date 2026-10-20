@@ -134,8 +134,9 @@ def test_terminal_success_alone_not_pass():
 def test_stop_after_action_and_cleanup_required():
     e=complete();e.terminal(4,sim=e.last['sim']+.1);assert not e.finish(cleanup=True,safety_complete=True)['full_route_pass']
     for t in [e.terminal_sim+i*.1 for i in range(62)]:e.observe(sample(t,8.))
-    r=e.finish(cleanup=True,safety_complete=True);assert r['full_route_pass'] and len(r['region_events'])==5
-    assert r['narrow_passage_confirmed']
+    r=e.finish(cleanup=True,safety_complete=True);assert not r['full_route_pass'] and len(r['region_events'])==5
+    assert r['ordered_narrow_regions_diagnostic'] and not r['narrow_passage_confirmed']
+    assert r['corridor_evidence_missing']
     assert not e.finish(cleanup=False,safety_complete=True)['full_route_pass']
     assert not e.finish(cleanup=True,safety_complete=False)['full_route_pass']
 

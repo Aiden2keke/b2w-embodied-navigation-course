@@ -28,8 +28,9 @@ def test_each_segment_can_be_assessed_without_qualifying_full_route(phase):
     e.observe(sample(5.1, target));e.terminal(4, sim=5.2)
     for i in range(62):e.observe(sample(5.2+i*.1, target))
     result = e.finish(cleanup=True, safety_complete=True)
-    assert result['segment_pass']
-    assert result['result'] == 'SEGMENT_PASS'
+    assert result['segment_pass'] is (phase!=1)
+    assert result['result'] == ('SEGMENT_PASS' if phase!=1 else 'ROUTE_FAIL')
+    if phase==1:assert not result['narrow_passage_confirmed'] and result['corridor_evidence_missing']
     assert [x['goal'] for x in result['region_events']] == [f'G{phase+1}']
     assert not result['full_route_pass']
     assert not e.finish(cleanup=True, safety_complete=False)['segment_pass']

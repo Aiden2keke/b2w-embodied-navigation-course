@@ -26,6 +26,63 @@
 
 ## NOW — Validation-driven segment qualification (Oct 20)
 
+### NEEDS FIX continuation from 90716f4
+
+External verdict: **NEEDS FIX; NO-GO for nonzero navigation**. Exact report is
+[B2W_Stage4_Independent_Review_20261020.md](docs/reviews/B2W_Stage4_Independent_Review_20261020.md),
+copied byte-for-byte from the user-supplied original-checkout report. Existing
+unconditional motion interlock stays active. No Gazebo motion is authorized here.
+
+Implementation plan (single current roadmap; Sol implements, actual runtime-
+verified GPT-6 Luna executes deterministic checks):
+
+- [ ] M1: opt-in final adapter predictive filled-body/stop veto using immutable
+  prepared grids, coherent localization and explicit empirical bound manifest.
+  Add action-independent local lease/inhibit checked at final publication and
+  separately executable watchdog; latch all faults, force zero before cancel.
+  Queue grid preparation off the publication callback; stale/rebuilding/deadline
+  faults deny output. Fault-inject owner/adapter/lease/clock/data/contact failures.
+  Keep unchanged policy and sole final publisher; no new shared ROS topic.
+- [ ] M2: bind checked serialized Path, map revisions/frame/source times, measured
+  Start and registration into a short-lived dispatch certificate; reject drift
+  immediately before FollowPath. Resolve controller from an explicit external
+  deployment manifest with pinned hashes and PID/start-ticks/PGID/loaded-library
+  identity. Do not restore .deps/.venv links. Test isolated external deployment.
+- [ ] M3: connect explicit single-segment CLI/orchestration to planner, transport
+  and evidence; share versioned ordinary G3→G4 band revision without relaxing
+  mandatory .35m G1→G2 or .25m goals. Derive bounded deadlines from certified path
+  length/measured achievable speed. Distinguish ordered regions from sensor-bound
+  portal/front/tail traversal; wire contact end intervals and explicit uncertainty
+  components without claiming missing physics/registration measurements exist.
+- [ ] M4: rerun affected and broader offline checks, copy-build affected package,
+  inventory P0/P1 dispositions and remaining physical blockers. Generate ONE
+  compact APRIL source-delta/test/evidence packet since90716f4 with SHA256, then
+  stop for external review. Internal reviews never replace this gate.
+
+No live readiness/locomotion stage is implied by offline regressions. Physical
+stop/latency bounds, non-foot engine coverage, sensor-only registration reserve,
+and real final contact closure remain measurements, not values to invent.
+
+### External APRIL / ChatGPT review gate (latest user instruction)
+
+At major milestones generate a compact, self-contained ChatGPT review packet
+using `~/bin/april-review-bundle` where appropriate, with exact Git baseline/HEAD,
+relevant source changes, test results, safety evidence, known failures and
+reproduction instructions. Keep large bags, maps and raw logs external; include
+their hashes, locations and relevant excerpts. Current review target is
+`90716f4ebd8fff713f671529d0da5dfb5fa42aae`; no external approval is recorded for
+this milestone. Internal Sol/Luna reviews are supporting evidence and NEVER
+replace independent ChatGPT review or constitute that approval.
+
+**Pause before the first nonzero Gazebo navigation experiment for independent
+ChatGPT review.** This is a user-required gate, in addition to all technical
+safety/qualification gates. Routine offline Sol implementation and deterministic
+testing/evidence collection by runtime-verified GPT-6 Luna may continue without
+per-step user confirmation. After the external review, address its findings,
+rerun affected checks and resume the established validation-driven G1–G5 workflow.
+If later changes materially affect the reviewed safety case, issue a new milestone
+bundle rather than treating an earlier review as blanket approval. No push/merge.
+
 Latest user instruction explicitly assigns deterministic validation to Luna and
 independent safety assessment/fixes/qualification to the parent. This supersedes
 the historical no-subagent note below. Continue only in the existing isolated
