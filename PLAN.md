@@ -24,7 +24,63 @@
 - 旧实施计划归档至 `docs/plans/archive/2026-10-10-local-course-system-plan.md`。历史 design/validation 保留为证据，不是另一个当前 roadmap。无新增 HANDOFF。
 - 历史轮次只读与 timing 交付已结束；本轮范围以最新用户请求和下方 NOW 为准。旧实验/交付记录只作历史证据。
 
-## NOW — Unattended G1–G5: BLOCKED_GEOMETRY before motion (Oct 20)
+## NOW — Resume after geometry review: sensor/model reconciliation (Oct 20)
+
+Latest user instruction authorizes autonomous scoped development, stationary
+Gazebo observation, sensor/map capture, planner-only tests and provisional local
+checkpoints. Nonzero navigation motion remains conditional on registration,
+measured margins, continuous padded-body safety, fresh control/TF and reliable
+abort/cleanup. This supersedes historical STOP/USER-RUN restrictions below.
+
+Continuation design and priorities:
+`~/b2w-course-evidence/unattended/geometry-review-20261020/DIAGNOSIS.md` and
+`SOL_CONTINUATION_PLAN.md` in that directory. Original dirty checkout remains
+preserved. Work only on `experiment/unattended-g1-g5-20261019`, starting 7034548.
+Journal/evidence:
+`~/b2w-course-evidence/unattended/runs/resume-20261020T030926Z/`.
+
+- [x] Fingerprint original (388 files) and experimental baseline (396 files).
+- [x] Independently rerun native source meshes/body sweep: .950307 m conservative
+  physical gap, .045154 m full padded-body clearance. Six geometry tests pass.
+- [x] Rebuild four course packages into a separate copy install; explicitly reuse
+  unchanged native/model underlay by absolute prefix, with no dependency links.
+- [x] Add bounded binary full-CDR journal and passive capture gates, red→green.
+- [x] Obtain bounded E0 sensor/TF evidence; diagnose local boundary support,
+  unknown semantics, registration, mapping and costmap interpretation.
+- [x] Implement immutable unknown-encoding derivation and continuous filled-body
+  checks. Native loader proves 525,643 unknown pixels were previously free;
+  occupied geometry is unchanged. Sensor geometry corrections remain unproved.
+- [x] Validate G3→G4 detour including exact endpoint headings and rotations:
+  continuous proof with extra .020 m, .029010 m residual lower bound, ordinary
+  band required 4.937525 m. Runtime constraints have not been silently changed.
+- [x] Qualify standalone binary recorder and evaluation contact observer:
+  source-bound 26-shape inventory, every-step accumulation, sticky forbidden
+  contacts, sequence-coherent bridge. E0-05 retained/replayed all 62,763 records.
+- [ ] Complete runtime recording/coherent sampling/predictive safety/independent
+  contact/stop evidence before any applicable motion stage.
+- [x] Focused Python suite: 83 passed; native observer CTest: 1 passed. Independent
+  review findings repaired and re-reviewed. Scoped checkpoints/review bundle
+  identifiers are recorded in the external campaign REPORT.md.
+
+Old raster +7.5 mm exclusion is a conditional regression result, not physical
+impossibility. Full-route success remains unachieved. Current usage: **211.308248
+live-stack wall seconds / zero motion attempts**, five stationary starts (two
+recorder faults, three complete captures), all owned groups cleaned up. Retain
+21,600 s / 10 attempts / three families overall and two critical trials per
+family. Count stationary stack time but not offline investigations.
+
+Next stage is local runtime qualification followed by bounded open-space E1;
+do not require a full-route certificate before that calibration. Public-TF local
+offline sweeps (0.1–0.5 m moves, 90° turn) pass all three saved/live grids with
+extra .100 m. These are geometry checks, not motion authorization. Complete
+coherent source-time sampling, predictive stopping/swept-body veto, full-CDR
+route transport and contact end-watermark evaluation first. Then acquire sensor
+views of the currently occluded rear clutter boundary. Neither a 2 cm map nor
+the provisional ICP residual supplies an uncertainty bound. Do not clear cells
+or import source-world coordinates. See external SOL_CONTINUATION_PLAN.md.
+Only accepted successful G1–G5 artifacts may enter `experiments/g1_g5/`.
+
+## Historical — Unattended G1–G5: BLOCKED_GEOMETRY before motion (Oct 20)
 
 Latest user authorization: bounded unattended **Gazebo only**, local provisional
 scoped checkpoint commits, no push/merge/reset, no policy/footprint/collision waiver.
