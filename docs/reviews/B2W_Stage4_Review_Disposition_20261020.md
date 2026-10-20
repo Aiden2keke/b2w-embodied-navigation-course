@@ -37,6 +37,20 @@ final test/build summaries and hashes plus a reproducible source delta. Large
 journals/maps/bags remain in prior external sealed campaign directories. There is
 no successful experimental artifact eligible for repository archival.
 
+## Broader verification limitations and correction
+
+Luna's full offline pytest run at48fef81 produced857 PASS/38 FAIL/4 SKIP, retained
+unchanged. Sol diagnosed/fixed the actual new baseline timer regression by making
+Stage4 timing conditional on Stage4 mode. Copy-installed baseline Nav2 profiles
+now compare exact bytes rather than absolute pathname; changed profile bytes still
+fail. A new explicit copy/tamper regression and affected modules pass51 tests.
+Final matrix now includes baseline M2/adaptive tests. The full broad suite is not
+claimed green:19 low-speed tests need ignored policy ONNX,13 warehouse-floorplan
+tests need ignored world/geometry (one dependent manifest-key assertion),1 editor
+socket test is denied by sandbox;4 legacy tests skip absent external evidence.
+No original-checkout modifications, dependency links, downloads or test weakening
+were used. Final source/head/results are frozen in the new APRIL packet.
+
 ## Operational manifest sketch — intentionally no populated certificate
 
 Deployment requires `kind:stage4_session_deployment`, version1, session_id,

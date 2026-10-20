@@ -45,7 +45,7 @@ def setup(context):
         if cfg.open_command > .44:
             raise ValueError('Initial opt-in ceiling must be <=0.44; measure before any further increase')
         default_config = Path(get_package_share_directory('course_navigation'))/'config/nav2.yaml'
-        if Path(config).resolve() != default_config.resolve():
+        if Path(config).read_bytes() != default_config.read_bytes():
             raise ValueError('adaptive_speed requires the default nav2.yaml baseline; omit nav_params_file')
         baseline = yaml.safe_load(Path(config).read_text())
         profile = build_profile(baseline, cfg)

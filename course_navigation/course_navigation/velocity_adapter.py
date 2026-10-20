@@ -256,8 +256,9 @@ class VelocityAdapter(Node):
         self.m2_diagnostic.publish(msg)
 
     def publish(self):
-        publication_started=time.perf_counter()
-        publication_wall_started=time.monotonic()
+        guard=getattr(self,'stage4_guard',None)
+        publication_started=time.perf_counter() if guard is not None else None
+        publication_wall_started=time.monotonic() if guard is not None else None
         out = Twist()
         try:
             if self.require_tf:

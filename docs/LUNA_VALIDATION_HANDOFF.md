@@ -129,7 +129,8 @@ source at the row below; the parent implements and reviews before Luna execution
 
 New focused modules are included automatically in the runner: `stage4_safety_guard`,
 `stage4_dispatch_deployment`, `stage4_segment_execution`, `corridor_portal`,
-`stage4_contact_wiring`, `stage4_bounds`, `independent_stop`, `navigation_watchdog`.
+`stage4_contact_wiring`, `stage4_bounds`, `independent_stop`, `navigation_watchdog`,
+`m2_candidate`, `adaptive_launch`.
 The machine matrix adds O13–O17; all live rows remain FAIL. Source stability covers
 all relevant tracked/untracked source before and after execution. Test positives use
 synthetic inputs; the adapter wiring tests explicitly patch the unconditional block

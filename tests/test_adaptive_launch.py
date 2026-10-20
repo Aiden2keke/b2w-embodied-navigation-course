@@ -261,3 +261,11 @@ def test_bringup_forwards_opt_in_and_measured_width_without_launching():
     includes = [a for a in module.setup(context) if isinstance(a, IncludeLaunchDescription)]
     nav_args = next(dict(a.launch_arguments) for a in includes if 'w_ref' in dict(a.launch_arguments))
     assert nav_args['adaptive_speed'] == 'true' and nav_args['w_ref'] == '1.5'
+
+
+def test_byte_identical_baseline_copy_is_supported_without_relaxing_profile(tmp_path):
+    p=tmp_path/'baseline-copy.yaml';p.write_bytes((ROOT/'course_navigation/config/nav2.yaml').read_bytes())
+    assert expand(adaptive_speed='true',w_ref='1.5',nav_params_file=str(p))
+    changed=yaml.safe_load(p.read_text());changed['local_costmap']['local_costmap']['ros__parameters']['footprint_padding']=0.
+    p.write_text(yaml.safe_dump(changed))
+    with pytest.raises(ValueError):expand(adaptive_speed='true',w_ref='1.5',nav_params_file=str(p))

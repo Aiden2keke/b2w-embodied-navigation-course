@@ -70,6 +70,16 @@ gate, never a motion clearance. Remaining operational supervisor/bootstrap and
 measured rate/path certificate lifecycle are explicit unresolved dependencies in
 `docs/reviews/B2W_Stage4_Review_Disposition_20261020.md`.
 
+Broader Luna run at `48fef81`:857 passed/38 failed/4 skipped. Sol corrected
+one new baseline callback regression (Stage4 timer accessed perf_counter when
+Stage4 disabled) and the source-vs-copy baseline-profile path check; byte-identical
+copies now pass while any profile byte change is rejected. Affected tests51/51
+pass, including the explicit copied-profile regression and guarded adapter tests.
+Remaining broad failures concern missing ignored worktree policy/world assets or
+sandbox loopback binding; no dependency links/downloads or skip weakening. The
+final focused matrix now also includes baseline M2/adaptive launch tests. Exact
+final-source Luna counts and broader limitations are recorded in external evidence.
+
 No live readiness/locomotion stage is implied by offline regressions. Physical
 stop/latency bounds, non-foot engine coverage, sensor-only registration reserve,
 and real final contact closure remain measurements, not values to invent.

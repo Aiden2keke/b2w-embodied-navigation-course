@@ -18,7 +18,7 @@ FOCUSED = ['stage4_route', 'stage4_transport', 'coherent_localization', 'route_g
            'contact_intervals', 'segment_evidence', 'start_connection', 'predictive_reach',
            'stage4_safety_guard','stage4_dispatch_deployment','stage4_segment_execution',
            'corridor_portal','stage4_contact_wiring','stage4_bounds','independent_stop',
-           'navigation_watchdog']
+           'navigation_watchdog','m2_candidate','adaptive_launch']
 
 
 def junit_passed(path, *, expected_modules=()):
