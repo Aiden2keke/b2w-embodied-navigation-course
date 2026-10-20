@@ -4,18 +4,18 @@ A bounded raw journal preserves public messages. No goal is sent until candidate
 registration, installed endpoint guard, effective parameters and exclusive graph
 checks succeed. All cancellation uses the exact owned action handle.
 """
-import base64
-import hashlib
 import json
 import math
-import os
 from pathlib import Path
+import shutil
 import time
+from collections import deque
 from uuid import uuid4
 import yaml
 from .contract import ROOT,load_selection,digest,object_hash,write_new,check_registration
 from .spatial import MapAlignment,footprint_clear,saved_grid,assess_path
 from .freshness import StructuralMapCadence
+from .journal import BinaryJournal
 
 
 def stamp(t):return t.sec+t.nanosec*1e-9
@@ -24,13 +24,62 @@ def stamp(t):return t.sec+t.nanosec*1e-9
 def yaw(q):
     v=[q.x,q.y,q.z,q.w]
     if not all(math.isfinite(x) for x in v) or abs(sum(x*x for x in v)-1)>.01:raise ValueError('Invalid quaternion')
-    return math.atan2(2*(q.w*q.z+q.x*q.y),1-2*(q.y*q.y+q.z*q.z))
+    return math.atan2(2*(q.w*q.z+q.x*q.y),sum(x*x for x in v)-2*(q.y*q.y+q.z*q.z))
 
 
 def grid(msg,costmap=False):
     m=msg.metadata if costmap else msg.info;o=m.origin
     return dict(width=m.size_x if costmap else m.width,height=m.size_y if costmap else m.height,
                 resolution=m.resolution,origin=[o.position.x,o.position.y,yaw(o.orientation)],data=list(msg.data))
+
+
+def coherent_localization(buffer,odom,seen,*,sim,wall):
+    """One exact source-time snapshot, checked against independently sent odom."""
+    from rclpy.time import Time
+    source=stamp(odom.header.stamp)
+    if (odom.header.frame_id!='odom' or odom.child_frame_id!='base_link' or
+            not math.isfinite(source) or not 0<=sim-source<=.5):
+        raise ValueError('Stale or invalid SLAM odometry convention/source time')
+    for key in [('map','odom'),('odom','base_link')]:
+        edge=seen.get(key)
+        if (edge is None or not all(math.isfinite(edge[k]) for k in ('stamp','wall')) or
+                not 0<=sim-edge['stamp']<=.5 or not 0<=wall-edge['wall']<=.5):
+            raise ValueError('Stale or missing advancing localization TF edge')
+    target=Time.from_msg(odom.header.stamp)
+    transforms=[buffer.lookup_transform(*key,target) for key in
+                [('map','base_link'),('map','odom'),('odom','base_link')]]
+    for tf in transforms:
+        if abs(stamp(tf.header.stamp)-source)>1e-9:
+            raise ValueError('TF lookup returned a different source time')
+        yaw(tf.transform.rotation)
+        if not all(math.isfinite(getattr(tf.transform.translation,k)) for k in 'xyz'):
+            raise ValueError('Nonfinite localization TF')
+    ob=transforms[2].transform;p=odom.pose.pose
+    yaw(p.orientation)
+    qa=[getattr(p.orientation,k) for k in 'xyzw'];qb=[getattr(ob.rotation,k) for k in 'xyzw']
+    normalized_dot=abs(sum(a*b for a,b in zip(qa,qb)))/math.sqrt(sum(a*a for a in qa)*sum(b*b for b in qb))
+    if (not all(math.isfinite(getattr(p.position,k)) for k in 'xyz') or
+        math.dist([getattr(p.position,k) for k in 'xyz'],[getattr(ob.translation,k) for k in 'xyz'])>1e-5 or
+        normalized_dot<math.cos(1e-5/2)):
+        raise ValueError('Odometry and source-time TF pose disagreement')
+    return transforms
+
+
+def select_coherent_localization(buffer,history,seen,*,sim,wall):
+    from tf2_ros import TransformException
+    for odom,receipt in reversed(history):
+        source=stamp(odom.header.stamp)
+        if (any(key not in seen or seen[key]['stamp']+1e-9<source
+                for key in [('map','odom'),('odom','base_link')]) or
+                not 0<=sim-source<=.5 or not 0<=wall-receipt<=.5):continue
+        try:
+            return odom,coherent_localization(buffer,odom,seen,sim=sim,wall=wall),receipt
+        except TransformException:
+            # Listener and observation callbacks can be delivered separately.
+            # An older complete source pair is allowed only within the same
+            # strict source/receipt budgets, never by restamping or extrapolating.
+            continue
+    raise ValueError('Missing complete fresh source-time localization snapshot')
 
 
 class RosTransport:
@@ -43,7 +92,10 @@ class RosTransport:
         from nav2_msgs.action import FollowPath
         from tf2_ros import Buffer,TransformListener
         self.rclpy=rclpy;rclpy.init();self.node=Node('stage4_route_'+uuid4().hex[:8],parameter_overrides=[rclpy.parameter.Parameter('use_sim_time',value=True)])
-        self.directory=Path(directory);self.raw_path=self.directory/('raw-'+uuid4().hex+'.jsonl');self.raw=self.raw_path.open('xb');self.bytes=0;self.seq=0
+        self.directory=Path(directory);self.raw_path=self.directory/('raw-'+uuid4().hex+'.sqlite3')
+        self.journal=BinaryJournal(self.raw_path,max_bytes=64*1024**3)
+        self.localization_tf={}
+        self.odom_history=deque(maxlen=16)
         self.tf=Buffer();self.listener=TransformListener(self.tf,self.node)
         self.nav=ActionClient(self.node,FollowPath,'/follow_path')
         self.messages={};self.receipts={};self.statuses={};self.failure=None;self.handle=None
@@ -55,7 +107,9 @@ class RosTransport:
         self.action_qos=QoSProfile(depth=10,reliability=ReliabilityPolicy.RELIABLE,durability=DurabilityPolicy.TRANSIENT_LOCAL)
         from geometry_msgs.msg import PoseStamped,Twist,WrenchStamped
         from nav_msgs.msg import Odometry,OccupancyGrid,Path as NavPath
-        from sensor_msgs.msg import PointCloud2,Imu
+        from sensor_msgs.msg import PointCloud2,Imu,JointState
+        from ros_gz_interfaces.msg import Contacts
+        from std_msgs.msg import String
         from rosgraph_msgs.msg import Clock
         from tf2_msgs.msg import TFMessage
         from rcl_interfaces.msg import Log
@@ -63,6 +117,8 @@ class RosTransport:
         from nav2_msgs.msg import Costmap,BehaviorTreeLog
         topics=[('/clock',Clock),('/slam/odom',Odometry),('/slam/map_points',PointCloud2),('/pointcloud',PointCloud2),('/imu',Imu),
                 ('/map',OccupancyGrid),('/tf',TFMessage),('/tf_static',TFMessage),
+                ('/joint_states',JointState),('/sim/ground_truth/odom',Odometry),
+                ('/b2w/evaluation/full_contacts',Contacts),('/b2w/evaluation/collision_inventory',String),
                 ('/local_costmap/costmap_raw',Costmap),('/global_costmap/costmap_raw',Costmap),
                 ('/collision_plate/force_torque',WrenchStamped),('/plan',NavPath),('/rosout',Log),('/behavior_tree_log',BehaviorTreeLog),
                 ('/goal_pose',PoseStamped),('/course_navigation/unused_nav2_goal_pose',PoseStamped),
@@ -78,16 +134,36 @@ class RosTransport:
     def receive(self,topic,msg):
         from rclpy.serialization import serialize_message
         now=time.monotonic();self.messages[topic]=msg;self.receipts[topic]=now
-        self.seq+=1
-        # PointCloud payloads can be multi-MiB: retain stamp/size/hash, not full payload.
+        if topic=='/slam/odom':
+            if self.odom_history and stamp(msg.header.stamp)<=stamp(self.odom_history[-1][0].header.stamp):
+                if stamp(msg.header.stamp)<stamp(self.odom_history[-1][0].header.stamp):
+                    self.failure=self.failure or 'odometry_clock_regression'
+            else:self.odom_history.append((msg,now))
         data=serialize_message(msg)
-        record=dict(seq=self.seq,topic=topic,wall=time.time(),monotonic=now,sim=self.sim(),sha256=hashlib.sha256(data).hexdigest())
-        if topic in ('/slam/map_points','/pointcloud'):
-            record.update(header=dict(frame_id=msg.header.frame_id,stamp=stamp(msg.header.stamp)),bytes=len(data),payload_retained=False)
-        else:record['cdr_base64']=base64.b64encode(data).decode()
-        encoded=(json.dumps(record,separators=(',',':'))+'\n').encode()
-        if self.bytes+len(encoded)>256*1024**2:self.failure='raw_evidence_limit';return
-        self.raw.write(encoded);self.bytes+=len(encoded)
+        if not hasattr(self,'recording_first_wall'):
+            self.recording_first_wall=self.recording_window_wall=now
+            self.recorded_input_bytes=self.recording_window_bytes=0
+            self.recording_peak_rate=0.
+        self.recorded_input_bytes+=len(data)+1024
+        self.recording_window_bytes+=len(data)+1024
+        if now-self.recording_window_wall>=.5:
+            self.recording_peak_rate=max(self.recording_peak_rate,self.recording_window_bytes/(now-self.recording_window_wall))
+            self.recording_window_wall=now;self.recording_window_bytes=0
+        cls=type(msg);typ=cls.__module__.split('.')[0]+'/msg/'+cls.__name__
+        try:
+            self.journal.append(topic,typ,data,dict(wall=time.time(),monotonic=now,sim=self.sim(),
+                source_stamp=stamp(msg.header.stamp) if hasattr(msg,'header') else None,
+                role='evaluation_only' if '/evaluation/' in topic or topic=='/sim/ground_truth/odom' else 'public_sensor_or_control'))
+        except ValueError as exc:self.failure=self.failure or str(exc)
+        if topic=='/tf':
+            for tf in msg.transforms:
+                key=(tf.header.frame_id,tf.child_frame_id)
+                if key not in (('map','odom'),('odom','base_link')):continue
+                source=stamp(tf.header.stamp);previous=self.localization_tf.get(key)
+                if not math.isfinite(source) or previous and source<previous['stamp']:
+                    self.failure=self.failure or 'localization_tf_clock_regression';continue
+                if previous is None or source>previous['stamp']:
+                    self.localization_tf[key]=dict(stamp=source,wall=now)
         if topic == '/slam/map_points':
             try:
                 self.structural.observe(stamp(msg.header.stamp), self.sim(), now)
@@ -144,12 +220,29 @@ class RosTransport:
 
     def age(self,topic):return time.monotonic()-self.receipts.get(topic,-1e20)
 
+    def verify_recording_capacity(self,wall_limit,*,cleanup_wall=60.):
+        now=time.monotonic();elapsed=now-getattr(self,'recording_first_wall',now)
+        if (wall_limit is None or not all(math.isfinite(v) and v>0 for v in (wall_limit,cleanup_wall)) or
+                elapsed<5 or not getattr(self,'recorded_input_bytes',0)):
+            raise ValueError('Recording capacity requires bounded run and >=5 s observation')
+        rate=max(self.recording_peak_rate,self.recorded_input_bytes/elapsed,
+                 self.recording_window_bytes/max(.5,now-self.recording_window_wall))
+        needed=math.ceil(2*rate*(wall_limit+cleanup_wall))
+        remaining=self.journal.max_bytes-self.raw_path.stat().st_size
+        free=shutil.disk_usage(self.raw_path.parent).free-self.journal.reserve
+        if needed>min(remaining,free):
+            raise ValueError('Insufficient recording capacity for trial plus cleanup')
+        report=dict(required_remaining_bytes=needed,remaining_journal_bytes=remaining,
+                    free_after_reserve_bytes=free,measured_peak_or_mean_bytes_per_wall_s=rate,
+                    observed_wall_s=elapsed,trial_wall_limit_s=wall_limit,
+                    cleanup_wall_s=cleanup_wall,headroom_factor=2.)
+        self.audit['recording_capacity']=report
+        return report
+
     def sample(self):
-        from rclpy.time import Time
-        now=self.sim();odom=self.messages['/slam/odom']
-        if odom.header.frame_id!='odom' or odom.child_frame_id!='base_link':raise ValueError('Unexpected SLAM odom convention')
-        mb=self.tf.lookup_transform('map','base_link',Time());mo=self.tf.lookup_transform('map','odom',Time())
-        ob=self.tf.lookup_transform('odom','base_link',Time())
+        now=self.sim()
+        odom,(mb,mo,ob),odom_receipt=select_coherent_localization(
+            self.tf,self.odom_history,self.localization_tf,sim=now,wall=time.monotonic())
         p=mb.transform.translation;angle=yaw(mb.transform.rotation)
         cmd=self.messages['/path_manager/path_manager_ros/nav_vel']
         # Actual motion from successive fresh map poses, independent of possibly filtered odom twist.
@@ -175,7 +268,8 @@ class RosTransport:
         result=dict(sim=now,wall=time.monotonic(),x=p.x,y=p.y,yaw=angle,
                     tf_stamp=stamp(mb.header.stamp),map_odom_stamp=stamp(mo.header.stamp),odom_stamp=stamp(odom.header.stamp),
                     **self.structural.ages(now,time.monotonic()),
-                    clock_age=self.age('/clock'),pose_age=self.age('/slam/odom'),tf_receipt_age=self.age('/tf'),
+                    clock_age=self.age('/clock'),pose_age=time.monotonic()-odom_receipt,
+                    tf_receipt_age=max(time.monotonic()-v['wall'] for v in self.localization_tf.values()),
                     speed=speed,wz=wz,command_speed=math.hypot(cmd.linear.x,cmd.linear.y),command_wz=cmd.angular.z,safety=safety)
         if (any(not math.isfinite(v) for v in result.values() if type(v) in (int,float)) or
             any(not 0<=now-result[k]<=.5 for k in ('tf_stamp','map_odom_stamp','odom_stamp')) or
@@ -333,10 +427,14 @@ class RosTransport:
     def send(self,goals,execution):
         from nav2_msgs.action import FollowPath
         from unique_identifier_msgs.msg import UUID
+        self.failure=self.failure or self.journal.failure
         if self.failure:raise ValueError(self.failure)
+        self.verify_recording_capacity(getattr(self,'run_wall_limit',None))
         if self.graph()!=self.registration_graph:raise ValueError('Session changed before preflight')
         self.preflight(goals)
+        self.failure=self.failure or self.journal.failure
         if self.failure:raise ValueError(self.failure)
+        self.verify_recording_capacity(getattr(self,'run_wall_limit',None))
         current=self.sample()
         if current['safety']!='clear' or current['speed']>.03 or abs(current['wz'])>.03 or current['command_speed']>.01 or abs(current['command_wz'])>.01:raise ValueError('Robot moved during preflight')
         # Execute the identical ROS Path object whose samples were checked above.
@@ -358,6 +456,7 @@ class RosTransport:
 
     def tick(self):
         self.spin()
+        self.failure=self.failure or self.journal.failure
         now=time.monotonic()
         if now-getattr(self,'last_tick',0)<.1:return {}
         self.last_tick=now
@@ -378,36 +477,83 @@ class RosTransport:
         except Exception as exc:return dict(failure=repr(exc))
 
     def close(self):
-        clean=False;cancel='no_owned_goal';deadline=time.monotonic()+5
+        clean=False;cancel='no_owned_goal';cancel_requested=False;cancel_future=None
+        started=time.monotonic();action_deadline=started+5.;stop_deadline=started+35.
+        terminal=(self.send_future is None or (self.send_future.done() and self.handle is not None and
+                   (not self.handle.accepted or (self.result_future is not None and self.result_future.done()))))
+        terminal_wall=started if terminal else None
+        terminal_watermark=None
+        phase_failed=False;resting=None;last_sample=None
+        source_span=wall_span=0.
+        self.audit['cleanup']={}
         try:
-            while self.send_future and not self.send_future.done() and time.monotonic()<deadline:self.spin()
-            self.adopt_handle()
-            if self.result_future and not self.result_future.done():
-                f=self.handle.cancel_goal_async();cancel='exact_owned_uuid_requested'
-                while not f.done() and time.monotonic()<deadline:self.spin()
-                if not f.done() or not any(bytes(g.goal_id.uuid).hex()==self.owned_id for g in f.result().goals_canceling):cancel='cancel_unconfirmed'
-                while not self.result_future.done() and time.monotonic()<deadline:self.spin()
-            terminal=(self.send_future is None or (self.send_future.done() and self.handle and
-                       (not self.handle.accepted or (self.result_future and self.result_future.done()))))
-            resting=None;last_tf=None
-            while time.monotonic()<deadline:
+            if terminal:terminal_watermark=self.sim()
+            while time.monotonic()<stop_deadline:
                 self.spin()
+                try:
+                    self.adopt_handle()
+                except ValueError as exc:
+                    if self.handle is None or self.handle.accepted:raise
+                    self.failure=self.failure or str(exc)
+                if self.handle and self.handle.accepted and self.result_future and not self.result_future.done() and not cancel_requested:
+                    cancel_requested=True;cancel='exact_owned_uuid_requested'
+                    cancel_future=self.handle.cancel_goal_async()
+                if cancel_future and cancel_future.done():
+                    confirmed=any(bytes(g.goal_id.uuid).hex()==self.owned_id for g in cancel_future.result().goals_canceling)
+                    cancel='exact_owned_uuid_confirmed' if confirmed else 'cancel_unconfirmed'
+                terminal=(self.send_future is None or (self.send_future.done() and self.handle is not None and
+                           (not self.handle.accepted or (self.result_future is not None and self.result_future.done()))))
+                if terminal and terminal_wall is None:
+                    terminal_wall=time.monotonic();terminal_watermark=self.sim()
+                if ((terminal_wall is not None and terminal_wall>action_deadline) or
+                        (time.monotonic()>action_deadline and not terminal)):
+                    phase_failed=True;self.failure=self.failure or 'owned_action_terminal_timeout'
                 try:
                     s=self.sample()
                     if hasattr(self,'cleanup_observer') and s['tf_stamp']>getattr(self,'last_cleanup_tf',getattr(self,'last_pose_stamp',None) or 0)+.05:
                         self.cleanup_observer(s);self.last_cleanup_tf=s['tf_stamp']
-                    if (s['tf_stamp']!=last_tf and all(0<=s['sim']-s[k]<=.5 for k in ('tf_stamp','odom_stamp','map_odom_stamp')) and
-                        s['pose_age']<=.5 and s['clock_age']<=.5 and s['speed']<=.03 and abs(s['wz'])<=.03 and
-                        s['command_speed']<=.01 and abs(s['command_wz'])<=.01):
-                        resting=s['sim'] if resting is None else resting;last_tf=s['tf_stamp']
-                        if s['sim']-resting>=1.:clean=bool(terminal);break
-                    elif (s['tf_stamp']==last_tf and s['pose_age']<=.5 and s['clock_age']<=.5 and
-                          s['speed']<=.03 and abs(s['wz'])<=.03 and s['command_speed']<=.01 and abs(s['command_wz'])<=.01):
-                        pass  # Repeated fresh TF cannot extend or reset a measured stop interval.
-                    else:resting=None
-                except Exception:resting=None
-            self.audit['cleanup']=dict(passed=clean,cancel=cancel,owned_action_terminal=bool(terminal),stationary_confirmed=clean,final_sample=getattr(self,'previous_sample',None))
+                    stopped=(terminal and terminal_watermark is not None and math.isfinite(terminal_watermark) and
+                        s['tf_stamp']>=terminal_watermark and
+                        all(math.isfinite(s[k]) for k in ('sim','wall','x','y','tf_stamp','odom_stamp','map_odom_stamp','pose_age','clock_age','speed','wz','command_speed','command_wz')) and
+                        all(0<=s['sim']-s[k]<=.5 for k in ('tf_stamp','odom_stamp','map_odom_stamp')) and
+                        0<=s['pose_age']<=.5 and 0<=s['clock_age']<=.5 and s['speed']<=.03 and abs(s['wz'])<=.03 and
+                        s['command_speed']<=.01 and abs(s['command_wz'])<=.01)
+                    if not stopped:
+                        resting=None
+                    elif last_sample is None or s['tf_stamp']>last_sample['tf_stamp']:
+                        if last_sample and (not 0<s['tf_stamp']-last_sample['tf_stamp']<=.3 or
+                                            not 0<s['wall']-last_sample['wall']<=.5):resting=None
+                        if resting is None:resting=dict(s)
+                        if math.hypot(s['x']-resting['x'],s['y']-resting['y'])>.03:
+                            resting=None
+                        else:
+                            source_span=s['tf_stamp']-resting['tf_stamp'];wall_span=s['wall']-resting['wall']
+                            if terminal and source_span>=5. and wall_span>=3.:
+                                clean=not phase_failed;last_sample=s;break
+                        last_sample=s
+                    elif s['tf_stamp']<last_sample['tf_stamp']:
+                        resting=None;last_sample=s
+                    # Duplicate source poses neither advance nor renew a stop.
+                except Exception:
+                    resting=None;last_sample=None
+            self.audit['cleanup'].update(passed=clean,cancel=cancel,owned_action_terminal=bool(terminal),
+                action_phase_failed=phase_failed,stationary_confirmed=clean,
+                terminal_watermark_sim=terminal_watermark,
+                terminal_observed_wall_s=terminal_wall-started if terminal_wall is not None else None,
+                stop_source_start_s=resting['tf_stamp'] if resting is not None else None,
+                stop_source_span_s=source_span,stop_wall_span_s=wall_span,
+                final_sample=last_sample)
+        except Exception as exc:
+            self.failure=self.failure or 'cleanup_exception:'+repr(exc)
+            self.audit['cleanup'].update(passed=False,stationary_confirmed=False,error=repr(exc))
         finally:
-            self.raw.flush();self.raw.close();self.audit['raw_sha256']=digest(self.raw_path);self.audit['raw_bytes']=self.bytes;self.audit['raw_file']=str(self.raw_path)
+            recording=self.journal.close(timeout=10.)
+            if not recording['complete']:
+                clean=False;self.failure=self.failure or recording['failure'] or 'incomplete_raw_evidence'
+            # An unjoined writer may still change the file after a timeout.
+            # Do not claim a final file digest for incomplete recording.
+            self.audit.update(raw_journal=recording,raw_sha256=digest(self.raw_path) if recording['complete'] else None,
+                              raw_bytes=recording['bytes'],raw_file=str(self.raw_path))
+            self.audit['cleanup'].update(passed=clean,stationary_confirmed=clean,recording_complete=recording['complete'])
             self.nav.destroy();self.node.destroy_node();self.rclpy.shutdown()
         return clean

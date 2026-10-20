@@ -56,11 +56,16 @@ class RouteEvidence:
                                             confirmed=s,xy_error_m=errors[i],radius_m=.25))
                     self.inside_since=None
             else:self.inside_since=None
-        if self.terminal_sim is not None and s['sim']>=self.terminal_sim:
+        if self.terminal_sim is not None and s['tf_stamp']>=self.terminal_sim:
             yaw_error=abs(math.remainder(s['yaw']-self.goals[-1]['yaw_rad'],math.tau))
             stopped=(errors[-1]<=.25 and yaw_error<=.3 and s['speed']<=.03 and abs(s['wz'])<=.03 and
                      s['command_speed']<=.01 and abs(s['command_wz'])<=.01)
-            self.stop_since=(s['sim'] if self.stop_since is None else self.stop_since) if stopped else None
+            if stopped:
+                if self.stop_since is None:self.stop_since=dict(s)
+                if math.hypot(s['x']-self.stop_since['x'],s['y']-self.stop_since['y'])>.03:
+                    self.fail('terminal_hold_excursion')
+            elif self.stop_since is not None:
+                self.fail('terminal_hold_broken');self.stop_since=None
 
     def terminal(self,status,*,sim):
         self.status=status;self.terminal_sim=sim;self.stop_since=None
@@ -68,7 +73,9 @@ class RouteEvidence:
 
     def finish(self,*,cleanup,safety_complete):
         stop=(self.last is not None and self.stop_since is not None and
-              self.last['sim']-self.stop_since>=1.)
+              not self.failure and
+              self.last['tf_stamp']-self.stop_since['tf_stamp']>=5. and
+              self.last['wall']-self.stop_since['wall']>=3.)
         narrow=len(self.events)>=2 and self.narrow_samples>=2
         practical=(not self.failure and len(self.events)==len(self.goals) and narrow and self.status==4 and stop and cleanup)
         return dict(result=('FULL_ROUTE_PASS' if practical and safety_complete and len(self.goals)==5 else

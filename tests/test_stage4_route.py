@@ -133,11 +133,30 @@ def test_terminal_success_alone_not_pass():
 
 def test_stop_after_action_and_cleanup_required():
     e=complete();e.terminal(4,sim=e.last['sim']+.1);assert not e.finish(cleanup=True,safety_complete=True)['full_route_pass']
-    for t in [e.terminal_sim+i*.1 for i in range(14)]:e.observe(sample(t,8.))
+    for t in [e.terminal_sim+i*.1 for i in range(62)]:e.observe(sample(t,8.))
     r=e.finish(cleanup=True,safety_complete=True);assert r['full_route_pass'] and len(r['region_events'])==5
     assert r['narrow_passage_confirmed']
     assert not e.finish(cleanup=False,safety_complete=True)['full_route_pass']
     assert not e.finish(cleanup=True,safety_complete=False)['full_route_pass']
+
+
+def test_terminal_hold_requires_five_source_and_three_wall_seconds():
+    e=complete();e.terminal(4,sim=e.last['sim']+.1)
+    first=e.terminal_sim
+    for i in range(52):
+        s=sample(first+i*.1,8.);s['wall']=first+i*.05;e.observe(s)
+    assert not e.finish(cleanup=True,safety_complete=True)['terminal_stop_confirmed']
+    for i in range(52,63):
+        s=sample(first+i*.1,8.);s['wall']=first+i*.05;e.observe(s)
+    assert e.finish(cleanup=True,safety_complete=True)['terminal_stop_confirmed']
+
+
+def test_slow_creep_within_goal_and_speed_threshold_invalidates_hold():
+    e=complete();e.terminal(4,sim=e.last['sim']+.1)
+    for i in range(62):
+        e.observe(sample(e.terminal_sim+i*.1,8.+i*.001))
+    assert e.failure=='terminal_hold_excursion'
+    assert not e.finish(cleanup=True,safety_complete=True)['full_route_pass']
 
 
 def test_terminal_drift_movement_or_collision_no_pass():

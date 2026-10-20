@@ -6,6 +6,7 @@ from .evidence import RouteEvidence
 def run_route(selection,session,transport,*,count,wall_limit=120.,sim_limit=90.):
     evidence=None;cleanup=False;error=None;terminal=False;started=time.monotonic()
     try:
+        transport.run_wall_limit=wall_limit
         start=transport.ready(selection,session)
         evidence=RouteEvidence(selection['goals'],start=[start['x'],start['y']],count=count)
         first_sim=start['sim'];terminal_wall=None
@@ -21,7 +22,7 @@ def run_route(selection,session,transport,*,count,wall_limit=120.,sim_limit=90.)
             if evidence.failure:break
             if terminal:
                 if evidence.finish(cleanup=True,safety_complete=False)['practical_route_pass']:break
-                if time.monotonic()-terminal_wall>5.:evidence.fail('terminal_stop_or_regions_missing');break
+                if time.monotonic()-terminal_wall>30.:evidence.fail('terminal_stop_or_regions_missing');break
         else:evidence.fail('wall_timeout')
     except KeyboardInterrupt:
         error='interrupted'

@@ -56,9 +56,12 @@ Journal/evidence:
 - [x] Qualify standalone binary recorder and evaluation contact observer:
   source-bound 26-shape inventory, every-step accumulation, sticky forbidden
   contacts, sequence-coherent bridge. E0-05 retained/replayed all 62,763 records.
-- [ ] Complete runtime recording/coherent sampling/predictive safety/independent
-  contact/stop evidence before any applicable motion stage.
-- [x] Focused Python suite: 83 passed; native observer CTest: 1 passed. Independent
+- [x] Wire full-CDR route recording, measured capacity preflight, coherent
+  source-time TF/odometry sampling, and terminal-watermarked 5 sim/3 wall second
+  stop evidence. Replay validates 300 distinct coherent source times.
+- [ ] Complete predictive body/stopping veto, independent owned-stack abort,
+  all-shape physical coverage and contact end-watermark evidence before motion.
+- [x] Focused Python suite: 98 passed; native observer CTest: 1 passed. Independent
   review findings repaired and re-reviewed. Scoped checkpoints/review bundle
   identifiers are recorded in the external campaign REPORT.md.
 
@@ -73,9 +76,11 @@ Next stage is local runtime qualification followed by bounded open-space E1;
 do not require a full-route certificate before that calibration. Public-TF local
 offline sweeps (0.1–0.5 m moves, 90° turn) pass all three saved/live grids with
 extra .100 m. These are geometry checks, not motion authorization. Complete
-coherent source-time sampling, predictive stopping/swept-body veto, full-CDR
-route transport and contact end-watermark evaluation first. Then acquire sensor
-views of the currently occluded rear clutter boundary. Neither a 2 cm map nor
+predictive stopping/swept-body veto, independent owned-stack abort and contact
+end-watermark evaluation first. Then acquire sensor views of the currently
+occluded rear clutter boundary. Exact-time replay of 300 raw scans confirms the
+rear edge is unobserved; the 5 cm projector consumes a 10 cm-filtered SLAM feature
+cloud, so resolution changes alone cannot restore it. Neither a 2 cm map nor
 the provisional ICP residual supplies an uncertainty bound. Do not clear cells
 or import source-world coordinates. See external SOL_CONTINUATION_PLAN.md.
 Only accepted successful G1–G5 artifacts may enter `experiments/g1_g5/`.
