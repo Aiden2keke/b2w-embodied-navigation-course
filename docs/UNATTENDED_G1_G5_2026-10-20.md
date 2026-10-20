@@ -156,9 +156,11 @@ PYTHONDONTWRITEBYTECODE=1 /usr/bin/python3 -m pytest \
 ```
 
 This is an offline reproducer, not a completed live demonstration entry point.
-The `.deps` symlink in the experimental worktree references the original pinned
-build dependencies and is not committed. Its original-prefix overlay wrappers
-are not qualified for live use from this worktree. The durable review bundle
+At bundle sealing, an uncommitted `.deps` link referenced the original pinned
+build dependencies. Following the user's subsequent artifact policy, both explicit
+dependency links (`.deps`, `.venv`) were removed; their targets were preserved.
+The original-prefix overlay wrappers are not qualified for live use from this
+worktree. The durable review bundle
 contains the branch changes, commits, inputs, reports, test/build/failed-probe
 logs and manifests; the complete baseline archive is separately hash-referenced.
 
@@ -173,3 +175,7 @@ automatic registration, predictive filled-body control, full contact/evaluation
 coverage and five-second final-hold acceptance before E0/E1 and route motion.
 A changed physical passage, smaller footprint, changed goals or policy is outside
 this campaign; no such change was made or assumed.
+
+Subsequent artifact policy: see [EXPERIMENT_ARTIFACT_POLICY.md](EXPERIMENT_ARTIFACT_POLICY.md).
+The sealed review bundle and original evidence remain unchanged. No successful
+`experiments/g1_g5/` archive qualifies while the campaign remains blocked.

@@ -82,8 +82,23 @@ map, or certify a connected route and combined tracking/latency/body/braking err
 budget below the geometric upper bound. Preserve the full padding. Then finish
 recording/coherent sampling/cleanup, predictive body checks and independent full
 contact/evaluation/final-hold evidence before any bounded live trial. Original-
-prefix dependency symlinks/wrappers in the experimental checkout are not live
-qualified. No scope, footprint, waypoint, policy or physical environment waiver.
+prefix overlay wrappers in the experimental checkout are not live qualified.
+No scope, footprint, waypoint, policy or physical environment waiver.
+
+Final repository artifact policy (user, Oct 20):
+[EXPERIMENT_ARTIFACT_POLICY.md](docs/EXPERIMENT_ARTIFACT_POLICY.md).
+Do not create symlinks or move existing evidence during development. The two
+explicit dependency links created earlier (`.deps`, `.venv`) have been removed
+from the experimental worktree; their original target directories are preserved.
+Historical build outputs are not a newly qualified runtime environment.
+Only genuinely verified successful G1–G5 runs qualify for copied, reviewed,
+SHA256/provenance-bound artifacts under `experiments/g1_g5/<run-id>/`. Include map,
+route/config, complete representative ROS 2 bags, metrics/trajectory/plots/media,
+and a concise README. Use LFS for large bags/videos where available; never silently
+commit oversized binaries or caches. Commit locally on the experimental branch
+only; no automatic push/merge. Since this campaign is blocked, no successful-run
+artifact directory is created. Original evidence and the sealed review bundle
+remain unchanged; policy updates are appended separately to the evidence journal.
 
 ## Historical — Oct 19 Stage 4: exact checked candidate path; offline complete, route blocked; STOP for review
 
