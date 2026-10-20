@@ -28,6 +28,8 @@ class IndependentStop:
 
     def report(self):
         return dict(confirmed=self.confirmed,inhibit_watermark=self.watermark,
+            hold_start_tf=self.first['tf_stamp'] if self.first else None,hold_end_tf=self.last['tf_stamp'] if self.last else None,
+            hold_start_wall=self.first['wall'] if self.first else None,hold_end_wall=self.last['wall'] if self.last else None,
             source_span_s=self.last['tf_stamp']-self.first['tf_stamp'] if self.first and self.last else 0.,
             wall_span_s=self.last['wall']-self.first['wall'] if self.first and self.last else 0.,
             action_independent=True)

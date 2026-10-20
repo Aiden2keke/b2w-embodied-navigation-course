@@ -146,7 +146,11 @@ class RosTransport:
         data=serialize_message(msg)
         if topic in ('/map','/local_costmap/costmap_raw','/global_costmap/costmap_raw'):
             if not hasattr(self,'grid_revisions'):self.grid_revisions={}
-            self.grid_revisions[topic]=hashlib.sha256(data).hexdigest()
+            from course_navigation.stage4_geometry import grid_revision
+            encoding='occupancy' if topic=='/map' else 'costmap'
+            self.grid_revisions[topic]=dict(sha256=grid_revision(grid(msg,topic!='/map'),encoding)[1],frame=msg.header.frame_id,encoding=encoding)
+            if not hasattr(self,'grid_observations'):self.grid_observations={}
+            self.grid_observations[topic]=dict(cdr_sha256=hashlib.sha256(data).hexdigest(),source=stamp(msg.header.stamp),receipt=now)
         if not hasattr(self,'recording_first_wall'):
             self.recording_first_wall=self.recording_window_wall=now
             self.recorded_input_bytes=self.recording_window_bytes=0
@@ -564,6 +568,7 @@ class RosTransport:
         action.controller_id=execution['controller_id'];action.goal_checker_id=execution['goal_checker_id']
         uid=uuid4();self.owned_id=uid.hex
         self.audit['follow_path_uuid']=self.owned_id
+        self.execution_start_sim=self.sim()
         self.send_future=self.nav.send_goal_async(action,goal_uuid=UUID(uuid=list(uid.bytes)))
         deadline=time.monotonic()+3
         while not self.send_future.done() and time.monotonic()<deadline:self.spin()
@@ -606,7 +611,7 @@ class RosTransport:
         terminal_wall=started if terminal else None
         terminal_watermark=None
         phase_failed=False;resting=None;last_sample=None
-        source_span=wall_span=0.;independent_stop=None
+        source_span=wall_span=0.;independent_stop=None;accepted_end=None;contact_deadline=None
         self.audit['cleanup']={}
         try:
             if self.send_future is not None:
@@ -617,6 +622,7 @@ class RosTransport:
             if hasattr(self,'abort_watermark'):
                 from .stopping import IndependentStop
                 independent_stop=IndependentStop(self.abort_watermark)
+            started_sim=getattr(self,'execution_start_sim',getattr(self,'abort_watermark',{}).get('sim',self.sim()))
             if terminal:terminal_watermark=self.sim()
             while time.monotonic()<stop_deadline:
                 self.spin()
@@ -650,7 +656,7 @@ class RosTransport:
                         0<=s['pose_age']<=.5 and 0<=s['clock_age']<=.5 and s['speed']<=.03 and abs(s['wz'])<=.03 and
                         s['command_speed']<=.01 and abs(s['command_wz'])<=.01)
                     if not stopped:
-                        resting=None
+                        resting=None;accepted_end=None;contact_deadline=None
                     elif last_sample is None or s['tf_stamp']>last_sample['tf_stamp']:
                         if last_sample and (not 0<s['tf_stamp']-last_sample['tf_stamp']<=.3 or
                                             not 0<s['wall']-last_sample['wall']<=.5):resting=None
@@ -660,20 +666,29 @@ class RosTransport:
                         else:
                             source_span=s['tf_stamp']-resting['tf_stamp'];wall_span=s['wall']-resting['wall']
                             if terminal and source_span>=5. and wall_span>=3.:
-                                clean=not phase_failed;last_sample=s;break
+                                last_sample=s
+                                if accepted_end is None:
+                                    accepted_end=s['sim'];contact_deadline=time.monotonic()+2.
+                                needs_contact=self.send_future is not None
+                                closure=self.contact_closure(started_sim,accepted_end) if needs_contact else dict(reporting_closed_through_end=True,read_only=True)
+                                self.audit['contact_closure']=closure
+                                if closure['reporting_closed_through_end']:
+                                    clean=not phase_failed and not bool(getattr(getattr(self,'contacts',None),'failure',None));break
+                                if time.monotonic()>=contact_deadline:
+                                    phase_failed=True;self.failure=self.failure or 'contact_interval_not_closed_through_stop';break
                         last_sample=s
                     elif s['tf_stamp']<last_sample['tf_stamp']:
                         resting=None;last_sample=s
                     # Duplicate source poses neither advance nor renew a stop.
                 except Exception:
-                    resting=None;last_sample=None
+                    resting=None;last_sample=None;accepted_end=None;contact_deadline=None
             self.audit['cleanup'].update(passed=clean,cancel=cancel,owned_action_terminal=bool(terminal),
                 action_phase_failed=phase_failed,stationary_confirmed=clean,
                 terminal_watermark_sim=terminal_watermark,
                 terminal_observed_wall_s=terminal_wall-started if terminal_wall is not None else None,
                 stop_source_start_s=resting['tf_stamp'] if resting is not None else None,
                 stop_source_span_s=source_span,stop_wall_span_s=wall_span,
-                final_sample=last_sample,independent_stop=independent_stop.report() if independent_stop else dict(confirmed=False,reason='no_inhibit_watermark'))
+                final_sample=last_sample,accepted_stop_end_sim=accepted_end,independent_stop=independent_stop.report() if independent_stop else dict(confirmed=False,reason='no_inhibit_watermark'))
         except Exception as exc:
             self.failure=self.failure or 'cleanup_exception:'+repr(exc)
             self.audit['cleanup'].update(passed=False,stationary_confirmed=False,error=repr(exc))

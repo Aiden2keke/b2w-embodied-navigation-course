@@ -194,3 +194,25 @@ def test_late_owned_acceptance_is_still_cancelled_and_never_passes_deadline(tmp_
     assert t.failure=='owned_action_terminal_timeout'
     assert now[0]>=11.,'Stop hold must follow owned action termination'
     assert t.audit['cleanup']['stop_source_start_s']>=t.audit['cleanup']['terminal_watermark_sim']
+
+
+@pytest.mark.parametrize('tail_arrives',[True,False])
+def test_contact_endpoint_is_frozen_and_closed_before_journal_seal(tmp_path,tail_arrives):
+    t=transport();t.raw_path=tmp_path/'raw';t.raw_path.write_bytes(b'')
+    t.guard_config=dict(session_id='s',inhibit_path=str(tmp_path/'stop'))
+    t.send_future=NS(done=lambda:True);t.handle=NS(accepted=False);t.result_future=None
+    t.nav=NS(destroy=lambda:None);t.node=NS(destroy_node=lambda:None);t.rclpy=NS(shutdown=lambda:None)
+    now=[1.];t.sim=lambda:now[0];t.spin=lambda:now.__setitem__(0,now[0]+.1)
+    t.sample=lambda:dict(sim=now[0],wall=now[0],x=0.,y=0.,tf_stamp=now[0],odom_stamp=now[0],map_odom_stamp=now[0],
+        pose_age=0.,clock_age=0.,speed=0.,wz=0.,command_speed=0.,command_wz=0.)
+    endpoints=[];sealed=[]
+    def closure(start,end):
+        endpoints.append(end)
+        return dict(reporting_closed_through_end=tail_arrives and now[0]>=end+.4,accepted_end_sim=end)
+    t.contact_closure=closure
+    t.journal.close=lambda **kw:(sealed.append(now[0]) or dict(complete=True,failure=None,accepted=0,written=0,bytes=0))
+    with patch('stage4_route.ros_transport.time.monotonic',lambda:now[0]):
+        assert t.close() is tail_arrives
+    assert len(set(endpoints))==1 and sealed[0]>=endpoints[0]+.4
+    assert t.audit['cleanup']['accepted_stop_end_sim']==endpoints[0]
+    assert t.audit['contact_closure']['reporting_closed_through_end'] is tail_arrives

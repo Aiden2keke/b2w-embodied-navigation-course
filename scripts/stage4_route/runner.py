@@ -45,8 +45,7 @@ def run_route(selection,session,transport,*,count,start_index=0,wall_limit=120.,
     if evidence and getattr(transport,'failure',None):evidence.fail(transport.failure)
     report=(evidence.finish(cleanup=cleanup,safety_complete=False) if evidence else
             dict(result='ROUTE_FAIL',full_route_pass=False,practical_route_pass=False,cleanup_passed=cleanup))
-    if evidence and evidence.last and hasattr(transport,'contact_closure'):
-        report['contact_closure']=transport.contact_closure(first_sim,evidence.last['sim'])
+    if 'contact_closure' in transport.audit:report['contact_closure']=transport.audit['contact_closure']
     report.update(session_id=session['session_id'],error=error,wall_duration_s=time.monotonic()-started,
                   simulated_duration_s=(evidence.last['sim']-first_sim if evidence and evidence.last else None),
                   selection=selection,runtime=transport.audit)

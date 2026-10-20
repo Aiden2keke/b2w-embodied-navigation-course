@@ -144,3 +144,16 @@ being treated as arrival; it does not repair TF freshness, guarantee navigation
 progress, or change existing progress/cancellation behavior. Retain the original
 investigation's bounded TF/path telemetry proposal for a separately authorized
 run. No tolerance increase, forced transform, retry or acceptance bypass is used.
+
+
+## Explicit external Stage4 deployment (NEEDS FIX continuation)
+
+The experimental worktree does not restore `.deps` or `.venv` links. The opt-in
+wrapper/checker accepts absolute `B2W_CONTROLLER_PREFIX` (the copied installed
+nav2_controller package), `B2W_COURSE_UNDERLAY`, optional `B2W_NATIVE_LIB_DIR` and
+`B2W_PYTHON_SITE`. Historical local `.deps` fallback remains only for an explicitly
+prepared local build. Missing prefixes fail; no download/install occurs. Runtime
+Stage4 checks use the explicit `--deployment` JSON, not that fallback: exact pinned
+executable/library hashes, PID/start ticks/PGID/UID/token, executable target and
+mapped core path/inode/device are required. Guard manifest digest and loaded adapter
+parameters must match. Offline loader proof does not qualify a running controller.

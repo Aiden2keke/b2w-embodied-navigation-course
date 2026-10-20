@@ -35,3 +35,11 @@ XT32 名义参数依据 [Hesai 官方手册](https://www.hesaitech.com/wp-conten
 当前扫描是 Gazebo 瞬时快照，点 time 全为 0；公开 `/imu` 的 yaw 由陀螺积分，没有磁场或绝对航向输入，orientation 不使用 Gazebo 真值。低层 rl_sar 使用私有原始仿真 IMU 的理想姿态和角速度；它们没有进入 SLAM/Nav2。噪声/偏置与 orientation covariance 是仿真滤波设置，不是厂家测量值。
 
 本机大点云传输采用独立 Fast DDS profile：[官方 SHM 配置说明](https://fast-dds.docs.eprosima.com/en/2.6.x/fastdds/transport/shared_memory/shared_memory.html)。完整点云超过默认 segment 容量时曾实际丢失，修复后的频率和定位结果单独记录在验证报告中。物理扰动参数使用 [Gazebo WheelSlip](https://raw.githubusercontent.com/gazebosim/gz-sim/ign-gazebo6/src/systems/wheel_slip/WheelSlip.cc) 的定义。
+
+
+Stage4 NEEDS FIX continuation: private `stage4_guard_manifest` is forwarded from
+course launch to navigation launch to velocity_adapter; stage4_guard_sha256 and
+stage4_session_id expose computed immutable loaded identities. No shared topic/TF
+contract changes. Existing evaluation-only reports now also veto guard permission;
+report continuity never establishes engine coverage. This opt-in candidate remains
+zero-only and requires external review; ordinary baseline launch defaults remain.

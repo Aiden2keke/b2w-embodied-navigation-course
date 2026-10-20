@@ -137,9 +137,9 @@
       "requires": [
         "O01"
       ],
-      "requirement": "Unqualified motion dispatch interlock at CLI and direct transport",
-      "source": "tests/test_unqualified_motion.py; motion_qualification.py",
-      "expected": "No flag/environment/JSON override; reject before ROS construction and FollowPath",
+      "requirement": "Unqualified nonzero motion blocked at CLI, direct transport and final guarded adapter",
+      "source": "test_unqualified_motion.py; test_stage4_safety_guard.py; shared stage4_qualification.py",
+      "expected": "No runtime flag/environment/JSON override; actual final output remains zero",
       "command": "See suites in dry-run command manifest",
       "missing": "not_executed_or_failed",
       "stop_condition": "FAIL/missing/stale/ambiguous/timeout: no dependent motion; retain logs; parent diagnoses before changed-evidence retry"
@@ -165,9 +165,9 @@
       "requires": [
         "O06"
       ],
-      "requirement": "Independent segment evaluation and original future-goal exclusions",
-      "source": "tests/test_segment_evidence.py; evidence.py",
-      "expected": "Previous-goal region and first measured Start required; original goal names/order and narrow phase retained; even a passed segment can never be FULL_ROUTE_PASS",
+      "requirement": "Independent original-segment orchestration/evaluation and future goal exclusions",
+      "source": "test_segment_evidence.py; test_stage4_segment_execution.py; runner.py; constraints.py",
+      "expected": "Submit exactly selected original goal slice; preceding-region and future-goal gates; no segment can be FULL_ROUTE_PASS",
       "command": "See suites in dry-run command manifest",
       "missing": "not_executed_or_failed",
       "stop_condition": "FAIL/missing/stale/ambiguous/timeout: no dependent motion; retain logs; parent diagnoses before changed-evidence retry"
@@ -270,7 +270,7 @@
       "source": "contract.py currently operator pairs only; sensor-fit-complete.json historical diagnostic",
       "expected": "Noncollinear fit/holdout geometry; conservative local uncertainty fits reserve; no truth/world substitution; two fresh passive starts; \u226430 wall s / \u22642 new-observation attempts",
       "command": "/usr/bin/python3 scripts/navigation_validation.py --output /tmp/NEW-EXCLUSIVE-DIRECTORY",
-      "missing": "Requires current-session independently reviewed physical evidence and implemented gates: contract.py currently operator pairs only; sensor-fit-complete.json historical diagnostic",
+      "missing": "Operator landmark/p95 registration explicitly physical_bound_qualified:false. Conservative sensor-only ambiguity/holdout/spatial-error bounds remain missing",
       "stop_condition": "FAIL/missing/stale/ambiguous/timeout: no dependent motion; retain logs; parent diagnoses before changed-evidence retry"
     },
     {
@@ -315,7 +315,7 @@
       "source": "preflight; assess_path; continuous.certify_path",
       "expected": "Sensor-supported filled body plus registration/tracking/latency/braking reserve; no future disk entry; post-smoothing actual FollowPath bytes checked; \u226430 wall s",
       "command": "/usr/bin/python3 scripts/navigation_validation.py --output /tmp/NEW-EXCLUSIVE-DIRECTORY",
-      "missing": "Requires current-session independently reviewed physical evidence and implemented gates: preflight; assess_path; continuous.certify_path",
+      "missing": "Dispatch candidate binds exact Path and geometry/frame/registration/guard identity, requires fresh adapter prepared-grid ack; no live qualification or bounded scheduler evidence",
       "stop_condition": "FAIL/missing/stale/ambiguous/timeout: no dependent motion; retain logs; parent diagnoses before changed-evidence retry"
     },
     {
@@ -330,7 +330,7 @@
       "source": "Missing runtime integration; current sample checks instantaneous footprint only",
       "expected": "Cached immutable saved/live/local/global grids; own frames/source times; actual motion+command latency+conservative stop; unknown/offmap/frame/stale/deadline/no progress fail closed",
       "command": "/usr/bin/python3 scripts/navigation_validation.py --output /tmp/NEW-EXCLUSIVE-DIRECTORY",
-      "missing": "Requires current-session independently reviewed physical evidence and implemented gates: Missing runtime integration; current sample checks instantaneous footprint only",
+      "missing": "Opt-in adapter veto candidate implemented and offline-tested; empirical whole-stop/error envelope, full callback scheduling and physical qualification missing",
       "stop_condition": "FAIL/missing/stale/ambiguous/timeout: no dependent motion; retain logs; parent diagnoses before changed-evidence retry"
     },
     {
@@ -344,7 +344,7 @@
       "source": "Missing action-independent adapter latch/ownership supervisor",
       "expected": "Cycle p99 <50 ms at20 Hz; freeze worst abort latency; unresolved/late handle, rejected cancel, dead controller, localization and recorder faults produce zero and measured physical stop",
       "command": "/usr/bin/python3 scripts/navigation_validation.py --output /tmp/NEW-EXCLUSIVE-DIRECTORY",
-      "missing": "Requires current-session independently reviewed physical evidence and implemented gates: Missing action-independent adapter latch/ownership supervisor",
+      "missing": "Independent lease/inhibit/watchdog and adapter health implemented; session bootstrap/runner heartbeat protocol and measured fault-chain latency/physical stops remain unqualified",
       "stop_condition": "FAIL/missing/stale/ambiguous/timeout: no dependent motion; retain logs; parent diagnoses before changed-evidence retry"
     },
     {
@@ -373,7 +373,7 @@
       "source": "Missing route ContactEvidence wiring/end-watermark; v2 observer metadata available",
       "expected": "Coherent inventory/contact sequence; every physics step; sticky forbidden veto; report interval end >=accepted stop/end; lost/duplicate/late-tail reports fail",
       "command": "/usr/bin/python3 scripts/navigation_validation.py --output /tmp/NEW-EXCLUSIVE-DIRECTORY",
-      "missing": "Requires current-session independently reviewed physical evidence and implemented gates: Missing route ContactEvidence wiring/end-watermark; v2 observer metadata available",
+      "missing": "Contact stream wired to final guard/route; cleanup waits bounded paired closure through frozen accepted stop before seal. Engine coverage and live complete-chain final watermark proof absent",
       "stop_condition": "FAIL/missing/stale/ambiguous/timeout: no dependent motion; retain logs; parent diagnoses before changed-evidence retry"
     },
     {
@@ -423,7 +423,7 @@
       "source": "Missing single-segment motion runner; count currently only 2/5",
       "expected": "Current local corridor-independent path/uncertainty/stop gates; exact G1 identity and .25 m passage; G2\u2013G5 forbidden; \u2264180 sim/300 wall s ceiling, tighter frozen limit before run",
       "command": "/usr/bin/python3 scripts/navigation_validation.py --output /tmp/NEW-EXCLUSIVE-DIRECTORY",
-      "missing": "Requires current-session independently reviewed physical evidence and implemented gates: Missing single-segment motion runner; count currently only 2/5",
+      "missing": "Original single-segment CLI/runner/planner wired and offline-tested; unconditional nonzero block active; no qualified live trial",
       "stop_condition": "FAIL/missing/stale/ambiguous/timeout: no dependent motion; retain logs; parent diagnoses before changed-evidence retry"
     },
     {
@@ -469,7 +469,7 @@
       "source": "Start-only raw 300-scan replay rear boundary unobserved; source-world clearance evaluation only",
       "expected": "Fit tangent from sensor boundaries; aligned entry, bounded heading through full bottleneck, tail exits before turn; registration+map+body+tracking+latency+braking positive reserve",
       "command": "/usr/bin/python3 scripts/navigation_validation.py --output /tmp/NEW-EXCLUSIVE-DIRECTORY",
-      "missing": "Requires current-session independently reviewed physical evidence and implemented gates: Start-only raw 300-scan replay rear boundary unobserved; source-world clearance evaluation only",
+      "missing": "Sensor-bound portal observer implemented with front/tail and full padded-body support; no genuine current-session corridor portal/uncertainty certificate; rear boundary still unobserved",
       "stop_condition": "FAIL/missing/stale/ambiguous/timeout: no dependent motion; retain logs; parent diagnoses before changed-evidence retry"
     },
     {
@@ -516,7 +516,7 @@
       "source": "continuous-detour.json: .020 m extra/.029010 m residual; needs >4.937524033 m band plus actual uncertainty",
       "expected": "Exact endpoint headings/rotations; selection/planner/evaluator bound to same explicit revised ordinary corridor polygon/band; preserve G1\u2192G2 and all goals; recertify smoothing",
       "command": "/usr/bin/python3 scripts/navigation_validation.py --output /tmp/NEW-EXCLUSIVE-DIRECTORY",
-      "missing": "Requires current-session independently reviewed physical evidence and implemented gates: continuous-detour.json: .020 m extra/.029010 m residual; needs >4.937524033 m band plus actual uncertainty",
+      "missing": "Version2 shared planning/observation/selection contract uses5.25m ordinary G3->G4 band; mandatory G1->G2 remains.35m. Needs external review and sensor/error/physical recertification",
       "stop_condition": "FAIL/missing/stale/ambiguous/timeout: no dependent motion; retain logs; parent diagnoses before changed-evidence retry"
     },
     {
@@ -611,6 +611,83 @@
       "command": "/usr/bin/python3 scripts/navigation_validation.py --output /tmp/NEW-EXCLUSIVE-DIRECTORY",
       "missing": "Requires current-session independently reviewed physical evidence and implemented gates: No successful artifacts eligible for repository",
       "stop_condition": "FAIL/missing/stale/ambiguous/timeout: no dependent motion; retain logs; parent diagnoses before changed-evidence retry"
+    },
+    {
+      "id": "O13",
+      "level": "offline",
+      "suite": "focused",
+      "requires": [
+        "O08"
+      ],
+      "requirement": "Final predictive reach, leases, PID identity, stale data and fault latches",
+      "source": "test_stage4_safety_guard.py",
+      "expected": "All fault cases force zero; isolated kernel tests never establish physical bounds",
+      "command": "See suites in dry-run command manifest",
+      "missing": "not_executed_or_failed",
+      "stop_condition": "FAIL/missing/stale/timeout: no dependent motion; retain evidence; Sol diagnoses"
+    },
+    {
+      "id": "O14",
+      "level": "offline",
+      "suite": "focused",
+      "requires": [
+        "O08"
+      ],
+      "requirement": "Dispatch revision/expiry and explicit external deployed ELF identity",
+      "source": "test_stage4_dispatch_deployment.py",
+      "expected": "Changed path/geometry/registration/deployment rejected; timestamp-only geometry stable; PID/library drift fails",
+      "command": "See suites in dry-run command manifest",
+      "missing": "not_executed_or_failed",
+      "stop_condition": "FAIL/missing/stale/timeout: no dependent motion; retain evidence; Sol diagnoses"
+    },
+    {
+      "id": "O15",
+      "level": "offline",
+      "suite": "focused",
+      "requires": [
+        "O08"
+      ],
+      "requirement": "Sensor portal full-body/tail evidence and rejection of weak region-only proof",
+      "source": "test_corridor_portal.py; test_stage4_route.py",
+      "expected": "Center/region samples cannot pass; entry and tail exit, heading/lateral support, advancing gap-free poses required",
+      "command": "See suites in dry-run command manifest",
+      "missing": "not_executed_or_failed",
+      "stop_condition": "FAIL/missing/stale/timeout: no dependent motion; retain evidence; Sol diagnoses"
+    },
+    {
+      "id": "O16",
+      "level": "offline",
+      "suite": "focused",
+      "requires": [
+        "O08"
+      ],
+      "requirement": "Conservative registration/map/body/tracking/stopping component accounting",
+      "source": "test_stage4_bounds.py",
+      "expected": "Missing/p95-only/unscoped/under-budget evidence rejected; schema validity never sets motion_qualified",
+      "command": "See suites in dry-run command manifest",
+      "missing": "not_executed_or_failed",
+      "stop_condition": "FAIL/missing/stale/timeout: no dependent motion; retain evidence; Sol diagnoses"
+    },
+    {
+      "id": "O17",
+      "level": "offline",
+      "suite": "focused",
+      "requires": [
+        "O08"
+      ],
+      "requirement": "Independent inhibit-watermarked stop and contact end closure before seal",
+      "source": "test_independent_stop.py; test_stage4_transport.py; test_stage4_contact_wiring.py",
+      "expected": "Action terminal independent stop evidence; fixed accepted stop endpoint closed by reports before seal; engine coverage stays false",
+      "command": "See suites in dry-run command manifest",
+      "missing": "not_executed_or_failed",
+      "stop_condition": "FAIL/missing/stale/timeout: no dependent motion; retain evidence; Sol diagnoses"
     }
-  ]
+  ],
+  "external_review_gate": {
+    "verdict": "NEEDS FIX / NO-GO",
+    "baseline": "90716f4ebd8fff713f671529d0da5dfb5fa42aae",
+    "source": "docs/reviews/B2W_Stage4_Independent_Review_20261020.md",
+    "nonzero_permitted": false,
+    "internal_reviews_replace_external": false
+  }
 }

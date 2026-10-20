@@ -17,7 +17,8 @@ class RouteEvidence:
         if len(start)!=2 or any(type(v) not in (int,float) or not math.isfinite(v) for v in start):
             raise ValueError('Start must contain two finite numeric coordinates')
         from .portal import CorridorPortal
-        self.portal=CorridorPortal(portal) if portal is not None else None
+        self.portal_provenance=copy.deepcopy(portal)
+        self.portal=CorridorPortal(portal) if portal is not None and start_index<=1<start_index+count else None
         self.original_goals=copy.deepcopy(goals);self.start_index=start_index
         self.goals=self.original_goals[start_index:start_index+count];self.start=list(start);self.events=[];self.path=[];self.failure=None
         if start_index and math.dist(start,goals[start_index-1]['position'])>.25:

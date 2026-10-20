@@ -309,8 +309,8 @@ class VelocityAdapter(Node):
         if getattr(self,'stage4_guard',None) is not None:
             self.stage4_guard.inhibit('adapter_shutdown')
             try:self.pub.publish(Twist())
-            finally:self.stage4_worker.close()
-            return True
+            finally:joined=self.stage4_worker.close()
+            return joined
         return True
 
 

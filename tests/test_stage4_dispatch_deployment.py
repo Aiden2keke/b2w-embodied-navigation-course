@@ -101,3 +101,16 @@ def test_abort_uses_pinned_manifest_even_if_file_was_replaced(tmp_path):
     t.guard_config=dict(session_id='old',inhibit_path=str(original))
     t.request_independent_abort('fault')
     assert read_control(original)['reason']=='fault' and not other.exists()
+
+
+def test_identical_map_geometry_advances_freshness_without_invalidating_sweep():
+    from test_stage4_transport import transport
+    from nav_msgs.msg import OccupancyGrid
+    t=transport();m=OccupancyGrid();m.header.frame_id='map';m.header.stamp.sec=1
+    m.info.width=m.info.height=2;m.info.resolution=.1;m.info.origin.orientation.w=1.;m.data=[0]*4
+    t.receive('/map',m);before=copy.deepcopy(t.grid_revisions);old=t.grid_observations['/map']['cdr_sha256']
+    m.header.stamp.sec=2;t.receive('/map',m)
+    assert t.grid_revisions==before and t.grid_observations['/map']['source']==2.
+    assert t.grid_observations['/map']['cdr_sha256']!=old
+    m.data=[0,0,0,-1];t.receive('/map',m)
+    assert t.grid_revisions!=before

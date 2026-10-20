@@ -171,3 +171,17 @@ B 可以脱离 Gazebo 开发 SLAM。
 B 提供固定地图和 SLAM 输出样例后，C 可以脱离 SLAM 开发 Nav2。
 
 最终三个模块分别通过独立验收后再进行全系统联调。
+
+
+### Stage4 private experimental guard (2026-10-20, zero-only candidate)
+
+Both course/navigation launch descriptions forward private opt-in
+`stage4_guard_manifest` (default empty). Stage4 requires `goal_manager_enabled=false`
+and `adaptive_speed=false`. The existing adapter remains the only final publisher;
+shared command topics, TF, message types and RL-SAR remain unchanged. It additionally
+reads existing `/map`, local/global raw costmaps and evaluation-only contact reports
+for vetoes. Evaluation data never constructs navigation geometry or goals.
+`stage4_guard_sha256` and `stage4_session_id` are computed read-only adapter parameters
+with launch overrides ignored. CLI, direct FollowPath transport and final Stage4
+adapter each retain the unconditional nonzero interlock pending external review and
+physical qualification. Empty-manifest baseline behavior is unchanged.

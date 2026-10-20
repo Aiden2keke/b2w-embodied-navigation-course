@@ -1,9 +1,8 @@
-# Luna validation handoff — 2026-10-20
+# Luna validation handoff — external NEEDS FIX continuation, 2026-10-20
 
 This is the validation contract for the current PLAN NOW. The JSON matrix is
 `course_navigation/config/navigation_validation_matrix.json`; source YAML/C++/Python
-remain SSoT. This handoff adds no motion authority. User authorizes Gazebo-only
-experiments after applicable local gates; Luna cannot approve them or edit safety code.
+remain SSoT. This handoff adds no motion authority. External ChatGPT verdict is NEEDS FIX / NO-GO. No nonzero experiment may run before new external review and unresolved physical gates. Luna cannot approve motion or edit safety code.
 
 ## Execute exactly
 
@@ -42,9 +41,7 @@ command substitutions, extra launches, retries, motion approval or implementatio
 
 There is currently **no qualified physical-stage command**. Existing
 `run_candidate_route.py run --execute-user-run` is unqualified; do not invoke it.
-Automatic registration, runtime predictive veto, independent abort and all-shape
-physical coverage are engineering/evidence dependencies, not waived by passing
-unit tests. A missing stage must be reported FAIL with its source and expected
+The runtime veto/lease/abort/segment/portal code is an offline candidate. Automatic conservative registration, measured fault-chain stop/latency, operational supervisor bootstrap and all-shape physical coverage remain dependencies; unit tests cannot waive them. The CLI, direct send and final guarded adapter share an unconditional interlock. A missing stage must be reported FAIL with its source and expected
 result below; do not invent commands or fill a readiness boolean.
 
 For any future physical stage, the parent must first freeze a manifest with exact
@@ -60,8 +57,7 @@ Start→G1 requires only its own local approach/turn/braking/future-region gates
 not demand full-corridor visibility for that safe experiment. E1 calibration may
 precede it where needed. At G1, stop and obtain new sensor-supported coverage before
 G1→G2. Preserve all five original identities, ordered .25 m regions, the mandatory
-corridor, full padding, unknown blocking and unchanged RL-SAR policy. Ordinary
-G3→G4 detour contract must be explicitly revised consistently if selected.
+corridor, full padding, unknown blocking and unchanged RL-SAR policy. The proposed version2 shared G3→G4 topological band is5.25m (saved alternative needs4.937525m); selection/planning/evidence use the same file. G1→G2 stays.35m. This revision needs external review and does not provide physical clearance.
 
 Budgets inherited: 211.308247903 live-stack wall s, 0/10 motion attempts, 5 stationary
 starts; total 21600 s, 3 families, 2 critical trials per family. E1 ≤90 sim/180 wall
@@ -108,22 +104,48 @@ source at the row below; the parent implements and reviews before Luna execution
 | L02 | live; L01 | Same-session frame/map/epoch/graph binding, expiry and moving drift monitor. Exact hashes/GIDs and observation times; age ≤120 s; rollback/map/frame/uncertainty drift abort | check_registration; missing automatic local bound monitor |
 | P01 | live; R02, R04, O03 | Zero-action Nav2 readiness: effective Smac2D+DWB, costmaps and footprint. No FollowPath; recorded active lifecycle/plugins, controller 20 Hz, padded 1.50×.86 m, unknown blocked, local odom/global map frames coherent | verify_runtime; nav2_smac2d_diag.yaml; current live costmaps |
 | P02 | live; P01, L02 | Exact segment path certificate including actual Start/heading and stop pockets. Sensor-supported filled body plus registration/tracking/latency/braking reserve; no future disk entry; post-smoothing actual FollowPath bytes checked; ≤30 wall s | preflight; assess_path; continuous.certify_path |
-| C01 | live; O03, P01 | Predictive filled-body/uncertainty/braking veto in effective adapter path. Cached immutable saved/live/local/global grids; own frames/source times; actual motion+command latency+conservative stop; unknown/offmap/frame/stale/deadline/no progress fail closed | Missing runtime integration; current sample checks instantaneous footprint only |
-| C02 | live; C01 | Replay deadline qualification and independent owned-stack abort. Cycle p99 <50 ms at20 Hz; freeze worst abort latency; unresolved/late handle, rejected cancel, dead controller, localization and recorder faults produce zero and measured physical stop | Missing action-independent adapter latch/ownership supervisor |
+| C01 | live; O03, P01 | Predictive filled-body/uncertainty/braking veto in effective adapter path. Cached immutable saved/live/local/global grids; own frames/source times; actual motion+command latency+conservative stop; unknown/offmap/frame/stale/deadline/no progress fail closed | Opt-in final adapter reach veto implemented; measured physical bounds and timing remain missing |
+| C02 | live; C01 | Replay deadline qualification and independent owned-stack abort. Cycle p99 <50 ms at20 Hz; freeze worst abort latency; unresolved/late handle, rejected cancel, dead controller, localization and recorder faults produce zero and measured physical stop | Lease/inhibit/watchdog and adapter heartbeat candidate; operational startup/runner heartbeat and measured physical fault chain missing |
 | K01 | live; O05, R03 | All-body physical contact coverage or independent geometry evaluator. Positive all non-foot engine construction/mapping or independently bounded collision evaluator; source inventory hashes; preserve self-collision settings; unknown coverage INCONCLUSIVE | 26 ECS entities alone insufficient; non-foot engine mapping unproved |
-| K02 | live; K01 | Contact sequence/interval closure through accepted stop timestamp. Coherent inventory/contact sequence; every physics step; sticky forbidden veto; report interval end >=accepted stop/end; lost/duplicate/late-tail reports fail | Missing route ContactEvidence wiring/end-watermark; v2 observer metadata available |
+| K02 | live; K01 | Contact sequence/interval closure through accepted stop timestamp. Coherent inventory/contact sequence; every physics step; sticky forbidden veto; report interval end >=accepted stop/end; lost/duplicate/late-tail reports fail | Shared contact stream now wired; cleanup waits for paired reporting through accepted stop before seal; physical all-body coverage remains false |
 | B01 | live; O04, R02 | Current-session recording/disk/rate budget and seal. >=5 wall s measured throughput; >=2×max(mean,.5s peak,current bucket)×(trial+60s), hard queue/disk failures veto; successful seal and full replay | BinaryJournal; verify_recording_capacity |
 | E1 | live; L02, P01, C02, K02, B01 | Open-pocket locomotion/stop calibration before corridor. ≤90 sim/180 wall s; 1 motion slot; start .05 forward; .10/.15 only within measured margin; joints/roll/pitch/yaw/slip/SLAM+evaluation speed/lag/postzero excursion recorded; no corridor entry | Local saved/live geometry historical only; bootstrap stop allowance must be frozen anew |
-| S01 | live; E1, P02, K02, B01 | Independent Start→G1 qualification and execution. Current local corridor-independent path/uncertainty/stop gates; exact G1 identity and .25 m passage; G2–G5 forbidden; ≤180 sim/300 wall s ceiling, tighter frozen limit before run | Missing single-segment motion runner; count currently only 2/5 |
+| S01 | live; E1, P02, K02, B01 | Independent Start→G1 qualification and execution. Current local corridor-independent path/uncertainty/stop gates; exact G1 identity and .25 m passage; G2–G5 forbidden; ≤180 sim/300 wall s ceiling, tighter frozen limit before run | Original segment selection now wired to CLI/planner/runner/evidence; no qualified live trial |
 | V01 | live; S01 | G1 sensor viewpoint and SLAM/costmap update before G1→G2. Certify observation approach/turn/stop from sensor free volume; observe both critical boundaries; no source-world guides or entering uncertified passage for visibility | Retain raw lidar, SLAM map, exact transforms and revision hashes at G1 |
 | M01 | live; V01, O01 | Derived map provenance and explicit execution adapter. Original goals/PGM/source preserved; parent/raw message hashes/TF/algorithm/changed cells and evidence; unknown blocked; no erosion/free stripe; reload native map counts | map_derivation.py metadata-only parent exists; sensor correction/execution adapter absent |
 | P03 | live; M01, L02, E1, C02 | Connected heading-aware mandatory corridor path and quantitative reserve. Fit tangent from sensor boundaries; aligned entry, bounded heading through full bottleneck, tail exits before turn; registration+map+body+tracking+latency+braking positive reserve | Start-only raw 300-scan replay rear boundary unobserved; source-world clearance evaluation only |
 | S12 | live; S01, P03, K02, B01 | Independent G1→G2 critical segment. Mandatory portal full-body traversal/tail exit; exact ordered .25 m goals; no collision; terminal stop/cleanup; ≤180 sim/300 wall s; max2 critical trials/family | No qualified live trial |
 | S23 | live; S12, P02 | Independent G2→G3 segment. Current Start connection, future-region exclusion, filled-body reserve, .25 m G3 passage, verified stop and cleanup; ≤180 sim/300 wall s ceiling | No qualified live trial |
-| D34 | live; O03, M01 | Reviewed G3→G4 alternative and consistent contract revision. Exact endpoint headings/rotations; selection/planner/evaluator bound to same explicit revised ordinary corridor polygon/band; preserve G1→G2 and all goals; recertify smoothing | continuous-detour.json: .020 m extra/.029010 m residual; needs >4.937524033 m band plus actual uncertainty |
+| D34 | live; O03, M01 | Reviewed G3→G4 alternative and consistent contract revision. Exact endpoint headings/rotations; selection/planner/evaluator bound to same explicit revised ordinary corridor polygon/band; preserve G1→G2 and all goals; recertify smoothing | continuous-detour.json: .020 m extra/.029010 m residual; shared proposed5.25m band; actual sensor/error/physical recertification and external review missing |
 | S34 | live; S23, D34, P02 | Independent G3→G4 critical geometry/control segment. Current map/frame and actual start; approved alternative if justified; .25 m G4 passage; future G5 excluded; verified stop/cleanup; ≤180 sim/300 wall s ceiling | No qualified live trial |
 | S45 | live; S34, P02 | Independent G4→G5 segment and final yaw. Exact G5 identity/yaw, .25 m region, yaw error ≤.3 rad, full final hold and collision closure; ≤180 sim/300 wall s ceiling | No qualified live trial |
 | T01 | live; S01, S12, S23, S34, S45 | Continuous transitions without stitched starts. One uninterrupted session preserves regions/portal/tail order, command ownership, turning and braking certificates at every join; any map/config change recertifies | Missing segment transition runner/physical evidence |
 | F01 | live; T01, B01, K02 | One complete fresh Start→G5 route. ≤600 sim/900 wall s; all five ordered .25 m regions, mandatory passage, collision-safe, G5 final yaw, ≥5 source/3 wall s hold; all hold poses within region; actual speed≤.03 m/s yaw≤.03 rad/s command≤.01 excursion≤.03 m; contact closes hold | No full-route run |
 | F03 | live; F01 | Three consecutive fresh complete accepts seeds0/1/2. Same frozen map/config/route/library hashes; any change resets count; total≤10 motion slots/3 families/2 critical trials per family; ≤21600 total live-stack wall s | 0/3 accepts; no seed-qualified route |
 | A01 | live; F03 | Independent raw replay, metrics, video, review bundle and successful artifact archive. Recompute all accepts from complete raw journal; matching route/collision/stop outcome, all hashes, commands, failures, budgets, processes, sim-time video; archive only independently verified success after final success | No successful artifacts eligible for repository |
+
+
+## Current offline delta and exact scope
+
+New focused modules are included automatically in the runner: `stage4_safety_guard`,
+`stage4_dispatch_deployment`, `stage4_segment_execution`, `corridor_portal`,
+`stage4_contact_wiring`, `stage4_bounds`, `independent_stop`, `navigation_watchdog`.
+The machine matrix adds O13–O17; all live rows remain FAIL. Source stability covers
+all relevant tracked/untracked source before and after execution. Test positives use
+synthetic inputs; the adapter wiring tests explicitly patch the unconditional block
+only inside the process to exercise the candidate path. A separate regression calls
+the real block and observes final zero. Tests cannot enable a production bypass.
+
+Sol provides actual GPT-6 Luna commands with fresh evidence directories and verifies
+session metadata `model=gpt-6-luna`, not the agent label. Luna reports one invocation,
+complete logs, JUnit, exit/timing, source hashes and failures; Sol evaluates and fixes.
+A changed source or new evidence is required before an affected-test rerun.
+
+`plan --mode segment --segment {start-g1,g1-g2,g2-g3,g3-g4,g4-g5}` selects the original
+single-segment planner/evidence scope with an explicit `--deployment`. Planning is
+read-only but still requires current-session readiness. `run` supports the same
+selection and rejects unconditionally. `--deadline-evidence` is engineering input,
+not a qualified rate certificate. There is no new executable motion instruction.
+
+Read [review dispositions](reviews/B2W_Stage4_Review_Disposition_20261020.md) for
+manifest fields, missing operational handshake and remaining physical blockers.

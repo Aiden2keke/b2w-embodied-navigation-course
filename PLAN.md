@@ -36,19 +36,19 @@ unconditional motion interlock stays active. No Gazebo motion is authorized here
 Implementation plan (single current roadmap; Sol implements, actual runtime-
 verified GPT-6 Luna executes deterministic checks):
 
-- [ ] M1: opt-in final adapter predictive filled-body/stop veto using immutable
+- [x] M1 offline candidate: opt-in final adapter predictive filled-body/stop veto using immutable
   prepared grids, coherent localization and explicit empirical bound manifest.
   Add action-independent local lease/inhibit checked at final publication and
   separately executable watchdog; latch all faults, force zero before cancel.
   Queue grid preparation off the publication callback; stale/rebuilding/deadline
   faults deny output. Fault-inject owner/adapter/lease/clock/data/contact failures.
   Keep unchanged policy and sole final publisher; no new shared ROS topic.
-- [ ] M2: bind checked serialized Path, map revisions/frame/source times, measured
+- [x] M2 offline candidate: bind checked serialized Path, map revisions/frame/source times, measured
   Start and registration into a short-lived dispatch certificate; reject drift
   immediately before FollowPath. Resolve controller from an explicit external
   deployment manifest with pinned hashes and PID/start-ticks/PGID/loaded-library
   identity. Do not restore .deps/.venv links. Test isolated external deployment.
-- [ ] M3: connect explicit single-segment CLI/orchestration to planner, transport
+- [x] M3 offline candidate: connect explicit single-segment CLI/orchestration to planner, transport
   and evidence; share versioned ordinary G3→G4 band revision without relaxing
   mandatory .35m G1→G2 or .25m goals. Derive bounded deadlines from certified path
   length/measured achievable speed. Distinguish ordered regions from sensor-bound
@@ -58,6 +58,17 @@ verified GPT-6 Luna executes deterministic checks):
   inventory P0/P1 dispositions and remaining physical blockers. Generate ONE
   compact APRIL source-delta/test/evidence packet since90716f4 with SHA256, then
   stop for external review. Internal reviews never replace this gate.
+
+Checkpoint `1c77b5a` records the first offline implementation; scoped follow-up
+checkpoint includes internal review corrections and the expanded handoff/matrix.
+Sol verification:204 focused +6 validation harness tests and1 native CTest pass,
+source stable,17 offline matrix PASS /27 live FAIL. Two affected packages build
+into `/tmp/b2w-review-fixes-20261020/copy-install` without symlink install; source
+and installed modules/launch/constraint bytes match. Final Luna verification and
+APRIL completion are recorded externally after source freeze; M4 remains a review
+gate, never a motion clearance. Remaining operational supervisor/bootstrap and
+measured rate/path certificate lifecycle are explicit unresolved dependencies in
+`docs/reviews/B2W_Stage4_Review_Disposition_20261020.md`.
 
 No live readiness/locomotion stage is implied by offline regressions. Physical
 stop/latency bounds, non-foot engine coverage, sensor-only registration reserve,

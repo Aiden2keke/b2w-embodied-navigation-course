@@ -72,3 +72,10 @@ def test_nonfinite_start_and_measured_pose_outside_preceding_region_rejected():
     e = RouteEvidence(goals(), start=[.25, 0.], count=1, start_index=1)
     e.observe(sample(1., .275))
     assert e.failure == 'segment_start_outside_preceding_region'
+
+
+def test_ordinary_segment_does_not_reenter_historical_corridor():
+    from test_corridor_portal import cert
+    e=RouteEvidence(goals(),start=[2.,0.],count=1,start_index=2,portal=cert())
+    e.observe(sample(1.,2.))
+    assert e.failure is None and e.portal is None and e.portal_provenance==cert()
