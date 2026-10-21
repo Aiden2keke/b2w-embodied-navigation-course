@@ -1,0 +1,31 @@
+{
+  "qualification": "OFFLINE_ONLY_PARTIAL",
+  "nonzero_authorized": false,
+  "new_gazebo_sessions": 0,
+  "head": "1f33365757de7fd3d372ccf91b203f1461cd862f",
+  "python_tests": {
+    "passed": 83,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "native_ctest": {
+    "passed": 4,
+    "description": "Includes expected zero-dt failure; native advertisements/conversions without a world/ROS node"
+  },
+  "copy_installed_regular_matches": 61,
+  "backend_target_build": "PASS",
+  "candidate_v2_validation": "PASS_NO_SESSION_LAUNCHED",
+  "runtime_failures_resolved": {
+    "contact_source_wiring": "OFFLINE_FIX_UNQUALIFIED_LIVE",
+    "lio_b0": "UNCONFIRMED_ZERO_DT_HYPOTHESIS_DIAGNOSTIC_READY",
+    "adapter_deadline": "ORIGINAL_WALL_CPU_ATTRIBUTION_UNKNOWN_DIAGNOSTIC_READY"
+  },
+  "retained_failed_attempts": [
+    "startup-red.log",
+    "retention-red.log",
+    "targeted.log",
+    "launch-context-fixed.log"
+  ],
+  "next_action": "External review, then at most one existing bounded ZeroOnly diagnostic measurement if separately authorized."
+}

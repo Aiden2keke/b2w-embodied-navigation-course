@@ -1,0 +1,9 @@
+{
+  "sampled_imu_headers": 364,
+  "first_stamp": 0.18000000000000002,
+  "last_stamp": 19.21,
+  "min_sampled_delta": 0.015000000000000568,
+  "max_sampled_delta": 0.07500000000000018,
+  "monotonic": true,
+  "limitations": "Recorder sampled IMU headers near20Hz; actual callback count3807. No accel/gyro vectors, internal correction stamps, queued intervals or graph phase captured. Cannot confirm zero-dt occurred in the real run."
+}

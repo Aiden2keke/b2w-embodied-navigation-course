@@ -1,0 +1,62 @@
+--- a/src/imuPreintegration.cpp
++++ b/src/imuPreintegration.cpp
+@@ -264,6 +264,32 @@
+         
+         imuIntegratorImu_ = new gtsam::PreintegratedImuMeasurements(p, prior_imu_bias); // setting up the IMU integration for IMU message thread
+         imuIntegratorOpt_ = new gtsam::PreintegratedImuMeasurements(p, prior_imu_bias); // setting up the IMU integration for optimization        
++    }
++
++    // Opt-in Stage4 observation diagnostics only; no factor/noise/state changes.
++    void stage4Update(const char* phase, double correctionTime)
++    {
++        const char* enabled = std::getenv("B2W_STAGE4_LIO_DIAGNOSTICS");
++        if (!enabled || std::string(enabled) != "1") {
++            optimizer.update(graphFactors, graphValues);
++            return;
++        }
++        std::cerr << std::setprecision(17)
++                  << "STAGE4_LIO phase=" << phase << " key=" << key
++                  << " correction=" << correctionTime
++                  << " imu_queue=" << imuQueOpt.size()
++                  << " queue_first=" << (imuQueOpt.empty() ? -1. : stamp2Sec(imuQueOpt.front().header.stamp))
++                  << " queue_last=" << (imuQueOpt.empty() ? -1. : stamp2Sec(imuQueOpt.back().header.stamp))
++                  << " last_imu_opt=" << lastImuT_opt
++                  << " integrated_dt=" << imuIntegratorOpt_->deltaTij()
++                  << " factors=" << graphFactors.size() << " values=" << graphValues.size()
++                  << std::endl;
++        try { optimizer.update(graphFactors, graphValues); }
++        catch (const std::exception& error) {
++            std::cerr << "STAGE4_LIO update_failed phase=" << phase
++                      << " what=" << error.what() << std::endl;
++            throw; // Preserve the failure; never manufacture an accepted estimate.
++        }
+     }
+ 
+     void resetOptimization()
+@@ -341,7 +367,7 @@
+             graphValues.insert(V(0), prevVel_);
+             graphValues.insert(B(0), prevBias_);
+             // optimize once
+-            optimizer.update(graphFactors, graphValues);
++            stage4Update("initial", currentCorrectionTime);
+             graphFactors.resize(0);
+             graphValues.clear();
+ 
+@@ -377,7 +403,7 @@
+             graphValues.insert(V(0), prevVel_);
+             graphValues.insert(B(0), prevBias_);
+             // optimize once
+-            optimizer.update(graphFactors, graphValues);
++            stage4Update("reset", currentCorrectionTime);
+             graphFactors.resize(0);
+             graphValues.clear();
+ 
+@@ -421,7 +447,7 @@
+         graphValues.insert(V(key), propState_.v());
+         graphValues.insert(B(key), prevBias_);
+         // optimize
+-        optimizer.update(graphFactors, graphValues);
++        stage4Update("imu_step", currentCorrectionTime);
+         optimizer.update();
+         graphFactors.resize(0);
+         graphValues.clear();

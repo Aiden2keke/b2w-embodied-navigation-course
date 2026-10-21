@@ -1,3 +1,11 @@
+# Current status: ZeroOnly runtime FAILED; offline startup repair only
+
+Persistent worktree: `/home/zyd/program/b2w-embodied-navigation-course-stage4`.
+See PLAN.md NOW and `experiments/g1_g5/evidence/startup-repair-20261021/`.
+The single reviewed trial is preserved in `experiments/g1_g5/evidence/zeroonly-20261021/`.
+The historical launch instructions below are NOT current execution authorization.
+No live repeat until this repair and its installed identities pass external review.
+
 # Stage4 zero-only observation milestone — October 20
 
 Current target is the uncommitted delta at HEAD a9991fc in
@@ -51,7 +59,7 @@ supervisor working loop at220; owned cleanup escalates over10+5+3 seconds plus c
 reaping. Ctrl+C inhibits and cleans only token/start-ticks-owned children. Retain
 all failed evidence; do not automatically retry or extend into a long test.
 
-## Copy-ready bounded user-local command
+## Historical bounded command — do not execute during repair
 
 Run only after external review, on this prepared workstation, from Bash. This is
 one zero-motion trial, not physical safety qualification. It uses the copy build

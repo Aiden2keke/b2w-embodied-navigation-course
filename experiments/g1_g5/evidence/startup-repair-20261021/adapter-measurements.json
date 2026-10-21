@@ -1,0 +1,107 @@
+{
+  "scope": "Offline real callback/real control-file I/O, fixture TF/odom, injected sleep/CPU. Does NOT attribute the historical live miss.",
+  "measurements": {
+    "baseline": {
+      "calls": 30,
+      "failure": null,
+      "all_outputs_zero": true,
+      "max_prepublish_wall_s": 0.0017607440240681171,
+      "max_prepublish_thread_cpu_s": 0.001747211999999998,
+      "last_timing": {
+        "previous_health_io": {
+          "thread_cpu_s": 0.0019568249999999954,
+          "wall_s": 0.010997965990100056
+        },
+        "sections": {
+          "context": {
+            "thread_cpu_s": 0.0006562479999999704,
+            "wall_s": 0.0006604520021937788
+          },
+          "guard": {
+            "thread_cpu_s": 0.0008139569999999763,
+            "wall_s": 0.000817926018498838
+          },
+          "localization": {
+            "thread_cpu_s": 0.0004987559999999891,
+            "wall_s": 0.0005022090044803917
+          },
+          "prepublish": {
+            "thread_cpu_s": 0.0008256759999999974,
+            "wall_s": 0.0008298989851027727
+          },
+          "published": {
+            "thread_cpu_s": 0.0008320599999999678,
+            "wall_s": 0.000836424995213747
+          }
+        }
+      }
+    },
+    "sleep": {
+      "calls": 1,
+      "failure": "adapter_publication_deadline",
+      "all_outputs_zero": true,
+      "max_prepublish_wall_s": 0.06617432000348344,
+      "max_prepublish_thread_cpu_s": 0.0011058400000000246,
+      "last_timing": {
+        "deadline_stage": "prepublish",
+        "previous_health_io": null,
+        "sections": {
+          "context": {
+            "thread_cpu_s": 0.0005968130000000293,
+            "wall_s": 0.06566066900268197
+          },
+          "guard": {
+            "thread_cpu_s": 0.0010814009999999818,
+            "wall_s": 0.06614788697334006
+          },
+          "localization": {
+            "thread_cpu_s": 0.00022543800000002223,
+            "wall_s": 0.0002270509721711278
+          },
+          "prepublish": {
+            "thread_cpu_s": 0.0011058400000000246,
+            "wall_s": 0.06617432000348344
+          },
+          "published": {
+            "thread_cpu_s": 0.0014912400000000048,
+            "wall_s": 0.0665589669952169
+          }
+        }
+      }
+    },
+    "cpu": {
+      "calls": 1,
+      "failure": "adapter_publication_deadline",
+      "all_outputs_zero": true,
+      "max_prepublish_wall_s": 0.06080034002661705,
+      "max_prepublish_thread_cpu_s": 0.060719950999999994,
+      "last_timing": {
+        "deadline_stage": "prepublish",
+        "previous_health_io": null,
+        "sections": {
+          "context": {
+            "thread_cpu_s": 0.060560155000000004,
+            "wall_s": 0.06064046500250697
+          },
+          "guard": {
+            "thread_cpu_s": 0.060712704000000006,
+            "wall_s": 0.06079295102972537
+          },
+          "localization": {
+            "thread_cpu_s": 0.00042827000000000837,
+            "wall_s": 0.00044927303679287434
+          },
+          "prepublish": {
+            "thread_cpu_s": 0.060719950999999994,
+            "wall_s": 0.06080034002661705
+          },
+          "published": {
+            "thread_cpu_s": 0.06083757000000001,
+            "wall_s": 0.060917924041859806
+          }
+        }
+      }
+    }
+  },
+  "adapter_source_sha256": "dcfe3e83b70da2d249c9bd3171da00dc8f2d4f207f0de33b1d34ea25e3274f00"
+}

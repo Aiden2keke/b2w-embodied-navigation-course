@@ -1,0 +1,13 @@
+{
+  "kind": "stage4_zero_session_inputs",
+  "version": 2,
+  "world": "/home/zyd/program/b2w-embodied-navigation-course-stage4/experiments/g1_g5/evidence/startup-repair-20261021/artifacts/candidate-observer-world.sdf",
+  "world_sha256": "341247a069f5c42eb7257b26bd88504377851d9e772975117cc8f04ce7a6e7fc",
+  "pretrained_directory": "/home/zyd/program/b2w-embodied-navigation-course/third_party/b2w_rl_sar",
+  "policy_source_sha256": "d6d5264d9ffab52331074d00b236a8985bad9c34ff9e328f0ecce610ec62414c",
+  "guard": {
+    "session_id": "zero-repair-a31c6dfbb43c4ac389d6fca69e9b8b23",
+    "collision_inventory_path": "/home/zyd/program/b2w-embodied-navigation-course-stage4/experiments/g1_g5/evidence/startup-repair-20261021/candidate-collision-inventory.json",
+    "collision_inventory_sha256": "4b5191819fbad3616dc1e32070053a8a6aa40e05ee3866091a6688b00299658a"
+  }
+}

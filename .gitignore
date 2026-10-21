@@ -96,3 +96,7 @@ devel/
 # Linux
 .directory
 Thumbs.db
+
+# Stage4 durable local evidence (raw data/build products are not remote backups)
+/experiments/g1_g5/evidence/**/raw/
+/experiments/g1_g5/evidence/**/artifacts/

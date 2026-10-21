@@ -279,6 +279,13 @@ class VelocityAdapter(Node):
         guard=getattr(self,'stage4_guard',None)
         publication_started=time.perf_counter() if guard is not None else None
         publication_wall_started=time.monotonic() if guard is not None else None
+        publication_cpu_started=time.thread_time() if guard is not None else None
+        publication_timing={'sections':{}}
+        def mark_publication(section):
+            if guard is not None:
+                publication_timing['sections'][section]=dict(
+                    wall_s=time.perf_counter()-publication_started,
+                    thread_cpu_s=time.thread_time()-publication_cpu_started)
         out = Twist()
         context_state='ready'
         try:
@@ -296,6 +303,7 @@ class VelocityAdapter(Node):
                 wall=time.monotonic()
                 if any(t is None or not 0<=wall-t<=self.gate.timeout for t in (self.gate.command_time,self.gate.state_time)):
                     self.stage4_guard.inhibit('adapter_command_or_state_expired')
+            mark_publication('localization')
             command = self.gate.output(time.monotonic())
             if getattr(self, 'speed_limit', None) is not None:
                 command = self.speed_limit.apply(command, self.get_clock().now().nanoseconds*1e-9,
@@ -304,11 +312,13 @@ class VelocityAdapter(Node):
                 command = self.convert_m2(command)
             if getattr(self,'stage4_guard',None) is not None:
                 context=self.stage4_context()
+                mark_publication('context')
                 if hasattr(self,'stage4_bounds'):
                     scope=self.stage4_bounds['scope'];x,y=context['poses']['map'][:2];a,b,c,d=scope['region']
                     if not (scope['valid_from_sim']<=context['sim']<=scope['valid_until_sim'] and a<=x<=c and b<=y<=d):
                         raise ValueError('Conservative bound scope expired or left')
                 command=self.stage4_guard.output(command=command,**context)
+                mark_publication('guard')
                 if any(abs(v)>1e-12 for v in command):require_motion_qualification()
             out.linear.x, out.linear.y, out.angular.z = command
         except self.LocalizationUnready:
@@ -321,17 +331,32 @@ class VelocityAdapter(Node):
             if getattr(self,'stage4_guard',None) is None:raise
             self.stage4_guard.inhibit('final_guard:'+repr(exc))
         guard=getattr(self,'stage4_guard',None)
+        mark_publication('prepublish')
         if guard is not None and time.perf_counter()-publication_started>=.05:
+            if not getattr(self,'stage4_first_deadline_timing',None):
+                publication_timing['deadline_stage']='prepublish'
+                self.stage4_first_deadline_timing=publication_timing
             guard.inhibit('adapter_publication_deadline');out=Twist()
         self.pub.publish(out)
+        mark_publication('published')
         if guard is not None and guard.config.get('adapter_heartbeat_path'):
             from .stage4_control import write_control
             self.stage4_health_sequence=getattr(self,'stage4_health_sequence',0)+1
+            publication_timing['previous_health_io']=getattr(self,'stage4_previous_health_io',None)
+            health_wall_started=time.perf_counter();health_cpu_started=time.thread_time()
             try:write_control(guard.config['adapter_heartbeat_path'],dict(session_id=guard.config['session_id'],
                 sequence=self.stage4_health_sequence,wall=publication_wall_started,adapter=guard.adapter_identity,
-                prepared=guard.prepared_status(),context_state='fault' if guard.failure else context_state))
+                prepared=guard.prepared_status(),context_state='fault' if guard.failure else context_state,
+                publication_timing=publication_timing,
+                first_deadline_timing=getattr(self,'stage4_first_deadline_timing',None)))
             except Exception as exc:guard.inhibit('adapter_health_write:'+repr(exc))
+            finally:self.stage4_previous_health_io=dict(wall_s=time.perf_counter()-health_wall_started,
+                thread_cpu_s=time.thread_time()-health_cpu_started)
+            publication_timing['health_io']=self.stage4_previous_health_io
             if time.perf_counter()-publication_started>=.05:
+                if not getattr(self,'stage4_first_deadline_timing',None):
+                    publication_timing['deadline_stage']='health'
+                    self.stage4_first_deadline_timing=publication_timing
                 guard.inhibit('adapter_health_publication_deadline');self.pub.publish(Twist())
 
     def stop_stage4(self):

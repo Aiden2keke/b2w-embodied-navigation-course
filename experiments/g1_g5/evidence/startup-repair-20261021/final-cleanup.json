@@ -1,0 +1,12 @@
+{
+  "shared_head": "c629881c5c85da24eebfc09c2aa871a4e926825a",
+  "shared_status_unchanged": true,
+  "shared_files_unchanged": 407,
+  "worktree_head": "1f33365757de7fd3d372ccf91b203f1461cd862f",
+  "old_worktree_path_absent": true,
+  "owned_token_or_native_test_processes": [],
+  "matching_build_processes": [],
+  "gpu_exit_code": 0,
+  "no_new_gazebo_session": true,
+  "signals_sent": false
+}

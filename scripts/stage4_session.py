@@ -66,6 +66,14 @@ def validate_inputs(path):
     return value
 
 
+def evaluation_bridge_argv():
+    """Stage4-only evaluation delivery; one-way, no command or truth inputs."""
+    return ['/usr/bin/python3','/opt/ros/humble/bin/ros2','run','ros_gz_bridge','parameter_bridge',
+        '/b2w/evaluation/full_contacts@ros_gz_interfaces/msg/Contacts[ignition.msgs.Contacts',
+        '/b2w/evaluation/collision_inventory@std_msgs/msg/String[ignition.msgs.StringMsg',
+        '--ros-args','-r','__node:=stage4_evaluation_bridge','-p','use_sim_time:=true']
+
+
 def execute(value,output):
     owner=SessionOwner(output,value['guard']);children=[];files=[];cleanup=None;error=None;probe_code=None;watchdog=None
     processes=OwnedProcesses(owner.token);started=time.monotonic();last_wait=None
@@ -86,9 +94,11 @@ def execute(value,output):
         write_new(owner.directory/'invocation.json',dict(argv=argv,inputs=value,owner=owner.config['owner'],token=owner.token,
             motion_authorized=False))
         stack=launch(argv,'stack')
+        evaluation_bridge=launch(evaluation_bridge_argv(),'evaluation-bridge')
         while time.monotonic()-started<90.:
             now=time.monotonic();owner.heartbeat(now);processes.observe()
             if stack.poll() is not None:raise ValueError('Owned stack exited during bootstrap')
+            if evaluation_bridge.poll() is not None:raise ValueError('Owned evaluation bridge exited during bootstrap')
             if Path(owner.config['inhibit_path']).exists():raise ValueError('Adapter inhibited during bootstrap')
             try:
                 health=read_control(owner.config['adapter_heartbeat_path']);manifest=owner.accept_adapter(health,wall=now)
@@ -115,7 +125,8 @@ def execute(value,output):
         probe=launch(['/usr/bin/python3',str(ROOT/'scripts/stage4_zero_probe.py'),'--deployment',str(owner.directory/'deployment.json'),'--output',str(owner.directory/'probe')],'probe')
         while time.monotonic()-started<220.:
             owner.heartbeat(time.monotonic());processes.observe()
-            if watchdog.poll() is not None or stack.poll() is not None:raise ValueError('Owned watchdog/stack exited')
+            if watchdog.poll() is not None or stack.poll() is not None or evaluation_bridge.poll() is not None:
+                raise ValueError('Owned watchdog/stack/evaluation bridge exited')
             if Path(owner.config['inhibit_path']).exists():raise ValueError('Independent inhibit latched')
             if probe.poll() is not None:probe_code=probe.returncode;break
             time.sleep(.02)

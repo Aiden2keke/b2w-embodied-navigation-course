@@ -2,6 +2,16 @@
 
 本文件是其他用户及其 Codex 的统一操作入口。以下命令从仓库根目录执行；使用相对路径，不依赖原开发机的用户名或目录。
 
+## Stage4 experimental continuation (2026-10-21)
+
+Use `/home/zyd/program/b2w-embodied-navigation-course-stage4`, branch
+`experiment/unattended-g1-g5-20261019`. Current startup-repair scope is offline only;
+read PLAN.md NOW and the persistent evidence records before any validation.
+Project records are in the repository. Large local evidence is in
+`experiments/g1_g5/evidence/<milestone>/{raw,artifacts}/` and is ignored, not remotely
+backed up. APRIL_REVIEW_BUNDLES is only temporary exchange for external review.
+Do not run historical live commands below for the current repair milestone.
+
 ## 1. 选择环境和任务
 
 - 当前课程分支：`zsx-dev`；运行环境：Ubuntu 22.04、ROS 2 Humble、Gazebo Fortress、系统 Python 3.10。

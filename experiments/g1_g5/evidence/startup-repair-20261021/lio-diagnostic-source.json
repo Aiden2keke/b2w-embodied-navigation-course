@@ -1,0 +1,8 @@
+{
+  "original_source": "/home/zyd/program/b2w-embodied-navigation-course/third_party/lio_sam/src/imuPreintegration.cpp",
+  "original_sha256": "6291c795ceb18c0d5907ff582394744ef6938903c01c3d750764c824e47718a9",
+  "patch_sha256": "588656a14bd33568f0261f6fce24cfbe655103540dd1b496be6af3a0bad83445",
+  "diagnostic_source": "/home/zyd/program/b2w-embodied-navigation-course-stage4/experiments/g1_g5/evidence/startup-repair-20261021/artifacts/lio-sam-source/src/imuPreintegration.cpp",
+  "diagnostic_sha256": "bc6da62e20b7cd7dfcc37d0f36bc83876adc273251d48d6cbd55179de1143e2b",
+  "behavior": "Disabled without B2W_STAGE4_LIO_DIAGNOSTICS=1; enabled path logs phase/stamps/queue/dt and rethrows all optimizer exceptions. No priors, state or noise changes."
+}

@@ -24,7 +24,35 @@
 - 旧实施计划归档至 `docs/plans/archive/2026-10-10-local-course-system-plan.md`。历史 design/validation 保留为证据，不是另一个当前 roadmap。无新增 HANDOFF。
 - 历史轮次只读与 timing 交付已结束；本轮范围以最新用户请求和下方 NOW 为准。旧实验/交付记录只作历史证据。
 
-## NOW — Unblock zero-only runtime observation (October 20)
+## NOW — Evidence-driven ZeroOnly startup repair (October 21)
+
+Worktree `/home/zyd/program/b2w-embodied-navigation-course-stage4`; branch
+`experiment/unattended-g1-g5-20261019`; unchanged checkpoint `1f333657`.
+One real ZeroOnly trial failed:499/499 observed final Twists zero, owned cleanup PASS;
+earliest fatal event LIO-SAM GTSAM b0 abort, separate adapter50ms deadline fault,
+missing ROS evaluation bridge. NONZERO NO-GO. No full Gazebo repeat or motion,
+commit/push/system upgrade; original shared checkout and Pipe V0 remain untouched.
+
+- [x] Inventory all worktrees/processes; Git-aware relocate only experimental tree;
+  verify662 file/symlink identities, history/branch and four untracked review records.
+- [x] Copy original trial evidence to persistent evidence/zeroonly-20261021/raw;
+  verify19 original SHA entries and keep compact repository index. Raw is local only.
+- [x] Diagnose backend binary/library/header/build provenance and initial prior graph;
+  seek bounded offline reproduction before any minimal justified backend patch.
+- [x] Measure adapter wall versus thread-CPU sections offline, preserving strict
+  fail-closed/nonzero deadlines; add focused fault regressions and diagnostic evidence.
+- [x] Verify installed native/bridge types and add opt-in evaluation-only ROS bridge;
+  focused regression/build checks, no claim of physical collision coverage.
+- [x] Targeted Python83/83 and native4/4 PASS; diagnostic IMU target and four
+  persistent Python copy packages build; current copied source identities verified.
+- [ ] External review of the durable diagnosis record and ONE concise APRIL packet;
+  no commit/push or live repeat. Actual b0/dt and deadline attribution remain pending.
+
+Durable records: `experiments/g1_g5/evidence/startup-repair-20261021/` and
+`docs/reviews/`. This is the sole current milestone. Prior records below remain
+historical; previously recorded source paths are evidence of their original runs.
+
+## Historical — Unblock zero-only runtime observation (October 20)
 
 User scope: finish the zero-observation prerequisite/arming boundary, startup
 TF/context handling, focused fault injection, verified Luna checks and matching

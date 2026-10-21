@@ -1,0 +1,85 @@
+{
+  "installed_imu": {
+    "path": "/home/zyd/program/b2w-embodied-navigation-course/install/lio_sam/lib/lio_sam/lio_sam_imuPreintegration",
+    "sha256": "05e2cede278291662d05707d4b06ee397a395dabab568897e876d42b1471e6b2",
+    "bytes": 1368488,
+    "mtime": 1791871294.812689,
+    "text_section_sha256": "bdee8991913e89ba8754d495e3ab51623b09136f963d190cb86790b7a879518c",
+    "build_id": "5f26eecc108f6f31e6b970a0a58564668528591f"
+  },
+  "built_imu": {
+    "path": "/home/zyd/program/b2w-embodied-navigation-course/build/lio_sam/lio_sam_imuPreintegration",
+    "sha256": "05e2cede278291662d05707d4b06ee397a395dabab568897e876d42b1471e6b2",
+    "bytes": 1368488,
+    "mtime": 1791871294.812689,
+    "text_section_sha256": "bdee8991913e89ba8754d495e3ab51623b09136f963d190cb86790b7a879518c",
+    "build_id": "5f26eecc108f6f31e6b970a0a58564668528591f"
+  },
+  "installed_gtsam": {
+    "path": "/home/zyd/program/b2w-embodied-navigation-course/.deps/lib/libgtsam.so.4.1.1",
+    "sha256": "e04567b0a6346ed8c4a05a21b42b337ee2ce429030f8df87e3149b76a6bfb379",
+    "bytes": 7298720,
+    "mtime": 1791863063.0,
+    "text_section_sha256": "69fdb1ef3d6f6943067db9602e20048388a6b5511e358f86b63c880430895ea2",
+    "build_id": "770ee4ca7ac8618caa55b9be1e116f24cd458aa5"
+  },
+  "built_gtsam": {
+    "path": "/home/zyd/program/b2w-embodied-navigation-course/build/gtsam/gtsam/libgtsam.so.4.1.1",
+    "sha256": "cbdf5f53a480bdcbbef93d7d971ee8bf4d3203f5d1c80fc44f2e84bea949c21a",
+    "bytes": 7298720,
+    "mtime": 1791863063.1642096,
+    "text_section_sha256": "69fdb1ef3d6f6943067db9602e20048388a6b5511e358f86b63c880430895ea2",
+    "build_id": "770ee4ca7ac8618caa55b9be1e116f24cd458aa5"
+  },
+  "original_imu_source": {
+    "path": "/home/zyd/program/b2w-embodied-navigation-course/third_party/lio_sam/src/imuPreintegration.cpp",
+    "sha256": "6291c795ceb18c0d5907ff582394744ef6938903c01c3d750764c824e47718a9",
+    "bytes": 24302,
+    "mtime": 1791860020.4699602
+  },
+  "imu_object": {
+    "path": "/home/zyd/program/b2w-embodied-navigation-course/build/lio_sam/CMakeFiles/lio_sam_imuPreintegration.dir/src/imuPreintegration.cpp.o",
+    "sha256": "3726be9f84bcd346b2cd160eee9115086fbeeea9af1af11f198764fcfc6b449f",
+    "bytes": 2723256,
+    "mtime": 1791871294.3576846
+  },
+  "build_flags": {
+    "path": "/home/zyd/program/b2w-embodied-navigation-course/build/lio_sam/CMakeFiles/lio_sam_imuPreintegration.dir/flags.make",
+    "sha256": "bfd4dcf7ed279f6c703f42cdf25f2e77b235b61fecb0baec2ca22c10aa7ccfec",
+    "bytes": 3868,
+    "mtime": 1791871259.1603374
+  },
+  "link_flags": {
+    "path": "/home/zyd/program/b2w-embodied-navigation-course/build/lio_sam/CMakeFiles/lio_sam_imuPreintegration.dir/link.txt",
+    "sha256": "6f1cdd290159d793913155c7dd34c58295c050757b53ffbc2426253b918e8637",
+    "bytes": 18954,
+    "mtime": 1791871259.1603374
+  },
+  "lio_cache": {
+    "path": "/home/zyd/program/b2w-embodied-navigation-course/build/lio_sam/CMakeCache.txt",
+    "sha256": "b49f2b0010c692a968679dce4a76ab21af8e845478d9b8396d8c99060c5f8e0b",
+    "bytes": 109977,
+    "mtime": 1791871259.0763366
+  },
+  "gtsam_cache": {
+    "path": "/home/zyd/program/b2w-embodied-navigation-course/build/gtsam/CMakeCache.txt",
+    "sha256": "c7e0490fc070c52f94a0ece847fe8ec05a22d8b065f519db0646c1d42808dd8f",
+    "bytes": 38852,
+    "mtime": 1791862708.2479293
+  },
+  "gtsam_header": {
+    "path": "/home/zyd/program/b2w-embodied-navigation-course/.deps/include/gtsam/config.h",
+    "sha256": "3ffa8488739bc8c1639b9c33228dc0030fc3a534bc6a08f29b68ee35353319d8",
+    "bytes": 3072,
+    "mtime": 1791862708.0
+  },
+  "trial_lio_config": {
+    "path": "/tmp/b2w-resume-20261020T030926Z/install/course_slam/share/course_slam/config/lio_sam.yaml",
+    "sha256": "8b465cce098e7b97542bc61411816f1f460d02c5eeaa780cd59450d6c5956c96",
+    "bytes": 1973,
+    "mtime": 1792424641.0
+  },
+  "source_revision": "08af3f32f01725372d4269838dc44c19c6d9e76b",
+  "source_local_diff_sha256": "6017e75d881a3efd74deb0ea7e529b97f25b2d24a577e40956522102a15f5ffe",
+  "conclusion": "Installed/build IMU and GTSAM .text/build IDs compared explicitly; file hash differences may be install RPATH edits. No evidence of mismatch in current resolved environment. Runtime library maps were not captured in the original trial."
+}

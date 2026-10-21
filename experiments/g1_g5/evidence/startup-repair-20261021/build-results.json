@@ -1,0 +1,56 @@
+[
+  {
+    "name": "native-configure",
+    "command": [
+      "cmake",
+      "-S",
+      "/home/zyd/program/b2w-embodied-navigation-course-stage4/scripts/stage4_diagnostics",
+      "-B",
+      "/home/zyd/program/b2w-embodied-navigation-course-stage4/experiments/g1_g5/evidence/startup-repair-20261021/artifacts/native-build",
+      "-DGTSAM_DIR=/home/zyd/program/b2w-embodied-navigation-course/.deps/lib/cmake/GTSAM",
+      "-DCMAKE_BUILD_TYPE=Release"
+    ],
+    "exit_code": 0,
+    "wall_s": 2.27141655102605
+  },
+  {
+    "name": "native-build",
+    "command": [
+      "cmake",
+      "--build",
+      "/home/zyd/program/b2w-embodied-navigation-course-stage4/experiments/g1_g5/evidence/startup-repair-20261021/artifacts/native-build",
+      "-j2"
+    ],
+    "exit_code": 0,
+    "wall_s": 11.102846408030018
+  },
+  {
+    "name": "lio-configure",
+    "command": [
+      "cmake",
+      "-S",
+      "/home/zyd/program/b2w-embodied-navigation-course-stage4/experiments/g1_g5/evidence/startup-repair-20261021/artifacts/lio-sam-source",
+      "-B",
+      "/home/zyd/program/b2w-embodied-navigation-course-stage4/experiments/g1_g5/evidence/startup-repair-20261021/artifacts/lio-build",
+      "-DGTSAM_DIR=/home/zyd/program/b2w-embodied-navigation-course/.deps/lib/cmake/GTSAM",
+      "-DPYTHON_EXECUTABLE=/usr/bin/python3",
+      "-DPython3_EXECUTABLE=/usr/bin/python3",
+      "-DCMAKE_BUILD_TYPE=Release"
+    ],
+    "exit_code": 0,
+    "wall_s": 4.425746618013363
+  },
+  {
+    "name": "lio-build",
+    "command": [
+      "cmake",
+      "--build",
+      "/home/zyd/program/b2w-embodied-navigation-course-stage4/experiments/g1_g5/evidence/startup-repair-20261021/artifacts/lio-build",
+      "--target",
+      "lio_sam_imuPreintegration",
+      "-j2"
+    ],
+    "exit_code": 0,
+    "wall_s": 34.51320793200284
+  }
+]

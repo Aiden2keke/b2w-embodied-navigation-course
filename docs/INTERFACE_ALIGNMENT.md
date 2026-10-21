@@ -50,3 +50,9 @@ stamped `/map` grid. Both structural streams require three advancing publication
 fast TF/contact/costmap budgets are unchanged. The zero-only supervisor/watchdog
 never issues a motion lease and introduces no shared topic, TF or message type.
 Live qualification is not claimed; see STAGE4_RUNTIME_READINESS.md.
+
+Stage4 startup repair (2026-10-21): only the private zero-only session starts an
+owned, one-way Ignition→ROS evaluation bridge for the existing full_contacts and
+collision_inventory topics. Bridge exit aborts bootstrap. Installed conversion
+and native advertisement tests establish delivery compatibility, not physical
+full-body collision coverage; ordinary launch interfaces and motion vetoes remain.

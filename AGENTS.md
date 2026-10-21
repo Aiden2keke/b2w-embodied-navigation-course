@@ -4,20 +4,18 @@
 
 修改共享 topic、TF、消息类型或模块边界前，阅读 [docs/INTERFACE.md](docs/INTERFACE.md) 和 [docs/INTERFACE_ALIGNMENT.md](docs/INTERFACE_ALIGNMENT.md)。
 
-## APRIL Review Bundle 固定交付目录
+## Stage4 project records and experiment evidence
 
-所有未来 APRIL Review Bundle 及对应 `.sha256` 校验文件必须最终交付到
-`/home/zyd/APRIL_REVIEW_BUNDLES/`。不得覆盖已有文件，不得删除历史证据。
-临时证据、构建产物及 bundle 草稿可以留在 `/tmp`，但临时 bundle 路径绝不能
-作为最终交付路径。最终回复必须报告固定目录中的绝对路径和已复核的 SHA256。
+Warehouse Stage4 worktree: `/home/zyd/program/b2w-embodied-navigation-course-stage4`.
+Engineering/review/diagnosis/test records belong in this repository, under `docs/reviews/`
+and `experiments/g1_g5/evidence/`. Large raw logs, journals and build artifacts belong
+under the corresponding evidence directory's `raw/` or `artifacts/` subdirectory.
+Keep compact reports/indexes ready for Git review; ignored raw files are local only,
+not backed up remotely. Do not modify the original shared checkout or Pipe V0.
 
-使用 `/home/zyd/bin/april-review-bundle` 生成 bundle；该 helper 强制固定目录并
-生成、复核 checksum。若使用 compact/adapted workflow 在临时目录生成 bundle，
-最终交付必须执行以下命令，成功后才能报告完成（禁止跳过交付步骤）：
-
-```bash
-/home/zyd/bin/april-review-bundle --deliver-existing /absolute/path/to/APRIL_REVIEW_BUNDLE_NAME.md EXPECTED_SHA256
-```
-
-固定目录若因 sandbox 限制不可写，申请对该目录的定向权限；不得改用 `/tmp`
-作为最终交付位置。仅搬移已有 bundle 无需重新生成 bundle 或开启新的审查周期。
+`/home/zyd/APRIL_REVIEW_BUNDLES/` is a temporary exchange area for ONE concise APRIL
+handoff bundle and checksum at each review gate, not the project archive. Use the
+existing `~/bin/april-review-bundle` delivery implementation (Python-only adaptation
+when shell auto-exit is prohibited); verify read-back/SHA256 and never overwrite
+historical files. Durable report copies remain in this repository. No commit,
+push, full Gazebo repeat, motion goal or nonzero authorization before external review.

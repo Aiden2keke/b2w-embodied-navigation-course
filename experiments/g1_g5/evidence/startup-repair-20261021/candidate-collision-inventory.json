@@ -1,0 +1,32 @@
+{
+  "converted_sdf": "/home/zyd/program/b2w-embodied-navigation-course-stage4/experiments/g1_g5/evidence/zeroonly-20261021/raw/inputs/robot.sdf",
+  "converted_sdf_sha256": "23639a35eb9fb783c966efdb8df8a5e9e96807e7eb233bdc1d2f7882301bafd3",
+  "collisions": [
+    "FL_calf::FL_calf_collision",
+    "FL_calf::FL_calf_collision_1",
+    "FL_foot::FL_foot_collision",
+    "FL_hip::FL_hip_collision",
+    "FL_thigh::FL_thigh_collision",
+    "FR_calf::FR_calf_collision",
+    "FR_calf::FR_calf_collision_1",
+    "FR_foot::FR_foot_collision",
+    "FR_hip::FR_hip_collision",
+    "FR_thigh::FR_thigh_collision",
+    "RL_calf::RL_calf_collision",
+    "RL_calf::RL_calf_collision_1",
+    "RL_foot::RL_foot_collision",
+    "RL_hip::RL_hip_collision",
+    "RL_thigh::RL_thigh_collision",
+    "RR_calf::RR_calf_collision",
+    "RR_calf::RR_calf_collision_1",
+    "RR_foot::RR_foot_collision",
+    "RR_hip::RR_hip_collision",
+    "RR_thigh::RR_thigh_collision",
+    "base_link::base_link_collision",
+    "base_link::base_link_fixed_joint_lump__head_Link_collision_1",
+    "base_link::base_link_fixed_joint_lump__lidar_link_collision_2",
+    "base_link::base_link_fixed_joint_lump__tail_link_collision_3",
+    "collision_plate::collision_plate_collision",
+    "zed_x_camera::zed_x_camera_collision"
+  ]
+}

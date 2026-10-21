@@ -1,0 +1,8 @@
+{
+  "experiments/g1_g5/evidence/startup-repair-20261021/artifacts/lio-build/lio_sam_imuPreintegration": "3bd8109f580ceac90670f5d12e57267192731e2bfd2af46eb1740d08672e50f5",
+  "experiments/g1_g5/evidence/startup-repair-20261021/artifacts/lio-diagnostic-prefix/lib/lio_sam/lio_sam_imuPreintegration": "3bd8109f580ceac90670f5d12e57267192731e2bfd2af46eb1740d08672e50f5",
+  "experiments/g1_g5/evidence/startup-repair-20261021/artifacts/native-build/libstage4_contact_observer.so": "365101bd07e82db095111b2519466005617efcb186ba08e28dfb0947135f15fa",
+  "experiments/g1_g5/evidence/startup-repair-20261021/artifacts/native-build/gtsam_probe": "f9c3460c5154c2d29d89c2236a1b01e2dec669baca107a9683e5bb965ed7953a",
+  "experiments/g1_g5/evidence/startup-repair-20261021/artifacts/native-build/bridge_contract": "1f1df749b2a4f049597f40af6169dc422d9c8108c3c92abbe741a7dcd938d70a",
+  "experiments/g1_g5/evidence/startup-repair-20261021/artifacts/candidate-observer-world.sdf": "341247a069f5c42eb7257b26bd88504377851d9e772975117cc8f04ce7a6e7fc"
+}

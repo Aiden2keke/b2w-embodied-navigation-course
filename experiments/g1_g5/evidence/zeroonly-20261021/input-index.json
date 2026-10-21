@@ -1,0 +1,35 @@
+{
+  "files": [
+    {
+      "original": "/tmp/b2w-zero-unblock-sol-20261020/zero-inputs.json",
+      "path": "experiments/g1_g5/evidence/zeroonly-20261021/raw/inputs/zero-inputs.json",
+      "sha256": "630fbf75bf068b691625feb7162dc1b03e72265c307b9388ddf06ecf0a82ca12"
+    },
+    {
+      "original": "/tmp/b2w-resume-20261020T030926Z/observer-world-v2.sdf",
+      "path": "experiments/g1_g5/evidence/zeroonly-20261021/raw/inputs/observer-world-v2.sdf",
+      "sha256": "152ce0651c4392a34eb1ac811adb2ba125c4af0137f2abc6a3c7d56f4bfd3913"
+    },
+    {
+      "original": "/tmp/b2w-resume-20261020T030926Z/collision-inventory.json",
+      "path": "experiments/g1_g5/evidence/zeroonly-20261021/raw/inputs/collision-inventory.json",
+      "sha256": "28a4388134f2aeeee78f4706ff8fc9cacd774b8f70d2a901ba535af11fcc5dc6"
+    },
+    {
+      "original": "/tmp/b2w-resume-20261020T030926Z/robot.sdf",
+      "path": "experiments/g1_g5/evidence/zeroonly-20261021/raw/inputs/robot.sdf",
+      "sha256": "23639a35eb9fb783c966efdb8df8a5e9e96807e7eb233bdc1d2f7882301bafd3"
+    },
+    {
+      "original": "/home/zyd/program/b2w-embodied-navigation-course/third_party/b2w_rl_sar/POLICY_SOURCE.json",
+      "path": "experiments/g1_g5/evidence/zeroonly-20261021/raw/inputs/POLICY_SOURCE.json",
+      "sha256": "d6d5264d9ffab52331074d00b236a8985bad9c34ff9e328f0ecce610ec62414c"
+    },
+    {
+      "original": "/tmp/b2w-resume-20261020T030926Z/contact-observer-v2-build/libb2w_contact_observer.so",
+      "path": "experiments/g1_g5/evidence/zeroonly-20261021/raw/inputs/libb2w_contact_observer.so",
+      "sha256": "14f3ae72a724e39421e7d7eda51e2bdb7c2c230570ba88b5a5a11743c0fa55c1"
+    }
+  ],
+  "notes": "Original bytes with historical absolute paths retained. This is evidence, NOT a relocated runnable manifest or a motion/ZeroOnly authorization."
+}

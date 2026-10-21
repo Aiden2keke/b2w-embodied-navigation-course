@@ -1,0 +1,12 @@
+{
+  "prefix": "/home/zyd/program/b2w-embodied-navigation-course-stage4/experiments/g1_g5/evidence/startup-repair-20261021/artifacts/lio-diagnostic-prefix",
+  "original_imu_sha256": "05e2cede278291662d05707d4b06ee397a395dabab568897e876d42b1471e6b2",
+  "diagnostic_imu_sha256": "3bd8109f580ceac90670f5d12e57267192731e2bfd2af46eb1740d08672e50f5",
+  "other_executables": {
+    "lio_sam_featureExtraction": "7dcd7db7da36ab140a31a26a5b2bc2dee1c89fe8777a37d4b217b1a1aa04b7cd",
+    "lio_sam_imageProjection": "64b3f3d7a72dcaff782c7896ad2bdb968138cddfc922c5f3585d79f3610303e7",
+    "lio_sam_mapOptimization": "457039b9a30eab88576fbc3638131df547a7226cf7f5f4872002aa230f9c1f9f",
+    "lio_sam_imuPreintegration": "3bd8109f580ceac90670f5d12e57267192731e2bfd2af46eb1740d08672e50f5"
+  },
+  "notes": "Regular local copy of existing package plus freshly built diagnostic IMU target; not a system/dependency installation, not live qualified or remote backup."
+}

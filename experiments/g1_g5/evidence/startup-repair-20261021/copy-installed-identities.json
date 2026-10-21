@@ -1,0 +1,311 @@
+{
+  "passed": true,
+  "regular_matching_files": 61,
+  "files": [
+    {
+      "source": "course_navigation/course_navigation/adaptive_speed.py",
+      "installed": "/home/zyd/program/b2w-embodied-navigation-course-stage4/experiments/g1_g5/evidence/startup-repair-20261021/artifacts/copy-install/course_navigation/lib/python3.10/site-packages/course_navigation/adaptive_speed.py",
+      "sha256": "3b20a919c4a6048c52a36f12593cf806be8c18a66797c8efaad2624080446bb7"
+    },
+    {
+      "source": "course_navigation/course_navigation/stage4_contact_evidence.py",
+      "installed": "/home/zyd/program/b2w-embodied-navigation-course-stage4/experiments/g1_g5/evidence/startup-repair-20261021/artifacts/copy-install/course_navigation/lib/python3.10/site-packages/course_navigation/stage4_contact_evidence.py",
+      "sha256": "65e05f034db17f406c3d7fab9ed3e156cb58847e9e73e8a32303bbfc462a72f2"
+    },
+    {
+      "source": "course_navigation/course_navigation/speed_governor.py",
+      "installed": "/home/zyd/program/b2w-embodied-navigation-course-stage4/experiments/g1_g5/evidence/startup-repair-20261021/artifacts/copy-install/course_navigation/lib/python3.10/site-packages/course_navigation/speed_governor.py",
+      "sha256": "5535a5b410a1d6887b4e6af0fc2c0e6a46e1b99d6af0aba98b4d7fa9bb676f66"
+    },
+    {
+      "source": "course_navigation/course_navigation/structural_freshness.py",
+      "installed": "/home/zyd/program/b2w-embodied-navigation-course-stage4/experiments/g1_g5/evidence/startup-repair-20261021/artifacts/copy-install/course_navigation/lib/python3.10/site-packages/course_navigation/structural_freshness.py",
+      "sha256": "30719c587c52f65af173c82ac2ef7e3e8e893bc9237878f3d43923faefc57581"
+    },
+    {
+      "source": "course_navigation/course_navigation/stage4_geometry.py",
+      "installed": "/home/zyd/program/b2w-embodied-navigation-course-stage4/experiments/g1_g5/evidence/startup-repair-20261021/artifacts/copy-install/course_navigation/lib/python3.10/site-packages/course_navigation/stage4_geometry.py",
+      "sha256": "87f6f3ebe4f6f301496d4e7361a51ff485326f189fcdebc491366c7e07904810"
+    },
+    {
+      "source": "course_navigation/course_navigation/lifecycle_readiness.py",
+      "installed": "/home/zyd/program/b2w-embodied-navigation-course-stage4/experiments/g1_g5/evidence/startup-repair-20261021/artifacts/copy-install/course_navigation/lib/python3.10/site-packages/course_navigation/lifecycle_readiness.py",
+      "sha256": "260a074aa0c59b3279fb17b62a8fc0876905bd10092611e0788e4b131c195b61"
+    },
+    {
+      "source": "course_navigation/course_navigation/stage4_qualification.py",
+      "installed": "/home/zyd/program/b2w-embodied-navigation-course-stage4/experiments/g1_g5/evidence/startup-repair-20261021/artifacts/copy-install/course_navigation/lib/python3.10/site-packages/course_navigation/stage4_qualification.py",
+      "sha256": "ff320410cde2d7c8e7b93f6a5ab33dc971b1be9c33a0fdd69422c89474b76d80"
+    },
+    {
+      "source": "course_navigation/course_navigation/__init__.py",
+      "installed": "/home/zyd/program/b2w-embodied-navigation-course-stage4/experiments/g1_g5/evidence/startup-repair-20261021/artifacts/copy-install/course_navigation/lib/python3.10/site-packages/course_navigation/__init__.py",
+      "sha256": "bef11191d0ca5d12dacb4deb3a22a72e5a0a620ed5b0d15b23ff75f29eed14af"
+    },
+    {
+      "source": "course_navigation/course_navigation/m2_inverse.py",
+      "installed": "/home/zyd/program/b2w-embodied-navigation-course-stage4/experiments/g1_g5/evidence/startup-repair-20261021/artifacts/copy-install/course_navigation/lib/python3.10/site-packages/course_navigation/m2_inverse.py",
+      "sha256": "dd7b299acdf69406ce3ea2115d48787f94e967550f2627edab5503c379b30f7b"
+    },
+    {
+      "source": "course_navigation/course_navigation/velocity_adapter.py",
+      "installed": "/home/zyd/program/b2w-embodied-navigation-course-stage4/experiments/g1_g5/evidence/startup-repair-20261021/artifacts/copy-install/course_navigation/lib/python3.10/site-packages/course_navigation/velocity_adapter.py",
+      "sha256": "dcfe3e83b70da2d249c9bd3171da00dc8f2d4f207f0de33b1d34ea25e3274f00"
+    },
+    {
+      "source": "course_navigation/course_navigation/stage4_contact_intervals.py",
+      "installed": "/home/zyd/program/b2w-embodied-navigation-course-stage4/experiments/g1_g5/evidence/startup-repair-20261021/artifacts/copy-install/course_navigation/lib/python3.10/site-packages/course_navigation/stage4_contact_intervals.py",
+      "sha256": "d345e125a9e07f5120cc066c8ee1e37e4edfd49759be9597abbce55efb74ed51"
+    },
+    {
+      "source": "course_navigation/course_navigation/stage4_bounds.py",
+      "installed": "/home/zyd/program/b2w-embodied-navigation-course-stage4/experiments/g1_g5/evidence/startup-repair-20261021/artifacts/copy-install/course_navigation/lib/python3.10/site-packages/course_navigation/stage4_bounds.py",
+      "sha256": "278b4c9d6f16c7cefe6d6b29d56f57efe08d1f230ea372ebf378e6af4af5e4eb"
+    },
+    {
+      "source": "course_navigation/course_navigation/metrics.py",
+      "installed": "/home/zyd/program/b2w-embodied-navigation-course-stage4/experiments/g1_g5/evidence/startup-repair-20261021/artifacts/copy-install/course_navigation/lib/python3.10/site-packages/course_navigation/metrics.py",
+      "sha256": "b5b1f735a6433a8ffce2a37d06fc79046cf0e1a6f6eb61bcddf8c3613c0e326e"
+    },
+    {
+      "source": "course_navigation/course_navigation/stage4_guard.py",
+      "installed": "/home/zyd/program/b2w-embodied-navigation-course-stage4/experiments/g1_g5/evidence/startup-repair-20261021/artifacts/copy-install/course_navigation/lib/python3.10/site-packages/course_navigation/stage4_guard.py",
+      "sha256": "8c3c16fd3053f9b4916a4fd7a06ecd55c4bc9038d16ef37aadad916fb05486f3"
+    },
+    {
+      "source": "course_navigation/course_navigation/map_projection.py",
+      "installed": "/home/zyd/program/b2w-embodied-navigation-course-stage4/experiments/g1_g5/evidence/startup-repair-20261021/artifacts/copy-install/course_navigation/lib/python3.10/site-packages/course_navigation/map_projection.py",
+      "sha256": "cd5b18e96330a7deb9a6282bee79b2a857913320d429c6d4872dd5008e39846d"
+    },
+    {
+      "source": "course_navigation/course_navigation/map_node.py",
+      "installed": "/home/zyd/program/b2w-embodied-navigation-course-stage4/experiments/g1_g5/evidence/startup-repair-20261021/artifacts/copy-install/course_navigation/lib/python3.10/site-packages/course_navigation/map_node.py",
+      "sha256": "2ab8d6de41776663b290d0b86d0a2cc32c53ab874ad3041a0d436c9cd0f3d9ad"
+    },
+    {
+      "source": "course_navigation/course_navigation/goal_manager.py",
+      "installed": "/home/zyd/program/b2w-embodied-navigation-course-stage4/experiments/g1_g5/evidence/startup-repair-20261021/artifacts/copy-install/course_navigation/lib/python3.10/site-packages/course_navigation/goal_manager.py",
+      "sha256": "8dec3c7bd46be26b88e76e2a2b5734f392c1277ad49870e14abec4c48185569c"
+    },
+    {
+      "source": "course_navigation/course_navigation/stage4_contact_stream.py",
+      "installed": "/home/zyd/program/b2w-embodied-navigation-course-stage4/experiments/g1_g5/evidence/startup-repair-20261021/artifacts/copy-install/course_navigation/lib/python3.10/site-packages/course_navigation/stage4_contact_stream.py",
+      "sha256": "d51ea917327f6b9a042ab317d790bc03075bb23c8e41528c44668e2be40597c8"
+    },
+    {
+      "source": "course_navigation/course_navigation/stage4_control.py",
+      "installed": "/home/zyd/program/b2w-embodied-navigation-course-stage4/experiments/g1_g5/evidence/startup-repair-20261021/artifacts/copy-install/course_navigation/lib/python3.10/site-packages/course_navigation/stage4_control.py",
+      "sha256": "c158d25acf42848b21b6b42aac67d3be50018333e73b18d17b613b6d066e2e83"
+    },
+    {
+      "source": "course_navigation/course_navigation/adaptive_profile.py",
+      "installed": "/home/zyd/program/b2w-embodied-navigation-course-stage4/experiments/g1_g5/evidence/startup-repair-20261021/artifacts/copy-install/course_navigation/lib/python3.10/site-packages/course_navigation/adaptive_profile.py",
+      "sha256": "a0267351003cdcd3a50ccfac0bf62e854ff3dae043dcb0f94066825df6b2dc6e"
+    },
+    {
+      "source": "course_navigation/config/nav2_dwb_observability.yaml",
+      "installed": "/home/zyd/program/b2w-embodied-navigation-course-stage4/experiments/g1_g5/evidence/startup-repair-20261021/artifacts/copy-install/course_navigation/share/course_navigation/config/nav2_dwb_observability.yaml",
+      "sha256": "a39d9154c5f5c9c5f4c7def14361544cb59b4650c7882560bc32cf8c1f232c42"
+    },
+    {
+      "source": "course_navigation/config/nav2_smac2d_diag.yaml",
+      "installed": "/home/zyd/program/b2w-embodied-navigation-course-stage4/experiments/g1_g5/evidence/startup-repair-20261021/artifacts/copy-install/course_navigation/share/course_navigation/config/nav2_smac2d_diag.yaml",
+      "sha256": "97e4eb2bcf58faa3f3a19728b4d17437b9dfe615d07964902e24bb5057a98e9e"
+    },
+    {
+      "source": "course_navigation/config/navigation_validation_matrix.json",
+      "installed": "/home/zyd/program/b2w-embodied-navigation-course-stage4/experiments/g1_g5/evidence/startup-repair-20261021/artifacts/copy-install/course_navigation/share/course_navigation/config/navigation_validation_matrix.json",
+      "sha256": "459f2648ca141c75440c981b2cc4a09ba4c13b2a14ccf63622dcdecb2792ba80"
+    },
+    {
+      "source": "course_navigation/config/adaptive_speed.yaml",
+      "installed": "/home/zyd/program/b2w-embodied-navigation-course-stage4/experiments/g1_g5/evidence/startup-repair-20261021/artifacts/copy-install/course_navigation/share/course_navigation/config/adaptive_speed.yaml",
+      "sha256": "adb90b8d8833fb8eec304e08c87bb1ff10951e608bf1686a95ae3fcec48466ad"
+    },
+    {
+      "source": "course_navigation/config/nav2_smac2d_footprint_gate_diag.yaml",
+      "installed": "/home/zyd/program/b2w-embodied-navigation-course-stage4/experiments/g1_g5/evidence/startup-repair-20261021/artifacts/copy-install/course_navigation/share/course_navigation/config/nav2_smac2d_footprint_gate_diag.yaml",
+      "sha256": "e2815d3f79d1bad561b7e99710d6831360bd2ab70e7fe3c2e3b909b741f101c4"
+    },
+    {
+      "source": "course_navigation/config/stage4_route_constraints.json",
+      "installed": "/home/zyd/program/b2w-embodied-navigation-course-stage4/experiments/g1_g5/evidence/startup-repair-20261021/artifacts/copy-install/course_navigation/share/course_navigation/config/stage4_route_constraints.json",
+      "sha256": "f031c255787562a704a34409bb0d6c9c8b6146317465550ed630f2dcc02fac97"
+    },
+    {
+      "source": "course_navigation/config/warehouse_route.yaml",
+      "installed": "/home/zyd/program/b2w-embodied-navigation-course-stage4/experiments/g1_g5/evidence/startup-repair-20261021/artifacts/copy-install/course_navigation/share/course_navigation/config/warehouse_route.yaml",
+      "sha256": "16cc4dd5d1c4f64ef9d875b2e2b16a554e60c4089d19838ed92a3d4b0c5adc9d"
+    },
+    {
+      "source": "course_navigation/config/stage4_runtime_identity.json",
+      "installed": "/home/zyd/program/b2w-embodied-navigation-course-stage4/experiments/g1_g5/evidence/startup-repair-20261021/artifacts/copy-install/course_navigation/share/course_navigation/config/stage4_runtime_identity.json",
+      "sha256": "d6cf31c36e397b477127783c3c9140db19b87fe4db82a72ec349d8b9f2b4233c"
+    },
+    {
+      "source": "course_navigation/config/stage4_selection_policy.json",
+      "installed": "/home/zyd/program/b2w-embodied-navigation-course-stage4/experiments/g1_g5/evidence/startup-repair-20261021/artifacts/copy-install/course_navigation/share/course_navigation/config/stage4_selection_policy.json",
+      "sha256": "8bfc2bc74b01284b617df96fc2393a6599787f94e5672f956fea0d85308dd523"
+    },
+    {
+      "source": "course_navigation/config/nav2_dual_planner_diag.yaml",
+      "installed": "/home/zyd/program/b2w-embodied-navigation-course-stage4/experiments/g1_g5/evidence/startup-repair-20261021/artifacts/copy-install/course_navigation/share/course_navigation/config/nav2_dual_planner_diag.yaml",
+      "sha256": "f8791a93b2c0740200e088ad1966625391c0da719d552ce80ccc3a6f28db57e1"
+    },
+    {
+      "source": "course_navigation/config/nav2.yaml",
+      "installed": "/home/zyd/program/b2w-embodied-navigation-course-stage4/experiments/g1_g5/evidence/startup-repair-20261021/artifacts/copy-install/course_navigation/share/course_navigation/config/nav2.yaml",
+      "sha256": "d63852ab2eed9c6cc1c258aaf2bdc2b11753ff9d9969e1885785d3cab2a87046"
+    },
+    {
+      "source": "course_navigation/launch/navigation.launch.py",
+      "installed": "/home/zyd/program/b2w-embodied-navigation-course-stage4/experiments/g1_g5/evidence/startup-repair-20261021/artifacts/copy-install/course_navigation/share/course_navigation/launch/navigation.launch.py",
+      "sha256": "46f2c731bae6967f2ec6ed7f9f9166e4d40ce8ad740ba69428317100e92cac87"
+    },
+    {
+      "source": "course_bringup/course_bringup/__init__.py",
+      "installed": "/home/zyd/program/b2w-embodied-navigation-course-stage4/experiments/g1_g5/evidence/startup-repair-20261021/artifacts/copy-install/course_bringup/lib/python3.10/site-packages/course_bringup/__init__.py",
+      "sha256": "bef11191d0ca5d12dacb4deb3a22a72e5a0a620ed5b0d15b23ff75f29eed14af"
+    },
+    {
+      "source": "course_bringup/launch/control.launch.py",
+      "installed": "/home/zyd/program/b2w-embodied-navigation-course-stage4/experiments/g1_g5/evidence/startup-repair-20261021/artifacts/copy-install/course_bringup/share/course_bringup/launch/control.launch.py",
+      "sha256": "b7bd359544c5692189be06fe1fe1b2a6271c8f37d9f93286bfdd2ad4f040917a"
+    },
+    {
+      "source": "course_bringup/launch/course.launch.py",
+      "installed": "/home/zyd/program/b2w-embodied-navigation-course-stage4/experiments/g1_g5/evidence/startup-repair-20261021/artifacts/copy-install/course_bringup/share/course_bringup/launch/course.launch.py",
+      "sha256": "1125e2b5ad06457c98a467d10aea7495d5edc107dd9aaae813c6d0a6f3f354df"
+    },
+    {
+      "source": "course_sim/course_sim/__init__.py",
+      "installed": "/home/zyd/program/b2w-embodied-navigation-course-stage4/experiments/g1_g5/evidence/startup-repair-20261021/artifacts/copy-install/course_sim/lib/python3.10/site-packages/course_sim/__init__.py",
+      "sha256": "bef11191d0ca5d12dacb4deb3a22a72e5a0a620ed5b0d15b23ff75f29eed14af"
+    },
+    {
+      "source": "course_sim/course_sim/record.py",
+      "installed": "/home/zyd/program/b2w-embodied-navigation-course-stage4/experiments/g1_g5/evidence/startup-repair-20261021/artifacts/copy-install/course_sim/lib/python3.10/site-packages/course_sim/record.py",
+      "sha256": "9077f1a8f9241bef05b9cb358001bb1ec9da8ab9e97ad8b2bdc4aedf823a72dd"
+    },
+    {
+      "source": "course_sim/course_sim/cloud_format.py",
+      "installed": "/home/zyd/program/b2w-embodied-navigation-course-stage4/experiments/g1_g5/evidence/startup-repair-20261021/artifacts/copy-install/course_sim/lib/python3.10/site-packages/course_sim/cloud_format.py",
+      "sha256": "07efc83ad39ad317a8cc7561d72a69238b2809793ee68ebae28a7e6f7b500ae6"
+    },
+    {
+      "source": "course_sim/course_sim/imu_attitude.py",
+      "installed": "/home/zyd/program/b2w-embodied-navigation-course-stage4/experiments/g1_g5/evidence/startup-repair-20261021/artifacts/copy-install/course_sim/lib/python3.10/site-packages/course_sim/imu_attitude.py",
+      "sha256": "437abb896d818c5b2517c5d1ea33895c4449c13fc25a413be21e0fe3589def93"
+    },
+    {
+      "source": "course_sim/course_sim/session.py",
+      "installed": "/home/zyd/program/b2w-embodied-navigation-course-stage4/experiments/g1_g5/evidence/startup-repair-20261021/artifacts/copy-install/course_sim/lib/python3.10/site-packages/course_sim/session.py",
+      "sha256": "9ba040c03cedbd6ea41960057bc64cfb28e1939617f0621654935b1bc1fae986"
+    },
+    {
+      "source": "course_sim/course_sim/sensor_disturbance.py",
+      "installed": "/home/zyd/program/b2w-embodied-navigation-course-stage4/experiments/g1_g5/evidence/startup-repair-20261021/artifacts/copy-install/course_sim/lib/python3.10/site-packages/course_sim/sensor_disturbance.py",
+      "sha256": "eb7655313a71fdf6391a6958c5465b0eb279bd7138b1128ba31f801cea0feb42"
+    },
+    {
+      "source": "course_sim/course_sim/description.py",
+      "installed": "/home/zyd/program/b2w-embodied-navigation-course-stage4/experiments/g1_g5/evidence/startup-repair-20261021/artifacts/copy-install/course_sim/lib/python3.10/site-packages/course_sim/description.py",
+      "sha256": "cf369ba9994d22d9c97291b949aa9c1dabb604bd762a32d03b27fc0270f5871b"
+    },
+    {
+      "source": "course_sim/config/bridge.yaml",
+      "installed": "/home/zyd/program/b2w-embodied-navigation-course-stage4/experiments/g1_g5/evidence/startup-repair-20261021/artifacts/copy-install/course_sim/share/course_sim/config/bridge.yaml",
+      "sha256": "1af7185c4dd07d0c4de7998f06b290f67c958c29fc71818b523fd7ac8dc1189c"
+    },
+    {
+      "source": "course_sim/config/rl_sar.yaml",
+      "installed": "/home/zyd/program/b2w-embodied-navigation-course-stage4/experiments/g1_g5/evidence/startup-repair-20261021/artifacts/copy-install/course_sim/share/course_sim/config/rl_sar.yaml",
+      "sha256": "af815d98bc2cc2c0ca61771e4ccb680843537f2aa2e84b61cf4fd9badadf3fff"
+    },
+    {
+      "source": "course_sim/config/sensors.yaml",
+      "installed": "/home/zyd/program/b2w-embodied-navigation-course-stage4/experiments/g1_g5/evidence/startup-repair-20261021/artifacts/copy-install/course_sim/share/course_sim/config/sensors.yaml",
+      "sha256": "26067ba2bf58da0b665f8eaaaaeb20b7223051f2118648aa026096847c859511"
+    },
+    {
+      "source": "course_sim/config/fastdds.xml",
+      "installed": "/home/zyd/program/b2w-embodied-navigation-course-stage4/experiments/g1_g5/evidence/startup-repair-20261021/artifacts/copy-install/course_sim/share/course_sim/config/fastdds.xml",
+      "sha256": "c204bfb0717fbd074b92cc0ced716746ea444ba62758f5bdda4b711a1d5299d5"
+    },
+    {
+      "source": "course_sim/config/fastdds_local.xml",
+      "installed": "/home/zyd/program/b2w-embodied-navigation-course-stage4/experiments/g1_g5/evidence/startup-repair-20261021/artifacts/copy-install/course_sim/share/course_sim/config/fastdds_local.xml",
+      "sha256": "53fcd44df0c6f481ed145ea21515f871aea7c487b0d3c294c80f01a0b2924c2a"
+    },
+    {
+      "source": "course_sim/config/fault_profiles.yaml",
+      "installed": "/home/zyd/program/b2w-embodied-navigation-course-stage4/experiments/g1_g5/evidence/startup-repair-20261021/artifacts/copy-install/course_sim/share/course_sim/config/fault_profiles.yaml",
+      "sha256": "07f8b1f36106575f7f8cb83d55df1c2e457715314f8241105253516d9127af3a"
+    },
+    {
+      "source": "course_sim/config/bridge_rl_sar.yaml",
+      "installed": "/home/zyd/program/b2w-embodied-navigation-course-stage4/experiments/g1_g5/evidence/startup-repair-20261021/artifacts/copy-install/course_sim/share/course_sim/config/bridge_rl_sar.yaml",
+      "sha256": "af2847e5ecaaad88d4f298bd4ca7eac600892215d4ad26bea61114786a3bf834"
+    },
+    {
+      "source": "course_sim/launch/simulation.launch.py",
+      "installed": "/home/zyd/program/b2w-embodied-navigation-course-stage4/experiments/g1_g5/evidence/startup-repair-20261021/artifacts/copy-install/course_sim/share/course_sim/launch/simulation.launch.py",
+      "sha256": "9b683947e17fb1912b715cb478e28a6518122c351a20b4b1ab65f0f477857a8b"
+    },
+    {
+      "source": "course_slam/course_slam/pose_adapter.py",
+      "installed": "/home/zyd/program/b2w-embodied-navigation-course-stage4/experiments/g1_g5/evidence/startup-repair-20261021/artifacts/copy-install/course_slam/lib/python3.10/site-packages/course_slam/pose_adapter.py",
+      "sha256": "1e0b3f0d4e57e18b077cc706a73ee184906aef4ad22010f05515c8e9661e3ad3"
+    },
+    {
+      "source": "course_slam/course_slam/trajectory.py",
+      "installed": "/home/zyd/program/b2w-embodied-navigation-course-stage4/experiments/g1_g5/evidence/startup-repair-20261021/artifacts/copy-install/course_slam/lib/python3.10/site-packages/course_slam/trajectory.py",
+      "sha256": "7a7e1bd10ffa75af0477434c9bb14d2ef7f8f931576b8ab56e0c6f1f0b754556"
+    },
+    {
+      "source": "course_slam/course_slam/__init__.py",
+      "installed": "/home/zyd/program/b2w-embodied-navigation-course-stage4/experiments/g1_g5/evidence/startup-repair-20261021/artifacts/copy-install/course_slam/lib/python3.10/site-packages/course_slam/__init__.py",
+      "sha256": "bef11191d0ca5d12dacb4deb3a22a72e5a0a620ed5b0d15b23ff75f29eed14af"
+    },
+    {
+      "source": "course_slam/course_slam/ground_alignment.py",
+      "installed": "/home/zyd/program/b2w-embodied-navigation-course-stage4/experiments/g1_g5/evidence/startup-repair-20261021/artifacts/copy-install/course_slam/lib/python3.10/site-packages/course_slam/ground_alignment.py",
+      "sha256": "20ee443d0d2f42b520ee313f4e05d19cd5fb69163de843c2cc31fea1357f5866"
+    },
+    {
+      "source": "course_slam/course_slam/export_map.py",
+      "installed": "/home/zyd/program/b2w-embodied-navigation-course-stage4/experiments/g1_g5/evidence/startup-repair-20261021/artifacts/copy-install/course_slam/lib/python3.10/site-packages/course_slam/export_map.py",
+      "sha256": "b93b75f68811f75a163c04cd871de7cc62c5062371d5fe2d55f5aa9cb90f4b08"
+    },
+    {
+      "source": "course_slam/course_slam/transforms.py",
+      "installed": "/home/zyd/program/b2w-embodied-navigation-course-stage4/experiments/g1_g5/evidence/startup-repair-20261021/artifacts/copy-install/course_slam/lib/python3.10/site-packages/course_slam/transforms.py",
+      "sha256": "0c6cdd78601ad8ea441ba2e5d6c4f9cd6ae46273c320fc7fe82f955f89352a6b"
+    },
+    {
+      "source": "course_slam/course_slam/evaluate.py",
+      "installed": "/home/zyd/program/b2w-embodied-navigation-course-stage4/experiments/g1_g5/evidence/startup-repair-20261021/artifacts/copy-install/course_slam/lib/python3.10/site-packages/course_slam/evaluate.py",
+      "sha256": "616f5eb41ad918ab39961fb9c3be69cdd35f8a2d49f93b2a09ad7be36f30ead6"
+    },
+    {
+      "source": "course_slam/config/adapter.yaml",
+      "installed": "/home/zyd/program/b2w-embodied-navigation-course-stage4/experiments/g1_g5/evidence/startup-repair-20261021/artifacts/copy-install/course_slam/share/course_slam/config/adapter.yaml",
+      "sha256": "947cc9b17dd69632db4c22862220d5c6e57d8ff88fab883f1eb7f88476e30747"
+    },
+    {
+      "source": "course_slam/config/lio_sam.yaml",
+      "installed": "/home/zyd/program/b2w-embodied-navigation-course-stage4/experiments/g1_g5/evidence/startup-repair-20261021/artifacts/copy-install/course_slam/share/course_slam/config/lio_sam.yaml",
+      "sha256": "8b465cce098e7b97542bc61411816f1f460d02c5eeaa780cd59450d6c5956c96"
+    },
+    {
+      "source": "course_slam/launch/replay.launch.py",
+      "installed": "/home/zyd/program/b2w-embodied-navigation-course-stage4/experiments/g1_g5/evidence/startup-repair-20261021/artifacts/copy-install/course_slam/share/course_slam/launch/replay.launch.py",
+      "sha256": "efa33ddaaf428017dc7b9633bca18db76d304d66d3ceefb958c838a854f1aca7"
+    },
+    {
+      "source": "course_slam/launch/slam.launch.py",
+      "installed": "/home/zyd/program/b2w-embodied-navigation-course-stage4/experiments/g1_g5/evidence/startup-repair-20261021/artifacts/copy-install/course_slam/share/course_slam/launch/slam.launch.py",
+      "sha256": "4c080c830751469d73127e480173c596ee5bf04bee2496f83757a4447938b0a4"
+    }
+  ]
+}

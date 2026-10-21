@@ -1,0 +1,155 @@
+{
+  "trial_checkpoint": "1f33365757de7fd3d372ccf91b203f1461cd862f",
+  "original_manifest_sha256": "d198ac95ebab15320223525d4ecf11a281800c7216f70b21a56fa5124d9a2d17",
+  "verified_original_entries": [
+    {
+      "original_path": "/tmp/b2w-zero-live-20261021/session/stack.log",
+      "path": "experiments/g1_g5/evidence/zeroonly-20261021/raw/session/stack.log",
+      "sha256": "9b49ac2f2bdd2136377ea121a2237cf9f186a5aca0ccb01e95f79c9085ec00b6"
+    },
+    {
+      "original_path": "/tmp/b2w-zero-live-20261021/session/session-result.json",
+      "path": "experiments/g1_g5/evidence/zeroonly-20261021/raw/session/session-result.json",
+      "sha256": "b3f9e310b09c480463bee367145bf66c64f288bf90a0694f2acce76ad6bd11c8"
+    },
+    {
+      "original_path": "/tmp/b2w-zero-live-20261021/session/guard.json",
+      "path": "experiments/g1_g5/evidence/zeroonly-20261021/raw/session/guard.json",
+      "sha256": "d55243549a2935e0196376f6480684b6449717a1cc07b7820fba7c173bbd0266"
+    },
+    {
+      "original_path": "/tmp/b2w-zero-live-20261021/session/invocation.json",
+      "path": "experiments/g1_g5/evidence/zeroonly-20261021/raw/session/invocation.json",
+      "sha256": "0e9b136bd580bb55ebc43e3ad4884985f94e3472781ee73818713ca017cdc017"
+    },
+    {
+      "original_path": "/tmp/b2w-zero-live-20261021/session/inhibit.json",
+      "path": "experiments/g1_g5/evidence/zeroonly-20261021/raw/session/inhibit.json",
+      "sha256": "88f7ef03ede3c7230e7d12e9ec85c1715578aaa3af0fe1376fadbb89a155ae35"
+    },
+    {
+      "original_path": "/tmp/b2w-zero-live-20261021/session/adapter.json",
+      "path": "experiments/g1_g5/evidence/zeroonly-20261021/raw/session/adapter.json",
+      "sha256": "2a478ec8fa922794bc9f74770d80b9f4199b74fb1447c95df81931c0dfd0485e"
+    },
+    {
+      "original_path": "/tmp/b2w-zero-live-20261021/session/owner.json",
+      "path": "experiments/g1_g5/evidence/zeroonly-20261021/raw/session/owner.json",
+      "sha256": "c3b2aaf2562088eef817fc379282b5de1dce5ff88b1fdcd5bf33354115b0de28"
+    },
+    {
+      "original_path": "/tmp/b2w-zero-live-20261021/startup-observation.jsonl",
+      "path": "experiments/g1_g5/evidence/zeroonly-20261021/raw/startup-observation.jsonl",
+      "sha256": "9f6d1ddb146fcc02da93f3efdc0b0460c9a5a394b80a9b494a9eecc4ad9366de"
+    },
+    {
+      "original_path": "/tmp/b2w-zero-live-20261021/observer-result.json",
+      "path": "experiments/g1_g5/evidence/zeroonly-20261021/raw/observer-result.json",
+      "sha256": "713c6bd1df1af59a472c22c9e384ae5982f753ba35068586918ffdc3d8c44943"
+    },
+    {
+      "original_path": "/tmp/b2w-zero-live-20261021/trial-wrapper-result.json",
+      "path": "experiments/g1_g5/evidence/zeroonly-20261021/raw/trial-wrapper-result.json",
+      "sha256": "73c110ad637ebbcdc158dff704f131c485bd24b763f3cd91baf206716589abbf"
+    },
+    {
+      "original_path": "/tmp/b2w-zero-live-20261021/preflight-static.json",
+      "path": "experiments/g1_g5/evidence/zeroonly-20261021/raw/preflight-static.json",
+      "sha256": "423c77bc21caba4bdaaaf0b1cb84e7cf853c203e51c4a09fe335b9d3e3e48cf8"
+    },
+    {
+      "original_path": "/tmp/b2w-zero-live-20261021/preflight-host.json",
+      "path": "experiments/g1_g5/evidence/zeroonly-20261021/raw/preflight-host.json",
+      "sha256": "08ba25b267a0788f8c9e59210354d9211c91eae830879ddd9fdb5d6c4ad12adb"
+    },
+    {
+      "original_path": "/tmp/b2w-zero-live-20261021/cleanup-host.json",
+      "path": "experiments/g1_g5/evidence/zeroonly-20261021/raw/cleanup-host.json",
+      "sha256": "23cfeba1de43534a969a9dffa2da55bde3338e9f25439fde3e83af2fe0211e98"
+    },
+    {
+      "original_path": "/tmp/b2w-zero-live-20261021/all-started-pid-audit.json",
+      "path": "experiments/g1_g5/evidence/zeroonly-20261021/raw/all-started-pid-audit.json",
+      "sha256": "cd1b9a4d3fa433cbddbb42fa399a95ea3032ea138f06c7b2b2c8079644477cbd"
+    },
+    {
+      "original_path": "/tmp/b2w-zero-live-20261021/source-preservation.json",
+      "path": "experiments/g1_g5/evidence/zeroonly-20261021/raw/source-preservation.json",
+      "sha256": "bd8810e8c54b9ecf0077859458eeca68294705c02133859ec486dec3882db82c"
+    },
+    {
+      "original_path": "/tmp/b2w-zero-live-20261021/contact-wiring-audit.json",
+      "path": "experiments/g1_g5/evidence/zeroonly-20261021/raw/contact-wiring-audit.json",
+      "sha256": "302f68c7223609b8ec65020192bbda524e7b254a03442a311f5aae105a7efe49"
+    },
+    {
+      "original_path": "/tmp/b2w-zero-live-20261021/code-excerpts.txt",
+      "path": "experiments/g1_g5/evidence/zeroonly-20261021/raw/code-excerpts.txt",
+      "sha256": "2e7e2309c359f89b14992d6c18261922007c709ec2d62422f9d738d46a5731bb"
+    },
+    {
+      "original_path": "/tmp/b2w-zero-live-20261021/observe.py",
+      "path": "experiments/g1_g5/evidence/zeroonly-20261021/raw/observe.py",
+      "sha256": "2a20b9d061aefdba9c73d6e5bff06e2f9172f15ccd4108578b6808817b5ec938"
+    },
+    {
+      "original_path": "/tmp/b2w-zero-live-20261021/run_once.py",
+      "path": "experiments/g1_g5/evidence/zeroonly-20261021/raw/run_once.py",
+      "sha256": "30486925807ddfb2017d84479258fa4d810810d43be3548618a2ccfdc5ddafad"
+    }
+  ],
+  "all_copied_files": {
+    "experiments/g1_g5/evidence/zeroonly-20261021/raw/source-preservation.json": "bd8810e8c54b9ecf0077859458eeca68294705c02133859ec486dec3882db82c",
+    "experiments/g1_g5/evidence/zeroonly-20261021/raw/observer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "experiments/g1_g5/evidence/zeroonly-20261021/raw/observer-stop": "58e1c5261e006c7de9b7684f14bdc22ae80cc316f77f08e071b3b951eaa530a1",
+    "experiments/g1_g5/evidence/zeroonly-20261021/raw/observer-result.json": "713c6bd1df1af59a472c22c9e384ae5982f753ba35068586918ffdc3d8c44943",
+    "experiments/g1_g5/evidence/zeroonly-20261021/raw/preflight_host.py": "0a9ac16eb0f78c1089478101940a37ba9d5b6ba2955bfd72bfe11d852b64abf2",
+    "experiments/g1_g5/evidence/zeroonly-20261021/raw/all-started-pid-audit.json": "cd1b9a4d3fa433cbddbb42fa399a95ea3032ea138f06c7b2b2c8079644477cbd",
+    "experiments/g1_g5/evidence/zeroonly-20261021/raw/observation-summary.json": "96f71400ccf5428c37534c9e8f08d3b566b9e2713302b5a5feee7830ca69b573",
+    "experiments/g1_g5/evidence/zeroonly-20261021/raw/run_once.py": "30486925807ddfb2017d84479258fa4d810810d43be3548618a2ccfdc5ddafad",
+    "experiments/g1_g5/evidence/zeroonly-20261021/raw/preflight-host.json": "08ba25b267a0788f8c9e59210354d9211c91eae830879ddd9fdb5d6c4ad12adb",
+    "experiments/g1_g5/evidence/zeroonly-20261021/raw/evidence-sha256.json": "d198ac95ebab15320223525d4ecf11a281800c7216f70b21a56fa5124d9a2d17",
+    "experiments/g1_g5/evidence/zeroonly-20261021/raw/attempt.json": "784e4304b3665dbe72ff589788bb29aad2b785f53a3222a447c1930c97ab7d72",
+    "experiments/g1_g5/evidence/zeroonly-20261021/raw/preflight-static.json": "423c77bc21caba4bdaaaf0b1cb84e7cf853c203e51c4a09fe335b9d3e3e48cf8",
+    "experiments/g1_g5/evidence/zeroonly-20261021/raw/cleanup-host.json": "23cfeba1de43534a969a9dffa2da55bde3338e9f25439fde3e83af2fe0211e98",
+    "experiments/g1_g5/evidence/zeroonly-20261021/raw/observer-ready": "c8f050a964d271c77c824dc9d3ad2ae265cf417033e48fb9fe696bbab764b360",
+    "experiments/g1_g5/evidence/zeroonly-20261021/raw/harness.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "experiments/g1_g5/evidence/zeroonly-20261021/raw/trial-wrapper-result.json": "73c110ad637ebbcdc158dff704f131c485bd24b763f3cd91baf206716589abbf",
+    "experiments/g1_g5/evidence/zeroonly-20261021/raw/observe.py": "2a20b9d061aefdba9c73d6e5bff06e2f9172f15ccd4108578b6808817b5ec938",
+    "experiments/g1_g5/evidence/zeroonly-20261021/raw/source-before.json": "7205f52a47de00cb177ff665b346bba86fbb20bf393be6b272d45387d893bab7",
+    "experiments/g1_g5/evidence/zeroonly-20261021/raw/code-excerpts.txt": "2e7e2309c359f89b14992d6c18261922007c709ec2d62422f9d738d46a5731bb",
+    "experiments/g1_g5/evidence/zeroonly-20261021/raw/contact-wiring-audit.json": "302f68c7223609b8ec65020192bbda524e7b254a03442a311f5aae105a7efe49",
+    "experiments/g1_g5/evidence/zeroonly-20261021/raw/startup-observation.jsonl": "9f6d1ddb146fcc02da93f3efdc0b0460c9a5a394b80a9b494a9eecc4ad9366de",
+    "experiments/g1_g5/evidence/zeroonly-20261021/raw/observer-ros-log/python3_3028797_1792575020240.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "experiments/g1_g5/evidence/zeroonly-20261021/raw/session/stack.log": "9b49ac2f2bdd2136377ea121a2237cf9f186a5aca0ccb01e95f79c9085ec00b6",
+    "experiments/g1_g5/evidence/zeroonly-20261021/raw/session/guard.json": "d55243549a2935e0196376f6480684b6449717a1cc07b7820fba7c173bbd0266",
+    "experiments/g1_g5/evidence/zeroonly-20261021/raw/session/owner.json": "c3b2aaf2562088eef817fc379282b5de1dce5ff88b1fdcd5bf33354115b0de28",
+    "experiments/g1_g5/evidence/zeroonly-20261021/raw/session/adapter.json": "2a478ec8fa922794bc9f74770d80b9f4199b74fb1447c95df81931c0dfd0485e",
+    "experiments/g1_g5/evidence/zeroonly-20261021/raw/session/session-result.json": "b3f9e310b09c480463bee367145bf66c64f288bf90a0694f2acce76ad6bd11c8",
+    "experiments/g1_g5/evidence/zeroonly-20261021/raw/session/inhibit.json": "88f7ef03ede3c7230e7d12e9ec85c1715578aaa3af0fe1376fadbb89a155ae35",
+    "experiments/g1_g5/evidence/zeroonly-20261021/raw/session/invocation.json": "0e9b136bd580bb55ebc43e3ad4884985f94e3472781ee73818713ca017cdc017",
+    "experiments/g1_g5/evidence/zeroonly-20261021/raw/session/ros-logs/parameter_bridge_3028827_1792575020799.log": "a3fd82fa9004d4e0cb78e8b8c512d5570c72d27a1c88012f6a2af2747af1267f",
+    "experiments/g1_g5/evidence/zeroonly-20261021/raw/session/ros-logs/planner_server_3028839_1792575020769.log": "52464ed0ce6ba327d7073674b77a8c21cb7e9f8819b700948e2b195bf5dc41dc",
+    "experiments/g1_g5/evidence/zeroonly-20261021/raw/session/ros-logs/behavior_server_3028841_1792575020768.log": "9698d495a135dcfa80b08c8596ae7d67e1292b3b9772a9161009e3af641e0ca2",
+    "experiments/g1_g5/evidence/zeroonly-20261021/raw/session/ros-logs/python3_3028851_1792575021303.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "experiments/g1_g5/evidence/zeroonly-20261021/raw/session/ros-logs/b2w_rl_sar_controller_3028829_1792575020751.log": "8945145760bfe0e5a3a44598a405c484b6448efd27eac3517f066c1f7972e724",
+    "experiments/g1_g5/evidence/zeroonly-20261021/raw/session/ros-logs/robot_state_publisher_3028823_1792575020751.log": "411330a256a2ffa0ccb78e2d99fb2767e79027cb79a7312aa7cd7e28da0e1b56",
+    "experiments/g1_g5/evidence/zeroonly-20261021/raw/session/ros-logs/python3_3028833_1792575021199.log": "c018fb58a9f1644e3895c9f191a71910efac95f45a02f4e5318b4e261e7c40b9",
+    "experiments/g1_g5/evidence/zeroonly-20261021/raw/session/ros-logs/controller_server_3028835_1792575020769.log": "8d2ace47d61a1866f455fd1f951c51b164f2e8ba34ba9942b6c62c910e4320da",
+    "experiments/g1_g5/evidence/zeroonly-20261021/raw/session/ros-logs/bt_navigator_3028843_1792575020786.log": "7da5aeb4ff96192b65d690f1a2e6479acdaf2a96dedb6758dbbd4a88137946fc",
+    "experiments/g1_g5/evidence/zeroonly-20261021/raw/session/ros-logs/velocity_smoother_3028847_1792575020767.log": "f40e2de52fd8220f0fe253fae1b46b8353ce89b769a316cff937284dfe4b44d9",
+    "experiments/g1_g5/evidence/zeroonly-20261021/raw/session/ros-logs/create_3028825_1792575020777.log": "c22115e4f5d1b0194c281f984ce54122859f781f22cb4143de272f4756e482e6",
+    "experiments/g1_g5/evidence/zeroonly-20261021/raw/session/ros-logs/lio_sam_mapOptimization_3029443_1792575040899.log": "566c97ca52f24fa50b50e8c33f9e6f60323fbd5089988a4c9a2ca8af73333c59",
+    "experiments/g1_g5/evidence/zeroonly-20261021/raw/session/ros-logs/lifecycle_manager_3028855_1792575020768.log": "a587c7aa5949ebee33856f1d00ef3d9b2fad9250a585ce85aa45e853e93d08c4",
+    "experiments/g1_g5/evidence/zeroonly-20261021/raw/session/ros-logs/python3_3029445_1792575041165.log": "90fcd34ac8a8b7fcd4369f41097150efe84206b0f9d205097086264007db4232",
+    "experiments/g1_g5/evidence/zeroonly-20261021/raw/session/ros-logs/waypoint_follower_3028845_1792575020769.log": "ba7499bef4bfab8bce89c320908171c023599e24ca32ef37f4bebb1fc742bd1d",
+    "experiments/g1_g5/evidence/zeroonly-20261021/raw/session/ros-logs/lio_sam_imuPreintegration_3029437_1792575040787.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "experiments/g1_g5/evidence/zeroonly-20261021/raw/session/ros-logs/python3_3028857_1792575021182.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "experiments/g1_g5/evidence/zeroonly-20261021/raw/session/ros-logs/smoother_server_3028837_1792575020766.log": "3cdf42f6a37cd8a352e8a2cdd3766868216d0fa4f4d3493fbbbb8f51d8a09603",
+    "experiments/g1_g5/evidence/zeroonly-20261021/raw/session/ros-logs/python3_3028831_1792575021154.log": "bd90359de4edb8ae84d1b25aaa9d4b6001df15a75670cfc9b596dbc1d43a0d97",
+    "experiments/g1_g5/evidence/zeroonly-20261021/raw/session/ros-logs/lio_sam_imageProjection_3029439_1792575040789.log": "7145191adc2cec4e77663107f483cee48735caf7cc2cd8a606c8eaf65e670152",
+    "experiments/g1_g5/evidence/zeroonly-20261021/raw/session/ros-logs/lio_sam_featureExtraction_3029441_1792575040787.log": "78ff8bde93011ea57d95c684c40d2f39d6f3c5880eda0b276e4c3d859f2a0aff",
+    "experiments/g1_g5/evidence/zeroonly-20261021/raw/session/ros-logs/2026-10-21-17-30-20-643100-zyd-MS-7D97-3028816/launch.log": "2e47fb409b722907cfcd03a4d1ec5ddc56a08e08ebe5da05c69d0bdd9d502a4a"
+  },
+  "retention": "Raw files persist locally and are Git ignored; NOT backed up remotely. Compact index/report intended for Git review, no commit in this task."
+}

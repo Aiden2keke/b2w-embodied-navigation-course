@@ -185,3 +185,9 @@ for vetoes. Evaluation data never constructs navigation geometry or goals.
 with launch overrides ignored. CLI, direct FollowPath transport and final Stage4
 adapter each retain the unconditional nonzero interlock pending external review and
 physical qualification. Empty-manifest baseline behavior is unchanged.
+
+Stage4 startup repair (2026-10-21): only the private zero-only session starts an
+owned, one-way Ignition→ROS evaluation bridge for the existing full_contacts and
+collision_inventory topics. Bridge exit aborts bootstrap. Installed conversion
+and native advertisement tests establish delivery compatibility, not physical
+full-body collision coverage; ordinary launch interfaces and motion vetoes remain.
