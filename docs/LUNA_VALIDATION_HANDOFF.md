@@ -1,4 +1,19 @@
-# Luna validation handoff — external NEEDS FIX continuation, 2026-10-20
+Current zero-unblock milestone: version-2 zero observation needs pinned source
+inventory/world/policy and a matching copy install, with no measured motion bounds.
+The matrix includes `test_stage4_zero_boundary.py`. Parent freezes source before
+Luna runs the wrapper. No live commands are authorized for Luna; runtime model
+identity and original-preservation/owned-cleanup evidence accompany results.
+
+# Luna validation handoff — a9991fc review closure, 2026-10-20
+
+Current scoped runtime candidate and user-local commands:
+[STAGE4_RUNTIME_READINESS.md](STAGE4_RUNTIME_READINESS.md). The new supervisor
+is zero-only, monitors owner/adapter health without issuing a motion lease, and
+has NOT been qualified on a live stack. Do not execute live commands as Luna.
+The current matrix has18 offline/27 live gates; all live statuses remain FAIL.
+O18 covers review exits/pre-lock validation, both structural source and map cadence,
+exact-payload cache behavior and owned zero-only watchdog/session regressions.
+Current review baseline is a9991fc; prior evidence below remains historical.
 
 This is the validation contract for the current PLAN NOW. The JSON matrix is
 `course_navigation/config/navigation_validation_matrix.json`; source YAML/C++/Python

@@ -85,7 +85,17 @@ def select_coherent_localization(buffer,history,seen,*,sim,wall):
 
 
 class RosTransport:
-    def __init__(self,directory,*,deployment=None):
+    def __init__(self,directory,*,deployment=None,stationary_only=False):
+        self.stationary_only=stationary_only
+        if stationary_only:
+            from .deployment import load_deployment
+            from course_navigation.stage4_control import read_control
+            from course_navigation.stage4_contact_stream import ContactStream
+            dep=load_deployment(deployment);cfg=read_control(dep['guard_manifest'])
+            if cfg.get('zero_only') is not True:raise ValueError('Passive probe requires immutable zero-only guard')
+            inv=Path(cfg['collision_inventory_path'])
+            if digest(inv)!=cfg['collision_inventory_sha256']:raise ValueError('Source collision inventory changed')
+            self.contacts=ContactStream(json.loads(inv.read_text())['collisions'],first_sequence=None,observation_only=True)
         # Importing this module for offline tests is safe; construction is live opt-in.
         import rclpy
         from rclpy.action import ActionClient
@@ -104,6 +114,7 @@ class RosTransport:
         self.nav=ActionClient(self.node,FollowPath,'/follow_path')
         self.messages={};self.receipts={};self.statuses={};self.failure=None;self.handle=None
         self.structural = StructuralMapCadence()
+        self.live_structural = StructuralMapCadence()
         self.send_future=None;self.result_future=None;self.owned_id=None;self.preflight_id=None;self.child_ids={};self.last_pose_stamp=None
         self.saved=None;self.audit=dict(child_processes=[],action_outcomes=[],cleanup={},collision_coverage='plate_only_full_body_unknown')
         self.qos=QoSProfile(depth=10,reliability=ReliabilityPolicy.BEST_EFFORT)
@@ -138,6 +149,15 @@ class RosTransport:
     def receive(self,topic,msg):
         from rclpy.serialization import serialize_message
         now=time.monotonic();self.messages[topic]=msg;self.receipts[topic]=now
+        if getattr(self,'stationary_only',False) and topic in (
+                '/course_navigation/cmd_vel_raw','/course_navigation/cmd_vel','/path_manager/path_manager_ros/nav_vel'):
+            from .stationary import check_zero_command
+            try:check_zero_command([getattr(v,k) for v in (msg.linear,msg.angular) for k in 'xyz'])
+            except ValueError as exc:self.failure=self.failure or str(exc)
+        if topic=='/map':
+            if not hasattr(self,'live_structural'):self.live_structural=StructuralMapCadence()
+            try:self.live_structural.observe(stamp(msg.header.stamp),self.sim(),now)
+            except ValueError as exc:self.failure=self.failure or str(exc)
         if topic=='/slam/odom':
             if self.odom_history and stamp(msg.header.stamp)<=stamp(self.odom_history[-1][0].header.stamp):
                 if stamp(msg.header.stamp)<stamp(self.odom_history[-1][0].header.stamp):
@@ -267,6 +287,13 @@ class RosTransport:
         self.audit['recording_capacity']=report
         return report
 
+    def check_live_map(self):
+        msg=self.messages['/map']
+        if msg.header.frame_id!='map':raise ValueError('Missing registered map frame')
+        ages=self.live_structural.ages(self.sim(),time.monotonic())
+        if stamp(msg.header.stamp)!=self.live_structural.last[0]:raise ValueError('Live map source acknowledgement differs')
+        return ages
+
     def sample(self):
         now=self.sim()
         odom,(mb,mo,ob),odom_receipt=select_coherent_localization(
@@ -377,7 +404,7 @@ class RosTransport:
                 graph=self.graph();s=self.sample()
                 if s['safety']!='clear' or s['speed']>.03 or abs(s['wz'])>.03 or s['command_speed']>.01 or abs(s['command_wz'])>.01:raise ValueError('Robot not safely stationary')
                 live=grid(self.messages['/map'])
-                if self.messages['/map'].header.frame_id!='map' or self.age('/map')>2:raise ValueError('Missing live map')
+                self.check_live_map()
                 p95=self.alignment.check(live)
                 self.verify_runtime(selection)
                 c=dict(session_id=self.deployment['session_id'],graph=graph,wall=time.time(),sim=self.sim(),selection_sha256=digest(selection_path),
@@ -451,8 +478,7 @@ class RosTransport:
             if cm.header.frame_id!='map' or self.age('/global_costmap/costmap_raw')>2:raise ValueError('Missing fresh global costmap')
             poses=[[p.pose.position.x,p.pose.position.y,yaw(p.pose.orientation)] for p in path.poses]
             live=self.messages['/map']
-            if live.header.frame_id!='map' or self.age('/map')>2 or not 0<=self.sim()-stamp(live.header.stamp)<=2:
-                raise ValueError('Missing fresh registered live map')
+            self.check_live_map()
             certified_revisions=dict(self.grid_revisions)
             live_grid=grid(live);live_grid['data']=[0 if v==0 else 255 if v<0 else 254 for v in live_grid['data']]
             report=assess_path(poses,goals,[s['x'],s['y']],[self.saved,grid(cm,True),live_grid],
@@ -508,12 +534,17 @@ class RosTransport:
                 ('global','/global_costmap/costmap_raw','costmap',True,'map'),
                 ('local','/local_costmap/costmap_raw','costmap',True,'odom')):
             msg=self.messages[topic];source=stamp(msg.header.stamp)
-            if msg.header.frame_id!=frame or not 0<=self.sim()-source<=2. or not 0<=self.age(topic)<=2.:
+            if name=='live':self.check_live_map()
+            elif msg.header.frame_id!=frame or not 0<=self.sim()-source<=2. or not 0<=self.age(topic)<=2.:
                 raise ValueError('Dispatch grid stale/frame mismatch')
             expected[name]=grid_revision(grid(msg,costmap),encoding)[1]
             ack=health['prepared']['grids'][name]
-            if abs(ack['source']-source)>1e-9 or not 0<=time.monotonic()-ack['receipt']<=2.:
-                raise ValueError('Prepared grid source/receipt acknowledgement differs')
+            if abs(ack['source']-source)>1e-9:raise ValueError('Prepared grid source acknowledgement differs')
+            if name=='live':
+                from course_navigation.structural_freshness import structural_ages
+                structural_ages((ack['source'],ack['receipt']),health['prepared']['structural_wall_budget'],sim=self.sim(),wall=time.monotonic())
+            elif not 0<=time.monotonic()-ack['receipt']<=2.:
+                raise ValueError('Prepared grid receipt acknowledgement differs')
         if {k:v['sha256'] for k,v in health['prepared']['grids'].items()}!=expected:
             raise ValueError('Adapter prepared revisions differ from certified geometry')
 
@@ -593,7 +624,7 @@ class RosTransport:
                 if self.graph()!=self.registration_graph:raise ValueError('Session graph identity changed')
                 self.last_graph=now
             if now-self.last_alignment>1:
-                if self.age('/map')>2:raise ValueError('Live map stale')
+                self.check_live_map()
                 self.alignment.check(grid(self.messages['/map']));self.last_alignment=now
             s=self.sample();out={}
             if self.last_pose_stamp is None or s['tf_stamp']>self.last_pose_stamp:

@@ -24,7 +24,88 @@
 - 旧实施计划归档至 `docs/plans/archive/2026-10-10-local-course-system-plan.md`。历史 design/validation 保留为证据，不是另一个当前 roadmap。无新增 HANDOFF。
 - 历史轮次只读与 timing 交付已结束；本轮范围以最新用户请求和下方 NOW 为准。旧实验/交付记录只作历史证据。
 
-## NOW — Validation-driven segment qualification (Oct 20)
+## NOW — Unblock zero-only runtime observation (October 20)
+
+User scope: finish the zero-observation prerequisite/arming boundary, startup
+TF/context handling, focused fault injection, verified Luna checks and matching
+copy build, then ONE compact APRIL bundle and stop for external review. Work only
+in `/tmp/b2w-unattended-worktree-20261019`, HEAD a9991fc. Preserve inherited edits,
+original checkout and sealed evidence. No nonzero navigation/push/merge/dependency
+installation/upgrades. No fabricated measured bounds or weakened collision checks.
+
+- [x] Read AGENTS/CODEX_GUIDE, interface contracts, prior readiness bundle and
+  external a9991fc findings. Reproduce circular bounds prerequisites, startup
+  health starvation and late-join contact sequence failure in focused tests.
+- [x] Add explicit immutable zero-only guard/input mode: no motion bounds,
+  saved-map registration or route selection required; source inventory/policy/
+  world/install/controller identities remain pinned. Reject every motion lease.
+- [x] Preserve startup zero/health while waiting for TF/localization; malformed
+  context/data and armed failures remain sticky. Preserve motion guard checks.
+- [x] Add regression/fault-injection coverage and bind zero contact observation
+  to its actual first received interval without claiming earlier coverage.
+- [x] Freeze source; verified Luna runs deterministic matrix and cleanup checks;
+  parent verifies regular copy-installed files and real observation-only input
+  validation. No live launch. Provide bounded user-local command only if ready.
+- [ ] Final delivery: generate one compact APRIL bundle with exact diff/excerpts/evidence/hashes
+  and limitations; STOP for external review. Nonzero remains NO-GO.
+
+Evidence: `/tmp/b2w-zero-unblock-sol-20261020/` and
+`/tmp/b2w-zero-unblock-luna-20261020/`. Live TF startup is not reproduced/qualified;
+tests establish source behavior. Real v2 input validation passed using the existing
+reviewed controller overlay; an omitted overlay correctly rejects. Two packages
+copy-build successfully; matching regular installed files are checked separately.
+Luna found an M2 AST exception-scope regression, fixed without test weakening.
+Internal review found first-receipt capacity timing, fixed with RED/GREEN evidence.
+Contact late-join requires explicit observation-only mode; motion still requires
+an explicit first sequence. Exact final counts and bundle completion are recorded
+externally to keep frozen source stable. Current command/schema and limits:
+[STAGE4_RUNTIME_READINESS.md](docs/STAGE4_RUNTIME_READINESS.md).
+
+## Historical — previous readiness milestone (preserved)
+
+### Previous — Close a9991fc review and zero-motion runtime readiness (Oct 20)
+
+**Goal:** one scoped milestone addressing the independent a9991fc NEEDS FIX
+review. Source Python/YAML/C++ are SSoT. Parent Sol owns diagnosis, implementation,
+integration and decisions; runtime-verified GPT-6 Luna runs deterministic checks.
+No nonzero navigation, push, merge, destructive operations, dependency links or
+upgrades. Original checkout and sealed historical evidence remain untouched.
+
+- [x] Reproduce P1-1 structural-map cadence mismatch; share structural source age
+  7.5s and measured [7.5,20]s wall allowance, requiring three advancing maps.
+  Keep fast pose/contact and dynamic costmap expiry strict; duplicates cannot renew.
+- [x] Reproduce P1-3/P1-4: formal result/exit status uses declared full/segment
+  acceptance; missing physical evidence never yields success. Validate session,
+  selection, registration, deployment and measured deadlines before attempt lock.
+- [x] Measure P1-2 with immutable 800x800 streams and 20Hz output; preserve
+  fail-closed changed geometry, record preparation/availability/zero duty/p99,
+  and make only evidence-justified cache changes.
+- [x] Complete minimal owned supervisor/bootstrap and reproducible zero-motion
+  readiness harness where input evidence permits. No guessed physical bounds;
+  missing real manifests/measurements remain explicit FAIL. Live/long tests use
+  copy-ready user-local commands, separate from bounded offline regressions.
+- [ ] Freeze source; Luna reruns affected matrix, Sol verifies copy build and
+  cleanup/original preservation. Produce ONE compact APRIL bundle since a9991fc
+  with diff, critical excerpts, real logs/counts, unresolved qualifications and
+  SHA256. Stop for independent external review; NO-GO remains.
+
+Evidence: `/tmp/b2w-stage4-readiness-sol-20261020/`; verified Luna baseline:
+`/tmp/b2w-stage4-readiness-20261020T0845Z/`. No live stack started.
+The bootstrap is zero-only: watchdog observes health/inhibits faults but never
+issues a lease, so idle readiness cannot arm or relax command watchdogs. Real
+bounds/raw measurement inputs remain mandatory; no usable manifest is present.
+First focused green:53 passed; synthetic before/after availability0%/96.7%,
+zero duty100%/3.3%, cycle p99 47.578/1.380ms. Full-load/live timing is unqualified.
+The raw `/slam/map_points` heartbeat is independent of the1Hz timer-stamped
+`/map`; regression proves republishing cannot hide expiry.76 focused checks pass.
+Final3s synthetic benchmark:95% available,5% zero duty,p99=37.899ms; variability
+and startup costs remain explicit, with no live deadline qualification.
+Final frozen-source tests/build and bundle integrity are recorded in the external
+REPORT.md; the final checkbox remains the external review handoff, not clearance.
+
+## Historical — previous a9991fc offline milestone (preserved)
+
+### Validation-driven segment qualification (Oct 20)
 
 ### NEEDS FIX continuation from 90716f4
 

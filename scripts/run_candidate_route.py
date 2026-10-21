@@ -14,6 +14,40 @@ sys.path.insert(0,str(Path(__file__).resolve().parents[1]/'course_navigation'))
 from stage4_route.contract import select_candidate,load_selection,digest,object_hash,write_new,registration
 
 
+def execution_exit_code(report,mode):
+    """0 formal acceptance; 3 practical diagnostic only; 1 failed execution."""
+    key='full_route_pass' if mode=='full' else 'segment_pass'
+    result='FULL_ROUTE_PASS' if mode=='full' else 'SEGMENT_PASS'
+    if (report.get(key) is True and report.get('result')==result and
+            report.get('cleanup_passed') is True and not report.get('error')):return 0
+    return 3 if report.get('practical_route_pass') is True else 1
+
+
+def execution_prerequisites(args,capture):
+    """Read-only pre-attempt validation; live ready/dispatch rechecks still apply."""
+    from stage4_route.constraints import deadline_for
+    if args.deadline_evidence is None:raise ValueError('--deadline-evidence is required for execution')
+    metrics=json.loads(args.deadline_evidence.read_text())
+    if metrics['session_id']!=capture['session_id'] or metrics['selection_sha256']!=digest(args.selection):
+        raise ValueError('Deadline evidence differs from session/profile')
+    limits=deadline_for(metrics['length_m'],measured_speed=metrics['achieved_speed_lower_bound_m_s'],
+        rotation_rad=metrics['rotation_rad'],measured_yaw_rate=metrics['achieved_yaw_rate_lower_bound_rad_s'],mode=args.mode)
+    from stage4_route.contract import check_registration
+    import time
+    cert=json.loads((args.session/'registration.json').read_text())
+    check_registration(cert,capture,wall=time.time(),sim=capture['sim'])
+    from stage4_route.deployment import load_deployment,verify_controller
+    from course_navigation.stage4_control import read_control
+    deployment=load_deployment(args.deployment or args.session/'deployment.json')
+    guard=read_control(deployment['guard_manifest'])
+    if (deployment['session_id']!=capture['session_id'] or guard['session_id']!=capture['session_id'] or
+            digest(deployment['guard_manifest'])!=deployment['guard_manifest_sha256']):
+        raise ValueError('Deployment differs from session/guard')
+    policy=json.loads((Path(__file__).resolve().parents[1]/'course_navigation/config/stage4_runtime_identity.json').read_text())
+    verify_controller(deployment,policy)
+    return limits
+
+
 def main(argv=None):
     p=argparse.ArgumentParser(description=__doc__)
     sub=p.add_subparsers(dest='command',required=True)
@@ -60,19 +94,17 @@ def main(argv=None):
                 clean=transport.close();write_new(a.session/('plan-audit-'+uuid4().hex+'.json'),dict(cleanup_passed=clean,session_id=c['session_id'],runtime=transport.audit))
             if not clean:raise ValueError('Planner-only cleanup failed')
             return 0
-        # Persistent consumption marker forbids retries/reuse even after interruption.
+        limits=execution_prerequisites(a,c)
+        # Atomic persistent marker only after read-only prerequisites pass.
+        # Any interruption from this boundary still consumes the attempt.
         write_new(a.session/'execution-lock.json',dict(session_id=c['session_id'],mode=a.mode,segment=a.segment,selection_sha256=digest(a.selection)))
-        metrics=json.loads(a.deadline_evidence.read_text())
-        if metrics['session_id']!=c['session_id'] or metrics['selection_sha256']!=digest(a.selection):raise ValueError('Deadline evidence differs from session/profile')
-        limits=deadline_for(metrics['length_m'],measured_speed=metrics['achieved_speed_lower_bound_m_s'],
-            rotation_rad=metrics['rotation_rad'],measured_yaw_rate=metrics['achieved_yaw_rate_lower_bound_rad_s'],mode=a.mode)
         transport=RosTransport(a.session,deployment=a.deployment)
         report=run_route(selection,c,transport,count=count,start_index=start_index,wall_limit=limits['wall_s'],sim_limit=limits['sim_s'])
         report['registration_sha256']=digest(a.session/'registration.json')
         write_new(a.session/'result.json',report)
         write_new(a.session/'evidence-manifest.json',dict(session_id=c['session_id'],files={f.name:digest(f) for f in a.session.iterdir() if f.is_file()}))
-        print(a.session/'result.json');return 0 if report['practical_route_pass'] else 1
-    except (ValueError,KeyError,OSError,RuntimeError) as exc:
+        print(a.session/'result.json');return execution_exit_code(report,a.mode)
+    except (ValueError,KeyError,TypeError,OSError,RuntimeError) as exc:
         if getattr(a,'session',None) and a.session.is_dir():
             write_new(a.session/('rejection-'+uuid4().hex+'.json'),dict(command=a.command,error=str(exc)))
         print('Stage 4 rejected: '+str(exc),file=sys.stderr);return 2

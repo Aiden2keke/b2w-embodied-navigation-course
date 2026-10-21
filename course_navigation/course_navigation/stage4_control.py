@@ -94,6 +94,9 @@ class Watchdog:
             if self.last_heartbeat and h['sequence']==self.last_heartbeat['sequence'] and h!=self.last_heartbeat:
                 raise ValueError('conflicting_owner_heartbeat_duplicate')
             self.last_heartbeat=h;self.sequence+=1
+            if c.get('zero_only') is True:
+                if os.path.lexists(c['lease_path']):raise ValueError('unexpected_lease_in_zero_only_session')
+                return True  # Monitor health and inhibit faults; NEVER arm the adapter.
             write_control(c['lease_path'],dict(session_id=c['session_id'],sequence=self.sequence,wall=wall,
                                               owner=c['owner'],adapter=c['adapter']))
             return True

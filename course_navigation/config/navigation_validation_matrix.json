@@ -341,10 +341,10 @@
         "C01"
       ],
       "requirement": "Replay deadline qualification and independent owned-stack abort",
-      "source": "Missing action-independent adapter latch/ownership supervisor",
+      "source": "stage4_control.py; stage4_session.py; stage4_route/session.py; STAGE4_RUNTIME_READINESS.md",
       "expected": "Cycle p99 <50 ms at20 Hz; freeze worst abort latency; unresolved/late handle, rejected cancel, dead controller, localization and recorder faults produce zero and measured physical stop",
       "command": "/usr/bin/python3 scripts/navigation_validation.py --output /tmp/NEW-EXCLUSIVE-DIRECTORY",
-      "missing": "Independent lease/inhibit/watchdog and adapter health implemented; session bootstrap/runner heartbeat protocol and measured fault-chain latency/physical stops remain unqualified",
+      "missing": "Zero-only operational bootstrap/owner heartbeat/watchdog candidate implemented and offline tested; actual live startup/cleanup, motion lease lifecycle and measured fault-chain latency/physical stops remain unqualified",
       "stop_condition": "FAIL/missing/stale/ambiguous/timeout: no dependent motion; retain logs; parent diagnoses before changed-evidence retry"
     },
     {
@@ -681,6 +681,21 @@
       "command": "See suites in dry-run command manifest",
       "missing": "not_executed_or_failed",
       "stop_condition": "FAIL/missing/stale/timeout: no dependent motion; retain evidence; Sol diagnoses"
+    },
+    {
+      "id": "O18",
+      "level": "offline",
+      "suite": "focused",
+      "requires": [
+        "O07",
+        "O13"
+      ],
+      "requirement": "a9991fc review: structural cadence, exact-grid reuse, formal exits, pre-lock validation and zero-only supervisor IPC",
+      "source": "test_stage4_review_contract.py; test_stage4_grid_cadence.py; test_stage4_session.py; test_stage4_zero_boundary.py; test_structural_map_cadence.py",
+      "expected": "Strict nonempty regressions pass; synthetic diagnostics and zero-only bootstrap never authorize motion",
+      "command": "See suites in dry-run command manifest",
+      "missing": "not_executed_or_failed",
+      "stop_condition": "Retain failures; parent diagnosis before changed-evidence retry"
     }
   ],
   "external_review_gate": {

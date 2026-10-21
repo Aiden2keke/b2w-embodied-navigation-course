@@ -41,6 +41,9 @@ class VelocityGate:
 
 
 class VelocityAdapter(Node):
+    class LocalizationUnready(Exception):
+        pass
+
     def __init__(self):
         super().__init__('velocity_adapter')
         self.m2_enabled = self.declare_parameter('m2_inverse_enabled', False).value
@@ -89,11 +92,12 @@ class VelocityAdapter(Node):
                 descriptor=ParameterDescriptor(read_only=True),ignore_override=True)
             self.declare_parameter('stage4_session_id',config['session_id'],
                 descriptor=ParameterDescriptor(read_only=True),ignore_override=True)
-            evidence=Path(config['bounds_evidence_path'])
-            if hashlib.sha256(evidence.read_bytes()).hexdigest()!=config['bounds_evidence_sha256']:
-                raise ValueError('Stop/uncertainty evidence identity changed')
-            from .stage4_bounds import validate_bounds
-            self.stage4_bounds=validate_bounds(config,json.loads(evidence.read_text()))
+            if config.get('zero_only') is not True:
+                evidence=Path(config['bounds_evidence_path'])
+                if hashlib.sha256(evidence.read_bytes()).hexdigest()!=config['bounds_evidence_sha256']:
+                    raise ValueError('Stop/uncertainty evidence identity changed')
+                from .stage4_bounds import validate_bounds
+                self.stage4_bounds=validate_bounds(config,json.loads(evidence.read_text()))
             self.stage4_guard=FinalCommandGuard(config)
             from .stage4_contact_stream import ContactStream
             from std_msgs.msg import String
@@ -101,15 +105,20 @@ class VelocityAdapter(Node):
             inventory=Path(config['collision_inventory_path'])
             if hashlib.sha256(inventory.read_bytes()).hexdigest()!=config['collision_inventory_sha256']:raise ValueError('Source collision inventory changed')
             names=json.loads(inventory.read_text())['collisions']
-            self.stage4_guard.contacts=ContactStream(names,first_sequence=config['contact_first_sequence'])
+            self.stage4_guard.contacts=ContactStream(names,first_sequence=None if config.get('zero_only') is True else config['contact_first_sequence'],
+                observation_only=config.get('zero_only') is True)
             self.create_subscription(String,'/b2w/evaluation/collision_inventory',lambda m:self.stage4_contact('inventory',m),10)
             self.create_subscription(Contacts,'/b2w/evaluation/full_contacts',lambda m:self.stage4_contact('contacts',m),10)
             self.stage4_worker=GridPreparation(self.stage4_guard)
-            saved=Path(config['saved_grid_path'])
-            if hashlib.sha256(saved.read_bytes()).hexdigest()!=config['saved_grid_sha256']:
-                raise ValueError('Registered saved grid identity changed')
-            self.stage4_worker.submit('saved',json.loads(saved.read_text()),frame='map',source=0.,receipt=0.,
-                encoding='costmap',epoch=config['session_id'])
+            if config.get('zero_only') is not True:
+                saved=Path(config['saved_grid_path'])
+                if hashlib.sha256(saved.read_bytes()).hexdigest()!=config['saved_grid_sha256']:
+                    raise ValueError('Registered saved grid identity changed')
+                self.stage4_worker.submit('saved',json.loads(saved.read_text()),frame='map',source=0.,receipt=0.,
+                    encoding='costmap',epoch=config['session_id'])
+            from sensor_msgs.msg import PointCloud2
+            from rclpy.qos import qos_profile_sensor_data
+            self.create_subscription(PointCloud2,'/slam/map_points',self.stage4_structure,qos_profile_sensor_data)
             self.create_subscription(OccupancyGrid,'/map',lambda m:self.stage4_grid('live',m,False),10)
             self.create_subscription(Costmap,'/local_costmap/costmap_raw',lambda m:self.stage4_grid('local',m,True),10)
             self.create_subscription(Costmap,'/global_costmap/costmap_raw',lambda m:self.stage4_grid('global',m,True),10)
@@ -124,13 +133,13 @@ class VelocityAdapter(Node):
         expected_frame = 'odom' if self.require_tf else 'sim_world'
         if self.last_stamp is not None and stamp < self.last_stamp:
             self.localization_fault = True
-        if (not self.clock_valid(now, wall) or msg.header.frame_id != expected_frame or
-                msg.child_frame_id != 'base_link' or
-                not 0 <= msg.header.stamp.nanosec < 1000000000 or
-                not all(math.isfinite(x) for x in [p.x, p.y, p.z, q.x, q.y, q.z, q.w,
-                                                   v.x, v.y, v.z, w.x, w.y, w.z]) or
-                abs(q.x*q.x + q.y*q.y + q.z*q.z + q.w*q.w - 1.) > .01 or
-                not 0 <= now - stamp <= self.gate.timeout):
+        malformed=(msg.header.frame_id != expected_frame or msg.child_frame_id != 'base_link' or
+            not 0 <= msg.header.stamp.nanosec < 1000000000 or
+            not all(math.isfinite(x) for x in [p.x,p.y,p.z,q.x,q.y,q.z,q.w,v.x,v.y,v.z,w.x,w.y,w.z]) or
+            abs(q.x*q.x+q.y*q.y+q.z*q.z+q.w*q.w-1.) > .01)
+        if malformed and getattr(self,'stage4_guard',None) is not None:
+            self.stage4_guard.inhibit('invalid_stage4_odometry')
+        if not self.clock_valid(now,wall) or malformed or not 0 <= now-stamp <= self.gate.timeout:
             self.gate.state_time = None
             return
         if stamp == self.last_stamp:
@@ -146,6 +155,12 @@ class VelocityAdapter(Node):
             else:gate.contact_message(msg,wall=time.monotonic())
             if gate.failure:self.stage4_guard.inhibit(gate.failure)
         except Exception as exc:self.stage4_guard.inhibit('contact_callback:'+repr(exc))
+
+    def stage4_structure(self,msg):
+        if msg.header.frame_id!='map':
+            self.stage4_guard.inhibit('structural_source_frame_mismatch');return
+        self.stage4_guard.observe_structure(msg.header.stamp.sec+msg.header.stamp.nanosec*1e-9,
+            sim=self.get_clock().now().nanoseconds*1e-9,wall=time.monotonic())
 
     def stage4_grid(self,name,msg,costmap):
         info=msg.metadata if costmap else msg.info;o=info.origin;q=o.orientation
@@ -220,9 +235,10 @@ class VelocityAdapter(Node):
             if (tf.header.frame_id != parent or tf.child_frame_id != child or
                     not 0 <= tf.header.stamp.nanosec < 1000000000 or
                     not all(math.isfinite(v) for v in [t.x, t.y, t.z, q.x, q.y, q.z, q.w]) or
-                    abs(q.x*q.x + q.y*q.y + q.z*q.z + q.w*q.w - 1.) > .01 or
-                    not 0 <= sim - stamp <= self.gate.timeout):
+                    abs(q.x*q.x + q.y*q.y + q.z*q.z + q.w*q.w - 1.) > .01):
+                self.localization_fault=True
                 return False
+            if not 0 <= sim - stamp <= self.gate.timeout:return False
             if old is None or stamp > old[0]:
                 self.tf_state[parent, child] = stamp, wall
             if not 0 <= wall - self.tf_state[parent, child][1] <= self.gate.timeout:
@@ -230,6 +246,10 @@ class VelocityAdapter(Node):
         return True
 
     def command(self, msg):
+        guard=getattr(self,'stage4_guard',None)
+        if guard is not None and guard.zero_only:
+            values=[getattr(v,k) for v in (msg.linear,msg.angular) for k in 'xyz']
+            if any(not math.isfinite(v) or v!=0. for v in values):guard.inhibit('nonzero_command_in_zero_only_session')
         if self.m2_enabled:
             # Check before legacy limiting as well: never hide an unsupported request.
             self.convert_m2((msg.linear.x, msg.linear.y, msg.angular.z))
@@ -260,13 +280,18 @@ class VelocityAdapter(Node):
         publication_started=time.perf_counter() if guard is not None else None
         publication_wall_started=time.monotonic() if guard is not None else None
         out = Twist()
+        context_state='ready'
         try:
+            if guard is not None:guard.check_zero_control()
             if self.require_tf:
                 if not self.localization_valid():
                     if getattr(self,'stage4_guard',None) is not None and self.stage4_guard.armed:
                         self.stage4_guard.inhibit('adapter_localization_lost')
-                    self.pub.publish(out)
-                    return
+                    if guard is None:
+                        self.pub.publish(out)
+                        return
+                    if self.localization_fault:guard.inhibit('adapter_localization_fault')
+                    raise self.LocalizationUnready()
             if getattr(self,'stage4_guard',None) is not None and self.stage4_guard.armed:
                 wall=time.monotonic()
                 if any(t is None or not 0<=wall-t<=self.gate.timeout for t in (self.gate.command_time,self.gate.state_time)):
@@ -286,7 +311,10 @@ class VelocityAdapter(Node):
                 command=self.stage4_guard.output(command=command,**context)
                 if any(abs(v)>1e-12 for v in command):require_motion_qualification()
             out.linear.x, out.linear.y, out.angular.z = command
+        except self.LocalizationUnready:
+            context_state='waiting_localization'
         except TransformException:
+            context_state='waiting_tf'
             if getattr(self,'stage4_guard',None) is not None and self.stage4_guard.armed:
                 self.stage4_guard.inhibit('localization_transform_failure')
         except Exception as exc:
@@ -301,7 +329,7 @@ class VelocityAdapter(Node):
             self.stage4_health_sequence=getattr(self,'stage4_health_sequence',0)+1
             try:write_control(guard.config['adapter_heartbeat_path'],dict(session_id=guard.config['session_id'],
                 sequence=self.stage4_health_sequence,wall=publication_wall_started,adapter=guard.adapter_identity,
-                prepared=guard.prepared_status()))
+                prepared=guard.prepared_status(),context_state='fault' if guard.failure else context_state))
             except Exception as exc:guard.inhibit('adapter_health_write:'+repr(exc))
             if time.perf_counter()-publication_started>=.05:
                 guard.inhibit('adapter_health_publication_deadline');self.pub.publish(Twist())

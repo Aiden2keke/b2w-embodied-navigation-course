@@ -179,7 +179,7 @@ Both course/navigation launch descriptions forward private opt-in
 `stage4_guard_manifest` (default empty). Stage4 requires `goal_manager_enabled=false`
 and `adaptive_speed=false`. The existing adapter remains the only final publisher;
 shared command topics, TF, message types and RL-SAR remain unchanged. It additionally
-reads existing `/map`, local/global raw costmaps and evaluation-only contact reports
+reads existing `/map`, `/slam/map_points` source headers, local/global raw costmaps and evaluation-only contact reports
 for vetoes. Evaluation data never constructs navigation geometry or goals.
 `stage4_guard_sha256` and `stage4_session_id` are computed read-only adapter parameters
 with launch overrides ignored. CLI, direct FollowPath transport and final Stage4

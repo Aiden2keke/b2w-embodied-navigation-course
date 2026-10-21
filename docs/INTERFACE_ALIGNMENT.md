@@ -43,3 +43,10 @@ stage4_session_id expose computed immutable loaded identities. No shared topic/T
 contract changes. Existing evaluation-only reports now also veto guard permission;
 report continuity never establishes engine coverage. This opt-in candidate remains
 zero-only and requires external review; ordinary baseline launch defaults remain.
+
+Stage4 a9991fc review closure: the private guard additionally consumes existing
+`/slam/map_points` source headers with sensor-data QoS, separately from the timer-
+stamped `/map` grid. Both structural streams require three advancing publications;
+fast TF/contact/costmap budgets are unchanged. The zero-only supervisor/watchdog
+never issues a motion lease and introduces no shared topic, TF or message type.
+Live qualification is not claimed; see STAGE4_RUNTIME_READINESS.md.

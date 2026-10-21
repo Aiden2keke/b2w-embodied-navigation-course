@@ -27,6 +27,10 @@ def configured(tmp_path):
     guard.contacts.inventory(dict(sequence=1,interval_start=9.,stamp=10.,sampled_steps=200,
         collisions=['body::collision'],ever_forbidden_contact=False,evaluation_only=True),wall=20.)
     guard.contacts.contact_message(NS(header=NS(frame_id='b2w_evaluation_seq_1',stamp=NS(sec=10,nanosec=0)),contacts=[]),wall=20.)
+    for source,receipt in ((0.,10.),(5.,15.),(10.,20.)):
+        guard.observe_structure(source,sim=source,wall=receipt)
+    for source,receipt in ((0.,10.),(5.,15.)):
+        guard.install('live',grid(),frame='map',source=source,receipt=receipt,encoding='costmap',epoch='trial')
     for name in ('saved','live','local','global'):
         guard.install(name,grid(),frame='odom' if name=='local' else 'map',source=10.,receipt=20.,
                       encoding='costmap',epoch='trial')
