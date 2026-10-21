@@ -1,0 +1,12 @@
+# b2w_pipe_v0/1: SI units. +x pipe axis, floor z=0, y left; dry flat invert.
+inner_radius_m: 1.6
+wall_thickness_m: 0.18
+length_m: 16.0
+axis_z_m: 1.25
+segments: 96
+floor_thickness_m: 0.4
+friction: 1.0
+ambient: 0.025
+spawn_x_m: -6.0
+spawn_y_m: 0.0
+spawn_z_m: 1.0

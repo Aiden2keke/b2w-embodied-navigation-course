@@ -96,3 +96,8 @@ devel/
 # Linux
 .directory
 Thumbs.db
+
+# Isolated pipe feature overlay
+build_pipe/
+install_pipe/
+log_pipe/
