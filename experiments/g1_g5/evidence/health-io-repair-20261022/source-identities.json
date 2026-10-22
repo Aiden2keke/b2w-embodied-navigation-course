@@ -1,0 +1,7 @@
+{
+  "PLAN.md": "d1ccd8b3051b8c39d78529d1a4c916e7c71c901bf3d6235e00ad1e1c2bd23856",
+  "course_navigation/course_navigation/stage4_control.py": "8c636fba49d7ed00fc31237d867c9e99fd8e7c653a173067ef8579e7e23eec96",
+  "course_navigation/course_navigation/velocity_adapter.py": "7af744ef0b6426c085c607e14e1e7d32787282387d555a144f65616a153c24cd",
+  "scripts/benchmark_stage4_health_io.py": "6dcc309eb64924fce9c2458455b1fe256fcef64b139cc61bf415d21482f1acd6",
+  "tests/test_stage4_health_io.py": "a1cab388916f487e8d8b4cb07319456250ee05443f12ace3ffbfca08016e4cdc"
+}

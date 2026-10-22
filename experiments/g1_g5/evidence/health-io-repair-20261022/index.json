@@ -1,0 +1,182 @@
+{
+  "kind": "stage4_health_io_repair",
+  "raw_and_build_local_only": true,
+  "files": {
+    "experiments/g1_g5/evidence/health-io-repair-20261022/REPORT.md": {
+      "sha256": "05db82f702f9ed2849fb5d003388b45a5dcdedb3f5c22887dedf05440c18ec2e",
+      "bytes": 10708
+    },
+    "experiments/g1_g5/evidence/health-io-repair-20261022/build-result.json": {
+      "sha256": "06db515cca46f7a2df77503fae7e4c5e4d27a378eebf2b1d3545d2e7e9847055",
+      "bytes": 697
+    },
+    "experiments/g1_g5/evidence/health-io-repair-20261022/candidate-env.bash": {
+      "sha256": "4f97633a3645e1199ba7ed391f05844bd4499dc5050efdec48d86dfd92effe7d",
+      "bytes": 363
+    },
+    "experiments/g1_g5/evidence/health-io-repair-20261022/copy-installed-identities.json": {
+      "sha256": "c3c55bfd4c59d7762bac6591fc44e58c583999bf01ec0955a3f95524331456d3",
+      "bytes": 23884
+    },
+    "experiments/g1_g5/evidence/health-io-repair-20261022/measurements.json": {
+      "sha256": "130b3f81ff80c66fe5db02759e31fab76cd4871af77b2f804fd6ebfcfea391a5",
+      "bytes": 29572
+    },
+    "experiments/g1_g5/evidence/health-io-repair-20261022/raw/api-benchmark/after_write_adapter_health": {
+      "sha256": "d9a19c9717b670d86a9a3c3b3221c789d3b24de937294aec6447945481fc8ce4",
+      "bytes": 1343
+    },
+    "experiments/g1_g5/evidence/health-io-repair-20261022/raw/api-benchmark/after_write_adapter_health-callback/health": {
+      "sha256": "5713827d2afcf965a2dcbfafbd3bba1a653312484b4afa853810f2f70926d581",
+      "bytes": 882
+    },
+    "experiments/g1_g5/evidence/health-io-repair-20261022/raw/api-benchmark/before_write_control": {
+      "sha256": "84d23ab9efc166a89daf5f68c8db5e0d3a9da2c77a6bdf39277ec506f46bd4b8",
+      "bytes": 1343
+    },
+    "experiments/g1_g5/evidence/health-io-repair-20261022/raw/api-benchmark/before_write_control-callback/health": {
+      "sha256": "939a09e1ced9a4b6548b1575538a8a12dc491ec4d3f2d1cf48c92e2abbef2b05",
+      "bytes": 878
+    },
+    "experiments/g1_g5/evidence/health-io-repair-20261022/raw/api-benchmark.json": {
+      "sha256": "e838f1f5d7f7a57bcaf2c3d1a6e5d0de909ec2380093ade3d90b496e6282ce79",
+      "bytes": 24378
+    },
+    "experiments/g1_g5/evidence/health-io-repair-20261022/raw/copy-build-log/COLCON_IGNORE": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "experiments/g1_g5/evidence/health-io-repair-20261022/raw/copy-build-log/build_2026-10-22_00-22-34/course_navigation/command.log": {
+      "sha256": "e276b83648baa7a7eaceb1b16218fcb676d71051bc7709f6170035aa73ddf42a",
+      "bytes": 2398
+    },
+    "experiments/g1_g5/evidence/health-io-repair-20261022/raw/copy-build-log/build_2026-10-22_00-22-34/course_navigation/stderr.log": {
+      "sha256": "8995e8cc62d964b7fedcbe7e25c28a9639531d076bc4981c73e741bf687c51eb",
+      "bytes": 119
+    },
+    "experiments/g1_g5/evidence/health-io-repair-20261022/raw/copy-build-log/build_2026-10-22_00-22-34/course_navigation/stdout.log": {
+      "sha256": "e7caff1a948aa224f999e3cc9ed4dd1f04b5cc3daa9b78a8a4ebd68f73e005e1",
+      "bytes": 20142
+    },
+    "experiments/g1_g5/evidence/health-io-repair-20261022/raw/copy-build-log/build_2026-10-22_00-22-34/course_navigation/stdout_stderr.log": {
+      "sha256": "b93968c9b472a5bed2da54c0ef74d8f40e796f34d1e01217bdd36ed80a95383a",
+      "bytes": 20261
+    },
+    "experiments/g1_g5/evidence/health-io-repair-20261022/raw/copy-build-log/build_2026-10-22_00-22-34/course_navigation/streams.log": {
+      "sha256": "be2a586d8687efc1ff7a08a823c7f7212c4b729bcfd42947e62047214a8bd4dd",
+      "bytes": 23505
+    },
+    "experiments/g1_g5/evidence/health-io-repair-20261022/raw/copy-build-log/build_2026-10-22_00-22-34/events.log": {
+      "sha256": "1aae999d5e499c6aae68a2d0f84db5a9c1b4fcaeadc7c02ec4524cb5412264a6",
+      "bytes": 40699
+    },
+    "experiments/g1_g5/evidence/health-io-repair-20261022/raw/copy-build-log/build_2026-10-22_00-22-34/logger_all.log": {
+      "sha256": "6e1eb7ad6cf9554372b055c84a747ec681516aebb74559562c50833536641438",
+      "bytes": 20718
+    },
+    "experiments/g1_g5/evidence/health-io-repair-20261022/raw/copy-build.log": {
+      "sha256": "6767585ad32fff069711bd4956f1a9b0a2c4b77055ebc5507eb78bc94c2a15dc",
+      "bytes": 1652
+    },
+    "experiments/g1_g5/evidence/health-io-repair-20261022/raw/final-targeted.log": {
+      "sha256": "a4a0a535528d7dad61e8c5a242a48fb2d878e861dfedc80e3b7e8e98514564b3",
+      "bytes": 255
+    },
+    "experiments/g1_g5/evidence/health-io-repair-20261022/raw/final-targeted.xml": {
+      "sha256": "12ce70499dea1092224d05645dcbadeb299be9ca81125a7532623753b75eff51",
+      "bytes": 9194
+    },
+    "experiments/g1_g5/evidence/health-io-repair-20261022/raw/final-verification.json": {
+      "sha256": "6a5c4dcf0a63e095b6229dfebc29c99b0b6473af7d0ff077091c3b1ee576d8bd",
+      "bytes": 3443
+    },
+    "experiments/g1_g5/evidence/health-io-repair-20261022/raw/inherited-hashes.json": {
+      "sha256": "03c3c47655731267bc199e3876d7179a2c8facbfa1f889c6a490a580fd98edd2",
+      "bytes": 9406
+    },
+    "experiments/g1_g5/evidence/health-io-repair-20261022/raw/io-probe/0/durable.json": {
+      "sha256": "a90d738453c2cf4675a9f8672ca83003d270f2e199842b5218e82a1f6a133988",
+      "bytes": 1343
+    },
+    "experiments/g1_g5/evidence/health-io-repair-20261022/raw/io-probe/0/transient.json": {
+      "sha256": "a90d738453c2cf4675a9f8672ca83003d270f2e199842b5218e82a1f6a133988",
+      "bytes": 1343
+    },
+    "experiments/g1_g5/evidence/health-io-repair-20261022/raw/io-probe/1/durable.json": {
+      "sha256": "668fb664ad5ccd8ca415d320f13f2f0066b4e21d6670cd61c04eff65acef957c",
+      "bytes": 1343
+    },
+    "experiments/g1_g5/evidence/health-io-repair-20261022/raw/io-probe/1/recorder.jsonl": {
+      "sha256": "90cc262549d3d4b2991e7faf47730a9aa067e2c8d2f06a0c4dbbcab5be396a11",
+      "bytes": 143779
+    },
+    "experiments/g1_g5/evidence/health-io-repair-20261022/raw/io-probe/1/transient.json": {
+      "sha256": "668fb664ad5ccd8ca415d320f13f2f0066b4e21d6670cd61c04eff65acef957c",
+      "bytes": 1343
+    },
+    "experiments/g1_g5/evidence/health-io-repair-20261022/raw/io-probe/2/durable.json": {
+      "sha256": "2317d2a6228fdd18d9958287e49b267ae8a17dc536142ff2078c90ca10515c80",
+      "bytes": 1343
+    },
+    "experiments/g1_g5/evidence/health-io-repair-20261022/raw/io-probe/2/recorder.jsonl": {
+      "sha256": "6796e1934989496bad1adbdae4f5fdbb159692e28d34f34351c9da7aa573ec1f",
+      "bytes": 143779
+    },
+    "experiments/g1_g5/evidence/health-io-repair-20261022/raw/io-probe/2/transient.json": {
+      "sha256": "2317d2a6228fdd18d9958287e49b267ae8a17dc536142ff2078c90ca10515c80",
+      "bytes": 1343
+    },
+    "experiments/g1_g5/evidence/health-io-repair-20261022/raw/io-probe/3/durable.json": {
+      "sha256": "0d79555d4f27b52700a29c6711c6c65f64955df398e70f5a8a57cb8d53f032ab",
+      "bytes": 1343
+    },
+    "experiments/g1_g5/evidence/health-io-repair-20261022/raw/io-probe/3/transient.json": {
+      "sha256": "0d79555d4f27b52700a29c6711c6c65f64955df398e70f5a8a57cb8d53f032ab",
+      "bytes": 1343
+    },
+    "experiments/g1_g5/evidence/health-io-repair-20261022/raw/io-probe/results.json": {
+      "sha256": "915a598e31afd0d90da9a99112b43dbd0a33a949a0b2a3249714a830ba40bdf1",
+      "bytes": 563077
+    },
+    "experiments/g1_g5/evidence/health-io-repair-20261022/raw/measure_actual_api.py": {
+      "sha256": "557fdf8e17b236ed612872d1422b4f54165a890641e74df77b79b70c447d9bfa",
+      "bytes": 2503
+    },
+    "experiments/g1_g5/evidence/health-io-repair-20261022/raw/red.log": {
+      "sha256": "3f0219ff37d75ecb4512962129dd50eb18597c91c80dd096bbdd58d200f42743",
+      "bytes": 1571
+    },
+    "experiments/g1_g5/evidence/health-io-repair-20261022/raw/repair.diff": {
+      "sha256": "c5628d02043e07ae54c3aff8af63d6aea11bec4edd66d53e6c155235ced88676",
+      "bytes": 19678
+    },
+    "experiments/g1_g5/evidence/health-io-repair-20261022/raw/targeted.log": {
+      "sha256": "312f49d44387c533610b8785ef9b3c8e7e993592a89ab88ff956c1c016ed74e0",
+      "bytes": 249
+    },
+    "experiments/g1_g5/evidence/health-io-repair-20261022/raw/targeted.xml": {
+      "sha256": "b88726dc7e20d5232df16c5136a61bdb78a201ce5b26c8a2d790cbdfc7b952de",
+      "bytes": 8749
+    },
+    "experiments/g1_g5/evidence/health-io-repair-20261022/raw/verify_final.py": {
+      "sha256": "5c7dde3bad23c0993c9b46541a461c078be89040ba5a4f41cc797f0c3e6f55de",
+      "bytes": 3231
+    },
+    "experiments/g1_g5/evidence/health-io-repair-20261022/raw/write_records.py": {
+      "sha256": "02f656845957fd22e20ed4d4a6a322ed0670b6db21725bd693670c5d91cc84bc",
+      "bytes": 14374
+    },
+    "experiments/g1_g5/evidence/health-io-repair-20261022/runtime-failure.json": {
+      "sha256": "014cfd733bd989758a92e597c5dfa20929410e8adac82e829a0b6a2d13352380",
+      "bytes": 1035
+    },
+    "experiments/g1_g5/evidence/health-io-repair-20261022/source-identities.json": {
+      "sha256": "b6fe4ab02a7034037c6c049cade6686c11e4f945c9e938f9f29713bfed34e680",
+      "bytes": 555
+    }
+  },
+  "review": {
+    "docs/reviews/B2W_Stage4_Adapter_Health_IO_Repair_20261022.md": "05db82f702f9ed2849fb5d003388b45a5dcdedb3f5c22887dedf05440c18ec2e"
+  },
+  "build_identity_manifest": "copy-installed-identities.json"
+}

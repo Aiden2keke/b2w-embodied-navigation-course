@@ -46,6 +46,24 @@ def write_control(path,value):
         if Path(name).exists():Path(name).unlink()
 
 
+def write_adapter_health(path,value):
+    """Atomically publish a transient heartbeat, without disk durability waits.
+
+    Readers require a live adapter identity and the original callback wall time
+    within 150ms. A heartbeat is never a restart/recovery record. Keep durable
+    owner/config/lease writes on write_control; no background writer or queue.
+    """
+    p=Path(path);data=json.dumps(value,sort_keys=True,allow_nan=False).encode()
+    if len(data)>8192:raise ValueError('oversized_control_record')
+    name=None
+    try:
+        with tempfile.NamedTemporaryFile(dir=p.parent,prefix='.control-',delete=False) as f:
+            name=f.name;f.write(data);f.flush()
+        os.replace(name,p)  # Closed, complete 0600 file; readers see old OR new JSON.
+    finally:
+        if name is not None and Path(name).exists():Path(name).unlink()
+
+
 def latch_inhibit(path,reason):
     try:
         fd=os.open(path,os.O_WRONLY|os.O_CREAT|os.O_EXCL|os.O_CLOEXEC,0o600)

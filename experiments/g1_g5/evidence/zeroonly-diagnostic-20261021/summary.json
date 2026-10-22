@@ -1,0 +1,749 @@
+{
+  "kind": "one_zeroonly_diagnostic_trial",
+  "date": "2026-10-21",
+  "head": "5178993636287a22bf7cd847038d4904828fd898",
+  "remote_sha": "5178993636287a22bf7cd847038d4904828fd898",
+  "result": "FAIL",
+  "reviewed_bundle_sha256": "eb3e81c362a6fce17a872991d253d91529e5e59e303b40b058e8b73a9eff5b11",
+  "attempts": 1,
+  "implementation_changes_after_trial": 0,
+  "motion_authorized": false,
+  "motion_attempts": 0,
+  "session": {
+    "kind": "stage4_zero_session",
+    "zero_motion_smoke_pass": false,
+    "probe_exit_code": null,
+    "error": "ValueError('Adapter inhibited during bootstrap')",
+    "cleanup": {
+      "owned_pid_start_ticks": {
+        "3183808": "29267192",
+        "3183809": "29267193",
+        "3183810": "29267206",
+        "3183831": "29267224",
+        "3183833": "29267224",
+        "3183835": "29267224",
+        "3183837": "29267224",
+        "3183839": "29267224",
+        "3183841": "29267224",
+        "3183843": "29267225",
+        "3183845": "29267225",
+        "3183847": "29267225",
+        "3183849": "29267225",
+        "3183851": "29267225",
+        "3183853": "29267225",
+        "3183855": "29267225",
+        "3183857": "29267225",
+        "3183859": "29267226",
+        "3183861": "29267226",
+        "3183867": "29267226",
+        "3184438": "29269227",
+        "3184440": "29269228",
+        "3184442": "29269228",
+        "3184444": "29269228",
+        "3184446": "29269228"
+      },
+      "remaining": {},
+      "passed": true,
+      "launch_returncode": 0
+    },
+    "live_stack_wall_s": 36.34174114099005,
+    "motion_attempts": 0,
+    "motion_authorized": false,
+    "safety_complete": false,
+    "full_route_pass": false,
+    "segment_pass": false
+  },
+  "observer": {
+    "counts": {
+      "/rosout": 243,
+      "/tf_static": 1,
+      "/path_manager/path_manager_ros/nav_vel": 496,
+      "/b2w/evaluation/full_contacts": 335,
+      "/b2w/evaluation/collision_inventory": 335,
+      "/clock": 6891,
+      "/pointcloud": 172,
+      "/tf": 352,
+      "/imu": 3410,
+      "/slam/map_points": 1,
+      "/slam/odom": 4,
+      "/map": 1,
+      "/local_costmap/costmap_raw": 1,
+      "/course_navigation/cmd_vel_raw": 1
+    },
+    "error": null,
+    "wall_duration_s": 36.80034220597008
+  },
+  "first_failure": {
+    "reason": "adapter_health_publication_deadline",
+    "first_observed_wall": 292697.978907569,
+    "first_observed_sim": 17.18,
+    "first_sticky_health": {
+      "wall": 292698.088145816,
+      "sim": 17.23,
+      "control": "adapter.json",
+      "value": {
+        "adapter": {
+          "pgid": 3183808,
+          "pid": 3183867,
+          "start_ticks": "29267226",
+          "uid": 1000
+        },
+        "context_state": "fault",
+        "first_deadline_timing": {
+          "deadline_stage": "health",
+          "health_io": {
+            "thread_cpu_s": 0.000974331000000106,
+            "wall_s": 0.041062136995606124
+          },
+          "previous_health_io": {
+            "thread_cpu_s": 0.0007569529999997826,
+            "wall_s": 0.00710245396476239
+          },
+          "sections": {
+            "context": {
+              "thread_cpu_s": 0.0018668750000001566,
+              "wall_s": 0.027526071993634105
+            },
+            "guard": {
+              "thread_cpu_s": 0.00231717900000028,
+              "wall_s": 0.027975787001196295
+            },
+            "localization": {
+              "thread_cpu_s": 0.001528925999999764,
+              "wall_s": 0.027183444006368518
+            },
+            "prepublish": {
+              "thread_cpu_s": 0.002344702000000254,
+              "wall_s": 0.02800395799567923
+            },
+            "published": {
+              "thread_cpu_s": 0.002556321000000139,
+              "wall_s": 0.028215744998306036
+            }
+          }
+        },
+        "prepared": {
+          "failure": "adapter_health_publication_deadline",
+          "grids": {},
+          "structural_source_wall_budget": null,
+          "structural_wall_budget": null
+        },
+        "publication_timing": {
+          "previous_health_io": {
+            "thread_cpu_s": 0.0006041569999997165,
+            "wall_s": 0.016804873012006283
+          },
+          "sections": {
+            "prepublish": {
+              "thread_cpu_s": 0.00012974399999965414,
+              "wall_s": 0.00013386196224018931
+            },
+            "published": {
+              "thread_cpu_s": 0.0002612190000004233,
+              "wall_s": 0.000265965994913131
+            }
+          }
+        },
+        "sequence": 495,
+        "session_id": "zero-repair-a31c6dfbb43c4ac389d6fca69e9b8b23",
+        "wall": 292698.00071199
+      }
+    },
+    "timing": {
+      "deadline_stage": "health",
+      "health_io": {
+        "thread_cpu_s": 0.000974331000000106,
+        "wall_s": 0.041062136995606124
+      },
+      "previous_health_io": {
+        "thread_cpu_s": 0.0007569529999997826,
+        "wall_s": 0.00710245396476239
+      },
+      "sections": {
+        "context": {
+          "thread_cpu_s": 0.0018668750000001566,
+          "wall_s": 0.027526071993634105
+        },
+        "guard": {
+          "thread_cpu_s": 0.00231717900000028,
+          "wall_s": 0.027975787001196295
+        },
+        "localization": {
+          "thread_cpu_s": 0.001528925999999764,
+          "wall_s": 0.027183444006368518
+        },
+        "prepublish": {
+          "thread_cpu_s": 0.002344702000000254,
+          "wall_s": 0.02800395799567923
+        },
+        "published": {
+          "thread_cpu_s": 0.002556321000000139,
+          "wall_s": 0.028215744998306036
+        }
+      }
+    },
+    "published_plus_health_wall_s": 0.06927788199391216,
+    "published_plus_health_thread_cpu_s": 0.003530652000000245,
+    "attribution": "Wall-dominant callback plus synchronous health I/O; syscall versus scheduler attribution NOT_OBSERVED"
+  },
+  "health_context_counts": {
+    "waiting_localization": 236,
+    "ready": 3,
+    "fault": 1
+  },
+  "commands": {
+    "/path_manager/path_manager_ros/nav_vel": {
+      "observed": 496,
+      "nonzero": 0,
+      "after_first_observed_inhibit": 1,
+      "status": "ALL_OBSERVED_ZERO"
+    },
+    "/course_navigation/cmd_vel_raw": {
+      "observed": 1,
+      "nonzero": 0,
+      "after_first_observed_inhibit": 1,
+      "status": "ALL_OBSERVED_ZERO"
+    },
+    "/course_navigation/cmd_vel": {
+      "observed": 0,
+      "nonzero": 0,
+      "after_first_observed_inhibit": 0,
+      "status": "NOT_OBSERVED"
+    }
+  },
+  "streams": {
+    "/imu": {
+      "callback_count": 3410,
+      "recorded": 3410,
+      "first": {
+        "wall": 292680.474550204,
+        "sim": 0.18000000000000002,
+        "topic": "/imu",
+        "stamp": 0.18000000000000002,
+        "frame": "imu_link",
+        "acceleration": [
+          40.69359447112122,
+          2.731684539038147,
+          544.6368811267939
+        ],
+        "gyro": [
+          -0.15283840247819322,
+          0.03965835136934513,
+          0.0028345127116101653
+        ]
+      },
+      "last": {
+        "wall": 292698.033535246,
+        "sim": 17.2275,
+        "topic": "/imu",
+        "stamp": 17.225,
+        "frame": "imu_link",
+        "acceleration": [
+          -0.034068105855285816,
+          0.0008628746565080498,
+          9.788573103190096
+        ],
+        "gyro": [
+          -0.0008028390820644107,
+          0.0001997873097554821,
+          -0.00128108523201851
+        ]
+      },
+      "sim_minus_header": {
+        "min_s": -0.022499999999999076,
+        "max_s": 0.015000000000000124
+      },
+      "status": "OBSERVED"
+    },
+    "/clock": {
+      "callback_count": 6891,
+      "recorded": 341,
+      "first": {
+        "wall": 292674.931454327,
+        "sim": 0.005,
+        "topic": "/clock",
+        "clock": 0.005
+      },
+      "last": {
+        "wall": 292698.059136193,
+        "sim": 17.23,
+        "topic": "/clock",
+        "clock": 17.23
+      },
+      "sim_minus_header": null,
+      "status": "OBSERVED"
+    },
+    "/pointcloud": {
+      "callback_count": 172,
+      "recorded": 172,
+      "first": {
+        "wall": 292680.356694802,
+        "sim": 0.045000000000000005,
+        "topic": "/pointcloud",
+        "stamp": 0.005,
+        "frame": "lidar_link",
+        "width": 64000,
+        "height": 1,
+        "bytes": 1536000
+      },
+      "last": {
+        "wall": 292697.91961678,
+        "sim": 17.12,
+        "topic": "/pointcloud",
+        "stamp": 17.1,
+        "frame": "lidar_link",
+        "width": 64000,
+        "height": 1,
+        "bytes": 1536000
+      },
+      "sim_minus_header": {
+        "min_s": 0.00749999999999984,
+        "max_s": 0.08000000000000007
+      },
+      "status": "OBSERVED"
+    },
+    "/slam/odom": {
+      "callback_count": 4,
+      "recorded": 4,
+      "first": {
+        "wall": 292697.676348957,
+        "sim": 16.8775,
+        "topic": "/slam/odom",
+        "stamp": 16.6,
+        "frame": "odom",
+        "child": "base_link",
+        "xyz": [
+          -0.3432011741295844,
+          0.00018832175697803307,
+          0.6238780950017706
+        ],
+        "xyzw": [
+          -0.00023920482892857421,
+          0.0023107421533238278,
+          -5.525675719108652e-05,
+          0.999997300095576
+        ],
+        "axes": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "last": {
+        "wall": 292697.967414575,
+        "sim": 17.17,
+        "topic": "/slam/odom",
+        "stamp": 16.9,
+        "frame": "odom",
+        "child": "base_link",
+        "xyz": [
+          -0.343176912563338,
+          6.126458145144143e-05,
+          0.6239522273609803
+        ],
+        "xyzw": [
+          -0.0002380858664331973,
+          0.002303588115933983,
+          -3.7798851846836165e-05,
+          0.9999973176804822
+        ],
+        "axes": [
+          0.0012058800398559565,
+          0.001962658849881242,
+          0.0008964128738367666,
+          0.00016901982673049674,
+          0.00013031731101386686,
+          0.0001287855931259204
+        ]
+      },
+      "sim_minus_header": {
+        "min_s": 0.2700000000000031,
+        "max_s": 0.28500000000000014
+      },
+      "status": "OBSERVED"
+    },
+    "/slam/map_points": {
+      "callback_count": 1,
+      "recorded": 1,
+      "first": {
+        "wall": 292697.669543557,
+        "sim": 16.8725,
+        "topic": "/slam/map_points",
+        "stamp": 16.5,
+        "frame": "map",
+        "width": 16302,
+        "height": 1,
+        "bytes": 521664
+      },
+      "last": {
+        "wall": 292697.669543557,
+        "sim": 16.8725,
+        "topic": "/slam/map_points",
+        "stamp": 16.5,
+        "frame": "map",
+        "width": 16302,
+        "height": 1,
+        "bytes": 521664
+      },
+      "sim_minus_header": {
+        "min_s": 0.3724999999999987,
+        "max_s": 0.3724999999999987
+      },
+      "status": "OBSERVED"
+    },
+    "/map": {
+      "callback_count": 1,
+      "recorded": 1,
+      "first": {
+        "wall": 292697.860593492,
+        "sim": 17.0625,
+        "topic": "/map",
+        "stamp": 17.0,
+        "frame": "map",
+        "width": 800,
+        "height": 800,
+        "resolution": 0.05000000074505806
+      },
+      "last": {
+        "wall": 292697.860593492,
+        "sim": 17.0625,
+        "topic": "/map",
+        "stamp": 17.0,
+        "frame": "map",
+        "width": 800,
+        "height": 800,
+        "resolution": 0.05000000074505806
+      },
+      "sim_minus_header": {
+        "min_s": 0.0625,
+        "max_s": 0.0625
+      },
+      "status": "OBSERVED"
+    },
+    "/local_costmap/costmap_raw": {
+      "callback_count": 1,
+      "recorded": 1,
+      "first": {
+        "wall": 292698.005438166,
+        "sim": 17.205,
+        "topic": "/local_costmap/costmap_raw",
+        "stamp": 17.2025,
+        "frame": "odom",
+        "width": 100,
+        "height": 100,
+        "resolution": 0.05000000074505806
+      },
+      "last": {
+        "wall": 292698.005438166,
+        "sim": 17.205,
+        "topic": "/local_costmap/costmap_raw",
+        "stamp": 17.2025,
+        "frame": "odom",
+        "width": 100,
+        "height": 100,
+        "resolution": 0.05000000074505806
+      },
+      "sim_minus_header": {
+        "min_s": 0.0024999999999977263,
+        "max_s": 0.0024999999999977263
+      },
+      "status": "OBSERVED"
+    },
+    "/global_costmap/costmap_raw": {
+      "callback_count": 0,
+      "recorded": 0,
+      "first": null,
+      "last": null,
+      "sim_minus_header": null,
+      "status": "NOT_OBSERVED"
+    }
+  },
+  "tf": {
+    "map->odom": {
+      "count": 4,
+      "first": {
+        "wall": 292697.687432487,
+        "sim": 16.8825,
+        "parent": "map",
+        "child": "odom",
+        "stamp": 16.6,
+        "xyz": [
+          1.0526042351495128e-05,
+          8.817638694789731e-06,
+          2.389045627992914e-10
+        ],
+        "xyzw": [
+          5.505510149918115e-06,
+          -6.572026611876677e-06,
+          -2.4722435860216748e-08,
+          0.9999999999632486
+        ]
+      },
+      "last": {
+        "wall": 292697.968634321,
+        "sim": 17.1725,
+        "parent": "map",
+        "child": "odom",
+        "stamp": 16.9,
+        "xyz": [
+          1.662209254105543e-05,
+          1.355449429047678e-05,
+          7.909899735203396e-09
+        ],
+        "xyzw": [
+          8.462831459235153e-06,
+          -1.0378252590037546e-05,
+          -3.772089109838215e-08,
+          0.9999999999103355
+        ]
+      },
+      "sim_minus_header": {
+        "min_s": 0.27250000000000085,
+        "max_s": 0.28749999999999787
+      },
+      "status": "OBSERVED"
+    },
+    "odom->base_link": {
+      "count": 4,
+      "first": {
+        "wall": 292697.686814077,
+        "sim": 16.88,
+        "parent": "odom",
+        "child": "base_link",
+        "stamp": 16.6,
+        "xyz": [
+          -0.3432011741295844,
+          0.00018832175697803307,
+          0.6238780950017706
+        ],
+        "xyzw": [
+          -0.00023920482892857421,
+          0.0023107421533238278,
+          -5.525675719108652e-05,
+          0.999997300095576
+        ]
+      },
+      "last": {
+        "wall": 292697.968190629,
+        "sim": 17.17,
+        "parent": "odom",
+        "child": "base_link",
+        "stamp": 16.9,
+        "xyz": [
+          -0.343176912563338,
+          6.126458145144143e-05,
+          0.6239522273609803
+        ],
+        "xyzw": [
+          -0.0002380858664331973,
+          0.002303588115933983,
+          -3.7798851846836165e-05,
+          0.9999973176804822
+        ]
+      },
+      "sim_minus_header": {
+        "min_s": 0.2700000000000031,
+        "max_s": 0.28500000000000014
+      },
+      "status": "OBSERVED"
+    }
+  },
+  "stationary_pose": {
+    "status": "LIMITED_SLAM_ESTIMATE_ONLY",
+    "samples": 4,
+    "header_span_s": 0.29999999999999716,
+    "max_distance_from_first_m": 0.00033784802114487916,
+    "physical_stationarity_entire_trial": "NOT_OBSERVED"
+  },
+  "lio": {
+    "first_exception": "NOT_OBSERVED",
+    "graph_update_records": 51,
+    "initial": {
+      "phase": "initial",
+      "key": "1",
+      "correction": "11.9",
+      "imu_queue": "56",
+      "queue_first": "11.9",
+      "queue_last": "12.175000000000001",
+      "last_imu_opt": "11.895",
+      "integrated_dt": "0",
+      "factors": "3",
+      "values": "3"
+    },
+    "imu_steps": 50,
+    "first_step": {
+      "phase": "imu_step",
+      "key": "1",
+      "correction": "12",
+      "imu_queue": "58",
+      "queue_first": "12",
+      "queue_last": "12.285",
+      "last_imu_opt": "11.994999999999999",
+      "integrated_dt": "0.099999999999999645",
+      "factors": "3",
+      "values": "3"
+    },
+    "last_step": {
+      "phase": "imu_step",
+      "key": "50",
+      "correction": "16.899999999999999",
+      "imu_queue": "54",
+      "queue_first": "16.899999999999999",
+      "queue_last": "17.164999999999999",
+      "last_imu_opt": "16.895",
+      "integrated_dt": "0.099999999999997868",
+      "factors": "3",
+      "values": "3"
+    },
+    "integrated_dt_min_s": 0.09999999999999787,
+    "integrated_dt_max_s": 0.10000000000000142,
+    "process_identity": [
+      {
+        "pid": 3184438,
+        "start_ticks": "29269227",
+        "executable": "/home/zyd/program/b2w-embodied-navigation-course-stage4/experiments/g1_g5/evidence/startup-repair-20261021/artifacts/lio-diagnostic-prefix/lib/lio_sam/lio_sam_imuPreintegration",
+        "executable_sha256": "3bd8109f580ceac90670f5d12e57267192731e2bfd2af46eb1740d08672e50f5",
+        "gtsam_maps": [
+          "78118623d000-78118624c000 r--p 00000000 103:02 11808420                  /home/zyd/program/b2w-embodied-navigation-course/.deps/lib/libmetis-gtsam.so",
+          "78118624c000-78118629a000 r-xp 0000f000 103:02 11808420                  /home/zyd/program/b2w-embodied-navigation-course/.deps/lib/libmetis-gtsam.so",
+          "78118629a000-7811862ab000 r--p 0005d000 103:02 11808420                  /home/zyd/program/b2w-embodied-navigation-course/.deps/lib/libmetis-gtsam.so",
+          "7811862ab000-7811862ac000 r--p 0006d000 103:02 11808420                  /home/zyd/program/b2w-embodied-navigation-course/.deps/lib/libmetis-gtsam.so",
+          "7811862ac000-7811862ad000 rw-p 0006e000 103:02 11808420                  /home/zyd/program/b2w-embodied-navigation-course/.deps/lib/libmetis-gtsam.so",
+          "781186400000-781186574000 r--p 00000000 103:02 11808432                  /home/zyd/program/b2w-embodied-navigation-course/.deps/lib/libgtsam.so.4.1.1",
+          "781186574000-7811868e9000 r-xp 00174000 103:02 11808432                  /home/zyd/program/b2w-embodied-navigation-course/.deps/lib/libgtsam.so.4.1.1",
+          "7811868e9000-781186988000 r--p 004e9000 103:02 11808432                  /home/zyd/program/b2w-embodied-navigation-course/.deps/lib/libgtsam.so.4.1.1",
+          "781186988000-78118699b000 r--p 00587000 103:02 11808432                  /home/zyd/program/b2w-embodied-navigation-course/.deps/lib/libgtsam.so.4.1.1",
+          "78118699b000-7811869a0000 rw-p 0059a000 103:02 11808432                  /home/zyd/program/b2w-embodied-navigation-course/.deps/lib/libgtsam.so.4.1.1"
+        ],
+        "diagnostics_enabled": true
+      }
+    ],
+    "limitation": "Second no-argument optimizer.update() uninstrumented; no exception observed in either log; original b0 cause remains unproved",
+    "queue_min": 52,
+    "queue_max": 62
+  },
+  "contacts": {
+    "contacts_received": 335,
+    "inventory_received": 335,
+    "first_contact_stamp": 0.0025,
+    "last_contact_stamp": 17.2075,
+    "first_sequence": 1,
+    "last_sequence": 335,
+    "sequence_contiguous": true,
+    "ever_forbidden_reported": false,
+    "nonempty_contact_messages": 331,
+    "unique_pairs": [
+      [
+        "course_world::b2w::FL_foot::FL_foot_collision",
+        "course_world::aws_robomaker_warehouse_GroundB_01_001::link::collision"
+      ],
+      [
+        "course_world::b2w::FR_foot::FR_foot_collision",
+        "course_world::aws_robomaker_warehouse_GroundB_01_001::link::collision"
+      ],
+      [
+        "course_world::b2w::RL_foot::RL_foot_collision",
+        "course_world::aws_robomaker_warehouse_GroundB_01_001::link::collision"
+      ],
+      [
+        "course_world::b2w::RR_foot::RR_foot_collision",
+        "course_world::aws_robomaker_warehouse_GroundB_01_001::link::collision"
+      ]
+    ],
+    "sim_minus_header": {
+      "min_s": -0.022500000000000853,
+      "max_s": 0.002500000000001279
+    },
+    "last_inventory": {
+      "stamp": 17.2075,
+      "sequence": 335,
+      "interval_start": 17.155,
+      "sampled_steps": 21,
+      "ever_forbidden_contact": false,
+      "last_ground_support_stamp": 17.2075,
+      "collisions": [
+        "base_link::base_link_collision",
+        "base_link::base_link_fixed_joint_lump__head_Link_collision_1",
+        "base_link::base_link_fixed_joint_lump__lidar_link_collision_2",
+        "base_link::base_link_fixed_joint_lump__tail_link_collision_3",
+        "FL_hip::FL_hip_collision",
+        "FL_thigh::FL_thigh_collision",
+        "FL_calf::FL_calf_collision",
+        "FL_calf::FL_calf_collision_1",
+        "FL_foot::FL_foot_collision",
+        "FR_hip::FR_hip_collision",
+        "FR_thigh::FR_thigh_collision",
+        "FR_calf::FR_calf_collision",
+        "FR_calf::FR_calf_collision_1",
+        "FR_foot::FR_foot_collision",
+        "RL_hip::RL_hip_collision",
+        "RL_thigh::RL_thigh_collision",
+        "RL_calf::RL_calf_collision",
+        "RL_calf::RL_calf_collision_1",
+        "RL_foot::RL_foot_collision",
+        "RR_hip::RR_hip_collision",
+        "RR_thigh::RR_thigh_collision",
+        "RR_calf::RR_calf_collision",
+        "RR_calf::RR_calf_collision_1",
+        "RR_foot::RR_foot_collision",
+        "collision_plate::collision_plate_collision",
+        "zed_x_camera::zed_x_camera_collision"
+      ],
+      "evaluation_only": true
+    },
+    "delivery": "PASS",
+    "full_body_physical_collision_coverage": "NOT_QUALIFIED"
+  },
+  "watchdog": {
+    "status": "NOT_OBSERVED",
+    "watchdog_manifest_exists": false,
+    "watchdog_log_exists": false,
+    "probe_exists": false,
+    "lease_exists": false,
+    "reason": "Bootstrap inhibited before watchdog/probe creation; only owner heartbeat, adapter inhibit and supervisor cleanup demonstrated"
+  },
+  "secondary_shutdown_events": [
+    "After SIGINT: adapter RuntimeError in rclpy take_message and RCLError publishing in invalid context, exit1; not first failure.",
+    "Lifecycle manager required launch SIGTERM after5s; cleanup subsequently passed."
+  ],
+  "cleanup": {
+    "owned_token": "2615797280494ef689b055db463acee6",
+    "owned_identities_checked": 25,
+    "token_survivors": [],
+    "matching_pid_survivors": [],
+    "nodes": [
+      [
+        "stage4_diagnostic_cleanup_20261021",
+        "/"
+      ]
+    ],
+    "topics": [
+      [
+        "/parameter_events",
+        [
+          "rcl_interfaces/msg/ParameterEvent"
+        ]
+      ],
+      [
+        "/rosout",
+        [
+          "rcl_interfaces/msg/Log"
+        ]
+      ]
+    ],
+    "gpu_exit_code": 0,
+    "gpu_stdout": "Wed Oct 21 21:40:59 2026       \n+-----------------------------------------------------------------------------------------+\n| NVIDIA-SMI 570.211.01             Driver Version: 570.211.01     CUDA Version: 12.8     |\n|-----------------------------------------+------------------------+----------------------+\n| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |\n| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |\n|                                         |                        |               MIG M. |\n|=========================================+========================+======================|\n|   0  NVIDIA RTX A4000               On  |   00000000:01:00.0  On |                  Off |\n| 43%   62C    P3             37W /  140W |    4923MiB /  16376MiB |     34%      Default |\n|                                         |                        |                  N/A |\n+-----------------------------------------+------------------------+----------------------+\n                                                                                         \n+-----------------------------------------------------------------------------------------+\n| Processes:                                                                              |\n|  GPU   GI   CI              PID   Type   Process name                        GPU Memory |\n|        ID   ID                                                               Usage      |\n|=========================================================================================|\n|    0   N/A  N/A            3200      G   /usr/lib/xorg/Xorg                     1026MiB |\n|    0   N/A  N/A            3573      G   /usr/bin/gnome-shell                    613MiB |\n|    0   N/A  N/A            5069      G   gnome-control-center                      4MiB |\n|    0   N/A  N/A            5301      G   ...rack-uuid=3190708988185955192        963MiB |\n|    0   N/A  N/A            5435      G   ...share/antigravity/antigravity        881MiB |\n|    0   N/A  N/A            5603      G   ...rack-uuid=3190708988185955192       1345MiB |\n+-----------------------------------------------------------------------------------------+\n",
+    "gpu_stderr": "",
+    "frozen_source_files": 492,
+    "source_changes": [],
+    "shared_files_checked": 407,
+    "shared_changed": [],
+    "head": "5178993636287a22bf7cd847038d4904828fd898",
+    "tracking_sha": "5178993636287a22bf7cd847038d4904828fd898",
+    "git_status": "",
+    "passed": true
+  }
+}

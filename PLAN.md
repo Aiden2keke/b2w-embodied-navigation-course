@@ -24,7 +24,31 @@
 - 旧实施计划归档至 `docs/plans/archive/2026-10-10-local-course-system-plan.md`。历史 design/validation 保留为证据，不是另一个当前 roadmap。无新增 HANDOFF。
 - 历史轮次只读与 timing 交付已结束；本轮范围以最新用户请求和下方 NOW 为准。旧实验/交付记录只作历史证据。
 
-## NOW — Evidence-driven ZeroOnly startup repair (October 21)
+## NOW — Adapter transient health I/O repair (October 22)
+
+Experimental worktree `/home/zyd/program/b2w-embodied-navigation-course-stage4`;
+branch `experiment/unattended-g1-g5-20261019`, checkpoint `5178993636287a22bf7cd847038d4904828fd898`.
+The single reviewed diagnostic trial failed on adapter_health_publication_deadline:
+69.28ms wall /3.53ms thread CPU, including41.06ms synchronous health I/O.496/496
+observed final Twists zero,335 contact/inventory pairs delivered, owned cleanup PASS.
+LIO b0 exception NOT_OBSERVED; historical cause unresolved. NONZERO NO-GO.
+
+- [x] Preserve prior uncommitted diagnostic records and indexed raw evidence;
+  trace writer callers, atomic visibility, identity, sequence and freshness contracts.
+- [x] Bounded staged-I/O ABBA probe: disk fsync dominates measured median cost;
+  recorder polling surrogate consumes CPU but no consistent writer-latency increase.
+- [x] Dedicated transient atomic adapter-health writer; general write_control and
+  original50ms/.15s/.25s limits, inhibit/ownership/sequence checks unchanged.
+- [x] Focused fault regressions66 PASS; actual offline callback median7.92→1.67ms;
+  isolated regular Python copy build prepared without altering reviewed artifacts.
+- [ ] External review of the repair/result bundle before commit/push or another
+  ZeroOnly trial. No live run, navigation goal, motion authorization or Pipe work.
+
+Durable diagnosis, benchmark stages and raw hashes:
+`experiments/g1_g5/evidence/health-io-repair-20261022/` and `docs/reviews/`.
+Offline improvement is not a hard latency bound or a live qualification.
+
+## Historical — Evidence-driven ZeroOnly startup repair (October 21)
 
 Worktree `/home/zyd/program/b2w-embodied-navigation-course-stage4`; branch
 `experiment/unattended-g1-g5-20261019`; unchanged checkpoint `1f333657`.

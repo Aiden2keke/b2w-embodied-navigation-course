@@ -340,11 +340,11 @@ class VelocityAdapter(Node):
         self.pub.publish(out)
         mark_publication('published')
         if guard is not None and guard.config.get('adapter_heartbeat_path'):
-            from .stage4_control import write_control
+            from .stage4_control import write_adapter_health
             self.stage4_health_sequence=getattr(self,'stage4_health_sequence',0)+1
             publication_timing['previous_health_io']=getattr(self,'stage4_previous_health_io',None)
             health_wall_started=time.perf_counter();health_cpu_started=time.thread_time()
-            try:write_control(guard.config['adapter_heartbeat_path'],dict(session_id=guard.config['session_id'],
+            try:write_adapter_health(guard.config['adapter_heartbeat_path'],dict(session_id=guard.config['session_id'],
                 sequence=self.stage4_health_sequence,wall=publication_wall_started,adapter=guard.adapter_identity,
                 prepared=guard.prepared_status(),context_state='fault' if guard.failure else context_state,
                 publication_timing=publication_timing,

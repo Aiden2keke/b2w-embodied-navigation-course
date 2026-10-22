@@ -1,0 +1,37 @@
+{
+  "source": "experiments/g1_g5/evidence/zeroonly-diagnostic-20261021/raw/session/adapter.json",
+  "first_deadline_timing": {
+    "deadline_stage": "health",
+    "health_io": {
+      "thread_cpu_s": 0.000974331000000106,
+      "wall_s": 0.041062136995606124
+    },
+    "previous_health_io": {
+      "thread_cpu_s": 0.0007569529999997826,
+      "wall_s": 0.00710245396476239
+    },
+    "sections": {
+      "context": {
+        "thread_cpu_s": 0.0018668750000001566,
+        "wall_s": 0.027526071993634105
+      },
+      "guard": {
+        "thread_cpu_s": 0.00231717900000028,
+        "wall_s": 0.027975787001196295
+      },
+      "localization": {
+        "thread_cpu_s": 0.001528925999999764,
+        "wall_s": 0.027183444006368518
+      },
+      "prepublish": {
+        "thread_cpu_s": 0.002344702000000254,
+        "wall_s": 0.02800395799567923
+      },
+      "published": {
+        "thread_cpu_s": 0.002556321000000139,
+        "wall_s": 0.028215744998306036
+      }
+    }
+  },
+  "failure": "adapter_health_publication_deadline"
+}
