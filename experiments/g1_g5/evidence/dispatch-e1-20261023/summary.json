@@ -1,0 +1,149 @@
+{
+  "kind": "stage4_dispatch_e1_offline_result",
+  "version": 1,
+  "head": "cff87a8fef98d5d58b1b7bf2ed05a6e6c2b94263",
+  "historical_evidence_reverified": 56,
+  "prior_raw_manifest_sha256": "c67d6ffb35a7d223e93d6034639cfc35111172728ee4f338b3e2925276710259",
+  "historical_fault_unresolved": true,
+  "production_dispatch_patch": false,
+  "gazebo_launches_this_task": 0,
+  "full_zeroonly_status": "FAIL (latest historical full probe; no new live trial)",
+  "motion_authorized": false,
+  "probes": [
+    {
+      "name": "ingress-baseline-1",
+      "publishes": 311,
+      "ready_context_calls": 0,
+      "max_gap_ms": 143.19458999671042,
+      "p50_gap_ms": 50.016066001262516,
+      "p95_gap_ms": 83.8267210056074,
+      "p99_gap_ms": 103.25898800510913,
+      "max_publication_ms": 142.66299799783155,
+      "max_grid_callback_ms": 12.466954009141773,
+      "max_subscription_take_ms": 0,
+      "no_lease": true,
+      "worker_joined": true,
+      "producer_rc": 0,
+      "failure_before_shutdown": null
+    },
+    {
+      "name": "ingress-dynamic-baseline-1",
+      "publishes": 554,
+      "ready_context_calls": 529,
+      "max_gap_ms": 131.8543779925676,
+      "p50_gap_ms": 50.027033998048864,
+      "p95_gap_ms": 82.93120199232362,
+      "p99_gap_ms": 109.53671399329323,
+      "max_publication_ms": 114.8435469949618,
+      "max_grid_callback_ms": 15.824112997506745,
+      "max_subscription_take_ms": 7.379517002846114,
+      "no_lease": true,
+      "worker_joined": true,
+      "producer_rc": 0,
+      "failure_before_shutdown": null,
+      "max_gap_main_sched": {
+        "samples": 58,
+        "wchan": {
+          "futex_wait_queue": 54,
+          "0": 4
+        },
+        "cpu_run_ms": 7.643364,
+        "runnable_wait_ms": 0.016106
+      }
+    },
+    {
+      "name": "ingress-parked-control-1",
+      "publishes": 320,
+      "ready_context_calls": 289,
+      "max_gap_ms": 64.90594100614544,
+      "p50_gap_ms": 50.00301799736917,
+      "p95_gap_ms": 50.72844399546739,
+      "p99_gap_ms": 54.29191599250771,
+      "max_publication_ms": 12.327807999099605,
+      "max_grid_callback_ms": 14.009039994562045,
+      "max_subscription_take_ms": 10.637963001499884,
+      "no_lease": true,
+      "worker_joined": true,
+      "producer_rc": 0,
+      "failure_before_shutdown": null,
+      "max_gap_main_sched": {
+        "samples": 26,
+        "wchan": {
+          "0": 13,
+          "futex_wait_queue": 13
+        },
+        "cpu_run_ms": 34.085614,
+        "runnable_wait_ms": 0.017307
+      }
+    },
+    {
+      "name": "ingress-ready-baseline-1",
+      "publishes": 287,
+      "ready_context_calls": 256,
+      "max_gap_ms": 143.07590799580794,
+      "p50_gap_ms": 50.04802450275747,
+      "p95_gap_ms": 104.88051299762446,
+      "p99_gap_ms": 119.46690500190016,
+      "max_publication_ms": 121.92729300295468,
+      "max_grid_callback_ms": 11.672071006614715,
+      "max_subscription_take_ms": 18.698426996706985,
+      "no_lease": true,
+      "worker_joined": true,
+      "producer_rc": 0,
+      "failure_before_shutdown": null,
+      "max_gap_main_sched": {
+        "samples": 59,
+        "wchan": {
+          "futex_wait_queue": 47,
+          "0": 12
+        },
+        "cpu_run_ms": 21.855669,
+        "runnable_wait_ms": 7.49804
+      }
+    },
+    {
+      "name": "ingress-warehouse-1",
+      "publishes": 314,
+      "ready_context_calls": 0,
+      "max_gap_ms": 95.6709040037822,
+      "p50_gap_ms": 50.033880994305946,
+      "p95_gap_ms": 77.20356799836736,
+      "p99_gap_ms": 91.2946829921566,
+      "max_publication_ms": 91.22184199804906,
+      "max_grid_callback_ms": 16.63710700813681,
+      "max_subscription_take_ms": 4.0948490059236065,
+      "no_lease": true,
+      "worker_joined": true,
+      "producer_rc": 0,
+      "failure_before_shutdown": null,
+      "max_gap_main_sched": {
+        "samples": 43,
+        "wchan": {
+          "futex_wait_queue": 41,
+          "0": 2
+        },
+        "cpu_run_ms": 7.005862,
+        "runnable_wait_ms": 0.007197
+      }
+    }
+  ],
+  "tests": "237 passed in 22.21s",
+  "build": "2 regular-copy Python packages passed",
+  "installed_copies": 35,
+  "offline_installed_twists": {
+    "count": 20,
+    "nonzero": 0
+  },
+  "installed_cleanup_passed": true,
+  "historical_gap": {
+    "sequence": 696,
+    "next_sequence": 697,
+    "wall_start": 88017.609832271,
+    "next_wall_start": 88017.791405108,
+    "gap_ms": 181.57283699838445,
+    "published_ms": 27.314478997141123,
+    "health_io_ms": 29.911980993347242,
+    "estimated_after_health_to_next_start_ms": 124.34637700789608,
+    "unobserved": "No original callback-entry/exit, timer-ready event, worker stack or per-thread schedstat in residual interval; attribution unresolved"
+  }
+}

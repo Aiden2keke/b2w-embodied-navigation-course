@@ -24,7 +24,43 @@
 - 旧实施计划归档至 `docs/plans/archive/2026-10-10-local-course-system-plan.md`。历史 design/validation 保留为证据，不是另一个当前 roadmap。无新增 HANDOFF。
 - 历史轮次只读与 timing 交付已结束；本轮范围以最新用户请求和下方 NOW 为准。旧实验/交付记录只作历史证据。
 
-## NOW — Stable Warehouse ZeroOnly → qualified local E1 → Start→G1 (October 23)
+## NOW — Dispatch attribution and offline E1 request preparation (October 23)
+
+Worktree `/home/zyd/program/b2w-embodied-navigation-course-stage4`, branch
+`experiment/unattended-g1-g5-20261019`, unchanged HEAD
+`cff87a8fef98d5d58b1b7bf2ed05a6e6c2b94263`. Latest user scope supersedes the
+predecessor's ZeroOnly-before-offline-E1 ordering: advance non-authorizing E1 work
+in parallel, and allow at most ONE Gazebo trial only after a supported correction.
+
+- [x] Read existing evidence; preserve/reverify all56 predecessor raw hashes.
+- [x] Trace actual SingleThreadedExecutor/default mutually-exclusive groups,
+  steady50ms timer, map ingress, bounded worker exchange, GIL and synchronous health I/O.
+- [x] Five bounded real-ROS offline probes (no Gazebo/controller/motion input):
+  two800x800 ingress grids, real100/120 local grid, ready TF/odom/clock variants,
+  in-memory callback/worker samples and external per-thread scheduler samples.
+  GIL interference is supported in the probes; historical181.573ms is unresolved.
+  Original callback/health took~57.226ms; remaining~124.346ms lacks attribution.
+- [x] Causal parked-worker control retains ingress/invalidation but cannot accept
+  grids: max publication121.927→12.328ms; does not qualify a production correction.
+- [x] Parallel offline E1 request accounting in existing qualification/owner code;
+  exact six-axis pulse/rest/attempt/scope checks and hash-bound references, plus
+  read-only `--check-e1-request`. Reserved `--execute-e1` always vetoes before I/O.
+  Evidence semantics and actual motion execution remain unimplemented/unqualified.
+- [x] Independent read-only reviews,237 focused regressions PASS, fresh regular-copy
+  navigation/bringup build,35 source/install identities, native/policy/controller pins,
+  actual installed smoke20/20 exact-zero Twists and owned/domain cleanup PASS.
+- [ ] Historical gap attribution / supported dispatch correction. No speculative
+  adapter/worker/geometry patch, no new Gazebo trial; full ZeroOnly remains FAIL.
+- [ ] Independently accepted bootstrap envelope and owned wall-clock containment,
+  local sensor-only registration/clearance/stopping qualification, per-run identity/
+  scope/single-use authority and reviewed execution before any E1 or Start→G1 motion.
+
+Record: `experiments/g1_g5/evidence/dispatch-e1-20261023/REPORT.md`, compact summary,
+source diff, tests, installed identities and indexed local raw evidence. NONZERO NO-GO.
+No commit/push: applicable AGENTS.md requires external review before those actions.
+Existing E1 design below is retained; no second plan or framework.
+
+### Preserved predecessor — Warehouse ZeroOnly convergence (October 23)
 
 Experiment branch `experiment/unattended-g1-g5-20261019`; runtime source checkpoint
 `0c83ab4a513143907ab8ba964cfe5c07a5454153`. Latest task authorized autonomous routine
@@ -52,7 +88,7 @@ Result: [ZeroOnly convergence](docs/reviews/B2W_ZeroOnly_Convergence_20261023.md
 Evidence: `experiments/g1_g5/evidence/zero-converge-20261023/`.
 Historical permission failure and earlier watchdog attempts remain separate records.
 
-### Minimal E1 implementation plan (planning only; NONZERO NO-GO)
+### Minimal E1 implementation plan (request accounting implemented; NONZERO NO-GO)
 
 Scope: original Warehouse, one sensor-observed open pocket, one forward command
 vx=.05, vy=wz=0 for at most 2 advancing simulation seconds, then exact zero.
@@ -170,7 +206,7 @@ contact fault, native exit, unknown grid, nonzero unauthorized axis, repeated
 attempt or timeout: inhibit immediately, independently contain if stop cannot
 be proved, preserve evidence, FAIL and stop. No fix/retry in the same approval.
 
-**Eventual qualified command (PROPOSED CLI, DOES NOT EXIST TODAY):**
+**Reserved future controlled pulse interface (ALWAYS REJECTS today):**
 
 ```bash
 # Future extension of existing stage4_session.py, after implementation, copied
@@ -183,8 +219,11 @@ be proved, preserve evidence, FAIL and stop. No fix/retry in the same approval.
 
 The immutable reviewed inputs must fix .05/0/0, <=2sim pulse, normal rest and
 <=90sim/180wall ceiling, owned containment path, pocket and single attempt.
-Do not advertise this as presently executable. Existing executable CLI offers
-only `--execute-zero-smoke`; no honest qualified E1 command exists yet.
+The spelling above now exists but always calls unchanged `require_motion_qualification()`
+before reading inputs or creating a session. It is not a qualified motion command.
+`--check-e1-request` performs read-only request shape/hash accounting only; it cannot
+accept conservative evidence or authorize motion. Only `--execute-zero-smoke` launches
+an implemented session. The E1 execution/authority boundary remains unimplemented.
 
 **Fastest Start→G1 after E1:** Review the measured local stop/tracking/abort
 result, derive accepted bounds instead of extrapolating command speed; extend

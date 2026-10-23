@@ -1,0 +1,16 @@
+{
+  "passed": true,
+  "method": "read-only direct byte hashes; no owner invocation",
+  "pins": {
+    "/home/zyd/program/b2w-embodied-navigation-course/third_party/b2w_rl_sar/POLICY_SOURCE.json": "d6d5264d9ffab52331074d00b236a8985bad9c34ff9e328f0ecce610ec62414c",
+    "/home/zyd/program/b2w-embodied-navigation-course-stage4/experiments/g1_g5/evidence/startup-repair-20261021/artifacts/candidate-observer-world.sdf": "341247a069f5c42eb7257b26bd88504377851d9e772975117cc8f04ce7a6e7fc",
+    "/home/zyd/program/b2w-embodied-navigation-course/third_party/b2w_rl_sar/policy/b2w/base.yaml": "a883606bdbd5450ed04227b82cde54d9a3fc0eeedb55d61b36bdf43889f8d9f8",
+    "/home/zyd/program/b2w-embodied-navigation-course/third_party/b2w_rl_sar/policy/b2w/robot_lab/config.yaml": "d44bb3c36043f7216f7699a23d904fd01b5fc29ab7c35aabe56dc024d3f1cc74",
+    "/home/zyd/program/b2w-embodied-navigation-course/third_party/b2w_rl_sar/policy/b2w/robot_lab/policy.pt": "38155076408e8eccb22690c6c5be14bd1dcb9149245ca5e493308a9f6ff93b34",
+    "/home/zyd/program/b2w-embodied-navigation-course/third_party/b2w_rl_sar/policy/b2w/robot_lab/policy.onnx": "da31c0c1820b893608e2d02746bbada16d0abb5de6116277e37ccfb02024c564",
+    "/home/zyd/program/b2w-embodied-navigation-course/.deps/nav2-controller-1.1.20/install/nav2_controller/lib/nav2_controller/controller_server": "40653e793f7707537e41940fd280d2abf6054a61ffcbb4a085e07ba591d137ee",
+    "/home/zyd/program/b2w-embodied-navigation-course/.deps/nav2-controller-1.1.20/install/nav2_controller/lib/libcontroller_server_core.so": "388ba725baa46fc07699de44c1945e7056a9c0a04dc0a8fdad55055798ad4ad6",
+    "/home/zyd/program/b2w-embodied-navigation-course-stage4/scripts/stage4_safety_watchdog.py": "eef423424643bfb39ae4898ddcf14e6ff3c048892133417601be0605b3380475",
+    "/home/zyd/program/b2w-embodied-navigation-course/build/b2w_controllers/b2w_rl_sar_controller": "fcd779f7c1b2d2c32c89bc3a79217f2e57938bf459d8ca43a9e06d6fdc369730"
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "kind": "stage4_e1_offline_prerequisites",
+  "version": 1,
+  "checkpoint": "cff87a8fef98d5d58b1b7bf2ed05a6e6c2b94263",
+  "motion_authorized": false,
+  "motion_qualified": false,
+  "live_launches": 0,
+  "unconditional_veto_unchanged": true,
+  "tests": {
+    "initial_red": "26 failed (missing feature/CLI)",
+    "numeric_red": "1 failed, 29 passed (oversized numeric rejection)",
+    "final": "60 passed in 1.80s",
+    "pytest_exit": 0
+  },
+  "source_sha256": {
+    "course_navigation/course_navigation/stage4_qualification.py": "98725d1fc97a23ca0fe4f19893999158f1b39c97903fef6c158ef120b4301620",
+    "scripts/stage4_session.py": "0ae7abf806978e9b9b2c92025c6dc205bd492eea19eeb898cd1d3dc861b7300d",
+    "tests/test_stage4_e1_offline.py": "408e8e3e27901da82f62d482733f7ba84f50df96b0af0852869d18fc4c3b229e"
+  },
+  "evidence_sha256": {
+    "e1-red.txt": "f2ce7853e9a2573862808d3669aa90698ce6ebb5ef53f725726721f1a8df3cb9",
+    "e1-red-numeric.txt": "da776fe8691892d84881de58c2f7bd9a5c67176c837c376e32a47673cfdc6d0a",
+    "e1-green.txt": "8e88476711f1b58fd2f1528e3a4fdb837ec495840dee71577f12191078f93704",
+    "e1-final.txt": "a41f9e1bf4e675647f4abbc141734aa43f58e6b5d0cd7b52bb06b40878859d0b"
+  },
+  "remaining_blockers": [
+    "Full fresh ZeroOnly probe and cleanup PASS",
+    "Independently accepted conservative bootstrap envelope",
+    "Reviewed and expressly authorized zero-only fault demonstrations of identity-pinned independent containment",
+    "Sensor-only local registration and all-body conservative clearance/reserve evidence",
+    "Per-run source/install/controller/policy/world/producer identity and live scope checks",
+    "Single-use enforcement, live lease/abort rejection and actual E1 motion loop",
+    "Matching copy build and independent boundary review; explicit E1 authority"
+  ]
+}

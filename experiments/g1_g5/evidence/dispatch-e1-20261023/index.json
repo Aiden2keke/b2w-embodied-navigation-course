@@ -1,0 +1,8 @@
+{
+  "raw_file_count": 64,
+  "raw_total_bytes": 26383282,
+  "raw_manifest_sha256": "ab476511368fe67b314f6278cc09170385e4bf5f02872a582b94fac1fc98e46a",
+  "raw_remote_backed_up": false,
+  "artifacts_remote_backed_up": false,
+  "source_diff_sha256": "4a4571b658d4d0a2ba8b21c7fad6586f171dbc25ef20a6534da6583235999365"
+}

@@ -1,0 +1,233 @@
+diff --git a/course_navigation/course_navigation/stage4_qualification.py b/course_navigation/course_navigation/stage4_qualification.py
+index 77f33a2..32633d4 100644
+--- a/course_navigation/course_navigation/stage4_qualification.py
++++ b/course_navigation/course_navigation/stage4_qualification.py
+@@ -11,3 +11,73 @@ def require_motion_qualification():
+         'UNQUALIFIED_FOR_MOTION: predictive adapter veto, action-independent '
+         'owned abort, sensor-only bounded registration and all-body/end-watermarked '
+         'physical evaluation are not qualified; see docs/LUNA_VALIDATION_HANDOFF.md')
++
++
++def validate_e1_pulse_request(request,*,session_id=None):
++    """Read-only request accounting, never qualification or approval ingestion.
++
++    Hashes bind supporting bytes; they do not establish conservative physical
++    bounds, freshness, independent containment or acceptance by a reviewer.
++    The unconditional motion veto above remains the only execution decision.
++    """
++    import hashlib
++    import json
++    import math
++    from pathlib import Path
++
++    def finite(value):
++        try:return type(value) in (int,float) and math.isfinite(value)
++        except OverflowError:return False
++
++    def pinned(reference):
++        if type(reference) is not dict or set(reference)!={'path','sha256'}:
++            raise ValueError('Explicit evidence path and SHA256 required')
++        path=reference['path'];sha=reference['sha256']
++        if (type(path) is not str or not Path(path).is_absolute() or
++                type(sha) is not str or len(sha)!=64 or any(c not in '0123456789abcdef' for c in sha)):
++            raise ValueError('Absolute evidence path and lowercase SHA256 required')
++        file=Path(path)
++        if file.is_symlink() or not file.is_file():raise ValueError('Regular nonsymlink evidence file required')
++        data=file.read_bytes()
++        if hashlib.sha256(data).hexdigest()!=sha:raise ValueError('E1 evidence content identity changed')
++        return data
++
++    keys={'kind','version','mode','session_id','attempt_id','command','pulse_source_s','rest_source_s',
++          'rest_wall_s','attempt_source_s','attempt_wall_s','scope','zero_only_result','evidence'}
++    if type(request) is not dict or set(request)!=keys:raise ValueError('Exact offline E1 request fields required')
++    r=request
++    if (r['kind']!='stage4_e1_pulse_request' or type(r['version']) is not int or r['version']!=1 or
++            r['mode']!='e1_forward_pulse' or
++            any(type(r[k]) is not str or not r[k].strip() for k in ('session_id','attempt_id')) or
++            (session_id is not None and r['session_id']!=session_id)):
++        raise ValueError('New session-bound single forward pulse request required')
++    command=r['command'];expected=dict(linear_x=.05,linear_y=0.,linear_z=0.,angular_x=0.,angular_y=0.,angular_z=0.)
++    if (type(command) is not dict or set(command)!=set(expected) or
++            any(not finite(command[k]) or command[k]!=v for k,v in expected.items())):
++        raise ValueError('Only the exact six-axis .05 forward pulse may be described')
++    times=[r[k] for k in ('pulse_source_s','rest_source_s','rest_wall_s','attempt_source_s','attempt_wall_s')]
++    if (not all(finite(v) for v in times) or not 0<r['pulse_source_s']<=2. or
++            r['rest_source_s']<5. or r['rest_wall_s']<3. or
++            not r['pulse_source_s']+r['rest_source_s']<=r['attempt_source_s']<=90. or
++            not r['rest_wall_s']<=r['attempt_wall_s']<=180.):
++        raise ValueError('Bounded pulse, measured-rest windows and whole-attempt ceilings required')
++    scope=r['scope']
++    if type(scope) is not dict or set(scope)!={'valid_from_sim','valid_until_sim','region'}:
++        raise ValueError('Explicit local spatial and source-time scope required')
++    region=scope['region'];start=scope['valid_from_sim'];end=scope['valid_until_sim']
++    if (type(region) is not list or len(region)!=4 or not all(finite(v) for v in [start,end,*region]) or
++            not 0<=start<end or end-start<r['attempt_source_s'] or
++            region[0]>=region[2] or region[1]>=region[3]):
++        raise ValueError('Finite nonempty pocket and scope covering the whole attempt required')
++    evidence=r['evidence']
++    if type(evidence) is not dict or set(evidence)!={'bootstrap_envelope','independent_abort','local_clearance'}:
++        raise ValueError('Pinned bootstrap, independent abort and local-clearance references required')
++    for reference in evidence.values():pinned(reference)
++    zero=json.loads(pinned(r['zero_only_result']))
++    if (type(zero) is not dict or zero.get('kind')!='stage4_zero_session' or
++            zero.get('zero_motion_smoke_pass') is not True or zero.get('motion_authorized') is not False or
++            type(zero.get('cleanup')) is not dict or zero['cleanup'].get('passed') is not True):
++        raise ValueError('Full ZeroOnly probe and owned cleanup PASS required')
++    return dict(request_valid=True,motion_qualified=False,motion_authorized=False,
++        limitation='Request shape/content identities only; evidence semantics, freshness, containment, '
++                   'conservative local bounds, deployment identity and single-use enforcement remain unqualified')
+diff --git a/scripts/stage4_session.py b/scripts/stage4_session.py
+index 8faebf2..624bf8d 100644
+--- a/scripts/stage4_session.py
++++ b/scripts/stage4_session.py
+@@ -151,13 +151,29 @@ def execute(value,output):
+ 
+ def main(argv=None):
+     p=argparse.ArgumentParser(description=__doc__);p.add_argument('--inputs',type=Path,required=True)
+-    p.add_argument('--output',type=Path,required=True);p.add_argument('--execute-zero-smoke',action='store_true')
++    p.add_argument('--output',type=Path)
++    modes=p.add_mutually_exclusive_group()
++    modes.add_argument('--execute-zero-smoke',action='store_true')
++    modes.add_argument('--check-e1-request',action='store_true',
++        help='Read-only request/accounting check; confers no motion authority')
++    modes.add_argument('--execute-e1',action='store_true',
++        help='Reserved future interface; always rejected as unqualified')
++    p.add_argument('--qualification',type=Path,help='Reserved future evidence path; cannot authorize motion')
+     a=p.parse_args(argv)
+     try:
++        from course_navigation.stage4_qualification import require_motion_qualification,validate_e1_pulse_request
++        # Reject before reading artifacts, creating an owner or launching anything.
++        if a.execute_e1:require_motion_qualification()
++        if a.qualification is not None:raise ValueError('Qualification artifacts cannot authorize this zero-only owner')
++        if a.check_e1_request:
++            validate_e1_pulse_request(read_control(a.inputs))
++            print('E1 request shape/content identities verified; NONZERO remains NO-GO')
++            return 0
++        if a.output is None:raise ValueError('--output required for zero-only inputs/session')
+         value=validate_inputs(a.inputs)
+         if not a.execute_zero_smoke:print('Inputs verified; no session launched');return 0
+         return execute(value,a.output)
+     except (ValueError,KeyError,TypeError,OSError,RuntimeError) as exc:
+-        print('Stage4 zero-only session rejected: '+str(exc),file=sys.stderr);return 2
++        print('Stage4 session rejected: '+str(exc),file=sys.stderr);return 2
+ 
+ if __name__=='__main__':raise SystemExit(main())
+diff --git a/tests/test_stage4_e1_offline.py b/tests/test_stage4_e1_offline.py
+new file mode 100644
+index 0000000..289368f
+--- /dev/null
++++ b/tests/test_stage4_e1_offline.py
+@@ -0,0 +1,113 @@
++"""Offline E1 request checks never create motion authority or launch a session."""
++import copy
++import hashlib
++import json
++from pathlib import Path
++import subprocess
++import sys
++import pytest
++from course_navigation import stage4_qualification as qualification
++
++ROOT=Path(__file__).resolve().parents[1]
++
++
++def reference(path,value):
++    path.write_text(json.dumps(value))
++    return dict(path=str(path),sha256=hashlib.sha256(path.read_bytes()).hexdigest())
++
++
++def request(tmp_path):
++    zero=reference(tmp_path/'zero.json',dict(kind='stage4_zero_session',zero_motion_smoke_pass=True,
++        cleanup=dict(passed=True),motion_authorized=False))
++    refs={name:reference(tmp_path/(name+'.json'),dict(review_pending=True))
++          for name in ('bootstrap_envelope','independent_abort','local_clearance')}
++    return dict(kind='stage4_e1_pulse_request',version=1,mode='e1_forward_pulse',session_id='new-e1',attempt_id='one',
++        command=dict(linear_x=.05,linear_y=0.,linear_z=0.,angular_x=0.,angular_y=0.,angular_z=0.),
++        pulse_source_s=2.,rest_source_s=5.,rest_wall_s=3.,attempt_source_s=90.,attempt_wall_s=180.,
++        scope=dict(valid_from_sim=10.,valid_until_sim=100.,region=[-3.,-3.,3.,3.]),
++        zero_only_result=zero,evidence=refs)
++
++
++def check(value,**kwargs):
++    # An explicit assertion gives a feature-missing failure before implementation.
++    assert hasattr(qualification,'validate_e1_pulse_request'), 'Missing offline E1 request validation'
++    return qualification.validate_e1_pulse_request(value,**kwargs)
++
++
++def test_structural_success_never_qualifies_motion_or_creates_authority(tmp_path):
++    value=request(tmp_path);before=copy.deepcopy(value)
++    result=check(value,session_id='new-e1')
++    assert result['request_valid'] is True
++    assert result['motion_qualified'] is False and result['motion_authorized'] is False
++    assert value==before
++    assert sorted(p.name for p in tmp_path.iterdir())==['bootstrap_envelope.json','independent_abort.json','local_clearance.json','zero.json']
++    with pytest.raises(ValueError,match='UNQUALIFIED_FOR_MOTION'):qualification.require_motion_qualification()
++
++
++@pytest.mark.parametrize('fault',['mode','session','attempt','extra','command','axis','bool_axis','nan','pulse','rest_source','rest_wall','sim_ceiling','wall_ceiling','scope_time','scope_region','evidence_missing','relative','hash','replaced','zero_failed','cleanup_failed','zero_authorized','huge_number','symlink','bool_version','missing_axis'])
++def test_invalid_or_unbound_requests_rejected(tmp_path,fault):
++    value=request(tmp_path)
++    if fault=='huge_number':value['pulse_source_s']=10**400
++    elif fault=='symlink':
++        link=tmp_path/'link.json';link.symlink_to(value['evidence']['local_clearance']['path'])
++        value['evidence']['local_clearance']['path']=str(link)
++    elif fault=='bool_version':value['version']=True
++    elif fault=='missing_axis':del value['command']['linear_z']
++    elif fault=='mode':value['mode']='segment'
++    elif fault=='session':value['session_id']='other'
++    elif fault=='attempt':value['attempt_id']=''
++    elif fault=='extra':value['motion_authorized']=True
++    elif fault=='command':value['command']['linear_x']=.051
++    elif fault=='axis':value['command']['angular_y']=.001
++    elif fault=='bool_axis':value['command']['linear_y']=False
++    elif fault=='nan':value['pulse_source_s']=float('nan')
++    elif fault=='pulse':value['pulse_source_s']=2.001
++    elif fault=='rest_source':value['rest_source_s']=4.99
++    elif fault=='rest_wall':value['rest_wall_s']=2.99
++    elif fault=='sim_ceiling':value['attempt_source_s']=90.01
++    elif fault=='wall_ceiling':value['attempt_wall_s']=180.01
++    elif fault=='scope_time':value['scope']['valid_until_sim']=10.
++    elif fault=='scope_region':value['scope']['region']=[0.,0.,0.,1.]
++    elif fault=='evidence_missing':del value['evidence']['independent_abort']
++    elif fault=='relative':value['evidence']['local_clearance']['path']='relative.json'
++    elif fault=='hash':value['evidence']['local_clearance']['sha256']='A'*64
++    elif fault=='replaced':Path(value['evidence']['local_clearance']['path']).write_text('{}')
++    else:
++        path=Path(value['zero_only_result']['path']);zero=json.loads(path.read_text())
++        if fault=='zero_failed':zero['zero_motion_smoke_pass']=False
++        elif fault=='cleanup_failed':zero['cleanup']['passed']=False
++        elif fault=='zero_authorized':zero['motion_authorized']=True
++        value['zero_only_result']=reference(path,zero)
++    with pytest.raises(ValueError):check(value,session_id='new-e1')
++
++
++def test_request_scope_cannot_omit_stop_time_or_allow_unbounded_wait(tmp_path):
++    value=request(tmp_path);value['scope']['valid_until_sim']=16.
++    with pytest.raises(ValueError):check(value,session_id='new-e1')
++    value=request(tmp_path);value['attempt_wall_s']=2.
++    with pytest.raises(ValueError):check(value,session_id='new-e1')
++
++
++def test_offline_cli_checks_request_without_environment_or_output(tmp_path):
++    import os
++    from course_navigation.stage4_control import write_control
++    value=request(tmp_path);path=tmp_path/'request.json';write_control(path,value)
++    env={key:value for key,value in os.environ.items() if key not in ('ROS_DOMAIN_ID','ROS_LOCALHOST_ONLY')}
++    result=subprocess.run([sys.executable,str(ROOT/'scripts/stage4_session.py'),'--inputs',str(path),
++        '--check-e1-request'],capture_output=True,text=True,env=env)
++    assert result.returncode==0, result.stderr
++    assert 'NONZERO remains NO-GO' in result.stdout
++    assert not (tmp_path/'lease.json').exists()
++
++
++def test_reserved_e1_execution_interface_unconditionally_rejects_before_io(tmp_path):
++    from course_navigation.stage4_control import write_control
++    value=request(tmp_path);path=tmp_path/'request.json';write_control(path,value)
++    approval=tmp_path/'qualification.json';write_control(approval,dict(motion_authorized=True,approved=True))
++    for source in (path,tmp_path/'missing.json'):
++        output=tmp_path/'session'
++        result=subprocess.run([sys.executable,str(ROOT/'scripts/stage4_session.py'),'--inputs',str(source),
++            '--qualification',str(approval),'--output',str(output),'--execute-e1'],capture_output=True,text=True)
++        assert result.returncode==2
++        assert 'UNQUALIFIED_FOR_MOTION' in result.stderr
++        assert not output.exists()

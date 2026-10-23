@@ -1,0 +1,75 @@
+{
+  "passed": true,
+  "probe_survivors": [],
+  "probe_sessions": [
+    {
+      "probe": "ingress-dynamic-baseline-1",
+      "owner": {
+        "pgid": 825707,
+        "pid": 825707,
+        "start_ticks": "8940622",
+        "uid": 1000
+      },
+      "absent": true,
+      "worker_joined": true,
+      "producer_reaped": true
+    },
+    {
+      "probe": "ingress-baseline-1",
+      "owner": {
+        "pgid": 820287,
+        "pid": 820287,
+        "start_ticks": "8915248",
+        "uid": 1000
+      },
+      "absent": true,
+      "worker_joined": true,
+      "producer_reaped": true
+    },
+    {
+      "probe": "ingress-parked-control-1",
+      "owner": {
+        "pgid": 827447,
+        "pid": 827447,
+        "start_ticks": "8948131",
+        "uid": 1000
+      },
+      "absent": true,
+      "worker_joined": true,
+      "producer_reaped": true
+    },
+    {
+      "probe": "ingress-ready-baseline-1",
+      "owner": {
+        "pgid": 824419,
+        "pid": 824419,
+        "start_ticks": "8934585",
+        "uid": 1000
+      },
+      "absent": true,
+      "worker_joined": true,
+      "producer_reaped": true
+    },
+    {
+      "probe": "ingress-warehouse-1",
+      "owner": {
+        "pgid": 822308,
+        "pid": 822308,
+        "start_ticks": "8924016",
+        "uid": 1000
+      },
+      "absent": true,
+      "worker_joined": true,
+      "producer_reaped": true
+    }
+  ],
+  "installed_worker_joined": true,
+  "installed_final_nodes": [
+    [
+      "offline_cleanup_check",
+      "/"
+    ]
+  ],
+  "gazebo_launches": 0,
+  "signals": "Only own Popen child cleanup in throwaway probes; producers naturally exited0; no broad kills"
+}

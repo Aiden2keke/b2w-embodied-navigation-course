@@ -151,13 +151,29 @@ def execute(value,output):
 
 def main(argv=None):
     p=argparse.ArgumentParser(description=__doc__);p.add_argument('--inputs',type=Path,required=True)
-    p.add_argument('--output',type=Path,required=True);p.add_argument('--execute-zero-smoke',action='store_true')
+    p.add_argument('--output',type=Path)
+    modes=p.add_mutually_exclusive_group()
+    modes.add_argument('--execute-zero-smoke',action='store_true')
+    modes.add_argument('--check-e1-request',action='store_true',
+        help='Read-only request/accounting check; confers no motion authority')
+    modes.add_argument('--execute-e1',action='store_true',
+        help='Reserved future interface; always rejected as unqualified')
+    p.add_argument('--qualification',type=Path,help='Reserved future evidence path; cannot authorize motion')
     a=p.parse_args(argv)
     try:
+        from course_navigation.stage4_qualification import require_motion_qualification,validate_e1_pulse_request
+        # Reject before reading artifacts, creating an owner or launching anything.
+        if a.execute_e1:require_motion_qualification()
+        if a.qualification is not None:raise ValueError('Qualification artifacts cannot authorize this zero-only owner')
+        if a.check_e1_request:
+            validate_e1_pulse_request(read_control(a.inputs))
+            print('E1 request shape/content identities verified; NONZERO remains NO-GO')
+            return 0
+        if a.output is None:raise ValueError('--output required for zero-only inputs/session')
         value=validate_inputs(a.inputs)
         if not a.execute_zero_smoke:print('Inputs verified; no session launched');return 0
         return execute(value,a.output)
     except (ValueError,KeyError,TypeError,OSError,RuntimeError) as exc:
-        print('Stage4 zero-only session rejected: '+str(exc),file=sys.stderr);return 2
+        print('Stage4 session rejected: '+str(exc),file=sys.stderr);return 2
 
 if __name__=='__main__':raise SystemExit(main())
