@@ -1,0 +1,22 @@
+{
+  "actual_gazebo_launches": 1,
+  "full_zero_only_pass": false,
+  "attempts": [
+    {
+      "directory": "attempt-1/raw",
+      "attempt_id": "23e60b2d2ac14995a0dde9f0da5422b4",
+      "session_id": "zero-converge-44d7085ccef54ab1a88d3d32bad4a25e",
+      "first_fault_predicate": "health.age_gt_150ms",
+      "health_age_s": 0.19162013300228864,
+      "owned_cleanup": true,
+      "probe_cleanup": false
+    }
+  ],
+  "raw_manifest": "RAW_SHA256SUMS",
+  "raw_files": 56,
+  "runtime_identities": "identities.json",
+  "report": "docs/reviews/B2W_ZeroOnly_Convergence_20261023.md",
+  "sources_changed": [],
+  "tests": "Exact final0600 input read/v2 validation and full pinned preflight PASS; no production source edits or additional unit suite. Negative serializer benchmark retained.",
+  "E1": "gated; not implemented"
+}

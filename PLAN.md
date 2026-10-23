@@ -26,33 +26,31 @@
 
 ## NOW — Stable Warehouse ZeroOnly → qualified local E1 → Start→G1 (October 23)
 
-Worktree `/home/zyd/program/b2w-embodied-navigation-course-stage4`, branch
-`experiment/unattended-g1-g5-20261019`, expected HEAD
-`4ae85f4148a89a76b1ad25c5b059c2140be41b85`. External review conditionally passed
-the immutable ZeroOnly-only 50ms policy and narrow Watchdog clock-order fix, and
-approved the reviewed checkpoint commit/push plus exactly ONE bounded ZeroOnly
-trial after preflight. NONZERO remains NO-GO.
+Experiment branch `experiment/unattended-g1-g5-20261019`; runtime source checkpoint
+`0c83ab4a513143907ab8ba964cfe5c07a5454153`. Latest task authorized autonomous routine
+repairs and up to THREE actual ZeroOnly Gazebo launches; NONZERO remains NO-GO.
 
-- [x] Preserve inherited reports/evidence and verify the reviewed checkpoint hashes.
-- [x] Keep immutable ZeroOnly timing exception, exact-zero output, 150/250ms
-  freshness checks, motion-mode deadlines, hard interlocks and watchdog fail-closed.
-- [x] Reproduce the caller-clock-before-read race offline; sample after health/owner
-  reads, preserve record timestamps, and log one bounded first-fault snapshot.
-- [x] Focused suite 82 passed; isolated package build passed and all20 copied Python
-  modules match source. No live test during the fix review.
-- [ ] Stage only the audited checkpoint/source/compact records, inspect full diff,
-  commit and normally push this experiment branch; verify origin SHA.
-- [ ] Run exactly ONE bounded ZeroOnly trial with fresh session/attempt identity,
-  existing limits, updated installed control module and reviewed watchdog script.
-  No retry, nonzero command, goal or motion lease.
-- [x] Preserve the minimal E1 plan below; no E1 implementation/execution authorized.
+- [x] Preserve all inherited attempts. Correct secure input creation using existing
+  write_control(), mode0600/current UID/regular/non-symlink. Validate the EXACT final
+  input through read_control and v2 validation before launch.
+- [x] Pinned source/install/watchdog/LIO/GTSAM/controller/world/contact preflight PASS;
+  35 copied identities match, domain197 idle, motion qualification rejects nonzero.
+- [x] Actual launch1 reached three-grid bootstrap and watchdog/probe. FAIL: exact
+  first predicate health.age_gt_150ms, age191.620133ms, sequence696. All699 observed
+  final six-axis Twists zero; no lease; 144 positive LIO steps; 534 contact pairs.
+- [x] Owned cleanup PASS with27 PID/start identities absent, domain/GPU idle.
+  Full probe and probe cleanup FAIL; stationary/contact endpoint acceptance absent.
+- [x] Retain exact first-fault log and sealed evidence. Offline same-size serializer
+  check did not reproduce the191.6ms gap; no speculative patch or identical rerun.
+- [ ] Resolve exact adapter dispatch/host scheduling cause. Live work stops after
+  1 of3 launches under user's unexplained safety-critical fault rule. Preserve150ms
+  freshness and all other boundaries; correct only after a supported reproduction.
+- [ ] Full ZeroOnly PASS before useful offline E1 prerequisites; E1 plan below
+  unchanged and no motion authorization inferred.
 
-Latest watchdog report: [clock-order fix](docs/reviews/B2W_Watchdog_Clock_Race_Fix_20261023.md).
-Evidence: `experiments/g1_g5/evidence/watchdog-firstfault-20261023/`.
-The October22 ZeroOnly trial remains a historical FAIL; its exact first rejected
-health record was not captured. The current clock fix addresses the demonstrated
-race without claiming that it caused the historical failure. The next trial must
-capture complete stationary/probe/cleanup acceptance or stop at its first fault.
+Result: [ZeroOnly convergence](docs/reviews/B2W_ZeroOnly_Convergence_20261023.md).
+Evidence: `experiments/g1_g5/evidence/zero-converge-20261023/`.
+Historical permission failure and earlier watchdog attempts remain separate records.
 
 ### Minimal E1 implementation plan (planning only; NONZERO NO-GO)
 

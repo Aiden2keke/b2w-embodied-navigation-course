@@ -1,0 +1,209 @@
+{
+  "base_head": "0c83ab4a513143907ab8ba964cfe5c07a5454153",
+  "imports": {
+    "course_navigation.velocity_adapter": {
+      "path": "/home/zyd/program/b2w-embodied-navigation-course-stage4/experiments/g1_g5/evidence/watchdog-firstfault-20261023/artifacts/install/course_navigation/lib/python3.10/site-packages/course_navigation/velocity_adapter.py",
+      "sha256": "dc97d0445ec790fc0b5c2d171070f38cb9ad5e5a7d91e01a5fb9cdf86f6136c8"
+    },
+    "course_navigation.stage4_control": {
+      "path": "/home/zyd/program/b2w-embodied-navigation-course-stage4/experiments/g1_g5/evidence/watchdog-firstfault-20261023/artifacts/install/course_navigation/lib/python3.10/site-packages/course_navigation/stage4_control.py",
+      "sha256": "4c9e32b169dbe8d0ced5ea83cbcc8bed1ca99c96c139cac5c20c74d53e2525be"
+    }
+  },
+  "watchdog": {
+    "path": "/home/zyd/program/b2w-embodied-navigation-course-stage4/scripts/stage4_safety_watchdog.py",
+    "sha256": "eef423424643bfb39ae4898ddcf14e6ff3c048892133417601be0605b3380475",
+    "launched_by": "scripts/stage4_session.py"
+  },
+  "copies": [
+    {
+      "source": "course_navigation/course_navigation/adaptive_speed.py",
+      "installed": "/home/zyd/program/b2w-embodied-navigation-course-stage4/experiments/g1_g5/evidence/watchdog-firstfault-20261023/artifacts/install/course_navigation/lib/python3.10/site-packages/course_navigation/adaptive_speed.py",
+      "sha256": "3b20a919c4a6048c52a36f12593cf806be8c18a66797c8efaad2624080446bb7"
+    },
+    {
+      "source": "course_navigation/course_navigation/stage4_contact_evidence.py",
+      "installed": "/home/zyd/program/b2w-embodied-navigation-course-stage4/experiments/g1_g5/evidence/watchdog-firstfault-20261023/artifacts/install/course_navigation/lib/python3.10/site-packages/course_navigation/stage4_contact_evidence.py",
+      "sha256": "65e05f034db17f406c3d7fab9ed3e156cb58847e9e73e8a32303bbfc462a72f2"
+    },
+    {
+      "source": "course_navigation/course_navigation/speed_governor.py",
+      "installed": "/home/zyd/program/b2w-embodied-navigation-course-stage4/experiments/g1_g5/evidence/watchdog-firstfault-20261023/artifacts/install/course_navigation/lib/python3.10/site-packages/course_navigation/speed_governor.py",
+      "sha256": "5535a5b410a1d6887b4e6af0fc2c0e6a46e1b99d6af0aba98b4d7fa9bb676f66"
+    },
+    {
+      "source": "course_navigation/course_navigation/structural_freshness.py",
+      "installed": "/home/zyd/program/b2w-embodied-navigation-course-stage4/experiments/g1_g5/evidence/watchdog-firstfault-20261023/artifacts/install/course_navigation/lib/python3.10/site-packages/course_navigation/structural_freshness.py",
+      "sha256": "30719c587c52f65af173c82ac2ef7e3e8e893bc9237878f3d43923faefc57581"
+    },
+    {
+      "source": "course_navigation/course_navigation/stage4_geometry.py",
+      "installed": "/home/zyd/program/b2w-embodied-navigation-course-stage4/experiments/g1_g5/evidence/watchdog-firstfault-20261023/artifacts/install/course_navigation/lib/python3.10/site-packages/course_navigation/stage4_geometry.py",
+      "sha256": "87f6f3ebe4f6f301496d4e7361a51ff485326f189fcdebc491366c7e07904810"
+    },
+    {
+      "source": "course_navigation/course_navigation/lifecycle_readiness.py",
+      "installed": "/home/zyd/program/b2w-embodied-navigation-course-stage4/experiments/g1_g5/evidence/watchdog-firstfault-20261023/artifacts/install/course_navigation/lib/python3.10/site-packages/course_navigation/lifecycle_readiness.py",
+      "sha256": "260a074aa0c59b3279fb17b62a8fc0876905bd10092611e0788e4b131c195b61"
+    },
+    {
+      "source": "course_navigation/course_navigation/stage4_qualification.py",
+      "installed": "/home/zyd/program/b2w-embodied-navigation-course-stage4/experiments/g1_g5/evidence/watchdog-firstfault-20261023/artifacts/install/course_navigation/lib/python3.10/site-packages/course_navigation/stage4_qualification.py",
+      "sha256": "ff320410cde2d7c8e7b93f6a5ab33dc971b1be9c33a0fdd69422c89474b76d80"
+    },
+    {
+      "source": "course_navigation/course_navigation/__init__.py",
+      "installed": "/home/zyd/program/b2w-embodied-navigation-course-stage4/experiments/g1_g5/evidence/watchdog-firstfault-20261023/artifacts/install/course_navigation/lib/python3.10/site-packages/course_navigation/__init__.py",
+      "sha256": "bef11191d0ca5d12dacb4deb3a22a72e5a0a620ed5b0d15b23ff75f29eed14af"
+    },
+    {
+      "source": "course_navigation/course_navigation/m2_inverse.py",
+      "installed": "/home/zyd/program/b2w-embodied-navigation-course-stage4/experiments/g1_g5/evidence/watchdog-firstfault-20261023/artifacts/install/course_navigation/lib/python3.10/site-packages/course_navigation/m2_inverse.py",
+      "sha256": "dd7b299acdf69406ce3ea2115d48787f94e967550f2627edab5503c379b30f7b"
+    },
+    {
+      "source": "course_navigation/course_navigation/velocity_adapter.py",
+      "installed": "/home/zyd/program/b2w-embodied-navigation-course-stage4/experiments/g1_g5/evidence/watchdog-firstfault-20261023/artifacts/install/course_navigation/lib/python3.10/site-packages/course_navigation/velocity_adapter.py",
+      "sha256": "dc97d0445ec790fc0b5c2d171070f38cb9ad5e5a7d91e01a5fb9cdf86f6136c8"
+    },
+    {
+      "source": "course_navigation/course_navigation/stage4_contact_intervals.py",
+      "installed": "/home/zyd/program/b2w-embodied-navigation-course-stage4/experiments/g1_g5/evidence/watchdog-firstfault-20261023/artifacts/install/course_navigation/lib/python3.10/site-packages/course_navigation/stage4_contact_intervals.py",
+      "sha256": "d345e125a9e07f5120cc066c8ee1e37e4edfd49759be9597abbce55efb74ed51"
+    },
+    {
+      "source": "course_navigation/course_navigation/stage4_bounds.py",
+      "installed": "/home/zyd/program/b2w-embodied-navigation-course-stage4/experiments/g1_g5/evidence/watchdog-firstfault-20261023/artifacts/install/course_navigation/lib/python3.10/site-packages/course_navigation/stage4_bounds.py",
+      "sha256": "278b4c9d6f16c7cefe6d6b29d56f57efe08d1f230ea372ebf378e6af4af5e4eb"
+    },
+    {
+      "source": "course_navigation/course_navigation/metrics.py",
+      "installed": "/home/zyd/program/b2w-embodied-navigation-course-stage4/experiments/g1_g5/evidence/watchdog-firstfault-20261023/artifacts/install/course_navigation/lib/python3.10/site-packages/course_navigation/metrics.py",
+      "sha256": "b5b1f735a6433a8ffce2a37d06fc79046cf0e1a6f6eb61bcddf8c3613c0e326e"
+    },
+    {
+      "source": "course_navigation/course_navigation/stage4_guard.py",
+      "installed": "/home/zyd/program/b2w-embodied-navigation-course-stage4/experiments/g1_g5/evidence/watchdog-firstfault-20261023/artifacts/install/course_navigation/lib/python3.10/site-packages/course_navigation/stage4_guard.py",
+      "sha256": "8c3c16fd3053f9b4916a4fd7a06ecd55c4bc9038d16ef37aadad916fb05486f3"
+    },
+    {
+      "source": "course_navigation/course_navigation/map_projection.py",
+      "installed": "/home/zyd/program/b2w-embodied-navigation-course-stage4/experiments/g1_g5/evidence/watchdog-firstfault-20261023/artifacts/install/course_navigation/lib/python3.10/site-packages/course_navigation/map_projection.py",
+      "sha256": "cd5b18e96330a7deb9a6282bee79b2a857913320d429c6d4872dd5008e39846d"
+    },
+    {
+      "source": "course_navigation/course_navigation/map_node.py",
+      "installed": "/home/zyd/program/b2w-embodied-navigation-course-stage4/experiments/g1_g5/evidence/watchdog-firstfault-20261023/artifacts/install/course_navigation/lib/python3.10/site-packages/course_navigation/map_node.py",
+      "sha256": "2ab8d6de41776663b290d0b86d0a2cc32c53ab874ad3041a0d436c9cd0f3d9ad"
+    },
+    {
+      "source": "course_navigation/course_navigation/goal_manager.py",
+      "installed": "/home/zyd/program/b2w-embodied-navigation-course-stage4/experiments/g1_g5/evidence/watchdog-firstfault-20261023/artifacts/install/course_navigation/lib/python3.10/site-packages/course_navigation/goal_manager.py",
+      "sha256": "8dec3c7bd46be26b88e76e2a2b5734f392c1277ad49870e14abec4c48185569c"
+    },
+    {
+      "source": "course_navigation/course_navigation/stage4_contact_stream.py",
+      "installed": "/home/zyd/program/b2w-embodied-navigation-course-stage4/experiments/g1_g5/evidence/watchdog-firstfault-20261023/artifacts/install/course_navigation/lib/python3.10/site-packages/course_navigation/stage4_contact_stream.py",
+      "sha256": "d51ea917327f6b9a042ab317d790bc03075bb23c8e41528c44668e2be40597c8"
+    },
+    {
+      "source": "course_navigation/course_navigation/stage4_control.py",
+      "installed": "/home/zyd/program/b2w-embodied-navigation-course-stage4/experiments/g1_g5/evidence/watchdog-firstfault-20261023/artifacts/install/course_navigation/lib/python3.10/site-packages/course_navigation/stage4_control.py",
+      "sha256": "4c9e32b169dbe8d0ced5ea83cbcc8bed1ca99c96c139cac5c20c74d53e2525be"
+    },
+    {
+      "source": "course_navigation/course_navigation/adaptive_profile.py",
+      "installed": "/home/zyd/program/b2w-embodied-navigation-course-stage4/experiments/g1_g5/evidence/watchdog-firstfault-20261023/artifacts/install/course_navigation/lib/python3.10/site-packages/course_navigation/adaptive_profile.py",
+      "sha256": "a0267351003cdcd3a50ccfac0bf62e854ff3dae043dcb0f94066825df6b2dc6e"
+    },
+    {
+      "source": "course_navigation/launch/navigation.launch.py",
+      "installed": "/home/zyd/program/b2w-embodied-navigation-course-stage4/experiments/g1_g5/evidence/watchdog-firstfault-20261023/artifacts/install/course_navigation/share/course_navigation/launch/navigation.launch.py",
+      "sha256": "46f2c731bae6967f2ec6ed7f9f9166e4d40ce8ad740ba69428317100e92cac87"
+    },
+    {
+      "source": "course_navigation/config/nav2_dwb_observability.yaml",
+      "installed": "/home/zyd/program/b2w-embodied-navigation-course-stage4/experiments/g1_g5/evidence/watchdog-firstfault-20261023/artifacts/install/course_navigation/share/course_navigation/config/nav2_dwb_observability.yaml",
+      "sha256": "a39d9154c5f5c9c5f4c7def14361544cb59b4650c7882560bc32cf8c1f232c42"
+    },
+    {
+      "source": "course_navigation/config/nav2_smac2d_diag.yaml",
+      "installed": "/home/zyd/program/b2w-embodied-navigation-course-stage4/experiments/g1_g5/evidence/watchdog-firstfault-20261023/artifacts/install/course_navigation/share/course_navigation/config/nav2_smac2d_diag.yaml",
+      "sha256": "97e4eb2bcf58faa3f3a19728b4d17437b9dfe615d07964902e24bb5057a98e9e"
+    },
+    {
+      "source": "course_navigation/config/navigation_validation_matrix.json",
+      "installed": "/home/zyd/program/b2w-embodied-navigation-course-stage4/experiments/g1_g5/evidence/watchdog-firstfault-20261023/artifacts/install/course_navigation/share/course_navigation/config/navigation_validation_matrix.json",
+      "sha256": "459f2648ca141c75440c981b2cc4a09ba4c13b2a14ccf63622dcdecb2792ba80"
+    },
+    {
+      "source": "course_navigation/config/adaptive_speed.yaml",
+      "installed": "/home/zyd/program/b2w-embodied-navigation-course-stage4/experiments/g1_g5/evidence/watchdog-firstfault-20261023/artifacts/install/course_navigation/share/course_navigation/config/adaptive_speed.yaml",
+      "sha256": "adb90b8d8833fb8eec304e08c87bb1ff10951e608bf1686a95ae3fcec48466ad"
+    },
+    {
+      "source": "course_navigation/config/nav2_smac2d_footprint_gate_diag.yaml",
+      "installed": "/home/zyd/program/b2w-embodied-navigation-course-stage4/experiments/g1_g5/evidence/watchdog-firstfault-20261023/artifacts/install/course_navigation/share/course_navigation/config/nav2_smac2d_footprint_gate_diag.yaml",
+      "sha256": "e2815d3f79d1bad561b7e99710d6831360bd2ab70e7fe3c2e3b909b741f101c4"
+    },
+    {
+      "source": "course_navigation/config/stage4_route_constraints.json",
+      "installed": "/home/zyd/program/b2w-embodied-navigation-course-stage4/experiments/g1_g5/evidence/watchdog-firstfault-20261023/artifacts/install/course_navigation/share/course_navigation/config/stage4_route_constraints.json",
+      "sha256": "f031c255787562a704a34409bb0d6c9c8b6146317465550ed630f2dcc02fac97"
+    },
+    {
+      "source": "course_navigation/config/warehouse_route.yaml",
+      "installed": "/home/zyd/program/b2w-embodied-navigation-course-stage4/experiments/g1_g5/evidence/watchdog-firstfault-20261023/artifacts/install/course_navigation/share/course_navigation/config/warehouse_route.yaml",
+      "sha256": "16cc4dd5d1c4f64ef9d875b2e2b16a554e60c4089d19838ed92a3d4b0c5adc9d"
+    },
+    {
+      "source": "course_navigation/config/stage4_runtime_identity.json",
+      "installed": "/home/zyd/program/b2w-embodied-navigation-course-stage4/experiments/g1_g5/evidence/watchdog-firstfault-20261023/artifacts/install/course_navigation/share/course_navigation/config/stage4_runtime_identity.json",
+      "sha256": "d6cf31c36e397b477127783c3c9140db19b87fe4db82a72ec349d8b9f2b4233c"
+    },
+    {
+      "source": "course_navigation/config/stage4_selection_policy.json",
+      "installed": "/home/zyd/program/b2w-embodied-navigation-course-stage4/experiments/g1_g5/evidence/watchdog-firstfault-20261023/artifacts/install/course_navigation/share/course_navigation/config/stage4_selection_policy.json",
+      "sha256": "8bfc2bc74b01284b617df96fc2393a6599787f94e5672f956fea0d85308dd523"
+    },
+    {
+      "source": "course_navigation/config/nav2_dual_planner_diag.yaml",
+      "installed": "/home/zyd/program/b2w-embodied-navigation-course-stage4/experiments/g1_g5/evidence/watchdog-firstfault-20261023/artifacts/install/course_navigation/share/course_navigation/config/nav2_dual_planner_diag.yaml",
+      "sha256": "f8791a93b2c0740200e088ad1966625391c0da719d552ce80ccc3a6f28db57e1"
+    },
+    {
+      "source": "course_navigation/config/nav2.yaml",
+      "installed": "/home/zyd/program/b2w-embodied-navigation-course-stage4/experiments/g1_g5/evidence/watchdog-firstfault-20261023/artifacts/install/course_navigation/share/course_navigation/config/nav2.yaml",
+      "sha256": "d63852ab2eed9c6cc1c258aaf2bdc2b11753ff9d9969e1885785d3cab2a87046"
+    },
+    {
+      "source": "course_bringup/course_bringup/__init__.py",
+      "installed": "/home/zyd/program/b2w-embodied-navigation-course-stage4/experiments/g1_g5/evidence/startup-repair-20261021/artifacts/copy-install/course_bringup/lib/python3.10/site-packages/course_bringup/__init__.py",
+      "sha256": "bef11191d0ca5d12dacb4deb3a22a72e5a0a620ed5b0d15b23ff75f29eed14af"
+    },
+    {
+      "source": "course_bringup/launch/control.launch.py",
+      "installed": "/home/zyd/program/b2w-embodied-navigation-course-stage4/experiments/g1_g5/evidence/startup-repair-20261021/artifacts/copy-install/course_bringup/share/course_bringup/launch/control.launch.py",
+      "sha256": "b7bd359544c5692189be06fe1fe1b2a6271c8f37d9f93286bfdd2ad4f040917a"
+    },
+    {
+      "source": "course_bringup/launch/course.launch.py",
+      "installed": "/home/zyd/program/b2w-embodied-navigation-course-stage4/experiments/g1_g5/evidence/startup-repair-20261021/artifacts/copy-install/course_bringup/share/course_bringup/launch/course.launch.py",
+      "sha256": "1125e2b5ad06457c98a467d10aea7495d5edc107dd9aaae813c6d0a6f3f354df"
+    }
+  ],
+  "artifacts": {
+    "experiments/g1_g5/evidence/startup-repair-20261021/artifacts/lio-build/lio_sam_imuPreintegration": "3bd8109f580ceac90670f5d12e57267192731e2bfd2af46eb1740d08672e50f5",
+    "experiments/g1_g5/evidence/startup-repair-20261021/artifacts/lio-diagnostic-prefix/lib/lio_sam/lio_sam_imuPreintegration": "3bd8109f580ceac90670f5d12e57267192731e2bfd2af46eb1740d08672e50f5",
+    "experiments/g1_g5/evidence/startup-repair-20261021/artifacts/native-build/libstage4_contact_observer.so": "365101bd07e82db095111b2519466005617efcb186ba08e28dfb0947135f15fa",
+    "experiments/g1_g5/evidence/startup-repair-20261021/artifacts/native-build/gtsam_probe": "f9c3460c5154c2d29d89c2236a1b01e2dec669baca107a9683e5bb965ed7953a",
+    "experiments/g1_g5/evidence/startup-repair-20261021/artifacts/native-build/bridge_contract": "1f1df749b2a4f049597f40af6169dc422d9c8108c3c92abbe741a7dcd938d70a",
+    "experiments/g1_g5/evidence/startup-repair-20261021/artifacts/candidate-observer-world.sdf": "341247a069f5c42eb7257b26bd88504377851d9e772975117cc8f04ce7a6e7fc"
+  },
+  "gtsam": {
+    "path": "/home/zyd/program/b2w-embodied-navigation-course/.deps/lib/libgtsam.so.4.1.1",
+    "sha256": "e04567b0a6346ed8c4a05a21b42b337ee2ce429030f8df87e3149b76a6bfb379"
+  },
+  "motion_interlock": "UNQUALIFIED_FOR_MOTION: predictive adapter veto, action-independent owned abort, sensor-only bounded registration and all-body/end-watermarked physical evaluation are not qualified; see docs/LUNA_VALIDATION_HANDOFF.md",
+  "production_source_changed": false
+}

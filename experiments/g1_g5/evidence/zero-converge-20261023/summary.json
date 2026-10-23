@@ -1,0 +1,237 @@
+{
+  "kind": "zero_only_autonomous_convergence",
+  "actual_gazebo_launches": 1,
+  "prelaunch_validation_failures": 0,
+  "full_pass": false,
+  "stop_reason": "Genuine 150ms freshness violation; precise dispatch/scheduling cause not established. No speculative patch or repeat.",
+  "attempt": {
+    "kind": "one_zero_only_trial",
+    "attempt_id": "23e60b2d2ac14995a0dde9f0da5422b4",
+    "session_id": "zero-converge-44d7085ccef54ab1a88d3d32bad4a25e",
+    "source_head": "0c83ab4a513143907ab8ba964cfe5c07a5454153",
+    "watchdog_script_sha256": "eef423424643bfb39ae4898ddcf14e6ff3c048892133417601be0605b3380475",
+    "control_module_sha256": "4c9e32b169dbe8d0ced5ea83cbcc8bed1ca99c96c139cac5c20c74d53e2525be",
+    "started_unix": 1792735445.4180417,
+    "motion_authorized": false
+  },
+  "session": {
+    "kind": "stage4_zero_session",
+    "zero_motion_smoke_pass": false,
+    "probe_exit_code": null,
+    "error": "ValueError('Owned watchdog/stack/evaluation bridge exited')",
+    "cleanup": {
+      "owned_pid_start_ticks": {
+        "792418": "8798052",
+        "792420": "8798054",
+        "792421": "8798067",
+        "792461": "8798088",
+        "792463": "8798089",
+        "792465": "8798089",
+        "792467": "8798089",
+        "792469": "8798089",
+        "792471": "8798089",
+        "792473": "8798089",
+        "792475": "8798089",
+        "792477": "8798089",
+        "792479": "8798089",
+        "792481": "8798089",
+        "792483": "8798089",
+        "792485": "8798089",
+        "792487": "8798089",
+        "792489": "8798090",
+        "792491": "8798090",
+        "792493": "8798090",
+        "793970": "8800090",
+        "793975": "8800092",
+        "793977": "8800092",
+        "793979": "8800092",
+        "793981": "8800092",
+        "794755": "8801697",
+        "794756": "8801698"
+      },
+      "remaining": {},
+      "passed": true,
+      "launch_returncode": 0
+    },
+    "live_stack_wall_s": 47.80627581999579,
+    "motion_attempts": 0,
+    "motion_authorized": false,
+    "safety_complete": false,
+    "full_route_pass": false,
+    "segment_pass": false
+  },
+  "probe": {
+    "zero_motion_smoke_pass": false,
+    "cleanup_passed": false,
+    "error": "RCLError(\"failed to check service availability: rcl node's context is invalid, at ./src/rcl/node.c:428\") cleanup: RCLError('failed to shutdown: rcl_shutdown already called on the given context, at ./src/rcl/init.c:241')",
+    "first_sample": null,
+    "accepted_end_sim": null,
+    "contact_closure": null
+  },
+  "first_fault": {
+    "event": "stage4_watchdog_first_fault",
+    "failed_predicate": "health.age_gt_150ms",
+    "health": {
+      "adapter": {
+        "pgid": 792418,
+        "pid": 792493,
+        "start_ticks": "8798090",
+        "uid": 1000
+      },
+      "sequence": 696,
+      "session_id": "zero-converge-44d7085ccef54ab1a88d3d32bad4a25e",
+      "wall": 88017.609832271
+    },
+    "health_age_s": 0.19162013300228864,
+    "owner": {
+      "sequence": 1290,
+      "session_id": "zero-converge-44d7085ccef54ab1a88d3d32bad4a25e",
+      "wall": 88017.788914663
+    },
+    "reason": "adapter_publication_stalled",
+    "sampled_wall": 88017.801452404
+  },
+  "bootstrap_ready": true,
+  "bootstrap_wall": 88017.010248621,
+  "bootstrap_grids": {
+    "failure": null,
+    "grids": {
+      "global": {
+        "receipt": 88016.20755104,
+        "sha256": "6151e6eb041d3306f4d5658c4cba0ecd26eaa7926f9a98c212039998e3d195c3",
+        "source": 25.78
+      },
+      "live": {
+        "receipt": 88016.492019312,
+        "sha256": "1767050f113e5348993c15d338967371d4f70267e5b726bd4b9c0a74c6457aa9",
+        "source": 26.0
+      },
+      "local": {
+        "receipt": 88016.72438022,
+        "sha256": "b9f21a5b0923b858a7d3542fa786c4aae9c2319a0a785b0080b47a6287e2f99b",
+        "source": 26.1275
+      }
+    },
+    "structural_source_wall_budget": 7.653280075508519,
+    "structural_wall_budget": 7.5
+  },
+  "commands": {
+    "/path_manager/path_manager_ros/nav_vel": {
+      "samples": 699,
+      "nonzero": 0
+    },
+    "/course_navigation/cmd_vel_raw": {
+      "samples": 1,
+      "nonzero": 0
+    },
+    "/course_navigation/cmd_vel": {
+      "samples": 0,
+      "nonzero": 0
+    }
+  },
+  "streams": {
+    "/clock": 557,
+    "/imu": 5425,
+    "/pointcloud": 273,
+    "/slam/odom": 104,
+    "/tf": 208,
+    "/slam/map_points": 3,
+    "/map": 11,
+    "/local_costmap/costmap_raw": 19,
+    "/global_costmap/costmap_raw": 5
+  },
+  "lio": {
+    "positive_steps": 144,
+    "integration_dt_min_s": 0.09999999999999787,
+    "integration_dt_max_s": 0.10000000000000142,
+    "fatal_lines": [],
+    "identities": [
+      {
+        "pid": 793970,
+        "start_ticks": "8800090",
+        "executable": "/home/zyd/program/b2w-embodied-navigation-course-stage4/experiments/g1_g5/evidence/startup-repair-20261021/artifacts/lio-diagnostic-prefix/lib/lio_sam/lio_sam_imuPreintegration",
+        "executable_sha256": "3bd8109f580ceac90670f5d12e57267192731e2bfd2af46eb1740d08672e50f5",
+        "gtsam_maps": [
+          "728daaf50000-728daaf5f000 r--p 00000000 103:02 11808420                  /home/zyd/program/b2w-embodied-navigation-course/.deps/lib/libmetis-gtsam.so",
+          "728daaf5f000-728daafad000 r-xp 0000f000 103:02 11808420                  /home/zyd/program/b2w-embodied-navigation-course/.deps/lib/libmetis-gtsam.so",
+          "728daafad000-728daafbe000 r--p 0005d000 103:02 11808420                  /home/zyd/program/b2w-embodied-navigation-course/.deps/lib/libmetis-gtsam.so",
+          "728daafbe000-728daafbf000 r--p 0006d000 103:02 11808420                  /home/zyd/program/b2w-embodied-navigation-course/.deps/lib/libmetis-gtsam.so",
+          "728daafbf000-728daafc0000 rw-p 0006e000 103:02 11808420                  /home/zyd/program/b2w-embodied-navigation-course/.deps/lib/libmetis-gtsam.so",
+          "728dab400000-728dab574000 r--p 00000000 103:02 11808432                  /home/zyd/program/b2w-embodied-navigation-course/.deps/lib/libgtsam.so.4.1.1",
+          "728dab574000-728dab8e9000 r-xp 00174000 103:02 11808432                  /home/zyd/program/b2w-embodied-navigation-course/.deps/lib/libgtsam.so.4.1.1",
+          "728dab8e9000-728dab988000 r--p 004e9000 103:02 11808432                  /home/zyd/program/b2w-embodied-navigation-course/.deps/lib/libgtsam.so.4.1.1",
+          "728dab988000-728dab99b000 r--p 00587000 103:02 11808432                  /home/zyd/program/b2w-embodied-navigation-course/.deps/lib/libgtsam.so.4.1.1",
+          "728dab99b000-728dab9a0000 rw-p 0059a000 103:02 11808432                  /home/zyd/program/b2w-embodied-navigation-course/.deps/lib/libgtsam.so.4.1.1"
+        ],
+        "diagnostics_enabled": true
+      }
+    ]
+  },
+  "contacts": {
+    "pairs": 534,
+    "inventory_records": 534,
+    "first_sequence": 1,
+    "last_sequence": 534,
+    "contiguous": true,
+    "forbidden": false,
+    "endpoint_closed": null
+  },
+  "stationary_observation": {
+    "odom_samples": 104,
+    "source_span_s": 10.299999999999997,
+    "max_localization_displacement_m": 0.0005220133366880149,
+    "full_probe_accepted": false
+  },
+  "lease_created": false,
+  "owned_cleanup": {
+    "passed": true,
+    "owned_identities": 27,
+    "survivors": [],
+    "nodes": [
+      [
+        "zero_converge_cleanup",
+        "/"
+      ]
+    ],
+    "topics": [
+      [
+        "/parameter_events",
+        [
+          "rcl_interfaces/msg/ParameterEvent"
+        ]
+      ],
+      [
+        "/rosout",
+        [
+          "rcl_interfaces/msg/Log"
+        ]
+      ]
+    ],
+    "gpu": "pid, process_name, used_gpu_memory [MiB]\n"
+  },
+  "executed_argv": [
+    "/home/zyd/program/b2w-embodied-navigation-course-stage4/experiments/g1_g5/evidence/startup-repair-20261021/artifacts/lio-diagnostic-prefix/lib/lio_sam/lio_sam_imuPreintegration --ros-args --params-file /home/zyd/program/b2w-embodied-navigation-course-stage4/experiments/g1_g5/evidence/startup-repair-20261021/artifacts/copy-install/course_slam/share/course_slam/config/lio_sam.yaml -r /tf:=/lio_internal/tf ",
+    "/home/zyd/program/b2w-embodied-navigation-course/.deps/nav2-controller-1.1.20/install/nav2_controller/lib/nav2_controller/controller_server --ros-args -r __node:=controller_server --params-file /home/zyd/program/b2w-embodied-navigation-course-stage4/course_navigation/config/nav2_smac2d_diag.yaml -r cmd_vel:=/course_navigation/cmd_vel_raw ",
+    "/opt/ros/humble/lib/ros_gz_bridge/parameter_bridge --ros-args --params-file /tmp/launch_params_d_v_h485 ",
+    "/opt/ros/humble/lib/ros_gz_bridge/parameter_bridge /b2w/evaluation/full_contacts@ros_gz_interfaces/msg/Contacts[ignition.msgs.Contacts /b2w/evaluation/collision_inventory@std_msgs/msg/String[ignition.msgs.StringMsg --ros-args -r __node:=stage4_evaluation_bridge -p use_sim_time:=true ",
+    "/usr/bin/python3 /home/zyd/program/b2w-embodied-navigation-course-stage4/experiments/g1_g5/evidence/watchdog-firstfault-20261023/artifacts/install/course_navigation/lib/course_navigation/velocity_adapter --ros-args --params-file /tmp/launch_params_7r0kp5nq ",
+    "/usr/bin/python3 /home/zyd/program/b2w-embodied-navigation-course-stage4/scripts/stage4_safety_watchdog.py --manifest /home/zyd/program/b2w-embodied-navigation-course-stage4/experiments/g1_g5/evidence/zero-converge-20261023/attempt-1/raw/session/watchdog.json --wall-limit 150 ",
+    "/usr/bin/python3 /opt/ros/humble/bin/ros2 run ros_gz_bridge parameter_bridge /b2w/evaluation/full_contacts@ros_gz_interfaces/msg/Contacts[ignition.msgs.Contacts /b2w/evaluation/collision_inventory@std_msgs/msg/String[ignition.msgs.StringMsg --ros-args -r __node:=stage4_evaluation_bridge -p use_sim_time:=true "
+  ],
+  "source_change": null,
+  "benchmark": [
+    {
+      "name": "existing",
+      "wall_s": 0.04879360199265648,
+      "max_scheduler_gap_s": 0.02771860199572984,
+      "sha256": "faf224b87fcddd7ee46bacf0121e3d36c4999023f796f9d07d50b39f0bd20e1b"
+    },
+    {
+      "name": "streaming",
+      "wall_s": 0.1303994759946363,
+      "max_scheduler_gap_s": 0.012382348999381065,
+      "sha256": "faf224b87fcddd7ee46bacf0121e3d36c4999023f796f9d07d50b39f0bd20e1b"
+    }
+  ],
+  "E1_offline_implementation": "Not started: full ZeroOnly PASS prerequisite unsatisfied."
+}

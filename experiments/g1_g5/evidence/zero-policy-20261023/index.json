@@ -1,0 +1,8 @@
+{
+  "attempt": "/home/zyd/program/b2w-embodied-navigation-course-stage4/experiments/g1_g5/evidence/zero-policy-20261023/raw/trial-summary.json",
+  "raw_files": 16,
+  "raw_manifest": "/home/zyd/program/b2w-embodied-navigation-course-stage4/experiments/g1_g5/evidence/zero-policy-20261023/raw/SHA256SUMS",
+  "report": "/home/zyd/program/b2w-embodied-navigation-course-stage4/docs/reviews/B2W_ZeroOnly_Trial_Permission_Block_20261023.md",
+  "report_sha256": "af7aff5a0f77bf7af2d5925825d9f20c5c1a8f4347ae740e05be010c7c055645",
+  "summary_sha256": "bc5d894b0fe04a542bce08efbe605afa17bb9989418812780c9a829d5a24683f"
+}
