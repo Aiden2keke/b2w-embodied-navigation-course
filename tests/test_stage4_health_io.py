@@ -55,9 +55,15 @@ def test_transient_health_atomic_secure_and_failed_replace_keeps_old_record(tmp_
     assert control.read_control(path)==new
 
 
+@pytest.mark.parametrize('zero_only',[True,False])
 @pytest.mark.parametrize('failure',['delay','write','rename'])
-def test_delayed_or_failed_adapter_write_latches_zero_and_never_leases(tmp_path,monkeypatch,failure):
+def test_health_overrun_only_zero_mode_recovers_but_write_faults_latch(tmp_path,monkeypatch,failure,zero_only):
     a,c,out=adapter(tmp_path);replace=control.os.replace
+    if not zero_only:
+        from test_stage4_safety_guard import configured
+        a.stage4_guard,_=configured(tmp_path)
+        a.stage4_guard.config['adapter_heartbeat_path']=str(tmp_path/'health')
+        Path(a.stage4_guard.config['lease_path']).unlink()
     if failure=='delay':
         def delayed(source,target):time.sleep(.065);return replace(source,target)
         monkeypatch.setattr(control.os,'replace',delayed)
@@ -70,15 +76,21 @@ def test_delayed_or_failed_adapter_write_latches_zero_and_never_leases(tmp_path,
     with patch('course_navigation.velocity_adapter.time.monotonic',lambda:c.wall):
         a.state(state());a.publish()
     g=a.stage4_guard
-    assert ('adapter_health_publication_deadline' if failure=='delay' else 'adapter_health_write:') in g.failure
+    if failure=='delay' and zero_only:assert g.failure is None
+    else:assert ('adapter_health_publication_deadline' if failure=='delay' else 'adapter_health_write:') in g.failure
     assert out and all(v==(0.,0.,0.) for v in out) and not g.armed
-    assert Path(g.config['inhibit_path']).exists() and not Path(g.config['lease_path']).exists()
+    assert Path(g.config['inhibit_path']).exists() is (failure!='delay' or not zero_only)
+    assert not Path(g.config['lease_path']).exists()
     assert not list(tmp_path.glob('.control-*'))
     if failure=='delay':
         monkeypatch.setattr(control.os,'replace',replace)
         with patch('course_navigation.velocity_adapter.time.monotonic',lambda:c.wall):a.publish()
         first=control.read_control(g.config['adapter_heartbeat_path'])['first_deadline_timing']
         assert first['deadline_stage']=='health' and first['health_io']['wall_s']>=.05
+        assert first['health_io']['thread_cpu_s']<.03
+        assert first['sections']['published']['wall_s']<.05
+        health=control.read_control(g.config['adapter_heartbeat_path'])
+        assert health['wall']==20.  # completion must not renew original callback age
 
 
 @pytest.mark.parametrize('fault',['missing','stale','conflicting_duplicate','regression','owner'])

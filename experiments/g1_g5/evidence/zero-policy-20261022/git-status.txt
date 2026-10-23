@@ -1,0 +1,12 @@
+## experiment/unattended-g1-g5-20261019...origin/experiment/unattended-g1-g5-20261019
+ M PLAN.md
+ M course_navigation/course_navigation/velocity_adapter.py
+ M docs/STAGE4_RUNTIME_READINESS.md
+ M tests/test_stage4_health_io.py
+ M tests/test_stage4_startup_repair.py
+?? docs/reviews/B2W_Stage4_Health_IO_ZeroOnly_4ae85f4_20261022.md
+?? docs/reviews/B2W_Warehouse_Navigation_Architecture_20261022.md
+?? docs/reviews/B2W_ZeroOnly_Policy_E1_20261022.md
+?? experiments/g1_g5/evidence/health-io-zeroonly-20261022/
+?? experiments/g1_g5/evidence/navigation-unblock-20261022/
+?? experiments/g1_g5/evidence/zero-policy-20261022/

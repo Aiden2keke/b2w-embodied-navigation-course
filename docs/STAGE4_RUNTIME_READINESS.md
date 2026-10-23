@@ -1,3 +1,21 @@
+# Current entry — Reviewed ZeroOnly policy trial FAILED (2026-10-22)
+
+HEAD4ae85f4; narrow ZeroOnly deadline implementation uncommitted.
+Exactly one authorized trial reached prepared grids/cadence and started watchdog/probe;
+first inhibit adapter_publication_stalled. Full probe FAILED; owned cleanup PASS.
+No lease/nonzero, no retry. See PLAN.md NOW and
+[the result](reviews/B2W_ZeroOnly_Policy_E1_20261022.md).
+E1 remains a plan requiring qualified local abort/stop/bounds. No new live authorization.
+Earlier commands/status entries below are historical.
+
+# Current entry — Warehouse navigation architecture review (2026-10-22)
+
+Audited HEAD `4ae85f4148a89a76b1ad25c5b059c2140be41b85`; runtime unchanged.
+Latest ZeroOnly attempt failed before watchdog/probe. No live/motion authorization.
+Use PLAN.md NOW and [the current architecture decision and bounded commands](reviews/B2W_Warehouse_Navigation_Architecture_20261022.md).
+Earlier commands below are historical. A ZeroOnly deadline-policy proposal awaits
+independent review; no qualified E1/motion bootstrap exists yet.
+
 # Current status: ZeroOnly runtime FAILED; offline startup repair only
 
 Persistent worktree: `/home/zyd/program/b2w-embodied-navigation-course-stage4`.

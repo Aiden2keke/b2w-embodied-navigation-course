@@ -1,0 +1,4 @@
+Exact command is in current architecture report, offline command block.
+Fresh tool result: Inputs verified; no session launched
+Exit code: 0
+No output session directory created.

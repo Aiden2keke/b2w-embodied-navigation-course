@@ -1,0 +1,234 @@
+{
+  "kind": "stage4_health_io_checkpoint_single_trial",
+  "raw_local_only": true,
+  "raw_remotely_backed_up": false,
+  "files": {
+    "experiments/g1_g5/evidence/health-io-zeroonly-20261022/REPORT.md": {
+      "sha256": "7b9234e113804d8c5b008a69ac3ab155f3b89188b6cb3bf77966d7250c900f07",
+      "bytes": 10272
+    },
+    "experiments/g1_g5/evidence/health-io-zeroonly-20261022/committed-files.txt": {
+      "sha256": "ff78cda14a360145f41b566ad8f07c2da2aeb37d5b866e4648f5a58c0210ab33",
+      "bytes": 1432
+    },
+    "experiments/g1_g5/evidence/health-io-zeroonly-20261022/raw/analyze.py": {
+      "sha256": "c8ee6b918a58f1c6aa13060553485c6c5bebb6299f72e9a06058efc699a0d284",
+      "bytes": 7121
+    },
+    "experiments/g1_g5/evidence/health-io-zeroonly-20261022/raw/attempt.json": {
+      "sha256": "ecfe91af4eca5728f1113bb621ac205670d100c61b438bc5470b92f730c4c1ad",
+      "bytes": 154
+    },
+    "experiments/g1_g5/evidence/health-io-zeroonly-20261022/raw/audited-files.json": {
+      "sha256": "cd1ce36e1a7de5f3c13416da6649c2c54d2ff89e4ecb809af8a09f0d74bf77d0",
+      "bytes": 3114
+    },
+    "experiments/g1_g5/evidence/health-io-zeroonly-20261022/raw/checkpoint-source-frozen.json": {
+      "sha256": "a9de8249a4b514be775f45289d1ccca62458a59791b977cdb4aaf73a84d17e13",
+      "bytes": 59735
+    },
+    "experiments/g1_g5/evidence/health-io-zeroonly-20261022/raw/checkpoint.json": {
+      "sha256": "e4e9c5ebd8746d0933e3f44730a409e405d4c0239534602ffe6159b58e27e5df",
+      "bytes": 3490
+    },
+    "experiments/g1_g5/evidence/health-io-zeroonly-20261022/raw/checkpoint.patch": {
+      "sha256": "cdb14887dfd4a18c6684d48572fe1cae2a83a9ae1c19015e6b84d936992e8c73",
+      "bytes": 191793
+    },
+    "experiments/g1_g5/evidence/health-io-zeroonly-20261022/raw/cleanup-verification.json": {
+      "sha256": "fa36e7096ebf2669102e0f47f2f6537ecfd70f0a63c8bc04803dbb5396906765",
+      "bytes": 3016
+    },
+    "experiments/g1_g5/evidence/health-io-zeroonly-20261022/raw/fresh-installed-resolution.json": {
+      "sha256": "65cd1543302def7fa16986f1118dea94ddb152741a2f0ec01168b353e278e653",
+      "bytes": 1524
+    },
+    "experiments/g1_g5/evidence/health-io-zeroonly-20261022/raw/harness.log": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "experiments/g1_g5/evidence/health-io-zeroonly-20261022/raw/observe.py": {
+      "sha256": "811760cd878b83fc2e9822a7c47eae8807f32e15516c4512aad687a48192575d",
+      "bytes": 5990
+    },
+    "experiments/g1_g5/evidence/health-io-zeroonly-20261022/raw/observer-ready": {
+      "sha256": "ce379a297175c92705dd8f013e575ac378809deb49e09025c1f33b327d770658",
+      "bytes": 7
+    },
+    "experiments/g1_g5/evidence/health-io-zeroonly-20261022/raw/observer-result.json": {
+      "sha256": "d2a2f3ccb4a3104468b1579d84653f5f16fd12eb16db8ed305533b7072503838",
+      "bytes": 438
+    },
+    "experiments/g1_g5/evidence/health-io-zeroonly-20261022/raw/observer-ros-log/python3_3563825_1792635320727.log": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "experiments/g1_g5/evidence/health-io-zeroonly-20261022/raw/observer-stop": {
+      "sha256": "58e1c5261e006c7de9b7684f14bdc22ae80cc316f77f08e071b3b951eaa530a1",
+      "bytes": 14
+    },
+    "experiments/g1_g5/evidence/health-io-zeroonly-20261022/raw/observer.log": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "experiments/g1_g5/evidence/health-io-zeroonly-20261022/raw/preflight-host.json": {
+      "sha256": "881667dad3596b04d872212cf26e47c0954b6631dbe23a2f232ca1e340474977",
+      "bytes": 36472
+    },
+    "experiments/g1_g5/evidence/health-io-zeroonly-20261022/raw/preflight.py": {
+      "sha256": "72f62829d9a77b4385b05199d6a84f4089ed94f66a0bb1a18f173bba626ebb38",
+      "bytes": 5859
+    },
+    "experiments/g1_g5/evidence/health-io-zeroonly-20261022/raw/run_once.py": {
+      "sha256": "9f45f64b5ef8f828f34b7a8380efbe3c1d6f28ed71a509f866100a685d1f50c4",
+      "bytes": 3314
+    },
+    "experiments/g1_g5/evidence/health-io-zeroonly-20261022/raw/session/adapter.json": {
+      "sha256": "c335e321e14d6a13b13312713ca93e39b12a493993b4b2435cf8771ed51dcd77",
+      "bytes": 1181
+    },
+    "experiments/g1_g5/evidence/health-io-zeroonly-20261022/raw/session/evaluation-bridge.log": {
+      "sha256": "f81ec75bbd41b5f518d3fa7a59c694eadbf7b6604efafd8622f5d462e1f3f3e5",
+      "bytes": 503
+    },
+    "experiments/g1_g5/evidence/health-io-zeroonly-20261022/raw/session/guard.json": {
+      "sha256": "6a4a8177b7d11fca84b9966a9671e3e469cf2e8f135a59ad57837b146ec42878",
+      "bytes": 1062
+    },
+    "experiments/g1_g5/evidence/health-io-zeroonly-20261022/raw/session/inhibit.json": {
+      "sha256": "88f7ef03ede3c7230e7d12e9ec85c1715578aaa3af0fe1376fadbb89a155ae35",
+      "bytes": 61
+    },
+    "experiments/g1_g5/evidence/health-io-zeroonly-20261022/raw/session/invocation.json": {
+      "sha256": "79504d78c96077f5d92bec04e9e3e113d84aec541df8206b0b1d34f3b8edf463",
+      "bytes": 2130
+    },
+    "experiments/g1_g5/evidence/health-io-zeroonly-20261022/raw/session/owner.json": {
+      "sha256": "289d926b8b1cab20f71ff86f21592a587adcd7d198005ff3db868c644f6cda14",
+      "bytes": 104
+    },
+    "experiments/g1_g5/evidence/health-io-zeroonly-20261022/raw/session/ros-logs/2026-10-22-10-15-21-204218-zyd-MS-7D97-3563844/launch.log": {
+      "sha256": "0b23b2ff07ee8790b7cac31d80334583cb52f9888d96485871394d4048f5c92d",
+      "bytes": 77627
+    },
+    "experiments/g1_g5/evidence/health-io-zeroonly-20261022/raw/session/ros-logs/b2w_rl_sar_controller_3563878_1792635321339.log": {
+      "sha256": "9c758c1da2e77c37e7400c5fdc32743ce89dcbd226fe33dacac20174d8e930e1",
+      "bytes": 317
+    },
+    "experiments/g1_g5/evidence/health-io-zeroonly-20261022/raw/session/ros-logs/behavior_server_3563890_1792635321418.log": {
+      "sha256": "5034b0f1176635e00914d8645b4e4bcbae27e37b323b1adda482b769552308a6",
+      "bytes": 1573
+    },
+    "experiments/g1_g5/evidence/health-io-zeroonly-20261022/raw/session/ros-logs/bt_navigator_3563892_1792635321360.log": {
+      "sha256": "3fd9a36196985592518f12d29f8f9b0394362a8bf72e02bcb96c71598efc8a37",
+      "bytes": 735
+    },
+    "experiments/g1_g5/evidence/health-io-zeroonly-20261022/raw/session/ros-logs/controller_server_3563884_1792635321348.log": {
+      "sha256": "a360d992ae236e512bce161c293d979abe239ccf53c2745afe87d86da7f1d3aa",
+      "bytes": 16402
+    },
+    "experiments/g1_g5/evidence/health-io-zeroonly-20261022/raw/session/ros-logs/create_3563874_1792635321356.log": {
+      "sha256": "36e7c4b158687bfcd55db1b5667e26e8a674d5b3d2a27645fe0f9fd1a3551737",
+      "bytes": 237
+    },
+    "experiments/g1_g5/evidence/health-io-zeroonly-20261022/raw/session/ros-logs/lifecycle_manager_3563900_1792635321358.log": {
+      "sha256": "41a4566dbc16192abb2b4a7fe89f1335aab4cf1625dfceb30c3e32c70c5794a5",
+      "bytes": 1702
+    },
+    "experiments/g1_g5/evidence/health-io-zeroonly-20261022/raw/session/ros-logs/lio_sam_featureExtraction_3564546_1792635341373.log": {
+      "sha256": "f2ea297e6c8a0bcb8d13d7a6be1aee5d3c92701aa8c96ecbd5389fa6e327f8d3",
+      "bytes": 156
+    },
+    "experiments/g1_g5/evidence/health-io-zeroonly-20261022/raw/session/ros-logs/lio_sam_imageProjection_3564544_1792635341373.log": {
+      "sha256": "193dfb67e31a856bacef3f9fad04cf689665046c038c2899a5a95cfed61bb03f",
+      "bytes": 236
+    },
+    "experiments/g1_g5/evidence/health-io-zeroonly-20261022/raw/session/ros-logs/lio_sam_imuPreintegration_3564542_1792635341357.log": {
+      "sha256": "e0bec6d3a1beb20bdcb86c8a3b4a3311585b1d9ca8e48b95b336a50ec80b87c7",
+      "bytes": 156
+    },
+    "experiments/g1_g5/evidence/health-io-zeroonly-20261022/raw/session/ros-logs/lio_sam_mapOptimization_3564550_1792635341447.log": {
+      "sha256": "9d1acccdced09bf8e85d449109e3702ef6204b86c245782a08d3d7da15b71552",
+      "bytes": 154
+    },
+    "experiments/g1_g5/evidence/health-io-zeroonly-20261022/raw/session/ros-logs/parameter_bridge_3563846_1792635321187.log": {
+      "sha256": "f81ec75bbd41b5f518d3fa7a59c694eadbf7b6604efafd8622f5d462e1f3f3e5",
+      "bytes": 503
+    },
+    "experiments/g1_g5/evidence/health-io-zeroonly-20261022/raw/session/ros-logs/parameter_bridge_3563876_1792635321413.log": {
+      "sha256": "32bab25b15fa8770f0bc05f250c388193415234e927e0b559de8c51cdc3768de",
+      "bytes": 5060
+    },
+    "experiments/g1_g5/evidence/health-io-zeroonly-20261022/raw/session/ros-logs/planner_server_3563888_1792635321348.log": {
+      "sha256": "9b9aa4c14d6219e2981aaebbf344cd06bc150cfedee11458962f2e3cf710408e",
+      "bytes": 2807
+    },
+    "experiments/g1_g5/evidence/health-io-zeroonly-20261022/raw/session/ros-logs/python3_3563880_1792635321980.log": {
+      "sha256": "cd4eeff33d121e6bd17dabb7b58bcfbafc3204246c7888381389a087eda4c9bb",
+      "bytes": 221
+    },
+    "experiments/g1_g5/evidence/health-io-zeroonly-20261022/raw/session/ros-logs/python3_3563882_1792635322008.log": {
+      "sha256": "88725acc54b90a7a228694c060fa33dc4dfb2d9639ed939910157c9c0edc1358",
+      "bytes": 124
+    },
+    "experiments/g1_g5/evidence/health-io-zeroonly-20261022/raw/session/ros-logs/python3_3563898_1792635322162.log": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "experiments/g1_g5/evidence/health-io-zeroonly-20261022/raw/session/ros-logs/python3_3563907_1792635322061.log": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "experiments/g1_g5/evidence/health-io-zeroonly-20261022/raw/session/ros-logs/python3_3564552_1792635341875.log": {
+      "sha256": "45669ff0616c3c3400a9d2de5534af1d821ae7713ed6390ca85710531bd25401",
+      "bytes": 215
+    },
+    "experiments/g1_g5/evidence/health-io-zeroonly-20261022/raw/session/ros-logs/robot_state_publisher_3563872_1792635321339.log": {
+      "sha256": "73d3f2357cc3901fe453c3e43f01d8c08a423cad9d85c555e250e68a4f423ef8",
+      "bytes": 2539
+    },
+    "experiments/g1_g5/evidence/health-io-zeroonly-20261022/raw/session/ros-logs/smoother_server_3563886_1792635321348.log": {
+      "sha256": "b3cc00be9ea324ea4c1ed710c8fe1156f0c6ba223358992b56013d1a55a457f1",
+      "bytes": 955
+    },
+    "experiments/g1_g5/evidence/health-io-zeroonly-20261022/raw/session/ros-logs/velocity_smoother_3563896_1792635321357.log": {
+      "sha256": "87b1adff5cc2abea140e2a5acccad86cc5d5c1c8edecf7786a8e65de35dad483",
+      "bytes": 670
+    },
+    "experiments/g1_g5/evidence/health-io-zeroonly-20261022/raw/session/ros-logs/waypoint_follower_3563894_1792635321398.log": {
+      "sha256": "81c8ad6dfee390c8232415b12c3f813ec3ab713a248b853f267c5619dea93cad",
+      "bytes": 860
+    },
+    "experiments/g1_g5/evidence/health-io-zeroonly-20261022/raw/session/session-result.json": {
+      "sha256": "0f2558b7556274e86db8a5ac618e3c00dfe2a762b7168ad9446905e7eebec487",
+      "bytes": 1188
+    },
+    "experiments/g1_g5/evidence/health-io-zeroonly-20261022/raw/session/stack.log": {
+      "sha256": "43f9d8bbb5f68f9a22cc3d6bff8c4b280e3a90443dab61f9913c40cdfa592f13",
+      "bytes": 66998
+    },
+    "experiments/g1_g5/evidence/health-io-zeroonly-20261022/raw/startup-observation.jsonl": {
+      "sha256": "fe4b285a40fff7ed4ccaeca8c1fb671424f56963917d3ed9707e198c899d6e75",
+      "bytes": 6979146
+    },
+    "experiments/g1_g5/evidence/health-io-zeroonly-20261022/raw/trial-wrapper-result.json": {
+      "sha256": "bcd234016f261381c6d21ed8e4637cf1e2bd58014130065e837e3ee04cffe758",
+      "bytes": 105
+    },
+    "experiments/g1_g5/evidence/health-io-zeroonly-20261022/raw/verify_cleanup.py": {
+      "sha256": "36432273e2963228ea3be51643e5ee59d1ad3732c86d8609aac31a5ce26a6fac",
+      "bytes": 2917
+    },
+    "experiments/g1_g5/evidence/health-io-zeroonly-20261022/raw/write_records.py": {
+      "sha256": "c552fe883a52064d4687b36a8cab5cfa2d560b2b2087aa4c6af5ecea1699d5f4",
+      "bytes": 14056
+    },
+    "experiments/g1_g5/evidence/health-io-zeroonly-20261022/summary.json": {
+      "sha256": "88adb09518188e254d0e8b5846aae76c6f84ba35063b3f6f48c031005cab4c46",
+      "bytes": 50924
+    }
+  },
+  "review": {
+    "docs/reviews/B2W_Stage4_Health_IO_ZeroOnly_4ae85f4_20261022.md": "7b9234e113804d8c5b008a69ac3ab155f3b89188b6cb3bf77966d7250c900f07"
+  }
+}

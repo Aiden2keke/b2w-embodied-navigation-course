@@ -336,7 +336,10 @@ class VelocityAdapter(Node):
             if not getattr(self,'stage4_first_deadline_timing',None):
                 publication_timing['deadline_stage']='prepublish'
                 self.stage4_first_deadline_timing=publication_timing
-            guard.inhibit('adapter_publication_deadline');out=Twist()
+            # Only the manifest-fixed, never-arming observation mode may recover.
+            # Motion mode keeps the same deadline even before it is armed.
+            if guard.zero_only is not True:guard.inhibit('adapter_publication_deadline')
+            out=Twist()
         self.pub.publish(out)
         mark_publication('published')
         if guard is not None and guard.config.get('adapter_heartbeat_path'):
@@ -357,7 +360,8 @@ class VelocityAdapter(Node):
                 if not getattr(self,'stage4_first_deadline_timing',None):
                     publication_timing['deadline_stage']='health'
                     self.stage4_first_deadline_timing=publication_timing
-                guard.inhibit('adapter_health_publication_deadline');self.pub.publish(Twist())
+                if guard.zero_only is not True:
+                    guard.inhibit('adapter_health_publication_deadline');self.pub.publish(Twist())
 
     def stop_stage4(self):
         if getattr(self,'stage4_guard',None) is not None:

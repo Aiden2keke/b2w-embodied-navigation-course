@@ -1,0 +1,32 @@
+{
+  "/home/zyd/program/b2w-embodied-navigation-course-stage4": {
+    "preexisting_files_checked": 514,
+    "changed": [
+      "PLAN.md",
+      "docs/STAGE4_RUNTIME_READINESS.md"
+    ],
+    "expected_changes": [
+      "PLAN.md",
+      "docs/STAGE4_RUNTIME_READINESS.md"
+    ]
+  },
+  "/home/zyd/program/b2w-embodied-navigation-course": {
+    "preexisting_files_checked": 397,
+    "changed": [],
+    "expected_changes": []
+  },
+  "/tmp/b2w-pipe-v0": {
+    "preexisting_files_checked": 342,
+    "changed": [],
+    "expected_changes": []
+  },
+  "/tmp/b2w-pipe-integration-20261021": {
+    "preexisting_files_checked": 342,
+    "changed": [],
+    "expected_changes": []
+  },
+  "inherited_trial_manifest_entries_verified": 58,
+  "inherited_trial_owned_processes_remaining": [],
+  "runtime_source_changes": [],
+  "large_video_files": "Excluded from hash audit; never opened or modified by this task"
+}

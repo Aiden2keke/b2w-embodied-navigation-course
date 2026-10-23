@@ -24,7 +24,184 @@
 - 旧实施计划归档至 `docs/plans/archive/2026-10-10-local-course-system-plan.md`。历史 design/validation 保留为证据，不是另一个当前 roadmap。无新增 HANDOFF。
 - 历史轮次只读与 timing 交付已结束；本轮范围以最新用户请求和下方 NOW 为准。旧实验/交付记录只作历史证据。
 
-## NOW — Adapter transient health I/O repair (October 22)
+## NOW — Stable Warehouse ZeroOnly → qualified local E1 → Start→G1 (October 23)
+
+Worktree `/home/zyd/program/b2w-embodied-navigation-course-stage4`, branch
+`experiment/unattended-g1-g5-20261019`, expected HEAD
+`4ae85f4148a89a76b1ad25c5b059c2140be41b85`. External review conditionally passed
+the immutable ZeroOnly-only 50ms policy and narrow Watchdog clock-order fix, and
+approved the reviewed checkpoint commit/push plus exactly ONE bounded ZeroOnly
+trial after preflight. NONZERO remains NO-GO.
+
+- [x] Preserve inherited reports/evidence and verify the reviewed checkpoint hashes.
+- [x] Keep immutable ZeroOnly timing exception, exact-zero output, 150/250ms
+  freshness checks, motion-mode deadlines, hard interlocks and watchdog fail-closed.
+- [x] Reproduce the caller-clock-before-read race offline; sample after health/owner
+  reads, preserve record timestamps, and log one bounded first-fault snapshot.
+- [x] Focused suite 82 passed; isolated package build passed and all20 copied Python
+  modules match source. No live test during the fix review.
+- [ ] Stage only the audited checkpoint/source/compact records, inspect full diff,
+  commit and normally push this experiment branch; verify origin SHA.
+- [ ] Run exactly ONE bounded ZeroOnly trial with fresh session/attempt identity,
+  existing limits, updated installed control module and reviewed watchdog script.
+  No retry, nonzero command, goal or motion lease.
+- [x] Preserve the minimal E1 plan below; no E1 implementation/execution authorized.
+
+Latest watchdog report: [clock-order fix](docs/reviews/B2W_Watchdog_Clock_Race_Fix_20261023.md).
+Evidence: `experiments/g1_g5/evidence/watchdog-firstfault-20261023/`.
+The October22 ZeroOnly trial remains a historical FAIL; its exact first rejected
+health record was not captured. The current clock fix addresses the demonstrated
+race without claiming that it caused the historical failure. The next trial must
+capture complete stationary/probe/cleanup acceptance or stop at its first fault.
+
+### Minimal E1 implementation plan (planning only; NONZERO NO-GO)
+
+Scope: original Warehouse, one sensor-observed open pocket, one forward command
+vx=.05, vy=wz=0 for at most 2 advancing simulation seconds, then exact zero.
+Normal completion needs measured rest for >=5 source seconds and >=3 wall seconds;
+whole attempt ceiling <=90 simulation /180 wall seconds. No Nav2 goal, turn,
+velocity escalation, G2–G5 corridor gate or automatic retry. Actual speed/distance
+are measured; .05 is a policy command, not a physical speed guarantee.
+
+**Current missing authority:** `stage4_qualification.py:9` always raises. Calls at
+`velocity_adapter.py` final nonzero publication, `run_candidate_route.py:64–66`,
+and `stage4_route/ros_transport.py:584–585` deliberately prohibit motion.
+`stage4_route/session.py:41` returns an immutable ZeroOnly watchdog manifest;
+`stage4_control.py:115–117` cannot lease in that mode. ZeroOnly PASS does not
+change any of these. An operator flag, armed=False, copied health, JSON boolean,
+old physics script, or removal of the unconditional raise is not qualification.
+
+**Minimal review/implementation sequence:**
+
+1. Independently review a local E1 bootstrap qualification contract before code
+   changes to that boundary. It must distinguish a conservatively contained
+   calibration pulse from the later measured motion envelope. Current
+   `stage4_bounds.validate_bounds` requires measured stopping/latency evidence
+   (`:23–29`); it cannot honestly accept a new pulse's future measurements.
+   Historical numbers may inform a proposed conservative envelope, but cannot
+   satisfy these fields merely by being relabeled. If no independently accepted
+   bootstrap envelope is available, remain NO-GO rather than fabricating one.
+2. Extend the EXISTING `scripts/stage4_session.py` owner and
+   `scripts/stage4_route/session.py` acceptance to create a separate immutable,
+   per-run E1 session from approved local evidence; never mutate a live ZeroOnly
+   session. Replace the unconditional gate only with validated, scoped per-run
+   qualification consumed at every existing motion boundary. Match session and
+   PID/start identity, source/install hashes, controller/policy/world, bounded
+   region/time, mode, command ceiling, evidence hashes and single-use attempt.
+   Issue/revoke the existing short lease through `Watchdog.step`, unchanged
+   150ms adapter/lease and250ms owner freshness. No general approval switch.
+3. Add one bounded pulse phase to that same owned session, sending only the
+   existing adapter INPUT `/course_navigation/cmd_vel`, never the final output.
+   Keep Nav2 idle, prove no actions/other velocity producers, and bind the
+   expected pulse producer identity in graph checks. Reuse final
+   `VelocityAdapter.publish` -> `FinalCommandGuard.output` -> sole final topic ->
+   unchanged rl_sar path. All motion50ms deadlines, grids, finite values,
+   contacts, limits and predictive reserves remain enforced. Keep E1 entry
+   separate from route authorization; E1 qualification cannot dispatch a goal.
+4. Reuse existing contact journal/interval checks and `IndependentStop` rather
+   than a new evaluator. Extend only the scoped E1 prerequisites/measurement
+   ingestion missing from the owner. Focused offline rejection tests cover
+   wrong mode/session/install, expired/out-of-region permission, excessive
+   command, duplicate attempt, lease loss, abort and independent containment.
+   Then copied-build identity checks and independent review precede any E1 run.
+
+**Independent stop/abort is the first substantive motion blocker.**
+`ros_transport.request_independent_abort:569` writes the immutable inhibit and
+records a watermark; `stage4_control.Watchdog:121–124` latches/removes lease.
+Both rely on a live final adapter to publish zero. rl_sar command timeout is .5
+SIMULATION seconds (`rl_sar_controller.cpp:43,133`); its200Hz update timer uses
+ROS time (`:113`). No wall-clock physical-stop guarantee follows if /clock is
+frozen, adapter/controller is dead, or transport is stuck.
+
+Proposed smallest Gazebo-specific addition: extend the EXISTING independent
+watchdog/owned supervisor, with separately pinned Gazebo-server PID/start/PGID
+and wall deadline, to contain the owned simulator on adapter/controller/clock
+failure. An owned world-pause acknowledgement may be tried only with a short
+wall timeout; failure requires verified PID-targeted server suspension/termination,
+with no automatic resume. Design must account for server child identity and
+stopping physics threads, not merely the launch wrapper. This is a proposed
+boundary requiring review, not an implemented or qualified command. It introduces
+no velocity publisher and no alternate actuator path. Freeze/termination is
+emergency simulation containment, NOT measured physical rest and never E1 PASS.
+Normal abort remains inhibit -> exact zeros -> measured rest, cancel only if
+an owned action exists. Fresh source data must prove rest; frozen source time
+must fail acceptance. Before moving, demonstrate the owned containment path in
+an expressly authorized ZERO session, including dead adapter, controller loss,
+frozen /clock, failed pause acknowledgement and sentinel ownership protection.
+Do not claim those fault demonstrations were performed in this task.
+
+**Local measurable prerequisites; no entire-course prerequisite:**
+
+- Fresh ZeroOnly bootstrap/probe PASS and owned cleanup; next E1 uses a new owned
+  session with matching rebuilt artifacts and rechecks all live prerequisites.
+- Same-session LIO-SAM/TF localization, map/odom continuity and advancing source
+  times; one open pocket containing initial full body, pulse and all-direction
+  stop/abort reachable sets. Use actual sensor support with unknown/offmap veto.
+- Existing saved/local/live/global guard grids remain required. For E1, crop or
+  restrict scope to the pocket and register only its landmarks; do not silently
+  waive saved-grid or registration gates. `contract.registration:92–111` uses
+  4..32 finite landmark pairs spanning non-collinear structures over several metres, rejects >.05m translation/>.02rad nonidentity, .10m max
+  residual/.05m RMS and .10m alignment p95. Those are existing diagnostic limits,
+  not conservative physical error bounds. Bound registration yaw/translation,
+  map boundary, body extent, tracking and stop terms independently. No GT in
+  registration or navigation; GT may only audit physical movement afterward.
+- Existing guard reserve (`stage4_guard.py:149–163`) is stop_translation +
+  max_speed*delay + radius*(stop_yaw+max_wz*delay) + uncertainty, radius
+  hypot(.75,.43), delay=pose_age+max(.5,abort_latency*max_sim_rate).
+  Every required grid's filled-body clearance must exceed that reserve at every
+  output. Use accepted conservative bootstrap numbers and local region/time
+  scope; no guessed .1m travel bound from command*.seconds. All raw evidence
+  references/hashes and uncertainty components remain explicit.
+- Complete collision-inventory/contacts paired intervals from declared start
+  through end of stop; allowed wheel-ground only; body tilt/height within
+  independently accepted stability envelope. Plate0 alone is insufficient.
+- Pin independent abort identities; demonstrate its wall detection/containment
+  latency bounds before E1, including frozen simulation. Accepted reserve must
+  cover that bound and maximum observed/declared simulation rate. Historical
+  physics .2x8s ->2.138m, forward stop .079872m and .25 turn ->.432m translation
+  remain provisional hints only (`2026-10-11-init-physics.json`).
+
+**E1 success/abort:** Within independently frozen region and speed/yaw/body/
+uncertainty/clearance bounds; some positive motion resolved above localization
+uncertainty; complete contact intervals; final six-axis exact zeros; normal rest
+confirmed with `IndependentStop` (speed<=.03, |wz|<=.03, command speed/|wz|<=.01,
+<=.03m hold excursion, >=5 source/3wall seconds); owned cleanup PASS. Record
+measured command tracking, peak velocity/yaw, whole-stop excursion, source/wall
+abort latency and maximum sim rate. Any exceedance, deadline/freshness/identity/
+contact fault, native exit, unknown grid, nonzero unauthorized axis, repeated
+attempt or timeout: inhibit immediately, independently contain if stop cannot
+be proved, preserve evidence, FAIL and stop. No fix/retry in the same approval.
+
+**Eventual qualified command (PROPOSED CLI, DOES NOT EXIST TODAY):**
+
+```bash
+# Future extension of existing stage4_session.py, after implementation, copied
+# build/hash verification, independent boundary review and explicit E1 approval.
+# Supply actual absolute artifact paths; --execute-e1 alone must confer no authority.
+/usr/bin/python3 scripts/stage4_session.py \
+  --inputs "$reviewed_e1_inputs" --qualification "$reviewed_e1_qualification" \
+  --output "$fresh_e1_evidence" --execute-e1
+```
+
+The immutable reviewed inputs must fix .05/0/0, <=2sim pulse, normal rest and
+<=90sim/180wall ceiling, owned containment path, pocket and single attempt.
+Do not advertise this as presently executable. Existing executable CLI offers
+only `--execute-zero-smoke`; no honest qualified E1 command exists yet.
+
+**Fastest Start→G1 after E1:** Review the measured local stop/tracking/abort
+result, derive accepted bounds instead of extrapolating command speed; extend
+sensor-supported registration/clearance only over Start→G1; certify the exact
+selected path and G1 [-.18571805953979492,7.189985752105713] in registered SLAM map,
+measured achievable-rate deadline, qualified owner/deployment and separate goal
+authority. Then use EXISTING `run_candidate_route.py run --selection ...
+--session ... --deployment ... --deadline-evidence ... --mode segment --segment
+start-g1 --execute-user-run`. Preserve .25m G1 region and final stop. E1 forward
+only cannot qualify turns: require accepted turning bounds for this path or a
+separately authorized local turn probe if its geometry requires them. G2–G5 are
+later independent segments, not a prerequisite for the first pocket pulse.
+
+
+## Historical — Adapter transient health I/O repair (October 22)
 
 Experimental worktree `/home/zyd/program/b2w-embodied-navigation-course-stage4`;
 branch `experiment/unattended-g1-g5-20261019`, checkpoint `5178993636287a22bf7cd847038d4904828fd898`.

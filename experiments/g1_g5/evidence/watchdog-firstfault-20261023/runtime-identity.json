@@ -1,0 +1,149 @@
+{
+  "build": "isolated regular colcon install",
+  "build_exit_code": 0,
+  "module_count": 20,
+  "all_python_modules_match": true,
+  "resolved_runtime_path": "/home/zyd/program/b2w-embodied-navigation-course-stage4/experiments/g1_g5/evidence/watchdog-firstfault-20261023/artifacts/install/course_navigation/lib/python3.10/site-packages/course_navigation/stage4_control.py",
+  "modules": [
+    {
+      "source": "course_navigation/course_navigation/__init__.py",
+      "installed": "experiments/g1_g5/evidence/watchdog-firstfault-20261023/artifacts/install/course_navigation/lib/python3.10/site-packages/course_navigation/__init__.py",
+      "source_sha256": "bef11191d0ca5d12dacb4deb3a22a72e5a0a620ed5b0d15b23ff75f29eed14af",
+      "installed_sha256": "bef11191d0ca5d12dacb4deb3a22a72e5a0a620ed5b0d15b23ff75f29eed14af",
+      "match": true
+    },
+    {
+      "source": "course_navigation/course_navigation/adaptive_profile.py",
+      "installed": "experiments/g1_g5/evidence/watchdog-firstfault-20261023/artifacts/install/course_navigation/lib/python3.10/site-packages/course_navigation/adaptive_profile.py",
+      "source_sha256": "a0267351003cdcd3a50ccfac0bf62e854ff3dae043dcb0f94066825df6b2dc6e",
+      "installed_sha256": "a0267351003cdcd3a50ccfac0bf62e854ff3dae043dcb0f94066825df6b2dc6e",
+      "match": true
+    },
+    {
+      "source": "course_navigation/course_navigation/adaptive_speed.py",
+      "installed": "experiments/g1_g5/evidence/watchdog-firstfault-20261023/artifacts/install/course_navigation/lib/python3.10/site-packages/course_navigation/adaptive_speed.py",
+      "source_sha256": "3b20a919c4a6048c52a36f12593cf806be8c18a66797c8efaad2624080446bb7",
+      "installed_sha256": "3b20a919c4a6048c52a36f12593cf806be8c18a66797c8efaad2624080446bb7",
+      "match": true
+    },
+    {
+      "source": "course_navigation/course_navigation/goal_manager.py",
+      "installed": "experiments/g1_g5/evidence/watchdog-firstfault-20261023/artifacts/install/course_navigation/lib/python3.10/site-packages/course_navigation/goal_manager.py",
+      "source_sha256": "8dec3c7bd46be26b88e76e2a2b5734f392c1277ad49870e14abec4c48185569c",
+      "installed_sha256": "8dec3c7bd46be26b88e76e2a2b5734f392c1277ad49870e14abec4c48185569c",
+      "match": true
+    },
+    {
+      "source": "course_navigation/course_navigation/lifecycle_readiness.py",
+      "installed": "experiments/g1_g5/evidence/watchdog-firstfault-20261023/artifacts/install/course_navigation/lib/python3.10/site-packages/course_navigation/lifecycle_readiness.py",
+      "source_sha256": "260a074aa0c59b3279fb17b62a8fc0876905bd10092611e0788e4b131c195b61",
+      "installed_sha256": "260a074aa0c59b3279fb17b62a8fc0876905bd10092611e0788e4b131c195b61",
+      "match": true
+    },
+    {
+      "source": "course_navigation/course_navigation/m2_inverse.py",
+      "installed": "experiments/g1_g5/evidence/watchdog-firstfault-20261023/artifacts/install/course_navigation/lib/python3.10/site-packages/course_navigation/m2_inverse.py",
+      "source_sha256": "dd7b299acdf69406ce3ea2115d48787f94e967550f2627edab5503c379b30f7b",
+      "installed_sha256": "dd7b299acdf69406ce3ea2115d48787f94e967550f2627edab5503c379b30f7b",
+      "match": true
+    },
+    {
+      "source": "course_navigation/course_navigation/map_node.py",
+      "installed": "experiments/g1_g5/evidence/watchdog-firstfault-20261023/artifacts/install/course_navigation/lib/python3.10/site-packages/course_navigation/map_node.py",
+      "source_sha256": "2ab8d6de41776663b290d0b86d0a2cc32c53ab874ad3041a0d436c9cd0f3d9ad",
+      "installed_sha256": "2ab8d6de41776663b290d0b86d0a2cc32c53ab874ad3041a0d436c9cd0f3d9ad",
+      "match": true
+    },
+    {
+      "source": "course_navigation/course_navigation/map_projection.py",
+      "installed": "experiments/g1_g5/evidence/watchdog-firstfault-20261023/artifacts/install/course_navigation/lib/python3.10/site-packages/course_navigation/map_projection.py",
+      "source_sha256": "cd5b18e96330a7deb9a6282bee79b2a857913320d429c6d4872dd5008e39846d",
+      "installed_sha256": "cd5b18e96330a7deb9a6282bee79b2a857913320d429c6d4872dd5008e39846d",
+      "match": true
+    },
+    {
+      "source": "course_navigation/course_navigation/metrics.py",
+      "installed": "experiments/g1_g5/evidence/watchdog-firstfault-20261023/artifacts/install/course_navigation/lib/python3.10/site-packages/course_navigation/metrics.py",
+      "source_sha256": "b5b1f735a6433a8ffce2a37d06fc79046cf0e1a6f6eb61bcddf8c3613c0e326e",
+      "installed_sha256": "b5b1f735a6433a8ffce2a37d06fc79046cf0e1a6f6eb61bcddf8c3613c0e326e",
+      "match": true
+    },
+    {
+      "source": "course_navigation/course_navigation/speed_governor.py",
+      "installed": "experiments/g1_g5/evidence/watchdog-firstfault-20261023/artifacts/install/course_navigation/lib/python3.10/site-packages/course_navigation/speed_governor.py",
+      "source_sha256": "5535a5b410a1d6887b4e6af0fc2c0e6a46e1b99d6af0aba98b4d7fa9bb676f66",
+      "installed_sha256": "5535a5b410a1d6887b4e6af0fc2c0e6a46e1b99d6af0aba98b4d7fa9bb676f66",
+      "match": true
+    },
+    {
+      "source": "course_navigation/course_navigation/stage4_bounds.py",
+      "installed": "experiments/g1_g5/evidence/watchdog-firstfault-20261023/artifacts/install/course_navigation/lib/python3.10/site-packages/course_navigation/stage4_bounds.py",
+      "source_sha256": "278b4c9d6f16c7cefe6d6b29d56f57efe08d1f230ea372ebf378e6af4af5e4eb",
+      "installed_sha256": "278b4c9d6f16c7cefe6d6b29d56f57efe08d1f230ea372ebf378e6af4af5e4eb",
+      "match": true
+    },
+    {
+      "source": "course_navigation/course_navigation/stage4_contact_evidence.py",
+      "installed": "experiments/g1_g5/evidence/watchdog-firstfault-20261023/artifacts/install/course_navigation/lib/python3.10/site-packages/course_navigation/stage4_contact_evidence.py",
+      "source_sha256": "65e05f034db17f406c3d7fab9ed3e156cb58847e9e73e8a32303bbfc462a72f2",
+      "installed_sha256": "65e05f034db17f406c3d7fab9ed3e156cb58847e9e73e8a32303bbfc462a72f2",
+      "match": true
+    },
+    {
+      "source": "course_navigation/course_navigation/stage4_contact_intervals.py",
+      "installed": "experiments/g1_g5/evidence/watchdog-firstfault-20261023/artifacts/install/course_navigation/lib/python3.10/site-packages/course_navigation/stage4_contact_intervals.py",
+      "source_sha256": "d345e125a9e07f5120cc066c8ee1e37e4edfd49759be9597abbce55efb74ed51",
+      "installed_sha256": "d345e125a9e07f5120cc066c8ee1e37e4edfd49759be9597abbce55efb74ed51",
+      "match": true
+    },
+    {
+      "source": "course_navigation/course_navigation/stage4_contact_stream.py",
+      "installed": "experiments/g1_g5/evidence/watchdog-firstfault-20261023/artifacts/install/course_navigation/lib/python3.10/site-packages/course_navigation/stage4_contact_stream.py",
+      "source_sha256": "d51ea917327f6b9a042ab317d790bc03075bb23c8e41528c44668e2be40597c8",
+      "installed_sha256": "d51ea917327f6b9a042ab317d790bc03075bb23c8e41528c44668e2be40597c8",
+      "match": true
+    },
+    {
+      "source": "course_navigation/course_navigation/stage4_control.py",
+      "installed": "experiments/g1_g5/evidence/watchdog-firstfault-20261023/artifacts/install/course_navigation/lib/python3.10/site-packages/course_navigation/stage4_control.py",
+      "source_sha256": "4c9e32b169dbe8d0ced5ea83cbcc8bed1ca99c96c139cac5c20c74d53e2525be",
+      "installed_sha256": "4c9e32b169dbe8d0ced5ea83cbcc8bed1ca99c96c139cac5c20c74d53e2525be",
+      "match": true
+    },
+    {
+      "source": "course_navigation/course_navigation/stage4_geometry.py",
+      "installed": "experiments/g1_g5/evidence/watchdog-firstfault-20261023/artifacts/install/course_navigation/lib/python3.10/site-packages/course_navigation/stage4_geometry.py",
+      "source_sha256": "87f6f3ebe4f6f301496d4e7361a51ff485326f189fcdebc491366c7e07904810",
+      "installed_sha256": "87f6f3ebe4f6f301496d4e7361a51ff485326f189fcdebc491366c7e07904810",
+      "match": true
+    },
+    {
+      "source": "course_navigation/course_navigation/stage4_guard.py",
+      "installed": "experiments/g1_g5/evidence/watchdog-firstfault-20261023/artifacts/install/course_navigation/lib/python3.10/site-packages/course_navigation/stage4_guard.py",
+      "source_sha256": "8c3c16fd3053f9b4916a4fd7a06ecd55c4bc9038d16ef37aadad916fb05486f3",
+      "installed_sha256": "8c3c16fd3053f9b4916a4fd7a06ecd55c4bc9038d16ef37aadad916fb05486f3",
+      "match": true
+    },
+    {
+      "source": "course_navigation/course_navigation/stage4_qualification.py",
+      "installed": "experiments/g1_g5/evidence/watchdog-firstfault-20261023/artifacts/install/course_navigation/lib/python3.10/site-packages/course_navigation/stage4_qualification.py",
+      "source_sha256": "ff320410cde2d7c8e7b93f6a5ab33dc971b1be9c33a0fdd69422c89474b76d80",
+      "installed_sha256": "ff320410cde2d7c8e7b93f6a5ab33dc971b1be9c33a0fdd69422c89474b76d80",
+      "match": true
+    },
+    {
+      "source": "course_navigation/course_navigation/structural_freshness.py",
+      "installed": "experiments/g1_g5/evidence/watchdog-firstfault-20261023/artifacts/install/course_navigation/lib/python3.10/site-packages/course_navigation/structural_freshness.py",
+      "source_sha256": "30719c587c52f65af173c82ac2ef7e3e8e893bc9237878f3d43923faefc57581",
+      "installed_sha256": "30719c587c52f65af173c82ac2ef7e3e8e893bc9237878f3d43923faefc57581",
+      "match": true
+    },
+    {
+      "source": "course_navigation/course_navigation/velocity_adapter.py",
+      "installed": "experiments/g1_g5/evidence/watchdog-firstfault-20261023/artifacts/install/course_navigation/lib/python3.10/site-packages/course_navigation/velocity_adapter.py",
+      "source_sha256": "dc97d0445ec790fc0b5c2d171070f38cb9ad5e5a7d91e01a5fb9cdf86f6136c8",
+      "installed_sha256": "dc97d0445ec790fc0b5c2d171070f38cb9ad5e5a7d91e01a5fb9cdf86f6136c8",
+      "match": true
+    }
+  ]
+}

@@ -10,6 +10,7 @@ import os
 from pathlib import Path
 import tempfile
 import stat
+import time
 
 
 def process_identity(pid):
@@ -85,36 +86,53 @@ def distinct_control_paths(paths):
 
 class Watchdog:
     def __init__(self,config):
-        self.config=dict(config);self.sequence=0;self.last_heartbeat=None;self.last_health=None;self.failure=None
+        self.config=dict(config);self.sequence=0;self.last_heartbeat=None;self.last_health=None;self.failure=None;self.first_fault=None
         distinct_control_paths([config[k] for k in ('heartbeat_path','lease_path','inhibit_path','adapter_heartbeat_path')])
 
-    def step(self,*,wall):
-        c=self.config
+    def step(self,*,wall=None):
+        c=self.config;health=None;h=None;failed_predicate='control.inhibit'
         try:
             if self.failure or os.path.lexists(c['inhibit_path']):raise ValueError(self.failure or 'inhibit_latched')
+            failed_predicate='process.identity'
             if not all(process_matches(c[k]) for k in ('owner','adapter')):raise ValueError('owned_process_identity_lost')
+            failed_predicate='health.read'
             health=read_control(c['adapter_heartbeat_path'])
-            if (health['session_id']!=c['session_id'] or health['adapter']!=c['adapter'] or
-                    type(health['sequence']) is not int or health['sequence']<=0 or
-                    not all(type(v) in (int,float) and math.isfinite(v) for v in (wall,health['wall'])) or
-                    not 0<=wall-health['wall']<=.15):raise ValueError('adapter_publication_stalled')
+            failed_predicate='owner.read'
+            h=read_control(c['heartbeat_path'])
+            # Validate immutable read snapshots against time sampled AFTER both reads.
+            # Sampling in the caller can make a concurrent publication appear future.
+            if wall is None:wall=time.monotonic()
+            failed_predicate='health.validation'
+            if health['session_id']!=c['session_id']:failed_predicate='health.session_id'
+            elif health['adapter']!=c['adapter']:failed_predicate='health.adapter'
+            elif type(health['sequence']) is not int or health['sequence']<=0:failed_predicate='health.sequence'
+            elif type(wall) not in (int,float) or not math.isfinite(wall):failed_predicate='sampled_wall_nonfinite'
+            elif type(health['wall']) not in (int,float) or not math.isfinite(health['wall']):failed_predicate='health.wall_nonfinite'
+            elif wall-health['wall']<0:failed_predicate='health.age_negative'
+            elif wall-health['wall']>.15:failed_predicate='health.age_gt_150ms'
+            else:failed_predicate=None
+            if failed_predicate:raise ValueError('adapter_publication_stalled')
+            failed_predicate='health.regression_or_conflict'
             if self.last_health and (health['sequence']<self.last_health['sequence'] or
                     health['wall']<self.last_health['wall'] or
                     health['sequence']==self.last_health['sequence'] and health!=self.last_health):
                 raise ValueError('adapter_publication_regression_or_conflict')
             self.last_health=health
-            h=read_control(c['heartbeat_path'])
+            failed_predicate='owner.validation'
             if (h['session_id']!=c['session_id'] or type(h['sequence']) is not int or h['sequence']<=0 or
                     not all(type(v) in (int,float) and math.isfinite(v) for v in (wall,h['wall'])) or
                     not 0<=wall-h['wall']<=.25):raise ValueError('owner_heartbeat_stale_or_invalid')
+            failed_predicate='owner.regression_or_conflict'
             if self.last_heartbeat and (h['sequence']<self.last_heartbeat['sequence'] or h['wall']<self.last_heartbeat['wall']):
                 raise ValueError('owner_heartbeat_regression')
             if self.last_heartbeat and h['sequence']==self.last_heartbeat['sequence'] and h!=self.last_heartbeat:
                 raise ValueError('conflicting_owner_heartbeat_duplicate')
             self.last_heartbeat=h;self.sequence+=1
             if c.get('zero_only') is True:
+                failed_predicate='zero_only.unexpected_lease'
                 if os.path.lexists(c['lease_path']):raise ValueError('unexpected_lease_in_zero_only_session')
                 return True  # Monitor health and inhibit faults; NEVER arm the adapter.
+            failed_predicate='lease.write'
             write_control(c['lease_path'],dict(session_id=c['session_id'],sequence=self.sequence,wall=wall,
                                               owner=c['owner'],adapter=c['adapter']))
             return True
@@ -122,4 +140,19 @@ class Watchdog:
             self.failure=self.failure or str(exc)
             latch_inhibit(c['inhibit_path'],self.failure)
             Path(c['lease_path']).unlink(missing_ok=True)
+            if self.first_fault is None:
+                if wall is None:wall=time.monotonic()
+                # One bounded in-memory snapshot only AFTER permission is revoked.
+                def safe(value):
+                    if type(value) is float and not math.isfinite(value):return repr(value)
+                    if isinstance(value,dict):return {k:safe(v) for k,v in value.items()}
+                    if isinstance(value,list):return [safe(v) for v in value]
+                    return value
+                age=None
+                if (isinstance(health,dict) and all(type(v) in (int,float) and math.isfinite(v)
+                        for v in (wall,health.get('wall')))):age=wall-health['wall']
+                self.first_fault=safe(dict(reason=self.failure,failed_predicate=failed_predicate,
+                    sampled_wall=wall,health_age_s=age,
+                    health={k:health.get(k) for k in ('session_id','adapter','sequence','wall')} if isinstance(health,dict) else None,
+                    owner={k:h.get(k) for k in ('session_id','sequence','wall')} if isinstance(h,dict) else None))
             return False

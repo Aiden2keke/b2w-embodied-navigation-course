@@ -1,0 +1,815 @@
+{
+  "kind": "one_reviewed_zero_policy_trial",
+  "head": "4ae85f4148a89a76b1ad25c5b059c2140be41b85",
+  "attempts": 1,
+  "source_changes_after_trial": 0,
+  "motion_authorized": false,
+  "motion_attempts": 0,
+  "full_probe_pass": false,
+  "session": {
+    "kind": "stage4_zero_session",
+    "zero_motion_smoke_pass": false,
+    "probe_exit_code": null,
+    "error": "ValueError('Owned watchdog/stack/evaluation bridge exited')",
+    "cleanup": {
+      "owned_pid_start_ticks": {
+        "3649350": "34718519",
+        "3649351": "34718521",
+        "3649352": "34718530",
+        "3649377": "34718546",
+        "3649379": "34718546",
+        "3649381": "34718546",
+        "3649383": "34718546",
+        "3649385": "34718546",
+        "3649387": "34718546",
+        "3649389": "34718546",
+        "3649391": "34718546",
+        "3649393": "34718546",
+        "3649395": "34718546",
+        "3649397": "34718546",
+        "3649399": "34718546",
+        "3649401": "34718546",
+        "3649403": "34718546",
+        "3649405": "34718546",
+        "3649407": "34718546",
+        "3649409": "34718546",
+        "3649976": "34720547",
+        "3649978": "34720548",
+        "3649980": "34720548",
+        "3649982": "34720548",
+        "3649984": "34720548",
+        "3650327": "34722082",
+        "3650328": "34722082"
+      },
+      "remaining": {},
+      "passed": true,
+      "launch_returncode": 0
+    },
+    "live_stack_wall_s": 47.6652145650005,
+    "motion_attempts": 0,
+    "motion_authorized": false,
+    "safety_complete": false,
+    "full_route_pass": false,
+    "segment_pass": false
+  },
+  "probe": {
+    "kind": "stage4_zero_motion_readiness",
+    "zero_motion_smoke_pass": false,
+    "cleanup_passed": false,
+    "error": "RCLError(\"failed to check service availability: rcl node's context is invalid, at ./src/rcl/node.c:428\") cleanup: RCLError('failed to shutdown: rcl_shutdown already called on the given context, at ./src/rcl/init.c:241')",
+    "first_sample": null,
+    "accepted_end_sim": null,
+    "contact_closure": null,
+    "wall_duration_s": 11.682879611034878,
+    "runtime": {
+      "child_processes": [],
+      "action_outcomes": [],
+      "cleanup": {
+        "passed": false,
+        "stationary_confirmed": false,
+        "error": "RCLError('failed to create timer: the given context is not valid, either rcl_init() was not called or rcl_shutdown() was called., at ./src/rcl/guard_condition.c:67')",
+        "recording_complete": true
+      },
+      "collision_coverage": "plate_only_full_body_unknown",
+      "effective_parameters": {
+        "/planner_server": {
+          "expected_planner_frequency": 20.0,
+          "use_sim_time": true,
+          "planner_plugins": [
+            "GridBased"
+          ],
+          "GridBased.plugin": "nav2_smac_planner/SmacPlanner2D",
+          "GridBased.tolerance": 0.3,
+          "GridBased.allow_unknown": false
+        }
+      },
+      "raw_journal": {
+        "complete": true,
+        "failure": null,
+        "accepted": 100,
+        "written": 100,
+        "path": "/home/zyd/program/b2w-embodied-navigation-course-stage4/experiments/g1_g5/evidence/zero-policy-20261022/raw/session/probe/raw-9195bafe235a4848b0eb35802f34b04c.sqlite3",
+        "bytes": 253952
+      },
+      "raw_sha256": "ad123612a33f34eaa0a41c18fa869b81965991f9da3cff462f9972876868a58f",
+      "raw_bytes": 253952,
+      "raw_file": "/home/zyd/program/b2w-embodied-navigation-course-stage4/experiments/g1_g5/evidence/zero-policy-20261022/raw/session/probe/raw-9195bafe235a4848b0eb35802f34b04c.sqlite3"
+    },
+    "motion_authorized": false,
+    "safety_complete": false,
+    "full_route_pass": false,
+    "segment_pass": false,
+    "limitation": "Passive operational evidence only; physical bounds/coverage/stop chain and independent review remain required",
+    "journal_sha256": "ad123612a33f34eaa0a41c18fa869b81965991f9da3cff462f9972876868a58f"
+  },
+  "wrapper": {
+    "harness_exit_code": 1,
+    "observer_exit_code": 0,
+    "error": null,
+    "wall_s": 48.38104378600838
+  },
+  "commands": {
+    "/path_manager/path_manager_ros/nav_vel": {
+      "observed": 716,
+      "nonzero": 0
+    },
+    "/course_navigation/cmd_vel_raw": {
+      "observed": 1,
+      "nonzero": 0
+    },
+    "/course_navigation/cmd_vel": {
+      "observed": 0,
+      "nonzero": 0
+    }
+  },
+  "streams": {
+    "/clock": {
+      "recorded": 586,
+      "first_stamp": null,
+      "last_stamp": null,
+      "receipt_age_min_s": null,
+      "receipt_age_max_s": null
+    },
+    "/imu": {
+      "recorded": 6022,
+      "first_stamp": 0.18000000000000002,
+      "last_stamp": 30.285,
+      "receipt_age_min_s": -0.03000000000000025,
+      "receipt_age_max_s": 0.012500000000001066
+    },
+    "/pointcloud": {
+      "recorded": 303,
+      "first_stamp": 0.005,
+      "last_stamp": 30.2,
+      "receipt_age_min_s": 0.009999999999999787,
+      "receipt_age_max_s": 0.05750000000000011
+    },
+    "/slam/odom": {
+      "recorded": 115,
+      "first_stamp": 18.5,
+      "last_stamp": 29.9,
+      "receipt_age_min_s": 0.2525000000000013,
+      "receipt_age_max_s": 0.297500000000003
+    },
+    "/slam/map_points": {
+      "recorded": 3,
+      "first_stamp": 18.4,
+      "last_stamp": 28.3,
+      "receipt_age_min_s": 0.33500000000000085,
+      "receipt_age_max_s": 0.35999999999999943
+    },
+    "/map": {
+      "recorded": 12,
+      "first_stamp": 19.0,
+      "last_stamp": 30.0,
+      "receipt_age_min_s": 0.042500000000000426,
+      "receipt_age_max_s": 0.0799999999999983
+    },
+    "/local_costmap/costmap_raw": {
+      "recorded": 19,
+      "first_stamp": 19.2025,
+      "last_stamp": 29.9725,
+      "receipt_age_min_s": -0.007500000000000284,
+      "receipt_age_max_s": 0.0
+    },
+    "/global_costmap/costmap_raw": {
+      "recorded": 6,
+      "first_stamp": 20.435,
+      "last_stamp": 29.4025,
+      "receipt_age_min_s": -0.007500000000000284,
+      "receipt_age_max_s": 0.002500000000001279
+    }
+  },
+  "health": {
+    "sampled": 347,
+    "context_counts": {
+      "waiting_localization": 239,
+      "ready": 105,
+      "waiting_tf": 2,
+      "fault": 1
+    },
+    "first_overrun": {
+      "wall": 347211.322635851,
+      "sim": 19.26,
+      "control": "adapter.json",
+      "value": {
+        "adapter": {
+          "pgid": 3649350,
+          "pid": 3649409,
+          "start_ticks": "34718546",
+          "uid": 1000
+        },
+        "context_state": "ready",
+        "first_deadline_timing": {
+          "deadline_stage": "prepublish",
+          "health_io": {
+            "thread_cpu_s": 0.0006030290000005323,
+            "wall_s": 0.01858417602488771
+          },
+          "previous_health_io": {
+            "thread_cpu_s": 0.00031866199999974754,
+            "wall_s": 0.00031838996801525354
+          },
+          "sections": {
+            "context": {
+              "thread_cpu_s": 0.001166954000000331,
+              "wall_s": 0.0827325620339252
+            },
+            "guard": {
+              "thread_cpu_s": 0.0013283500000014214,
+              "wall_s": 0.08289386198157445
+            },
+            "localization": {
+              "thread_cpu_s": 0.0009902150000016263,
+              "wall_s": 0.08255444199312478
+            },
+            "prepublish": {
+              "thread_cpu_s": 0.0013367500000001087,
+              "wall_s": 0.08290271501755342
+            },
+            "published": {
+              "thread_cpu_s": 0.00146167300000144,
+              "wall_s": 0.08302733500022441
+            }
+          }
+        },
+        "prepared": {
+          "failure": null,
+          "grids": {},
+          "structural_source_wall_budget": null,
+          "structural_wall_budget": null
+        },
+        "publication_timing": {
+          "previous_health_io": {
+            "thread_cpu_s": 0.00029102999999963686,
+            "wall_s": 0.0003467870410531759
+          },
+          "sections": {
+            "context": {
+              "thread_cpu_s": 0.0012091079999994037,
+              "wall_s": 0.0012177220196463168
+            },
+            "guard": {
+              "thread_cpu_s": 0.0014137779999998656,
+              "wall_s": 0.0014236330171115696
+            },
+            "localization": {
+              "thread_cpu_s": 0.0009400260000003158,
+              "wall_s": 0.0009491649689152837
+            },
+            "prepublish": {
+              "thread_cpu_s": 0.0014243960000008826,
+              "wall_s": 0.0014348879922181368
+            },
+            "published": {
+              "thread_cpu_s": 0.001578697000001128,
+              "wall_s": 0.0016042509814724326
+            }
+          }
+        },
+        "sequence": 501,
+        "session_id": "zero-repair-a31c6dfbb43c4ac389d6fca69e9b8b23",
+        "wall": 347211.279213664
+      }
+    },
+    "first_prepared_three_grids": {
+      "wall": 347212.835261519,
+      "sim": 20.77,
+      "control": "adapter.json",
+      "value": {
+        "adapter": {
+          "pgid": 3649350,
+          "pid": 3649409,
+          "start_ticks": "34718546",
+          "uid": 1000
+        },
+        "context_state": "ready",
+        "first_deadline_timing": {
+          "deadline_stage": "prepublish",
+          "health_io": {
+            "thread_cpu_s": 0.0006030290000005323,
+            "wall_s": 0.01858417602488771
+          },
+          "previous_health_io": {
+            "thread_cpu_s": 0.00031866199999974754,
+            "wall_s": 0.00031838996801525354
+          },
+          "sections": {
+            "context": {
+              "thread_cpu_s": 0.001166954000000331,
+              "wall_s": 0.0827325620339252
+            },
+            "guard": {
+              "thread_cpu_s": 0.0013283500000014214,
+              "wall_s": 0.08289386198157445
+            },
+            "localization": {
+              "thread_cpu_s": 0.0009902150000016263,
+              "wall_s": 0.08255444199312478
+            },
+            "prepublish": {
+              "thread_cpu_s": 0.0013367500000001087,
+              "wall_s": 0.08290271501755342
+            },
+            "published": {
+              "thread_cpu_s": 0.00146167300000144,
+              "wall_s": 0.08302733500022441
+            }
+          }
+        },
+        "prepared": {
+          "failure": null,
+          "grids": {
+            "global": {
+              "receipt": 347212.508293594,
+              "sha256": "8c21ae44df75c05abc22156f3cb4aa4242d3c2d215c846927c0e1943568b8ce5",
+              "source": 20.435
+            },
+            "live": {
+              "receipt": 347212.124595892,
+              "sha256": "36600d2a16cf5c1de76d3a11832db7775820b112030f0df8a880db457edcec90",
+              "source": 20.0
+            },
+            "local": {
+              "receipt": 347212.483346057,
+              "sha256": "42727f3dbe435c0f0ad4d5be0154743a000c9d5e7fe2f298512460b646120dae",
+              "source": 20.4125
+            }
+          },
+          "structural_source_wall_budget": null,
+          "structural_wall_budget": null
+        },
+        "publication_timing": {
+          "previous_health_io": {
+            "thread_cpu_s": 0.00063775899999996,
+            "wall_s": 0.0006364990258589387
+          },
+          "sections": {
+            "context": {
+              "thread_cpu_s": 0.0007976809999998835,
+              "wall_s": 0.0008030839962884784
+            },
+            "guard": {
+              "thread_cpu_s": 0.000952975999998884,
+              "wall_s": 0.0009587969980202615
+            },
+            "localization": {
+              "thread_cpu_s": 0.0006334039999984498,
+              "wall_s": 0.0006379979895427823
+            },
+            "prepublish": {
+              "thread_cpu_s": 0.0009597540000001459,
+              "wall_s": 0.0009658379713073373
+            },
+            "published": {
+              "thread_cpu_s": 0.0010212599999999128,
+              "wall_s": 0.0010273029911331832
+            }
+          }
+        },
+        "sequence": 532,
+        "session_id": "zero-repair-a31c6dfbb43c4ac389d6fca69e9b8b23",
+        "wall": 347212.830265345
+      }
+    },
+    "first_ready_cadence": {
+      "wall": 347220.833077907,
+      "sim": 28.7425,
+      "control": "adapter.json",
+      "value": {
+        "adapter": {
+          "pgid": 3649350,
+          "pid": 3649409,
+          "start_ticks": "34718546",
+          "uid": 1000
+        },
+        "context_state": "ready",
+        "first_deadline_timing": {
+          "deadline_stage": "prepublish",
+          "health_io": {
+            "thread_cpu_s": 0.0006030290000005323,
+            "wall_s": 0.01858417602488771
+          },
+          "previous_health_io": {
+            "thread_cpu_s": 0.00031866199999974754,
+            "wall_s": 0.00031838996801525354
+          },
+          "sections": {
+            "context": {
+              "thread_cpu_s": 0.001166954000000331,
+              "wall_s": 0.0827325620339252
+            },
+            "guard": {
+              "thread_cpu_s": 0.0013283500000014214,
+              "wall_s": 0.08289386198157445
+            },
+            "localization": {
+              "thread_cpu_s": 0.0009902150000016263,
+              "wall_s": 0.08255444199312478
+            },
+            "prepublish": {
+              "thread_cpu_s": 0.0013367500000001087,
+              "wall_s": 0.08290271501755342
+            },
+            "published": {
+              "thread_cpu_s": 0.00146167300000144,
+              "wall_s": 0.08302733500022441
+            }
+          }
+        },
+        "prepared": {
+          "failure": null,
+          "grids": {
+            "global": {
+              "receipt": 347219.509714155,
+              "sha256": "3507b2b04d61f00e0501aeb8ecd2e0d0ef1b520024e431db9faab37f602187f0",
+              "source": 27.41
+            },
+            "live": {
+              "receipt": 347220.138037065,
+              "sha256": "7af54bdf6a03bf246bcbaf2ed36ffde9c8ce72e1642d103a0ff8169f3bf9836d",
+              "source": 28.0
+            },
+            "local": {
+              "receipt": 347220.287730456,
+              "sha256": "41b22f1a902ea931a89fba7aebbcf5861cfb36b72b85e7c85edbcba48f3aa1bf",
+              "source": 28.1775
+            }
+          },
+          "structural_source_wall_budget": 7.511242978420341,
+          "structural_wall_budget": 7.5
+        },
+        "publication_timing": {
+          "previous_health_io": {
+            "thread_cpu_s": 0.00043353799999934495,
+            "wall_s": 0.00043282698607072234
+          },
+          "sections": {
+            "context": {
+              "thread_cpu_s": 0.0011102379999989864,
+              "wall_s": 0.0011628280044533312
+            },
+            "guard": {
+              "thread_cpu_s": 0.0013108969999997555,
+              "wall_s": 0.001363463990855962
+            },
+            "localization": {
+              "thread_cpu_s": 0.0009556970000001996,
+              "wall_s": 0.0010061999782919884
+            },
+            "prepublish": {
+              "thread_cpu_s": 0.0013222779999999545,
+              "wall_s": 0.0013750260113738477
+            },
+            "published": {
+              "thread_cpu_s": 0.0015224479999993434,
+              "wall_s": 0.0015750399907119572
+            }
+          }
+        },
+        "sequence": 688,
+        "session_id": "zero-repair-a31c6dfbb43c4ac389d6fca69e9b8b23",
+        "wall": 347220.82925586
+      }
+    },
+    "last_sample_before_inhibit": {
+      "wall": 347222.153931093,
+      "sim": 30.055,
+      "control": "adapter.json",
+      "value": {
+        "adapter": {
+          "pgid": 3649350,
+          "pid": 3649409,
+          "start_ticks": "34718546",
+          "uid": 1000
+        },
+        "context_state": "ready",
+        "first_deadline_timing": {
+          "deadline_stage": "prepublish",
+          "health_io": {
+            "thread_cpu_s": 0.0006030290000005323,
+            "wall_s": 0.01858417602488771
+          },
+          "previous_health_io": {
+            "thread_cpu_s": 0.00031866199999974754,
+            "wall_s": 0.00031838996801525354
+          },
+          "sections": {
+            "context": {
+              "thread_cpu_s": 0.001166954000000331,
+              "wall_s": 0.0827325620339252
+            },
+            "guard": {
+              "thread_cpu_s": 0.0013283500000014214,
+              "wall_s": 0.08289386198157445
+            },
+            "localization": {
+              "thread_cpu_s": 0.0009902150000016263,
+              "wall_s": 0.08255444199312478
+            },
+            "prepublish": {
+              "thread_cpu_s": 0.0013367500000001087,
+              "wall_s": 0.08290271501755342
+            },
+            "published": {
+              "thread_cpu_s": 0.00146167300000144,
+              "wall_s": 0.08302733500022441
+            }
+          }
+        },
+        "prepared": {
+          "failure": null,
+          "grids": {
+            "global": {
+              "receipt": 347221.500577636,
+              "sha256": "e057ffea5db6b2bbe4ae761b78207245e9b130ba2646ac29548bc1d8ea8a6da6",
+              "source": 29.4025
+            },
+            "live": {
+              "receipt": 347221.157517902,
+              "sha256": "20f6f901191ca852d7966b1e2d9b29b3adac6833e0ae70441fdfd0bc29e75d39",
+              "source": 29.0
+            },
+            "local": {
+              "receipt": 347222.068272664,
+              "sha256": "adee049aed2319a29997e531ece10c520fbcf9338dfb05782b371f68b1371263",
+              "source": 29.9725
+            }
+          },
+          "structural_source_wall_budget": 7.511242978420341,
+          "structural_wall_budget": 7.5
+        },
+        "publication_timing": {
+          "previous_health_io": {
+            "thread_cpu_s": 0.0004679020000004641,
+            "wall_s": 0.0004664270090870559
+          },
+          "sections": {
+            "context": {
+              "thread_cpu_s": 0.0009740809999989608,
+              "wall_s": 0.0009789550094865263
+            },
+            "guard": {
+              "thread_cpu_s": 0.0011336570000004542,
+              "wall_s": 0.0011384510435163975
+            },
+            "localization": {
+              "thread_cpu_s": 0.0007644359999989803,
+              "wall_s": 0.0007675000233575702
+            },
+            "prepublish": {
+              "thread_cpu_s": 0.0011416149999998737,
+              "wall_s": 0.0011468990123830736
+            },
+            "published": {
+              "thread_cpu_s": 0.0012291219999998049,
+              "wall_s": 0.0012342670233920217
+            }
+          }
+        },
+        "sequence": 713,
+        "session_id": "zero-repair-a31c6dfbb43c4ac389d6fca69e9b8b23",
+        "wall": 347222.129119175
+      }
+    }
+  },
+  "inhibits": [
+    {
+      "wall": 347222.359471917,
+      "sim": 30.2575,
+      "control": "inhibit.json",
+      "value": {
+        "inhibited": true,
+        "reason": "adapter_publication_stalled"
+      }
+    }
+  ],
+  "watchdog_manifest_exists": true,
+  "watchdog_log": "",
+  "lease_exists": false,
+  "observer": {
+    "counts": {
+      "/rosout": 290,
+      "/tf_static": 1,
+      "/path_manager/path_manager_ros/nav_vel": 716,
+      "/b2w/evaluation/full_contacts": 592,
+      "/clock": 12119,
+      "/b2w/evaluation/collision_inventory": 592,
+      "/pointcloud": 303,
+      "/tf": 835,
+      "/imu": 6022,
+      "/slam/map_points": 3,
+      "/slam/odom": 115,
+      "/map": 12,
+      "/local_costmap/costmap_raw": 19,
+      "/global_costmap/costmap_raw": 6,
+      "/course_navigation/cmd_vel_raw": 1
+    },
+    "error": null,
+    "wall_duration_s": 48.05878796702018
+  },
+  "lio": {
+    "imu_steps": 162,
+    "integrated_dt_min_s": 0.09999999999999787,
+    "integrated_dt_max_s": 0.10000000000000142,
+    "first_step": {
+      "phase": "imu_step",
+      "key": "1",
+      "correction": "13.800000000000001",
+      "imu_queue": "58",
+      "queue_first": "13.800000000000001",
+      "queue_last": "14.085000000000001",
+      "last_imu_opt": "13.795",
+      "integrated_dt": "0.099999999999999645",
+      "factors": "3",
+      "values": "3"
+    },
+    "last_step": {
+      "phase": "imu_step",
+      "key": "63",
+      "correction": "29.899999999999999",
+      "imu_queue": "54",
+      "queue_first": "29.899999999999999",
+      "queue_last": "30.164999999999999",
+      "last_imu_opt": "29.895",
+      "integrated_dt": "0.099999999999997868",
+      "factors": "3",
+      "values": "3"
+    },
+    "fatal_lines": [],
+    "identities": [
+      {
+        "pid": 3649976,
+        "start_ticks": "34720547",
+        "executable": "/home/zyd/program/b2w-embodied-navigation-course-stage4/experiments/g1_g5/evidence/startup-repair-20261021/artifacts/lio-diagnostic-prefix/lib/lio_sam/lio_sam_imuPreintegration",
+        "executable_sha256": "3bd8109f580ceac90670f5d12e57267192731e2bfd2af46eb1740d08672e50f5",
+        "gtsam_maps": [
+          "75b6aec4d000-75b6aec5c000 r--p 00000000 103:02 11808420                  /home/zyd/program/b2w-embodied-navigation-course/.deps/lib/libmetis-gtsam.so",
+          "75b6aec5c000-75b6aecaa000 r-xp 0000f000 103:02 11808420                  /home/zyd/program/b2w-embodied-navigation-course/.deps/lib/libmetis-gtsam.so",
+          "75b6aecaa000-75b6aecbb000 r--p 0005d000 103:02 11808420                  /home/zyd/program/b2w-embodied-navigation-course/.deps/lib/libmetis-gtsam.so",
+          "75b6aecbb000-75b6aecbc000 r--p 0006d000 103:02 11808420                  /home/zyd/program/b2w-embodied-navigation-course/.deps/lib/libmetis-gtsam.so",
+          "75b6aecbc000-75b6aecbd000 rw-p 0006e000 103:02 11808420                  /home/zyd/program/b2w-embodied-navigation-course/.deps/lib/libmetis-gtsam.so",
+          "75b6aee00000-75b6aef74000 r--p 00000000 103:02 11808432                  /home/zyd/program/b2w-embodied-navigation-course/.deps/lib/libgtsam.so.4.1.1",
+          "75b6aef74000-75b6af2e9000 r-xp 00174000 103:02 11808432                  /home/zyd/program/b2w-embodied-navigation-course/.deps/lib/libgtsam.so.4.1.1",
+          "75b6af2e9000-75b6af388000 r--p 004e9000 103:02 11808432                  /home/zyd/program/b2w-embodied-navigation-course/.deps/lib/libgtsam.so.4.1.1",
+          "75b6af388000-75b6af39b000 r--p 00587000 103:02 11808432                  /home/zyd/program/b2w-embodied-navigation-course/.deps/lib/libgtsam.so.4.1.1",
+          "75b6af39b000-75b6af3a0000 rw-p 0059a000 103:02 11808432                  /home/zyd/program/b2w-embodied-navigation-course/.deps/lib/libgtsam.so.4.1.1"
+        ],
+        "diagnostics_enabled": true
+      }
+    ]
+  },
+  "contacts": {
+    "received": 592,
+    "inventory_received": 592,
+    "first_sequence": 1,
+    "last_sequence": 592,
+    "contiguous": true,
+    "ever_forbidden": false,
+    "unique_pairs": [
+      [
+        "course_world::b2w::FL_foot::FL_foot_collision",
+        "course_world::aws_robomaker_warehouse_GroundB_01_001::link::collision"
+      ],
+      [
+        "course_world::b2w::FR_foot::FR_foot_collision",
+        "course_world::aws_robomaker_warehouse_GroundB_01_001::link::collision"
+      ],
+      [
+        "course_world::b2w::RL_foot::RL_foot_collision",
+        "course_world::aws_robomaker_warehouse_GroundB_01_001::link::collision"
+      ],
+      [
+        "course_world::b2w::RR_foot::RR_foot_collision",
+        "course_world::aws_robomaker_warehouse_GroundB_01_001::link::collision"
+      ]
+    ],
+    "last_inventory": {
+      "stamp": 30.2575,
+      "sequence": 592,
+      "interval_start": 30.2075,
+      "sampled_steps": 20,
+      "ever_forbidden_contact": false,
+      "last_ground_support_stamp": 30.2575,
+      "collisions": [
+        "base_link::base_link_collision",
+        "base_link::base_link_fixed_joint_lump__head_Link_collision_1",
+        "base_link::base_link_fixed_joint_lump__lidar_link_collision_2",
+        "base_link::base_link_fixed_joint_lump__tail_link_collision_3",
+        "FL_hip::FL_hip_collision",
+        "FL_thigh::FL_thigh_collision",
+        "FL_calf::FL_calf_collision",
+        "FL_calf::FL_calf_collision_1",
+        "FL_foot::FL_foot_collision",
+        "FR_hip::FR_hip_collision",
+        "FR_thigh::FR_thigh_collision",
+        "FR_calf::FR_calf_collision",
+        "FR_calf::FR_calf_collision_1",
+        "FR_foot::FR_foot_collision",
+        "RL_hip::RL_hip_collision",
+        "RL_thigh::RL_thigh_collision",
+        "RL_calf::RL_calf_collision",
+        "RL_calf::RL_calf_collision_1",
+        "RL_foot::RL_foot_collision",
+        "RR_hip::RR_hip_collision",
+        "RR_thigh::RR_thigh_collision",
+        "RR_calf::RR_calf_collision",
+        "RR_calf::RR_calf_collision_1",
+        "RR_foot::RR_foot_collision",
+        "collision_plate::collision_plate_collision",
+        "zed_x_camera::zed_x_camera_collision"
+      ],
+      "evaluation_only": true
+    },
+    "full_body_coverage": "NOT_QUALIFIED"
+  },
+  "stationary": {
+    "samples": 115,
+    "source_span_s": 11.399999999999999,
+    "max_slam_distance_from_first_m": 0.0007039054128471871,
+    "physical_whole_trial_stationarity": "NOT_QUALIFIED"
+  },
+  "process_cleanup": {
+    "passed": true,
+    "owned_identities_checked": 27,
+    "token_survivors": [],
+    "matching_pid_survivors": [],
+    "nodes": [
+      [
+        "stage4_zero_policy_cleanup",
+        "/"
+      ]
+    ],
+    "topics": [
+      [
+        "/parameter_events",
+        [
+          "rcl_interfaces/msg/ParameterEvent"
+        ]
+      ],
+      [
+        "/rosout",
+        [
+          "rcl_interfaces/msg/Log"
+        ]
+      ]
+    ],
+    "frozen_files_checked": 525,
+    "changed_since_trial": [],
+    "preservation": {
+      "/home/zyd/program/b2w-embodied-navigation-course-stage4": {
+        "files_checked": 521,
+        "changed": [
+          "PLAN.md",
+          "course_navigation/course_navigation/velocity_adapter.py",
+          "tests/test_stage4_health_io.py",
+          "tests/test_stage4_startup_repair.py"
+        ]
+      },
+      "/home/zyd/program/b2w-embodied-navigation-course": {
+        "files_checked": 397,
+        "changed": []
+      },
+      "/tmp/b2w-pipe-v0": {
+        "files_checked": 342,
+        "changed": []
+      },
+      "/tmp/b2w-pipe-integration-20261021": {
+        "files_checked": 342,
+        "changed": []
+      }
+    },
+    "inherited_trial_hashes_verified": 58
+  },
+  "secondary_shutdown_events": [
+    {
+      "line": 574,
+      "text": "[map_projector-15] RuntimeError: Unable to convert call argument to Python object (compile in debug mode for details)"
+    },
+    {
+      "line": 617,
+      "text": "[velocity_adapter-17] rclpy._rclpy_pybind11.RCLError: Failed to publish: publisher's context is invalid, at ./src/rcl/publisher.c:389"
+    },
+    {
+      "line": 625,
+      "text": "[ERROR] [map_projector-15]: process has died [pid 3649405, exit code 1, cmd '/home/zyd/program/b2w-embodied-navigation-course-stage4/experiments/g1_g5/evidence/zero-policy-20261022/artifacts/install/course_navigation/lib/course_navigation/map_projector --ros-args --params-file /tmp/launch_params_qede8duk']."
+    },
+    {
+      "line": 627,
+      "text": "[ERROR] [velocity_adapter-17]: process has died [pid 3649409, exit code 1, cmd '/home/zyd/program/b2w-embodied-navigation-course-stage4/experiments/g1_g5/evidence/zero-policy-20261022/artifacts/install/course_navigation/lib/course_navigation/velocity_adapter --ros-args --params-file /tmp/launch_params_6wfquae9']."
+    }
+  ],
+  "first_failure": {
+    "reason": "adapter_publication_stalled",
+    "observed_wall": 347222.359471917,
+    "observed_sim": 30.2575,
+    "source": "course_navigation/course_navigation/stage4_control.py:97-100",
+    "exact_watchdog_record_and_wall": "NOT_CAPTURED",
+    "max_final_command_receipt_gap": {
+      "gap_s": 0.15963517100317404,
+      "start_wall": 347222.130601019,
+      "end_wall": 347222.29023619
+    },
+    "attribution": "Compound predicate; exact failing subcondition and cause unresolved"
+  }
+}

@@ -11,9 +11,16 @@ from course_navigation.stage4_guard import FinalCommandGuard
 from course_navigation.stage4_control import read_control
 
 
+@pytest.mark.parametrize('zero_only',[True,False])
 @pytest.mark.parametrize('kind',['sleep','cpu'])
-def test_publication_fault_retains_wall_and_cpu_diagnostic_without_relaxing_deadline(tmp_path,kind):
-    a,c,links,out=fixture();a.stage4_guard=FinalCommandGuard(zero_config(tmp_path))
+def test_publication_overrun_retains_timing_and_only_zero_mode_recovers(tmp_path,kind,zero_only):
+    a,c,links,out=fixture()
+    if zero_only:a.stage4_guard=FinalCommandGuard(zero_config(tmp_path))
+    else:
+        from test_stage4_safety_guard import configured
+        a.stage4_guard,_=configured(tmp_path)
+        a.stage4_guard.config['adapter_heartbeat_path']=str(tmp_path/'health')
+        Path(a.stage4_guard.config['lease_path']).unlink()  # unarmed is NOT ZeroOnly
     original=a.stage4_context
     def measured_context():
         if kind=='sleep':time.sleep(.065)
@@ -24,7 +31,8 @@ def test_publication_fault_retains_wall_and_cpu_diagnostic_without_relaxing_dead
     a.stage4_context=measured_context
     with patch('course_navigation.velocity_adapter.time.monotonic',lambda:c.wall):
         a.state(state());a.publish()
-    assert a.stage4_guard.failure=='adapter_publication_deadline'
+    assert a.stage4_guard.failure==(None if zero_only else 'adapter_publication_deadline')
+    assert Path(a.stage4_guard.config['inhibit_path']).exists() is (not zero_only)
     assert out[-1]==(0.,0.,0.) and not a.stage4_guard.armed
     health=read_control(a.stage4_guard.config['adapter_heartbeat_path'])
     timing=health['publication_timing']['sections']['prepublish']
@@ -64,7 +72,7 @@ def test_owned_evaluation_bridge_failure_stops_before_watchdog_or_probe(tmp_path
     assert not (tmp_path/'session/lease.json').exists()
 
 
-def test_first_overrun_timing_survives_following_fast_fault_callbacks(tmp_path):
+def test_first_zero_overrun_timing_survives_following_fast_callbacks(tmp_path):
     a,c,links,out=fixture();a.stage4_guard=FinalCommandGuard(zero_config(tmp_path));original=a.stage4_context
     def delayed():time.sleep(.065);return original()
     a.stage4_context=delayed
@@ -76,4 +84,24 @@ def test_first_overrun_timing_survives_following_fast_fault_callbacks(tmp_path):
     assert first['sections']['prepublish']['wall_s']>=.05
     assert second['sections']['prepublish']==first['sections']['prepublish']
     assert first['deadline_stage']==second['deadline_stage']=='prepublish'
-    assert a.stage4_guard.failure=='adapter_publication_deadline' and all(v==(0.,0.,0.) for v in out)
+    assert a.stage4_guard.failure is None and all(v==(0.,0.,0.) for v in out)
+    assert not Path(a.stage4_guard.config['lease_path']).exists()
+
+
+@pytest.mark.parametrize('fault',['owner','lease','nonzero'])
+def test_zero_overrun_does_not_hide_other_sticky_faults(tmp_path,fault):
+    from geometry_msgs.msg import Twist
+    a,c,links,out=fixture();a.stage4_guard=FinalCommandGuard(zero_config(tmp_path));g=a.stage4_guard
+    original=a.stage4_context
+    def delayed():time.sleep(.065);return original()
+    a.stage4_context=delayed
+    with patch('course_navigation.velocity_adapter.time.monotonic',lambda:c.wall):
+        a.state(state());a.publish()
+        assert g.failure is None
+        if fault=='owner':g.config['owner']['start_ticks']='lost-owner'
+        elif fault=='lease':Path(g.config['lease_path']).write_text('{}')
+        else:
+            msg=Twist();msg.linear.x=.001;a.command(msg)
+        a.publish()
+    assert g.failure and Path(g.config['inhibit_path']).exists()
+    assert not g.armed and all(v==(0.,0.,0.) for v in out)

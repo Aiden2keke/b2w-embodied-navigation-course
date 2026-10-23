@@ -1,0 +1,25 @@
+{
+  "kind": "reviewed_zeroonly_policy_and_one_trial",
+  "head": "4ae85f4148a89a76b1ad25c5b059c2140be41b85",
+  "runtime_source_changed": [
+    "course_navigation/course_navigation/velocity_adapter.py"
+  ],
+  "source_changes_after_trial": 0,
+  "offline_tests": {
+    "red_failed": 7,
+    "red_passed": 21,
+    "green_passed": 71
+  },
+  "copy_build_passed": true,
+  "copied_files_verified": 35,
+  "attempts": 1,
+  "full_probe_pass": false,
+  "first_inhibit": "adapter_publication_stalled",
+  "owned_cleanup_pass": true,
+  "probe_cleanup_pass": false,
+  "motion_authorized": false,
+  "motion_attempts": 0,
+  "report": "docs/reviews/B2W_ZeroOnly_Policy_E1_20261022.md",
+  "raw_git_ignored": true,
+  "raw_remotely_backed_up": false
+}

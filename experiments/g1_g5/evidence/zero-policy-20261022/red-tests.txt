@@ -1,0 +1,184 @@
+F.F...FFFF...F..............                                             [100%]
+=================================== FAILURES ===================================
+_ test_publication_overrun_retains_timing_and_only_zero_mode_recovers[sleep-True] _
+
+tmp_path = PosixPath('/tmp/b2w-zero-policy-red/test_publication_overrun_retai0')
+kind = 'sleep', zero_only = True
+
+    @pytest.mark.parametrize('zero_only',[True,False])
+    @pytest.mark.parametrize('kind',['sleep','cpu'])
+    def test_publication_overrun_retains_timing_and_only_zero_mode_recovers(tmp_path,kind,zero_only):
+        a,c,links,out=fixture()
+        if zero_only:a.stage4_guard=FinalCommandGuard(zero_config(tmp_path))
+        else:
+            from test_stage4_safety_guard import configured
+            a.stage4_guard,_=configured(tmp_path)
+            a.stage4_guard.config['adapter_heartbeat_path']=str(tmp_path/'health')
+            Path(a.stage4_guard.config['lease_path']).unlink()  # unarmed is NOT ZeroOnly
+        original=a.stage4_context
+        def measured_context():
+            if kind=='sleep':time.sleep(.065)
+            else:
+                until=time.thread_time()+.060
+                while time.thread_time()<until:pass
+            return original()
+        a.stage4_context=measured_context
+        with patch('course_navigation.velocity_adapter.time.monotonic',lambda:c.wall):
+            a.state(state());a.publish()
+>       assert a.stage4_guard.failure==(None if zero_only else 'adapter_publication_deadline')
+E       AssertionError: assert 'adapter_publication_deadline' == None
+E        +  where 'adapter_publication_deadline' = <course_navigation.stage4_guard.FinalCommandGuard object at 0x7a9ecf06f580>.failure
+E        +    where <course_navigation.stage4_guard.FinalCommandGuard object at 0x7a9ecf06f580> = <course_navigation.velocity_adapter.VelocityAdapter object at 0x7a9ecf06e8f0>.stage4_guard
+
+tests/test_stage4_startup_repair.py:34: AssertionError
+_ test_publication_overrun_retains_timing_and_only_zero_mode_recovers[cpu-True] _
+
+tmp_path = PosixPath('/tmp/b2w-zero-policy-red/test_publication_overrun_retai2')
+kind = 'cpu', zero_only = True
+
+    @pytest.mark.parametrize('zero_only',[True,False])
+    @pytest.mark.parametrize('kind',['sleep','cpu'])
+    def test_publication_overrun_retains_timing_and_only_zero_mode_recovers(tmp_path,kind,zero_only):
+        a,c,links,out=fixture()
+        if zero_only:a.stage4_guard=FinalCommandGuard(zero_config(tmp_path))
+        else:
+            from test_stage4_safety_guard import configured
+            a.stage4_guard,_=configured(tmp_path)
+            a.stage4_guard.config['adapter_heartbeat_path']=str(tmp_path/'health')
+            Path(a.stage4_guard.config['lease_path']).unlink()  # unarmed is NOT ZeroOnly
+        original=a.stage4_context
+        def measured_context():
+            if kind=='sleep':time.sleep(.065)
+            else:
+                until=time.thread_time()+.060
+                while time.thread_time()<until:pass
+            return original()
+        a.stage4_context=measured_context
+        with patch('course_navigation.velocity_adapter.time.monotonic',lambda:c.wall):
+            a.state(state());a.publish()
+>       assert a.stage4_guard.failure==(None if zero_only else 'adapter_publication_deadline')
+E       AssertionError: assert 'adapter_publication_deadline' == None
+E        +  where 'adapter_publication_deadline' = <course_navigation.stage4_guard.FinalCommandGuard object at 0x7a9ecf205180>.failure
+E        +    where <course_navigation.stage4_guard.FinalCommandGuard object at 0x7a9ecf205180> = <course_navigation.velocity_adapter.VelocityAdapter object at 0x7a9ecf205450>.stage4_guard
+
+tests/test_stage4_startup_repair.py:34: AssertionError
+_______ test_first_zero_overrun_timing_survives_following_fast_callbacks _______
+
+tmp_path = PosixPath('/tmp/b2w-zero-policy-red/test_first_zero_overrun_timing0')
+
+    def test_first_zero_overrun_timing_survives_following_fast_callbacks(tmp_path):
+        a,c,links,out=fixture();a.stage4_guard=FinalCommandGuard(zero_config(tmp_path));original=a.stage4_context
+        def delayed():time.sleep(.065);return original()
+        a.stage4_context=delayed
+        with patch('course_navigation.velocity_adapter.time.monotonic',lambda:c.wall):
+            a.state(state());a.publish()
+            first=read_control(a.stage4_guard.config['adapter_heartbeat_path'])['first_deadline_timing']
+            a.stage4_context=original;a.publish()
+        second=read_control(a.stage4_guard.config['adapter_heartbeat_path'])['first_deadline_timing']
+        assert first['sections']['prepublish']['wall_s']>=.05
+        assert second['sections']['prepublish']==first['sections']['prepublish']
+        assert first['deadline_stage']==second['deadline_stage']=='prepublish'
+>       assert a.stage4_guard.failure is None and all(v==(0.,0.,0.) for v in out)
+E       AssertionError: assert ('adapter_publication_deadline' is None)
+E        +  where 'adapter_publication_deadline' = <course_navigation.stage4_guard.FinalCommandGuard object at 0x7a9ecf1b71f0>.failure
+E        +    where <course_navigation.stage4_guard.FinalCommandGuard object at 0x7a9ecf1b71f0> = <course_navigation.velocity_adapter.VelocityAdapter object at 0x7a9ecf048040>.stage4_guard
+
+tests/test_stage4_startup_repair.py:87: AssertionError
+__________ test_zero_overrun_does_not_hide_other_sticky_faults[owner] __________
+
+tmp_path = PosixPath('/tmp/b2w-zero-policy-red/test_zero_overrun_does_not_hid0')
+fault = 'owner'
+
+    @pytest.mark.parametrize('fault',['owner','lease','nonzero'])
+    def test_zero_overrun_does_not_hide_other_sticky_faults(tmp_path,fault):
+        from geometry_msgs.msg import Twist
+        a,c,links,out=fixture();a.stage4_guard=FinalCommandGuard(zero_config(tmp_path));g=a.stage4_guard
+        original=a.stage4_context
+        def delayed():time.sleep(.065);return original()
+        a.stage4_context=delayed
+        with patch('course_navigation.velocity_adapter.time.monotonic',lambda:c.wall):
+            a.state(state());a.publish()
+>           assert g.failure is None
+E           AssertionError: assert 'adapter_publication_deadline' is None
+E            +  where 'adapter_publication_deadline' = <course_navigation.stage4_guard.FinalCommandGuard object at 0x7a9ecf0841c0>.failure
+
+tests/test_stage4_startup_repair.py:100: AssertionError
+__________ test_zero_overrun_does_not_hide_other_sticky_faults[lease] __________
+
+tmp_path = PosixPath('/tmp/b2w-zero-policy-red/test_zero_overrun_does_not_hid1')
+fault = 'lease'
+
+    @pytest.mark.parametrize('fault',['owner','lease','nonzero'])
+    def test_zero_overrun_does_not_hide_other_sticky_faults(tmp_path,fault):
+        from geometry_msgs.msg import Twist
+        a,c,links,out=fixture();a.stage4_guard=FinalCommandGuard(zero_config(tmp_path));g=a.stage4_guard
+        original=a.stage4_context
+        def delayed():time.sleep(.065);return original()
+        a.stage4_context=delayed
+        with patch('course_navigation.velocity_adapter.time.monotonic',lambda:c.wall):
+            a.state(state());a.publish()
+>           assert g.failure is None
+E           AssertionError: assert 'adapter_publication_deadline' is None
+E            +  where 'adapter_publication_deadline' = <course_navigation.stage4_guard.FinalCommandGuard object at 0x7a9ecf1b5f30>.failure
+
+tests/test_stage4_startup_repair.py:100: AssertionError
+_________ test_zero_overrun_does_not_hide_other_sticky_faults[nonzero] _________
+
+tmp_path = PosixPath('/tmp/b2w-zero-policy-red/test_zero_overrun_does_not_hid2')
+fault = 'nonzero'
+
+    @pytest.mark.parametrize('fault',['owner','lease','nonzero'])
+    def test_zero_overrun_does_not_hide_other_sticky_faults(tmp_path,fault):
+        from geometry_msgs.msg import Twist
+        a,c,links,out=fixture();a.stage4_guard=FinalCommandGuard(zero_config(tmp_path));g=a.stage4_guard
+        original=a.stage4_context
+        def delayed():time.sleep(.065);return original()
+        a.stage4_context=delayed
+        with patch('course_navigation.velocity_adapter.time.monotonic',lambda:c.wall):
+            a.state(state());a.publish()
+>           assert g.failure is None
+E           AssertionError: assert 'adapter_publication_deadline' is None
+E            +  where 'adapter_publication_deadline' = <course_navigation.stage4_guard.FinalCommandGuard object at 0x7a9ecf0851e0>.failure
+
+tests/test_stage4_startup_repair.py:100: AssertionError
+_ test_health_overrun_only_zero_mode_recovers_but_write_faults_latch[delay-True] _
+
+tmp_path = PosixPath('/tmp/b2w-zero-policy-red/test_health_overrun_only_zero_0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7a9ecf1c7d90>
+failure = 'delay', zero_only = True
+
+    @pytest.mark.parametrize('zero_only',[True,False])
+    @pytest.mark.parametrize('failure',['delay','write','rename'])
+    def test_health_overrun_only_zero_mode_recovers_but_write_faults_latch(tmp_path,monkeypatch,failure,zero_only):
+        a,c,out=adapter(tmp_path);replace=control.os.replace
+        if not zero_only:
+            from test_stage4_safety_guard import configured
+            a.stage4_guard,_=configured(tmp_path)
+            a.stage4_guard.config['adapter_heartbeat_path']=str(tmp_path/'health')
+            Path(a.stage4_guard.config['lease_path']).unlink()
+        if failure=='delay':
+            def delayed(source,target):time.sleep(.065);return replace(source,target)
+            monkeypatch.setattr(control.os,'replace',delayed)
+        elif failure=='rename':
+            def failed(source,target):raise OSError('injected rename failure')
+            monkeypatch.setattr(control.os,'replace',failed)
+        else:
+            def failed(path,value):raise OSError('injected write failure')
+            monkeypatch.setattr(control,'write_adapter_health',failed)
+        with patch('course_navigation.velocity_adapter.time.monotonic',lambda:c.wall):
+            a.state(state());a.publish()
+        g=a.stage4_guard
+>       if failure=='delay' and zero_only:assert g.failure is None
+E       AssertionError: assert 'adapter_health_publication_deadline' is None
+E        +  where 'adapter_health_publication_deadline' = <course_navigation.stage4_guard.FinalCommandGuard object at 0x7a9ecf1c7a60>.failure
+
+tests/test_stage4_health_io.py:79: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_stage4_startup_repair.py::test_publication_overrun_retains_timing_and_only_zero_mode_recovers[sleep-True]
+FAILED tests/test_stage4_startup_repair.py::test_publication_overrun_retains_timing_and_only_zero_mode_recovers[cpu-True]
+FAILED tests/test_stage4_startup_repair.py::test_first_zero_overrun_timing_survives_following_fast_callbacks
+FAILED tests/test_stage4_startup_repair.py::test_zero_overrun_does_not_hide_other_sticky_faults[owner]
+FAILED tests/test_stage4_startup_repair.py::test_zero_overrun_does_not_hide_other_sticky_faults[lease]
+FAILED tests/test_stage4_startup_repair.py::test_zero_overrun_does_not_hide_other_sticky_faults[nonzero]
+FAILED tests/test_stage4_health_io.py::test_health_overrun_only_zero_mode_recovers_but_write_faults_latch[delay-True]
+7 failed, 21 passed in 1.29s

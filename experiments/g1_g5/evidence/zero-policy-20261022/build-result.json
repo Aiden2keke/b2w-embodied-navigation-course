@@ -1,0 +1,20 @@
+{
+  "argv": [
+    "/usr/bin/colcon",
+    "--log-base",
+    "/home/zyd/program/b2w-embodied-navigation-course-stage4/experiments/g1_g5/evidence/zero-policy-20261022/raw/copy-build-log",
+    "build",
+    "--base-paths",
+    "course_navigation",
+    "--packages-select",
+    "course_navigation",
+    "--build-base",
+    "/home/zyd/program/b2w-embodied-navigation-course-stage4/experiments/g1_g5/evidence/zero-policy-20261022/artifacts/build",
+    "--install-base",
+    "/home/zyd/program/b2w-embodied-navigation-course-stage4/experiments/g1_g5/evidence/zero-policy-20261022/artifacts/install",
+    "--executor",
+    "sequential"
+  ],
+  "exit_code": 0,
+  "wall_s": 0.9853047979995608
+}

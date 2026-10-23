@@ -1,0 +1,4 @@
+External architecture decision: user communicated CONDITIONAL PASS for immutable ZeroOnly-only50ms policy. User authorized one bounded zero trial after passing boundaries/preflight; no nonzero.
+Independent static code review: no blocking defect; checks ctor-captured mode, unchanged motion deadline/freshness/qualification/other faults. Health-stage overrun first timing visible only on following successful callback (preexisting instrumentation limit). Static review does not authorize another trial or motion.
+
+Post-trial independent result sanity review: FAILED; source deadline policy recovered as designed and bootstrap reached watchdog/probe; compound watchdog predicate and receiver gap do not prove exact health age/cause. Probe stationary cleanup failed while OS owned cleanup passed. No further code/live action authorized.
