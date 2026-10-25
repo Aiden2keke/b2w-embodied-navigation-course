@@ -1,36 +1,37 @@
-# Handoff — Owner TF/odom offline correction
+# Handoff — Live TF / short motion stopped before launch
 
-Prepared workspace: `/tmp/b2w-navigation-ab-20261023` (keep generated inputs).
-Branch: `experiment/canonical-planning-20261025`; project remote alias `project`:
+Workspace `/tmp/b2w-navigation-ab-20261023`; branch
+`experiment/canonical-planning-20261025`; remote `project` is
 https://github.com/Aiden2keke/b2w-embodied-navigation-course.git.
-Base:523dd0f65fa8807b3ab3e4220907f04726b3a2b5. Fix commit contains this file;
-use `git rev-parse HEAD` and verify the same branch with `git ls-remote project`.
-Original local `origin`, shared checkout and Stage4 edits are preserved.
+Runtime fix base: fdfd64cb0d692726c83b625c0b15155a991aa441.
+Use git rev-parse HEAD / git ls-remote project for final documentation commit.
 
-DONE: independent localization node/executor; locked TF message/decision reads;
-bounded TF-chain history and odom handoff retaining callback receipts; failure
-latching and explicit bounded thread cleanup. Freshness remains0.5s. All existing
-contact, sole command owner, stop, watchdog and cleanup safeguards remain.
-Single-agent actual-diff review PASS for OFFLINE correction.379 focused tests
-PASS (including real DDS runner/recorder), latest ingestion subset10/10 PASS;
-46 source/install pairs,26 collision handles and62 original raw hashes verified.
-No Gazebo or motion. Historical DDS arrival is unavailable: replay establishes a
-supported dispatch failure mode, not the sole historical transport cause or a
-live latency guarantee. Report: `docs/reviews/B2W_Owner_TF_Odom_Scheduling_20261025.md`.
-Evidence: `artifacts/recovery/owner-tf-scheduling-20261025/` (ignored local logs).
+NO simulator launched. User allowed at most one precheck-only attempt if full
+changed-Owner zero-only qualification could be certified within it. Existing
+contract requires separate stationary-containment mode, terminating via watchdog
+and owned cleanup; it is mutually exclusive with precheck and rejects motion
+authority. User explicitly required STOP in this case. No attempt consumed,
+commands, goals, DWB or retry. LIVE TF and short motion remain NOT QUALIFIED;
+no measured velocities/coast or evidence that the live historical fault is fixed.
 
-NEXT, separate authorization: changed-Owner zero-only qualification, then existing
-Profile-B precheck1s vx.05/rest/1s wz.05/rest in a verified1.5m sensor-free pocket;
-retain original phase/watchdog limits and all physical vetoes. Exact proposed
-invocation and acceptance are in the report; it has NOT been run. Reverify this
-commit's Owner+owner_tf_delivery hashes along with deployment/native pins. Do not
-reuse historical749a4169 Owner pin as if unchanged or alter pins to bypass review.
-Micro-check cannot qualify0.2m/s Profile-B stopping/tracking/mixed-motion bounds.
+Fresh verification: initial clean expected branch/HEAD and matching remote;
+host GPU available/no matching simulation processes;46 reviewed source/install
+pairs,9 native pins and committed Owner/TF-delivery hashes match; offline checker
+PASS with26 collision handles,1s pulses,spawn(0,-1),domain231 (offline parameter
+ONLY, no live domain/lease/graph certificate). Pins unchanged. Additional
+localization node is created after initial graph emptiness check; no new command
+publisher; live isolation still untested. No safety or runtime source edits.
+Report: docs/reviews/B2W_Live_TF_Qualification_20261025.md.
+Evidence: artifacts/recovery/live-tf-qualification-20261025/.
 
-Real145-pose7.213m Start→G1 path already exists. Do not reopen Smac or startup work
-or require a new path capture to establish that fact. Historical Owner session
-FAILED at TF age.5025s; action terminal status unavailable. Actual Start→G2 and
-continuous Start→G5/video NOT DONE. G1 body/rotation coverage and Profile-B bounds
-remain blockers;0.3m navigation tolerance vs0.05m staging unchanged. No observer
-truth for control, grace, unknown-as-free, policy change, broad kills or force push.
-No authorization for new Gazebo/motion is inherited from this delivery.
+NEXT in NEW SESSION: separately authorize one changed-Owner zero-only
+stationary-containment qualification with fresh domain<=231/lease/output and all
+identity/contact/freshness/rest/watchdog/cleanup checks. After PASS, separately
+authorize the short precheck at verified(0,-1),observed1.5m clearance,
+1s vx.05/zero+rest/1s wz.05/zero+rest, preserving all limits. Current authorization
+does not carry forward. Short-motion milestone OPEN. Start→G2 additionally needs
+G1 body/rotation coverage, Profile-B stopping/tracking/localization/envelope
+bounds and explicit0.3m navigation vs0.05m staging. Existing145-pose7.213m
+Start→G1 capture retained; do not recapture it. Start→G2/G5/video NOT DONE.
+Original shared checkout/Stage4 preserved; no truth for control, grace, threshold
+relaxation, broad kills or force push. STOP after review and APRIL delivery.

@@ -24,31 +24,29 @@
 - 旧实施计划归档至 `docs/plans/archive/2026-10-10-local-course-system-plan.md`。历史 design/validation 保留为证据，不是另一个当前 roadmap。无新增 HANDOFF。
 - 历史轮次只读与 timing 交付已结束；本轮范围以最新用户请求和下方 NOW 为准。旧实验/交付记录只作历史证据。
 
-## NOW — Owner TF/Odom offline fix PASS; live calibration NEXT (2026-10-25)
+## NOW — Live TF / short motion blocked before launch (2026-10-25)
 
-Single-agent continuation of pushed523dd0f canonical-planning milestone. Latest
-user authorizes offline fix, self-review, commit/push and APRIL delivery; no Gazebo
-or motion. Original shared checkout, Stage4 and Pipe remain untouched.
+- [x] Expected branch/HEAD fdfd64c and initial clean worktree; remote matches.
+- [x] Fresh audit:46 reviewed source/install pairs,9 native pins and both committed
+      Owner/TF-delivery hashes match. Offline precheck input/engine check PASS,
+      26 collision handles. Historical deployment pins preserved; no runtime edit.
+- [x] User's one precheck-only authorization cannot satisfy existing separate
+      changed-Owner stationary qualification: mutually exclusive modes, watchdog
+      containment/cleanup required before qualification PASS. STOP before launch.
+      No Gazebo/ROS session, command, retry or navigation. Domain/lease/live graph
+      not certified; domain231 was only an offline checker parameter.
+- [ ] LIVE TF QUALIFICATION and FORWARD/TURN/STOP remain unqualified (not run).
+      Historical failure elimination undetermined; no actual speed/coast data.
+- [ ] NEW session: separately authorize changed-Owner zero-only containment test;
+      after PASS separately authorize1s vx.05/rest/1s wz.05/rest precheck at(0,-1)
+      with actual1.5m sensor clearance and all original limits. No inherited motion.
+- [ ] Actual Start→G2 still blocked by qualification/precheck, G1 body/rotation
+      coverage and Profile-B stopping/tracking/localization/envelope bounds;
+      0.3m navigation vs0.05m staging remains explicit. Existing145-pose7.213m
+      Start→G1 capture retained; no recapture. Start→G5/video NOT DONE.
 
-- [x] Replay recorded24.5025 clock /24.0 Owner TF /24.2 observer interleaving.
-      Historical Owner DDS arrival is unavailable; modeled dispatch ordering
-      reproduces fault without claiming sole historical transport causality.
-- [x] Dedicated localization node + one SingleThreadedExecutor; atomic TF/odom
-      decisions, bounded source-stamped chain history and original odom receipts.
-      Keep0.5s, contact/command/stop/watchdog and owned cleanup predicates.
-- [x]379 focused regressions PASS including real DDS executor tests; current
-      ingestion subset10/10 PASS;46 source/install pairs and26 collision handles
-      offline verified;62 prior raw hashes preserved. Actual-diff single-agent
-      self-review PASS for offline correction, not runtime/navigation readiness.
-- [x] Prepare existing Profile-B1s forward/rest/1s turn/rest micro-check; NOT RUN.
-      Report: docs/reviews/B2W_Owner_TF_Odom_Scheduling_20261025.md. Local evidence:
-      artifacts/recovery/owner-tf-scheduling-20261025/. Commit/push and one APRIL
-      bundle/checksum complete the delivery gate; HANDOFF.md is next-session entry.
-- [ ] Next session: separately authorize zero-only changed-Owner qualification,
-      then bounded Profile-B calibration and actual Start→G2 after admission.
-      No live timing guarantee or motion success from this offline result.
-      G1 body/rotation coverage, stopping/tracking/localization bounds and0.3m
-      navigation vs0.05m staging remain explicit. Start→G2/Start→G5/video NOT DONE.
+Review: docs/reviews/B2W_Live_TF_Qualification_20261025.md. Local evidence:
+artifacts/recovery/live-tf-qualification-20261025/. Short-motion milestone OPEN.
 
 
 ## Historical — Final corrected canonical planning capture (2026-10-25)
