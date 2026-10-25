@@ -24,29 +24,42 @@
 - 旧实施计划归档至 `docs/plans/archive/2026-10-10-local-course-system-plan.md`。历史 design/validation 保留为证据，不是另一个当前 roadmap。无新增 HANDOFF。
 - 历史轮次只读与 timing 交付已结束；本轮范围以最新用户请求和下方 NOW 为准。旧实验/交付记录只作历史证据。
 
-## NOW — Live TF / short motion blocked before launch (2026-10-25)
+## NOW — Live qualification attempt CLOSED: A PASS / B FAIL (2026-10-25)
 
-- [x] Expected branch/HEAD fdfd64c and initial clean worktree; remote matches.
-- [x] Fresh audit:46 reviewed source/install pairs,9 native pins and both committed
-      Owner/TF-delivery hashes match. Offline precheck input/engine check PASS,
-      26 collision handles. Historical deployment pins preserved; no runtime edit.
-- [x] User's one precheck-only authorization cannot satisfy existing separate
-      changed-Owner stationary qualification: mutually exclusive modes, watchdog
-      containment/cleanup required before qualification PASS. STOP before launch.
-      No Gazebo/ROS session, command, retry or navigation. Domain/lease/live graph
-      not certified; domain231 was only an offline checker parameter.
-- [ ] LIVE TF QUALIFICATION and FORWARD/TURN/STOP remain unqualified (not run).
-      Historical failure elimination undetermined; no actual speed/coast data.
-- [ ] NEW session: separately authorize changed-Owner zero-only containment test;
-      after PASS separately authorize1s vx.05/rest/1s wz.05/rest precheck at(0,-1)
-      with actual1.5m sensor clearance and all original limits. No inherited motion.
-- [ ] Actual Start→G2 still blocked by qualification/precheck, G1 body/rotation
-      coverage and Profile-B stopping/tracking/localization/envelope bounds;
-      0.3m navigation vs0.05m staging remains explicit. Existing145-pose7.213m
-      Start→G1 capture retained; no recapture. Start→G5/video NOT DONE.
-
-Review: docs/reviews/B2W_Live_TF_Qualification_20261025.md. Local evidence:
-artifacts/recovery/live-tf-qualification-20261025/. Short-motion milestone OPEN.
+- [x] Initial clean expected HEAD270241453b45d791a3ff10fc0f8fff535f233174;
+      46 source/install pairs,9 native identities and committed Owner/TF hashes match.
+- [x] ONE changed-Owner stationary-containment session, fresh domain213: PASS.
+      619 exact-zero final samples; rest5.255sim/5.521691wall seconds;
+      drift0.000270749m/0.000000236389rad; watchdog paused all server threads,
+      removed owned processes; localization thread closed and lease released.
+- [x] Conditional ONE separate Profile-B precheck, fresh domain212, spawn(0,-1):
+      executed forward/rest/turn/rest; all three1.5m observed-free checks PASS.
+      B FAIL: first recorded exception `Normal owned cleanup incomplete` after
+      both measured stops. Fallback owned cleanup and localization cleanup PASS;
+      host independently confirms no owned/token processes and both leases free.
+- [x] Actual forward body-vx mean/peak0.097012/0.141762m/s; world planar peak
+      0.141922m/s. Positive yaw command produced mean/min wz−0.151656/−0.200533rad/s.
+      Forward whole-coast0.036475618m/0.005350422rad; turn whole-coast
+      0.018353265m/0.151054692rad. Both final commands exact zero; measured rest
+     5.2875sim/5.796611wall and5.4125sim/5.878406wall seconds. Tracking NOT qualified.
+- [x] Observer TF/odom max age during active windows A0.420s/B0.440s;
+      no active Owner freshness fault. B shutdown diagnostic has stale wall data
+      after simulator exit, not evidence of an active localization fault.
+      Healthy Owner age maxima were not persisted. No general TF reliability claim.
+- [x] No forbidden contacts; existing excursions/physical vetoes retained.
+      No goals, DWB navigation, mixed command, extra pulse, live retry or source edit.
+      Requested pulse cap1s; sampled Owner forward loop1.0025s, turn1s;
+      final-command receive-clock nonzero→zero intervals0.9425s/0.9075s
+      (unstamped command observations, not exact actuator timing).
+- [x] Qualification attempt milestone CLOSED with B failure; no further live
+      attempt authorized. Evidence: artifacts/recovery/live-qualification-short-motion-20261025/;
+      repository-named APRIL archive and checksum delivered to APRIL_REVIEW_BUNDLES.
+- [ ] NEXT NEW SESSION: first resolve failed normal-cleanup gate and wrong-sign
+      yaw/forward tracking; establish Profile-B route-relevant stopping, tracking,
+      localization and envelope bounds, G1 body/rotation coverage and explicit
+     0.3m navigation vs0.05m staging. Existing145-pose7.213m Start→G1 retained.
+      Genuine Start→G1→G2 and continuous Start→G5 video remain NOT DONE.
+      This short run does not qualify0.2m/s or mixed motion.
 
 
 ## Historical — Final corrected canonical planning capture (2026-10-25)
