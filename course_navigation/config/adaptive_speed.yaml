@@ -1,0 +1,22 @@
+# Opt-in only. w_ref is deliberately absent: supply a measured width via launch.
+speed_governor:
+  ros__parameters:
+    open_command: 0.43  # Provisional direct policy input; physical target is 0.50.
+    narrow_command: 0.11  # Initial ~0.18 physical target from existing recorded data.
+    open_physical: 0.50
+    narrow_physical: 0.18
+    width_margin_m: 0.10
+    min_side_clearance_m: 0.15
+    release_margin_m: 0.03  # Modest hysteresis above the unchanged entry thresholds.
+    release_hold_s: 0.5
+    lookahead_m: 1.0
+    deceleration: 0.20
+    latency_s: 0.80
+    braking_margin_m: 0.20
+    sample_step_m: 0.10
+    side_search_m: 2.0
+    map_timeout_s: 1.5
+    odom_timeout_s: 0.6
+    path_timeout_s: 0.75
+    tf_timeout_s: 0.6
+    cloud_timeout_s: 0.75

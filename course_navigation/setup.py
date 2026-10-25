@@ -15,5 +15,5 @@ setup(
     install_requires=['setuptools'], zip_safe=True,
     maintainer='B2-W course team', maintainer_email='course@example.invalid',
     description='B2-W course simulation, localization and navigation integration',
-    license='MIT', entry_points={'console_scripts': ['map_projector = course_navigation.map_node:main', 'velocity_adapter = course_navigation.velocity_adapter:main', 'goal_manager = course_navigation.goal_manager:main']},
+    license='MIT', entry_points={'console_scripts': ['map_projector = course_navigation.map_node:main', 'velocity_adapter = course_navigation.velocity_adapter:main', 'goal_manager = course_navigation.goal_manager:main', 'speed_governor = course_navigation.speed_governor:main']},
 )

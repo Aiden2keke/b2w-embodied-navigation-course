@@ -39,7 +39,10 @@ def setup(context):
         actions[-1] = TimerAction(period=20.0, actions=[actions[-1]])
     if mode == 'navigation':
         nav_args = {key: value(key) for key in
-                    ['results_directory', 'timeout_s', 'goal_tolerance_m', 'map_mode', 'map_file', 'nav_params_file']}
+                    ['results_directory', 'timeout_s', 'goal_tolerance_m', 'map_mode', 'map_file', 'nav_params_file',
+                     'adaptive_speed', 'w_ref', 'adaptive_params_file']}
+        nav_args['goal_manager_enabled'] = LaunchConfiguration('goal_manager_enabled', default='true').perform(context)
+        nav_args['dwb_observability'] = LaunchConfiguration('dwb_observability', default='false').perform(context)
         if value('scene') == 'warehouse':
             nav_args.update(map_width='40.0', map_height='40.0')
         include('course_navigation', 'navigation.launch.py', nav_args)
@@ -80,6 +83,10 @@ def generate_launch_description():
                 'fault_profile': 'normal', 'seed': '0', 'horizontal_samples': '2000',
                 'control_source': 'auto', 'joy_dev': '/dev/input/js0',
                 'slam_params_file': '', 'adapter_params_file': '', 'nav_params_file': '',
+                'adaptive_speed': 'false', 'w_ref': '',
+                'adaptive_params_file': '',
+                'dwb_observability': 'false',
+                'goal_manager_enabled': 'true',
                 'map_mode': 'online', 'map_file': '',
                 'results_directory': 'course_results/navigation', 'bag_directory': 'bags',
                 'timeout_s': '120.0', 'goal_tolerance_m': '0.3'}
