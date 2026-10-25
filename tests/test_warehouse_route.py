@@ -3,6 +3,7 @@ import copy
 from concurrent.futures import Future
 import hashlib
 import json
+import math
 from pathlib import Path
 import sys
 from types import SimpleNamespace
@@ -87,6 +88,68 @@ def test_default_dry_run_never_constructs_transport_or_sends():
     assert report['dry_run'] is True
     assert report['sent_poses'] == report['segments'] == []
     assert report['stop_reason'] == 'dry_run'
+
+
+def test_full_dry_run_preserves_unresolved_canonical_orientations():
+    report = route.run_critical(route.load_route(), mode='full')
+    assert [g['name'] for g in report['planned_goals']] == ['G1', 'G2', 'G3', 'G4', 'G5']
+    assert report['unresolved_orientations'] == ['G3', 'G4', 'G5']
+    assert [g['pose']['pose']['orientation'] for g in report['planned_goals'][2:]] == [None] * 3
+    assert report['sent_poses'] == []
+
+
+def test_full_cli_dry_run_is_offline_and_invalid_execution_creates_no_output(tmp_path, monkeypatch):
+    import builtins
+    original = builtins.__import__
+    def guarded(name, *args, **kwargs):
+        if name.split('.')[0] in {'rclpy', 'geometry_msgs', 'nav2_msgs', 'tf2_ros'}:
+            pytest.fail(f'Full dry-run imported {name}')
+        return original(name, *args, **kwargs)
+    monkeypatch.setattr(builtins, '__import__', guarded)
+    assert route.main(['--mode', 'full', '--output-root', str(tmp_path)]) == 0
+    report = json.loads(next(tmp_path.glob('*/report.json')).read_text())
+    assert report['mode'] == 'full' and report['unresolved_orientations'] == ['G3', 'G4', 'G5']
+    before = set(tmp_path.iterdir())
+    with pytest.raises(SystemExit):
+        route.main(['--mode', 'full', '--execute', '--output-root', str(tmp_path)])
+    assert set(tmp_path.iterdir()) == before
+
+
+@pytest.mark.parametrize('yaws', [None, (0.,), (0., 0., float('nan'))])
+def test_full_execution_rejects_unresolved_or_invalid_yaws_before_transport(yaws):
+    def forbidden():
+        pytest.fail('Invalid full route constructed transport')
+    with pytest.raises(ValueError, match='yaw|orientation'):
+        route.run_critical(route.load_route(), mode='full', continuation_yaws=yaws,
+                           execute=True, transport_factory=forbidden)
+
+
+def test_full_sequence_uses_explicit_yaws_and_all_evaluation_gates():
+    live = Transport(statuses=(4,) * 5, offsets=(.01,) * 5)
+    report = route.run_critical(route.load_route(), mode='full', continuation_yaws=(.1, -.2, .3),
+                               execute=True, transport_factory=lambda: live)
+    assert report['success'] is True and report['stop_reason'] == 'full_succeeded'
+    assert [s['segment'] for s in report['segments']] == ['Start→G1', 'G1→G2', 'G2→G3', 'G3→G4', 'G4→G5']
+    assert [tuple(s['pose']['position'][a] for a in 'xy') for s in live.sent] == XY
+    assert [g['yaw_rad'] for g in report['planned_goals'][2:]] == [.1, -.2, .3]
+    for sent, yaw in zip(live.sent[2:], (.1, -.2, .3)):
+        assert sent['pose']['orientation'] == pytest.approx(
+            dict(x=0., y=0., z=math.sin(yaw / 2), w=math.cos(yaw / 2)))
+    assert live.closed
+
+
+@pytest.mark.parametrize('statuses,offsets,count,reason', [
+    ((4,) * 5, (.06484485334757964,) * 5, 1, 'staging_evaluation_failed'),
+    ((4,) * 5, (.01, .06, .01, .01, .01), 2, 'critical_evaluation_failed'),
+    ((4, 4, 6, 4, 4), (.01,) * 5, 3, 'continuation_failed'),
+    ((4,) * 5, (.01, .01, .01, .06, .01), 4, 'continuation_evaluation_failed'),
+])
+def test_full_sequence_stops_at_first_failed_gate(statuses, offsets, count, reason):
+    live = Transport(statuses=statuses, offsets=offsets)
+    report = route.run_critical(route.load_route(), mode='full', continuation_yaws=(0., 0., 0.),
+                               execute=True, transport_factory=lambda: live)
+    assert len(live.sent) == count and live.closed
+    assert report['success'] is False and report['stop_reason'] == reason
 
 
 def test_cli_dry_run_never_imports_ros_and_records_hashes(tmp_path, monkeypatch):
@@ -206,6 +269,15 @@ def test_start_failure_closes_partially_initialized_transport():
     report = route.run_critical(route.load_route(), execute=True, transport_factory=lambda: live)
     assert live.closed and not live.sent
     assert report['success'] is False and report['stop_reason'] == 'transport_error'
+
+
+def test_attached_transport_reuses_context_without_owning_shutdown():
+    context = SimpleNamespace(ok=lambda: True, init=lambda: pytest.fail('Must not initialize shared context'))
+    live = route.RosGoalTransport(reuse_existing_context=True)
+    live.start_context(context)
+    assert live.initialized is False
+    live.rclpy = SimpleNamespace(ok=lambda: True, shutdown=lambda: pytest.fail('Must not shut shared context'))
+    assert live.close()['passed']
 
 
 def test_unused_action_server_does_not_require_a_prior_goal_to_publish_status():

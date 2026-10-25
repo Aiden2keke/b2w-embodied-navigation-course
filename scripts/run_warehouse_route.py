@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""Canonical warehouse critical route benchmark; dry-run unless --execute."""
+"""Canonical warehouse route benchmark; critical by default, dry-run unless --execute."""
 import argparse
 import copy
 from collections import deque
@@ -48,6 +48,26 @@ def critical_goals(config):
                  'orientation': dict(orientation)}}) for g in (a, b)]
 
 
+def planned_goals(config, mode='critical', continuation_yaws=None):
+    """Null canonical headings stay unresolved until three explicit yaws are supplied."""
+    if mode not in ('critical', 'full'):
+        raise ValueError('Invalid warehouse route mode')
+    if continuation_yaws is not None:
+        if (mode != 'full' or len(continuation_yaws) != 3
+                or not all(math.isfinite(v) for v in continuation_yaws)):
+            raise ValueError('Full route needs exactly three finite continuation yaws')
+    goals = critical_goals(config)
+    if mode == 'full':
+        for i, goal in enumerate(config['goals'][2:]):
+            yaw = None if continuation_yaws is None else continuation_yaws[i]
+            goals.append(dict(name=goal['name'], yaw_rad=yaw, pose={
+                'header': {'frame_id': config['frame_id'], 'stamp': {'sec': 0, 'nanosec': 0}},
+                'pose': {'position': dict(x=goal['position'][0], y=goal['position'][1], z=0.),
+                         'orientation': None if yaw is None else dict(
+                             x=0., y=0., z=math.sin(yaw / 2), w=math.cos(yaw / 2))}}))
+    return goals
+
+
 def evaluate_goal(goal, metrics, tolerance):
     start, end = metrics.get('start_map_base_link'), metrics.get('end_map_base_link')
     error = None
@@ -66,10 +86,15 @@ def evaluate_goal(goal, metrics, tolerance):
                 evidence_complete=start is not None and end is not None and error is not None)
 
 
-def run_critical(config, *, execute=False, transport_factory=None, checkpoint=lambda report: None):
+def run_critical(config, *, execute=False, transport_factory=None, checkpoint=lambda report: None,
+                 mode='critical', continuation_yaws=None):
     """The sole execution gate precedes transport construction (and ROS imports)."""
-    report = dict(mode='critical', dry_run=not execute, success=False,
-                  planned_goals=critical_goals(config), sent_poses=[], segments=[],
+    goals = planned_goals(config, mode, continuation_yaws)
+    unresolved = [g['name'] for g in goals if g['pose']['pose']['orientation'] is None]
+    if execute and unresolved:
+        raise ValueError('Unresolved continuation orientations: supply three explicit yaws')
+    report = dict(mode=mode, dry_run=not execute, success=False,
+                  planned_goals=goals, unresolved_orientations=unresolved, sent_poses=[], segments=[],
                   stop_reason='dry_run', cleanup=dict(passed=True, child_processes=[],
                   ros_initialized=False, session_processes_touched=False))
     if not execute:
@@ -79,8 +104,9 @@ def run_critical(config, *, execute=False, transport_factory=None, checkpoint=la
     try:
         transport = (transport_factory or RosGoalTransport)()
         report['goal_manager_runtime'] = transport.start()
-        for goal in report['planned_goals']:
-            segment = dict(name=goal['name'], segment='Start→G1' if goal['name'] == 'G1' else 'G1→G2')
+        for i, goal in enumerate(report['planned_goals']):
+            previous = 'Start' if i == 0 else report['planned_goals'][i - 1]['name']
+            segment = dict(name=goal['name'], segment=f'{previous}→{goal["name"]}')
             report['segments'].append(segment)
             def on_sent(sent, state='published'):
                 segment['publish_state'] = state
@@ -108,10 +134,14 @@ def run_critical(config, *, execute=False, transport_factory=None, checkpoint=la
                     break
                 checkpoint(report)
                 continue
-            report['success'] = navigation_ok and segment['evaluation_passed']
-            report['stop_reason'] = ('critical_failed' if not navigation_ok else
-                'critical_succeeded' if report['success'] else 'critical_evaluation_failed')
-            break
+            stage = 'critical' if goal['name'] == 'G2' else 'continuation'
+            if not navigation_ok or not segment['evaluation_passed']:
+                report['stop_reason'] = stage + ('_failed' if not navigation_ok else '_evaluation_failed')
+                break
+            if i == len(report['planned_goals']) - 1:
+                report['success'] = True
+                report['stop_reason'] = mode + '_succeeded'
+            checkpoint(report)
     except KeyboardInterrupt:
         report.update(success=False, stop_reason='interrupted')
     except Exception as error:
@@ -147,10 +177,13 @@ def find_metrics(directory, sent, previous):
 
 class RosGoalTransport:
     """USER-RUN ONLY. Attach to the existing manager; no actions, launch or cmd_vel publisher."""
-    def __init__(self, ready_timeout=45., evidence_directory=None):
+    def __init__(self, ready_timeout=45., evidence_directory=None, reuse_existing_context=False,
+                 progress_callback=lambda: None):
         self.ready_timeout = ready_timeout
         self.node = None
         self.initialized = False
+        self.reuse_existing_context = reuse_existing_context
+        self.progress_callback = progress_callback
         self.pending = self.foreign_goal = False
         self.expected = None
         self.owned_poses = []
@@ -164,6 +197,14 @@ class RosGoalTransport:
         if evidence_directory is not None:
             from warehouse_route_evidence import RouteEvidence
             self.evidence = RouteEvidence(evidence_directory, load_route())
+
+    def start_context(self, rclpy):
+        if self.reuse_existing_context:
+            if not rclpy.ok():
+                raise RuntimeError('Existing ROS context is not initialized')
+        else:
+            rclpy.init()
+            self.initialized = True
 
     def start(self):
         # Delayed imports keep dry-run completely offline.
@@ -180,8 +221,7 @@ class RosGoalTransport:
 
         self.rclpy, self.PoseStamped = rclpy, PoseStamped
         self.convert, self.Trigger = message_to_ordereddict, Trigger
-        rclpy.init()
-        self.initialized = True
+        self.start_context(rclpy)
         self.node = Node('warehouse_route_benchmark', parameter_overrides=[
             Parameter('use_sim_time', value=True)])
         self.tf = Buffer()
@@ -426,12 +466,16 @@ class RosGoalTransport:
                     passed = False
                 elif self.rclpy.ok() and self.cancel.service_is_ready():
                     future = self.cancel.call_async(self.Trigger.Request())
-                    self.rclpy.spin_until_future_complete(self.node, future, timeout_sec=3.)
+                    until = time.monotonic()+3.
+                    while not future.done() and self.rclpy.ok() and time.monotonic()<until:
+                        self.rclpy.spin_once(self.node, timeout_sec=.05)
+                        self.progress_callback()
                     acknowledged = future.done() and future.exception() is None
                     deadline = time.monotonic() + self.cancel_confirmation_timeout
                     passed = False
                     while acknowledged and self.rclpy.ok() and time.monotonic() < deadline:
                         self.rclpy.spin_once(self.node, timeout_sec=.05)
+                        self.progress_callback()
                         if self.foreign_goal:
                             break
                         if self.owned_actions and all(s in (4, 5, 6) for s in self.owned_actions.values()):
@@ -492,15 +536,23 @@ def manifest():
 
 def main(argv=None, *, transport_factory=None):
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--mode', choices=['critical'], default='critical')
+    parser.add_argument('--mode', choices=['critical', 'full'], default='critical')
+    parser.add_argument('--continuation-yaws', type=float, nargs=3, metavar=('G3', 'G4', 'G5'),
+                        help='Explicit map-frame radians for unresolved G3–G5 orientations in full mode')
     parser.add_argument('--execute', action='store_true',
-                        help='USER-RUN ONLY: send G1 then G2 through existing goal_manager')
+                        help='USER-RUN ONLY: send selected route through existing goal_manager')
     parser.add_argument('--output-root', type=Path, default=Path('/tmp/b2w-warehouse-route'))
     parser.add_argument('--ready-timeout', type=float, default=45., help='Bounded attach/readiness wall seconds')
     args = parser.parse_args(argv)
     if not math.isfinite(args.ready_timeout) or args.ready_timeout <= 0:
         parser.error('--ready-timeout must be positive and finite')
     config = load_route()
+    try:
+        goals = planned_goals(config, args.mode, args.continuation_yaws)
+        if args.execute and any(g['yaw_rad'] is None for g in goals):
+            raise ValueError('Full execution needs --continuation-yaws G3 G4 G5')
+    except ValueError as error:
+        parser.error(str(error))
     provenance = manifest()
     provenance['route_id'] = config['route_id']
     output = args.output_root.resolve() / datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%S.%fZ')
@@ -512,6 +564,7 @@ def main(argv=None, *, transport_factory=None):
         write(temporary, report)
         temporary.replace(output / 'report.json')
     report = run_critical(config, execute=args.execute, checkpoint=checkpoint,
+                          mode=args.mode, continuation_yaws=args.continuation_yaws,
                           transport_factory=transport_factory or (lambda: RosGoalTransport(args.ready_timeout, output)))
     # Rendering is offline, after run_critical's transport.close(); never changes
     # navigation success, staging admission or cleanup outcomes.

@@ -96,3 +96,6 @@ devel/
 # Linux
 .directory
 Thumbs.db
+
+# Local experiment trials, evidence bundles and generated recovery products
+/artifacts/

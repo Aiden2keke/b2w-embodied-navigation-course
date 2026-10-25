@@ -24,7 +24,231 @@
 - 旧实施计划归档至 `docs/plans/archive/2026-10-10-local-course-system-plan.md`。历史 design/validation 保留为证据，不是另一个当前 roadmap。无新增 HANDOFF。
 - 历史轮次只读与 timing 交付已结束；本轮范围以最新用户请求和下方 NOW 为准。旧实验/交付记录只作历史证据。
 
-## NOW — WORLD truth PRIMARY + session map DIAGNOSTIC composite (2026-10-16)
+## NOW — Owner TF/Odom scheduling NEXT; canonical path evidence DONE (2026-10-25)
+
+- [x] Canonical planning evidence DONE: one real145-pose7.212947m Start→G1 Smac path captured. Owner session FAILED atTF age0.5025s>0.5s; terminal action status unavailable. Preserve these separate outcomes. Evidence and verified APRIL delivery remain local; see docs/CANONICAL_PLANNING_MILESTONE.md.
+- [x] Close source milestone on named branch experiment/canonical-planning-20261025 from detached e7f1eec. Preserve inherited source/config/test work; explicit staging excludes raw trials/logs/generated evidence. Targeted tests and self-review recorded in milestone document. GitHub project remote verified; retain local origin unchanged.
+- [ ] NEXT: focused Owner TF/Odom ingestion/executor scheduling diagnosis against captured callback trace; preserve0.5s limits, coherent TF and independent watchdog. No implementation or live trial is part of milestone closure.
+- [ ] Start→G1→G2 motion remains uncompleted: qualified Profile-B stopping/turn-drift/tracking/localization bounds and G1 arrival/rotation coverage required;0.3m navigation tolerance versus0.05m staging must stay explicit.
+- [ ] Continuous Start→G5 run/video remain uncompleted; validated incoming G3–G5 paths/headings unavailable. Every further Gazebo session and any motion requires new explicit authorization; prior one-shot authorizations consumed.
+
+## Historical — Final corrected canonical planning capture (2026-10-25)
+- [x] Verified exact Owner749a4169..., watchdog/deployment46 source/install pins and26 collision handles; domain198/lease/output fresh. Waited for unrelated GPU compute job to exit naturally; clean immediate prelaunch baseline. Exactly ONE corrected-source planning-only session used; no retry, pulses, DWB or navigation.
+- [x] REAL PATH OBTAINED: YES. Active SmacPlanner2D published145-pose7.212947m Start→G1 path atsim24.5. Owner FAIL atTF age.5025>.5 while independent paired TF24.2 was fresh. Terminal ComputePathToPose action status/UUID not retained; published path preserved without fabricating action success. Initial90° turn plus first.5m geometrically clear; qualified stopping/tracking bounds absent. G1 footprint intersects184 unknown /map cells; bracketing global master has0 unknown/lethal but4 inscribed cells. No motion admission.
+- [x] No iterative startup patches: corrected OwnerSHA remains749a41692b21ff843e77a96003404f54a2fd8ac59b3132a6e1e641e701432fed.642 Owner/613 independent final commands and1125 policy command triplets all zero;476 contact samples only permitted foot-ground pairs. Watchdog contained36 threads and cleaned23 identities; postflight domain/lease/GPU restored. Original raw-file hashes verified.
+- [x] Delivered final-canonical-planning Markdown APRIL bundle + sidecar to /home/zyd/APRIL_REVIEW_BUNDLES; destination SHA256 verified cee66344302175de133cd1f15ad9e90e4be2515bfc647e162e06606e94e991a7. This delivery bookkeeping follows the sealed evidence snapshot.
+- [ ] Next authorized work: focused TF/odom ingestion/executor scheduling diagnosis using captured trace, retaining.5s freshness; existing frozen Smac replay proposal prepared but NOT executed. Then separately authorize bounded Profile-B turn/forward/mixed-motion stopping and tracking calibration in verified clearance, plus resolve G1 body/rotation map coverage and explicitly decide.05 evaluation policy before Start→G2. No further live session is authorized by this task.
+
+## Historical — Prior canonical planning capture (2026-10-25)
+
+- [x] Rechecked domain197, free lease, unchanged six GPU identities, empty ROS/process domain, reviewed source/install/native/watchdog pins and unused output. User explicitly authorizes exactly ONE planning-only Gazebo session; no nonzero command, NavigateToPose, DWB route or retry.
+- [x] Executed ONE Profile-B planning-only Gazebo session, planning-5244992425834c4c8ae86b895a549cbe. FAIL before planner action at owner clock23.6775 / TF+odom23.0 age.6775>.5. No action/path/live parameters;640 owner/615 observer final commands and1083 policy command triplets all zero. Watchdog contained36 threads and cleaned23 identities; independent postflight domain/lease/GPU clean. No retry.
+- [x] Classified pre-action owner backlog; independent observer had paired23.3 TF before fault. Actual Start map/TF captured; operational padded current clearance.777423m; G1 center free but arrival footprint has unknown cells. Initial path sweep/calibration directions remain unavailable. Historical.0648m navigation success would fail.05 staging; no criteria changed. Offline-only correction moves planner cold startup into existing zero bootstrap, reuses lifecycle activation checks, and defers bulk geometry/map evidence until owned teardown.180 focused tests and corrected offline pins PASS; no live rerun.
+- [x] Delivered canonical-planning Markdown APRIL bundle + sidecar to /home/zyd/APRIL_REVIEW_BUNDLES; destination SHA256 verifiedf215b1ddc1323c926aa216980cabdaa512ba99176419f173001116be5e0528ae. This bookkeeping follows the sealed snapshot. No additional live trial.
+- [ ] Exactly one authorized session is consumed. A corrected planning-only capture requires NEW explicit authorization and fresh output marker/domain recheck before any calibration or Start→G2 trial.
+
+## Historical delivery — Practical route readiness, no Gazebo or motion (2026-10-25)
+
+Single agent. Preserve all inherited work; no simulation, commands, unrelated builds, new safety framework or threshold relaxation.
+
+- [x] Add explicit planning-only CLI authority and branch: retain zero adapter/contact/TF/watchdog/cleanup; planner only, no navigator/controller/goal manager; capture real plan and checked state on separately approved startup.
+- [x] Reconstruct actual recorded joint configurations from authenticated observation mapping; project URDF collision primitives and body attitude. Assess operational candidate against existing Nav2 footprint and recorded canonical map; distinguish sampled support from qualification.
+- [x] Add direction-aware continuous rectangle/rotation/stopping checks and reviewed-envelope input for route mode, failing closed on missing evidence without a permanent hardcoded None.
+- [x] Keep .3m navigation versus .05m staging evaluation explicit; prepare validated-path G3–G5 heading extraction and bounded continuous desktop/Gazebo capture before first goal.
+- [x] 245 focused tests PASS (14.99s), inline single-agent review, both planning-only offline profiles PASS46 source/install identities and26 collision handles. Delivered one full-repository-name route-ready Markdown APRIL bundle and matching sidecar to /home/zyd/APRIL_REVIEW_BUNDLES; destination checksum verified7999afd7701f7a2f6389d9ce9b0994730a95ac6fa940104f3893fe860c14667e. This bookkeeping edit follows the sealed bundle snapshot.
+- [ ] Separately authorize ONE canonical planning-only capture using --planning-only --execute --authorize-planning; no route motion authority. Real canonical path, reviewed B stopping/tracking/localization envelope and G3–G5 paths remain unavailable. No Gazebo/motion/video execution in this continuation. Conditional footprint bound±.6544/±.3236m supports unchanged Nav2±.70/±.38+.05padding within recorded joint/tilt ranges; canonical padded current rectangle has .7774m occupied-cell gap. No full-start/physical success claimed.
+
+## Historical delivery — Route-specific Start admission, offline only (2026-10-25)
+
+
+User scope: single agent; no Gazebo, velocity publication or hardware. Preserve inherited changes.
+Design: separate route startup from qualification pulses; request a planning-only Smac path before any goal, check current and swept footprint against known-free cells, fail closed on absent physical reaction/stopping bounds. Never promote empirical coast or YAML acceleration into a physical guarantee.
+
+- [x] Trace historical baseline and capture canonical recorded map/geometry identities.
+- [x] Derive conservative articulated collision containment from actual generated URDF; compare Nav2 footprint, padding, pose and grid error. Radius1.308972869m; recorded current footprint+.05padding PASS, full admission FAIL (no validated path).
+- [x] Write failing tests for route admission, current/path/stop/rotation/unknown faults and actual execute rejection/cleanup; retain precheck-only disk and pulse behavior.
+- [x] Implement small offline geometry predicate and planning-only route startup integration. Missing validated plan or bounds block motion explicitly; runtime bound provider remains absent, so executable route restoration is INCOMPLETE.
+- [x] 222 focused tests PASS; inline single-agent review; both offline profiles PASS46 source/install pairs and26 shapes. G3–G5 validated-path heading procedure documented; actual headings remain unresolved without validated segment paths.
+- [x] Delivered one APRIL archive and checksum to /home/zyd/APRIL_REVIEW_BUNDLES; destination SHA256 verified: 7b6e13c5a79ef25814574d775e94ba6cb254304f03bde1e13b38644595fb522e. Snapshot archive precedes this delivery bookkeeping edit. Local REPORT.md records incomplete motion qualification/path/headings; no Gazebo or velocity publication authorized/performed. Next separately authorized experiment is ONE canonical planning-only startup; no goal/pulse, expected missing-bound rejection and owned cleanup.
+
+## Historical milestone — First-motion control risks corrected offline (2026-10-25)
+
+- [x] Reviewed domain232 trajectories and commands without rerunning. Forward command vx=0.05 for 2.000 sim s produced 0.206482 m and accepted forward rest. Full precheck remains FAIL at turn common-TF age 0.505 s. Stationary PASS stays closed.
+- [x] Final adapter vx=0.05 and actual rl_sar obs[6]=0.050000000745 agree. No applied 2x command scaling: policy commands_scale=1; lin_vel_scale=2 is absent from the 57-element observation vector. Physical pose derivatives agree with body twist. Tracking excess is in policy/plant response; no fixed-gain calibration is justified.
+- [x] Peak displacement from the exact initial motion reference was 0.249047611 m at sim28.32, leaving only 0.000952389 m to the original 0.25 m boundary. Full-rotation body mean/peak vx=0.103179/0.141681 m/s. Max after-zero travel=0.042596 m; settling=0.955 sim s; accepted rest=6.0625 sim s.
+- [x] Reproduced the half-updated TF chain: Owner inserted odom→base33.9 while map→odom remained33.8; observer already had both. Same-estimate edges now publish together, retaining exact transforms/stamps. Recorded real-Buffer replay age changes from0.505 to0.405 s. Exact DDS ingress versus queue waiting remains unobservable; missing whole pairs still fail the unchanged0.5 s gate.
+- [x] Pulse entry now requires Owner clock advancement after evidence I/O while applying all active readiness/physical vetoes within the existing10-wall-s bound. Baseline actual execute() reproduces admission after only an internal callback; corrected execute() waits. Original0.25 m excursion now also covers all precheck motion and stops from one initial reference. Route geometry/goals are unchanged.
+- [x] Fault-stop handoff: latch independent fault, send zero through the existing input publisher, output NONZERO→ZERO immediately from the sole adapter. Repeated zeros do not flood callbacks. Owner waits at most3 wall s for watchdog before cleanup; watchdog pauses physics first, then allows0.1 wall s for queued zero/observer delivery before owned termination. No drain after failed pause, no resume, no new publisher. Final delivery and physical rest still require live evidence.
+- [x] Built only course_slam/course_navigation; installed imports match source. Reviewed deployment manifest retains all46 source/install identities and unchanged native pins;26 engine handles pass offline checks. Historical manifest is preserved. 291 regression cases passed with one real-ROS executor case deselected;18 focused risk cases passed (14 overlap,295 distinct). The initially attempted real-ROS case was blocked by sandbox log permissions, not a control assertion.
+- [ ] No Gazebo or nonzero physical execution in this task. Proposed ONE profile-A/precheck-only session, candidate domain197, spawn(0,-1): vx=0.05≤1 sim s→zero/rest→wz=0.05≤1 sim s→zero/rest, total≤420 wall s. New explicit authorization required. Domain/lease/GPU/ownership must be rechecked immediately before launch. Empirical forward+coast estimate0.184276 m is not a worst-case guarantee; all original guards remain.
+- [ ] Canonical route bootstrap remains blocked: (0,0)1.5 m disk contains occupied and unknown cells; nearby ClutteringC_01_031 geometry is1.448249 m away. Alternate precheck spawn cannot waive this gate. Circle applies at initial/pulse admission, not continuously in Nav2 corridors. No G1→G2 A/B or full-route execution; G3–G5 yaw remains unspecified.
+- [x] Single agent, no delegation, no global changes/commit/push. Preserve inherited dirty worktrees and historical evidence. One first-motion-control-risks APRIL bundle plus SHA256 sidecar delivered to /home/zyd/APRIL_REVIEW_BUNDLES/; raw analysis remains in artifacts/recovery/first-motion-control-risks-20261025/.
+
+## Closed stationary milestone — verified evidence retained (2026-10-25)
+
+- [x] ONE authorized profile-A stationary-only Fortress attempt, fresh domain225,
+  output `artifacts/qualifications/stationary-ledger-confirmation-20261025/stationary-1e05b7c38b24405a93c5fabb176c8b19`.
+  Harness exit0, success=true, stationary_containment=PASS; stationary milestone CLOSED.
+- [x] Physical rest sim18.065→23.8575 =5.7925sim s/5.927002wall s;
+  displacement0.000342737m, yaw0.000000282212rad.626/626 final Twists six-axis exact zero.
+  Truth/TF/sensor/contact acceptance held;466 contact samples, no first fault.
+- [x] Intentional watchdog injection at33.8726wall s from parent start; all36 server
+  threads T before owned termination. Server PID2220722/start_ticks21410213 agrees in
+  server pin, actual loaded native deployment, watchdog ledger and Owner cleanup ledger.
+  All19 owned identities cleaned; both remaining sets empty. Original150s limit unchanged;
+  enclosing pre-to-post host evidence interval45.8462wall s.
+- [x] Independent post-check: domain225 process/ROS graph empty, lease free, pinned server
+  absent; same six GPU PIDs and zero compute PIDs before/after. Final /proc scan has no
+  owner/domain225 survivors or unreadable same-UID entries.
+- [x] Reviewed Supervisor bookkeeping/precheck-only source hashes unchanged;123 focused
+  tests PASS. Stationary/precheck offline inputs PASS46 source/install pins, native pins,
+  26 collision handles. Post-PASS precheck-only offline --check passed; no live precheck,
+  pulse, navigation launch/goal, nonzero command, rebuild, threshold change or retry.
+- Next: NEW explicit authorization for ONE existing bounded forward0.05m/s2sim s→rest→
+  turn0.05rad/s2sim s→rest precheck-only attempt. Candidate domain226 must be rechecked
+  free/exclusive immediately before launch, with lease/process/ROS/GPU baseline, reviewed
+  pins, independent watchdog readiness and unused output/precheck.used identity.
+  Proposed command, NOT executed:
+  `ROS_DOMAIN_ID=226 scripts/run_warehouse_ab.sh --profile A --precheck-only --execute --authorize-motion precheck-only --output-root artifacts/trials/motion-precheck-20261025`
+  Existing420wall-s global bound,10wall-s pulse/30wall-s rest limits,1.5m observed clearance,
+  >=5sim/3wall-s rest and all physical/truth/contact/TF/command guards remain unchanged.
+  CLI authority attests authorization; it does not validate the qualification evidence.
+- After actual precheck PASS + complete cleanup: separately authorize existing DWB0.4/0.2
+  Start→G1→G2 A/B (route retains its own precheck), then G3→G4→G5 after navigation evidence.
+  Stationary PASS proves neither motion clearance nor route reliability. No Stage4 expansion.
+- Evidence: `artifacts/recovery/stationary-final-20261025/`; one concise
+  `APRIL_REVIEW_BUNDLE_b2w-embodied-navigation-course_20261025_stationary-final.md` + SHA256.
+  All historical raw FAIL evidence and inherited source/work preserved; no commit/push.
+
+### Preserved preceding NOW — Stationary gate OPEN; independent precheck-only ready offline (2026-10-25)
+
+- Single agent; authorized evidence review/implementation completed offline. No Gazebo,
+  live ROS participant, navigation goal or nonzero command. No commit/push or broad kill.
+- Independently verified all36 original raw-file SHA256s. Server PID2155742/start_ticks20975887
+  agrees across pin/actual_server/launch/thread leader/Owner cleanup;36 threads T,621/621
+  exact-zero commands,5.455sim-s measured rest,479 contact samples; historical domain/lease/
+  GPU cleanup corroborated. Raw success=false/stationary_containment=FAIL remain untouched.
+- Ledger correction accepted: three lines retain ONLY same_process(token/start_ticks)-verified
+  server identity before existing SIGKILL. Wrong-token and stale-start_ticks regressions reject
+  recording/signaling. Preexisting validation-to-signal race is not atomic pidfd protection.
+- Formal stationary qualification remains OPEN: existing full-PASS gate + stationary_passed
+  identity-ledger predicate have no documented evidence override. Operational findings are
+  corroborated; this review does not synthesize a PASS. ONE corrected-code zero-only confirmation
+  requires separate authorization, fresh/free domain225 and fresh output root; original150s bound.
+- Implemented --precheck-only: sole existing precheck input→velocity_adapter, unchanged .05m/s
+  forward2sim s/rest/.05rad/s turn2sim s/rest. Reuse final measured rest for normal shutdown.
+  Navigation imports/handover/launch/goals live only under else; failures go to existing abort.
+  --execute requires fresh matching --authorize-motion precheck-only (or route for old A/B).
+  Stationary mode rejects motion authorization; precheck.used is independent of A.used/B.used.
+  CLI authority is per invocation; it does not validate/replace the prior qualification decision.
+- 123 focused tests PASS, including CLI authority/retry rejection, actual execute flow with external
+  ROS/process boundaries replaced, both pulses/stops, failure/deadline/watchdog rejection,
+  existing TF/truth/contact/rest/watchdog/route and real owned-child cleanup tests. Offline
+  checks PASS46 source/install pins +26 shape handles. AST audit preserves all original guards,
+  complete pulse loop, route body and exception/cleanup logic.420s motion limit unchanged.
+- Readable /proc scan: zero owner/domain224/225/226 matches, no unreadable entries, historical
+  pinned PID absent;224 lease free,225/226 absent. No fresh DDS graph/GPU check claimed.
+- [x] Raw-evidence audit and ledger provenance/PID-reuse regression.
+- [x] RED CLI/no-route execution regressions; minimal implementation and GREEN focused suite.
+- [x] Offline inputs, source/control-flow review, preservation/Git/cleanup, concise bundle+SHA256.
+- Minimal separately authorizable confirmation, NOT run (from this checkout; verify fresh domain):
+  `ROS_DOMAIN_ID=225 scripts/run_warehouse_ab.sh --profile A --stationary-containment --execute --output-root artifacts/qualifications/stationary-ledger-confirmation-20261025`
+- Only after real corrected-code stationary PASS and a NEW explicit authorization for ONE bounded
+  motion attempt, NOT run (fresh/free domain226, no previous failure bypass/retry):
+  `ROS_DOMAIN_ID=226 scripts/run_warehouse_ab.sh --profile A --precheck-only --execute --authorize-motion precheck-only --output-root artifacts/trials/motion-precheck-20261025`
+- Next after actual precheck PASS: separately authorized existing DWB0.4/0.2 Start→G1→G2 A/B;
+  then G3→G4→G5 after navigation evidence. Route mode still includes its own existing precheck.
+  Do not resume Stage4/Grid Worker redesign or broad TF diagnostics without new navigation evidence.
+- Review/evidence: artifacts/recovery/motion-precheck-preparation-20261025/;
+  APRIL_REVIEW_BUNDLE_b2w-embodied-navigation-course_20261025_motion-precheck-preparation.md
+  with SHA256 sidecar. All prior raw evidence and unrelated inherited work preserved.
+
+### Preserved preceding NOW — Domain224 stationary operational checks passed; raw qualification FAIL from identity-ledger omission (2026-10-24)
+
+- ONE authorized150wall-s stationary attempt consumed, output stationary-36850bcea392404d9286ed9697519703
+  in artifacts/qualifications/owner-tf-delivery-20261024/. Exit1/success=false preserved; no retry.
+- No TF/sensor/contact readiness fault. Full measured rest sim19.065→24.52 (5.455sim/5.49681wall s),
+ 621/621 final commands six-axis zero,479 contact samples. Intentional injection reached33.4985wall s.
+  Independent Fortress containment verified all36 server threads T; all19 owned identities cleaned.
+  Independent domain224 ROS/process emptiness, free lease and unchanged GPU PID baseline PASS.
+- Only failed acceptance predicate: watchdog's owned_pid_start_ticks omitted server PID2155742/
+  start_ticks20975887 after killing it before its first /proc scan. Saved server pin, actual_server,
+  paused threads and Owner cleanup ledger agree. Reproduced offline; minimal guarded pre-kill
+  identity retention correction + negative ownership test.74 focused tests and input checks PASS.
+- No TF first-fault snapshot exists because no readiness failure occurred; Owner per-edge callback/
+  insertion/spin timing not persisted. Observer rest TF sampled max age.395; last common24.2 at24.5425.
+  Historical Owner TF delivery mechanism remains unresolved, not reproduced. No listener redesign.
+- Raw stationary FAIL is not rewritten or administratively closed. Next: review existing pinned
+  containment/rest/cleanup evidence and bookkeeping correction for explicit qualification closure,
+  then prepare precheck-only motion interface before separate nonzero authorization. Current
+  nonstationary harness also launches G1/G2; no motion/precheck-only interface claimed here.
+- Shortest route remains bounded forward/rest/turn/rest → Start→G1→G2 → G3→G4→G5.
+  Evidence/report/bundle: artifacts/recovery/owner-tf-qualification-20261024/.
+
+### Preserved preceding NOW — Owner TF boundary observation implemented; ONE stationary diagnostic ready for authorization (2026-10-24)
+
+- Owner TF shares global SingleThreadedExecutor spin_once with clock/contact/sensor work;
+  synchronous evidence writes, heartbeat and process work can delay dispatch. Starvation is
+  plausible but not proven; Owner-specific DDS delay remains possible. No scheduling fix.
+- Minimal diagnostic: existing listener subclass, same node/QoS/group/Buffer insertion path;
+  fixed two-edge callback/latest-buffer stamps/times/counts, spin gaps and durations, and
+  common/per-edge lookup at first fault attached to existing snapshot. No per-message IO,
+  duplicate listener, thread, TF restamping or change to original .5s freshness/physical guards.
+- 72 focused tests PASS; A/B offline checks PASS46 pins/26 handles. No simulator/ROS participant,
+  stationary attempt, goal or nonzero motion launched. Historical evidence preserved.
+- ONE profile-A stationary-only diagnostic prepared: candidate domain224 (verify fresh/free
+  at launch), fresh artifacts/qualifications/owner-tf-delivery-20261024, original150wall-s
+  bound. Requires separate authorization; no prior sentinel reset or retry. Callback entry
+  observation is not DDS reception and cannot alone split transport from ready-queue delay.
+- Next: authorize ONE zero-only trial → evidence-based local correction if needed, or full
+  stationary PASS → separately authorized bounded forward/rest/turn/rest + Start→G1→G2,
+  then G3→G4→G5. No physical qualification PASS yet; no pulse-only runner assumed.
+- Patch/report/one APRIL bundle: artifacts/recovery/owner-tf-delivery-20261024/.
+
+### Preserved preceding NOW — TF availability deficit localized to Owner; exact receive boundary missing (2026-10-24)
+
+- Offline replay of domain222 raw observer TF establishes both public edges14.1 before
+  Owner fault wall174199.303098952; real Humble Buffer common14.1 (age.405 at Owner14.505),
+  versus actual Owner common14.0 (age.505). Publisher-only lag does not explain the
+  discrepancy. Owner-specific transport/backlog vs callback/partial-chain insertion
+  remains unproven; no production rewrite or threshold change justified.
+- 66 focused tests PASS; A/B offline input checks PASS46 pins/26 engine handles.
+  No ROS node/simulator/nonzero motion or fresh stationary attempt launched.
+- ONE next observation: bounded Owner TF boundary trace with original edge stamps,
+  DDS source/receipt timestamps and GID, callback/insertion times, plus per-edge/common
+  latest stamps at existing decisions. Verify RMW timestamp support before attributing
+  transport vs callback lag. Existing separate observer is insufficient for that split.
+- Stationary success rerun NOT ready; implement/verify this observation before a separately
+  authorized fresh zero-only trial. Then stationary PASS → separately authorized bounded
+  forward/rest/turn/rest + Start→G1→G2, toward G3→G4→G5. Existing motion runner also
+  executes G1/G2; no pulse-only authority assumed.
+- Evidence/report/one APRIL bundle: artifacts/recovery/tf-freshness-20261024/.
+  Historical artifacts and inherited uncommitted work preserved; no commit or push.
+
+### Preserved preceding NOW — Domain222 stationary qualification FAIL: TF age.505s (2026-10-24)
+
+One authorized stationary-only attempt consumed, UUIDd58d6d7381bf4698a8f06e89c8ec6f6a,
+output artifacts/qualifications/readiness-loop-20261024/. No retry or nonzero motion.
+- Exact first fault sim14.505: map→base_link stamp14.0, age.505s > unchanged.5s bound;
+  ValueError('stale_map_base_tf'). ALL other readiness predicates PASS in complete first-fault
+  snapshot. Truth/contact failure null; no reported physical safety violation. TF freshness
+  loss is established; publisher/buffer/scheduling root cause remains unproven.
+- 529/529 final Twists six-axis zero. Full settling/rest incomplete; intentional injection not
+  reached. Actual-fault watchdog containment confirmed all36 pinned server threads stopped.
+  Full owned process/ROS node/GPU context cleanup PASS; domain222 empty and lease free.
+  Motion pocket passed=null/unevaluated. Original150s watchdog held; fault at29.923wall s.
+- Reviewed production/source/install/native pins unchanged;110 prior raw files unchanged.
+  Complete evidence and concise report: artifacts/recovery/stationary-qualification-20261024/.
+- Stationary remains OPEN. Next: bounded offline check of existing TF producer/buffer cadence
+  against odometry around14.0–14.505 using this evidence; no general redesign, threshold change
+  or identical retry. Any further live trial requires separate authority and fresh identity.
+- After future PASS, separately authorize existing bounded .05m/s forward2sim s→rest→.05rad/s
+  turn2sim s→rest (10wall-s pulse,30wall-s stop,>=5sim/3wall-s rest, original1.5m clearance/
+  whole-stop guards). Nonstationary runner also executes Start→G1→G2 and has no precheck-only
+  switch; do not run under stationary-only/precheck-only authority. G1→G2 A/B remains next
+  navigation experiment, toward G3→G4→G5 after critical-segment evidence.
+
+### Preserved historical NOW — WORLD truth PRIMARY + session map DIAGNOSTIC composite (2026-10-16)
 
 Branch `improve/narrow-navigation`; HEAD unchanged
 `33b20fd8b86fed523c794b62325dea362d629500`. Inherited dirty benchmark/staging/

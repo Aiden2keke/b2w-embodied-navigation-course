@@ -66,7 +66,12 @@ class VelocityAdapter(Node):
             self.gate.state_time = time.monotonic()
 
     def command(self, msg):
+        was_nonzero = any(self.gate.command)
         self.gate.set_command((msg.linear.x, msg.linear.y, msg.angular.z), time.monotonic())
+        # Do not leave an explicit stop waiting for the next steady timer.
+        # Repeated zero inputs still use the timer, avoiding a callback flood.
+        if was_nonzero and not any(self.gate.command):
+            self.pub.publish(Twist())
 
     def publish(self):
         out = Twist()

@@ -67,7 +67,7 @@ class PoseAdapter(Node):
         except ValueError as error:
             self.get_logger().error(str(error), throttle_duration_sec=5)
 
-    def broadcast(self, parent, child, matrix, stamp):
+    def broadcast(self, parent, child, matrix, stamp, batch=None):
         transform = TransformStamped()
         transform.header.stamp, transform.header.frame_id = stamp, parent
         transform.child_frame_id = child
@@ -75,7 +75,10 @@ class PoseAdapter(Node):
             setattr(transform.transform.translation, axis, float(value))
         for axis, value in zip('xyzw', Rotation.from_matrix(matrix[:3, :3]).as_quat()):
             setattr(transform.transform.rotation, axis, float(value))
-        self.tf.sendTransform(transform)
+        if batch is None:
+            self.tf.sendTransform(transform)
+        else:
+            batch.append(transform)
 
     def incremental(self, msg):
         try:
@@ -110,8 +113,12 @@ class PoseAdapter(Node):
                             setattr(getattr(out.twist.twist, field), axis, float(value))
             self.previous = (t, base)
             self.pub.publish(out)
-            self.broadcast(self.odom, self.base, base, msg.header.stamp)
-            self.broadcast(self.map, self.odom, self.correction, msg.header.stamp)
+            # Both edges describe this one estimate. A single TF callback must
+            # insert both before a consumer checks the latest common stamp.
+            transforms = []
+            self.broadcast(self.odom, self.base, base, msg.header.stamp, transforms)
+            self.broadcast(self.map, self.odom, self.correction, msg.header.stamp, transforms)
+            self.tf.sendTransform(transforms)
         except ValueError as error:
             self.get_logger().error(str(error), throttle_duration_sec=5)
 

@@ -1,0 +1,22 @@
+[
+  {
+    "pid": 1103366,
+    "cmd": "ign gazebo -r -v 3 -s /tmp/b2w-navigation-ab-20261023/artifacts/trials/B-5d8101be0c2045b48738c3b42dd611be/observer.world               ",
+    "gazebo_mappings": [
+      "/usr/lib/x86_64-linux-gnu/ign-gazebo-6/plugins/libignition-gazebo6-apply-joint-force-system.so.6.18.0",
+      "/usr/lib/x86_64-linux-gnu/ign-gazebo-6/plugins/libignition-gazebo6-forcetorque-system.so.6.18.0",
+      "/usr/lib/x86_64-linux-gnu/ign-gazebo-6/plugins/libignition-gazebo6-imu-system.so.6.18.0",
+      "/usr/lib/x86_64-linux-gnu/ign-gazebo-6/plugins/libignition-gazebo6-joint-state-publisher-system.so.6.18.0",
+      "/usr/lib/x86_64-linux-gnu/ign-gazebo-6/plugins/libignition-gazebo6-odometry-publisher-system.so.6.18.0",
+      "/usr/lib/x86_64-linux-gnu/ign-gazebo-6/plugins/libignition-gazebo6-physics-system.so.6.18.0",
+      "/usr/lib/x86_64-linux-gnu/ign-gazebo-6/plugins/libignition-gazebo6-scene-broadcaster-system.so.6.18.0",
+      "/usr/lib/x86_64-linux-gnu/ign-gazebo-6/plugins/libignition-gazebo6-sensors-system.so.6.18.0",
+      "/usr/lib/x86_64-linux-gnu/ign-gazebo-6/plugins/libignition-gazebo6-user-commands-system.so.6.18.0",
+      "/usr/lib/x86_64-linux-gnu/ign-gazebo-6/plugins/libignition-gazebo6-wheel-slip-system.so.6.18.0",
+      "/usr/lib/x86_64-linux-gnu/libignition-gazebo6-gui.so.6.18.0",
+      "/usr/lib/x86_64-linux-gnu/libignition-gazebo6-ign.so.6.18.0",
+      "/usr/lib/x86_64-linux-gnu/libignition-gazebo6-rendering.so.6.18.0",
+      "/usr/lib/x86_64-linux-gnu/libignition-gazebo6.so.6.18.0"
+    ]
+  }
+]
