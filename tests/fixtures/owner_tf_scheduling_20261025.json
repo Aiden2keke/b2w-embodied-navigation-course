@@ -1,0 +1,15 @@
+{
+  "source": "artifacts/recovery/final-canonical-planning-20261025/capture-summary.json",
+  "source_sha256": "797b153dafa9e1eb385f2809ca650df240fcaef3d8a9789af0eafc225c9ff7cb",
+  "clock": 24.5025,
+  "owner_common_stamp": 24.0,
+  "observer": {
+    "stamp": 24.2,
+    "wall": 281231.700041027,
+    "age_at_owner_fault": 0.302500000000002
+  },
+  "owner_tf_callback_wall": 281231.609214357,
+  "owner_last_spin_end": 281231.718862773,
+  "max_between_spins_s": 0.11695432098349556,
+  "caveat": "Callback entry is not DDS receipt; pending-ready timing is a modeled interleaving, not a recorded Owner transport arrival."
+}

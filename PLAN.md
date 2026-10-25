@@ -24,13 +24,32 @@
 - 旧实施计划归档至 `docs/plans/archive/2026-10-10-local-course-system-plan.md`。历史 design/validation 保留为证据，不是另一个当前 roadmap。无新增 HANDOFF。
 - 历史轮次只读与 timing 交付已结束；本轮范围以最新用户请求和下方 NOW 为准。旧实验/交付记录只作历史证据。
 
-## NOW — Owner TF/Odom scheduling NEXT; canonical path evidence DONE (2026-10-25)
+## NOW — Owner TF/Odom offline fix PASS; live calibration NEXT (2026-10-25)
 
-- [x] Canonical planning evidence DONE: one real145-pose7.212947m Start→G1 Smac path captured. Owner session FAILED atTF age0.5025s>0.5s; terminal action status unavailable. Preserve these separate outcomes. Evidence and verified APRIL delivery remain local; see docs/CANONICAL_PLANNING_MILESTONE.md.
-- [x] Close source milestone on named branch experiment/canonical-planning-20261025 from detached e7f1eec. Preserve inherited source/config/test work; explicit staging excludes raw trials/logs/generated evidence. Targeted tests and self-review recorded in milestone document. GitHub project remote verified; retain local origin unchanged.
-- [ ] NEXT: focused Owner TF/Odom ingestion/executor scheduling diagnosis against captured callback trace; preserve0.5s limits, coherent TF and independent watchdog. No implementation or live trial is part of milestone closure.
-- [ ] Start→G1→G2 motion remains uncompleted: qualified Profile-B stopping/turn-drift/tracking/localization bounds and G1 arrival/rotation coverage required;0.3m navigation tolerance versus0.05m staging must stay explicit.
-- [ ] Continuous Start→G5 run/video remain uncompleted; validated incoming G3–G5 paths/headings unavailable. Every further Gazebo session and any motion requires new explicit authorization; prior one-shot authorizations consumed.
+Single-agent continuation of pushed523dd0f canonical-planning milestone. Latest
+user authorizes offline fix, self-review, commit/push and APRIL delivery; no Gazebo
+or motion. Original shared checkout, Stage4 and Pipe remain untouched.
+
+- [x] Replay recorded24.5025 clock /24.0 Owner TF /24.2 observer interleaving.
+      Historical Owner DDS arrival is unavailable; modeled dispatch ordering
+      reproduces fault without claiming sole historical transport causality.
+- [x] Dedicated localization node + one SingleThreadedExecutor; atomic TF/odom
+      decisions, bounded source-stamped chain history and original odom receipts.
+      Keep0.5s, contact/command/stop/watchdog and owned cleanup predicates.
+- [x]379 focused regressions PASS including real DDS executor tests; current
+      ingestion subset10/10 PASS;46 source/install pairs and26 collision handles
+      offline verified;62 prior raw hashes preserved. Actual-diff single-agent
+      self-review PASS for offline correction, not runtime/navigation readiness.
+- [x] Prepare existing Profile-B1s forward/rest/1s turn/rest micro-check; NOT RUN.
+      Report: docs/reviews/B2W_Owner_TF_Odom_Scheduling_20261025.md. Local evidence:
+      artifacts/recovery/owner-tf-scheduling-20261025/. Commit/push and one APRIL
+      bundle/checksum complete the delivery gate; HANDOFF.md is next-session entry.
+- [ ] Next session: separately authorize zero-only changed-Owner qualification,
+      then bounded Profile-B calibration and actual Start→G2 after admission.
+      No live timing guarantee or motion success from this offline result.
+      G1 body/rotation coverage, stopping/tracking/localization bounds and0.3m
+      navigation vs0.05m staging remain explicit. Start→G2/Start→G5/video NOT DONE.
+
 
 ## Historical — Final corrected canonical planning capture (2026-10-25)
 - [x] Verified exact Owner749a4169..., watchdog/deployment46 source/install pins and26 collision handles; domain198/lease/output fresh. Waited for unrelated GPU compute job to exit naturally; clean immediate prelaunch baseline. Exactly ONE corrected-source planning-only session used; no retry, pulses, DWB or navigation.

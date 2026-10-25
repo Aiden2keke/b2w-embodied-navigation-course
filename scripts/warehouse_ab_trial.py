@@ -12,6 +12,7 @@ import time
 import uuid
 import xml.etree.ElementTree as ET
 
+from owner_tf_delivery import localization_decision
 from narrow_processes import OwnedProcesses
 from run_narrow_baseline import digest
 from warehouse_ab_supervisor import identity, same_process, write_json, pause_server
@@ -236,8 +237,7 @@ class Monitor:
         from std_msgs.msg import String
         from geometry_msgs.msg import Twist
         from sensor_msgs.msg import PointCloud2, Imu
-        from tf2_ros import Buffer
-        from owner_tf_delivery import TFDelivery, observed_listener_type
+        from owner_tf_delivery import LocalizationIngress
         self.node, self.heartbeat = node, heartbeat
         self.contacts = ContactStream(inventory['collisions'], first_sequence=None, observation_only=True)
         self.clock = None; self.clock_wall = None; self.failure = None; self.phase = 'bootstrap'
@@ -253,12 +253,7 @@ class Monitor:
         self.last_readiness = self.readiness_first_fault = None
         self.tf_diagnostic = None
         self.events = heartbeat.with_name('monitor-events.jsonl').open('x', buffering=1)
-        self.tf_delivery = TFDelivery()
-        self.tf = Buffer()
-        # Same node, subscriptions, callback group, QoS and executor as before.
-        self.listener = observed_listener_type()(self.tf, node, self.tf_delivery)
         self.node.create_subscription(Clock, '/clock', self.receive_clock, qos_profile_sensor_data)
-        self.node.create_subscription(Odometry, '/slam/odom', self.receive_odom, qos_profile_sensor_data)
         self.node.create_subscription(Odometry, '/sim/ground_truth/odom', self.receive_truth, qos_profile_sensor_data)
         self.node.create_subscription(Twist, '/path_manager/path_manager_ros/nav_vel', self.receive_final, 10)
         self.node.create_subscription(Contacts, '/b2w/evaluation/full_contacts', self.receive_contacts, 10)
@@ -267,6 +262,10 @@ class Monitor:
             self.node.create_subscription(kind, topic, lambda msg, name=topic: self.receive_sensor(name, msg), qos_profile_sensor_data)
         self.node.create_subscription(OccupancyGrid, '/map', self.receive_map,
             QoSProfile(depth=1, durability=DurabilityPolicy.TRANSIENT_LOCAL, reliability=ReliabilityPolicy.RELIABLE))
+        self.ingress = LocalizationIngress(context=node.context)
+        self.tf_delivery = self.ingress.delivery
+        self.tf = self.ingress.buffer
+        self.listener = self.ingress.listener
 
     def receive_clock(self, msg):
         value = msg.clock.sec + msg.clock.nanosec*1e-9
@@ -276,11 +275,12 @@ class Monitor:
             self.clock_wall = time.monotonic()
         self.clock = value
 
-    def receive_odom(self, msg):
+    def receive_odom(self, msg, receipt_wall=None):
         stamp = msg.header.stamp.sec + msg.header.stamp.nanosec*1e-9
         if self.odom and stamp < self.odom[0]:
             self.failure = self.failure or 'lio_stamp_regression'
-        self.odom = (stamp, msg); self.latest['odom'] = time.monotonic()
+        self.odom = (stamp, msg)
+        self.latest['odom'] = time.monotonic() if receipt_wall is None else receipt_wall
         self.remember('odom', stamp, self.latest['odom'], msg)
 
     def record(self, kind, msg):
@@ -452,11 +452,19 @@ class Monitor:
                     buffered_samples=len(history), exception=None,
                     simulation_limit_s=sim_limit, wall_limit_s=wall_limit), selected
 
+    @localization_decision
     def pose(self, wall=None):
         wall = time.monotonic() if wall is None else wall
         from rclpy.time import Time
         tf = self.tf.lookup_transform('map', 'base_link', Time())
         stamp = tf.header.stamp.sec + tf.header.stamp.nanosec*1e-9
+        if self.clock is not None and stamp > self.clock:
+            # Worker may lead /clock. Use a previously composed, source-stamped
+            # chain; do not request interpolation at now to manufacture age0.
+            history = getattr(getattr(self, 'tf_delivery', None), 'coherent', ())
+            eligible = [item for item in history if item[0] <= self.clock]
+            if eligible:
+                stamp, _, tf = max(eligible, key=lambda item:item[0])
         # Retain actual stamped transforms; never extrapolate or stamp at now.
         self.remember('tf', stamp, wall, tf)
         status, selected = self.stream_status('tf', wall, .5, None)
@@ -467,6 +475,7 @@ class Monitor:
         p, q = selected[2].transform.translation, selected[2].transform.rotation
         return (p.x, p.y, math.atan2(2*(q.w*q.z+q.x*q.y), 1-2*(q.y*q.y+q.z*q.z)))
 
+    @localization_decision
     def readiness(self, require_final=True, wall=None):
         """Evaluate every predicate against ONE decision time, without short circuit."""
         wall = time.monotonic() if wall is None else wall
@@ -529,6 +538,8 @@ class Monitor:
             if isinstance(value,dict): return {k:finite_json(v) for k,v in value.items()}
             if isinstance(value,(list,tuple)): return [finite_json(v) for v in value]
             return value
+        if not result['passed'] and getattr(self, 'tf', None) is not None:
+            result['tf_delivery'] = self.tf_delivery.snapshot(self.tf)
         self.last_readiness = finite_json(result)
         return self.last_readiness
 
@@ -539,7 +550,7 @@ class Monitor:
         if self.readiness_first_fault is not None:
             return
         self.readiness_first_fault = snapshot if snapshot is not None else self.readiness()
-        if hasattr(self, 'tf_delivery'):
+        if hasattr(self, 'tf_delivery') and 'tf_delivery' not in self.readiness_first_fault:
             self.readiness_first_fault['tf_delivery'] = self.tf_delivery.snapshot(self.tf)
         try:
             write_json(self.heartbeat.with_name('readiness-first-fault.json'), self.readiness_first_fault)
@@ -1181,6 +1192,12 @@ def execute(args, output):
             report['readiness_first_fault'] = monitor.readiness_first_fault
             report['contact_failure'] = monitor.contacts.failure
             report['contact_sample_count'] = monitor.samples
+            try:
+                monitor.ingress.close()
+                report['localization_cleanup'] = dict(passed=True)
+            except Exception as close_error:
+                report['localization_cleanup'] = dict(passed=False, error=repr(close_error))
+                report['error'] = report.get('error') or repr(close_error)
             monitor.events.close()
         if watchdog_result.is_file(): report['watchdog']=json.loads(watchdog_result.read_text())
         if report.get('error') or not report.get('cleanup',{}).get('passed'):

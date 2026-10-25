@@ -90,6 +90,7 @@ def handoff(session, monkeypatch):
             self.grid=dict(width=40,height=40,resolution=.1,origin=(-2.,-2.),data=[0]*1600,
                            observed_free_present=True)
             self.tf_delivery=TFDelivery();self.tf=Buffer()
+            self.ingress=NS(close=lambda:None,transfer=lambda monitor:None)
             listener_type=observed_listener_type()
             self.listener=listener_type.__new__(listener_type)
             self.listener.buffer=self.tf;self.listener.delivery=self.tf_delivery

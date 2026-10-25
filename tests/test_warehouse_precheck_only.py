@@ -83,6 +83,10 @@ def session(tmp_path, monkeypatch):
             self.final = [0.]*6
             self.events = (tmp_path/'monitor-events.jsonl').open('w')
             self.tf_delivery = NS(spin_start=lambda: None, spin_end=lambda: None)
+            def close_ingress():
+                state.ingress_closed = True
+                if state.fault == 'ingress_cleanup': raise RuntimeError('injected ingress cleanup')
+            self.ingress = NS(close=close_ingress)
             state.monitor = self
         def ready(self):
             state.readiness_calls += 1
@@ -193,6 +197,7 @@ def test_precheck_success_finishes_rest_and_owned_shutdown_without_navigation(se
         assert pulse['rest']['end_sim']-pulse['rest']['start_sim'] >= 5.
         assert pulse['rest']['measured_ground_truth_rest']
     assert report['normal_rest']['six_axis_final_zero']
+    assert report['localization_cleanup']['passed'] and session.ingress_closed
     assert report['cleanup']['passed'] and report['cleanup']['remaining'] == {}
     assert report['watchdog'] == dict(reason='normal_shutdown', emergency=False)
     assert session.readiness_calls > 0 and session.physical_checks > 0
@@ -370,3 +375,11 @@ def test_planner_process_startup_finishes_in_existing_zero_bootstrap(session,mon
     monkeypatch.setattr(trial,'route_start_admission',plan)
     assert session.run()==0,session.report().get('error')
     assert len(started)==2 and session.report()['planning_lifecycle']['states']==[3]
+
+
+def test_ingress_cleanup_failure_prevents_success(session):
+    session.fault='ingress_cleanup'
+    assert session.run()==1
+    report=session.report()
+    assert not report['success'] and not report['localization_cleanup']['passed']
+    assert report['cleanup']['passed'] and all(p.poll() is not None for p in session.processes)
