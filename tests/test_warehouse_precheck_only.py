@@ -132,6 +132,9 @@ def session(tmp_path, monkeypatch):
             self.seen.update(live)
             return live
         def observe(self): self.scan()
+        def send(self, sig):
+            for p in state.processes:
+                if not p.watchdog and p.poll() is None: p.send_signal(sig)
         def cleanup(self, process):
             state.cleanup_calls += 1
             for p in state.processes: p.returncode = 1
@@ -383,3 +386,42 @@ def test_ingress_cleanup_failure_prevents_success(session):
     report=session.report()
     assert not report['success'] and not report['localization_cleanup']['passed']
     assert report['cleanup']['passed'] and all(p.poll() is not None for p in session.processes)
+
+
+def test_normal_cleanup_interrupts_owned_descendants_of_ros2_run(session, monkeypatch):
+    # ros2 run catches a PID-only SIGINT and waits for its unsignaled child.
+    # Removing descendant signaling must reproduce the recorded eight-second failure.
+    owned = trial.OwnedProcesses
+    class WrapperChildren(owned):
+        leaf_alive = True
+        def scan(self):
+            live = super().scan()
+            if self.leaf_alive: live[999] = '789'
+            self.seen.update(live)
+            return live
+        def send(self, sig):
+            assert sig == trial.signal.SIGINT
+            super().send(sig)
+            self.leaf_alive = False
+    monkeypatch.setattr(trial, 'OwnedProcesses', WrapperChildren)
+    assert session.run() == 0
+    report = session.report()
+    assert report['cleanup']['passed'] and session.cleanup_calls == 0
+    assert report['watchdog']['reason'] == 'normal_shutdown'
+
+
+def test_failed_normal_cleanup_evidence_survives_successful_fallback(session, monkeypatch):
+    owned = trial.OwnedProcesses
+    class StuckChild(owned):
+        def scan(self):
+            live = super().scan()
+            live[999] = '789'
+            self.seen.update(live)
+            return live
+    monkeypatch.setattr(trial, 'OwnedProcesses', StuckChild)
+    assert session.run() == 1
+    report = session.report()
+    assert report['normal_cleanup']['remaining'] == {'999': '789'}
+    assert not report['normal_cleanup']['passed']
+    assert report['cleanup']['passed'] and session.cleanup_calls == 1
+    assert not report['success']

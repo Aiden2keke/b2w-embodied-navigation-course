@@ -1141,14 +1141,17 @@ def execute(args, output):
                 report['normal_rest'] = rest(inject_zero=False)
                 report['success'] = bool(report['route']['success'])
         monitor.normal_rest = report['normal_rest']; monitor.phase='shutdown'; monitor.update()
-        for process in reversed(children):
-            if process.poll() is None: process.send_signal(signal.SIGINT)
+        # ros2 run catches PID-only SIGINT and waits for its unsignaled child.
+        # Interrupt every token-owned, identity-checked descendant as well.
+        owner.send(signal.SIGINT)
         end = time.monotonic()+8.
         while owner.scan() and time.monotonic()<end:
             step(end)
             for process in children: process.poll()
         remaining=owner.scan()
-        report['cleanup'] = dict(passed=not remaining,remaining=remaining,owned_pid_start_ticks=owner.seen)
+        report['normal_cleanup'] = dict(passed=not remaining, remaining=remaining,
+            owned_pid_start_ticks=dict(owner.seen), timeout_s=8.)
+        report['cleanup'] = report['normal_cleanup']
         if remaining: raise RuntimeError('Normal owned cleanup incomplete')
         write_json(heartbeat, dict(wall=time.monotonic(),clock_advanced_wall=monitor.clock_wall,
             phase='shutdown',failure=None,complete=True,normal_rest=report['normal_rest'],cleanup_passed=True))

@@ -24,42 +24,39 @@
 - 旧实施计划归档至 `docs/plans/archive/2026-10-10-local-course-system-plan.md`。历史 design/validation 保留为证据，不是另一个当前 roadmap。无新增 HANDOFF。
 - 历史轮次只读与 timing 交付已结束；本轮范围以最新用户请求和下方 NOW 为准。旧实验/交付记录只作历史证据。
 
-## NOW — Live qualification attempt CLOSED: A PASS / B FAIL (2026-10-25)
+## NOW — Cleanup fixed offline; yaw/velocity tracking unresolved (2026-10-25)
 
-- [x] Initial clean expected HEAD270241453b45d791a3ff10fc0f8fff535f233174;
-      46 source/install pairs,9 native identities and committed Owner/TF hashes match.
-- [x] ONE changed-Owner stationary-containment session, fresh domain213: PASS.
-      619 exact-zero final samples; rest5.255sim/5.521691wall seconds;
-      drift0.000270749m/0.000000236389rad; watchdog paused all server threads,
-      removed owned processes; localization thread closed and lease released.
-- [x] Conditional ONE separate Profile-B precheck, fresh domain212, spawn(0,-1):
-      executed forward/rest/turn/rest; all three1.5m observed-free checks PASS.
-      B FAIL: first recorded exception `Normal owned cleanup incomplete` after
-      both measured stops. Fallback owned cleanup and localization cleanup PASS;
-      host independently confirms no owned/token processes and both leases free.
-- [x] Actual forward body-vx mean/peak0.097012/0.141762m/s; world planar peak
-      0.141922m/s. Positive yaw command produced mean/min wz−0.151656/−0.200533rad/s.
-      Forward whole-coast0.036475618m/0.005350422rad; turn whole-coast
-      0.018353265m/0.151054692rad. Both final commands exact zero; measured rest
-     5.2875sim/5.796611wall and5.4125sim/5.878406wall seconds. Tracking NOT qualified.
-- [x] Observer TF/odom max age during active windows A0.420s/B0.440s;
-      no active Owner freshness fault. B shutdown diagnostic has stale wall data
-      after simulator exit, not evidence of an active localization fault.
-      Healthy Owner age maxima were not persisted. No general TF reliability claim.
-- [x] No forbidden contacts; existing excursions/physical vetoes retained.
-      No goals, DWB navigation, mixed command, extra pulse, live retry or source edit.
-      Requested pulse cap1s; sampled Owner forward loop1.0025s, turn1s;
-      final-command receive-clock nonzero→zero intervals0.9425s/0.9075s
-      (unstamped command observations, not exact actuator timing).
-- [x] Qualification attempt milestone CLOSED with B failure; no further live
-      attempt authorized. Evidence: artifacts/recovery/live-qualification-short-motion-20261025/;
-      repository-named APRIL archive and checksum delivered to APRIL_REVIEW_BUNDLES.
-- [ ] NEXT NEW SESSION: first resolve failed normal-cleanup gate and wrong-sign
-      yaw/forward tracking; establish Profile-B route-relevant stopping, tracking,
-      localization and envelope bounds, G1 body/rotation coverage and explicit
-     0.3m navigation vs0.05m staging. Existing145-pose7.213m Start→G1 retained.
-      Genuine Start→G1→G2 and continuous Start→G5 video remain NOT DONE.
-      This short run does not qualify0.2m/s or mixed motion.
+- [x] Clean experimental base `557b856cb4c6240392a1e5e21ad653a6febb5fcd` verified;
+      GitHub project experimental ref matches, remote HEAD `66db5152`.
+      Recovery branch `navigation/g1-g5-recovery-20261025`; no merge from main/Stage4.
+      Main reconciliation `51870e1` and its 24 local paths preserved.
+- [x] Raw Profile-B logs/events/trajectory and cleanup chronology traced.
+      Positive `.05` yaw reaches model as `+.08`; raw gyro and quaternion
+      difference independently confirm negative turn (−.154184rad), then
+      +.151055rad recovery.95 offline inference pairs agree within1.02e-6.
+      Direct pose-derived forward mean/peak .099100/.141945m/s confirms overspeed.
+- [x] Proven cleanup defect: PID-only SIGINT reaches ros2-run wrappers but not
+      their helper nodes. Existing token/PID identity checked send now interrupts
+      all owned processes.8s bound/checks/watchdog unchanged; failed normal
+      snapshot survives fallback. Real installed-wrapper process-only reproduction
+      confirms cause; unrelated process survives.
+- [x] Two regressions RED→GREEN; precheck25 PASS; related safety suites185 PASS.
+      Single-agent diff review PASS for cleanup fix/evidence scope only.
+      `.5s` TF/odom freshness, physical vetoes, collisions, stops/watchdog retained.
+- [ ] Yaw/velocity tracking NOT FIXED/QUALIFIED: low-level policy/deployment
+      response is isolated, but original training convention vs short transient/
+      contact dynamics remains unresolved. No blind negation/scaling/policy change.
+      Full trace and exact snippets: docs/YAW_TRACKING_CLEANUP_20261025.md.
+- [ ] NEXT SESSION authorization: stationary normal-cleanup revalidation first;
+      offline training-contract resolution before a changed-controller test.
+      Smallest proposed motion diagnostic: one pure+.05rad/s,≤.25sim-second
+      yaw pulse, exact-zero/rest and normal cleanup, full existing vetoes,
+      no retry. Not authorized or executed here; not a route qualification.
+      Existing145-pose7.213m Start→G1 path retained. Actual Start→G2 and
+      continuous Start→G5 video remain NOT DONE; .3m navigation vs .05m staging.
+      No Gazebo, motion, goal, hardware or runtime tuning this session.
+- [x] Commit/push after scoped review PASS; one APRIL bundle+SHA256 delivery.
+      STOP after delivery. Bundle contains raw source evidence and replay/results.
 
 
 ## Historical — Final corrected canonical planning capture (2026-10-25)
