@@ -555,3 +555,50 @@ def test_final_admission_requires_new_fresh_map_during_rest(session, fault):
     assert session.run() == 1
     assert 'map' in session.report()['error'].lower()
     assert not any(any(values) for _, values in session.commands)
+
+
+def test_historical_yaw_is_one_fixed_positive_pulse_then_zero_rest(session):
+    session.args.precheck_axis = 'historical-yaw'
+    session.args.precheck_pulse_s = .5
+    assert session.run() == 0, session.report().get('error')
+    report = session.report()
+    assert [p['kind'] for p in report['precheck']] == ['historical-yaw']
+    assert {tuple(v) for _, v in session.commands} == {
+        (0., 0., 0., 0., 0., 0.), (0., 0., 0., 0., 0., .25)}
+    pulse = report['precheck'][0]
+    assert .5 <= pulse['end_pulse_sim']-pulse['start_sim'] < .61
+    assert pulse['rest']['measured_ground_truth_rest']
+    assert pulse['rest']['end_sim']-pulse['rest']['start_sim'] >= 5.
+    assert session.commands[-1][1] == [0.]*6
+    assert report['normal_cleanup']['passed'] and session.goals == 0
+
+
+def test_historical_yaw_cli_admits_short_pulse_without_motion(monkeypatch):
+    checked = []
+    monkeypatch.setattr(trial, 'check_inputs', lambda args: checked.append(args) or {})
+    assert trial.main(['--profile', 'B', '--check', '--precheck-only',
+                       '--precheck-axis', 'historical-yaw', '--precheck-pulse-s', '.5']) == 0
+    assert checked[0].precheck_axis == 'historical-yaw'
+
+
+@pytest.mark.parametrize('duration', ['.5001', '2', '8'])
+def test_historical_yaw_rejects_long_pulse_before_deployment(monkeypatch, duration):
+    monkeypatch.setattr(trial, 'check_inputs', lambda args: pytest.fail('input check reached'))
+    with pytest.raises(SystemExit) as error:
+        trial.main(['--profile', 'B', '--precheck-only', '--precheck-axis',
+                    'historical-yaw', '--precheck-pulse-s', duration])
+    assert error.value.code == 2
+
+
+@pytest.mark.parametrize('fault', ['clearance', 'occupied', 'no_new_map', 'stale_map',
+                                  'readiness', 'duplicate_owner', 'goal_source',
+                                  'readmission_clock_freeze', 'turn',
+                                  'pulse_clock_freeze', 'physical_stop', 'watchdog_completion'])
+def test_historical_yaw_preserves_admission_and_safety_failures(session, fault):
+    session.args.precheck_axis = 'historical-yaw'
+    session.args.precheck_pulse_s = .5
+    session.fault = fault
+    assert session.run() == 1
+    assert session.report()['error'] and session.report()['cleanup']['passed']
+    assert session.commands[-1][1] == [0.]*6 and session.goals == 0
+    assert all(v[:5] == [0.]*5 and v[5] in (0., .25) for _, v in session.commands)
