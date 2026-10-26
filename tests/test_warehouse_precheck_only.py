@@ -74,10 +74,12 @@ def session(tmp_path, monkeypatch):
             self.phase = 'bootstrap'; self.failure = None
             self.grid = dict(width=40, height=40, resolution=.1, origin=(-2., -2.), data=[0]*1600)
             self.grid['observed_free_present'] = True
+            self.map_evidence = dict(message=dict(header=dict(stamp=dict(sec=10, nanosec=0))), receipt_wall=state.wall)
             if state.fault in ('map_observation_delayed','map_observation_missing'):
                 self.grid.update(data=[-1]*1600, observed_free_present=False)
                 state.map_bootstrap_spins = 0
-            if state.fault == 'clearance': self.grid['data'][820] = -1
+            if state.fault in ('clearance', 'coverage_during_rest'): self.grid['data'][820] = -1
+            if state.fault == 'occupied': self.grid['data'][820] = 100
             self.contacts = NS(failure=None, intervals=NS(closed=lambda **kwargs: True))
             self.support_feet = {'FL', 'FR', 'RL', 'RR'}; self.samples = 10
             self.truth_first_fault = self.readiness_first_fault = None
@@ -152,12 +154,18 @@ def session(tmp_path, monkeypatch):
                 if state.map_bootstrap_spins >= 10:
                     state.monitor.grid = dict(state.monitor.grid, data=[0]*1600,
                                               observed_free_present=True)
+            if state.fault == 'coverage_during_rest' and state.monitor.phase == 'precheck' and state.monitor.grid['data'][820] == -1:
+                assert not any(any(values) for _, values in state.commands)
+                state.monitor.grid = dict(state.monitor.grid, data=[0]*1600)
             if state.audit_finished and state.monitor.phase == 'bootstrap':
                 state.post_audit_bootstrap_spins += 1
             if not ((state.fault == 'pulse_clock_freeze' and any(state.monitor.final))
                     or (state.fault == 'readmission_clock_freeze' and state.audit_finished)):
                 state.monitor.clock += .1
             state.monitor.clock_wall = state.wall
+            if state.fault != 'no_new_map':
+                stamp = state.monitor.clock-10. if state.fault == 'stale_map' else state.monitor.clock
+                state.monitor.map_evidence = dict(message=dict(header=dict(stamp=dict(sec=int(stamp), nanosec=int((stamp-int(stamp))*1e9)))), receipt_wall=state.wall)
     monkeypatch.setattr(trial.time, 'monotonic', lambda: state.wall)
     monkeypatch.setattr(trial.time, 'sleep', lambda seconds: setattr(state, 'wall', state.wall+seconds))
     monkeypatch.setattr(rclpy, 'init', lambda: None)
@@ -247,7 +255,7 @@ def test_clearance_failure_snapshot_is_written_before_raise(session):
 def test_each_motion_admission_records_one_snapshot(session):
     assert session.run() == 0
     assert {p.name for p in session.output.glob('pocket-admission-*.json')} == {
-        'pocket-admission-initial.json', 'pocket-admission-forward.json', 'pocket-admission-turn.json'}
+        'pocket-admission-initial.json', 'pocket-admission-after-rest.json', 'pocket-admission-forward.json', 'pocket-admission-turn.json'}
 
 
 def test_alternate_precheck_spawn_is_explicit_and_recorded_with_truth(session):
@@ -513,3 +521,37 @@ def test_negative_yaw_axis_rejects_non_precheck_mode_before_input_check(monkeypa
     with pytest.raises(SystemExit) as error:
         trial.main(['--profile', 'B', '--precheck-axis', 'negative-yaw'])
     assert error.value.code == 2
+
+
+def test_incomplete_early_pocket_can_be_observed_free_during_required_rest(session):
+    # Catches the premature geometry exception before zero-motion rest dispatch.
+    session.fault = 'coverage_during_rest'
+    session.args.precheck_axis = 'negative-yaw'
+    session.args.precheck_pulse_s = .25
+    assert session.run() == 0, session.report().get('error')
+    report = session.report()
+    early = json.loads((session.output/'pocket-admission-initial.json').read_text())
+    final = json.loads((session.output/'pocket-admission-after-rest.json').read_text())
+    assert early['decision'] is False and final['decision'] is True
+    assert final['clock'] >= report['initial_rest']['end_sim']
+    assert report['initial_rest']['end_sim']-report['initial_rest']['start_sim'] >= 5.
+    first_motion_wall = next(w for w, values in session.commands if any(values))
+    assert first_motion_wall >= final['wall']
+
+
+@pytest.mark.parametrize('fault', ['clearance', 'occupied'])
+def test_final_pocket_rejects_persistent_unknown_or_occupied_after_rest(session, fault):
+    session.fault = fault
+    assert session.run() == 1
+    assert session.report()['initial_rest']['six_axis_final_zero']
+    final = json.loads((session.output/'pocket-admission-after-rest.json').read_text())
+    assert final['decision'] is False
+    assert not any(any(values) for _, values in session.commands)
+
+
+@pytest.mark.parametrize('fault', ['no_new_map', 'stale_map'])
+def test_final_admission_requires_new_fresh_map_during_rest(session, fault):
+    session.fault = fault
+    assert session.run() == 1
+    assert 'map' in session.report()['error'].lower()
+    assert not any(any(values) for _, values in session.commands)

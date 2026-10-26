@@ -23,7 +23,7 @@ def handoff(session, monkeypatch):
     import rclpy
     from builtin_interfaces.msg import Time
     from geometry_msgs.msg import TransformStamped, Twist
-    from nav_msgs.msg import Odometry
+    from nav_msgs.msg import Odometry, OccupancyGrid
     from ros_gz_interfaces.msg import Contacts
     from rosidl_runtime_py.set_message import set_message_fields
     from std_msgs.msg import String
@@ -113,6 +113,11 @@ def handoff(session, monkeypatch):
     def refresh(m,value,localization=None):
         loc=value if localization is None else localization
         m.receive_clock(NS(clock=stamp(value)))
+        grid=OccupancyGrid();grid.header.stamp=stamp(value)
+        grid.info.width=grid.info.height=40;grid.info.resolution=.1
+        grid.info.origin.position.x=grid.info.origin.position.y=-2.
+        grid.info.origin.orientation.w=1.;grid.data=[0]*1600
+        m.receive_map(grid)
         m.receive_truth(odom(value,2. if state.mode=='unsafe_body' and state.audit_wall is not None else .65))
         for topic in ('/imu','/pointcloud','/slam/map_points'):
             m.receive_sensor(topic,NS(header=NS(stamp=stamp(value))))

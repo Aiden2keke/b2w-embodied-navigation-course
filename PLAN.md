@@ -24,7 +24,37 @@
 - 旧实施计划归档至 `docs/plans/archive/2026-10-10-local-course-system-plan.md`。历史 design/validation 保留为证据，不是另一个当前 roadmap。无新增 HANDOFF。
 - 历史轮次只读与 timing 交付已结束；本轮范围以最新用户请求和下方 NOW 为准。旧实验/交付记录只作历史证据。
 
-## NOW — Negative yaw attempt rejected before motion (2026-10-26)
+## NOW — Pocket timing correction and one negative yaw (2026-10-26)
+
+- [x] Single agent, exact base b2b6260c73d61300a4f65d4e836da143fb095a8a.
+- [x] Root cause: early full-disk rejection preceded mandatory initial measured
+      zero rest; bootstrap had only established some observed-free coverage.
+- [x] Preserve early diagnostic; perform unchanged qualified rest first, require
+      new actual map publication, then unchanged full 1.5m disk. Independent
+      pre-publication callback dispatch/clearance/freshness guards retained.
+      No added waiting, map relabeling, radius/control/policy changes.
+- [x] RED→GREEN regression and saved 20261025 FREE / 20261026 UNKNOWN replays.
+      165 focused offline PASS; persistent unknown/occupied and absent/stale map
+      fail closed. 46 source/install identities and 26 native handles PASS.
+- [x] Live BLOCKED before launch: host GPU preflight found unrelated compute
+      PID3640423 (raylab Python). Domain213 lease available and closed; no
+      competing sim. DDS domain discovery not reached. STOP; no wait/retry.
+      Zero simulator attempts/pulses/goals; no new map, yaw, rest or cleanup.
+      Unknown cell later clearing remains UNKNOWN; no delivered-duration PASS.
+- [x] HANDOFF: `docs/POCKET_TIMING_YAW_20261026.md` and evidence directory
+      `artifacts/recovery/pocket-timing-yaw-20261026/`. Positive yaw-.154184rad,
+      rebound+.151055rad retained; no matched negative comparison. Yaw remains
+      BLOCKED. Review/commit/push and ONE APRIL+SHA256 delivery, then STOP;
+      exact commit/remote/checksum identities reside in sealed delivery evidence.
+- [ ] NEW SESSION exact next action: after host GPU availability and renewed
+      explicit authority, ONE corrected-source -.05 yaw nominal.25sim s at
+      existing(0,-1), fresh domain/lease/output; capture post-rest map/cell,
+      <=.30s target actual interval and signed response/whole stop. No repeated
+      stationary/planning qualification. Before Start→G2 also resolve reviewed
+      Profile-B directional stopping/tracking envelope and G1 rotation coverage.
+      Start→G2 and Start→G5 video remain NOT DONE; no production sign/gain change.
+
+## Historical — Negative yaw attempt rejected before motion (2026-10-26)
 
 - [x] Single agent; expected base `8df7df454f03af8dc6a568732b37966907e93d36`,
       branch `navigation/g1-g5-recovery-20261025`; clean checkout verified.

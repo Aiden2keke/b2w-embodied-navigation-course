@@ -51,6 +51,23 @@ def motion_pocket_admission(grid, xy, *, stationary_containment):
     return dict(required=True, passed=True, radius_m=1.5, status='passed')
 
 
+def require_motion_map(monitor, since_sim, since_wall):
+    """Require a real post-rest-entry publication, within map-input age bounds."""
+    try:
+        evidence = monitor.map_evidence
+        header = evidence['message']['header']['stamp']
+        stamp = header['sec']+header['nanosec']*1e-9
+        receipt = evidence['receipt_wall']; wall = time.monotonic()
+        # Reuse the existing /slam/map_points 6sim/20wall freshness bounds.
+        if not (since_sim < stamp <= monitor.clock and 0 <= monitor.clock-stamp <= 6.
+                and since_wall < receipt <= wall and wall-receipt <= 20.):
+            raise ValueError('No new fresh map publication during initial rest')
+    except (AttributeError, KeyError, TypeError, ValueError) as error:
+        raise RuntimeError('Motion map admission: '+str(error)) from error
+    return dict(stamp=stamp, receipt_wall=receipt, simulation_age_s=monitor.clock-stamp,
+                wall_age_s=wall-receipt)
+
+
 def pocket_snapshot(grid, xy, radius=1.5):
     """Explain the unchanged predicate; retain the complete checked grid for replay."""
     result = dict(radius_m=radius, sensor_xy=list(xy), grid=grid,
@@ -944,11 +961,13 @@ def execute(args, output):
         if node.get_publishers_info_by_topic('/goal_pose') or node.get_node_names().count('goal_manager'):
             raise RuntimeError('Goal producer/manager unexpectedly active during precheck')
         if args.precheck_only:
-            save_pocket_admission(monitor, output, 'initial')
-        if args.precheck_only or args.stationary_containment:
+            early_free = save_pocket_admission(monitor, output, 'initial')
+            report['pre_motion_snapshot']['early_pocket_diagnostic'] = dict(
+                passed=early_free, motion_admitted=False, status='diagnostic_before_required_rest')
+        if args.stationary_containment:
             report['pre_motion_snapshot']['motion_pocket'] = motion_pocket_admission(
                 monitor.grid, monitor.pose()[:2], stationary_containment=args.stationary_containment)
-        else:
+        elif not args.precheck_only:
             report['pre_motion_snapshot']['route_admission'] = 'pending_planner_and_swept_footprint'
         if args.precheck_only:
             report['pre_motion_snapshot']['open_pocket_radius_m'] = 1.5
@@ -971,7 +990,16 @@ def execute(args, output):
             if reason:
                 raise RuntimeError(reason)
         monitor.phase = 'precheck' if args.precheck_only or args.stationary_containment else 'route_admission'
+        rest_entry_sim, rest_entry_wall = monitor.clock, time.monotonic()
         report['initial_rest'] = rest()
+        if args.precheck_only:
+            # Only actual coverage after qualified zero-motion rest admits motion.
+            # Active freshness/physical guards ran in rest(); each pulse still
+            # independently dispatches and rechecks immediately before publish.
+            save_pocket_admission(monitor, output, 'after-rest')
+            report['final_motion_map'] = require_motion_map(monitor, rest_entry_sim, rest_entry_wall)
+            report['final_motion_pocket'] = motion_pocket_admission(
+                monitor.grid, monitor.pose()[:2], stationary_containment=False)
         if args.stationary_containment and not getattr(args, 'stationary_normal_cleanup', False):
             # End this session through the independent watchdog itself. No
             # pulses, goals, navigation launch, manual pause or resume here.
@@ -1020,6 +1048,7 @@ def execute(args, output):
                 step(start_wall+10.)
                 while monitor.clock <= before_dispatch_clock:
                     step(start_wall+10.)
+                require_motion_map(monitor, rest_entry_sim, rest_entry_wall)
                 if not open_pocket(monitor.grid, monitor.pose()[:2]):
                     raise RuntimeError('Sensor open pocket absent before '+kind)
                 start_sim = monitor.clock
