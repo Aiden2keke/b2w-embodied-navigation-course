@@ -38,6 +38,8 @@ def session(tmp_path, monkeypatch):
             values = [getattr(getattr(command, a), b) for a in ('linear', 'angular') for b in ('x', 'y', 'z')]
             state.commands.append((state.wall, values))
             state.monitor.final = values
+            state.monitor.final_samples += 1
+            state.monitor.nonzero_final_samples += int(any(values))
 
     class Node:
         def get_node_names(self):
@@ -81,6 +83,7 @@ def session(tmp_path, monkeypatch):
             self.truth_first_fault = self.readiness_first_fault = None
             self.truth = (self.clock, state.wall, message(self.clock))
             self.final = [0.]*6
+            self.final_samples = self.nonzero_final_samples = 0
             self.events = (tmp_path/'monitor-events.jsonl').open('w')
             self.tf_delivery = NS(spin_start=lambda: None, spin_end=lambda: None)
             def close_ingress():
@@ -425,3 +428,43 @@ def test_failed_normal_cleanup_evidence_survives_successful_fallback(session, mo
     assert not report['normal_cleanup']['passed']
     assert report['cleanup']['passed'] and session.cleanup_calls == 1
     assert not report['success']
+
+
+def test_stationary_normal_cleanup_never_publishes_motion_or_injects_fault(session):
+    session.args.stationary_containment = True
+    session.args.stationary_normal_cleanup = True
+    session.args.precheck_only = False
+    session.args.authorize_motion = None
+    assert session.run() == 0, session.report().get('error')
+    report = session.report()
+    assert report['precheck'] == [] and session.goals == 0
+    assert all(values == [0.]*6 for _, values in session.commands)
+    assert report['normal_rest']['measured_ground_truth_rest']
+    assert report['normal_cleanup']['passed']
+    assert report['watchdog'] == dict(reason='normal_shutdown', emergency=False)
+    assert report['localization_cleanup']['passed']
+
+
+@pytest.mark.parametrize('fault', ['duplicate_owner', 'goal_source', 'readiness', 'physical_stop',
+                                  'watchdog_completion', 'ingress_cleanup'])
+def test_stationary_normal_cleanup_retains_failure_and_zero_contract(session, fault):
+    session.args.stationary_containment = True
+    session.args.stationary_normal_cleanup = True
+    session.args.precheck_only = False
+    session.args.authorize_motion = None
+    session.fault = fault
+    assert session.run() == 1
+    report = session.report()
+    assert not report['success'] and report['error']
+    assert report['precheck'] == [] and session.goals == 0
+    assert all(values == [0.]*6 for _, values in session.commands)
+    assert report['cleanup']['passed'] and session.ingress_closed
+
+
+def test_stationary_normal_cleanup_flag_rejects_other_modes_before_input_check(monkeypatch):
+    def forbidden(*args):
+        raise AssertionError('Invalid mode reached deployment check')
+    monkeypatch.setattr(trial, 'check_inputs', forbidden)
+    with pytest.raises(SystemExit) as result:
+        trial.main(['--profile', 'B', '--stationary-normal-cleanup', '--precheck-only'])
+    assert result.value.code == 2

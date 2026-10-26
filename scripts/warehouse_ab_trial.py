@@ -972,7 +972,7 @@ def execute(args, output):
                 raise RuntimeError(reason)
         monitor.phase = 'precheck' if args.precheck_only or args.stationary_containment else 'route_admission'
         report['initial_rest'] = rest()
-        if args.stationary_containment:
+        if args.stationary_containment and not getattr(args, 'stationary_normal_cleanup', False):
             # End this session through the independent watchdog itself. No
             # pulses, goals, navigation launch, manual pause or resume here.
             latch_failure(monitor, heartbeat, 'stationary_qualification_injection')
@@ -1045,7 +1045,12 @@ def execute(args, output):
                 start_truth_evaluation=initial_truth,end_truth_evaluation=monitor.truth_pose(),
                 translation_drift_m=math.dist(initial_truth[:2],monitor.truth_pose()[:2]),
                 yaw_drift_rad=math.atan2(math.sin(monitor.truth_pose()[2]-initial_truth[2]),math.cos(monitor.truth_pose()[2]-initial_truth[2])))
-        if args.precheck_only:
+        if args.stationary_containment:
+            report['normal_rest'] = report['initial_rest']
+            report['stationary_commands'] = dict(samples=monitor.final_samples, nonzero=monitor.nonzero_final_samples)
+            if monitor.nonzero_final_samples: raise RuntimeError('Stationary nonzero final command')
+            report['success'] = True
+        elif args.precheck_only:
             # Keep the same sole command owner through the final measured stop.
             # Route imports, handover, launch and goals are unreachable here.
             report['normal_rest'] = report['precheck'][-1]['rest']
@@ -1281,7 +1286,7 @@ def check_inputs(args):
         precheck_pulse_sim_s=getattr(args,'precheck_pulse_s',2.),
         no_world_or_motion_started=True,domain=int(domain),wall_limit_s=args.wall_limit,
         reviewed_envelope=reviewed_envelope,
-        stationary_containment=args.stationary_containment, precheck_only=args.precheck_only,
+        stationary_containment=args.stationary_containment, stationary_normal_cleanup=getattr(args,'stationary_normal_cleanup',False), precheck_only=args.precheck_only,
         planning_only=getattr(args,'planning_only',False),
         motion_authorization=args.authorize_motion, route_mode=args.route_mode,
         continuation_yaws=args.continuation_yaws,
@@ -1299,6 +1304,8 @@ def main(argv=None):
     modes.add_argument('--precheck-only',action='store_true',
         help='Forward/rest/turn/rest only; no Nav2 launch or navigation goals')
     modes.add_argument('--planning-only',action='store_true',help='Canonical stationary Smac capture only; no route goals or qualification pulses')
+    parser.add_argument('--stationary-normal-cleanup',action='store_true',
+        help='With stationary containment, use measured rest and normal owned shutdown; watchdog remains armed')
     parser.add_argument('--authorize-planning',action='store_true',help='Separate authority for one bounded planning-only startup')
     parser.add_argument('--precheck-spawn-x',type=float,help='Explicit world X for precheck-only; requires Y')
     parser.add_argument('--precheck-spawn-y',type=float,help='Explicit world Y for precheck-only; requires X')
@@ -1320,6 +1327,8 @@ def main(argv=None):
     if not math.isfinite(args.precheck_pulse_s) or not 0 < args.precheck_pulse_s <= 2.:
         parser.error('--precheck-pulse-s must be finite and in (0,2]')
     if args.check and args.execute:parser.error('--check and --execute are mutually exclusive')
+    if args.stationary_normal_cleanup and not args.stationary_containment:
+        parser.error('--stationary-normal-cleanup requires --stationary-containment')
     if args.stationary_containment and args.authorize_motion:
         parser.error('Stationary qualification cannot accept motion authorization')
     if args.authorize_planning and not args.planning_only:

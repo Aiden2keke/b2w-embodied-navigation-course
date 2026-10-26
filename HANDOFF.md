@@ -1,37 +1,53 @@
-# Handoff — Cleanup fixed offline; tracking still blocks navigation
+# Handoff — Actual normal cleanup PASS; bounded yaw NOT RUN
 
-Single agent; recovery branch `navigation/g1-g5-recovery-20261025` in
-`/tmp/b2w-navigation-ab-20261023`, based exactly on clean `557b856cb4c6240392a1e5e21ad653a6febb5fcd`.
-GitHub `project` experimental ref matched base; remote HEAD `66db5152`.
-Final commit/ref/checksum: use delivered bundle Git verification and git rev-parse HEAD.
-Main `51870e1` and 24 local paths preserved; no main/Stage4 wholesale merge.
+Single agent, `/tmp/b2w-navigation-ab-20261023`, recovery branch
+`navigation/g1-g5-recovery-20261025`, session base exactly
+`25043f96ee63807b04ab5f1a36d2dc9bd5a1faab`.
+Final commit/ref/checksum: delivered bundle Git verification and git rev-parse HEAD.
+Main reconciliation `51870e1` and local files preserved; Stage4 untouched.
 
-Normal shutdown defect proven: ros2-run catches wrapper-only SIGINT and waits
-for unsignaled helper. Recorded six survivors after stack exit;8s bound fails.
-Use existing token/start-tick checked `owner.send(SIGINT)` for normal shutdown;
-keep8s deadline, survivor failure, watchdog and fallback. Preserve normal_cleanup
-snapshot separately from fallback cleanup. Real installed-wrapper reproduction
-confirms PID-only signal failure and owned-signal success, unrelated PID preserved.
-Two regression tests RED→GREEN;25 precheck and185 related safety tests PASS.
-Single-agent review PASS applies to cleanup code/evidence, not live qualification.
+Exactly ONE new stationary Gazebo session: domain211, unused output and launch
+lease;46 source/install pins, native/server identities and26 shapes checked.
+Actual normal cleanup PASS:628 exact-zero command samples,5.0825sim-second
+measured LIO/truth rest, max .000255879m drift and2.739e-7rad yaw drift.
+All19 registered identities/helpers/server exited within unchanged8s bound,
+no fallback; localization ingress/thread cleanup PASS. Watchdog accepted normal
+completion; fault handling remained armed, no new live fault injection.
+Host PID/start-tick/token audit empty; domain lease reacquired/released.
 
-Yaw NOT FIXED: model recorded+.08 from+.05 request; body gyro mean−.154735rad/s,
-truth quaternion delta−.154184rad.95 replay pairs agree within1.02e-6.
-Negative wheel response already exists below the positive model command.
-Coast reverses+.151055rad. Forward pose-derived mean/peak .099100/.141945m/s.
-Exact model training convention vs transient/contact behavior unresolved; no
-sign/gain/vx/policy tuning justified or applied. `.5s` TF/odom freshness and all
-physical/contact/collision/stop/watchdog checks retained; no active freshness fault.
+Minimal explicit `--stationary-normal-cleanup` requires stationary containment
+and uses the existing normal exit after zero/rest. Default fault-injection mode
+and normal cleanup fix unchanged. New test RED→GREEN;174 focused tests PASS,
+including33 precheck tests. Single-agent scoped review PASS, no independent
+reviewer or yaw-control PASS claimed.
 
-Details/snippets: docs/YAW_TRACKING_CLEANUP_20261025.md.
-Old raw evidence: artifacts/recovery/live-qualification-short-motion-20261025/.
-New replay/reproduction/RED/GREEN/safety results: artifacts/recovery/yaw-cleanup-20261025/.
-APRIL bundle includes both; commit pushed to project recovery branch, no merge.
-No Gazebo, motion, route goal, retry or hardware this session. STOP after delivery.
+Actual yaw diagnostic NOT RUN: existing precheck runs forward+turn; .25 pulse
+setting is not yaw-only. Its sampled clock loop/asynchronous Twist chain cannot
+strictly enforce≤.25 simulated seconds (old1s pulse overshot2.5ms). No yaw-only
+flag or alternative nonzero pulse, retries, route goal or hardware used. One
+stationary session total, zero motion sessions. Original training commit/range
+is not pinned in POLICY_SOURCE; current upstream training config is not proof
+of this model's original range or convention.
 
-NEXT SESSION requires new authorization: stationary normal-cleanup check first;
-resolve training contract offline before choosing a controller change. Proposed
-smallest motion diagnostic is one pure+.05rad/s pulse≤.25s then zero, measured
-rest and normal cleanup with all existing gates; no retry. It is not a tracking
-qualification. Keep145-pose7.213m Start→G1 path. Actual Start→G2 and continuous
-Start→G5 video remain NOT DONE; .3m navigation vs .05m staging remains explicit.
+Frozen-observation ONNX intervention: positive yaw changes wheel differential
+in negative direction even at recorded pre-turn rest. Old +.05 request reaches
+model+.08, then negative target/dq/gyro and truth yaw−.154184rad. At zero,
+idle_hold overrides wheel targets while learned legs continue; positive wheel
+feedback/gyro and+.151055rad rebound follow. Actual torque was not recorded;
+all old contact entries lack wrenches. No mapping bug, global sign reversal or
+sole rebound mechanism proven. No negation, vx scaling, gain/idle tuning or
+policy replacement justified/applied.
+
+Full concise snippets, chronology, limitations, commands and source identities:
+`docs/YAW_CONTRACT_CLEANUP_20261026.md`.
+Evidence: `artifacts/recovery/yaw-contract-cleanup-20261026/` in APRIL bundle,
+plus old `live-qualification-short-motion-20261025/` and `yaw-cleanup-20261025/`.
+
+Next session: establish a reviewed simulation-time command expiry and capture
+existing named wheel targets/feedback/torques before the one bounded pure+.05yaw
+≤.25s diagnostic from verified rest, with all original gates/watchdog/cleanup.
+This is one transient diagnostic, not steady-state qualification. Controllable
+yaw, directional stopping and route envelope remain the Start→G2 blockers.
+145-pose7.213m Start→G1 path retained; actual Start→G2 and continuous Start→G5
+video NOT DONE; .3m navigation and .05m staging tolerances distinct.
+Commit/push reviewed completed scope; deliver ONE APRIL bundle+SHA256 and STOP.
