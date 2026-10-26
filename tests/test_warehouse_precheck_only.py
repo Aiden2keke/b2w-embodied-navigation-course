@@ -468,3 +468,48 @@ def test_stationary_normal_cleanup_flag_rejects_other_modes_before_input_check(m
     with pytest.raises(SystemExit) as result:
         trial.main(['--profile', 'B', '--stationary-normal-cleanup', '--precheck-only'])
     assert result.value.code == 2
+
+
+def test_negative_yaw_is_one_pure_pulse_then_exact_zero_and_rest(session):
+    # Catches accidental forward/default sequence or positive sign in opt-in mode.
+    session.args.precheck_axis = 'negative-yaw'
+    session.args.precheck_pulse_s = .25
+    assert session.run() == 0, session.report().get('error')
+    report = session.report()
+    assert len(report['precheck']) == 1 and session.goals == 0
+    assert {tuple(v) for _, v in session.commands} == {
+        (0., 0., 0., 0., 0., 0.), (0., 0., 0., 0., 0., -.05)}
+    pulse = report['precheck'][0]
+    assert .25 <= pulse['end_pulse_sim']-pulse['start_sim'] <= .301
+    assert pulse['rest']['measured_ground_truth_rest']
+    assert pulse['rest']['end_sim']-pulse['rest']['start_sim'] >= 5.
+    assert session.commands[-1][1] == [0.]*6
+    assert report['normal_cleanup']['passed'] and session.physical_checks > 0
+
+
+@pytest.mark.parametrize('fault', ['clearance', 'readiness', 'duplicate_owner', 'goal_source', 'readmission_clock_freeze'])
+def test_negative_yaw_admission_rejection_sends_no_motion(session, fault):
+    session.args.precheck_axis = 'negative-yaw'
+    session.args.precheck_pulse_s = .25
+    session.fault = fault
+    assert session.run() == 1
+    assert not any(any(v) for _, v in session.commands)
+    assert session.goals == 0 and session.report()['cleanup']['passed']
+
+
+@pytest.mark.parametrize('fault', ['turn', 'pulse_clock_freeze', 'physical_stop', 'watchdog_completion'])
+def test_negative_yaw_preserves_physical_stop_deadline_and_watchdog_failures(session, fault):
+    session.args.precheck_axis = 'negative-yaw'
+    session.args.precheck_pulse_s = .25
+    session.fault = fault
+    assert session.run() == 1
+    assert session.report()['error'] and session.report()['cleanup']['passed']
+    assert session.commands[-1][1] == [0.]*6 and session.goals == 0
+    assert all(v[:5] == [0.]*5 and v[5] in (0., -.05) for _, v in session.commands)
+
+
+def test_negative_yaw_axis_rejects_non_precheck_mode_before_input_check(monkeypatch):
+    monkeypatch.setattr(trial, 'check_inputs', lambda args: pytest.fail('input check reached'))
+    with pytest.raises(SystemExit) as error:
+        trial.main(['--profile', 'B', '--precheck-axis', 'negative-yaw'])
+    assert error.value.code == 2

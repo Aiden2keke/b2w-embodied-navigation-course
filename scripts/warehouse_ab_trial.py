@@ -999,14 +999,15 @@ def execute(args, output):
             initial_precheck = monitor.pose(); initial_truth = monitor.truth_pose()
             monitor.precheck_motion_origin = initial_truth
             pulse_s = getattr(args, 'precheck_pulse_s', 2.)
-            for kind in ('forward', 'turn'):
+            axis = getattr(args, 'precheck_axis', 'forward-turn')
+            for kind in (('negative-yaw',) if axis == 'negative-yaw' else ('forward', 'turn')):
                 if not save_pocket_admission(monitor, output, kind):
                     raise RuntimeError('Sensor open pocket absent before '+kind)
                 start_sim, start_wall = monitor.clock, time.monotonic()
                 start_truth = monitor.truth_pose(); start_sensor = monitor.pose()
                 command = Twist()
                 if kind == 'forward': command.linear.x = .05
-                else: command.angular.z = .05
+                else: command.angular.z = -.05 if kind == 'negative-yaw' else .05
                 entry = dict(kind=kind, command=dict(vx=command.linear.x,wz=command.angular.z),
                     start_sim=start_sim,start_sensor=start_sensor,start_truth_evaluation=start_truth,
                     command_publication_attempted=False, requested_pulse_sim_s=pulse_s)
@@ -1284,6 +1285,7 @@ def check_inputs(args):
         engine_evidence_sha256=digest(args.engine_evidence),backend_sha256=digest(backend),
         deployment_manifest=str(manifest_path),deployment_manifest_sha256=digest(manifest_path),
         precheck_pulse_sim_s=getattr(args,'precheck_pulse_s',2.),
+        precheck_axis=getattr(args,'precheck_axis','forward-turn'),
         no_world_or_motion_started=True,domain=int(domain),wall_limit_s=args.wall_limit,
         reviewed_envelope=reviewed_envelope,
         stationary_containment=args.stationary_containment, stationary_normal_cleanup=getattr(args,'stationary_normal_cleanup',False), precheck_only=args.precheck_only,
@@ -1309,7 +1311,9 @@ def main(argv=None):
     parser.add_argument('--authorize-planning',action='store_true',help='Separate authority for one bounded planning-only startup')
     parser.add_argument('--precheck-spawn-x',type=float,help='Explicit world X for precheck-only; requires Y')
     parser.add_argument('--precheck-spawn-y',type=float,help='Explicit world Y for precheck-only; requires X')
-    parser.add_argument('--precheck-pulse-s',type=float,default=2.,help='Positive pulse cap in simulation seconds, at most 2')
+    parser.add_argument('--precheck-axis',choices=('forward-turn','negative-yaw'),default='forward-turn',
+        help='Precheck-only axis selection; negative-yaw is one pure -.05 rad/s diagnostic')
+    parser.add_argument('--precheck-pulse-s',type=float,default=2.,help='Nominal pulse duration in simulation seconds, at most 2; sampled-clock stop')
     parser.add_argument('--route-mode',choices=('critical','full'),default='critical')
     parser.add_argument('--continuation-yaws',type=float,nargs=3,metavar=('G3','G4','G5'),
         help='Explicit map-frame radians required for full route; no inferred headings')
@@ -1326,6 +1330,8 @@ def main(argv=None):
     args=parser.parse_args(argv);args.wall_limit=150. if args.stationary_containment else 420.
     if not math.isfinite(args.precheck_pulse_s) or not 0 < args.precheck_pulse_s <= 2.:
         parser.error('--precheck-pulse-s must be finite and in (0,2]')
+    if args.precheck_axis != 'forward-turn' and not args.precheck_only:
+        parser.error('--precheck-axis requires --precheck-only')
     if args.check and args.execute:parser.error('--check and --execute are mutually exclusive')
     if args.stationary_normal_cleanup and not args.stationary_containment:
         parser.error('--stationary-normal-cleanup requires --stationary-containment')

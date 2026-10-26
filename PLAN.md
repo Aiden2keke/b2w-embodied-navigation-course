@@ -24,45 +24,39 @@
 - 旧实施计划归档至 `docs/plans/archive/2026-10-10-local-course-system-plan.md`。历史 design/validation 保留为证据，不是另一个当前 roadmap。无新增 HANDOFF。
 - 历史轮次只读与 timing 交付已结束；本轮范围以最新用户请求和下方 NOW 为准。旧实验/交付记录只作历史证据。
 
-## NOW — Live normal cleanup PASS; strict yaw diagnostic withheld (2026-10-26)
+## NOW — Negative yaw attempt rejected before motion (2026-10-26)
 
-- [x] Single-agent recovery on `navigation/g1-g5-recovery-20261025`, exact base
-      `25043f96ee63807b04ab5f1a36d2dc9bd5a1faab`; main reconciliation `51870e1`
-      and local files preserved; no Stage4/main merge.
-- [x] Pinned deployment contract compared: 57D order, body gyro/gravity,
-      named joint/wheel mapping, axes, gains and velocity-target torque law.
-      No proven sign/mapping bug. Original robot_lab training revision/range is
-      absent from pinned artifacts; mutable current config is reference only.
-- [x] Exactly one new stationary session, domain211, exclusive lease, fresh
-      output, pinned native/source identities and unchanged watchdog. Actual
-      normal cleanup PASS:628 exact-zero samples,5.0825sim-second measured rest,
-      .256mm max drift,19 owned identities gone, helper/localization cleanup PASS.
-      TF/odom/contact first faults null. Watchdog accepted normal completion;
-      fault path armed, no new live fault injection. Host audit/lease release PASS.
-- [x] Minimal opt-in `--stationary-normal-cleanup` reuses normal exit instead of
-      default stationary fault injection. New test RED→GREEN;174 focused PASS,
-      including33 precheck tests and mode/failure coverage. Single-agent review
-      PASS for this change/evidence; no yaw qualification claimed.
-- [x] Additional frozen-observation ONNX interventions show command-dependent
-      negative wheel differential already at model output, even from recorded
-      pre-turn rest. Old physical chronology: +.05→model+.08→negative wheel
-      targets/dq→yaw−.154184rad; zero wheel override→positive dq/gyro rebound
-      +.151055rad. Contact wrenches and actual torque recording missing in old
-      trace; no sole rebound cause or global sign reversal proven.
-- [ ] Actual yaw diagnostic NOT RUN; zero new motion sessions/nonzero pulses.
-      Existing precheck always runs forward+turn and cannot enforce≤.25sim-second
-      Twist expiry. No unsafe tuple-only mode, shorter-nominal-duration assumption,
-      alternative pulse, retry, goal, navigation, hardware or policy/gain change.
-- [ ] NEXT SESSION: one transient pure+.05 yaw≤.25sim-second diagnostic only
-      after reviewed simulation-time expiry and existing named output recording
-      can enforce the authorized contract. No steady-state claim from .25s.
-      Controllable yaw/stopping and route envelope still block actual Start→G2.
-     145-pose7.213m Start→G1 path preserved; Start→G5 continuous video NOT DONE.
-      Navigation .3m vs staging .05m remains explicit.
-- [x] Evidence/findings: `docs/YAW_CONTRACT_CLEANUP_20261026.md` and
-      `artifacts/recovery/yaw-contract-cleanup-20261026/` in APRIL bundle.
-      Commit/push coherent completed scope after review PASS; deliver one bundle
-      plus SHA256; STOP. Next milestone requires a new session.
+- [x] Single agent; expected base `8df7df454f03af8dc6a568732b37966907e93d36`,
+      branch `navigation/g1-g5-recovery-20261025`; clean checkout verified.
+- [x] Minimal `--precheck-axis negative-yaw` selects one pure -.05 pulse in
+      existing precheck owner/loop; default forward+turn unchanged. Existing
+      observer records targets/torques/named joints. 175 focused offline PASS,
+      new tests RED→GREEN;46 source/install/native pins and26 handles PASS.
+- [x] Exactly ONE authorized simulator attempt, domain212, spawn(0,-1), nominal
+      .25sim s. REJECTED at initial1.5m observed-free pocket: one unknown cell,
+      zero occupied cells; TF/odom/contact/readiness passed at exception.
+      No pulse, retry, navigation goal, tuning or hardware. Actual delivered
+      nonzero duration0sim s; no negative response, rebound or matched rest.
+      No separate stationary session required/used; prior qualification retained.
+- [x] 483 observed final Twists and837 model triplets all zero. Last observed
+      five seconds truth drift.309mm, yaw2.113e-7rad; not owner-qualified rest.
+      Contact failure null,362 samples. Watchdog paused36 threads; owned fallback
+      cleaned19 identities. Independent host/token/server/lease audit PASS.
+      Normal cleanup NOT exercised; prior stationary628-zero/19-process PASS retained.
+- [x] Old positive yaw-.154184rad and+.151055rad rebound preserved. New offline
+      fixed-state yaw interventions again show negative local wheel differential
+      sensitivity and zero-state offset. No physical negative comparison exists;
+      learned response/state bias/plant-contact/idle rebound remain unresolved.
+      No production sign/gain/speed/idle/policy correction conclusively justified.
+- [ ] NEXT SESSION: diagnose saved observed-free pocket/startup coverage without
+      weakening predicate; separately authorize matched-rest pure negative yaw.
+      Start→G2 remains BLOCKED by controllable yaw/stopping and route envelope;
+      145-pose Start→G1 path retained, actual Start→G2 and continuous G1→G5 video
+      NOT DONE. Navigation.3m and staging.05m remain distinct.
+- [x] Detailed result: `docs/NEGATIVE_YAW_DIAGNOSTIC_20261026.md`; evidence
+      `artifacts/recovery/negative-yaw-20261026/`. Single-agent scoped review PASS.
+      Commit/push coherent changes after review; deliver ONE APRIL+SHA256 and
+      STOP. Actual commit/push/delivery identities are in sealed delivery evidence.
 
 
 ## Historical — Final corrected canonical planning capture (2026-10-25)

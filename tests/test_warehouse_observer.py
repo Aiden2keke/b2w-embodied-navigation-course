@@ -227,7 +227,7 @@ CORE_TOPICS = {
     '/behavior_tree_log', '/rosout', '/tf', '/tf_static',
     '/local_costmap/costmap_raw', '/global_costmap/costmap_raw',
     '/local_costmap/published_footprint', '/global_costmap/published_footprint',
-    '/network_input_debug',
+    '/network_input_debug', '/joint_commands', '/joint_torques', '/joint_states',
 }
 
 

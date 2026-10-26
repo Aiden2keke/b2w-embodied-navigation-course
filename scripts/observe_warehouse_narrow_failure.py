@@ -41,6 +41,9 @@ TOPICS = {
     '/local_costmap/published_footprint': 'geometry_msgs/msg/PolygonStamped',
     '/global_costmap/published_footprint': 'geometry_msgs/msg/PolygonStamped',
     '/network_input_debug': 'std_msgs/msg/Float64MultiArray',
+    '/joint_commands': 'std_msgs/msg/Float64MultiArray',
+    '/joint_torques': 'std_msgs/msg/Float64MultiArray',
+    '/joint_states': 'sensor_msgs/msg/JointState',
 }
 DWB_DEBUG_TOPICS = {
     '/evaluation': 'dwb_msgs/msg/LocalPlanEvaluation',
