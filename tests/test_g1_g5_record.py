@@ -5,6 +5,16 @@ sys.path.insert(0,str(Path(__file__).resolve().parents[1]/'scripts'))
 import g1_g5_media as media
 import run_g1_g5_record as batch
 
+def test_profile_b_only_halves_forward_speed_and_preserves_collision_contract():
+    import yaml
+    root=Path(__file__).resolve().parents[1]
+    base=yaml.safe_load((root/'course_navigation/config/nav2_smac2d_diag.yaml').read_text())
+    slow_path=root/'course_navigation/config/nav2_smac2d_dwb_slow_diag.yaml'
+    assert slow_path.is_file()
+    slow=yaml.safe_load(slow_path.read_text())
+    base['controller_server']['ros__parameters']['FollowPath']['max_vel_x']=.2
+    assert slow==base
+
 def test_startup_camera_config_preserves_saved_inputs_and_only_replaces_pose(tmp_path):
     views=Path(__file__).resolve().parents[1]/'artifacts/video/manual_views'
     original=(views/'gazebo_gui.config').read_bytes();pose=(views/'gazebo_camera_pose_final.txt').read_bytes()
@@ -66,6 +76,8 @@ def test_no_review_never_launches_simulator(tmp_path):
     assert r==2
     reports=list(tmp_path.glob('*/results_report.json'));assert reports
     value=json.loads(reports[0].read_text());assert value['attempts']==0 and not value['success']
+    assert 'course_results/g1_g5/reviewed_run.json' in value['error']
+    assert 'course_results/g1_g5/reviewed_run.json.sha256' in value['error']
     assert not list(tmp_path.rglob('success_*.mp4'))
 
 

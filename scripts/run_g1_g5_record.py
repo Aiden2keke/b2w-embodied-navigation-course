@@ -219,7 +219,11 @@ def measured_motion_intervals(session):
 def read_review(path):
     """Read externally reviewed inputs. Never manufacture qualification or envelope."""
     side=path.with_suffix(path.suffix+'.sha256')
-    if not path.is_file() or not side.is_file():raise RuntimeError('Missing independently reviewed artifacts/video/reviewed_run.json and .json.sha256; retained heading/Profile-B envelope remain unqualified')
+    if not path.is_file() or not side.is_file():
+        def local_name(p):
+            try:return p.resolve().relative_to(ROOT).as_posix()
+            except ValueError:return str(p)
+        raise RuntimeError('Missing independently reviewed '+local_name(path)+' and '+local_name(side)+'; retained heading/Profile-B envelope remain unqualified')
     expected=side.read_text().split()[0]
     if media.digest(path)!=expected:raise RuntimeError('Reviewed run configuration SHA256 changed')
     cfg=json.loads(path.read_text())
