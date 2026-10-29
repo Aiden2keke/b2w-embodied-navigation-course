@@ -1,7 +1,10 @@
 // B2-W course adapter for the rl_sar/robot_lab feed-forward policy.
 // Observation and action contracts: fan-ziqi/rl_sar (Apache-2.0), pinned in POLICY_SOURCE.json.
+#include "differential_stop_brake.hpp"
 #include <rclcpp/rclcpp.hpp>
 #include <rclcpp/create_timer.hpp>
+#include <rcl_interfaces/msg/parameter_descriptor.hpp>
+#include <rcl_interfaces/msg/set_parameters_result.hpp>
 #include <sensor_msgs/msg/joint_state.hpp>
 #include <sensor_msgs/msg/imu.hpp>
 #include <geometry_msgs/msg/twist.hpp>
@@ -48,6 +51,36 @@ class RLSarController : public rclcpp::Node {
     if (!std::isfinite(timeout_) || timeout_<=0 || !std::isfinite(feedback_timeout_) || feedback_timeout_<=0 ||
         !std::isfinite(warmup_) || warmup_<=0 || !std::isfinite(yaw_gain_) || yaw_gain_<=0)
       throw std::runtime_error("Invalid controller timeouts or command gain");
+    rcl_interfaces::msg::ParameterDescriptor brake_gain_descriptor; brake_gain_descriptor.read_only=true;
+    stop_brake_enabled_=declare_parameter<bool>("differential_stop_brake",false);
+    bool heading_hold=declare_parameter<bool>("stop_brake_body_heading",false,brake_gain_descriptor);
+    brake_=DifferentialStopBrake(
+        declare_parameter<double>("stop_brake_stiffness_nm_rad",4.,brake_gain_descriptor),
+        declare_parameter<double>("stop_brake_torque_cap_nm",.75,brake_gain_descriptor),
+        declare_parameter<double>("stop_brake_slew_nm_s",5.,brake_gain_descriptor),heading_hold,
+        declare_parameter<double>("stop_brake_heading_stiffness_nm_rad",8.,brake_gain_descriptor),
+        declare_parameter<double>("stop_brake_heading_damping_nm_s_rad",.5,brake_gain_descriptor));
+    if (stop_brake_enabled_) {
+      if (!idle_hold_) throw std::runtime_error("Stop brake requires idle_hold");
+      const std::array<std::string,4> wheels{"FR_foot_joint","FL_foot_joint","RR_foot_joint","RL_foot_joint"};
+      for(size_t j=0;j<4;++j) if(names_[12+j]!=wheels[j] || kp_[12+j]!=0 ||
+          get_parameter("stop_brake_torque_cap_nm").as_double()>limits_[12+j])
+        throw std::runtime_error("Stop brake requires pinned wheel order, velocity actuation and torque limits");
+    }
+    brake_parameter_callback_=add_on_set_parameters_callback([this](const std::vector<rclcpp::Parameter> &params) {
+      rcl_interfaces::msg::SetParametersResult result; result.successful=true;
+      for(const auto &p:params) if(p.get_name().rfind("stop_brake_",0)==0) {
+        result.successful=false;result.reason="Brake gains are startup-only";return result;
+      }
+      for(const auto &p:params) if(p.get_name()=="differential_stop_brake" &&
+          (p.get_type()!=rclcpp::ParameterType::PARAMETER_BOOL || (p.as_bool() && !stop_brake_enabled_))) {
+        result.successful=false;result.reason="Brake enable requires a fresh reviewed restart";return result;
+      }
+      for(const auto &p:params) if(p.get_name()=="differential_stop_brake" && !p.as_bool()) {
+        brake_.invalidate();stop_brake_enabled_=false;exact_stop_=false;
+      }
+      return result;
+    });
     auto policy = declare_parameter<std::string>("policy_path", "");
     if (!std::filesystem::is_regular_file(policy)) throw std::runtime_error("Missing rl_sar policy: " + policy);
     Ort::SessionOptions options;
@@ -66,17 +99,22 @@ class RLSarController : public rclcpp::Node {
         handleClockReset();
         auto stamp=rclcpp::Time(m->header.stamp,get_clock()->get_clock_type());
         double lag=(now()-stamp).seconds();
-        if (lag < -.02 || lag > feedback_timeout_) return;
+        if (lag < -.02 || lag > feedback_timeout_) { invalidateBrake(); return; }
         std::array<double,16> q{}, dq{};
         for (size_t i=0; i<16; ++i) {
           auto it=std::find(m->name.begin(),m->name.end(),names_[i]);
-          if (it==m->name.end()) return;
+          if (it==m->name.end()) { invalidateBrake(); return; }
           size_t k=std::distance(m->name.begin(),it);
           if (k>=m->position.size() || k>=m->velocity.size() ||
-              !std::isfinite(m->position[k]) || !std::isfinite(m->velocity[k])) return;
+              !std::isfinite(m->position[k]) || !std::isfinite(m->velocity[k])) { invalidateBrake(); return; }
           q[i]=m->position[k]; dq[i]=m->velocity[k];
         }
         q_=q; dq_=dq; joint_time_=stamp;
+        if(stop_brake_enabled_) {
+          DifferentialStopBrake::Wheels wheel_q{},wheel_dq{};
+          std::copy_n(q.begin()+12,4,wheel_q.begin());std::copy_n(dq.begin()+12,4,wheel_dq.begin());
+          brake_.sample(wheel_q,wheel_dq,stamp.seconds());
+        }
         if (!have_joints_) { initial_=q; start_=now(); have_joints_=true; }
       });
     // imu_link is aligned with base_link. Use the actual body gyro, not the
@@ -86,18 +124,40 @@ class RLSarController : public rclcpp::Node {
         handleClockReset();
         auto stamp=rclcpp::Time(m->header.stamp,get_clock()->get_clock_type());
         double lag=(now()-stamp).seconds();
-        if (lag < -.02 || lag > feedback_timeout_) return;
+        if (lag < -.02 || lag > feedback_timeout_) { invalidateBrake(); return; }
         const auto &q=m->orientation;
         Eigen::Quaterniond rot(q.w,q.x,q.y,q.z);
         const auto &v=m->angular_velocity;
-        if (!rot.coeffs().allFinite() || rot.norm()<.5 || !std::isfinite(v.x) || !std::isfinite(v.y) || !std::isfinite(v.z)) return;
+        if (!rot.coeffs().allFinite() || rot.norm()<.5 || !std::isfinite(v.x) || !std::isfinite(v.y) || !std::isfinite(v.z)) { invalidateBrake(); return; }
+        if(stop_brake_enabled_) {
+          auto basis=rot.normalized().toRotationMatrix();
+          // Heading is undefined near vertical; original private IMU only.
+          if(std::hypot(basis(0,0),basis(1,0))<.5) { invalidateBrake(); return; }
+          brake_.sample_heading(std::atan2(basis(1,0),basis(0,0)),v.z,stamp.seconds());
+        }
         gravity_=rot.normalized().toRotationMatrix().transpose()*Eigen::Vector3d(0,0,-1);
         gyro_={v.x,v.y,v.z}; body_time_=stamp; have_body_=true;
       });
     cmd_sub_=create_subscription<geometry_msgs::msg::Twist>("/path_manager/path_manager_ros/nav_vel",10,
       [this](geometry_msgs::msg::Twist::SharedPtr m) {
         handleClockReset();
-        if (!std::isfinite(m->linear.x) || !std::isfinite(m->linear.y) || !std::isfinite(m->angular.z)) return;
+        if (!std::isfinite(m->linear.x) || !std::isfinite(m->linear.y) || !std::isfinite(m->angular.z) ||
+            (stop_brake_enabled_ && (!std::isfinite(m->linear.z) || !std::isfinite(m->angular.x) || !std::isfinite(m->angular.y)))) {
+          if(stop_brake_enabled_) { have_command_=false; exact_stop_=false; invalidateBrake(); }
+          return;
+        }
+        if(stop_brake_enabled_) {
+          auto t=now();
+          bool fresh=have_command_ && (t-cmd_time_).seconds()>=0 && (t-cmd_time_).seconds()<timeout_;
+          exact_stop_=m->linear.x==0 && m->linear.y==0 && m->linear.z==0 &&
+                      m->angular.x==0 && m->angular.y==0 && m->angular.z==0;
+          bool active=std::abs(m->linear.x)>=.01 || std::abs(m->linear.y)>=.01 || std::abs(m->angular.z)>=.01;
+          bool was_holding=brake_.holding();
+          brake_.command(active,exact_stop_,feedbackFresh(t) && policy_ok_ &&
+              (t-start_).seconds()>=warmup_ && (active || fresh));
+          if(!was_holding && brake_.holding())
+            RCLCPP_INFO(get_logger(),"Stop brake captured reference=%.9f",brake_.reference());
+        }
         command_={std::clamp(m->linear.x,-1.,1.),std::clamp(m->linear.y,-.5,.5),std::clamp(m->angular.z,-1.,1.)};
         cmd_time_=now(); have_command_=true;
       });
@@ -113,10 +173,23 @@ class RLSarController : public rclcpp::Node {
     timer_=rclcpp::create_timer(this,get_clock(),std::chrono::milliseconds(5),[this]{update();});
     RCLCPP_INFO(get_logger(),"Loaded rl_sar B2-W policy: 57 observations, 16 actions, 50 Hz policy / 200 Hz torque, %s",policy.c_str());
   }
+  ~RLSarController() override {
+    if(stop_brake_enabled_) {
+      brake_.invalidate();
+      try { publishTorques(std::array<double,16>{}); } catch(...) {}
+    }
+  }
  private:
+  void invalidateBrake() { if(stop_brake_enabled_) brake_.invalidate(); }
+  bool feedbackFresh(const rclcpp::Time &t) const {
+    return have_joints_ && have_body_ && (t-joint_time_).seconds()>=-.02 &&
+        (t-joint_time_).seconds()<=feedback_timeout_ && (t-body_time_).seconds()>=-.02 &&
+        (t-body_time_).seconds()<=feedback_timeout_;
+  }
   void handleClockReset() {
     if (!reset_pending_.exchange(false)) return;
     have_joints_=false; have_body_=false; have_command_=false;
+    invalidateBrake(); exact_stop_=false; policy_ok_=false;
     last_.fill(0); velocity_target_.fill(0); target_=ref_; tick_=0;
     publishTorques(std::array<double,16>{});
     RCLCPP_WARN(get_logger(),"ROS clock reset: cleared feedback, actions and command; waiting to stand again");
@@ -127,11 +200,12 @@ class RLSarController : public rclcpp::Node {
     if (!have_joints_ || !have_body_ || (time-joint_time_).seconds()>feedback_timeout_ ||
         (time-body_time_).seconds()>feedback_timeout_ ||
         (time-joint_time_).seconds()<-.02 || (time-body_time_).seconds()<-.02) {
+      invalidateBrake();
       publishTorques(std::array<double,16>{});
       return;
     }
     double age=(time-start_).seconds();
-    if (age<0) { start_=time; age=0; initial_=q_; last_.fill(0); tick_=0; }
+    if (age<0) { start_=time; age=0; initial_=q_; last_.fill(0); tick_=0; invalidateBrake(); policy_ok_=false; }
     bool command_valid=have_command_ && (time-cmd_time_).seconds()>=0 && (time-cmd_time_).seconds()<timeout_;
     bool idle=idle_hold_ && (!command_valid || (std::abs(command_[0])<.01 &&
               std::abs(command_[1])<.01 && std::abs(command_[2])<.01));
@@ -170,7 +244,9 @@ class RLSarController : public rclcpp::Node {
           target_[i]=ref_[i]+(i<12?scale_[i]*last_[i]:0);
           velocity_target_[i]=i>=12?scale_[i]*last_[i]:0;
         }
+        policy_ok_=true;
       } catch (const std::exception &e) {
+        invalidateBrake(); policy_ok_=false;
         RCLCPP_ERROR_THROTTLE(get_logger(),*get_clock(),2000,"Policy inference failed: %s",e.what());
         publishTorques(std::array<double,16>{}); return;
       }
@@ -178,10 +254,21 @@ class RLSarController : public rclcpp::Node {
       m.data=target_; for (size_t i=12;i<16;++i) m.data[i]=velocity_target_[i]; actions_pub_->publish(m);
     }
     ++tick_;
+    bool brake_stop=stop_brake_enabled_ && command_valid && exact_stop_ && !standing && policy_ok_;
+    if(stop_brake_enabled_ && (!command_valid || standing || !policy_ok_)) brake_.release();
+    // Exact zero brakes at the 200Hz actuation boundary, independent of policy decimation.
+    if(brake_stop) for(size_t i=12;i<16;++i) velocity_target_[i]=0;
     std::array<double,16> tau{};
     for (size_t i=0;i<16;++i) {
       double kp=standing?stand_kp_[i]:kp_[i], kd=standing?stand_kd_[i]:kd_[i];
       tau[i]=std::clamp(kp*(target_[i]-q_[i])+kd*(velocity_target_[i]-dq_[i]),-limits_[i],limits_[i]);
+    }
+    if(brake_stop && brake_.holding()) {
+      double scalar=brake_.output(time.seconds());
+      for(size_t j=0;j<4;++j) {
+        size_t i=12+j;
+        tau[i]=std::clamp(-kd_[i]*dq_[i]+(j%2==0?scalar:-scalar),-limits_[i],limits_[i]);
+      }
     }
     publishTorques(tau);
   }
@@ -189,6 +276,9 @@ class RLSarController : public rclcpp::Node {
     for (size_t i=0;i<16;++i) {std_msgs::msg::Float64 m; m.data=tau[i];pubs_[i]->publish(m);}
     std_msgs::msg::Float64MultiArray m; m.data.assign(tau.begin(),tau.end()); torques_pub_->publish(m);
   }
+  rclcpp::node_interfaces::OnSetParametersCallbackHandle::SharedPtr brake_parameter_callback_;
+  DifferentialStopBrake brake_;
+  bool stop_brake_enabled_=false,exact_stop_=false,policy_ok_=false;
   Ort::Env env_; std::unique_ptr<Ort::Session> session_;
   std::vector<std::string> names_; std::vector<double> ref_,scale_,kp_,kd_,stand_kp_,stand_kd_,limits_,target_;
   std::array<double,16> q_{},dq_{},initial_{},last_{},velocity_target_{};
