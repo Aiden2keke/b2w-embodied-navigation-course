@@ -8,10 +8,10 @@ from waypoint_editor.server import create_server
 
 def main():
     p=argparse.ArgumentParser(description=__doc__)
-    p.add_argument('--map',type=Path,default=Path('/tmp/b2w-waypoint-map/warehouse.yaml'))
+    p.add_argument('--map',type=Path,default=ROOT/'experiments/g1_g5/waypoints/20261019-v1/warehouse.yaml')
     p.add_argument('--nav-config',type=Path,default=ROOT/'course_navigation/config/nav2.yaml')
     p.add_argument('--route',type=Path,default=ROOT/'course_navigation/config/warehouse_route.yaml')
-    p.add_argument('--output',type=Path,default=Path('/tmp/b2w-waypoint-candidates'))
+    p.add_argument('--output',type=Path,default=ROOT/'course_results/waypoint-candidates')
     p.add_argument('--local-costmap',type=Path,help='Registered nav2_uint8 JSON; see docs/WAYPOINT_EDITOR.md')
     p.add_argument('--global-costmap',type=Path,help='Registered nav2_uint8 JSON; see docs/WAYPOINT_EDITOR.md')
     p.add_argument('--candidate',type=Path,help='Opt-in reload of a verified v1/v2 offline candidate YAML; Reset returns to this state')

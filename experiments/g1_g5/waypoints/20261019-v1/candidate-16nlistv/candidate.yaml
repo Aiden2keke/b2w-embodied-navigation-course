@@ -1,0 +1,178 @@
+kind: offline_waypoint_candidate
+candidate_schema_version: 1
+frame_id: map
+deployable: false
+occupancy_policy: Trinary YAML thresholds; grayscale 205 with negate=0 is conservatively
+  unknown even if below free_thresh (saved-map ambiguity). Closed-cell contact blocks.
+source_map:
+  yaml_path: experiments/g1_g5/waypoints/20261019-v1/warehouse.yaml
+  image_path: experiments/g1_g5/waypoints/20261019-v1/warehouse.pgm
+  yaml_sha256: 8932cb8452f65c202b37e497df0b5fa57d83f038d0b21a6df2ae069bf34ebf55
+  image_sha256: e90f2dd81c89d41828ddb9f60732bdcae5cc7526dcf4a8919638a335d4a585f3
+  metadata:
+    image: warehouse.pgm
+    mode: trinary
+    resolution: 0.05
+    origin:
+    - -20
+    - -20
+    - 0
+    negate: 0
+    occupied_thresh: 0.65
+    free_thresh: 0.25
+    width: 800
+    height: 800
+source_hashes:
+  experiments/g1_g5/waypoints/20261019-v1/warehouse.yaml: 8932cb8452f65c202b37e497df0b5fa57d83f038d0b21a6df2ae069bf34ebf55
+  experiments/g1_g5/waypoints/20261019-v1/warehouse.pgm: e90f2dd81c89d41828ddb9f60732bdcae5cc7526dcf4a8919638a335d4a585f3
+  course_navigation/config/nav2.yaml: d63852ab2eed9c6cc1c258aaf2bdc2b11753ff9d9969e1885785d3cab2a87046
+  course_navigation/config/warehouse_route.yaml: 16cc4dd5d1c4f64ef9d875b2e2b16a554e60c4089d19838ed92a3d4b0c5adc9d
+costmap_metadata: {}
+canonical_route_snapshot:
+  schema_version: 1
+  route_id: warehouse-user-selected-20261016
+  frame_id: map
+  evaluation_tolerance_m: 0.05
+  map_reproducibility: unverified_across_fresh_startups
+  critical_segment:
+  - G1
+  - G2
+  goals:
+  - name: G1
+    position:
+    - -0.18571805953979492
+    - 7.189985752105713
+    orientation: corridor_heading
+  - name: G2
+    position:
+    - -4.47874116897583
+    - 6.116940498352051
+    orientation: corridor_heading
+  - name: G3
+    position:
+    - -3.928757667541504
+    - 3.436979293823242
+    orientation: null
+  - name: G4
+    position:
+    - 0.5741653442382812
+    - 6.976665496826172
+    orientation: null
+  - name: G5
+    position:
+    - 5.592322826385498
+    - 2.1632280349731445
+    orientation: null
+  observed_evidence:
+    source: user_observation_and_existing_goal_manager_json
+    start_to_G1: succeeded_with_original_manager_tolerance
+    G1_to_G2: first_known_failure_segment_later_replaced
+    G3_to_G5: issued_after_G1_to_G2_failure_not_independent_failures
+    captured_RViz_quaternion: accidental_do_not_use
+goals:
+- name: G1
+  position:
+  - 0.039514056696976496
+  - 6.779728935566027
+  yaw_rad: -3.1012105780252917
+  quaternion:
+    x: 0.0
+    y: 0.0
+    z: -0.9997961679216003
+    w: 0.02018966590320921
+- name: G2
+  position:
+  - -4.32577737388139
+  - 6.278611296851672
+  yaw_rad: -1.465229970731629
+  quaternion:
+    x: 0.0
+    y: 0.0
+    z: -0.6688159728644987
+    w: 0.7434280021907395
+- name: G3
+  position:
+  - -4.0585146332337345
+  - 3.5725760477941613
+  yaw_rad: 0.02325162281046395
+  quaternion:
+    x: 0.0
+    y: 0.0
+    z: 0.011625549517210143
+    w: 0.9999324210157519
+- name: G4
+  position:
+  - 0.22882516465573133
+  - 5.677270130394447
+  yaw_rad: -1.499488862009607
+  quaternion:
+    x: 0.0
+    y: 0.0
+    z: -0.6814517407755633
+    w: 0.7318630507095945
+- name: G5
+  position:
+  - 4.816835545773813
+  - 2.2251263970289017
+  yaw_rad: 0.030478363941046145
+  quaternion:
+    x: 0.0
+    y: 0.0
+    z: 0.015238592138059715
+    w: 0.9998838859135843
+markers: {}
+polygons: []
+geometry:
+  G1:
+    unknown: 0
+    occupied: 0
+    outside: false
+    restricted: false
+    costmaps: {}
+    clear: true
+    physical_feasibility_proven: false
+  G2:
+    unknown: 0
+    occupied: 0
+    outside: false
+    restricted: false
+    costmaps: {}
+    clear: true
+    physical_feasibility_proven: false
+  G3:
+    unknown: 0
+    occupied: 0
+    outside: false
+    restricted: false
+    costmaps: {}
+    clear: true
+    physical_feasibility_proven: false
+  G4:
+    unknown: 0
+    occupied: 0
+    outside: false
+    restricted: false
+    costmaps: {}
+    clear: true
+    physical_feasibility_proven: false
+  G5:
+    unknown: 0
+    occupied: 0
+    outside: false
+    restricted: false
+    costmaps: {}
+    clear: true
+    physical_feasibility_proven: false
+padded_footprint:
+- - 0.75
+  - 0.43
+- - 0.75
+  - -0.43
+- - -0.75
+  - -0.43
+- - -0.75
+  - 0.43
+limitations: Offline filled-footprint geometry only; no physical collision-free feasibility
+  proof. Unknown, occupied, outside and restricted regions block. Sweeps are discrete
+  samples. Fresh SLAM frames require independently verified registration to this saved
+  map.

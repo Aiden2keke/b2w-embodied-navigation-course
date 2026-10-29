@@ -8,7 +8,7 @@ From the repository root, run:
 
 Open **http://127.0.0.1:8765** in a local browser. Ctrl+C stops the server. No ROS environment, simulation, build, CDN, npm install or internet is required. The installed system Python needs Pillow and PyYAML. This tool imports no ROS transport and publishes no goals. It changes no canonical route, Nav2, SLAM, RPP, governor or overlay configuration.
 
-The defaults read `/tmp/b2w-waypoint-map/warehouse.yaml`, its referenced image, `course_navigation/config/nav2.yaml` and `course_navigation/config/warehouse_route.yaml`. Paths can be selected explicitly with `--map`, `--nav-config` and `--route`; local and global configured padded footprints must agree. The tool uses configuration geometry, not a claim about a live session's loaded parameters. The actual inspected map is 800×800 at 0.05 m/pixel, origin `[-20,-20,0]`. Image SHA256: `e90f2dd81c89d41828ddb9f60732bdcae5cc7526dcf4a8919638a335d4a585f3`. Metadata is parsed on every launch; these values are not hard-coded coordinate assumptions.
+The default map is `experiments/g1_g5/waypoints/20261019-v1/warehouse.yaml`, with its referenced image; the editor also reads `course_navigation/config/nav2.yaml` and `course_navigation/config/warehouse_route.yaml`. Paths can be selected explicitly with `--map`, `--nav-config` and `--route`; local and global configured padded footprints must agree. The tool uses configuration geometry, not a claim about a live session's loaded parameters. The actual inspected map is 800×800 at 0.05 m/pixel, origin `[-20,-20,0]`. Image SHA256: `e90f2dd81c89d41828ddb9f60732bdcae5cc7526dcf4a8919638a335d4a585f3`. Metadata is parsed on every launch; these values are not hard-coded coordinate assumptions.
 
 Use the mouse wheel to zoom at the cursor; middle/right drag or Pan mode moves the view. The grid is in map meters (1 m, automatically 5 m when very far out). The cursor shows continuous image coordinates and containing OccupancyGrid cell coordinates. Orange outlines show the original poses; cyan shows the candidate. Select G1–G5, drag their centers, or drag the arrow tips to change yaw. Exact numeric inputs and the expandable original/candidate values show map-frame coordinates and radians. Select mode also drags polygon vertices. Drawing a corridor or restricted polygon uses one click per vertex and **Finish polygon**; self-intersections, duplicate vertices and zero-area polygons are rejected. Select a vertex to select that annotation, then **Delete selected annotation**. Use entrance/exit modes to place separate passage poses; they are never formal G goals. Select passage poses from the dropdown to edit or delete them.
 
@@ -38,20 +38,20 @@ Reload is explicit and opt-in. For the user's relocated V1 backup:
 
 ```sh
 /usr/bin/python3 scripts/edit_warehouse_waypoints.py \
-  --map /home/zyd/b2w-course-evidence/waypoints/20261019-v1/warehouse.yaml \
-  --candidate /home/zyd/b2w-course-evidence/waypoints/20261019-v1/candidate-16nlistv/candidate.yaml \
-  --output /tmp/b2w-waypoint-candidates-stage31
+  --map experiments/g1_g5/waypoints/20261019-v1/warehouse.yaml \
+  --candidate experiments/g1_g5/waypoints/20261019-v1/candidate-16nlistv/candidate.yaml \
+  --output course_results/waypoint-candidates
 ```
 
 Open `http://127.0.0.1:8765`. `--candidate` accepts a version 1 or version 2 offline candidate; it never selects a map implicitly. Pass the same verified costmaps at launch if the candidate used them. G1–G5 positions and individual yaw values, corridor/restricted polygons, entrance/exit poses and JSON-compatible annotation metadata are restored without rounding, registration, translation or yaw normalization. The orange overlay always uses the original canonical route. **Reset imported candidate** restores the exact loaded editing baseline, including annotations; Reset itself remains undoable. Without `--candidate`, **Reset canonical** restores the launch's canonical baseline. Reloading the browser discards unsaved edits and reloads this launch baseline; export before closing, then explicitly launch with the new candidate for further editing.
 
-The importer requires supported schema fields, finite poses, consistent yaw/quaternion, both map SHA256 values and complete metadata/dimensions, canonical route snapshot, configured padded footprint, occupancy policy, relevant source configuration hashes and matching costmap identities. Recorded absolute map paths are provenance, not identity: old `/tmp` paths can differ from the verified persistent paths. Configuration/source roles also require an unambiguous basename-and-hash match. All recorded sources must be accounted for. A version 2 candidate additionally carries named Nav2/route configuration hashes.
+The importer requires supported schema fields, finite poses, consistent yaw/quaternion, both map SHA256 values and complete metadata/dimensions, canonical route snapshot, configured padded footprint, occupancy policy, relevant source configuration hashes and matching costmap identities. The preserved V1 map/candidate export is repository-relative under `experiments/g1_g5/waypoints/20261019-v1/`; source hash values and all candidate coordinates remain unchanged. Configuration/source roles also require an unambiguous basename-and-hash match. All recorded sources must be accounted for. A version 2 candidate additionally carries named Nav2/route configuration hashes.
 
 If a sibling `manifest.yaml` is available, its schema, map/source identities and **all four** output-file hashes must match; missing or altered companion artifacts fail import. Output names are fixed and cannot request arbitrary paths. A standalone candidate without a manifest is permitted but visibly recorded as `manifest_verified: false`; its map/schema/configuration checks still apply. Invalid schema/map/route/footprint/configuration/manifest data fails before opening the HTTP server with an understandable CLI error. No conversion between distinct SLAM maps is attempted. Imported YAML metadata must be finite JSON-compatible data, with string mapping keys, so it can be restored safely in the browser.
 
 Version 1 predates tolerance metadata. Import explicitly migrates it to version 2 with radius 0.25 m, preserving all goal coordinates and yaw. The UI's loaded-candidate details and subsequent YAML/manifest record `migration: {from_version: 1, to_version: 2, default_xy_radius_m: 0.25, poses_unchanged: true}`, source candidate SHA256, original map identity and manifest verification/hash. Version 2 reimports append provenance without repeating the v1 migration. Old provenance hashes remain records; the selected candidate and its available manifest/artifacts are verified on each launch.
 
-The original V1 directory is read-only input. Subsequent exports use fresh unique `candidate-*` directories, including when reusing an export parent directory. Writes remain restricted to dedicated directories below `/tmp`; source-containing roots, imported candidate directories and their descendants are rejected. Source and imported artifact drift during a session blocks check/export. There is no HTTP file-open or arbitrary filesystem write endpoint.
+The original V1 directory is read-only input. Subsequent exports use fresh unique `candidate-*` directories below `course_results/`, including when reusing an export parent directory. Source-containing roots, imported candidate directories and their descendants are rejected. Source and imported artifact drift during a session blocks check/export. There is no HTTP file-open or arbitrary filesystem write endpoint.
 
 ## Coordinates and map identity
 
@@ -97,7 +97,7 @@ Supply `--local-costmap /tmp/local.json` and/or `--global-costmap /tmp/global.js
 
 ## Exports and canonical schema
 
-**Export** creates a unique `candidate-*` directory under `/tmp/b2w-waypoint-candidates` (`--output` can choose another dedicated directory below `/tmp`). Existing files are not overwritten. Repository destinations, `/tmp` itself and directories containing sources are rejected. Each directory contains:
+**Export** creates a unique `candidate-*` directory under `course_results/waypoint-candidates` (`--output` can choose another dedicated directory below `course_results/`). Existing files are not overwritten. Destinations outside `course_results/` and directories containing sources are rejected. Each directory contains:
 
 - `candidate.yaml`: explicit candidate kind/version, `deployable: false`, exact goals and quaternions, passage markers, polygons, original canonical snapshot, source identity/config hashes, footprint and geometry results.
 - `waypoints.csv`: exact x/y/yaw for G1–G5 plus any passage markers.
@@ -132,9 +132,9 @@ node tests/waypoint_editor_browser.cjs
 # Original canonical launch path, using the default source map:
 B2W_EDITOR_CANONICAL=1 node tests/waypoint_editor_browser.cjs
 # Also check the exact persistent user V1 (the Python integration test skips without this variable):
-B2W_EDITOR_V1_BACKUP=/home/zyd/b2w-course-evidence/waypoints/20261019-v1 \
+B2W_EDITOR_V1_BACKUP="$PWD/experiments/g1_g5/waypoints/20261019-v1" \
   /usr/bin/python3 -m pytest tests/test_waypoint_editor_stage31.py -q
-B2W_EDITOR_V1_BACKUP=/home/zyd/b2w-course-evidence/waypoints/20261019-v1 \
+B2W_EDITOR_V1_BACKUP="$PWD/experiments/g1_g5/waypoints/20261019-v1" \
   node tests/waypoint_editor_browser.cjs
 # Existing parser/route regression, without starting any ROS node:
 bash -c 'source /opt/ros/humble/setup.bash && /usr/bin/python3 -m pytest tests/test_warehouse_route.py tests/test_warehouse_route_full.py -q'

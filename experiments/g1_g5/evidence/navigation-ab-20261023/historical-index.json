@@ -1,0 +1,70 @@
+{
+  "historical_candidate": "e7f1eec7316be920fc27a100527d2d9c271b9b11",
+  "candidate_provenance": "recoverable; not established for every prior successful run",
+  "review": "docs/reviews/B2W_Warehouse_Navigation_Architecture_20261022.md",
+  "route_source": "course_navigation/config/warehouse_route.yaml",
+  "route_id": "warehouse-user-selected-20261016",
+  "route_frame": "map",
+  "goals": {
+    "G1": [
+      -0.18571805953979492,
+      7.189985752105713
+    ],
+    "G2": [
+      -4.478741168975098,
+      6.116940498352051
+    ],
+    "G3": [
+      -3.928757667541504,
+      3.436979293823242
+    ],
+    "G4": [
+      0.5741653442382812,
+      6.976665496826172
+    ],
+    "G5": [
+      5.592322826385498,
+      2.1632280349731445
+    ]
+  },
+  "tolerances_m": {
+    "historical_goal_manager": 0.3,
+    "diagnostic_nav2_xy": 0.25,
+    "strict_route_evaluation": 0.05
+  },
+  "historical_start_g1": {
+    "source": "docs/NARROW_BASELINE.md",
+    "raw_reference": "course_results/navigation/20261016T083151.972156Z.json",
+    "navigation_success": true,
+    "endpoint_error_m": 0.064844853,
+    "strict_staging_pass": false
+  },
+  "historical_g1_g2": {
+    "raw_reference": "course_results/navigation/20261016T083236.246776Z.json",
+    "manager_result": "replaced",
+    "planning_measurement": "aborted",
+    "terminal_navigation_aborted": "not established"
+  },
+  "user_verified_facts_not_relocated_in_bounded_audit": [
+    "Smac+DWB 419-invalid-trajectory stall",
+    "zero-command stopping travel approximately .225m",
+    "previous aisle traversal succeeded"
+  ],
+  "do_not_repeat": [
+    "footprint gate",
+    "reverse only"
+  ],
+  "model_routing": {
+    "evidence": {
+      "requested": "gpt-6-luna",
+      "effort": "high",
+      "tool_spawn_succeeded": true
+    },
+    "implementation": {
+      "requested": "gpt-6.1-sol",
+      "effort": "medium",
+      "tool_spawn_succeeded": true
+    },
+    "root_model": "not independently attested by tools"
+  }
+}

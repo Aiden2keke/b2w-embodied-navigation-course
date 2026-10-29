@@ -1,0 +1,5 @@
+{
+  "exe_sha256": "40653e793f7707537e41940fd280d2abf6054a61ffcbb4a085e07ba591d137ee",
+  "library_sha256": "388ba725baa46fc07699de44c1945e7056a9c0a04dc0a8fdad55055798ad4ad6",
+  "description": "Reviewed endpoint-transform guard; process mapped library required in Stage 4, underlay is rejected"
+}

@@ -48,6 +48,11 @@ course_results/
 bags/
 ros2_torch/
 
+# Imported G1–G5 runtime fingerprints and locally built contact probe.
+/artifacts/recovery/
+/artifacts/contact-engine-probe/
+/artifacts/trials/
+
 # IDE
 .vscode/
 .idea/

@@ -161,6 +161,28 @@ def full_goals(config):
     return result
 
 
+def planned_goals(config, mode='critical', continuation_yaws=None):
+    """Return fixed route poses, requiring reviewed G3–G5 headings for full runs."""
+    if mode == 'critical':
+        if continuation_yaws is not None:
+            raise ValueError('Continuation headings apply only to the full route')
+        return critical_goals(config)
+    if mode != 'full':
+        raise ValueError('Invalid warehouse route mode')
+    if (not isinstance(continuation_yaws, (list, tuple)) or len(continuation_yaws) != 3 or
+            any(type(value) not in (int, float) or not math.isfinite(value)
+                for value in continuation_yaws)):
+        raise ValueError('Full route requires three finite reviewed G3–G5 headings')
+    result = full_goals(config)
+    for goal, heading in zip(result[2:], continuation_yaws):
+        goal['yaw_rad'] = float(heading)
+        goal['pose']['pose']['orientation'].update(
+            z=math.sin(heading/2), w=math.cos(heading/2))
+        goal['orientation_provenance'] = 'reviewed_arrival'
+        goal['orientation_rule'] = 'independently reviewed G3–G5 arrival heading'
+    return result
+
+
 def evaluate_full_goal(goal, metrics, tolerance):
     """Generalize critical staging; no independent yaw-error acceptance gate."""
     result = evaluate_goal(goal, metrics, tolerance)
@@ -729,7 +751,7 @@ def main(argv=None, *, transport_factory=None):
     execution.add_argument('--execute', action='store_true',
                         help='USER-RUN ONLY: send selected route through existing goal_manager')
     execution.add_argument('--dry-run', action='store_true', help='Offline plan only (also the default)')
-    parser.add_argument('--output-root', type=Path, default=Path('/tmp/b2w-warehouse-route'))
+    parser.add_argument('--output-root', type=Path, default=ROOT/'course_results/warehouse-route')
     parser.add_argument('--ready-timeout', type=float, default=45., help='Bounded attach/readiness wall seconds')
     args = parser.parse_args(argv)
     if args.mode != 'full' and args.advancement != 'strict':

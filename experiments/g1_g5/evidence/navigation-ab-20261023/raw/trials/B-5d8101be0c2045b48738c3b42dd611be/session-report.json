@@ -1,0 +1,164 @@
+{
+  "profile": "B",
+  "token": "6c97ea004c7c46c28a8edcfd11eac5ef",
+  "invocations": [
+    {
+      "name": "stack",
+      "argv": [
+        "/usr/bin/python3",
+        "/opt/ros/humble/bin/ros2",
+        "launch",
+        "course_bringup",
+        "course.launch.py",
+        "mode:=slam",
+        "scene:=warehouse",
+        "gui:=false",
+        "rviz:=false",
+        "headless_rendering:=false",
+        "world:=/tmp/b2w-navigation-ab-20261023/artifacts/trials/B-5d8101be0c2045b48738c3b42dd611be/observer.world",
+        "fault_profile:=normal",
+        "seed:=0",
+        "horizontal_samples:=2000",
+        "pretrained_directory:=/tmp/b2w-navigation-ab-20261023/third_party/b2w_rl_sar"
+      ],
+      "process": {
+        "pid": 1103338,
+        "start_ticks": 10518172,
+        "state": "R"
+      }
+    },
+    {
+      "name": "contact-bridge",
+      "argv": [
+        "/usr/bin/python3",
+        "/opt/ros/humble/bin/ros2",
+        "run",
+        "ros_gz_bridge",
+        "parameter_bridge",
+        "/b2w/evaluation/full_contacts@ros_gz_interfaces/msg/Contacts[ignition.msgs.Contacts",
+        "/b2w/evaluation/collision_inventory@std_msgs/msg/String[ignition.msgs.StringMsg",
+        "--ros-args",
+        "-r",
+        "__node:=warehouse_ab_evaluation_bridge",
+        "-p",
+        "use_sim_time:=true"
+      ],
+      "process": {
+        "pid": 1103339,
+        "start_ticks": 10518173,
+        "state": "R"
+      }
+    },
+    {
+      "name": "observer",
+      "argv": [
+        "/usr/bin/python3",
+        "/tmp/b2w-navigation-ab-20261023/scripts/observe_warehouse_narrow_failure.py",
+        "--duration",
+        "420.0",
+        "--label",
+        "B",
+        "--dwb-debug",
+        "--output-root",
+        "/tmp/b2w-navigation-ab-20261023/artifacts/trials/B-5d8101be0c2045b48738c3b42dd611be/observer"
+      ],
+      "process": {
+        "pid": 1103340,
+        "start_ticks": 10518175,
+        "state": "R"
+      }
+    },
+    {
+      "name": "precheck-map",
+      "argv": [
+        "/usr/bin/python3",
+        "/opt/ros/humble/bin/ros2",
+        "run",
+        "course_navigation",
+        "map_projector",
+        "--ros-args",
+        "-p",
+        "use_sim_time:=true",
+        "-p",
+        "size:=[40.0,40.0]",
+        "-p",
+        "origin:=[-20.0,-20.0]"
+      ],
+      "process": {
+        "pid": 1103341,
+        "start_ticks": 10518176,
+        "state": "R"
+      }
+    },
+    {
+      "name": "precheck-adapter",
+      "argv": [
+        "/usr/bin/python3",
+        "/opt/ros/humble/bin/ros2",
+        "run",
+        "course_navigation",
+        "velocity_adapter",
+        "--ros-args",
+        "-p",
+        "use_sim_time:=true",
+        "-p",
+        "input_topic:=/warehouse_ab/precheck"
+      ],
+      "process": {
+        "pid": 1103342,
+        "start_ticks": 10518177,
+        "state": "R"
+      }
+    }
+  ],
+  "success": false,
+  "precheck": [],
+  "physics_rng_seeded": false,
+  "seed": 0,
+  "safety_qualification": "bounded independent simulation diagnostic; not Stage4 qualification",
+  "world": {
+    "source_sha256": "7d20bdf819f35d5ad8b32e65a9f0dfcf489b70b3a2e8189c711354d26d00ef30",
+    "output_sha256": "3bad8a2eaca844fb8dd119387e4eba9aedb949a9263ba545a336f8f4d1200ce9",
+    "plugin_sha256": "14f3ae72a724e39421e7d7eda51e2bdb7c2c230570ba88b5a5a11743c0fa55c1",
+    "geometry_and_settings_preserved": true
+  },
+  "error": "KeyboardInterrupt()",
+  "cleanup": {
+    "owned_pid_start_ticks": {
+      "1103338": "10518172",
+      "1103339": "10518173",
+      "1103340": "10518175",
+      "1103341": "10518176",
+      "1103342": "10518177",
+      "1103343": "10518183",
+      "1103344": "10518185",
+      "1103348": "10518187",
+      "1103366": "10518196",
+      "1103368": "10518196",
+      "1103372": "10518196",
+      "1103374": "10518196",
+      "1103378": "10518196",
+      "1103380": "10518196",
+      "1104088": "10520199",
+      "1104090": "10520199",
+      "1104092": "10520199",
+      "1104094": "10520199",
+      "1104096": "10520199"
+    },
+    "remaining": {},
+    "passed": true,
+    "launch_returncode": -15
+  },
+  "contact_failure": null,
+  "contact_sample_count": 679,
+  "watchdog": {
+    "reason": "monitor:KeyboardInterrupt()",
+    "emergency": true,
+    "pause": {
+      "contained": false,
+      "reason": "server_not_discovered"
+    },
+    "owned_pid_start_ticks": {},
+    "remaining": {}
+  }
+}

@@ -5,6 +5,7 @@ import math
 import os
 from pathlib import Path
 import shutil
+import uuid
 
 import pytest
 import yaml
@@ -32,13 +33,21 @@ def refresh_manifest(folder):
 
 
 @pytest.fixture
-def v1(editor, tmp_path):
+def output_root():
+    path = ROOT/'course_results'/f'test-waypoint-editor-stage31-{uuid.uuid4().hex}'
+    path.mkdir(parents=True)
+    yield path
+    shutil.rmtree(path)
+
+
+@pytest.fixture
+def v1(editor, output_root):
     state = copy.deepcopy(editor.initial)
     for i, goal in enumerate(state['goals']):
         goal.update(position=[.123456789012345+i, -.987654321098765-i], yaw_rad=-3.1012105780252917+i*.371)
     state['markers'] = {'entrance': [1.234, 2.345, -1.234567891234], 'exit': [3., 4., 1.75]}
     state['polygons'] = [dict(kind=k, points=[[0,0],[2,0],[2,1],[0,1]]) for k in ('restricted','corridor')]
-    folder = editor.export(state, tmp_path/'exports')
+    folder = editor.export(state, output_root/'exports')
     candidate = load(folder/'candidate.yaml')
     candidate['candidate_schema_version'] = 1
     for key in ('xy_tolerance', 'import_history', 'configuration_identity'):
@@ -52,7 +61,7 @@ def v1(editor, tmp_path):
     return folder, candidate
 
 
-def test_v1_lossless_reload_migrate_reset_baseline_and_unique_export(editor, v1, tmp_path):
+def test_v1_lossless_reload_migrate_reset_baseline_and_unique_export(editor, v1, output_root):
     folder, original = v1
     canonical = copy.deepcopy(editor.initial)
     hashes = {p.name: digest(p) for p in folder.iterdir()}
@@ -61,7 +70,7 @@ def test_v1_lossless_reload_migrate_reset_baseline_and_unique_export(editor, v1,
     assert editor.initial['goals'] == original['goals']
     assert editor.initial['markers'] == original['markers']
     assert editor.initial['polygons'] == original['polygons']
-    new = editor.export(copy.deepcopy(editor.initial), tmp_path/'exports')
+    new = editor.export(copy.deepcopy(editor.initial), output_root/'exports')
     c = load(new/'candidate.yaml'); m = load(new/'manifest.yaml')
     assert c['goals'] == original['goals']
     assert c['candidate_schema_version'] == m['candidate_schema_version'] == 2
@@ -119,13 +128,13 @@ def test_manifest_tampering_rejected(editor, v1, bad):
     with pytest.raises(ValueError): editor.import_candidate(folder/'candidate.yaml')
 
 
-def test_missing_manifest_explicit_and_source_drift_block(editor, v1, tmp_path):
+def test_missing_manifest_explicit_and_source_drift_block(editor, v1, output_root):
     folder, _ = v1
     (folder/'manifest.yaml').unlink()
     editor.import_candidate(folder/'candidate.yaml')
     assert editor.import_history[-1]['manifest_verified'] is False
     with (folder/'candidate.yaml').open('a') as f: f.write('\n')
-    with pytest.raises(ValueError, match='changed'): editor.export(editor.initial, tmp_path/'new')
+    with pytest.raises(ValueError, match='changed'): editor.export(editor.initial, output_root/'new')
 
 
 @pytest.mark.parametrize('yaw', [0,.3,math.pi/2])
@@ -152,23 +161,21 @@ def test_tolerance_not_client_mutable(editor):
     with pytest.raises(ValueError, match='tolerance'): editor.validate(state)
 
 
-def test_persistent_v1_exact_poses_and_identities(tmp_path):
-    backup=os.environ.get('B2W_EDITOR_V1_BACKUP')
-    if not backup: pytest.skip('Set B2W_EDITOR_V1_BACKUP for preserved user V1 integration')
-    b=Path(backup);f=b/'candidate-16nlistv';c=load(f/'candidate.yaml')
+def test_persistent_v1_exact_poses_and_identities(output_root):
+    b=ROOT/'experiments/g1_g5/waypoints/20261019-v1';f=b/'candidate-16nlistv';c=load(f/'candidate.yaml')
     e=Editor(b/'warehouse.yaml',ROOT/'course_navigation/config/nav2.yaml',ROOT/'course_navigation/config/warehouse_route.yaml')
     e.import_candidate(f/'candidate.yaml')
     assert e.initial['goals']==c['goals']
     assert e.initial['goals'][0]['position']==[0.039514056696976496,6.779728935566027]
     assert e.initial['goals'][0]['yaw_rad']==-3.1012105780252917
-    out=e.export(e.initial,tmp_path/'exports')
+    out=e.export(e.initial,output_root/'exports')
     assert load(out/'candidate.yaml')['goals']==c['goals']
 
 
 @pytest.mark.parametrize('bad', ['nan_history','date_history','string_history','nan_annotation','numeric_key'])
-def test_yaml_only_or_malformed_metadata_fails_before_browser(editor, tmp_path, bad):
+def test_yaml_only_or_malformed_metadata_fails_before_browser(editor, output_root, bad):
     import datetime
-    folder=editor.export(editor.initial,tmp_path/'exports');c=load(folder/'candidate.yaml')
+    folder=editor.export(editor.initial,output_root/'exports');c=load(folder/'candidate.yaml')
     if bad=='nan_history': c['import_history']=[float('nan')]
     if bad=='date_history': c['import_history']=[datetime.date(2026,10,19)]
     if bad=='string_history': c['import_history']=['not an import record']
@@ -178,13 +185,13 @@ def test_yaml_only_or_malformed_metadata_fails_before_browser(editor, tmp_path, 
     with pytest.raises(ValueError): editor.import_candidate(folder/'candidate.yaml')
 
 
-def test_export_stays_separate_from_runtime_and_sources(editor, v1, tmp_path, monkeypatch):
+def test_export_stays_separate_from_runtime_and_sources(editor, v1, output_root, monkeypatch):
     import run_warehouse_route as runner
     folder, _=v1
     original={p:digest(p) for p in (editor.map.path,editor.map.image_path,editor.config_path,editor.route_path)}
     editor.import_candidate(folder/'candidate.yaml')
     with pytest.raises(ValueError): editor.export(editor.initial,folder/'nested')
-    new=editor.export(editor.initial,tmp_path/'exports')
+    new=editor.export(editor.initial,output_root/'exports')
     monkeypatch.setattr(runner,'ROUTE',new/'candidate.yaml')
     with pytest.raises((ValueError,KeyError)): runner.load_route()
     assert {p:digest(p) for p in original} == original

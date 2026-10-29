@@ -1,0 +1,15 @@
+{
+  "profile": "B",
+  "head": "e7f1eec7316be920fc27a100527d2d9c271b9b11",
+  "source_install_pins": 46,
+  "engine_shape_handles": 26,
+  "profile_sha256": {
+    "nav2_smac2d_diag.yaml": "97e4eb2bcf58faa3f3a19728b4d17437b9dfe615d07964902e24bb5057a98e9e",
+    "nav2_smac2d_dwb_slow_diag.yaml": "077012b9618e71f27883cc51150f2f3c48571b71c943258c2e1eebfaf6fc0b69"
+  },
+  "engine_evidence_sha256": "eec6c03b22830f5abd91298e30fe6f220a5d8fa02b36e75dabe2fb2a79f1e695",
+  "backend_sha256": "44e5d8573b44ef1f555eba6f2fbf01c1f0ab657b0fd32016c441e884ec5e71a1",
+  "no_world_or_motion_started": true,
+  "domain": 218,
+  "wall_limit_s": 420.0
+}

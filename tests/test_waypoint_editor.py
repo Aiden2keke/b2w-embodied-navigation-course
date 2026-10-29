@@ -3,7 +3,9 @@ import copy
 import hashlib
 import math
 from pathlib import Path
+import shutil
 import sys
+import uuid
 
 import pytest
 import yaml
@@ -13,6 +15,13 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'scripts'))
 from waypoint_editor.core import (Map, Editor, pixel_to_map, map_to_pixel,
                                   polygon_valid, polygons_overlap, transform_polygon)
 ROOT = Path(__file__).resolve().parents[1]
+
+@pytest.fixture
+def output_root():
+    path = ROOT/'course_results'/f'test-waypoint-editor-{uuid.uuid4().hex}'
+    path.mkdir(parents=True)
+    yield path
+    shutil.rmtree(path)
 
 @pytest.fixture
 def editor(tmp_path):
@@ -65,10 +74,10 @@ def test_filled_footprint_detects_interior_unknown_lethal_and_outside(editor):
     assert editor.check_pose(pose)['occupied']>0
     assert not editor.check_pose([100,100,0])['clear']
 
-def test_candidate_heading_export_and_no_overwrite(editor,tmp_path):
+def test_candidate_heading_export_and_no_overwrite(editor,output_root):
     state=copy.deepcopy(editor.initial)
     state['goals'][0]['yaw_rad']=-1.234567891234
-    folder=editor.export(state,tmp_path/'exports')
+    folder=editor.export(state,output_root/'exports')
     candidate=yaml.safe_load((folder/'candidate.yaml').read_text())
     assert candidate['kind']=='offline_waypoint_candidate'
     assert candidate['goals'][0]['yaw_rad']==state['goals'][0]['yaw_rad']
@@ -79,12 +88,12 @@ def test_candidate_heading_export_and_no_overwrite(editor,tmp_path):
     assert (folder/'annotated.png').exists()
     manifest=yaml.safe_load((folder/'manifest.yaml').read_text())
     assert manifest['outputs']['candidate.yaml']==hashlib.sha256((folder/'candidate.yaml').read_bytes()).hexdigest()
-    assert editor.export(state,tmp_path/'exports')!=folder
+    assert editor.export(state,output_root/'exports')!=folder
     with pytest.raises(ValueError): editor.export(state,ROOT/'course_navigation/config')
 
-def test_identity_mismatch_rejected(editor,tmp_path):
+def test_identity_mismatch_rejected(editor,output_root):
     s=copy.deepcopy(editor.initial); s['map_identity']['image_sha256']='0'*64
-    with pytest.raises(ValueError,match='identity'): editor.export(s,tmp_path/'exports')
+    with pytest.raises(ValueError,match='identity'): editor.export(s,output_root/'exports')
 
 @pytest.mark.parametrize('mutation', ['nan','missing','polygon','marker'])
 def test_bad_state_rejected(editor,mutation):
@@ -112,13 +121,13 @@ def test_reject_nontrinary_metadata(tmp_path):
     (tmp_path/'m.yaml').write_text(yaml.safe_dump(dict(image='m.pgm',mode='raw',resolution=1,origin=[0,0,0],negate=0,occupied_thresh=.65,free_thresh=.25)))
     with pytest.raises(ValueError): Map(tmp_path/'m.yaml')
 
-def test_loopback_server_and_safe_routes(editor,tmp_path):
+def test_loopback_server_and_safe_routes(editor,output_root):
     from waypoint_editor.server import create_server
     import threading
     import urllib.request
     import urllib.error
     import json
-    server=create_server(editor,tmp_path/'exports',port=0)
+    server=create_server(editor,output_root/'exports',port=0)
     thread=threading.Thread(target=server.serve_forever,daemon=True);thread.start()
     base=f'http://127.0.0.1:{server.server_port}'
     try:
@@ -137,7 +146,7 @@ def test_loopback_server_and_safe_routes(editor,tmp_path):
         assert err.value.code==403
         req.remove_header('Origin')
         result=json.load(urllib.request.urlopen(req))
-        assert Path(result['path']).is_relative_to(tmp_path/'exports')
+        assert Path(result['path']).is_relative_to(output_root/'exports')
     finally:
         server.shutdown();server.server_close();thread.join(timeout=2)
 
@@ -161,10 +170,10 @@ def test_rotated_origin_known_result():
     m=dict(width=2,height=3,resolution=2,origin=[10,20,math.pi/2])
     assert pixel_to_map(m,0,0)==pytest.approx([5,21])
 
-def test_yaml_metadata_mutation_blocks_export(editor,tmp_path):
+def test_yaml_metadata_mutation_blocks_export(editor,output_root):
     editor.map.path.write_text(editor.map.path.read_text()+'\n# changed identity\n')
-    with pytest.raises(ValueError,match='changed'): editor.export(editor.initial,tmp_path/'exports')
-    assert not (tmp_path/'exports').exists()
+    with pytest.raises(ValueError,match='changed'): editor.export(editor.initial,output_root/'exports')
+    assert not (output_root/'exports').exists()
 
 def test_filled_footprint_checks_boundary_touch(editor):
     cell=[[0,0],[1,0],[1,1],[0,1]]
@@ -173,9 +182,9 @@ def test_filled_footprint_checks_boundary_touch(editor):
     assert polygon_valid(concave)
     assert not polygons_overlap(concave,[[2,2],[2.5,2],[2.5,2.5]])
 
-def test_exports_preserve_all_sources(editor,tmp_path):
+def test_exports_preserve_all_sources(editor,output_root):
     before={p:Path(p).read_bytes() for p in editor.sources}
-    result=editor.export(editor.initial,tmp_path/'exports')
+    result=editor.export(editor.initial,output_root/'exports')
     assert set(p.name for p in result.iterdir())=={'candidate.yaml','annotations.yaml','waypoints.csv','annotated.png','manifest.yaml'}
     assert before=={p:Path(p).read_bytes() for p in before}
 

@@ -235,8 +235,10 @@ class Editor:
     def export(self,state,output_root):
         self.validate(state); self.assert_sources()
         output_root=Path(output_root).resolve()
-        # Export only into /tmp, never repo, canonical configuration, or arbitrary source dirs.
-        if not output_root.is_relative_to(Path('/tmp')) or output_root==Path('/tmp'): raise ValueError('Exports require a dedicated directory below /tmp')
+        # Keep derived artifacts repository-relative and out of tracked inputs.
+        results_root=Path(__file__).resolve().parents[2]/'course_results'
+        if not output_root.is_relative_to(results_root) or output_root==results_root:
+            raise ValueError('Exports require a dedicated directory below course_results/')
         if any(Path(p).is_relative_to(output_root) for p in self.sources): raise ValueError('Export root contains source files')
         if any(output_root.is_relative_to(Path(p).parent) for p in self.import_sources):
             raise ValueError('Export root is inside imported candidate directory')

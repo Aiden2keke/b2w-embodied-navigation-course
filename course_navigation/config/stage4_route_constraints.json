@@ -1,0 +1,10 @@
+{
+  "kind": "stage4_original_segment_constraints",
+  "version": 2,
+  "original_segments": ["Start->G1", "G1->G2", "G2->G3", "G3->G4", "G4->G5"],
+  "segment_center_band_m": [3.0, 0.35, 3.0, 5.25, 3.0],
+  "basis": "G3->G4 saved-grid reviewed alternative requires 4.937525m; 5.25m allows 0.312475m topological margin. This is not a physical uncertainty or clearance allowance.",
+  "provenance": "PLAN.md resume-20261020T030926Z continuous detour milestone; external review 20261020 P1 request to revise both planning and observation layers",
+  "unchanged_requirements": ["original five goals and 0.25m regions", "mandatory G1->G2 corridor", "all future goal exclusion", "filled footprint and predictive collision veto", "sensor registration and terminal stopping"],
+  "motion_qualified": false
+}

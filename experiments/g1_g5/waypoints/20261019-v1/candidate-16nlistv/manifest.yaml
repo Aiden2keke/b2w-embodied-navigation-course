@@ -1,0 +1,34 @@
+occupancy_policy: Trinary YAML thresholds; grayscale 205 with negate=0 is conservatively
+  unknown even if below free_thresh (saved-map ambiguity). Closed-cell contact blocks.
+sources:
+  experiments/g1_g5/waypoints/20261019-v1/warehouse.yaml: 8932cb8452f65c202b37e497df0b5fa57d83f038d0b21a6df2ae069bf34ebf55
+  experiments/g1_g5/waypoints/20261019-v1/warehouse.pgm: e90f2dd81c89d41828ddb9f60732bdcae5cc7526dcf4a8919638a335d4a585f3
+  course_navigation/config/nav2.yaml: d63852ab2eed9c6cc1c258aaf2bdc2b11753ff9d9969e1885785d3cab2a87046
+  course_navigation/config/warehouse_route.yaml: 16cc4dd5d1c4f64ef9d875b2e2b16a554e60c4089d19838ed92a3d4b0c5adc9d
+map_identity:
+  yaml_path: experiments/g1_g5/waypoints/20261019-v1/warehouse.yaml
+  image_path: experiments/g1_g5/waypoints/20261019-v1/warehouse.pgm
+  yaml_sha256: 8932cb8452f65c202b37e497df0b5fa57d83f038d0b21a6df2ae069bf34ebf55
+  image_sha256: e90f2dd81c89d41828ddb9f60732bdcae5cc7526dcf4a8919638a335d4a585f3
+  metadata:
+    image: warehouse.pgm
+    mode: trinary
+    resolution: 0.05
+    origin:
+    - -20
+    - -20
+    - 0
+    negate: 0
+    occupied_thresh: 0.65
+    free_thresh: 0.25
+    width: 800
+    height: 800
+outputs:
+  candidate.yaml: d74db37ed06a48539152d7599613e03e3e9ae688d231924abb78df9316490b3b
+  annotations.yaml: 1fca66eefc35d3c2c46505d3be43110b961f2c7ddf7543e28b6b6037036a97bd
+  annotated.png: f477faf0433943e5a1755876f09e0d298baf41b5caea9253e27176bba345a8e1
+  waypoints.csv: bab9088fb88401b5b4ce8dcc38420a9b7cc72d7f299dbaa7efef0bfff5af54af
+limitations: Offline filled-footprint geometry only; no physical collision-free feasibility
+  proof. Unknown, occupied, outside and restricted regions block. Sweeps are discrete
+  samples. Fresh SLAM frames require independently verified registration to this saved
+  map.

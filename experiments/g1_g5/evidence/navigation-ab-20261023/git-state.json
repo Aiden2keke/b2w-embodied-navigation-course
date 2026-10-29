@@ -1,0 +1,24 @@
+{
+  "isolated_head": "e7f1eec7316be920fc27a100527d2d9c271b9b11",
+  "isolated_status": " M scripts/run_warehouse_route.py\n M tests/test_warehouse_route.py\n?? course_navigation/config/nav2_smac2d_dwb_slow_diag.yaml\n?? course_navigation/course_navigation/stage4_contact_evidence.py\n?? course_navigation/course_navigation/stage4_contact_intervals.py\n?? course_navigation/course_navigation/stage4_contact_stream.py\n?? scripts/contact_observer/\n?? scripts/run_warehouse_ab.sh\n?? scripts/warehouse_ab_supervisor.py\n?? scripts/warehouse_ab_trial.py\n?? tests/fixtures/\n?? tests/test_warehouse_ab_supervisor.py\n?? tests/test_warehouse_ab_trial.py\n",
+  "source_files": [
+    "course_navigation/config/nav2_smac2d_dwb_slow_diag.yaml",
+    "course_navigation/course_navigation/stage4_contact_evidence.py",
+    "course_navigation/course_navigation/stage4_contact_intervals.py",
+    "course_navigation/course_navigation/stage4_contact_stream.py",
+    "scripts/contact_observer/CMakeLists.txt",
+    "scripts/contact_observer/README.md",
+    "scripts/contact_observer/coverage.hh",
+    "scripts/contact_observer/observer.cpp",
+    "scripts/contact_observer/test_observer.cpp",
+    "scripts/run_warehouse_ab.sh",
+    "scripts/run_warehouse_route.py",
+    "scripts/warehouse_ab_supervisor.py",
+    "scripts/warehouse_ab_trial.py",
+    "tests/fixtures/fortress_server_inspection_20261023.json",
+    "tests/test_warehouse_ab_supervisor.py",
+    "tests/test_warehouse_ab_trial.py",
+    "tests/test_warehouse_route.py"
+  ],
+  "commit_push_performed": false
+}

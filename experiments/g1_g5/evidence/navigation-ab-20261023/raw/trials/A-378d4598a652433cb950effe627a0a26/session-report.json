@@ -1,0 +1,156 @@
+{
+  "profile": "A",
+  "token": "d2f4791f75224ca8b4cd104aeb782b7a",
+  "invocations": [
+    {
+      "name": "stack",
+      "argv": [
+        "/usr/bin/python3",
+        "/opt/ros/humble/bin/ros2",
+        "launch",
+        "course_bringup",
+        "course.launch.py",
+        "mode:=slam",
+        "scene:=warehouse",
+        "gui:=false",
+        "rviz:=false",
+        "headless_rendering:=false",
+        "world:=/tmp/b2w-navigation-ab-20261023/artifacts/trials/A-378d4598a652433cb950effe627a0a26/observer.world",
+        "fault_profile:=normal",
+        "seed:=0",
+        "horizontal_samples:=2000",
+        "pretrained_directory:=/tmp/b2w-navigation-ab-20261023/third_party/b2w_rl_sar"
+      ],
+      "process": {
+        "pid": 1098439,
+        "start_ticks": 10501971,
+        "state": "R"
+      }
+    },
+    {
+      "name": "contact-bridge",
+      "argv": [
+        "/usr/bin/python3",
+        "/opt/ros/humble/bin/ros2",
+        "run",
+        "ros_gz_bridge",
+        "parameter_bridge",
+        "/b2w/evaluation/full_contacts@ros_gz_interfaces/msg/Contacts[ignition.msgs.Contacts",
+        "/b2w/evaluation/collision_inventory@std_msgs/msg/String[ignition.msgs.StringMsg",
+        "--ros-args",
+        "-r",
+        "__node:=warehouse_ab_evaluation_bridge",
+        "-p",
+        "use_sim_time:=true"
+      ],
+      "process": {
+        "pid": 1098440,
+        "start_ticks": 10501972,
+        "state": "R"
+      }
+    },
+    {
+      "name": "observer",
+      "argv": [
+        "/usr/bin/python3",
+        "/tmp/b2w-navigation-ab-20261023/scripts/observe_warehouse_narrow_failure.py",
+        "--duration",
+        "420.0",
+        "--label",
+        "A",
+        "--dwb-debug",
+        "--output-root",
+        "/tmp/b2w-navigation-ab-20261023/artifacts/trials/A-378d4598a652433cb950effe627a0a26/observer"
+      ],
+      "process": {
+        "pid": 1098441,
+        "start_ticks": 10501974,
+        "state": "R"
+      }
+    },
+    {
+      "name": "precheck-map",
+      "argv": [
+        "/usr/bin/python3",
+        "/opt/ros/humble/bin/ros2",
+        "run",
+        "course_navigation",
+        "map_projector",
+        "--ros-args",
+        "-p",
+        "use_sim_time:=true",
+        "-p",
+        "size:=[40.0,40.0]",
+        "-p",
+        "origin:=[-20.0,-20.0]"
+      ],
+      "process": {
+        "pid": 1098442,
+        "start_ticks": 10501975,
+        "state": "R"
+      }
+    },
+    {
+      "name": "precheck-adapter",
+      "argv": [
+        "/usr/bin/python3",
+        "/opt/ros/humble/bin/ros2",
+        "run",
+        "course_navigation",
+        "velocity_adapter",
+        "--ros-args",
+        "-p",
+        "use_sim_time:=true",
+        "-p",
+        "input_topic:=/warehouse_ab/precheck"
+      ],
+      "process": {
+        "pid": 1098443,
+        "start_ticks": 10501976,
+        "state": "R"
+      }
+    }
+  ],
+  "success": false,
+  "precheck": [],
+  "physics_rng_seeded": false,
+  "seed": 0,
+  "safety_qualification": "bounded independent simulation diagnostic; not Stage4 qualification",
+  "world": {
+    "source_sha256": "7d20bdf819f35d5ad8b32e65a9f0dfcf489b70b3a2e8189c711354d26d00ef30",
+    "output_sha256": "3bad8a2eaca844fb8dd119387e4eba9aedb949a9263ba545a336f8f4d1200ce9",
+    "plugin_sha256": "14f3ae72a724e39421e7d7eda51e2bdb7c2c230570ba88b5a5a11743c0fa55c1",
+    "geometry_and_settings_preserved": true
+  },
+  "error": "RuntimeError('Independent containment watchdog exited')",
+  "cleanup": {
+    "owned_pid_start_ticks": {
+      "1098439": "10501971",
+      "1098440": "10501972",
+      "1098441": "10501974",
+      "1098442": "10501975",
+      "1098443": "10501976"
+    },
+    "remaining": {},
+    "passed": true,
+    "launch_returncode": -15
+  },
+  "contact_failure": null,
+  "contact_sample_count": 0,
+  "watchdog": {
+    "reason": "stale_monitor",
+    "emergency": true,
+    "pause": {
+      "contained": false,
+      "reason": "server_not_discovered"
+    },
+    "owned_pid_start_ticks": {
+      "1098439": "10501971",
+      "1098440": "10501972",
+      "1098441": "10501974",
+      "1098442": "10501975",
+      "1098443": "10501976"
+    },
+    "remaining": {}
+  }
+}
