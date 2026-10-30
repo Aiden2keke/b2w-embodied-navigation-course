@@ -82,9 +82,9 @@ class RectangleGrid:
         return int(ids[witness[0]]) if len(witness) else None
 
 class ClearanceGrid(RectangleGrid):
-    def __init__(self, grid):
+    def __init__(self, grid, *, leafsize=256):
         super().__init__(grid)
-        self.tree = cKDTree(self.points)
+        self.tree = cKDTree(self.points, leafsize=leafsize)
 
     def __getstate__(self):
         """Serialize source bytes and the ready KD tree once, not derived arrays twice."""

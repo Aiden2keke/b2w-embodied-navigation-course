@@ -42,6 +42,50 @@ def test_clearance_grid_pickle_uses_one_compact_map_buffer_and_keeps_geometry():
     assert restored.blocking_cell(1.5,[1.1,1.4,-.1,.1],extra=0.) is not None
 
 
+def test_clearance_grid_leafsize_256_matches_leafsize_16_on_warehouse_poses():
+    from course_navigation.stage4_geometry import ClearanceGrid,grid_revision
+    import numpy as np
+
+    # A deterministic lattice puts 10,000 obstacles in the saved 800x800,
+    # 5 cm map geometry, so both tree configurations must split into nodes.
+    payload=dict(width=800,height=800,resolution=.05,origin=[-20.,-20.,0.],
+                 data=bytearray(800*800))
+    cells=[(row,col) for row in range(3,800,8) for col in range(3,800,8)]
+    # Keep several known route-near obstacles in addition to the regular field.
+    cells.extend(((400,393),(400,394),(543,396),(522,310),(468,321),
+                  (539,411),(443,511),(200,200),(202,201),(201,202)))
+    for row,col in cells:payload['data'][row*800+col]=254
+    frozen,_=grid_revision(payload,'costmap')
+    fast=ClearanceGrid(frozen)
+    reference=ClearanceGrid(frozen,leafsize=16)
+    route_poses=((-0.34327613407286467,-0.000069989,0.),
+                 (-.1857180595,7.1899857521,0.),(-4.4787411689,6.1169404983,0.),
+                 (-3.9287576675,3.4369792931,.4),(.5741653442,6.9766654968,-.7),
+                 (5.5923228264,2.1632280349,1.1),(-19.5,-19.5,0.),(20.1,0.,0.))
+    rng=np.random.default_rng(4071)
+    occupied=np.frombuffer(frozen['data'],dtype=np.uint8).reshape(800,800)>=253
+    free_rows,free_cols=np.where(~occupied)
+    random_indices=rng.choice(len(free_rows),size=32,replace=False)
+    random_poses=tuple((-20.+(free_cols[i]+.5)*.05,-20.+(free_rows[i]+.5)*.05,
+                        float(rng.uniform(-np.pi,np.pi))) for i in random_indices)
+    obstacle_rows,obstacle_cols=np.where(occupied)
+    near_poses=[]
+    # Sample free cell centers 1 to 6 cells from a deterministic obstacle.
+    for i in np.linspace(0,len(obstacle_rows)-1,32,dtype=int):
+        row,col=int(obstacle_rows[i]),int(obstacle_cols[i])
+        candidate=next(( (row+dr,col+dc) for dr,dc in
+                         ((0,2),(0,-2),(2,0),(-2,0),(0,4),(0,-4),(4,0),(-4,0))
+                         if 0<=row+dr<800 and 0<=col+dc<800 and
+                         not occupied[row+dr,col+dc]),None)
+        assert candidate is not None
+        r,c=candidate
+        near_poses.append((-20.+(c+.5)*.05,-20.+(r+.5)*.05,float(rng.uniform(-np.pi,np.pi))))
+    poses=route_poses+random_poses+tuple(near_poses)
+    assert fast.tree.leafsize==256 and reference.tree.leafsize==16
+    assert len(fast.points)>256 and fast.tree.size>1 and reference.tree.size>1
+    assert [fast.clearance(p) for p in poses]==[reference.clearance(p) for p in poses]
+
+
 def test_grid_worker_failure_diagnostic_names_phase_and_elapsed_times():
     from course_navigation.stage4_guard import GridPreparation
     diagnostic=GridPreparation.failure_diagnostic(TimeoutError('grid_worker_deadline'),
