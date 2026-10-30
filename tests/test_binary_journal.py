@@ -50,7 +50,7 @@ def test_default_queue_rejects_capture_backlog_over_64_mib(tmp_path):
     assert result['failure'] == 'evidence_queue_limit'
 
 
-def test_paused_route_sized_queue_replays_backlog_over_64_mib(tmp_path, monkeypatch):
+def test_paused_route_sized_queue_replays_backlog_over_128_mib(tmp_path, monkeypatch):
     import threading
     from stage4_route import journal as module
     from stage4_route.journal import replay
@@ -65,23 +65,25 @@ def test_paused_route_sized_queue_replays_backlog_over_64_mib(tmp_path, monkeypa
 
     monkeypatch.setattr(module.queue.Queue, 'get', paused_get)
     path = tmp_path / 'raw.sqlite3'
-    journal = module.BinaryJournal(path, queue_bytes=128 * 1024**2, reserve_bytes=0)
+    journal = module.BinaryJournal(path, queue_bytes=256 * 1024**2, reserve_bytes=0)
     cloud_size = 1_536_193
     base = bytes(range(256)) * (cloud_size // 256) + bytes(range(cloud_size % 256))
-    clouds = [base[:-4] + i.to_bytes(4, 'little') for i in range(44)]
+    clouds = [base[:-4] + i.to_bytes(4, 'little') for i in range(100)]
     expected_bytes = sum(map(len, clouds))
     try:
         assert entered.wait(2.)
         for i, cloud in enumerate(clouds):
             journal.append('/pointcloud', 'sensor_msgs/msg/PointCloud2', cloud,
                            {'sample': i})
-        assert 64 * 1024**2 < expected_bytes < 128 * 1024**2
-        assert journal.max_pending_bytes > 64 * 1024**2
+        assert 128 * 1024**2 < expected_bytes < 256 * 1024**2
+        assert journal.max_pending_bytes > 128 * 1024**2
+        assert journal.max_pending_bytes < 256 * 1024**2
     finally:
         release.set()
 
-    result = journal.close(timeout=30.)
+    result = journal.close(timeout=10.)
     assert result['complete'] is True
+    assert result['close_seconds'] < 10.
     assert result['accepted'] == result['written'] == len(clouds)
     assert result['accepted_payload_bytes'] == result['committed_payload_bytes'] == expected_bytes
     assert json.loads(path.with_name(path.name + '.complete').read_text()) == {

@@ -20,8 +20,8 @@ from .journal import BinaryJournal
 
 
 def route_journal(path):
-    """Build the route capture journal with headroom for the observed cloud burst."""
-    return BinaryJournal(path, max_bytes=64 * 1024**3, queue_bytes=128 * 1024**2)
+    """Build the route capture journal with headroom for observed cloud bursts."""
+    return BinaryJournal(path, max_bytes=64 * 1024**3, queue_bytes=256 * 1024**2)
 
 
 def stamp(t):return t.sec+t.nanosec*1e-9

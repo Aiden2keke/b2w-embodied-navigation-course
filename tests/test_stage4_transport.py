@@ -11,14 +11,14 @@ sys.path.insert(0,str(Path(__file__).resolve().parents[1]/'scripts'))
 from stage4_route.ros_transport import RosTransport
 
 
-def test_route_journal_uses_128_mib_queue_without_changing_disk_budget(monkeypatch, tmp_path):
+def test_route_journal_uses_256_mib_queue_without_changing_disk_budget(monkeypatch, tmp_path):
     import stage4_route.ros_transport as module
     calls = []
     monkeypatch.setattr(module, 'BinaryJournal',
                         lambda path, **kwargs: calls.append((path, kwargs)) or 'journal')
     assert module.route_journal(tmp_path / 'raw.sqlite3') == 'journal'
     assert calls == [(tmp_path / 'raw.sqlite3', {
-        'max_bytes': 64 * 1024**3, 'queue_bytes': 128 * 1024**2})]
+        'max_bytes': 64 * 1024**3, 'queue_bytes': 256 * 1024**2})]
 
 
 def transport():
