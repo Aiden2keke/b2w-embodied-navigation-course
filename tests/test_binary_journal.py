@@ -39,6 +39,57 @@ def test_oversized_message_latches_failure_and_prevents_success(tmp_path):
     assert journal.failure == 'evidence_queue_limit'
 
 
+def test_default_queue_rejects_capture_backlog_over_64_mib(tmp_path):
+    from stage4_route.journal import BinaryJournal
+    journal = BinaryJournal(tmp_path / 'raw.sqlite3', reserve_bytes=0)
+    with pytest.raises(ValueError, match='queue'):
+        journal.append('/pointcloud', 'sensor_msgs/msg/PointCloud2',
+                       b'x' * (64 * 1024**2 + 1), {})
+    result = journal.close()
+    assert not result['complete']
+    assert result['failure'] == 'evidence_queue_limit'
+
+
+def test_paused_route_sized_queue_replays_backlog_over_64_mib(tmp_path, monkeypatch):
+    import threading
+    from stage4_route import journal as module
+    from stage4_route.journal import replay
+
+    entered, release = threading.Event(), threading.Event()
+    original_get = module.queue.Queue.get
+
+    def paused_get(q, *args, **kwargs):
+        entered.set()
+        assert release.wait(10.)
+        return original_get(q, *args, **kwargs)
+
+    monkeypatch.setattr(module.queue.Queue, 'get', paused_get)
+    path = tmp_path / 'raw.sqlite3'
+    journal = module.BinaryJournal(path, queue_bytes=128 * 1024**2, reserve_bytes=0)
+    cloud_size = 1_536_193
+    base = bytes(range(256)) * (cloud_size // 256) + bytes(range(cloud_size % 256))
+    clouds = [base[:-4] + i.to_bytes(4, 'little') for i in range(44)]
+    expected_bytes = sum(map(len, clouds))
+    try:
+        assert entered.wait(2.)
+        for i, cloud in enumerate(clouds):
+            journal.append('/pointcloud', 'sensor_msgs/msg/PointCloud2', cloud,
+                           {'sample': i})
+        assert 64 * 1024**2 < expected_bytes < 128 * 1024**2
+        assert journal.max_pending_bytes > 64 * 1024**2
+    finally:
+        release.set()
+
+    result = journal.close(timeout=30.)
+    assert result['complete'] is True
+    assert result['accepted'] == result['written'] == len(clouds)
+    assert result['accepted_payload_bytes'] == result['committed_payload_bytes'] == expected_bytes
+    assert json.loads(path.with_name(path.name + '.complete').read_text()) == {
+        'format': 2, 'records': len(clouds)}
+    rows = list(replay(path))
+    assert [row['payload'] for row in rows] == clouds
+
+
 def test_disk_budget_failure_is_reported_by_close(tmp_path):
     from stage4_route.journal import BinaryJournal, replay
     path = tmp_path / 'raw.sqlite3'

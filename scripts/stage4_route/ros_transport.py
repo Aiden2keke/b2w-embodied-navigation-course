@@ -19,6 +19,11 @@ from .freshness import StructuralMapCadence
 from .journal import BinaryJournal
 
 
+def route_journal(path):
+    """Build the route capture journal with headroom for the observed cloud burst."""
+    return BinaryJournal(path, max_bytes=64 * 1024**3, queue_bytes=128 * 1024**2)
+
+
 def stamp(t):return t.sec+t.nanosec*1e-9
 
 
@@ -107,7 +112,7 @@ class RosTransport:
         self.directory=Path(directory);self.raw_path=self.directory/('raw-'+uuid4().hex+'.sqlite3')
         self.deployment_path=Path(deployment) if deployment else self.directory/'deployment.json'
         self.grid_revisions={}
-        self.journal=BinaryJournal(self.raw_path,max_bytes=64*1024**3)
+        self.journal=route_journal(self.raw_path)
         self.localization_tf={}
         self.odom_history=deque(maxlen=16)
         self.tf=Buffer();self.listener=TransformListener(self.tf,self.node)
