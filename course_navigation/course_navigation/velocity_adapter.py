@@ -172,7 +172,7 @@ class VelocityAdapter(Node):
                     abs(q.x)>1e-6 or abs(q.y)>1e-6):raise ValueError('Invalid/nonplanar grid quaternion')
             angle=math.atan2(2*(q.w*q.z+q.x*q.y),q.w*q.w+q.x*q.x-q.y*q.y-q.z*q.z)
             grid=dict(width=info.size_x if costmap else info.width,height=info.size_y if costmap else info.height,
-                      resolution=info.resolution,origin=[o.position.x,o.position.y,angle],data=tuple(msg.data))
+                      resolution=info.resolution,origin=[o.position.x,o.position.y,angle],data=msg.data)
             self.stage4_worker.submit(name,grid,frame=msg.header.frame_id,
                 source=msg.header.stamp.sec+msg.header.stamp.nanosec*1e-9,receipt=time.monotonic(),
                 encoding='costmap' if costmap else 'occupancy',epoch=self.stage4_guard.config['session_id'])

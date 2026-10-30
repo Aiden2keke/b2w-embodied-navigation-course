@@ -27,7 +27,7 @@ class FinalCommandGuard:
         self.contacts=None
         self.adapter_identity=process_identity(os.getpid());self.sources={}
         self.structural=StructuralMapCadence();self.live_cadence=StructuralMapCadence()
-        self.lock=threading.Lock();self.last_report={}
+        self.lock=threading.Lock();self.last_report={};self.grid_worker_phase_times={}
         c=self.config
         if 'zero_only' in c and type(c['zero_only']) is not bool:raise ValueError('Invalid zero-only mode')
         self.zero_only=c.get('zero_only') is True
@@ -67,9 +67,17 @@ class FinalCommandGuard:
         if name not in REQUIRED or frame!=REQUIRED[name] or epoch!=self.config['session_id']:
             self.inhibit('grid_frame_or_session_mismatch');return
         cells=grid['data']
+        compact=grid.get('_compact_encoding')==encoding and type(cells) is bytes
+        if compact and encoding=='occupancy':
+            import numpy as np
+            compact_values=np.frombuffer(cells,dtype=np.uint8)
+            invalid_values=bool(np.any((compact_values!=0)&(compact_values!=254)))
+        else:invalid_values=False
+        invalid_values=invalid_values or (not compact and any(
+            type(v) is not int or not (-1<=v<=100 if encoding=='occupancy' else 0<=v<=255)
+            for v in cells))
         if (encoding not in ('occupancy','costmap') or len(cells)>1000000 or
-                len(cells)!=grid['width']*grid['height'] or
-                any(type(v) is not int or not (-1<=v<=100 if encoding=='occupancy' else 0<=v<=255) for v in cells) or
+                len(cells)!=grid['width']*grid['height'] or invalid_values or
                 any(type(v) not in (int,float) or not math.isfinite(v) for v in (source,receipt))):
             self.inhibit('invalid_grid');return
         frozen,revision=grid_revision(grid,encoding)
@@ -111,7 +119,9 @@ class FinalCommandGuard:
     def prepared_status(self):
         with self.lock:
             return dict(failure=self.failure,structural_wall_budget=self.live_cadence.wall_budget,
-                        structural_source_wall_budget=self.structural.wall_budget,grids={k:dict(sha256=v[3],source=v[1],receipt=v[2]) for k,v in self.grids.items()})
+                        structural_source_wall_budget=self.structural.wall_budget,
+                        grid_worker_phases=dict(self.grid_worker_phase_times),
+                        grids={k:dict(sha256=v[3],source=v[1],receipt=v[2]) for k,v in self.grids.items()})
 
     def output(self,*,command,poses,pose_stamp,pose_receipt,sim,wall,speed,wz):
         started=time.monotonic();c=self.config;result=(0.,0.,0.)
@@ -184,6 +194,7 @@ class GridPreparation:
     """
     def __init__(self,guard):
         self.guard=guard;self.accepted={};self.pending={};self.generations={};self.received={};self.condition=threading.Condition();self.closed=False
+        self.last_job_phase_times=self.guard.grid_worker_phase_times
         self.socket,child=socket.socketpair()
         env=dict(os.environ,PYTHONPATH=str(Path(__file__).resolve().parents[1])+os.pathsep+os.environ.get('PYTHONPATH',''))
         try:
@@ -194,11 +205,49 @@ class GridPreparation:
         finally:child.close()
         self.worker=threading.Thread(target=self.run,daemon=True,name='stage4-grid-preparation');self.worker.start()
 
+    @staticmethod
+    def compact_payload(grid,encoding):
+        """Validate original scalar values exactly, then compact for private IPC."""
+        cells=grid['data']
+        width,height=grid['width'],grid['height']
+        if (encoding not in ('occupancy','costmap') or type(width) is not int or
+                type(height) is not int or width<=0 or height<=0 or width*height>1000000 or
+                len(cells)!=width*height):
+            raise ValueError('invalid_grid')
+        from array import array
+        if isinstance(cells,array) and cells.typecode in ('b','B'):
+            import numpy as np
+            values=np.frombuffer(cells,dtype=np.int8 if cells.typecode=='b' else np.uint8)
+            lower,upper=(-1,100) if encoding=='occupancy' else (0,255)
+            if values.size and (int(values.min())<lower or int(values.max())>upper):
+                raise ValueError('invalid_grid')
+            if encoding=='occupancy':
+                compact=np.where(values==0,0,254).astype(np.uint8,copy=False).tobytes()
+            else:
+                compact=cells.tobytes()
+        else:
+            if any(type(v) is not int or
+                   not (-1<=v<=100 if encoding=='occupancy' else 0<=v<=255) for v in cells):
+                raise ValueError('invalid_grid')
+            if encoding=='occupancy':
+                compact=bytes(0 if value==0 else 254 for value in cells)
+            else:
+                compact=bytes(cells)
+        frozen=dict(grid,data=compact,origin=tuple(grid['origin']),_compact_encoding=encoding)
+        return frozen
+
+    @staticmethod
+    def failure_diagnostic(error, *, phase, elapsed_s, phase_times):
+        parts=[f'{name}={seconds:.3f}' for name,seconds in sorted(phase_times.items())]
+        suffix=(':phases='+','.join(parts)) if parts else ''
+        return (f'{type(error).__name__}({error}):phase={phase}:'
+                f'elapsed_s={elapsed_s:.3f}{suffix}')
+
     def submit(self,name,grid,**metadata):
         if name not in REQUIRED:self.guard.inhibit('unknown_grid_source');return
-        if len(grid['data'])>1000000 or len(grid['data'])!=grid['width']*grid['height']:
-            self.guard.inhibit('oversized_or_malformed_grid');return
-        frozen=dict(grid,data=tuple(grid['data']),origin=tuple(grid['origin']))
+        try:frozen=self.compact_payload(grid,metadata['encoding'])
+        except (KeyError,TypeError,ValueError,OverflowError):
+            self.fail_closed('invalid_grid');return
         with self.condition:
             if self.closed or self.guard.failure:return
             source=metadata['source'];old=self.received.get(name)
@@ -214,13 +263,26 @@ class GridPreparation:
             generation=self.generations.get(name,0)+1;self.generations[name]=generation
             self.pending[name]=(generation,frozen,metadata);self.condition.notify()
 
+    def fail_closed(self,reason):
+        """Latch a coordinator fault and remove every prepared clearance atomically."""
+        self.guard.inhibit(reason)
+        # Match the worker's condition -> guard lock order. This serializes with
+        # result installation, so a result cannot reappear after the clear.
+        with self.condition:
+            self.pending.clear();self.accepted.clear()
+            with self.guard.lock:self.guard.grids.clear()
+
     def run(self):
         from .stage4_grid_worker import send,receive
+        phase='worker_startup';phase_started=time.monotonic();job_started=None;phase_times={}
         try:
             # Startup imports have their own bounded budget; preparation keeps .5s.
             deadline=time.monotonic()+5.
-            send(self.socket,self.guard.config,deadline=deadline)
+            started=time.monotonic();send(self.socket,self.guard.config,deadline=deadline)
+            phase_times['startup_config_pickle_send_s']=time.monotonic()-started
+            phase='startup_handshake_decode';started=time.monotonic()
             if receive(self.socket,deadline=deadline)!=('ready',):raise ValueError('grid_worker_protocol')
+            phase_times['startup_handshake_decode_s']=time.monotonic()-started
             while True:
                 with self.condition:
                     self.condition.wait_for(lambda:self.closed or self.pending,timeout=.05)
@@ -228,10 +290,33 @@ class GridPreparation:
                     if self.process.poll() is not None:raise ValueError('grid_worker_died')
                     if not self.pending:continue
                     name=next(iter(self.pending));generation,grid,metadata=self.pending.pop(name)
-                started=time.monotonic()
-                send(self.socket,(name,generation,grid,metadata),deadline=started+.5)
-                result=receive(self.socket,deadline=started+.5)
-                if time.monotonic()-started>.5:raise ValueError('grid_worker_deadline')
+                job_started=time.monotonic();deadline=job_started+.5;phase_times.clear()
+                with self.guard.lock:self.guard.grid_worker_phase_times.clear()
+                phase='request_pickle_send';started=time.monotonic()
+                send(self.socket,(name,generation,grid,metadata),deadline=deadline)
+                phase_times['request_pickle_send_s']=time.monotonic()-started
+                phase='response_receive_decode';started=time.monotonic()
+                worker_prepare=None
+                while True:
+                    receive_times={}
+                    try:result=receive(self.socket,deadline=deadline,phase_times=receive_times)
+                    except Exception:
+                        phase_times.update({f'response_{key}':value for key,value in receive_times.items()})
+                        raise
+                    if (type(result) is tuple and len(result)==4 and result[0]=='prepared'):
+                        if (result[1:3]!=(name,generation) or type(result[3]) not in (int,float) or
+                                not math.isfinite(result[3]) or result[3]<0):
+                            raise ValueError('grid_worker_protocol')
+                        worker_prepare=result[3]
+                        phase_times['worker_prepare_s']=worker_prepare
+                        phase_times['worker_progress_receive_s']=receive_times.get('read_s',0.)
+                        continue
+                    phase_times.update({f'response_{key}':value for key,value in receive_times.items()})
+                    break
+                phase_times['response_receive_decode_s']=time.monotonic()-started
+                if time.monotonic()-job_started>.5:raise ValueError('grid_worker_deadline')
+                phase='result_validate_install'
+                validate_started=time.monotonic()
                 if (type(result) is not tuple or len(result)!=6 or
                         result[:3]!=('result',name,generation) or result[3]!=metadata):
                     raise ValueError('grid_worker_protocol')
@@ -250,11 +335,24 @@ class GridPreparation:
                         if old and entry[1]<old[1]:raise ValueError('grid_source_clock_regression')
                         if old and entry[1]==old[1] and entry[3]!=old[3]:raise ValueError('conflicting_grid_source_revision')
                         if name=='live':self.guard.live_cadence.observe(entry[1],entry[1],entry[2])
+                        if time.monotonic()>deadline:raise ValueError('grid_worker_deadline')
                         self.guard.grids[name]=self.guard.sources[name]=entry
                     self.accepted[name]=(grid,metadata['frame'],metadata['encoding'],metadata['epoch'])
+                phase_times['result_validate_install_s']=time.monotonic()-validate_started
+                phase_times['job_elapsed_s']=time.monotonic()-job_started
+                with self.guard.lock:
+                    self.guard.grid_worker_phase_times.clear()
+                    self.guard.grid_worker_phase_times.update(phase_times)
         except Exception as exc:
             if not self.closed:
-                self.guard.inhibit('grid_worker:'+repr(exc))
+                elapsed=time.monotonic()-(job_started if job_started is not None else phase_started)
+                if job_started is not None:
+                    phase_times['job_elapsed_s']=elapsed
+                    with self.guard.lock:
+                        self.guard.grid_worker_phase_times.clear()
+                        self.guard.grid_worker_phase_times.update(phase_times)
+                detail=self.failure_diagnostic(exc,phase=phase,elapsed_s=elapsed,phase_times=phase_times)
+                self.guard.inhibit('grid_worker:'+detail)
                 with self.condition:
                     self.pending.clear();self.accepted.clear()
                     with self.guard.lock:self.guard.grids.clear()

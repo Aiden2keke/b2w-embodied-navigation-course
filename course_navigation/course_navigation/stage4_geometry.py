@@ -8,13 +8,24 @@ class RectangleGrid:
         self.grid = grid
         self.length, self.width = half_length, half_width
         self.resolution = grid['resolution']
-        self.data = np.asarray(grid['data']).reshape(grid['height'], grid['width'])
+        raw = grid['data']
+        self.data = (np.frombuffer(raw, dtype=np.uint8) if isinstance(raw, bytes)
+                     else np.asarray(raw)).reshape(grid['height'], grid['width'])
         if (self.resolution <= 0 or min(half_length, half_width) <= 0 or
                 not all(math.isfinite(v) for v in [self.resolution, half_length, half_width, *grid['origin']])):
             raise ValueError('Invalid geometry')
         rows, cols = np.where(self.data >= 254)
-        self.ids = rows * grid['width'] + cols
+        self._ids = rows * grid['width'] + cols
         self.points = np.column_stack(((cols+.5)*self.resolution, (rows+.5)*self.resolution))
+
+    @property
+    def ids(self):
+        # Runtime ClearanceGrid pickles omit this derived 8-byte-per-cell array.
+        if self._ids is None:
+            cols = np.rint(self.points[:, 0]/self.resolution-.5).astype(np.int64)
+            rows = np.rint(self.points[:, 1]/self.resolution-.5).astype(np.int64)
+            self._ids = rows*self.grid['width']+cols
+        return self._ids
 
     def local_pose(self, pose):
         ox, oy, a = self.grid['origin'];c, s = math.cos(a), math.sin(a)
@@ -75,6 +86,31 @@ class ClearanceGrid(RectangleGrid):
         super().__init__(grid)
         self.tree = cKDTree(self.points)
 
+    def __getstate__(self):
+        """Serialize source bytes and the ready KD tree once, not derived arrays twice."""
+        raw = self.grid['data']
+        if not isinstance(raw, bytes):
+            array = np.asarray(raw)
+            if (array.dtype.kind not in 'ui' or array.size and
+                    (int(array.min()) < 0 or int(array.max()) > 255)):
+                raise ValueError('clearance grid data outside byte range')
+            raw = array.astype(np.uint8, copy=False).tobytes()
+        metadata = {key:value for key,value in self.grid.items() if key!='data'}
+        return dict(metadata=metadata, data=raw, length=self.length, width=self.width,
+                    tree=self.tree)
+
+    def __setstate__(self, state):
+        self.grid = dict(state['metadata'], data=state['data'])
+        self.length, self.width = state['length'], state['width']
+        self.resolution = self.grid['resolution']
+        self.tree = state['tree']
+        self.points = self.tree.data
+        self.data = np.frombuffer(state['data'], dtype=np.uint8).reshape(
+            self.grid['height'], self.grid['width'])
+        self._ids = None
+        self.data.flags.writeable = False
+        self.points.flags.writeable = False
+
     def clearance(self, pose, *, cap=.5):
         x, y, a = self.local_pose(pose)
         c, s = math.cos(a), math.sin(a)
@@ -106,6 +142,13 @@ def grid_revision(grid,encoding):
     """Shared immutable geometry identity; receipt/source times stay separate."""
     import hashlib
     import json
-    data=tuple((0 if v==0 else 254) if encoding=='occupancy' else v for v in grid['data'])
-    frozen=dict(width=grid['width'],height=grid['height'],resolution=grid['resolution'],origin=tuple(grid['origin']),data=data)
-    return frozen,hashlib.sha256(json.dumps(frozen,sort_keys=True,allow_nan=False).encode()).hexdigest()
+    raw=grid['data']
+    compact=grid.get('_compact_encoding')==encoding
+    if compact and type(raw) is not bytes:
+        raise ValueError('invalid compact grid data')
+    data=(tuple(raw) if compact else
+          tuple((0 if v==0 else 254) if encoding=='occupancy' else v for v in raw))
+    canonical=dict(width=grid['width'],height=grid['height'],resolution=grid['resolution'],origin=tuple(grid['origin']),data=data)
+    revision=hashlib.sha256(json.dumps(canonical,sort_keys=True,allow_nan=False).encode()).hexdigest()
+    frozen=dict(canonical,data=bytes(data))
+    return frozen,revision
