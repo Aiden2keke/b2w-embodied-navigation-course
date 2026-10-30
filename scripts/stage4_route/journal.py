@@ -13,8 +13,24 @@ import threading
 import time
 import zlib
 
+_COMMIT_INTERVAL_SECONDS = 0.05
+
 
 class BinaryJournal:
+    """Async journal; close stats distinguish uncompressed payload totals,
+    outstanding bytes, producer schedule lateness, and worker record-processing time.
+
+    ``accepted_payload_bytes`` and ``committed_payload_bytes`` count uncompressed
+    event payload bytes. Each event is counted, including repeated payloads whose
+    stored content is deduplicated. These are not SQLite file-size measurements.
+
+    ``record_processing_seconds`` excludes time waiting in the queue and the
+    final close/commit path. ``close_seconds`` measures the caller's full close
+    wait. ``max_pending_bytes`` counts accepted record payload plus encoded
+    metadata waiting in the queue or in the active writer operation; it excludes
+    records already inserted into SQLite's current transaction.
+    """
+
     def __init__(self, path, *, max_bytes=4 * 1024**3, queue_bytes=64 * 1024**2,
                  reserve_bytes=512 * 1024**2, compression_level=0):
         if min(max_bytes, queue_bytes) <= 0 or reserve_bytes < 0:
@@ -31,6 +47,13 @@ class BinaryJournal:
         self.max_bytes, self.queue_limit, self.reserve = max_bytes, queue_bytes, reserve_bytes
         self.failure = None
         self.accepted = self.written = self.pending_bytes = 0
+        self.max_pending_bytes = 0
+        self.accepted_payload_bytes = self.committed_payload_bytes = 0
+        # Sum of per-record worker time after dequeue; excludes queue wait and
+        # finalization commits. close_seconds covers the caller's full close wait.
+        self.record_processing_seconds = 0.0
+        self.max_producer_lateness_seconds = 0.0
+        self.started_at = time.monotonic()
         self.closed = False
         self.lock = threading.Lock()
         self.close_lock = threading.Lock()
@@ -49,7 +72,7 @@ class BinaryJournal:
             if self.failure is None:
                 self.failure = reason
 
-    def append(self, topic, type_name, payload, metadata):
+    def append(self, topic, type_name, payload, metadata, *, scheduled_at=None):
         try:
             metadata_json = json.dumps(metadata, sort_keys=True, allow_nan=False, separators=(',', ':'))
             if not isinstance(payload, bytes) or not topic.startswith('/') or not type_name:
@@ -66,6 +89,12 @@ class BinaryJournal:
                 raise ValueError(self.failure)
             self.accepted += 1
             self.pending_bytes += size
+            self.max_pending_bytes = max(self.max_pending_bytes, self.pending_bytes)
+            self.accepted_payload_bytes += len(payload)
+            if scheduled_at is not None:
+                self.max_producer_lateness_seconds = max(
+                    self.max_producer_lateness_seconds,
+                    max(0.0, time.monotonic() - scheduled_at))
             self.queue.put((self.accepted, topic, type_name, payload, metadata_json, size))
 
     def _write(self):
@@ -95,11 +124,13 @@ class BinaryJournal:
             self.ready.set()
             last_commit = time.monotonic()
             batch_size = 0
+            batch_bytes = 0
             while True:
                 item = self.queue.get()
                 if item is None:
                     break
                 seq, topic, typ, payload, meta, size = item
+                item_started = time.monotonic()
                 try:
                     if self.failure:
                         continue
@@ -124,25 +155,34 @@ class BinaryJournal:
                         conn.execute('INSERT INTO payloads VALUES(?,?,?)', (sha, len(payload), blob))
                     conn.execute('INSERT INTO events VALUES(?,?,?,?,?)', (seq, topic, typ, sha, meta))
                     batch_size += 1
-                    if batch_size >= 100 or time.monotonic() - last_commit >= .05:
+                    batch_bytes += len(payload)
+                    if batch_size >= 100 or time.monotonic() - last_commit >= _COMMIT_INTERVAL_SECONDS:
                         conn.commit()
-                        self.written += batch_size
+                        with self.lock:
+                            self.written += batch_size
+                            self.committed_payload_bytes += batch_bytes
                         batch_size = 0
+                        batch_bytes = 0
                         last_commit = time.monotonic()
                 except sqlite3.OperationalError as exc:
                     conn.rollback()
                     batch_size = 0
+                    batch_bytes = 0
                     self._fail('evidence_disk_limit' if 'full' in str(exc).lower()
                                else 'evidence_writer_error:OperationalError')
                 finally:
                     with self.lock:
+                        self.record_processing_seconds += time.monotonic() - item_started
                         self.pending_bytes -= size
             if self.failure:
                 conn.rollback()
                 batch_size = 0
+                batch_bytes = 0
             else:
                 conn.commit()
-                self.written += batch_size
+                with self.lock:
+                    self.written += batch_size
+                    self.committed_payload_bytes += batch_bytes
             complete = self.failure is None and self.written == self.accepted
             conn.execute('UPDATE state SET value=? WHERE key=?', (json.dumps(complete), 'complete'))
             conn.execute('UPDATE state SET value=? WHERE key=?', (json.dumps(self.failure), 'failure'))
@@ -160,6 +200,7 @@ class BinaryJournal:
             return self._close(timeout)
 
     def _close(self, timeout):
+        close_started = time.monotonic()
         with self.lock:
             if not self.closed:
                 self.closed = True
@@ -175,10 +216,24 @@ class BinaryJournal:
                     json.dump({'format': 2, 'records': self.written}, stream)
             except OSError:
                 self._fail('evidence_seal_error')
-        return dict(complete=self.failure is None and not self.worker.is_alive()
-                    and self.written == self.accepted, failure=self.failure,
-                    accepted=self.accepted, written=self.written,
-                    path=str(self.path), bytes=self.path.stat().st_size)
+        # A timed-out worker may still finish its current item. Copy every
+        # writer-updated field under the same lock so this incomplete report is
+        # one coherent snapshot rather than a mix of concurrent counter updates.
+        with self.lock:
+            accepted, written = self.accepted, self.written
+            failure = self.failure
+            complete = failure is None and not self.worker.is_alive() and written == accepted
+            stats = dict(complete=complete, failure=failure,
+                         accepted=accepted, written=written,
+                         max_pending_bytes=self.max_pending_bytes,
+                         accepted_payload_bytes=self.accepted_payload_bytes,
+                         committed_payload_bytes=self.committed_payload_bytes,
+                         record_processing_seconds=self.record_processing_seconds,
+                         max_producer_lateness_seconds=self.max_producer_lateness_seconds)
+        stats.update(close_seconds=time.monotonic() - close_started,
+                     elapsed_seconds=time.monotonic() - self.started_at,
+                     path=str(self.path), bytes=self.path.stat().st_size)
+        return stats
 
 
 def replay(path, *, allow_incomplete=False):

@@ -16,7 +16,12 @@ def test_cloud_payloads_and_duplicate_maps_replay_exactly(tmp_path):
     cloud = bytes(range(256)) * 8192
     for topic, data in [('/pointcloud', cloud), ('/map', b'map'), ('/map', b'map')]:
         journal.append(topic, 'sensor_msgs/msg/PointCloud2', data, {'sim': 12.5})
-    assert journal.close()['complete'] is True
+    result = journal.close()
+    assert result['complete'] is True
+    # Payload metrics count every uncompressed event, even when the payload
+    # table deduplicates repeated bytes; they are not on-disk file sizes.
+    assert result['accepted_payload_bytes'] == len(cloud) + 2 * len(b'map')
+    assert result['committed_payload_bytes'] == len(cloud) + 2 * len(b'map')
     rows = list(replay(path))
     assert [r['payload'] for r in rows] == [cloud, b'map', b'map']
     assert [r['sequence'] for r in rows] == [1, 2, 3]
@@ -78,6 +83,81 @@ def test_realistic_clock_burst_flushes_without_per_message_fsync_backlog(tmp_pat
         journal.append('/clock', 'rosgraph_msgs/msg/Clock', i.to_bytes(8, 'little'), {'sim': i*.0025})
     assert journal.close(timeout=2.)['complete']
     assert len(list(replay(journal.path))) == 2400
+
+
+def test_capture_sized_cloud_burst_closes_and_replays_losslessly(tmp_path):
+    from stage4_route.journal import BinaryJournal, replay
+    path = tmp_path / 'raw.sqlite3'
+    journal = BinaryJournal(path, reserve_bytes=0)
+    # The host capture's PointCloud2 payloads are 1,536,193 bytes each.
+    base = bytes(range(256)) * 6000 + bytes(range(193))
+    clouds = [base[:-1] + bytes((i,)) for i in range(6)]
+    for i, cloud in enumerate(clouds):
+        journal.append('/pointcloud', 'sensor_msgs/msg/PointCloud2', cloud, {'sample': i})
+    result = journal.close(timeout=10.)
+    assert result['complete'] is True
+    rows = list(replay(path))
+    assert [row['payload'] for row in rows] == clouds
+
+
+def test_capture_timing_stress_is_bounded_and_replays_exact_records(tmp_path):
+    import time
+    from stage4_route.journal import BinaryJournal, replay
+
+    path = tmp_path / 'raw.sqlite3'
+    journal = BinaryJournal(path, reserve_bytes=0)
+    cloud_size = 1_536_193
+    # The capture had 2,327 records and 27 clouds in 3.48 host seconds.
+    # Replay that measured rate and mix twice against absolute monotonic
+    # deadlines. This prevents a slow producer from stretching the capture.
+    record_count = 2327
+    cloud_indices = {round(i * (record_count - 1) / 26) for i in range(27)}
+    base = bytes(range(256)) * (cloud_size // 256) + bytes(cloud_size % 256)
+    started = time.monotonic()
+    producer_started = None
+    producer_finished = None
+    expected = []
+    cloud_order = sorted(cloud_indices)
+    for cycle in range(2):
+        cycle_start = started + cycle * 3.48
+        for i in range(record_count):
+            due = cycle_start + i * 3.48 / (record_count - 1)
+            time.sleep(max(0, due - time.monotonic()))
+            if producer_started is None:
+                producer_started = time.monotonic()
+            if i in cloud_indices:
+                cloud_number = cycle * 27 + cloud_order.index(i)
+                payload = base[:-1] + bytes((cloud_number,))
+                topic, typ = '/pointcloud', 'sensor_msgs/msg/PointCloud2'
+            else:
+                payload = (i + cycle * record_count).to_bytes(8, 'little')
+                topic, typ = '/clock', 'rosgraph_msgs/msg/Clock'
+            metadata = {'cycle': cycle, 'index': i}
+            journal.append(topic, typ, payload, metadata, scheduled_at=due)
+            expected.append((topic, typ, payload, metadata))
+    producer_finished = time.monotonic()
+
+    result = journal.close(timeout=4.)
+    expected_input_bytes = 54 * cloud_size + (2 * (record_count - 27) * 8)
+    enqueue_seconds = producer_finished - producer_started
+    assert result['complete'] is True
+    assert result['accepted'] == 2 * record_count
+    assert result['written'] == 2 * record_count
+    assert result['accepted_payload_bytes'] == expected_input_bytes
+    assert result['committed_payload_bytes'] == expected_input_bytes
+    assert result['max_pending_bytes'] < 16 * 1024**2
+    assert result['record_processing_seconds'] > 0
+    assert result['max_producer_lateness_seconds'] < 0.25
+    assert 6.8 <= enqueue_seconds < 7.5
+    # Require at least 25% worker headroom against the measured ~7 s producer
+    # schedule, so the bounded run is not merely catching up at close time.
+    assert result['record_processing_seconds'] <= 0.75 * enqueue_seconds
+    assert result['close_seconds'] < 4.
+    assert expected_input_bytes > 64 * 1024**2
+    rows = list(replay(path))
+    assert len(rows) == len(expected)
+    assert [(row['topic'], row['type'], row['payload'], row['metadata'])
+            for row in rows] == expected
 
 
 def test_removing_last_event_invalidates_complete_journal(tmp_path):
