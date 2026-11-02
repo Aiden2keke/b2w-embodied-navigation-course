@@ -1,0 +1,14 @@
+{
+  "token": "fec311143af0428ea2e824e509b733bd",
+  "parent": {
+    "pid": 2192674,
+    "start_ticks": 54164211,
+    "state": "R"
+  },
+  "server": null,
+  "heartbeat": "/tmp/b2w-sustained-turn-20261028/live/precheck-9c8597f5add2480885484fad569e9c5d/heartbeat.json",
+  "result": "/tmp/b2w-sustained-turn-20261028/live/precheck-9c8597f5add2480885484fad569e9c5d/watchdog-result.json",
+  "world": "/tmp/b2w-sustained-turn-20261028/live/precheck-9c8597f5add2480885484fad569e9c5d/observer.world",
+  "wall_limit_s": 420.0,
+  "stale_s": 1.0
+}

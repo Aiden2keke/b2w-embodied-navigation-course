@@ -1,0 +1,5 @@
+Attach observer (dwb-debug) output: /tmp/b2w-sustained-turn-20261028/live/precheck-9c8597f5add2480885484fad569e9c5d/observer/20261028T120509.484618Z-B
+0s wall; sim=None; 1 subscriptions; 0 aligned samples
+30s wall; sim=22.095; 13 subscriptions; 217 aligned samples
+Observer detached; computing offline candidate summaries.
+Final summary: /tmp/b2w-sustained-turn-20261028/live/precheck-9c8597f5add2480885484fad569e9c5d/observer/20261028T120509.484618Z-B/summary.json

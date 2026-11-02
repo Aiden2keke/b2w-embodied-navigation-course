@@ -1,0 +1,276 @@
+{
+  "clock": 18.5775,
+  "pose": [
+    -0.342837014710733,
+    -9.701039146419604e-05,
+    -2.6562470602345386e-05
+  ],
+  "contacts": 362,
+  "actual_truth_evaluation": [
+    -0.05319141171874292,
+    -1.0105915618709052,
+    -0.05622774795205782
+  ],
+  "support_feet": [
+    "FL_foot::FL_foot_collision",
+    "FR_foot::FR_foot_collision",
+    "RL_foot::RL_foot_collision",
+    "RR_foot::RR_foot_collision"
+  ],
+  "expected_inventory": {
+    "converted_sdf": "/tmp/b2w-navigation-ab-20261023/artifacts/recovery/robot.sdf",
+    "converted_sdf_sha256": "72972964a26ca5983e9286a28453ac8f74b0e747d7eec7b3024c35d16adddcc3",
+    "collisions": [
+      "FL_calf::FL_calf_collision",
+      "FL_calf::FL_calf_collision_1",
+      "FL_foot::FL_foot_collision",
+      "FL_hip::FL_hip_collision",
+      "FL_thigh::FL_thigh_collision",
+      "FR_calf::FR_calf_collision",
+      "FR_calf::FR_calf_collision_1",
+      "FR_foot::FR_foot_collision",
+      "FR_hip::FR_hip_collision",
+      "FR_thigh::FR_thigh_collision",
+      "RL_calf::RL_calf_collision",
+      "RL_calf::RL_calf_collision_1",
+      "RL_foot::RL_foot_collision",
+      "RL_hip::RL_hip_collision",
+      "RL_thigh::RL_thigh_collision",
+      "RR_calf::RR_calf_collision",
+      "RR_calf::RR_calf_collision_1",
+      "RR_foot::RR_foot_collision",
+      "RR_hip::RR_hip_collision",
+      "RR_thigh::RR_thigh_collision",
+      "base_link::base_link_collision",
+      "base_link::base_link_fixed_joint_lump__head_Link_collision_1",
+      "base_link::base_link_fixed_joint_lump__lidar_link_collision_2",
+      "base_link::base_link_fixed_joint_lump__tail_link_collision_3",
+      "collision_plate::collision_plate_collision",
+      "zed_x_camera::zed_x_camera_collision"
+    ]
+  },
+  "command_publishers": [
+    "velocity_adapter"
+  ],
+  "native_deployment": {
+    "processes": [
+      {
+        "pid": 2192797,
+        "start_ticks": 54164448,
+        "executable": "/tmp/b2w-navigation-ab-20261023/install/b2w_controllers/lib/b2w_controllers/b2w_rl_sar_controller",
+        "cmdline": [
+          "/tmp/b2w-navigation-ab-20261023/install/b2w_controllers/lib/b2w_controllers/b2w_rl_sar_controller",
+          "--ros-args",
+          "--params-file",
+          "/tmp/b2w-navigation-ab-20261023/install/course_sim/share/course_sim/config/rl_sar.yaml",
+          "--params-file",
+          "/tmp/b2w-navigation-ab-20261023/course_sim/config/rl_sar_stop_brake.yaml",
+          "--params-file",
+          "/tmp/launch_params_onao5f1j"
+        ],
+        "mapped_or_executed_sha256": {
+          "/tmp/b2w-navigation-ab-20261023/install/b2w_controllers/lib/b2w_controllers/b2w_rl_sar_controller": "aa2e03e68e777cea84aea8e5a4e4f6d82477f5b9d3265df8a657bc7eb1ccacc5"
+        }
+      },
+      {
+        "pid": 2193299,
+        "start_ticks": 54166451,
+        "executable": "/tmp/b2w-navigation-ab-20261023/install/lio_sam/lib/lio_sam/lio_sam_imuPreintegration",
+        "cmdline": [
+          "/tmp/b2w-navigation-ab-20261023/install/lio_sam/lib/lio_sam/lio_sam_imuPreintegration",
+          "--ros-args",
+          "--params-file",
+          "/tmp/b2w-navigation-ab-20261023/install/course_slam/share/course_slam/config/lio_sam.yaml",
+          "-r",
+          "/tf:=/lio_internal/tf"
+        ],
+        "mapped_or_executed_sha256": {
+          "/tmp/b2w-navigation-ab-20261023/install/lio_sam/lib/lio_sam/lio_sam_imuPreintegration": "f0d6797a4037b103abd20ba6760c93f29cac0af3cc4ec002c37fb32c06b2b897"
+        }
+      },
+      {
+        "pid": 2193301,
+        "start_ticks": 54166451,
+        "executable": "/tmp/b2w-navigation-ab-20261023/install/lio_sam/lib/lio_sam/lio_sam_imageProjection",
+        "cmdline": [
+          "/tmp/b2w-navigation-ab-20261023/install/lio_sam/lib/lio_sam/lio_sam_imageProjection",
+          "--ros-args",
+          "--params-file",
+          "/tmp/b2w-navigation-ab-20261023/install/course_slam/share/course_slam/config/lio_sam.yaml",
+          "-r",
+          "/tf:=/lio_internal/tf"
+        ],
+        "mapped_or_executed_sha256": {
+          "/tmp/b2w-navigation-ab-20261023/install/lio_sam/lib/lio_sam/lio_sam_imageProjection": "951d4b5c1af27709158ec1d2836540cad2f71741639361692e3bffff958e97db"
+        }
+      },
+      {
+        "pid": 2193303,
+        "start_ticks": 54166451,
+        "executable": "/tmp/b2w-navigation-ab-20261023/install/lio_sam/lib/lio_sam/lio_sam_featureExtraction",
+        "cmdline": [
+          "/tmp/b2w-navigation-ab-20261023/install/lio_sam/lib/lio_sam/lio_sam_featureExtraction",
+          "--ros-args",
+          "--params-file",
+          "/tmp/b2w-navigation-ab-20261023/install/course_slam/share/course_slam/config/lio_sam.yaml",
+          "-r",
+          "/tf:=/lio_internal/tf"
+        ],
+        "mapped_or_executed_sha256": {
+          "/tmp/b2w-navigation-ab-20261023/install/lio_sam/lib/lio_sam/lio_sam_featureExtraction": "0859ec1f1782e83500315c434106ca7f721782aa40875fecd64bcbe6b869925a"
+        }
+      },
+      {
+        "pid": 2193305,
+        "start_ticks": 54166452,
+        "executable": "/tmp/b2w-navigation-ab-20261023/install/lio_sam/lib/lio_sam/lio_sam_mapOptimization",
+        "cmdline": [
+          "/tmp/b2w-navigation-ab-20261023/install/lio_sam/lib/lio_sam/lio_sam_mapOptimization",
+          "--ros-args",
+          "--params-file",
+          "/tmp/b2w-navigation-ab-20261023/install/course_slam/share/course_slam/config/lio_sam.yaml",
+          "-r",
+          "/tf:=/lio_internal/tf"
+        ],
+        "mapped_or_executed_sha256": {
+          "/tmp/b2w-navigation-ab-20261023/install/lio_sam/lib/lio_sam/lio_sam_mapOptimization": "808b83aecc6ae5f75b9dced7094b4c17b21f91a6c8aea58b8f33dfe7e4647a0a"
+        }
+      }
+    ],
+    "required": {
+      "/tmp/b2w-navigation-ab-20261023/install/b2w_controllers/lib/b2w_controllers/b2w_rl_sar_controller": "aa2e03e68e777cea84aea8e5a4e4f6d82477f5b9d3265df8a657bc7eb1ccacc5",
+      "/tmp/b2w-navigation-ab-20261023/install/lio_sam/lib/lio_sam/lio_sam_mapOptimization": "808b83aecc6ae5f75b9dced7094b4c17b21f91a6c8aea58b8f33dfe7e4647a0a",
+      "/tmp/b2w-navigation-ab-20261023/install/lio_sam/lib/lio_sam/lio_sam_imuPreintegration": "f0d6797a4037b103abd20ba6760c93f29cac0af3cc4ec002c37fb32c06b2b897",
+      "/tmp/b2w-navigation-ab-20261023/install/lio_sam/lib/lio_sam/lio_sam_imageProjection": "951d4b5c1af27709158ec1d2836540cad2f71741639361692e3bffff958e97db",
+      "/tmp/b2w-navigation-ab-20261023/install/lio_sam/lib/lio_sam/lio_sam_featureExtraction": "0859ec1f1782e83500315c434106ca7f721782aa40875fecd64bcbe6b869925a"
+    },
+    "missing": []
+  },
+  "early_pocket_diagnostic": {
+    "passed": true,
+    "motion_admitted": false,
+    "status": "diagnostic_before_required_rest"
+  },
+  "open_pocket_radius_m": 1.5,
+  "engine_probe": {
+    "result": "PASS",
+    "engine_plugin": "ignition::physics::dartsim::Plugin",
+    "engine_name": "dartsim-6.12.1",
+    "world": "contact_engine_probe",
+    "model": "b2w",
+    "expected_count": 26,
+    "constructed_shape_handles": 26,
+    "unique_constructed_names": 26,
+    "shapes": [
+      {
+        "name": "base_link::base_link_collision",
+        "nonnull_shape_handle": true
+      },
+      {
+        "name": "base_link::base_link_fixed_joint_lump__head_Link_collision_1",
+        "nonnull_shape_handle": true
+      },
+      {
+        "name": "base_link::base_link_fixed_joint_lump__lidar_link_collision_2",
+        "nonnull_shape_handle": true
+      },
+      {
+        "name": "base_link::base_link_fixed_joint_lump__tail_link_collision_3",
+        "nonnull_shape_handle": true
+      },
+      {
+        "name": "FL_hip::FL_hip_collision",
+        "nonnull_shape_handle": true
+      },
+      {
+        "name": "FL_thigh::FL_thigh_collision",
+        "nonnull_shape_handle": true
+      },
+      {
+        "name": "FL_calf::FL_calf_collision",
+        "nonnull_shape_handle": true
+      },
+      {
+        "name": "FL_calf::FL_calf_collision_1",
+        "nonnull_shape_handle": true
+      },
+      {
+        "name": "FL_foot::FL_foot_collision",
+        "nonnull_shape_handle": true
+      },
+      {
+        "name": "FR_hip::FR_hip_collision",
+        "nonnull_shape_handle": true
+      },
+      {
+        "name": "FR_thigh::FR_thigh_collision",
+        "nonnull_shape_handle": true
+      },
+      {
+        "name": "FR_calf::FR_calf_collision",
+        "nonnull_shape_handle": true
+      },
+      {
+        "name": "FR_calf::FR_calf_collision_1",
+        "nonnull_shape_handle": true
+      },
+      {
+        "name": "FR_foot::FR_foot_collision",
+        "nonnull_shape_handle": true
+      },
+      {
+        "name": "RL_hip::RL_hip_collision",
+        "nonnull_shape_handle": true
+      },
+      {
+        "name": "RL_thigh::RL_thigh_collision",
+        "nonnull_shape_handle": true
+      },
+      {
+        "name": "RL_calf::RL_calf_collision",
+        "nonnull_shape_handle": true
+      },
+      {
+        "name": "RL_calf::RL_calf_collision_1",
+        "nonnull_shape_handle": true
+      },
+      {
+        "name": "RL_foot::RL_foot_collision",
+        "nonnull_shape_handle": true
+      },
+      {
+        "name": "RR_hip::RR_hip_collision",
+        "nonnull_shape_handle": true
+      },
+      {
+        "name": "RR_thigh::RR_thigh_collision",
+        "nonnull_shape_handle": true
+      },
+      {
+        "name": "RR_calf::RR_calf_collision",
+        "nonnull_shape_handle": true
+      },
+      {
+        "name": "RR_calf::RR_calf_collision_1",
+        "nonnull_shape_handle": true
+      },
+      {
+        "name": "RR_foot::RR_foot_collision",
+        "nonnull_shape_handle": true
+      },
+      {
+        "name": "collision_plate::collision_plate_collision",
+        "nonnull_shape_handle": true
+      },
+      {
+        "name": "zed_x_camera::zed_x_camera_collision",
+        "nonnull_shape_handle": true
+      }
+    ],
+    "missing": [],
+    "unexpected": [],
+    "stepped_physics": false,
+    "gazebo_world_launched": false,
+    "motion_or_contacts_exercised": false
+  }
+}

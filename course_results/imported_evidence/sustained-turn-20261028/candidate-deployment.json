@@ -1,0 +1,394 @@
+{
+  "source_install": [
+    {
+      "source": "/tmp/b2w-navigation-ab-20261023/course_navigation/course_navigation/stage4_contact_evidence.py",
+      "installed": "/tmp/b2w-navigation-ab-20261023/install/course_navigation/lib/python3.10/site-packages/course_navigation/stage4_contact_evidence.py",
+      "source_sha256": "65e05f034db17f406c3d7fab9ed3e156cb58847e9e73e8a32303bbfc462a72f2",
+      "installed_sha256": "65e05f034db17f406c3d7fab9ed3e156cb58847e9e73e8a32303bbfc462a72f2",
+      "match": true
+    },
+    {
+      "source": "/tmp/b2w-navigation-ab-20261023/course_navigation/course_navigation/lifecycle_readiness.py",
+      "installed": "/tmp/b2w-navigation-ab-20261023/install/course_navigation/lib/python3.10/site-packages/course_navigation/lifecycle_readiness.py",
+      "source_sha256": "260a074aa0c59b3279fb17b62a8fc0876905bd10092611e0788e4b131c195b61",
+      "installed_sha256": "260a074aa0c59b3279fb17b62a8fc0876905bd10092611e0788e4b131c195b61",
+      "match": true
+    },
+    {
+      "source": "/tmp/b2w-navigation-ab-20261023/course_navigation/course_navigation/__init__.py",
+      "installed": "/tmp/b2w-navigation-ab-20261023/install/course_navigation/lib/python3.10/site-packages/course_navigation/__init__.py",
+      "source_sha256": "bef11191d0ca5d12dacb4deb3a22a72e5a0a620ed5b0d15b23ff75f29eed14af",
+      "installed_sha256": "bef11191d0ca5d12dacb4deb3a22a72e5a0a620ed5b0d15b23ff75f29eed14af",
+      "match": true
+    },
+    {
+      "source": "/tmp/b2w-navigation-ab-20261023/course_navigation/course_navigation/velocity_adapter.py",
+      "installed": "/tmp/b2w-navigation-ab-20261023/install/course_navigation/lib/python3.10/site-packages/course_navigation/velocity_adapter.py",
+      "source_sha256": "6314e923f81bc19123bc0d30a5becf5125c8a5e96c69b9256eee3c144eb27638",
+      "installed_sha256": "6314e923f81bc19123bc0d30a5becf5125c8a5e96c69b9256eee3c144eb27638",
+      "match": true
+    },
+    {
+      "source": "/tmp/b2w-navigation-ab-20261023/course_navigation/course_navigation/stage4_contact_intervals.py",
+      "installed": "/tmp/b2w-navigation-ab-20261023/install/course_navigation/lib/python3.10/site-packages/course_navigation/stage4_contact_intervals.py",
+      "source_sha256": "d345e125a9e07f5120cc066c8ee1e37e4edfd49759be9597abbce55efb74ed51",
+      "installed_sha256": "d345e125a9e07f5120cc066c8ee1e37e4edfd49759be9597abbce55efb74ed51",
+      "match": true
+    },
+    {
+      "source": "/tmp/b2w-navigation-ab-20261023/course_navigation/course_navigation/metrics.py",
+      "installed": "/tmp/b2w-navigation-ab-20261023/install/course_navigation/lib/python3.10/site-packages/course_navigation/metrics.py",
+      "source_sha256": "b5b1f735a6433a8ffce2a37d06fc79046cf0e1a6f6eb61bcddf8c3613c0e326e",
+      "installed_sha256": "b5b1f735a6433a8ffce2a37d06fc79046cf0e1a6f6eb61bcddf8c3613c0e326e",
+      "match": true
+    },
+    {
+      "source": "/tmp/b2w-navigation-ab-20261023/course_navigation/course_navigation/map_projection.py",
+      "installed": "/tmp/b2w-navigation-ab-20261023/install/course_navigation/lib/python3.10/site-packages/course_navigation/map_projection.py",
+      "source_sha256": "cd5b18e96330a7deb9a6282bee79b2a857913320d429c6d4872dd5008e39846d",
+      "installed_sha256": "cd5b18e96330a7deb9a6282bee79b2a857913320d429c6d4872dd5008e39846d",
+      "match": true
+    },
+    {
+      "source": "/tmp/b2w-navigation-ab-20261023/course_navigation/course_navigation/map_node.py",
+      "installed": "/tmp/b2w-navigation-ab-20261023/install/course_navigation/lib/python3.10/site-packages/course_navigation/map_node.py",
+      "source_sha256": "2ab8d6de41776663b290d0b86d0a2cc32c53ab874ad3041a0d436c9cd0f3d9ad",
+      "installed_sha256": "2ab8d6de41776663b290d0b86d0a2cc32c53ab874ad3041a0d436c9cd0f3d9ad",
+      "match": true
+    },
+    {
+      "source": "/tmp/b2w-navigation-ab-20261023/course_navigation/course_navigation/goal_manager.py",
+      "installed": "/tmp/b2w-navigation-ab-20261023/install/course_navigation/lib/python3.10/site-packages/course_navigation/goal_manager.py",
+      "source_sha256": "8dec3c7bd46be26b88e76e2a2b5734f392c1277ad49870e14abec4c48185569c",
+      "installed_sha256": "8dec3c7bd46be26b88e76e2a2b5734f392c1277ad49870e14abec4c48185569c",
+      "match": true
+    },
+    {
+      "source": "/tmp/b2w-navigation-ab-20261023/course_navigation/course_navigation/stage4_contact_stream.py",
+      "installed": "/tmp/b2w-navigation-ab-20261023/install/course_navigation/lib/python3.10/site-packages/course_navigation/stage4_contact_stream.py",
+      "source_sha256": "d51ea917327f6b9a042ab317d790bc03075bb23c8e41528c44668e2be40597c8",
+      "installed_sha256": "d51ea917327f6b9a042ab317d790bc03075bb23c8e41528c44668e2be40597c8",
+      "match": true
+    },
+    {
+      "source": "/tmp/b2w-navigation-ab-20261023/course_navigation/launch/navigation.launch.py",
+      "installed": "/tmp/b2w-navigation-ab-20261023/install/course_navigation/share/course_navigation/launch/navigation.launch.py",
+      "source_sha256": "9a3a22cc0302998d10c164f31ffe2353283e11455fd505aa36af4537dc6269c6",
+      "installed_sha256": "9a3a22cc0302998d10c164f31ffe2353283e11455fd505aa36af4537dc6269c6",
+      "match": true
+    },
+    {
+      "source": "/tmp/b2w-navigation-ab-20261023/course_navigation/config/nav2_smac2d_diag.yaml",
+      "installed": "/tmp/b2w-navigation-ab-20261023/install/course_navigation/share/course_navigation/config/nav2_smac2d_diag.yaml",
+      "source_sha256": "97e4eb2bcf58faa3f3a19728b4d17437b9dfe615d07964902e24bb5057a98e9e",
+      "installed_sha256": "97e4eb2bcf58faa3f3a19728b4d17437b9dfe615d07964902e24bb5057a98e9e",
+      "match": true
+    },
+    {
+      "source": "/tmp/b2w-navigation-ab-20261023/course_navigation/config/nav2_smac2d_dwb_slow_diag.yaml",
+      "installed": "/tmp/b2w-navigation-ab-20261023/install/course_navigation/share/course_navigation/config/nav2_smac2d_dwb_slow_diag.yaml",
+      "source_sha256": "077012b9618e71f27883cc51150f2f3c48571b71c943258c2e1eebfaf6fc0b69",
+      "installed_sha256": "077012b9618e71f27883cc51150f2f3c48571b71c943258c2e1eebfaf6fc0b69",
+      "match": true
+    },
+    {
+      "source": "/tmp/b2w-navigation-ab-20261023/course_navigation/config/nav2_smac2d_footprint_gate_diag.yaml",
+      "installed": "/tmp/b2w-navigation-ab-20261023/install/course_navigation/share/course_navigation/config/nav2_smac2d_footprint_gate_diag.yaml",
+      "source_sha256": "e2815d3f79d1bad561b7e99710d6831360bd2ab70e7fe3c2e3b909b741f101c4",
+      "installed_sha256": "e2815d3f79d1bad561b7e99710d6831360bd2ab70e7fe3c2e3b909b741f101c4",
+      "match": true
+    },
+    {
+      "source": "/tmp/b2w-navigation-ab-20261023/course_navigation/config/warehouse_route.yaml",
+      "installed": "/tmp/b2w-navigation-ab-20261023/install/course_navigation/share/course_navigation/config/warehouse_route.yaml",
+      "source_sha256": "16cc4dd5d1c4f64ef9d875b2e2b16a554e60c4089d19838ed92a3d4b0c5adc9d",
+      "installed_sha256": "16cc4dd5d1c4f64ef9d875b2e2b16a554e60c4089d19838ed92a3d4b0c5adc9d",
+      "match": true
+    },
+    {
+      "source": "/tmp/b2w-navigation-ab-20261023/course_navigation/config/nav2_dual_planner_diag.yaml",
+      "installed": "/tmp/b2w-navigation-ab-20261023/install/course_navigation/share/course_navigation/config/nav2_dual_planner_diag.yaml",
+      "source_sha256": "f8791a93b2c0740200e088ad1966625391c0da719d552ce80ccc3a6f28db57e1",
+      "installed_sha256": "f8791a93b2c0740200e088ad1966625391c0da719d552ce80ccc3a6f28db57e1",
+      "match": true
+    },
+    {
+      "source": "/tmp/b2w-navigation-ab-20261023/course_navigation/config/nav2.yaml",
+      "installed": "/tmp/b2w-navigation-ab-20261023/install/course_navigation/share/course_navigation/config/nav2.yaml",
+      "source_sha256": "d63852ab2eed9c6cc1c258aaf2bdc2b11753ff9d9969e1885785d3cab2a87046",
+      "installed_sha256": "d63852ab2eed9c6cc1c258aaf2bdc2b11753ff9d9969e1885785d3cab2a87046",
+      "match": true
+    },
+    {
+      "source": "/tmp/b2w-navigation-ab-20261023/course_bringup/course_bringup/__init__.py",
+      "installed": "/tmp/b2w-navigation-ab-20261023/install/course_bringup/lib/python3.10/site-packages/course_bringup/__init__.py",
+      "source_sha256": "bef11191d0ca5d12dacb4deb3a22a72e5a0a620ed5b0d15b23ff75f29eed14af",
+      "installed_sha256": "bef11191d0ca5d12dacb4deb3a22a72e5a0a620ed5b0d15b23ff75f29eed14af",
+      "match": true
+    },
+    {
+      "source": "/tmp/b2w-navigation-ab-20261023/course_bringup/launch/control.launch.py",
+      "installed": "/tmp/b2w-navigation-ab-20261023/install/course_bringup/share/course_bringup/launch/control.launch.py",
+      "source_sha256": "b7bd359544c5692189be06fe1fe1b2a6271c8f37d9f93286bfdd2ad4f040917a",
+      "installed_sha256": "b7bd359544c5692189be06fe1fe1b2a6271c8f37d9f93286bfdd2ad4f040917a",
+      "match": true
+    },
+    {
+      "source": "/tmp/b2w-navigation-ab-20261023/course_bringup/launch/course.launch.py",
+      "installed": "/tmp/b2w-navigation-ab-20261023/install/course_bringup/share/course_bringup/launch/course.launch.py",
+      "source_sha256": "c2c3085bd7bd5217d1c09ab37b54abab3c5da5eb52bb07b05c4fe99e3b2afeaa",
+      "installed_sha256": "c2c3085bd7bd5217d1c09ab37b54abab3c5da5eb52bb07b05c4fe99e3b2afeaa",
+      "match": true
+    },
+    {
+      "source": "/tmp/b2w-navigation-ab-20261023/course_slam/course_slam/pose_adapter.py",
+      "installed": "/tmp/b2w-navigation-ab-20261023/install/course_slam/lib/python3.10/site-packages/course_slam/pose_adapter.py",
+      "source_sha256": "dccee5a18978a91d263af189447f672122b7396fc617625051346711cbf692df",
+      "installed_sha256": "dccee5a18978a91d263af189447f672122b7396fc617625051346711cbf692df",
+      "match": true
+    },
+    {
+      "source": "/tmp/b2w-navigation-ab-20261023/course_slam/course_slam/trajectory.py",
+      "installed": "/tmp/b2w-navigation-ab-20261023/install/course_slam/lib/python3.10/site-packages/course_slam/trajectory.py",
+      "source_sha256": "7a7e1bd10ffa75af0477434c9bb14d2ef7f8f931576b8ab56e0c6f1f0b754556",
+      "installed_sha256": "7a7e1bd10ffa75af0477434c9bb14d2ef7f8f931576b8ab56e0c6f1f0b754556",
+      "match": true
+    },
+    {
+      "source": "/tmp/b2w-navigation-ab-20261023/course_slam/course_slam/__init__.py",
+      "installed": "/tmp/b2w-navigation-ab-20261023/install/course_slam/lib/python3.10/site-packages/course_slam/__init__.py",
+      "source_sha256": "bef11191d0ca5d12dacb4deb3a22a72e5a0a620ed5b0d15b23ff75f29eed14af",
+      "installed_sha256": "bef11191d0ca5d12dacb4deb3a22a72e5a0a620ed5b0d15b23ff75f29eed14af",
+      "match": true
+    },
+    {
+      "source": "/tmp/b2w-navigation-ab-20261023/course_slam/course_slam/ground_alignment.py",
+      "installed": "/tmp/b2w-navigation-ab-20261023/install/course_slam/lib/python3.10/site-packages/course_slam/ground_alignment.py",
+      "source_sha256": "20ee443d0d2f42b520ee313f4e05d19cd5fb69163de843c2cc31fea1357f5866",
+      "installed_sha256": "20ee443d0d2f42b520ee313f4e05d19cd5fb69163de843c2cc31fea1357f5866",
+      "match": true
+    },
+    {
+      "source": "/tmp/b2w-navigation-ab-20261023/course_slam/course_slam/export_map.py",
+      "installed": "/tmp/b2w-navigation-ab-20261023/install/course_slam/lib/python3.10/site-packages/course_slam/export_map.py",
+      "source_sha256": "b93b75f68811f75a163c04cd871de7cc62c5062371d5fe2d55f5aa9cb90f4b08",
+      "installed_sha256": "b93b75f68811f75a163c04cd871de7cc62c5062371d5fe2d55f5aa9cb90f4b08",
+      "match": true
+    },
+    {
+      "source": "/tmp/b2w-navigation-ab-20261023/course_slam/course_slam/transforms.py",
+      "installed": "/tmp/b2w-navigation-ab-20261023/install/course_slam/lib/python3.10/site-packages/course_slam/transforms.py",
+      "source_sha256": "0c6cdd78601ad8ea441ba2e5d6c4f9cd6ae46273c320fc7fe82f955f89352a6b",
+      "installed_sha256": "0c6cdd78601ad8ea441ba2e5d6c4f9cd6ae46273c320fc7fe82f955f89352a6b",
+      "match": true
+    },
+    {
+      "source": "/tmp/b2w-navigation-ab-20261023/course_slam/course_slam/evaluate.py",
+      "installed": "/tmp/b2w-navigation-ab-20261023/install/course_slam/lib/python3.10/site-packages/course_slam/evaluate.py",
+      "source_sha256": "616f5eb41ad918ab39961fb9c3be69cdd35f8a2d49f93b2a09ad7be36f30ead6",
+      "installed_sha256": "616f5eb41ad918ab39961fb9c3be69cdd35f8a2d49f93b2a09ad7be36f30ead6",
+      "match": true
+    },
+    {
+      "source": "/tmp/b2w-navigation-ab-20261023/course_slam/launch/replay.launch.py",
+      "installed": "/tmp/b2w-navigation-ab-20261023/install/course_slam/share/course_slam/launch/replay.launch.py",
+      "source_sha256": "efa33ddaaf428017dc7b9633bca18db76d304d66d3ceefb958c838a854f1aca7",
+      "installed_sha256": "efa33ddaaf428017dc7b9633bca18db76d304d66d3ceefb958c838a854f1aca7",
+      "match": true
+    },
+    {
+      "source": "/tmp/b2w-navigation-ab-20261023/course_slam/launch/slam.launch.py",
+      "installed": "/tmp/b2w-navigation-ab-20261023/install/course_slam/share/course_slam/launch/slam.launch.py",
+      "source_sha256": "4c080c830751469d73127e480173c596ee5bf04bee2496f83757a4447938b0a4",
+      "installed_sha256": "4c080c830751469d73127e480173c596ee5bf04bee2496f83757a4447938b0a4",
+      "match": true
+    },
+    {
+      "source": "/tmp/b2w-navigation-ab-20261023/course_slam/config/adapter.yaml",
+      "installed": "/tmp/b2w-navigation-ab-20261023/install/course_slam/share/course_slam/config/adapter.yaml",
+      "source_sha256": "947cc9b17dd69632db4c22862220d5c6e57d8ff88fab883f1eb7f88476e30747",
+      "installed_sha256": "947cc9b17dd69632db4c22862220d5c6e57d8ff88fab883f1eb7f88476e30747",
+      "match": true
+    },
+    {
+      "source": "/tmp/b2w-navigation-ab-20261023/course_slam/config/lio_sam.yaml",
+      "installed": "/tmp/b2w-navigation-ab-20261023/install/course_slam/share/course_slam/config/lio_sam.yaml",
+      "source_sha256": "8b465cce098e7b97542bc61411816f1f460d02c5eeaa780cd59450d6c5956c96",
+      "installed_sha256": "8b465cce098e7b97542bc61411816f1f460d02c5eeaa780cd59450d6c5956c96",
+      "match": true
+    },
+    {
+      "source": "/tmp/b2w-navigation-ab-20261023/course_sim/course_sim/__init__.py",
+      "installed": "/tmp/b2w-navigation-ab-20261023/install/course_sim/lib/python3.10/site-packages/course_sim/__init__.py",
+      "source_sha256": "bef11191d0ca5d12dacb4deb3a22a72e5a0a620ed5b0d15b23ff75f29eed14af",
+      "installed_sha256": "bef11191d0ca5d12dacb4deb3a22a72e5a0a620ed5b0d15b23ff75f29eed14af",
+      "match": true
+    },
+    {
+      "source": "/tmp/b2w-navigation-ab-20261023/course_sim/course_sim/record.py",
+      "installed": "/tmp/b2w-navigation-ab-20261023/install/course_sim/lib/python3.10/site-packages/course_sim/record.py",
+      "source_sha256": "9077f1a8f9241bef05b9cb358001bb1ec9da8ab9e97ad8b2bdc4aedf823a72dd",
+      "installed_sha256": "9077f1a8f9241bef05b9cb358001bb1ec9da8ab9e97ad8b2bdc4aedf823a72dd",
+      "match": true
+    },
+    {
+      "source": "/tmp/b2w-navigation-ab-20261023/course_sim/course_sim/cloud_format.py",
+      "installed": "/tmp/b2w-navigation-ab-20261023/install/course_sim/lib/python3.10/site-packages/course_sim/cloud_format.py",
+      "source_sha256": "07efc83ad39ad317a8cc7561d72a69238b2809793ee68ebae28a7e6f7b500ae6",
+      "installed_sha256": "07efc83ad39ad317a8cc7561d72a69238b2809793ee68ebae28a7e6f7b500ae6",
+      "match": true
+    },
+    {
+      "source": "/tmp/b2w-navigation-ab-20261023/course_sim/course_sim/imu_attitude.py",
+      "installed": "/tmp/b2w-navigation-ab-20261023/install/course_sim/lib/python3.10/site-packages/course_sim/imu_attitude.py",
+      "source_sha256": "437abb896d818c5b2517c5d1ea33895c4449c13fc25a413be21e0fe3589def93",
+      "installed_sha256": "437abb896d818c5b2517c5d1ea33895c4449c13fc25a413be21e0fe3589def93",
+      "match": true
+    },
+    {
+      "source": "/tmp/b2w-navigation-ab-20261023/course_sim/course_sim/session.py",
+      "installed": "/tmp/b2w-navigation-ab-20261023/install/course_sim/lib/python3.10/site-packages/course_sim/session.py",
+      "source_sha256": "9ba040c03cedbd6ea41960057bc64cfb28e1939617f0621654935b1bc1fae986",
+      "installed_sha256": "9ba040c03cedbd6ea41960057bc64cfb28e1939617f0621654935b1bc1fae986",
+      "match": true
+    },
+    {
+      "source": "/tmp/b2w-navigation-ab-20261023/course_sim/course_sim/sensor_disturbance.py",
+      "installed": "/tmp/b2w-navigation-ab-20261023/install/course_sim/lib/python3.10/site-packages/course_sim/sensor_disturbance.py",
+      "source_sha256": "eb7655313a71fdf6391a6958c5465b0eb279bd7138b1128ba31f801cea0feb42",
+      "installed_sha256": "eb7655313a71fdf6391a6958c5465b0eb279bd7138b1128ba31f801cea0feb42",
+      "match": true
+    },
+    {
+      "source": "/tmp/b2w-navigation-ab-20261023/course_sim/course_sim/description.py",
+      "installed": "/tmp/b2w-navigation-ab-20261023/install/course_sim/lib/python3.10/site-packages/course_sim/description.py",
+      "source_sha256": "cf369ba9994d22d9c97291b949aa9c1dabb604bd762a32d03b27fc0270f5871b",
+      "installed_sha256": "cf369ba9994d22d9c97291b949aa9c1dabb604bd762a32d03b27fc0270f5871b",
+      "match": true
+    },
+    {
+      "source": "/tmp/b2w-navigation-ab-20261023/course_sim/launch/simulation.launch.py",
+      "installed": "/tmp/b2w-navigation-ab-20261023/install/course_sim/share/course_sim/launch/simulation.launch.py",
+      "source_sha256": "ba4a5e686bfb414f2926658df774b306632e340dfd1b6d49c7ebb7a57e08c8a3",
+      "installed_sha256": "ba4a5e686bfb414f2926658df774b306632e340dfd1b6d49c7ebb7a57e08c8a3",
+      "match": true
+    },
+    {
+      "source": "/tmp/b2w-navigation-ab-20261023/course_sim/config/bridge.yaml",
+      "installed": "/tmp/b2w-navigation-ab-20261023/install/course_sim/share/course_sim/config/bridge.yaml",
+      "source_sha256": "1af7185c4dd07d0c4de7998f06b290f67c958c29fc71818b523fd7ac8dc1189c",
+      "installed_sha256": "1af7185c4dd07d0c4de7998f06b290f67c958c29fc71818b523fd7ac8dc1189c",
+      "match": true
+    },
+    {
+      "source": "/tmp/b2w-navigation-ab-20261023/course_sim/config/rl_sar.yaml",
+      "installed": "/tmp/b2w-navigation-ab-20261023/install/course_sim/share/course_sim/config/rl_sar.yaml",
+      "source_sha256": "af815d98bc2cc2c0ca61771e4ccb680843537f2aa2e84b61cf4fd9badadf3fff",
+      "installed_sha256": "af815d98bc2cc2c0ca61771e4ccb680843537f2aa2e84b61cf4fd9badadf3fff",
+      "match": true
+    },
+    {
+      "source": "/tmp/b2w-navigation-ab-20261023/course_sim/config/sensors.yaml",
+      "installed": "/tmp/b2w-navigation-ab-20261023/install/course_sim/share/course_sim/config/sensors.yaml",
+      "source_sha256": "26067ba2bf58da0b665f8eaaaaeb20b7223051f2118648aa026096847c859511",
+      "installed_sha256": "26067ba2bf58da0b665f8eaaaaeb20b7223051f2118648aa026096847c859511",
+      "match": true
+    },
+    {
+      "source": "/tmp/b2w-navigation-ab-20261023/course_sim/config/fastdds.xml",
+      "installed": "/tmp/b2w-navigation-ab-20261023/install/course_sim/share/course_sim/config/fastdds.xml",
+      "source_sha256": "c204bfb0717fbd074b92cc0ced716746ea444ba62758f5bdda4b711a1d5299d5",
+      "installed_sha256": "c204bfb0717fbd074b92cc0ced716746ea444ba62758f5bdda4b711a1d5299d5",
+      "match": true
+    },
+    {
+      "source": "/tmp/b2w-navigation-ab-20261023/course_sim/config/fastdds_local.xml",
+      "installed": "/tmp/b2w-navigation-ab-20261023/install/course_sim/share/course_sim/config/fastdds_local.xml",
+      "source_sha256": "53fcd44df0c6f481ed145ea21515f871aea7c487b0d3c294c80f01a0b2924c2a",
+      "installed_sha256": "53fcd44df0c6f481ed145ea21515f871aea7c487b0d3c294c80f01a0b2924c2a",
+      "match": true
+    },
+    {
+      "source": "/tmp/b2w-navigation-ab-20261023/course_sim/config/fault_profiles.yaml",
+      "installed": "/tmp/b2w-navigation-ab-20261023/install/course_sim/share/course_sim/config/fault_profiles.yaml",
+      "source_sha256": "07f8b1f36106575f7f8cb83d55df1c2e457715314f8241105253516d9127af3a",
+      "installed_sha256": "07f8b1f36106575f7f8cb83d55df1c2e457715314f8241105253516d9127af3a",
+      "match": true
+    },
+    {
+      "source": "/tmp/b2w-navigation-ab-20261023/course_sim/config/bridge_rl_sar.yaml",
+      "installed": "/tmp/b2w-navigation-ab-20261023/install/course_sim/share/course_sim/config/bridge_rl_sar.yaml",
+      "source_sha256": "af2847e5ecaaad88d4f298bd4ca7eac600892215d4ad26bea61114786a3bf834",
+      "installed_sha256": "af2847e5ecaaad88d4f298bd4ca7eac600892215d4ad26bea61114786a3bf834",
+      "match": true
+    }
+  ],
+  "native": {
+    "/tmp/b2w-navigation-ab-20261023/install/b2w_controllers/lib/b2w_controllers/b2w_rl_sar_controller": {
+      "exists": true,
+      "resolved": "/tmp/b2w-navigation-ab-20261023/install/b2w_controllers/lib/b2w_controllers/b2w_rl_sar_controller",
+      "sha256": "aa2e03e68e777cea84aea8e5a4e4f6d82477f5b9d3265df8a657bc7eb1ccacc5"
+    },
+    "/tmp/b2w-navigation-ab-20261023/install/lio_sam/lib/lio_sam/lio_sam_mapOptimization": {
+      "exists": true,
+      "resolved": "/tmp/b2w-navigation-ab-20261023/install/lio_sam/lib/lio_sam/lio_sam_mapOptimization",
+      "sha256": "808b83aecc6ae5f75b9dced7094b4c17b21f91a6c8aea58b8f33dfe7e4647a0a"
+    },
+    "/tmp/b2w-navigation-ab-20261023/install/lio_sam/lib/lio_sam/lio_sam_imuPreintegration": {
+      "exists": true,
+      "resolved": "/tmp/b2w-navigation-ab-20261023/install/lio_sam/lib/lio_sam/lio_sam_imuPreintegration",
+      "sha256": "f0d6797a4037b103abd20ba6760c93f29cac0af3cc4ec002c37fb32c06b2b897"
+    },
+    "/tmp/b2w-navigation-ab-20261023/install/lio_sam/lib/lio_sam/lio_sam_imageProjection": {
+      "exists": true,
+      "resolved": "/tmp/b2w-navigation-ab-20261023/install/lio_sam/lib/lio_sam/lio_sam_imageProjection",
+      "sha256": "951d4b5c1af27709158ec1d2836540cad2f71741639361692e3bffff958e97db"
+    },
+    "/tmp/b2w-navigation-ab-20261023/install/lio_sam/lib/lio_sam/lio_sam_featureExtraction": {
+      "exists": true,
+      "resolved": "/tmp/b2w-navigation-ab-20261023/install/lio_sam/lib/lio_sam/lio_sam_featureExtraction",
+      "sha256": "0859ec1f1782e83500315c434106ca7f721782aa40875fecd64bcbe6b869925a"
+    },
+    "/opt/ros/humble/lib/nav2_controller/controller_server": {
+      "exists": true,
+      "resolved": "/opt/ros/humble/lib/nav2_controller/controller_server",
+      "sha256": "16b8ccba3f17203480a065787caef9a6f312c8090c1943ad346766008a7d274d"
+    },
+    "/opt/ros/humble/lib/libcontroller_server_core.so": {
+      "exists": true,
+      "resolved": "/opt/ros/humble/lib/libcontroller_server_core.so",
+      "sha256": "005fca9f5212e7f4f3ce3d2fc58c109632488a53b3ba2fefbce202289628af0e"
+    },
+    "/opt/ros/humble/lib/libnav2_smac_planner.so": {
+      "exists": true,
+      "resolved": "/opt/ros/humble/lib/libnav2_smac_planner.so",
+      "sha256": "74828b79ec7e98af15058e7af99579e9252106123c2ff1b3c6b3da934006ce40"
+    },
+    "/opt/ros/humble/lib/libdwb_core.so": {
+      "exists": true,
+      "resolved": "/opt/ros/humble/lib/libdwb_core.so",
+      "sha256": "29feb8defc3d90bd62cd2610637b12cd309abbb76e27f59ccf5f27c1569d7b8e"
+    }
+  },
+  "controller_revision": {
+    "baseline_controller_sha256": "ca26bb53b483c549b76718af86b0d828e1fba467cd165b108f00019fe4663bd0",
+    "source_pins": {
+      "/tmp/b2w-navigation-ab-20261023/b2w_sim/b2w_controllers/src/rl_sar_controller.cpp": "affd6c9d0d3de29c6ccadf82d7b166a91250c4a0c6290544a6caad26c4a65ea7",
+      "/tmp/b2w-navigation-ab-20261023/b2w_sim/b2w_controllers/src/differential_stop_brake.hpp": "d59fc39d379bf53d5e3c401666049b4f39aaa27c6a064671045f08a6d7b007f3",
+      "/tmp/b2w-navigation-ab-20261023/course_sim/config/rl_sar_stop_brake.yaml": "fdce15dbc3fbe8668979738010be60ff1e8e2d543a0b36321d7ad8043f09dab3",
+      "/tmp/b2w-navigation-ab-20261023/scripts/warehouse_ab_trial.py": "0b32db40e619d3aaab28a86d329cf506e15c54554cac83be43938ad7f5ba8c50",
+      "/tmp/b2w-navigation-ab-20261023/scripts/observe_warehouse_narrow_failure.py": "b1de114bc676ea25ef4974e145c72b96cd618a9afb6d7ebf6914ecc0e14ed203"
+    },
+    "stationary_evidence": {
+      "path": "/tmp/b2w-heading-stationary-224-20261027/stationary-fb325985aa06409894b3f0f2aa94ceb2/session-report.json",
+      "sha256": "3a03b973311e776631df8b25489e4615659c12662fc80db8fca17f7a6998bd5a"
+    },
+    "sustained_turn": {
+      "baseline_manifest_path": "/tmp/b2w-heading-hold-20261027/motion-deployment.json",
+      "baseline_manifest_sha256": "48d09d89b3528367d8a6ecd2a793f7e9562265cbb28be25272b55886447b57b5",
+      "max_duration_s": 1.0,
+      "command_rad_s": 0.25,
+      "profile": "B"
+    }
+  }
+}

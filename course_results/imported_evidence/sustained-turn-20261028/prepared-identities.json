@@ -1,0 +1,19 @@
+{
+  "/tmp/b2w-navigation-ab-20261023/scripts/warehouse_ab_trial.py": "0b32db40e619d3aaab28a86d329cf506e15c54554cac83be43938ad7f5ba8c50",
+  "/tmp/b2w-navigation-ab-20261023/scripts/warehouse_ab_supervisor.py": "ccbf17372337f8c8f511031d4e1eb7ca844a038c326b3771b96a9e528cf4613e",
+  "/tmp/b2w-navigation-ab-20261023/scripts/narrow_processes.py": "a6567046dbcbe4be1fb68016769be7b7a096bff724255eeaa08f6dc1a70ed0f4",
+  "/tmp/b2w-navigation-ab-20261023/scripts/run_g1_g5_record.py": "a45360ab9eeb4a82a52ea89ff8a74fc9bc4e8be1b79258862b2c23e037f82c9e",
+  "/tmp/b2w-navigation-ab-20261023/scripts/g1_g5_media.py": "2ad3f705dc4d09a76405eb872985897b9b9288f8102e4c3c4170bb78976af3f5",
+  "/tmp/b2w-navigation-ab-20261023/scripts/g1_g5_presentation.py": "298025031aa19b0e6d72f0dcccf6bf57ada34ceec87fb619140e24b76c58eff7",
+  "/tmp/b2w-navigation-ab-20261023/scripts/observe_warehouse_narrow_failure.py": "b1de114bc676ea25ef4974e145c72b96cd618a9afb6d7ebf6914ecc0e14ed203",
+  "/tmp/b2w-navigation-ab-20261023/scripts/owner_tf_delivery.py": "139d78365605f5d083acff472729dd1c9116671871f761e05e0d1bb73009af4b",
+  "/tmp/b2w-navigation-ab-20261023/scripts/warehouse_observer_helpers.py": "72f8228c16522b880327d6b2efc1045e7d3c7f40210f85fb9fc34b743787433a",
+  "/tmp/b2w-sustained-turn-20261028/candidate-deployment.json": "06fa316157fd3bce2314c2799a77c99a5424e53077c55b7b494582c537540c30",
+  "/tmp/b2w-sustained-turn-20261028/host-once.sh": "68789576280d306d64bf58502b58be92bd26894b352edbb4c7acd242629754fc",
+  "/tmp/b2w-navigation-ab-20261023/course_navigation/course_navigation/stage4_contact_evidence.py": "65e05f034db17f406c3d7fab9ed3e156cb58847e9e73e8a32303bbfc462a72f2",
+  "/tmp/b2w-navigation-ab-20261023/course_navigation/course_navigation/stage4_contact_intervals.py": "d345e125a9e07f5120cc066c8ee1e37e4edfd49759be9597abbce55efb74ed51",
+  "/tmp/b2w-navigation-ab-20261023/artifacts/video/manual_views/g1_g5.rviz": "7f422c62b16e7dfb07dc2b710a2f5cae96eedb5935f288a2fc01e272892406c6",
+  "/tmp/b2w-navigation-ab-20261023/artifacts/video/manual_views/gazebo_gui.config": "886d05401fc7de025657fb3be1b16a1cac10a31473aa093e6238d7457bb7093f",
+  "/tmp/b2w-navigation-ab-20261023/artifacts/video/manual_views/gazebo_camera_pose_final.txt": "65a374205b3f4113feabd6a33d243b266bd7fc7041bf272bdd085524b034c165",
+  "/tmp/b2w-navigation-ab-20261023/artifacts/video/manual_views/gazebo_camera_pose.txt": "9495f5bda12e52c1a6adf628dd9806cb81ec157df984125a36284e4506d0249d"
+}

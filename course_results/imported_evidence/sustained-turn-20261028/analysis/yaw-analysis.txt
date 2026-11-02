@@ -1,0 +1,69 @@
+{
+  "delivery": {
+    "first_nonzero_final": {
+      "sim_receive_s": 24.38,
+      "wall_monotonic_s": 541676.85898048,
+      "seq": 30308
+    },
+    "first_zero_final": {
+      "sim_receive_s": 25.32,
+      "wall_monotonic_s": 541677.838481061,
+      "seq": 31496
+    },
+    "receive_clock_nonzero_interval_sim_s": 0.9400000000000013,
+    "receive_wall_interval_s": 0.9795005810447037,
+    "first_nonzero_model": {
+      "sim_receive_s": 24.385,
+      "wall_monotonic_s": 541676.863965607,
+      "seq": 30315
+    },
+    "first_zero_model": {
+      "sim_receive_s": 25.3225,
+      "wall_monotonic_s": 541677.84115915,
+      "seq": 31501
+    },
+    "model_receive_interval_sim_s": 0.9375,
+    "owner_observed_interval_sim_s": 1.0,
+    "nonzero_final_values": [
+      [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.25
+      ]
+    ]
+  },
+  "physical": {
+    "owner_window_yaw_rad": 0.18128093953283675,
+    "owner_zero_to_rest_yaw_rad": -0.1695791255822398,
+    "yaw_during_delivery_rad": 0.18128093953283675,
+    "yaw_after_zero_to_rest_rad": -0.1695791255822398,
+    "net_yaw_rad": 0.011701813950596947,
+    "net_translation_m": 0.0478484052633107,
+    "whole": {
+      "max_translation_m": 0.05553563393499915,
+      "max_abs_yaw_rad": 0.18438031010829933,
+      "max_translational_speed_mps": 0.0679895511428753,
+      "max_abs_yaw_speed_rad_s": 0.30589325819164515
+    },
+    "after_zero": {
+      "max_translation_m": 0.018040346876058436,
+      "max_abs_yaw_rad": 0.16957912926191776,
+      "max_translational_speed_mps": 0.05190631179786065,
+      "max_abs_yaw_speed_rad_s": 0.30589325819164515
+    },
+    "zero_to_rest_end_sim_s": 6.869999999999997,
+    "zero_to_rest_start_sim_s": 1.7324999999999982,
+    "pose_sample_times": [
+      24.32,
+      25.32,
+      32.19
+    ]
+  },
+  "contact_failure": null,
+  "contact_samples": 631,
+  "truth_first_fault": null,
+  "readiness_first_fault": null
+}

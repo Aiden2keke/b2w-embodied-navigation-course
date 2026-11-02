@@ -1,0 +1,14 @@
+{
+  "source_install_mismatches": [],
+  "native_mismatches": [],
+  "revision_mismatches": [
+    {
+      "path": "/tmp/b2w-navigation-ab-20261023/scripts/warehouse_ab_trial.py",
+      "expected": "170bcb3ca6d391f76d2fdc2c0983fe6cb5f89db14dd7ed487162e7b5264f1d5f",
+      "actual": "569813eedc023859bf8905ea93cb4479d515af414d24633a05875cd67c1bacc7"
+    }
+  ],
+  "source_install_count": 46,
+  "native_count": 9,
+  "revision_count": 5
+}

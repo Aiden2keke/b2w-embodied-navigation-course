@@ -1,0 +1,245 @@
+{
+  "label": "B",
+  "started_utc": "2026-10-28T12:05:09.566163+00:00",
+  "observer_pid": 2192738,
+  "domain": "226",
+  "localhost_only": "1",
+  "topics": {
+    "/clock": "rosgraph_msgs/msg/Clock",
+    "/goal_pose": "geometry_msgs/msg/PoseStamped",
+    "/plan": "nav_msgs/msg/Path",
+    "/course_navigation/cmd_vel_raw": "geometry_msgs/msg/Twist",
+    "/course_navigation/cmd_vel": "geometry_msgs/msg/Twist",
+    "/path_manager/path_manager_ros/nav_vel": "geometry_msgs/msg/Twist",
+    "/slam/odom": "nav_msgs/msg/Odometry",
+    "/sim/ground_truth/odom": "nav_msgs/msg/Odometry",
+    "/collision_plate/force_torque": "geometry_msgs/msg/WrenchStamped",
+    "/navigate_to_pose/_action/status": "action_msgs/msg/GoalStatusArray",
+    "/follow_path/_action/status": "action_msgs/msg/GoalStatusArray",
+    "/behavior_tree_log": "nav2_msgs/msg/BehaviorTreeLog",
+    "/rosout": "rcl_interfaces/msg/Log",
+    "/tf": "tf2_msgs/msg/TFMessage",
+    "/tf_static": "tf2_msgs/msg/TFMessage",
+    "/local_costmap/costmap_raw": "nav2_msgs/msg/Costmap",
+    "/global_costmap/costmap_raw": "nav2_msgs/msg/Costmap",
+    "/local_costmap/published_footprint": "geometry_msgs/msg/PolygonStamped",
+    "/global_costmap/published_footprint": "geometry_msgs/msg/PolygonStamped",
+    "/network_input_debug": "std_msgs/msg/Float64MultiArray",
+    "/joint_commands": "std_msgs/msg/Float64MultiArray",
+    "/joint_torques": "std_msgs/msg/Float64MultiArray",
+    "/joint_states": "sensor_msgs/msg/JointState",
+    "/sim/raw/imu": "sensor_msgs/msg/Imu",
+    "/evaluation": "dwb_msgs/msg/LocalPlanEvaluation",
+    "/received_global_plan": "nav_msgs/msg/Path",
+    "/transformed_global_plan": "nav_msgs/msg/Path",
+    "/local_plan": "nav_msgs/msg/Path"
+  },
+  "mode": "dwb-debug",
+  "omitted_dwb_debug_topics": [],
+  "duration_wall_s": 420.0,
+  "read_only": true,
+  "child_processes": [],
+  "motion_alignment": "commands: simulation receive time; odometry/wrench: header stamp; causal bounded age",
+  "geometry": "offline filled convex padded footprint vs raw cell areas; not physical contact or exact DWB critic",
+  "thresholds": {
+    "command_linear_m_s": 0.02,
+    "command_angular_rad_s": 0.05,
+    "stationary_translation_m": 0.04,
+    "stationary_rotation_rad": 0.1,
+    "stationary_duration_sim_s": 3.0,
+    "plate_force_n": 50.0,
+    "footprint_costmap_skew_max_s": 0.75
+  },
+  "measurement_health": {
+    "mode": "dwb-debug",
+    "wall_duration_s": 40.62748648994602,
+    "simulation_duration_s": 32.24749999999676,
+    "sim_wall_ratio": 0.7937360340511581,
+    "rate_basis": "received count / attach wall duration; NOT publisher or controller rate; includes idle time",
+    "simulation_duration_basis": "sum of received clock advances within epochs; reset jumps excluded",
+    "topics": {
+      "/clock": {
+        "received_messages": 12900,
+        "observed_receive_hz_wall": 317.5190274985958
+      },
+      "/goal_pose": {
+        "received_messages": 0,
+        "observed_receive_hz_wall": null
+      },
+      "/plan": {
+        "received_messages": 0,
+        "observed_receive_hz_wall": null
+      },
+      "/course_navigation/cmd_vel_raw": {
+        "received_messages": 0,
+        "observed_receive_hz_wall": null
+      },
+      "/course_navigation/cmd_vel": {
+        "received_messages": 0,
+        "observed_receive_hz_wall": null
+      },
+      "/path_manager/path_manager_ros/nav_vel": {
+        "received_messages": 773,
+        "observed_receive_hz_wall": 19.02652777181508
+      },
+      "/slam/odom": {
+        "received_messages": 147,
+        "observed_receive_hz_wall": 3.618240080797952
+      },
+      "/sim/ground_truth/odom": {
+        "received_messages": 3225,
+        "observed_receive_hz_wall": 79.37975687464895
+      },
+      "/collision_plate/force_torque": {
+        "received_messages": 3226,
+        "observed_receive_hz_wall": 79.40437075274961
+      },
+      "/navigate_to_pose/_action/status": {
+        "received_messages": 0,
+        "observed_receive_hz_wall": null
+      },
+      "/follow_path/_action/status": {
+        "received_messages": 0,
+        "observed_receive_hz_wall": null
+      },
+      "/behavior_tree_log": {
+        "received_messages": 0,
+        "observed_receive_hz_wall": null
+      },
+      "/rosout": {
+        "received_messages": 123,
+        "observed_receive_hz_wall": 3.02750700638196
+      },
+      "/tf": {
+        "received_messages": 791,
+        "observed_receive_hz_wall": 19.469577577627074
+      },
+      "/tf_static": {
+        "received_messages": 1,
+        "observed_receive_hz_wall": 0.02461387810066634
+      },
+      "/local_costmap/costmap_raw": {
+        "received_messages": 0,
+        "observed_receive_hz_wall": null
+      },
+      "/global_costmap/costmap_raw": {
+        "received_messages": 0,
+        "observed_receive_hz_wall": null
+      },
+      "/local_costmap/published_footprint": {
+        "received_messages": 0,
+        "observed_receive_hz_wall": null
+      },
+      "/global_costmap/published_footprint": {
+        "received_messages": 0,
+        "observed_receive_hz_wall": null
+      },
+      "/network_input_debug": {
+        "received_messages": 1510,
+        "observed_receive_hz_wall": 37.166955932006175
+      },
+      "/joint_commands": {
+        "received_messages": 1510,
+        "observed_receive_hz_wall": 37.166955932006175
+      },
+      "/joint_torques": {
+        "received_messages": 6439,
+        "observed_receive_hz_wall": 158.48876109019056
+      },
+      "/joint_states": {
+        "received_messages": 3225,
+        "observed_receive_hz_wall": 79.37975687464895
+      },
+      "/sim/raw/imu": {
+        "received_messages": 6451,
+        "observed_receive_hz_wall": 158.78412762739856
+      },
+      "/evaluation": {
+        "received_messages": 0,
+        "observed_receive_hz_wall": null
+      },
+      "/received_global_plan": {
+        "received_messages": 0,
+        "observed_receive_hz_wall": null
+      },
+      "/transformed_global_plan": {
+        "received_messages": 0,
+        "observed_receive_hz_wall": null
+      },
+      "/local_plan": {
+        "received_messages": 0,
+        "observed_receive_hz_wall": null
+      }
+    },
+    "aligned_samples": 317,
+    "aligned_sample_observed_hz_wall": 7.802599357911229,
+    "aligned_sample_observed_hz_sim": 9.830219396853456,
+    "tf_age_s": {
+      "map_base": {
+        "count": 144,
+        "p50": 0.34500000000000064,
+        "p95": 0.3896250000000004,
+        "max": 0.4125000000000014
+      },
+      "odom_base": {
+        "count": 144,
+        "p50": 0.34500000000000064,
+        "p95": 0.3896250000000004,
+        "max": 0.4125000000000014
+      }
+    },
+    "command_age_s": {
+      "raw": {
+        "count": 0,
+        "p50": null,
+        "p95": null,
+        "max": null
+      },
+      "smooth": {
+        "count": 0,
+        "p50": null,
+        "p95": null,
+        "max": null
+      },
+      "final": {
+        "count": 316,
+        "p50": 0.022500000000000853,
+        "p95": 0.04749999999999943,
+        "max": 0.05500000000000149
+      }
+    },
+    "command_age_basis": "simulation receive-clock age; unstamped Twist transport/backlog latency is unknown",
+    "age_basis": "aligned sample ages including stale causal history; finite nonnegative only; linear quantiles",
+    "fresh_samples": {
+      "raw": {
+        "count": 0,
+        "fraction": 0.0
+      },
+      "smooth": {
+        "count": 0,
+        "fraction": 0.0
+      },
+      "final": {
+        "count": 316,
+        "fraction": 0.9968454258675079
+      },
+      "slam": {
+        "count": 144,
+        "fraction": 0.45425867507886436
+      },
+      "truth": {
+        "count": 316,
+        "fraction": 0.9968454258675079
+      },
+      "wrench": {
+        "count": 316,
+        "fraction": 0.9968454258675079
+      }
+    },
+    "freshness_limits_sim_s": {
+      "commands": 0.3,
+      "odometry_wrench": 0.5
+    },
+    "output_directory_bytes": 28403554
+  }
+}

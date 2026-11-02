@@ -1,0 +1,161 @@
+1793189109.4118187 [INFO] [launch]: All log files can be found below /tmp/b2w-sustained-turn-20261028/live/precheck-9c8597f5add2480885484fad569e9c5d/ros-log/2026-10-28-20-05-09-410199-zyd-MS-7D97-2192736
+1793189109.4121547 [INFO] [launch]: Default logging verbosity is set to INFO
+1793189109.5388811 [INFO] [ign-1]: process started with pid [2192781]
+1793189109.5392962 [INFO] [robot_state_publisher-2]: process started with pid [2192784]
+1793189109.5394342 [INFO] [create-3]: process started with pid [2192791]
+1793189109.5394928 [INFO] [parameter_bridge-4]: process started with pid [2192793]
+1793189109.5395432 [INFO] [b2w_rl_sar_controller-5]: process started with pid [2192797]
+1793189109.5395899 [INFO] [sensor_disturbance-6]: process started with pid [2192799]
+1793189109.5396369 [INFO] [sensor_cloud_disturbance-7]: process started with pid [2192801]
+1793189109.6905501 [robot_state_publisher-2] [WARN] [1793189109.689863642] [kdl_parser]: The root link base_link has an inertia specified in the URDF, but KDL does not support a root link with an inertia.  As a workaround, you can add an extra dummy link to your URDF.
+1793189109.6910613 [robot_state_publisher-2] [INFO] [1793189109.690402999] [b2w_robot_state_publisher]: got segment FL_calf
+1793189109.6911297 [robot_state_publisher-2] [INFO] [1793189109.690538845] [b2w_robot_state_publisher]: got segment FL_foot
+1793189109.6911814 [robot_state_publisher-2] [INFO] [1793189109.690550208] [b2w_robot_state_publisher]: got segment FL_hip
+1793189109.6912296 [robot_state_publisher-2] [INFO] [1793189109.690556129] [b2w_robot_state_publisher]: got segment FL_thigh
+1793189109.6912878 [robot_state_publisher-2] [INFO] [1793189109.690562053] [b2w_robot_state_publisher]: got segment FR_calf
+1793189109.6913347 [robot_state_publisher-2] [INFO] [1793189109.690570197] [b2w_robot_state_publisher]: got segment FR_foot
+1793189109.6913793 [robot_state_publisher-2] [INFO] [1793189109.690580768] [b2w_robot_state_publisher]: got segment FR_hip
+1793189109.6914237 [robot_state_publisher-2] [INFO] [1793189109.690588503] [b2w_robot_state_publisher]: got segment FR_thigh
+1793189109.6914670 [robot_state_publisher-2] [INFO] [1793189109.690595825] [b2w_robot_state_publisher]: got segment RL_calf
+1793189109.6915090 [robot_state_publisher-2] [INFO] [1793189109.690603207] [b2w_robot_state_publisher]: got segment RL_foot
+1793189109.6915498 [robot_state_publisher-2] [INFO] [1793189109.690609906] [b2w_robot_state_publisher]: got segment RL_hip
+1793189109.6915901 [robot_state_publisher-2] [INFO] [1793189109.690616998] [b2w_robot_state_publisher]: got segment RL_thigh
+1793189109.6916296 [robot_state_publisher-2] [INFO] [1793189109.690624875] [b2w_robot_state_publisher]: got segment RR_calf
+1793189109.6916683 [robot_state_publisher-2] [INFO] [1793189109.690632616] [b2w_robot_state_publisher]: got segment RR_foot
+1793189109.6917052 [robot_state_publisher-2] [INFO] [1793189109.690639941] [b2w_robot_state_publisher]: got segment RR_hip
+1793189109.6917429 [robot_state_publisher-2] [INFO] [1793189109.690647354] [b2w_robot_state_publisher]: got segment RR_thigh
+1793189109.6917803 [robot_state_publisher-2] [INFO] [1793189109.690655211] [b2w_robot_state_publisher]: got segment base_link
+1793189109.6918180 [robot_state_publisher-2] [INFO] [1793189109.690662612] [b2w_robot_state_publisher]: got segment collision_plate
+1793189109.6918583 [robot_state_publisher-2] [INFO] [1793189109.690669639] [b2w_robot_state_publisher]: got segment f_dc_link
+1793189109.6918969 [robot_state_publisher-2] [INFO] [1793189109.690677990] [b2w_robot_state_publisher]: got segment f_oc_link
+1793189109.6919355 [robot_state_publisher-2] [INFO] [1793189109.690687199] [b2w_robot_state_publisher]: got segment head_Link
+1793189109.6919720 [robot_state_publisher-2] [INFO] [1793189109.690692875] [b2w_robot_state_publisher]: got segment imu_link
+1793189109.6920092 [robot_state_publisher-2] [INFO] [1793189109.690700636] [b2w_robot_state_publisher]: got segment lidar_link
+1793189109.6920455 [robot_state_publisher-2] [INFO] [1793189109.690708358] [b2w_robot_state_publisher]: got segment logo_link
+1793189109.6921074 [robot_state_publisher-2] [INFO] [1793189109.690715545] [b2w_robot_state_publisher]: got segment r_dc_link
+1793189109.6921461 [robot_state_publisher-2] [INFO] [1793189109.690722286] [b2w_robot_state_publisher]: got segment r_oc_ink
+1793189109.6921823 [robot_state_publisher-2] [INFO] [1793189109.690728226] [b2w_robot_state_publisher]: got segment tail_link
+1793189109.6922200 [robot_state_publisher-2] [INFO] [1793189109.690733847] [b2w_robot_state_publisher]: got segment zed_x_camera
+1793189109.6941090 [b2w_rl_sar_controller-5] [INFO] [1793189109.693839972] [b2w_rl_sar_controller]: Loaded rl_sar B2-W policy: 57 observations, 16 actions, 50 Hz policy / 200 Hz torque, /tmp/b2w-navigation-ab-20261023/third_party/b2w_rl_sar/policy/b2w/robot_lab/policy.onnx
+1793189109.8897750 [ign-1] [1;32m[Msg] [0m[1;32mIgnition Gazebo Server v[0m[1;32m6.18.0[0m[1;32m[0m
+1793189109.8901029 [ign-1] [1;32m[Msg] [0m[1;32mLoading SDF world file[[0m[1;32m/tmp/b2w-sustained-turn-20261028/live/precheck-9c8597f5add2480885484fad569e9c5d/observer.world[0m[1;32m].[0m
+1793189109.8908887 [ign-1] [1;33mWarning [Utils.cc:129][0m [/sdf/world[@name="course_world"]/model[@name="aws_robomaker_warehouse_Bucket_01_020"]/link[@name="body"]/pose[@frame=""]:/tmp/b2w-sustained-turn-20261028/live/precheck-9c8597f5add2480885484fad569e9c5d/observer.world:L372]: XML Attribute[frame] in element[pose] not defined in SDF.
+1793189109.8912098 [ign-1] [1;33mWarning [Utils.cc:129][0m [/sdf/world[@name="course_world"]/model[@name="aws_robomaker_warehouse_Bucket_01_020"]/link[@name="body"]/collision[@name="collision_0"]/pose[@frame=""]:/tmp/b2w-sustained-turn-20261028/live/precheck-9c8597f5add2480885484fad569e9c5d/observer.world:L389]: XML Attribute[frame] in element[pose] not defined in SDF.
+1793189109.8939662 [ign-1] [1;33mWarning [Utils.cc:129][0m [/sdf/world[@name="course_world"]/model[@name="aws_robomaker_warehouse_Bucket_01_021"]/link[@name="body"]/pose[@frame=""]:/tmp/b2w-sustained-turn-20261028/live/precheck-9c8597f5add2480885484fad569e9c5d/observer.world:L423]: XML Attribute[frame] in element[pose] not defined in SDF.
+1793189109.8948514 [ign-1] [1;33mWarning [Utils.cc:129][0m [/sdf/world[@name="course_world"]/model[@name="aws_robomaker_warehouse_Bucket_01_021"]/link[@name="body"]/collision[@name="collision_0"]/pose[@frame=""]:/tmp/b2w-sustained-turn-20261028/live/precheck-9c8597f5add2480885484fad569e9c5d/observer.world:L440]: XML Attribute[frame] in element[pose] not defined in SDF.
+1793189109.8994412 [ign-1] [1;33mWarning [Utils.cc:129][0m [/sdf/world[@name="course_world"]/model[@name="aws_robomaker_warehouse_Bucket_01_022"]/link[@name="body"]/pose[@frame=""]:/tmp/b2w-sustained-turn-20261028/live/precheck-9c8597f5add2480885484fad569e9c5d/observer.world:L474]: XML Attribute[frame] in element[pose] not defined in SDF.
+1793189109.9002953 [ign-1] [1;33mWarning [Utils.cc:129][0m [/sdf/world[@name="course_world"]/model[@name="aws_robomaker_warehouse_Bucket_01_022"]/link[@name="body"]/collision[@name="collision_0"]/pose[@frame=""]:/tmp/b2w-sustained-turn-20261028/live/precheck-9c8597f5add2480885484fad569e9c5d/observer.world:L491]: XML Attribute[frame] in element[pose] not defined in SDF.
+1793189110.2545197 [INFO] [create-3]: process has finished cleanly [pid 2192791]
+1793189110.6808903 [parameter_bridge-4] [INFO] [1793189110.680635517] [ros_gz_bridge]: Creating GZ->ROS Bridge: [/clock (ignition.msgs.Clock) -> /clock (rosgraph_msgs/msg/Clock)] (Lazy 0)
+1793189110.6819661 [parameter_bridge-4] [INFO] [1793189110.681805301] [ros_gz_bridge]: Creating GZ->ROS Bridge: [/joint_states (ignition.msgs.Model) -> /sim/raw/joint_states (sensor_msgs/msg/JointState)] (Lazy 0)
+1793189110.6832721 [parameter_bridge-4] [INFO] [1793189110.683182990] [ros_gz_bridge]: Creating GZ->ROS Bridge: [/sim/raw/ground_truth/odom (ignition.msgs.Odometry) -> /sim/ground_truth/odom (nav_msgs/msg/Odometry)] (Lazy 0)
+1793189110.6845219 [parameter_bridge-4] [INFO] [1793189110.684430141] [ros_gz_bridge]: Creating GZ->ROS Bridge: [/sim/raw/ground_truth/odom (ignition.msgs.Odometry) -> /sim/body_state (nav_msgs/msg/Odometry)] (Lazy 0)
+1793189110.6849761 [parameter_bridge-4] [INFO] [1793189110.684893028] [ros_gz_bridge]: Creating GZ->ROS Bridge: [/sim/raw/scan/points (ignition.msgs.PointCloudPacked) -> /sim/raw/pointcloud (sensor_msgs/msg/PointCloud2)] (Lazy 0)
+1793189110.6855867 [parameter_bridge-4] [INFO] [1793189110.685503847] [ros_gz_bridge]: Creating GZ->ROS Bridge: [/sim/raw/imu (ignition.msgs.IMU) -> /sim/raw/imu (sensor_msgs/msg/Imu)] (Lazy 0)
+1793189110.6861482 [parameter_bridge-4] [INFO] [1793189110.686066580] [ros_gz_bridge]: Creating GZ->ROS Bridge: [/collision_plate/force_torque (ignition.msgs.Wrench) -> /collision_plate/force_torque (geometry_msgs/msg/WrenchStamped)] (Lazy 0)
+1793189110.6868284 [parameter_bridge-4] [INFO] [1793189110.686725740] [ros_gz_bridge]: Creating GZ->ROS Bridge: [/zed_x_camera (ignition.msgs.Image) -> /zed/zed_node/depth/depth_registered (sensor_msgs/msg/Image)] (Lazy 0)
+1793189110.6873696 [parameter_bridge-4] [INFO] [1793189110.687274086] [ros_gz_bridge]: Creating ROS->GZ Bridge: [/model/b2w/joint/FR_hip_joint/cmd_force (std_msgs/msg/Float64) -> /model/b2w/joint/FR_hip_joint/cmd_force (ignition.msgs.Double)] (Lazy 0)
+1793189110.6882081 [parameter_bridge-4] [INFO] [1793189110.688091060] [ros_gz_bridge]: Creating ROS->GZ Bridge: [/model/b2w/joint/FR_thigh_joint/cmd_force (std_msgs/msg/Float64) -> /model/b2w/joint/FR_thigh_joint/cmd_force (ignition.msgs.Double)] (Lazy 0)
+1793189110.6888180 [parameter_bridge-4] [INFO] [1793189110.688705276] [ros_gz_bridge]: Creating ROS->GZ Bridge: [/model/b2w/joint/FR_calf_joint/cmd_force (std_msgs/msg/Float64) -> /model/b2w/joint/FR_calf_joint/cmd_force (ignition.msgs.Double)] (Lazy 0)
+1793189110.6894400 [parameter_bridge-4] [INFO] [1793189110.689307685] [ros_gz_bridge]: Creating ROS->GZ Bridge: [/model/b2w/joint/FL_hip_joint/cmd_force (std_msgs/msg/Float64) -> /model/b2w/joint/FL_hip_joint/cmd_force (ignition.msgs.Double)] (Lazy 0)
+1793189110.6900508 [parameter_bridge-4] [INFO] [1793189110.689885976] [ros_gz_bridge]: Creating ROS->GZ Bridge: [/model/b2w/joint/FL_thigh_joint/cmd_force (std_msgs/msg/Float64) -> /model/b2w/joint/FL_thigh_joint/cmd_force (ignition.msgs.Double)] (Lazy 0)
+1793189110.6905420 [parameter_bridge-4] [INFO] [1793189110.690406884] [ros_gz_bridge]: Creating ROS->GZ Bridge: [/model/b2w/joint/FL_calf_joint/cmd_force (std_msgs/msg/Float64) -> /model/b2w/joint/FL_calf_joint/cmd_force (ignition.msgs.Double)] (Lazy 0)
+1793189110.6913657 [parameter_bridge-4] [INFO] [1793189110.690965711] [ros_gz_bridge]: Creating ROS->GZ Bridge: [/model/b2w/joint/RR_hip_joint/cmd_force (std_msgs/msg/Float64) -> /model/b2w/joint/RR_hip_joint/cmd_force (ignition.msgs.Double)] (Lazy 0)
+1793189110.6927044 [parameter_bridge-4] [INFO] [1793189110.692494168] [ros_gz_bridge]: Creating ROS->GZ Bridge: [/model/b2w/joint/RR_thigh_joint/cmd_force (std_msgs/msg/Float64) -> /model/b2w/joint/RR_thigh_joint/cmd_force (ignition.msgs.Double)] (Lazy 0)
+1793189110.6931458 [parameter_bridge-4] [INFO] [1793189110.693025436] [ros_gz_bridge]: Creating ROS->GZ Bridge: [/model/b2w/joint/RR_calf_joint/cmd_force (std_msgs/msg/Float64) -> /model/b2w/joint/RR_calf_joint/cmd_force (ignition.msgs.Double)] (Lazy 0)
+1793189110.6946206 [parameter_bridge-4] [INFO] [1793189110.694520968] [ros_gz_bridge]: Creating ROS->GZ Bridge: [/model/b2w/joint/RL_hip_joint/cmd_force (std_msgs/msg/Float64) -> /model/b2w/joint/RL_hip_joint/cmd_force (ignition.msgs.Double)] (Lazy 0)
+1793189110.6952710 [parameter_bridge-4] [INFO] [1793189110.695060880] [ros_gz_bridge]: Creating ROS->GZ Bridge: [/model/b2w/joint/RL_thigh_joint/cmd_force (std_msgs/msg/Float64) -> /model/b2w/joint/RL_thigh_joint/cmd_force (ignition.msgs.Double)] (Lazy 0)
+1793189110.6965301 [parameter_bridge-4] [INFO] [1793189110.696318232] [ros_gz_bridge]: Creating ROS->GZ Bridge: [/model/b2w/joint/RL_calf_joint/cmd_force (std_msgs/msg/Float64) -> /model/b2w/joint/RL_calf_joint/cmd_force (ignition.msgs.Double)] (Lazy 0)
+1793189110.6979113 [parameter_bridge-4] [INFO] [1793189110.697667428] [ros_gz_bridge]: Creating ROS->GZ Bridge: [/model/b2w/joint/FR_foot_joint/cmd_force (std_msgs/msg/Float64) -> /model/b2w/joint/FR_foot_joint/cmd_force (ignition.msgs.Double)] (Lazy 0)
+1793189110.6984215 [parameter_bridge-4] [INFO] [1793189110.698317971] [ros_gz_bridge]: Creating ROS->GZ Bridge: [/model/b2w/joint/FL_foot_joint/cmd_force (std_msgs/msg/Float64) -> /model/b2w/joint/FL_foot_joint/cmd_force (ignition.msgs.Double)] (Lazy 0)
+1793189110.6991777 [parameter_bridge-4] [INFO] [1793189110.698897146] [ros_gz_bridge]: Creating ROS->GZ Bridge: [/model/b2w/joint/RR_foot_joint/cmd_force (std_msgs/msg/Float64) -> /model/b2w/joint/RR_foot_joint/cmd_force (ignition.msgs.Double)] (Lazy 0)
+1793189110.7016153 [parameter_bridge-4] [INFO] [1793189110.700741401] [ros_gz_bridge]: Creating ROS->GZ Bridge: [/model/b2w/joint/RL_foot_joint/cmd_force (std_msgs/msg/Float64) -> /model/b2w/joint/RL_foot_joint/cmd_force (ignition.msgs.Double)] (Lazy 0)
+1793189111.9160261 [ign-1] [1;32m[Msg] [0m[1;32mServing entity system service on [[0m[1;32m/[0m[1;32mentity/system/add[0m[1;32m][0m[1;32m[0m
+1793189111.9161041 [ign-1] [1;32m[Msg] [0m[1;32mCreate service on [[0m[1;32m/world/course_world/create[0m[1;32m][0m[1;32m[0m
+1793189111.9161241 [ign-1] [1;32m[Msg] [0m[1;32mRemove service on [[0m[1;32m/world/course_world/remove[0m[1;32m][0m[1;32m[0m
+1793189111.9161379 [ign-1] [1;32m[Msg] [0m[1;32mPose service on [[0m[1;32m/world/course_world/set_pose[0m[1;32m][0m[1;32m[0m
+1793189111.9161506 [ign-1] [1;32m[Msg] [0m[1;32mPose service on [[0m[1;32m/world/course_world/set_pose_vector[0m[1;32m][0m[1;32m[0m
+1793189111.9161620 [ign-1] [1;32m[Msg] [0m[1;32mLight configuration service on [[0m[1;32m/world/course_world/light_config[0m[1;32m][0m[1;32m[0m
+1793189111.9161732 [ign-1] [1;32m[Msg] [0m[1;32mPhysics service on [[0m[1;32m/world/course_world/set_physics[0m[1;32m][0m[1;32m[0m
+1793189111.9161847 [ign-1] [1;32m[Msg] [0m[1;32mSphericalCoordinates service on [[0m[1;32m/world/course_world/set_spherical_coordinates[0m[1;32m][0m[1;32m[0m
+1793189111.9161959 [ign-1] [1;32m[Msg] [0m[1;32mEnable collision service on [[0m[1;32m/world/course_world/enable_collision[0m[1;32m][0m[1;32m[0m
+1793189111.9162066 [ign-1] [1;32m[Msg] [0m[1;32mDisable collision service on [[0m[1;32m/world/course_world/disable_collision[0m[1;32m][0m[1;32m[0m
+1793189111.9162173 [ign-1] [1;32m[Msg] [0m[1;32mMaterial service on [[0m[1;32m/world/course_world/visual_config[0m[1;32m][0m[1;32m[0m
+1793189111.9162281 [ign-1] [1;32m[Msg] [0m[1;32mMaterial service on [[0m[1;32m/world/course_world/wheel_slip[0m[1;32m][0m[1;32m[0m
+1793189111.9162395 [ign-1] [1;32m[Msg] [0m[1;32mLoaded level [[0m[1;32m3[0m[1;32m][0m[1;32m[0m
+1793189111.9162512 [ign-1] [1;32m[Msg] [0m[1;32mServing world controls on [[0m[1;32m/world/course_world[0m[1;32m/control], [[0m[1;32m/world/course_world[0m[1;32m/control/state] and [[0m[1;32m/world/course_world[0m[1;32m/playback/control][0m[1;32m[0m
+1793189111.9162772 [ign-1] [1;32m[Msg] [0m[1;32mServing GUI information on [[0m[1;32m/world/course_world[0m[1;32m/[0m[1;32mgui/info[0m[1;32m][0m[1;32m[0m
+1793189111.9162893 [ign-1] [1;32m[Msg] [0m[1;32mWorld [[0m[1;32mcourse_world[0m[1;32m] initialized with [[0m[1;32mphysics[0m[1;32m] physics profile.[0m[1;32m[0m
+1793189111.9163003 [ign-1] [1;32m[Msg] [0m[1;32mServing world SDF generation service on [[0m[1;32m/world/course_world[0m[1;32m/[0m[1;32mgenerate_world_sdf[0m[1;32m][0m[1;32m[0m
+1793189111.9163113 [ign-1] [1;32m[Msg] [0m[1;32mServing world names on [[0m[1;32m/gazebo/worlds[0m[1;32m][0m[1;32m[0m
+1793189111.9163215 [ign-1] [1;32m[Msg] [0m[1;32mResource path add service on [[0m[1;32m/gazebo/resource_paths/add[0m[1;32m].[0m[1;32m[0m
+1793189111.9163322 [ign-1] [1;32m[Msg] [0m[1;32mResource path get service on [[0m[1;32m/gazebo/resource_paths/get[0m[1;32m].[0m[1;32m[0m
+1793189111.9163425 [ign-1] [1;32m[Msg] [0m[1;32mResource path resolve service on [[0m[1;32m/gazebo/resource_paths/resolve[0m[1;32m].[0m[1;32m[0m
+1793189111.9163558 [ign-1] [1;32m[Msg] [0m[1;32mResource paths published on [[0m[1;32m/gazebo/resource_paths[0m[1;32m].[0m[1;32m[0m
+1793189111.9163656 [ign-1] [1;32m[Msg] [0m[1;32mServer control service on [[0m[1;32m/server_control[0m[1;32m].[0m[1;32m[0m
+1793189111.9163759 [ign-1] [1;32m[Msg] [0m[1;32mFound no publishers on /stats, adding root stats topic[0m[1;32m[0m
+1793189111.9163859 [ign-1] [1;32m[Msg] [0m[1;32mFound no publishers on /clock, adding root clock topic[0m[1;32m[0m
+1793189111.9163954 [ign-1] [1;32m[Msg] [0m[1;32mOdometryPublisher publishing odometry on [[0m[1;32m/sim/raw/ground_truth/odom[0m[1;32m][0m[1;32m[0m
+1793189111.9164054 [ign-1] [1;32m[Msg] [0m[1;32mOdometryPublisher publishing odometry with covariance on [[0m[1;32m/model/b2w/odometry_with_covariance[0m[1;32m][0m[1;32m[0m
+1793189111.9164157 [ign-1] [1;32m[Msg] [0m[1;32mOdometryPublisher publishing Pose_V (TF) on [[0m[1;32m/sim/raw/ground_truth_tf[0m[1;32m][0m[1;32m[0m
+1793189111.9164252 [ign-1] [1;32m[Msg] [0m[1;32mApplyJointForce subscribing to Double messages on [[0m[1;32m/model/b2w/joint/FL_hip_joint/cmd_force[0m[1;32m][0m[1;32m[0m
+1793189111.9164350 [ign-1] [1;32m[Msg] [0m[1;32mApplyJointForce subscribing to Double messages on [[0m[1;32m/model/b2w/joint/FL_thigh_joint/cmd_force[0m[1;32m][0m[1;32m[0m
+1793189111.9164450 [ign-1] [1;32m[Msg] [0m[1;32mApplyJointForce subscribing to Double messages on [[0m[1;32m/model/b2w/joint/FL_calf_joint/cmd_force[0m[1;32m][0m[1;32m[0m
+1793189111.9329886 [ign-1] [1;33m[Wrn] [ColladaLoader.cc:2394] [0m[1;33mTriangle input semantic: '[0m[1;33mCOLOR[0m[1;33m' is currently[0m[1;33m not supported[0m[1;33m[0m
+1793189111.9460428 [parameter_bridge-4] [INFO] [1793189111.945362436] [ros_gz_bridge]: Passing message from ROS std_msgs/msg/Float64 to Gazebo gz.msgs.Double (showing msg only once per type)
+1793189112.2697103 [ign-1] libEGL warning: egl: failed to create dri2 screen
+1793189112.2735441 [ign-1] libEGL warning: egl: failed to create dri2 screen
+1793189112.7845941 [ign-1] [1;33m[Wrn] [ColladaLoader.cc:2394] [0m[1;33mTriangle input semantic: '[0m[1;33mCOLOR[0m[1;33m' is currently[0m[1;33m not supported[0m[1;33m[0m
+1793189112.7873726 [ign-1] [1;33m[Wrn] [ColladaLoader.cc:2394] [0m[1;33mTriangle input semantic: '[0m[1;33mCOLOR[0m[1;33m' is currently[0m[1;33m not supported[0m[1;33m[0m
+1793189129.5779414 [INFO] [lio_sam_imuPreintegration-8]: process started with pid [2193299]
+1793189129.5785725 [INFO] [lio_sam_imageProjection-9]: process started with pid [2193301]
+1793189129.5786901 [INFO] [lio_sam_featureExtraction-10]: process started with pid [2193303]
+1793189129.5787849 [INFO] [lio_sam_mapOptimization-11]: process started with pid [2193305]
+1793189129.5795748 [INFO] [pose_adapter-12]: process started with pid [2193307]
+1793189129.7086010 [lio_sam_featureExtraction-10] [INFO] [1793189129.707712440] [rclcpp]: [1;32m----> Feature Extraction Started.[0m
+1793189129.7168305 [lio_sam_imageProjection-9] [INFO] [1793189129.715562513] [rclcpp]: [1;32m----> Image Projection Started.[0m
+1793189129.7863107 [lio_sam_imuPreintegration-8] [INFO] [1793189129.783737350] [rclcpp]: [1;32m----> IMU Preintegration Started.[0m
+1793189129.8093116 [lio_sam_mapOptimization-11] [INFO] [1793189129.808592353] [rclcpp]: [1;32m----> Map Optimization Started.[0m
+1793189142.8939216 [b2w_rl_sar_controller-5] [INFO] [1793189142.893415304] [b2w_rl_sar_controller]: Stop brake captured reference=0.123977450
+1793189150.1937659 [WARNING] [launch]: user interrupted with ctrl-c (SIGINT)
+1793189150.2002971 [robot_state_publisher-2] [INFO] [1793189150.193713827] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+1793189150.2008154 [parameter_bridge-4] [INFO] [1793189150.193747374] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+1793189150.2010398 [lio_sam_imuPreintegration-8] [INFO] [1793189150.194088664] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+1793189150.2013047 [lio_sam_imageProjection-9] [INFO] [1793189150.194506413] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+1793189150.2015274 [lio_sam_featureExtraction-10] [INFO] [1793189150.194751548] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+1793189150.2017498 [b2w_rl_sar_controller-5] [INFO] [1793189150.194799099] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+1793189150.2019265 [lio_sam_mapOptimization-11] [INFO] [1793189150.195017359] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+1793189150.3447528 [INFO] [lio_sam_featureExtraction-10]: process has finished cleanly [pid 2193303]
+1793189150.3470631 [INFO] [robot_state_publisher-2]: process has finished cleanly [pid 2192784]
+1793189150.3501463 [INFO] [lio_sam_imageProjection-9]: process has finished cleanly [pid 2193301]
+1793189150.3519163 [INFO] [parameter_bridge-4]: process has finished cleanly [pid 2192793]
+1793189150.3533854 [INFO] [lio_sam_imuPreintegration-8]: process has finished cleanly [pid 2193299]
+1793189150.3584402 [INFO] [lio_sam_mapOptimization-11]: process has finished cleanly [pid 2193305]
+1793189150.3673992 [INFO] [b2w_rl_sar_controller-5]: process has finished cleanly [pid 2192797]
+1793189150.4805980 [ign-1] [1;32m[Msg] [0m[1;32mApplyJointForce subscribing to Double messages on [[0m[1;32m/model/b2w/joint/FL_foot_joint/cmd_force[0m[1;32m][0m[1;32m[0m
+1793189150.4807129 [ign-1] [1;32m[Msg] [0m[1;32mApplyJointForce subscribing to Double messages on [[0m[1;32m/model/b2w/joint/FR_hip_joint/cmd_force[0m[1;32m][0m[1;32m[0m
+1793189150.4807353 [ign-1] [1;32m[Msg] [0m[1;32mApplyJointForce subscribing to Double messages on [[0m[1;32m/model/b2w/joint/FR_thigh_joint/cmd_force[0m[1;32m][0m[1;32m[0m
+1793189150.4807491 [ign-1] [1;32m[Msg] [0m[1;32mApplyJointForce subscribing to Double messages on [[0m[1;32m/model/b2w/joint/FR_calf_joint/cmd_force[0m[1;32m][0m[1;32m[0m
+1793189150.4807613 [ign-1] [1;32m[Msg] [0m[1;32mApplyJointForce subscribing to Double messages on [[0m[1;32m/model/b2w/joint/FR_foot_joint/cmd_force[0m[1;32m][0m[1;32m[0m
+1793189150.4807730 [ign-1] [1;32m[Msg] [0m[1;32mApplyJointForce subscribing to Double messages on [[0m[1;32m/model/b2w/joint/RL_hip_joint/cmd_force[0m[1;32m][0m[1;32m[0m
+1793189150.4807839 [ign-1] [1;32m[Msg] [0m[1;32mApplyJointForce subscribing to Double messages on [[0m[1;32m/model/b2w/joint/RL_thigh_joint/cmd_force[0m[1;32m][0m[1;32m[0m
+1793189150.4807944 [ign-1] [1;32m[Msg] [0m[1;32mApplyJointForce subscribing to Double messages on [[0m[1;32m/model/b2w/joint/RL_calf_joint/cmd_force[0m[1;32m][0m[1;32m[0m
+1793189150.4808049 [ign-1] [1;32m[Msg] [0m[1;32mApplyJointForce subscribing to Double messages on [[0m[1;32m/model/b2w/joint/RL_foot_joint/cmd_force[0m[1;32m][0m[1;32m[0m
+1793189150.4808154 [ign-1] [1;32m[Msg] [0m[1;32mApplyJointForce subscribing to Double messages on [[0m[1;32m/model/b2w/joint/RR_hip_joint/cmd_force[0m[1;32m][0m[1;32m[0m
+1793189150.4808249 [ign-1] [1;32m[Msg] [0m[1;32mApplyJointForce subscribing to Double messages on [[0m[1;32m/model/b2w/joint/RR_thigh_joint/cmd_force[0m[1;32m][0m[1;32m[0m
+1793189150.4808345 [ign-1] [1;32m[Msg] [0m[1;32mApplyJointForce subscribing to Double messages on [[0m[1;32m/model/b2w/joint/RR_calf_joint/cmd_force[0m[1;32m][0m[1;32m[0m
+1793189150.4808440 [ign-1] [1;32m[Msg] [0m[1;32mApplyJointForce subscribing to Double messages on [[0m[1;32m/model/b2w/joint/RR_foot_joint/cmd_force[0m[1;32m][0m[1;32m[0m
+1793189150.4808562 [ign-1] [1;32m[Msg] [0m[1;32mLoading plugin [[0m[1;32mignition-rendering-ogre2[0m[1;32m][0m[1;32m[0m
+1793189150.4808662 [ign-1] [1;32m[Msg] [0m[1;32mServing scene information on [[0m[1;32m/world/course_world[0m[1;32m/[0m[1;32mscene/info[0m[1;32m][0m[1;32m[0m
+1793189150.4808760 [ign-1] [1;32m[Msg] [0m[1;32mServing graph information on [[0m[1;32m/world/course_world[0m[1;32m/[0m[1;32mscene/graph[0m[1;32m][0m[1;32m[0m
+1793189150.4808857 [ign-1] [1;32m[Msg] [0m[1;32mServing full state on [[0m[1;32m/world/course_world[0m[1;32m/[0m[1;32mstate[0m[1;32m][0m[1;32m[0m
+1793189150.4809103 [ign-1] [1;32m[Msg] [0m[1;32mServing full state (async) on [[0m[1;32m/world/course_world[0m[1;32m/[0m[1;32mstate_async[0m[1;32m][0m[1;32m[0m
+1793189150.4809208 [ign-1] [1;32m[Msg] [0m[1;32mPublishing scene information on [[0m[1;32m/world/course_world/scene/info[0m[1;32m][0m[1;32m[0m
+1793189150.4809318 [ign-1] [1;32m[Msg] [0m[1;32mPublishing entity deletions on [[0m[1;32m/world/course_world/scene/deletion[0m[1;32m][0m[1;32m[0m
+1793189150.4809413 [ign-1] [1;32m[Msg] [0m[1;32mPublishing state changes on [[0m[1;32m/world/course_world/state[0m[1;32m][0m[1;32m[0m
+1793189150.4809511 [ign-1] [1;32m[Msg] [0m[1;32mPublishing pose messages on [[0m[1;32m/world/course_world[0m[1;32m/[0m[1;32mpose/info[0m[1;32m][0m[1;32m[0m
+1793189150.4809608 [ign-1] [1;32m[Msg] [0m[1;32mPublishing dynamic pose messages on [[0m[1;32m/world/course_world[0m[1;32m/[0m[1;32mdynamic_pose/info[0m[1;32m][0m[1;32m[0m
+1793189150.5078421 [INFO] [sensor_disturbance-6]: process has finished cleanly [pid 2192799]
+1793189150.5560360 [INFO] [sensor_cloud_disturbance-7]: process has finished cleanly [pid 2192801]
+1793189150.5567338 [INFO] [pose_adapter-12]: process has finished cleanly [pid 2193307]
+1793189150.5826371 [INFO] [ign-1]: process has finished cleanly [pid 2192781]

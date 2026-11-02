@@ -1,0 +1,3 @@
+[INFO] [1793189109.693839972] [b2w_rl_sar_controller]: Loaded rl_sar B2-W policy: 57 observations, 16 actions, 50 Hz policy / 200 Hz torque, /tmp/b2w-navigation-ab-20261023/third_party/b2w_rl_sar/policy/b2w/robot_lab/policy.onnx
+[INFO] [1793189142.893415304] [b2w_rl_sar_controller]: Stop brake captured reference=0.123977450
+[INFO] [1793189150.194799099] [rclcpp]: signal_handler(SIGINT/SIGTERM)

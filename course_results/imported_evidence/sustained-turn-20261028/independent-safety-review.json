@@ -1,0 +1,16 @@
+{
+  "review_type": "independent source and offline safety review",
+  "reviewer": "/root/sustained_safety_review (gpt-6.1-sol, medium)",
+  "decision": "PASS",
+  "trial_sha256": "0b32db40e619d3aaab28a86d329cf506e15c54554cac83be43938ad7f5ba8c50",
+  "candidate_manifest_sha256": "06fa316157fd3bce2314c2799a77c99a5424e53077c55b7b494582c537540c30",
+  "independent_tests_passed": 131,
+  "live_motion_authorized": false,
+  "physical_turn_qualification": "NOT RUN",
+  "limitations": [
+    "sampled guards permit detection overshoot",
+    "mocked pulse trajectories are not physics",
+    "runtime success does not prove nonzero delivered command",
+    "internal brake target/correction not directly logged"
+  ]
+}

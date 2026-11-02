@@ -1,0 +1,40 @@
+{
+  "kind": "superseded-local-stage4-route-source",
+  "files": [
+    {
+      "path": "scripts/stage4_route/contract.py",
+      "old_sha256": "51d060cc78ee3d66edca16dfdaf6fd694ee0546a407dec6976d92d145f40fbae",
+      "new_sha256": "23e5905f8e295a08ef217bd3cb37c38fa32bbd06fe34ff10fc1e108224fd8c3d"
+    },
+    {
+      "path": "scripts/stage4_route/evidence.py",
+      "old_sha256": "c8db02b877c3a4f52f1023025c047a0d2ada618859f5d4b521ae950cdcdbe785",
+      "new_sha256": "a4cbf22f6a3f360caa3c7e1de9da162aee5783f4ee6238c59ccb03cbce5b5746"
+    },
+    {
+      "path": "scripts/stage4_route/ros_transport.py",
+      "old_sha256": "11a11fb4b27684daa688fe5a3d33a43773afd3ed3381923923211a4a2553d29f",
+      "new_sha256": "1e29810b8b6bf3a9011107483fb2dc5554bed98eb1598bc98056ea680c1705f3"
+    },
+    {
+      "path": "scripts/stage4_route/runner.py",
+      "old_sha256": "92184fee988efb19fed4c35260ab3a92e4603aa1f08b2b074bba8f5ede43a581",
+      "new_sha256": "e4f72b77740731886238d21720e698953039f6eca6088c4924d13f1e2ca62cf2"
+    },
+    {
+      "path": "scripts/stage4_route/spatial.py",
+      "old_sha256": "7747cc9f061086256d6b3679fdb639bb302973b5c971c03d1482adb562d14165",
+      "new_sha256": "4cf9be59e2d67169d9455becb43e639fa6d6d1af7b8a224050402e23dd9459b2"
+    },
+    {
+      "path": "tests/test_stage4_route.py",
+      "old_sha256": "490b2df3bc40670122d682499b51e3ff749f14c3b4f3fbd5c6ae285b38cbe776",
+      "new_sha256": "209de21cfff93df0fa9723660d57ea055ccfccc723553f220415f8395710d08b"
+    },
+    {
+      "path": "tests/test_stage4_transport.py",
+      "old_sha256": "683f790b68d32a618b702ed1e18c75f8a9e5f2e0fa787f5f7b6523431ca7117c",
+      "new_sha256": "a92ae7de10bd278797281e28c1583a67047fea0d46704586b24dc6ce87e8fddc"
+    }
+  ]
+}

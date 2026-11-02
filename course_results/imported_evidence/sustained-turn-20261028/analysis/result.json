@@ -1,0 +1,27 @@
+{
+  "session": "/tmp/b2w-sustained-turn-20261028/live/precheck-9c8597f5add2480885484fad569e9c5d",
+  "classification": "CONTROLLER_QUALIFICATION_FAILED_RUNTIME_SAFETY_PASS",
+  "invocation_provenance": "Reviewed invocation already running when our read-only preflight rejected held lock; no second invocation launched by this assistant turn.",
+  "attempts": 1,
+  "retained_yaw_rad": 0.011701813950596947,
+  "transient_yaw_rad": 0.18128093953283675,
+  "retention_fraction": 0.06455071327825566,
+  "functional_floor": {
+    "minimum_retained_rad": 0.04,
+    "minimum_fraction": 0.5
+  },
+  "functional_pass": false,
+  "runtime_safety_pass": true,
+  "cleanup_audit": {
+    "remaining": {},
+    "registered_alive": [],
+    "lease_reacquired": true,
+    "normal_cleanup": true
+  },
+  "raw_hashes": {
+    "observer_events": "8483f1c3e47ffe2bc2b1d5c42b3f390ecf6877ff0743f7336babe043fc264a9d",
+    "session_report": "caa19c611e761bc987fec0355bc4b7aadc28c5feadd6b89c6faa210cf57eff79"
+  },
+  "next_control_decision": "Offline design of coordinated stance/body-heading stopping; do not raise wheel torque or tune gains from this trial.",
+  "independent_interpretation": "Core values verified by /root/sustained_safety_review; stance change substantial but not a force decomposition; net longitudinal residual cannot exclude cancelling/lateral slip."
+}

@@ -1,0 +1,1154 @@
+....................................................FFFFFF......FF.FEEEE [ 46%]
+EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE.EEEEEEEEEE.EEEEEE....EEEEEEEEEEE [ 92%]
+E...EEEE.EE                                                              [100%]
+==================================== ERRORS ====================================
+_ ERROR at setup of test_original_execute_handoff_reproduces_recorded_stale_fault _
+
+tmp_path = PosixPath('/tmp/pytest-of-zyd/pytest-273/test_original_execute_handoff_0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x71070e9974c0>
+
+    @pytest.fixture
+    def session(tmp_path, monkeypatch):
+>       import rclpy
+E       ModuleNotFoundError: No module named 'rclpy'
+
+tests/test_warehouse_precheck_only.py:18: ModuleNotFoundError
+_ ERROR at setup of test_corrected_handoff_requires_delayed_localization_and_fresh_pulses _
+
+tmp_path = PosixPath('/tmp/pytest-of-zyd/pytest-273/test_corrected_handoff_require0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x71070e9cae60>
+
+    @pytest.fixture
+    def session(tmp_path, monkeypatch):
+>       import rclpy
+E       ModuleNotFoundError: No module named 'rclpy'
+
+tests/test_warehouse_precheck_only.py:18: ModuleNotFoundError
+_ ERROR at setup of test_clock_progress_alone_never_admits_missing_localization[stale_tf] _
+
+tmp_path = PosixPath('/tmp/pytest-of-zyd/pytest-273/test_clock_progress_alone_neve0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x71070e96d120>
+
+    @pytest.fixture
+    def session(tmp_path, monkeypatch):
+>       import rclpy
+E       ModuleNotFoundError: No module named 'rclpy'
+
+tests/test_warehouse_precheck_only.py:18: ModuleNotFoundError
+_ ERROR at setup of test_clock_progress_alone_never_admits_missing_localization[stale_odom] _
+
+tmp_path = PosixPath('/tmp/pytest-of-zyd/pytest-273/test_clock_progress_alone_neve1')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x71070e9c44c0>
+
+    @pytest.fixture
+    def session(tmp_path, monkeypatch):
+>       import rclpy
+E       ModuleNotFoundError: No module named 'rclpy'
+
+tests/test_warehouse_precheck_only.py:18: ModuleNotFoundError
+_ ERROR at setup of test_clock_progress_alone_never_admits_missing_localization[frozen] _
+
+tmp_path = PosixPath('/tmp/pytest-of-zyd/pytest-273/test_clock_progress_alone_neve2')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x71070e9a4400>
+
+    @pytest.fixture
+    def session(tmp_path, monkeypatch):
+>       import rclpy
+E       ModuleNotFoundError: No module named 'rclpy'
+
+tests/test_warehouse_precheck_only.py:18: ModuleNotFoundError
+_ ERROR at setup of test_clock_progress_alone_never_admits_missing_localization[backlog] _
+
+tmp_path = PosixPath('/tmp/pytest-of-zyd/pytest-273/test_clock_progress_alone_neve3')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x71070e96cdf0>
+
+    @pytest.fixture
+    def session(tmp_path, monkeypatch):
+>       import rclpy
+E       ModuleNotFoundError: No module named 'rclpy'
+
+tests/test_warehouse_precheck_only.py:18: ModuleNotFoundError
+______ ERROR at setup of test_physical_veto_precedes_entry_into_precheck _______
+
+tmp_path = PosixPath('/tmp/pytest-of-zyd/pytest-273/test_physical_veto_precedes_en0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x71070e98dab0>
+
+    @pytest.fixture
+    def session(tmp_path, monkeypatch):
+>       import rclpy
+E       ModuleNotFoundError: No module named 'rclpy'
+
+tests/test_warehouse_precheck_only.py:18: ModuleNotFoundError
+_ ERROR at setup of test_readmission_is_not_a_cached_pass_for_later_staleness[post_entry_tf_stall] _
+
+tmp_path = PosixPath('/tmp/pytest-of-zyd/pytest-273/test_readmission_is_not_a_cach0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x71070e995900>
+
+    @pytest.fixture
+    def session(tmp_path, monkeypatch):
+>       import rclpy
+E       ModuleNotFoundError: No module named 'rclpy'
+
+tests/test_warehouse_precheck_only.py:18: ModuleNotFoundError
+_ ERROR at setup of test_readmission_is_not_a_cached_pass_for_later_staleness[post_entry_odom_stall] _
+
+tmp_path = PosixPath('/tmp/pytest-of-zyd/pytest-273/test_readmission_is_not_a_cach1')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x71070e9c9ff0>
+
+    @pytest.fixture
+    def session(tmp_path, monkeypatch):
+>       import rclpy
+E       ModuleNotFoundError: No module named 'rclpy'
+
+tests/test_warehouse_precheck_only.py:18: ModuleNotFoundError
+___ ERROR at setup of test_contact_failure_is_not_hidden_by_readmission_wait ___
+
+tmp_path = PosixPath('/tmp/pytest-of-zyd/pytest-273/test_contact_failure_is_not_hi0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x71070e9a4fa0>
+
+    @pytest.fixture
+    def session(tmp_path, monkeypatch):
+>       import rclpy
+E       ModuleNotFoundError: No module named 'rclpy'
+
+tests/test_warehouse_precheck_only.py:18: ModuleNotFoundError
+_ ERROR at setup of test_pulse_report_io_cannot_publish_before_freshness_check _
+
+tmp_path = PosixPath('/tmp/pytest-of-zyd/pytest-273/test_pulse_report_io_cannot_pu0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x71070e9c7370>
+
+    @pytest.fixture
+    def session(tmp_path, monkeypatch):
+>       import rclpy
+E       ModuleNotFoundError: No module named 'rclpy'
+
+tests/test_warehouse_precheck_only.py:18: ModuleNotFoundError
+_ ERROR at setup of test_precheck_success_finishes_rest_and_owned_shutdown_without_navigation _
+
+tmp_path = PosixPath('/tmp/pytest-of-zyd/pytest-273/test_precheck_success_finishes0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x71070e9947c0>
+
+    @pytest.fixture
+    def session(tmp_path, monkeypatch):
+>       import rclpy
+E       ModuleNotFoundError: No module named 'rclpy'
+
+tests/test_warehouse_precheck_only.py:18: ModuleNotFoundError
+_ ERROR at setup of test_precheck_rejections_never_fall_through_to_route_and_clean_owned[clearance] _
+
+tmp_path = PosixPath('/tmp/pytest-of-zyd/pytest-273/test_precheck_rejections_never0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x71070e9c8c10>
+
+    @pytest.fixture
+    def session(tmp_path, monkeypatch):
+>       import rclpy
+E       ModuleNotFoundError: No module named 'rclpy'
+
+tests/test_warehouse_precheck_only.py:18: ModuleNotFoundError
+_ ERROR at setup of test_precheck_rejections_never_fall_through_to_route_and_clean_owned[duplicate_owner] _
+
+tmp_path = PosixPath('/tmp/pytest-of-zyd/pytest-273/test_precheck_rejections_never1')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x71070e9989a0>
+
+    @pytest.fixture
+    def session(tmp_path, monkeypatch):
+>       import rclpy
+E       ModuleNotFoundError: No module named 'rclpy'
+
+tests/test_warehouse_precheck_only.py:18: ModuleNotFoundError
+_ ERROR at setup of test_precheck_rejections_never_fall_through_to_route_and_clean_owned[goal_source] _
+
+tmp_path = PosixPath('/tmp/pytest-of-zyd/pytest-273/test_precheck_rejections_never2')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x71070e9a5de0>
+
+    @pytest.fixture
+    def session(tmp_path, monkeypatch):
+>       import rclpy
+E       ModuleNotFoundError: No module named 'rclpy'
+
+tests/test_warehouse_precheck_only.py:18: ModuleNotFoundError
+_ ERROR at setup of test_precheck_rejections_never_fall_through_to_route_and_clean_owned[readiness] _
+
+tmp_path = PosixPath('/tmp/pytest-of-zyd/pytest-273/test_precheck_rejections_never3')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7107057bb9a0>
+
+    @pytest.fixture
+    def session(tmp_path, monkeypatch):
+>       import rclpy
+E       ModuleNotFoundError: No module named 'rclpy'
+
+tests/test_warehouse_precheck_only.py:18: ModuleNotFoundError
+_ ERROR at setup of test_precheck_rejections_never_fall_through_to_route_and_clean_owned[forward] _
+
+tmp_path = PosixPath('/tmp/pytest-of-zyd/pytest-273/test_precheck_rejections_never4')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x71070e998e80>
+
+    @pytest.fixture
+    def session(tmp_path, monkeypatch):
+>       import rclpy
+E       ModuleNotFoundError: No module named 'rclpy'
+
+tests/test_warehouse_precheck_only.py:18: ModuleNotFoundError
+_ ERROR at setup of test_precheck_rejections_never_fall_through_to_route_and_clean_owned[turn] _
+
+tmp_path = PosixPath('/tmp/pytest-of-zyd/pytest-273/test_precheck_rejections_never5')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x71070e995180>
+
+    @pytest.fixture
+    def session(tmp_path, monkeypatch):
+>       import rclpy
+E       ModuleNotFoundError: No module named 'rclpy'
+
+tests/test_warehouse_precheck_only.py:18: ModuleNotFoundError
+_ ERROR at setup of test_precheck_rejections_never_fall_through_to_route_and_clean_owned[physical_stop] _
+
+tmp_path = PosixPath('/tmp/pytest-of-zyd/pytest-273/test_precheck_rejections_never6')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x71070e98ee30>
+
+    @pytest.fixture
+    def session(tmp_path, monkeypatch):
+>       import rclpy
+E       ModuleNotFoundError: No module named 'rclpy'
+
+tests/test_warehouse_precheck_only.py:18: ModuleNotFoundError
+_ ERROR at setup of test_precheck_rejections_never_fall_through_to_route_and_clean_owned[pulse_clock_freeze] _
+
+tmp_path = PosixPath('/tmp/pytest-of-zyd/pytest-273/test_precheck_rejections_never7')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7107057bac80>
+
+    @pytest.fixture
+    def session(tmp_path, monkeypatch):
+>       import rclpy
+E       ModuleNotFoundError: No module named 'rclpy'
+
+tests/test_warehouse_precheck_only.py:18: ModuleNotFoundError
+_ ERROR at setup of test_precheck_watchdog_rejection_after_measured_stop_cannot_report_success _
+
+tmp_path = PosixPath('/tmp/pytest-of-zyd/pytest-273/test_precheck_watchdog_rejecti0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x71070e997160>
+
+    @pytest.fixture
+    def session(tmp_path, monkeypatch):
+>       import rclpy
+E       ModuleNotFoundError: No module named 'rclpy'
+
+tests/test_warehouse_precheck_only.py:18: ModuleNotFoundError
+__ ERROR at setup of test_clearance_failure_snapshot_is_written_before_raise ___
+
+tmp_path = PosixPath('/tmp/pytest-of-zyd/pytest-273/test_clearance_failure_snapsho0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x71070e9a57b0>
+
+    @pytest.fixture
+    def session(tmp_path, monkeypatch):
+>       import rclpy
+E       ModuleNotFoundError: No module named 'rclpy'
+
+tests/test_warehouse_precheck_only.py:18: ModuleNotFoundError
+______ ERROR at setup of test_each_motion_admission_records_one_snapshot _______
+
+tmp_path = PosixPath('/tmp/pytest-of-zyd/pytest-273/test_each_motion_admission_rec0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7107057bbcd0>
+
+    @pytest.fixture
+    def session(tmp_path, monkeypatch):
+>       import rclpy
+E       ModuleNotFoundError: No module named 'rclpy'
+
+tests/test_warehouse_precheck_only.py:18: ModuleNotFoundError
+_ ERROR at setup of test_alternate_precheck_spawn_is_explicit_and_recorded_with_truth _
+
+tmp_path = PosixPath('/tmp/pytest-of-zyd/pytest-273/test_alternate_precheck_spawn_0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x71070e9c54e0>
+
+    @pytest.fixture
+    def session(tmp_path, monkeypatch):
+>       import rclpy
+E       ModuleNotFoundError: No module named 'rclpy'
+
+tests/test_warehouse_precheck_only.py:18: ModuleNotFoundError
+_ ERROR at setup of test_motion_readmission_dispatches_past_frozen_clock_after_audit _
+
+tmp_path = PosixPath('/tmp/pytest-of-zyd/pytest-273/test_motion_readmission_dispat0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x71070e995a20>
+
+    @pytest.fixture
+    def session(tmp_path, monkeypatch):
+>       import rclpy
+E       ModuleNotFoundError: No module named 'rclpy'
+
+tests/test_warehouse_precheck_only.py:18: ModuleNotFoundError
+_ ERROR at setup of test_motion_readmission_frozen_clock_times_out_without_pulse _
+
+tmp_path = PosixPath('/tmp/pytest-of-zyd/pytest-273/test_motion_readmission_frozen0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x71070e9a63e0>
+
+    @pytest.fixture
+    def session(tmp_path, monkeypatch):
+>       import rclpy
+E       ModuleNotFoundError: No module named 'rclpy'
+
+tests/test_warehouse_precheck_only.py:18: ModuleNotFoundError
+_ ERROR at setup of test_bootstrap_waits_for_observed_free_map_before_native_audit _
+
+tmp_path = PosixPath('/tmp/pytest-of-zyd/pytest-273/test_bootstrap_waits_for_obser0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x71070e9c9570>
+
+    @pytest.fixture
+    def session(tmp_path, monkeypatch):
+>       import rclpy
+E       ModuleNotFoundError: No module named 'rclpy'
+
+tests/test_warehouse_precheck_only.py:18: ModuleNotFoundError
+_ ERROR at setup of test_bootstrap_never_observed_map_times_out_without_commands _
+
+tmp_path = PosixPath('/tmp/pytest-of-zyd/pytest-273/test_bootstrap_never_observed_0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x71070e995090>
+
+    @pytest.fixture
+    def session(tmp_path, monkeypatch):
+>       import rclpy
+E       ModuleNotFoundError: No module named 'rclpy'
+
+tests/test_warehouse_precheck_only.py:18: ModuleNotFoundError
+_ ERROR at setup of test_route_skips_open_pocket_and_pulses_but_cannot_admit_without_path _
+
+tmp_path = PosixPath('/tmp/pytest-of-zyd/pytest-273/test_route_skips_open_pocket_a0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x71070e9cbf40>
+
+    @pytest.fixture
+    def session(tmp_path, monkeypatch):
+>       import rclpy
+E       ModuleNotFoundError: No module named 'rclpy'
+
+tests/test_warehouse_precheck_only.py:18: ModuleNotFoundError
+_ ERROR at setup of test_planning_only_real_owner_never_launches_navigation_or_sends_nonzero[False] _
+
+tmp_path = PosixPath('/tmp/pytest-of-zyd/pytest-273/test_planning_only_real_owner_0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x71070e98f070>
+
+    @pytest.fixture
+    def session(tmp_path, monkeypatch):
+>       import rclpy
+E       ModuleNotFoundError: No module named 'rclpy'
+
+tests/test_warehouse_precheck_only.py:18: ModuleNotFoundError
+_ ERROR at setup of test_planning_only_real_owner_never_launches_navigation_or_sends_nonzero[True] _
+
+tmp_path = PosixPath('/tmp/pytest-of-zyd/pytest-273/test_planning_only_real_owner_1')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x71070e98e380>
+
+    @pytest.fixture
+    def session(tmp_path, monkeypatch):
+>       import rclpy
+E       ModuleNotFoundError: No module named 'rclpy'
+
+tests/test_warehouse_precheck_only.py:18: ModuleNotFoundError
+_ ERROR at setup of test_planning_bulk_evidence_runs_only_after_all_owned_processes_exit _
+
+tmp_path = PosixPath('/tmp/pytest-of-zyd/pytest-273/test_planning_bulk_evidence_ru0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x71070e98c4f0>
+
+    @pytest.fixture
+    def session(tmp_path, monkeypatch):
+>       import rclpy
+E       ModuleNotFoundError: No module named 'rclpy'
+
+tests/test_warehouse_precheck_only.py:18: ModuleNotFoundError
+_ ERROR at setup of test_planner_process_startup_finishes_in_existing_zero_bootstrap _
+
+tmp_path = PosixPath('/tmp/pytest-of-zyd/pytest-273/test_planner_process_startup_f0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x71070e98cdc0>
+
+    @pytest.fixture
+    def session(tmp_path, monkeypatch):
+>       import rclpy
+E       ModuleNotFoundError: No module named 'rclpy'
+
+tests/test_warehouse_precheck_only.py:18: ModuleNotFoundError
+_______ ERROR at setup of test_ingress_cleanup_failure_prevents_success ________
+
+tmp_path = PosixPath('/tmp/pytest-of-zyd/pytest-273/test_ingress_cleanup_failure_p0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x71070e99be20>
+
+    @pytest.fixture
+    def session(tmp_path, monkeypatch):
+>       import rclpy
+E       ModuleNotFoundError: No module named 'rclpy'
+
+tests/test_warehouse_precheck_only.py:18: ModuleNotFoundError
+_ ERROR at setup of test_normal_cleanup_interrupts_owned_descendants_of_ros2_run _
+
+tmp_path = PosixPath('/tmp/pytest-of-zyd/pytest-273/test_normal_cleanup_interrupts0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x71070e99b1f0>
+
+    @pytest.fixture
+    def session(tmp_path, monkeypatch):
+>       import rclpy
+E       ModuleNotFoundError: No module named 'rclpy'
+
+tests/test_warehouse_precheck_only.py:18: ModuleNotFoundError
+_ ERROR at setup of test_failed_normal_cleanup_evidence_survives_successful_fallback _
+
+tmp_path = PosixPath('/tmp/pytest-of-zyd/pytest-273/test_failed_normal_cleanup_evi0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x71070e9988b0>
+
+    @pytest.fixture
+    def session(tmp_path, monkeypatch):
+>       import rclpy
+E       ModuleNotFoundError: No module named 'rclpy'
+
+tests/test_warehouse_precheck_only.py:18: ModuleNotFoundError
+_ ERROR at setup of test_stationary_normal_cleanup_never_publishes_motion_or_injects_fault _
+
+tmp_path = PosixPath('/tmp/pytest-of-zyd/pytest-273/test_stationary_normal_cleanup0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x71070e999690>
+
+    @pytest.fixture
+    def session(tmp_path, monkeypatch):
+>       import rclpy
+E       ModuleNotFoundError: No module named 'rclpy'
+
+tests/test_warehouse_precheck_only.py:18: ModuleNotFoundError
+_ ERROR at setup of test_stationary_normal_cleanup_retains_failure_and_zero_contract[duplicate_owner] _
+
+tmp_path = PosixPath('/tmp/pytest-of-zyd/pytest-273/test_stationary_normal_cleanup1')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x71070e99a7a0>
+
+    @pytest.fixture
+    def session(tmp_path, monkeypatch):
+>       import rclpy
+E       ModuleNotFoundError: No module named 'rclpy'
+
+tests/test_warehouse_precheck_only.py:18: ModuleNotFoundError
+_ ERROR at setup of test_stationary_normal_cleanup_retains_failure_and_zero_contract[goal_source] _
+
+tmp_path = PosixPath('/tmp/pytest-of-zyd/pytest-273/test_stationary_normal_cleanup2')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7106eb31b7f0>
+
+    @pytest.fixture
+    def session(tmp_path, monkeypatch):
+>       import rclpy
+E       ModuleNotFoundError: No module named 'rclpy'
+
+tests/test_warehouse_precheck_only.py:18: ModuleNotFoundError
+_ ERROR at setup of test_stationary_normal_cleanup_retains_failure_and_zero_contract[readiness] _
+
+tmp_path = PosixPath('/tmp/pytest-of-zyd/pytest-273/test_stationary_normal_cleanup3')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7106eb31a320>
+
+    @pytest.fixture
+    def session(tmp_path, monkeypatch):
+>       import rclpy
+E       ModuleNotFoundError: No module named 'rclpy'
+
+tests/test_warehouse_precheck_only.py:18: ModuleNotFoundError
+_ ERROR at setup of test_stationary_normal_cleanup_retains_failure_and_zero_contract[physical_stop] _
+
+tmp_path = PosixPath('/tmp/pytest-of-zyd/pytest-273/test_stationary_normal_cleanup4')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7106eb31abf0>
+
+    @pytest.fixture
+    def session(tmp_path, monkeypatch):
+>       import rclpy
+E       ModuleNotFoundError: No module named 'rclpy'
+
+tests/test_warehouse_precheck_only.py:18: ModuleNotFoundError
+_ ERROR at setup of test_stationary_normal_cleanup_retains_failure_and_zero_contract[watchdog_completion] _
+
+tmp_path = PosixPath('/tmp/pytest-of-zyd/pytest-273/test_stationary_normal_cleanup5')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7106eb318340>
+
+    @pytest.fixture
+    def session(tmp_path, monkeypatch):
+>       import rclpy
+E       ModuleNotFoundError: No module named 'rclpy'
+
+tests/test_warehouse_precheck_only.py:18: ModuleNotFoundError
+_ ERROR at setup of test_stationary_normal_cleanup_retains_failure_and_zero_contract[ingress_cleanup] _
+
+tmp_path = PosixPath('/tmp/pytest-of-zyd/pytest-273/test_stationary_normal_cleanup6')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7106eb319480>
+
+    @pytest.fixture
+    def session(tmp_path, monkeypatch):
+>       import rclpy
+E       ModuleNotFoundError: No module named 'rclpy'
+
+tests/test_warehouse_precheck_only.py:18: ModuleNotFoundError
+_ ERROR at setup of test_negative_yaw_is_one_pure_pulse_then_exact_zero_and_rest _
+
+tmp_path = PosixPath('/tmp/pytest-of-zyd/pytest-273/test_negative_yaw_is_one_pure_0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7106eb3c5a20>
+
+    @pytest.fixture
+    def session(tmp_path, monkeypatch):
+>       import rclpy
+E       ModuleNotFoundError: No module named 'rclpy'
+
+tests/test_warehouse_precheck_only.py:18: ModuleNotFoundError
+_ ERROR at setup of test_negative_yaw_admission_rejection_sends_no_motion[clearance] _
+
+tmp_path = PosixPath('/tmp/pytest-of-zyd/pytest-273/test_negative_yaw_admission_re0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7106eb319090>
+
+    @pytest.fixture
+    def session(tmp_path, monkeypatch):
+>       import rclpy
+E       ModuleNotFoundError: No module named 'rclpy'
+
+tests/test_warehouse_precheck_only.py:18: ModuleNotFoundError
+_ ERROR at setup of test_negative_yaw_admission_rejection_sends_no_motion[readiness] _
+
+tmp_path = PosixPath('/tmp/pytest-of-zyd/pytest-273/test_negative_yaw_admission_re1')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7106eb31b130>
+
+    @pytest.fixture
+    def session(tmp_path, monkeypatch):
+>       import rclpy
+E       ModuleNotFoundError: No module named 'rclpy'
+
+tests/test_warehouse_precheck_only.py:18: ModuleNotFoundError
+_ ERROR at setup of test_negative_yaw_admission_rejection_sends_no_motion[duplicate_owner] _
+
+tmp_path = PosixPath('/tmp/pytest-of-zyd/pytest-273/test_negative_yaw_admission_re2')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7106eb3c66b0>
+
+    @pytest.fixture
+    def session(tmp_path, monkeypatch):
+>       import rclpy
+E       ModuleNotFoundError: No module named 'rclpy'
+
+tests/test_warehouse_precheck_only.py:18: ModuleNotFoundError
+_ ERROR at setup of test_negative_yaw_admission_rejection_sends_no_motion[goal_source] _
+
+tmp_path = PosixPath('/tmp/pytest-of-zyd/pytest-273/test_negative_yaw_admission_re3')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7106eb3c5060>
+
+    @pytest.fixture
+    def session(tmp_path, monkeypatch):
+>       import rclpy
+E       ModuleNotFoundError: No module named 'rclpy'
+
+tests/test_warehouse_precheck_only.py:18: ModuleNotFoundError
+_ ERROR at setup of test_negative_yaw_admission_rejection_sends_no_motion[readmission_clock_freeze] _
+
+tmp_path = PosixPath('/tmp/pytest-of-zyd/pytest-273/test_negative_yaw_admission_re4')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7106eb3c55a0>
+
+    @pytest.fixture
+    def session(tmp_path, monkeypatch):
+>       import rclpy
+E       ModuleNotFoundError: No module named 'rclpy'
+
+tests/test_warehouse_precheck_only.py:18: ModuleNotFoundError
+_ ERROR at setup of test_negative_yaw_preserves_physical_stop_deadline_and_watchdog_failures[turn] _
+
+tmp_path = PosixPath('/tmp/pytest-of-zyd/pytest-273/test_negative_yaw_preserves_ph0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7106eb3c6980>
+
+    @pytest.fixture
+    def session(tmp_path, monkeypatch):
+>       import rclpy
+E       ModuleNotFoundError: No module named 'rclpy'
+
+tests/test_warehouse_precheck_only.py:18: ModuleNotFoundError
+_ ERROR at setup of test_negative_yaw_preserves_physical_stop_deadline_and_watchdog_failures[pulse_clock_freeze] _
+
+tmp_path = PosixPath('/tmp/pytest-of-zyd/pytest-273/test_negative_yaw_preserves_ph1')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7106eb3c7bb0>
+
+    @pytest.fixture
+    def session(tmp_path, monkeypatch):
+>       import rclpy
+E       ModuleNotFoundError: No module named 'rclpy'
+
+tests/test_warehouse_precheck_only.py:18: ModuleNotFoundError
+_ ERROR at setup of test_negative_yaw_preserves_physical_stop_deadline_and_watchdog_failures[physical_stop] _
+
+tmp_path = PosixPath('/tmp/pytest-of-zyd/pytest-273/test_negative_yaw_preserves_ph2')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7106eb3c72b0>
+
+    @pytest.fixture
+    def session(tmp_path, monkeypatch):
+>       import rclpy
+E       ModuleNotFoundError: No module named 'rclpy'
+
+tests/test_warehouse_precheck_only.py:18: ModuleNotFoundError
+_ ERROR at setup of test_negative_yaw_preserves_physical_stop_deadline_and_watchdog_failures[watchdog_completion] _
+
+tmp_path = PosixPath('/tmp/pytest-of-zyd/pytest-273/test_negative_yaw_preserves_ph3')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7106e291f5b0>
+
+    @pytest.fixture
+    def session(tmp_path, monkeypatch):
+>       import rclpy
+E       ModuleNotFoundError: No module named 'rclpy'
+
+tests/test_warehouse_precheck_only.py:18: ModuleNotFoundError
+_ ERROR at setup of test_incomplete_early_pocket_can_be_observed_free_during_required_rest _
+
+tmp_path = PosixPath('/tmp/pytest-of-zyd/pytest-273/test_incomplete_early_pocket_c0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7106e291d9c0>
+
+    @pytest.fixture
+    def session(tmp_path, monkeypatch):
+>       import rclpy
+E       ModuleNotFoundError: No module named 'rclpy'
+
+tests/test_warehouse_precheck_only.py:18: ModuleNotFoundError
+_ ERROR at setup of test_final_pocket_rejects_persistent_unknown_or_occupied_after_rest[clearance] _
+
+tmp_path = PosixPath('/tmp/pytest-of-zyd/pytest-273/test_final_pocket_rejects_pers0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7106e291c520>
+
+    @pytest.fixture
+    def session(tmp_path, monkeypatch):
+>       import rclpy
+E       ModuleNotFoundError: No module named 'rclpy'
+
+tests/test_warehouse_precheck_only.py:18: ModuleNotFoundError
+_ ERROR at setup of test_final_pocket_rejects_persistent_unknown_or_occupied_after_rest[occupied] _
+
+tmp_path = PosixPath('/tmp/pytest-of-zyd/pytest-273/test_final_pocket_rejects_pers1')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7106e291ea40>
+
+    @pytest.fixture
+    def session(tmp_path, monkeypatch):
+>       import rclpy
+E       ModuleNotFoundError: No module named 'rclpy'
+
+tests/test_warehouse_precheck_only.py:18: ModuleNotFoundError
+_ ERROR at setup of test_final_admission_requires_new_fresh_map_during_rest[no_new_map] _
+
+tmp_path = PosixPath('/tmp/pytest-of-zyd/pytest-273/test_final_admission_requires_0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7106e291fa30>
+
+    @pytest.fixture
+    def session(tmp_path, monkeypatch):
+>       import rclpy
+E       ModuleNotFoundError: No module named 'rclpy'
+
+tests/test_warehouse_precheck_only.py:18: ModuleNotFoundError
+_ ERROR at setup of test_final_admission_requires_new_fresh_map_during_rest[stale_map] _
+
+tmp_path = PosixPath('/tmp/pytest-of-zyd/pytest-273/test_final_admission_requires_1')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7106e291ca00>
+
+    @pytest.fixture
+    def session(tmp_path, monkeypatch):
+>       import rclpy
+E       ModuleNotFoundError: No module named 'rclpy'
+
+tests/test_warehouse_precheck_only.py:18: ModuleNotFoundError
+_ ERROR at setup of test_historical_yaw_is_one_fixed_positive_pulse_then_zero_rest _
+
+tmp_path = PosixPath('/tmp/pytest-of-zyd/pytest-273/test_historical_yaw_is_one_fix0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7106e291c1c0>
+
+    @pytest.fixture
+    def session(tmp_path, monkeypatch):
+>       import rclpy
+E       ModuleNotFoundError: No module named 'rclpy'
+
+tests/test_warehouse_precheck_only.py:18: ModuleNotFoundError
+_ ERROR at setup of test_historical_yaw_preserves_admission_and_safety_failures[clearance] _
+
+tmp_path = PosixPath('/tmp/pytest-of-zyd/pytest-273/test_historical_yaw_preserves_0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7106e2912710>
+
+    @pytest.fixture
+    def session(tmp_path, monkeypatch):
+>       import rclpy
+E       ModuleNotFoundError: No module named 'rclpy'
+
+tests/test_warehouse_precheck_only.py:18: ModuleNotFoundError
+_ ERROR at setup of test_historical_yaw_preserves_admission_and_safety_failures[occupied] _
+
+tmp_path = PosixPath('/tmp/pytest-of-zyd/pytest-273/test_historical_yaw_preserves_1')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7106e2913340>
+
+    @pytest.fixture
+    def session(tmp_path, monkeypatch):
+>       import rclpy
+E       ModuleNotFoundError: No module named 'rclpy'
+
+tests/test_warehouse_precheck_only.py:18: ModuleNotFoundError
+_ ERROR at setup of test_historical_yaw_preserves_admission_and_safety_failures[no_new_map] _
+
+tmp_path = PosixPath('/tmp/pytest-of-zyd/pytest-273/test_historical_yaw_preserves_2')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7106e29104c0>
+
+    @pytest.fixture
+    def session(tmp_path, monkeypatch):
+>       import rclpy
+E       ModuleNotFoundError: No module named 'rclpy'
+
+tests/test_warehouse_precheck_only.py:18: ModuleNotFoundError
+_ ERROR at setup of test_historical_yaw_preserves_admission_and_safety_failures[stale_map] _
+
+tmp_path = PosixPath('/tmp/pytest-of-zyd/pytest-273/test_historical_yaw_preserves_3')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7106e2913280>
+
+    @pytest.fixture
+    def session(tmp_path, monkeypatch):
+>       import rclpy
+E       ModuleNotFoundError: No module named 'rclpy'
+
+tests/test_warehouse_precheck_only.py:18: ModuleNotFoundError
+_ ERROR at setup of test_historical_yaw_preserves_admission_and_safety_failures[readiness] _
+
+tmp_path = PosixPath('/tmp/pytest-of-zyd/pytest-273/test_historical_yaw_preserves_4')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7106e2911300>
+
+    @pytest.fixture
+    def session(tmp_path, monkeypatch):
+>       import rclpy
+E       ModuleNotFoundError: No module named 'rclpy'
+
+tests/test_warehouse_precheck_only.py:18: ModuleNotFoundError
+_ ERROR at setup of test_historical_yaw_preserves_admission_and_safety_failures[duplicate_owner] _
+
+tmp_path = PosixPath('/tmp/pytest-of-zyd/pytest-273/test_historical_yaw_preserves_5')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7106e2911a50>
+
+    @pytest.fixture
+    def session(tmp_path, monkeypatch):
+>       import rclpy
+E       ModuleNotFoundError: No module named 'rclpy'
+
+tests/test_warehouse_precheck_only.py:18: ModuleNotFoundError
+_ ERROR at setup of test_historical_yaw_preserves_admission_and_safety_failures[goal_source] _
+
+tmp_path = PosixPath('/tmp/pytest-of-zyd/pytest-273/test_historical_yaw_preserves_6')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7106e2910280>
+
+    @pytest.fixture
+    def session(tmp_path, monkeypatch):
+>       import rclpy
+E       ModuleNotFoundError: No module named 'rclpy'
+
+tests/test_warehouse_precheck_only.py:18: ModuleNotFoundError
+_ ERROR at setup of test_historical_yaw_preserves_admission_and_safety_failures[readmission_clock_freeze] _
+
+tmp_path = PosixPath('/tmp/pytest-of-zyd/pytest-273/test_historical_yaw_preserves_7')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7106e295c730>
+
+    @pytest.fixture
+    def session(tmp_path, monkeypatch):
+>       import rclpy
+E       ModuleNotFoundError: No module named 'rclpy'
+
+tests/test_warehouse_precheck_only.py:18: ModuleNotFoundError
+_ ERROR at setup of test_historical_yaw_preserves_admission_and_safety_failures[turn] _
+
+tmp_path = PosixPath('/tmp/pytest-of-zyd/pytest-273/test_historical_yaw_preserves_8')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7106e295f700>
+
+    @pytest.fixture
+    def session(tmp_path, monkeypatch):
+>       import rclpy
+E       ModuleNotFoundError: No module named 'rclpy'
+
+tests/test_warehouse_precheck_only.py:18: ModuleNotFoundError
+_ ERROR at setup of test_historical_yaw_preserves_admission_and_safety_failures[pulse_clock_freeze] _
+
+tmp_path = PosixPath('/tmp/pytest-of-zyd/pytest-273/test_historical_yaw_preserves_9')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7106e295d090>
+
+    @pytest.fixture
+    def session(tmp_path, monkeypatch):
+>       import rclpy
+E       ModuleNotFoundError: No module named 'rclpy'
+
+tests/test_warehouse_precheck_only.py:18: ModuleNotFoundError
+_ ERROR at setup of test_historical_yaw_preserves_admission_and_safety_failures[physical_stop] _
+
+tmp_path = PosixPath('/tmp/pytest-of-zyd/pytest-273/test_historical_yaw_preserves_10')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7106e295fd30>
+
+    @pytest.fixture
+    def session(tmp_path, monkeypatch):
+>       import rclpy
+E       ModuleNotFoundError: No module named 'rclpy'
+
+tests/test_warehouse_precheck_only.py:18: ModuleNotFoundError
+_ ERROR at setup of test_historical_yaw_preserves_admission_and_safety_failures[watchdog_completion] _
+
+tmp_path = PosixPath('/tmp/pytest-of-zyd/pytest-273/test_historical_yaw_preserves_11')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7106e295c2b0>
+
+    @pytest.fixture
+    def session(tmp_path, monkeypatch):
+>       import rclpy
+E       ModuleNotFoundError: No module named 'rclpy'
+
+tests/test_warehouse_precheck_only.py:18: ModuleNotFoundError
+_ ERROR at setup of test_reviewed_brake_fault_requests_disable_without_delaying_zero_cleanup[False] _
+
+tmp_path = PosixPath('/tmp/pytest-of-zyd/pytest-273/test_reviewed_brake_fault_requ0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7106e29bee30>
+
+    @pytest.fixture
+    def session(tmp_path, monkeypatch):
+>       import rclpy
+E       ModuleNotFoundError: No module named 'rclpy'
+
+tests/test_warehouse_precheck_only.py:18: ModuleNotFoundError
+_ ERROR at setup of test_reviewed_brake_fault_requests_disable_without_delaying_zero_cleanup[True] _
+
+tmp_path = PosixPath('/tmp/pytest-of-zyd/pytest-273/test_reviewed_brake_fault_requ1')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7106e295d810>
+
+    @pytest.fixture
+    def session(tmp_path, monkeypatch):
+>       import rclpy
+E       ModuleNotFoundError: No module named 'rclpy'
+
+tests/test_warehouse_precheck_only.py:18: ModuleNotFoundError
+_ ERROR at setup of test_recording_end_hold_is_guarded_exact_zero_and_owned_cleanup _
+
+tmp_path = PosixPath('/tmp/pytest-of-zyd/pytest-273/test_recording_end_hold_is_gua0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7106e29be3e0>
+
+    @pytest.fixture
+    def session(tmp_path, monkeypatch):
+>       import rclpy
+E       ModuleNotFoundError: No module named 'rclpy'
+
+tests/test_warehouse_precheck_only.py:18: ModuleNotFoundError
+_ ERROR at setup of test_canonical_stationary_view_remains_zero_and_not_motion_qualification _
+
+tmp_path = PosixPath('/tmp/pytest-of-zyd/pytest-273/test_canonical_stationary_view0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7106e29bd630>
+
+    @pytest.fixture
+    def session(tmp_path, monkeypatch):
+>       import rclpy
+E       ModuleNotFoundError: No module named 'rclpy'
+
+tests/test_warehouse_precheck_only.py:18: ModuleNotFoundError
+_ ERROR at setup of test_stationary_gui_client_is_owned_and_server_stays_server_only _
+
+tmp_path = PosixPath('/tmp/pytest-of-zyd/pytest-273/test_stationary_gui_client_is_0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7106e29bfeb0>
+
+    @pytest.fixture
+    def session(tmp_path, monkeypatch):
+>       import rclpy
+E       ModuleNotFoundError: No module named 'rclpy'
+
+tests/test_warehouse_precheck_only.py:18: ModuleNotFoundError
+_ ERROR at setup of test_dead_recording_coordinator_stops_owned_session_before_motion _
+
+tmp_path = PosixPath('/tmp/pytest-of-zyd/pytest-273/test_dead_recording_coordinato0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7106e29bc5b0>
+
+    @pytest.fixture
+    def session(tmp_path, monkeypatch):
+>       import rclpy
+E       ModuleNotFoundError: No module named 'rclpy'
+
+tests/test_warehouse_precheck_only.py:18: ModuleNotFoundError
+=================================== FAILURES ===================================
+______ test_route_boundary_missing_or_unreliable_plan_never_admits[bad0] _______
+
+tmp_path = PosixPath('/tmp/pytest-of-zyd/pytest-273/test_route_boundary_missing_or0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x71070e92e260>
+bad = {'frame': 'odom'}
+
+    @pytest.mark.parametrize('bad', [dict(frame='odom'),dict(status=6),dict(stamp=1.),dict(poses=[]),None])
+    def test_route_boundary_missing_or_unreliable_plan_never_admits(tmp_path,monkeypatch,bad):
+>       run_boundary(tmp_path,monkeypatch,bad)
+
+tests/test_warehouse_route_admission.py:88: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+tmp_path = PosixPath('/tmp/pytest-of-zyd/pytest-273/test_route_boundary_missing_or0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x71070e92e260>
+replacement = {'frame': 'odom'}, expect_success = False, options = {}
+
+    def run_boundary(tmp_path,monkeypatch,replacement='valid',expect_success=False,**options):
+        from types import SimpleNamespace as NS
+>       import rclpy.action
+E       ModuleNotFoundError: No module named 'rclpy'
+
+tests/test_warehouse_route_admission.py:93: ModuleNotFoundError
+______ test_route_boundary_missing_or_unreliable_plan_never_admits[bad1] _______
+
+tmp_path = PosixPath('/tmp/pytest-of-zyd/pytest-273/test_route_boundary_missing_or1')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7107057bbaf0>
+bad = {'status': 6}
+
+    @pytest.mark.parametrize('bad', [dict(frame='odom'),dict(status=6),dict(stamp=1.),dict(poses=[]),None])
+    def test_route_boundary_missing_or_unreliable_plan_never_admits(tmp_path,monkeypatch,bad):
+>       run_boundary(tmp_path,monkeypatch,bad)
+
+tests/test_warehouse_route_admission.py:88: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+tmp_path = PosixPath('/tmp/pytest-of-zyd/pytest-273/test_route_boundary_missing_or1')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7107057bbaf0>
+replacement = {'status': 6}, expect_success = False, options = {}
+
+    def run_boundary(tmp_path,monkeypatch,replacement='valid',expect_success=False,**options):
+        from types import SimpleNamespace as NS
+>       import rclpy.action
+E       ModuleNotFoundError: No module named 'rclpy'
+
+tests/test_warehouse_route_admission.py:93: ModuleNotFoundError
+______ test_route_boundary_missing_or_unreliable_plan_never_admits[bad2] _______
+
+tmp_path = PosixPath('/tmp/pytest-of-zyd/pytest-273/test_route_boundary_missing_or2')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x71070e9c72b0>
+bad = {'stamp': 1.0}
+
+    @pytest.mark.parametrize('bad', [dict(frame='odom'),dict(status=6),dict(stamp=1.),dict(poses=[]),None])
+    def test_route_boundary_missing_or_unreliable_plan_never_admits(tmp_path,monkeypatch,bad):
+>       run_boundary(tmp_path,monkeypatch,bad)
+
+tests/test_warehouse_route_admission.py:88: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+tmp_path = PosixPath('/tmp/pytest-of-zyd/pytest-273/test_route_boundary_missing_or2')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x71070e9c72b0>
+replacement = {'stamp': 1.0}, expect_success = False, options = {}
+
+    def run_boundary(tmp_path,monkeypatch,replacement='valid',expect_success=False,**options):
+        from types import SimpleNamespace as NS
+>       import rclpy.action
+E       ModuleNotFoundError: No module named 'rclpy'
+
+tests/test_warehouse_route_admission.py:93: ModuleNotFoundError
+______ test_route_boundary_missing_or_unreliable_plan_never_admits[bad3] _______
+
+tmp_path = PosixPath('/tmp/pytest-of-zyd/pytest-273/test_route_boundary_missing_or3')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7107057bad70>
+bad = {'poses': []}
+
+    @pytest.mark.parametrize('bad', [dict(frame='odom'),dict(status=6),dict(stamp=1.),dict(poses=[]),None])
+    def test_route_boundary_missing_or_unreliable_plan_never_admits(tmp_path,monkeypatch,bad):
+>       run_boundary(tmp_path,monkeypatch,bad)
+
+tests/test_warehouse_route_admission.py:88: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+tmp_path = PosixPath('/tmp/pytest-of-zyd/pytest-273/test_route_boundary_missing_or3')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7107057bad70>
+replacement = {'poses': []}, expect_success = False, options = {}
+
+    def run_boundary(tmp_path,monkeypatch,replacement='valid',expect_success=False,**options):
+        from types import SimpleNamespace as NS
+>       import rclpy.action
+E       ModuleNotFoundError: No module named 'rclpy'
+
+tests/test_warehouse_route_admission.py:93: ModuleNotFoundError
+______ test_route_boundary_missing_or_unreliable_plan_never_admits[None] _______
+
+tmp_path = PosixPath('/tmp/pytest-of-zyd/pytest-273/test_route_boundary_missing_or4')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x71070e9c42b0>
+bad = None
+
+    @pytest.mark.parametrize('bad', [dict(frame='odom'),dict(status=6),dict(stamp=1.),dict(poses=[]),None])
+    def test_route_boundary_missing_or_unreliable_plan_never_admits(tmp_path,monkeypatch,bad):
+>       run_boundary(tmp_path,monkeypatch,bad)
+
+tests/test_warehouse_route_admission.py:88: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+tmp_path = PosixPath('/tmp/pytest-of-zyd/pytest-273/test_route_boundary_missing_or4')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x71070e9c42b0>
+replacement = None, expect_success = False, options = {}
+
+    def run_boundary(tmp_path,monkeypatch,replacement='valid',expect_success=False,**options):
+        from types import SimpleNamespace as NS
+>       import rclpy.action
+E       ModuleNotFoundError: No module named 'rclpy'
+
+tests/test_warehouse_route_admission.py:93: ModuleNotFoundError
+__ test_route_reaches_planning_stage_but_empirical_coast_cannot_waive_bounds ___
+
+tmp_path = PosixPath('/tmp/pytest-of-zyd/pytest-273/test_route_reaches_planning_st0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7107057b8070>
+
+    def test_route_reaches_planning_stage_but_empirical_coast_cannot_waive_bounds(tmp_path,monkeypatch):
+        import json
+>       run_boundary(tmp_path,monkeypatch)
+
+tests/test_warehouse_route_admission.py:132: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+tmp_path = PosixPath('/tmp/pytest-of-zyd/pytest-273/test_route_reaches_planning_st0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7107057b8070>
+replacement = 'valid', expect_success = False, options = {}
+
+    def run_boundary(tmp_path,monkeypatch,replacement='valid',expect_success=False,**options):
+        from types import SimpleNamespace as NS
+>       import rclpy.action
+E       ModuleNotFoundError: No module named 'rclpy'
+
+tests/test_warehouse_route_admission.py:93: ModuleNotFoundError
+__ test_runtime_can_admit_with_supplied_directional_bounds_not_hardcoded_none __
+
+tmp_path = PosixPath('/tmp/pytest-of-zyd/pytest-273/test_runtime_can_admit_with_su0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x71070e9c92a0>
+
+    def test_runtime_can_admit_with_supplied_directional_bounds_not_hardcoded_none(tmp_path,monkeypatch):
+        import json
+        envelope=dict(half_extents=[.7,.38],padding_m=.05,localization_error_m=.02,tracking_error_m=.03,
+            stop=dict(forward_m=.3,reverse_m=.02,lateral_m=.02,yaw_rad=.05,rotation_drift_m=.02))
+>       run_boundary(tmp_path,monkeypatch,expect_success=True,envelope=envelope)
+
+tests/test_warehouse_route_admission.py:205: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+tmp_path = PosixPath('/tmp/pytest-of-zyd/pytest-273/test_runtime_can_admit_with_su0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x71070e9c92a0>
+replacement = 'valid', expect_success = True
+options = {'envelope': {'half_extents': [0.7, 0.38], 'localization_error_m': 0.02, 'padding_m': 0.05, 'stop': {'forward_m': 0.3, 'lateral_m': 0.02, 'reverse_m': 0.02, 'rotation_drift_m': 0.02, ...}, ...}}
+
+    def run_boundary(tmp_path,monkeypatch,replacement='valid',expect_success=False,**options):
+        from types import SimpleNamespace as NS
+>       import rclpy.action
+E       ModuleNotFoundError: No module named 'rclpy'
+
+tests/test_warehouse_route_admission.py:93: ModuleNotFoundError
+_____ test_planning_result_is_successful_capture_without_motion_admission ______
+
+tmp_path = PosixPath('/tmp/pytest-of-zyd/pytest-273/test_planning_result_is_succes0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x71070e995e10>
+
+    def test_planning_result_is_successful_capture_without_motion_admission(tmp_path,monkeypatch):
+        import warehouse_ab_trial as trial
+        capture={}
+>       run_boundary(tmp_path,monkeypatch,expect_success=True,planning_only=True,deferred_capture=capture)
+
+tests/test_warehouse_route_admission.py:213: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+tmp_path = PosixPath('/tmp/pytest-of-zyd/pytest-273/test_planning_result_is_succes0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x71070e995e10>
+replacement = 'valid', expect_success = True
+options = {'deferred_capture': {}, 'planning_only': True}
+
+    def run_boundary(tmp_path,monkeypatch,replacement='valid',expect_success=False,**options):
+        from types import SimpleNamespace as NS
+>       import rclpy.action
+E       ModuleNotFoundError: No module named 'rclpy'
+
+tests/test_warehouse_route_admission.py:93: ModuleNotFoundError
+___ test_planning_capture_defers_bulk_grid_and_geometry_until_owned_teardown ___
+
+tmp_path = PosixPath('/tmp/pytest-of-zyd/pytest-273/test_planning_capture_defers_b0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x71070e9ca590>
+
+    def test_planning_capture_defers_bulk_grid_and_geometry_until_owned_teardown(tmp_path,monkeypatch):
+        import warehouse_ab_trial as trial
+        capture={};calls=[]
+        real=admission.admit
+        def forbidden_while_active(*args,**kwargs):
+            calls.append('geometry');return real(*args,**kwargs)
+        monkeypatch.setattr(admission,'admit',forbidden_while_active)
+>       run_boundary(tmp_path,monkeypatch,expect_success=True,planning_only=True,deferred_capture=capture)
+
+tests/test_warehouse_route_admission.py:234: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+tmp_path = PosixPath('/tmp/pytest-of-zyd/pytest-273/test_planning_capture_defers_b0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x71070e9ca590>
+replacement = 'valid', expect_success = True
+options = {'deferred_capture': {}, 'planning_only': True}
+
+    def run_boundary(tmp_path,monkeypatch,replacement='valid',expect_success=False,**options):
+        from types import SimpleNamespace as NS
+>       import rclpy.action
+E       ModuleNotFoundError: No module named 'rclpy'
+
+tests/test_warehouse_route_admission.py:93: ModuleNotFoundError
+=========================== short test summary info ============================
+FAILED tests/test_warehouse_route_admission.py::test_route_boundary_missing_or_unreliable_plan_never_admits[bad0]
+FAILED tests/test_warehouse_route_admission.py::test_route_boundary_missing_or_unreliable_plan_never_admits[bad1]
+FAILED tests/test_warehouse_route_admission.py::test_route_boundary_missing_or_unreliable_plan_never_admits[bad2]
+FAILED tests/test_warehouse_route_admission.py::test_route_boundary_missing_or_unreliable_plan_never_admits[bad3]
+FAILED tests/test_warehouse_route_admission.py::test_route_boundary_missing_or_unreliable_plan_never_admits[None]
+FAILED tests/test_warehouse_route_admission.py::test_route_reaches_planning_stage_but_empirical_coast_cannot_waive_bounds
+FAILED tests/test_warehouse_route_admission.py::test_runtime_can_admit_with_supplied_directional_bounds_not_hardcoded_none
+FAILED tests/test_warehouse_route_admission.py::test_planning_result_is_successful_capture_without_motion_admission
+FAILED tests/test_warehouse_route_admission.py::test_planning_capture_defers_bulk_grid_and_geometry_until_owned_teardown
+ERROR tests/test_motion_readmission.py::test_original_execute_handoff_reproduces_recorded_stale_fault
+ERROR tests/test_motion_readmission.py::test_corrected_handoff_requires_delayed_localization_and_fresh_pulses
+ERROR tests/test_motion_readmission.py::test_clock_progress_alone_never_admits_missing_localization[stale_tf]
+ERROR tests/test_motion_readmission.py::test_clock_progress_alone_never_admits_missing_localization[stale_odom]
+ERROR tests/test_motion_readmission.py::test_clock_progress_alone_never_admits_missing_localization[frozen]
+ERROR tests/test_motion_readmission.py::test_clock_progress_alone_never_admits_missing_localization[backlog]
+ERROR tests/test_motion_readmission.py::test_physical_veto_precedes_entry_into_precheck
+ERROR tests/test_motion_readmission.py::test_readmission_is_not_a_cached_pass_for_later_staleness[post_entry_tf_stall]
+ERROR tests/test_motion_readmission.py::test_readmission_is_not_a_cached_pass_for_later_staleness[post_entry_odom_stall]
+ERROR tests/test_motion_readmission.py::test_contact_failure_is_not_hidden_by_readmission_wait
+ERROR tests/test_motion_readmission.py::test_pulse_report_io_cannot_publish_before_freshness_check
+ERROR tests/test_warehouse_precheck_only.py::test_precheck_success_finishes_rest_and_owned_shutdown_without_navigation
+ERROR tests/test_warehouse_precheck_only.py::test_precheck_rejections_never_fall_through_to_route_and_clean_owned[clearance]
+ERROR tests/test_warehouse_precheck_only.py::test_precheck_rejections_never_fall_through_to_route_and_clean_owned[duplicate_owner]
+ERROR tests/test_warehouse_precheck_only.py::test_precheck_rejections_never_fall_through_to_route_and_clean_owned[goal_source]
+ERROR tests/test_warehouse_precheck_only.py::test_precheck_rejections_never_fall_through_to_route_and_clean_owned[readiness]
+ERROR tests/test_warehouse_precheck_only.py::test_precheck_rejections_never_fall_through_to_route_and_clean_owned[forward]
+ERROR tests/test_warehouse_precheck_only.py::test_precheck_rejections_never_fall_through_to_route_and_clean_owned[turn]
+ERROR tests/test_warehouse_precheck_only.py::test_precheck_rejections_never_fall_through_to_route_and_clean_owned[physical_stop]
+ERROR tests/test_warehouse_precheck_only.py::test_precheck_rejections_never_fall_through_to_route_and_clean_owned[pulse_clock_freeze]
+ERROR tests/test_warehouse_precheck_only.py::test_precheck_watchdog_rejection_after_measured_stop_cannot_report_success
+ERROR tests/test_warehouse_precheck_only.py::test_clearance_failure_snapshot_is_written_before_raise
+ERROR tests/test_warehouse_precheck_only.py::test_each_motion_admission_records_one_snapshot
+ERROR tests/test_warehouse_precheck_only.py::test_alternate_precheck_spawn_is_explicit_and_recorded_with_truth
+ERROR tests/test_warehouse_precheck_only.py::test_motion_readmission_dispatches_past_frozen_clock_after_audit
+ERROR tests/test_warehouse_precheck_only.py::test_motion_readmission_frozen_clock_times_out_without_pulse
+ERROR tests/test_warehouse_precheck_only.py::test_bootstrap_waits_for_observed_free_map_before_native_audit
+ERROR tests/test_warehouse_precheck_only.py::test_bootstrap_never_observed_map_times_out_without_commands
+ERROR tests/test_warehouse_precheck_only.py::test_route_skips_open_pocket_and_pulses_but_cannot_admit_without_path
+ERROR tests/test_warehouse_precheck_only.py::test_planning_only_real_owner_never_launches_navigation_or_sends_nonzero[False]
+ERROR tests/test_warehouse_precheck_only.py::test_planning_only_real_owner_never_launches_navigation_or_sends_nonzero[True]
+ERROR tests/test_warehouse_precheck_only.py::test_planning_bulk_evidence_runs_only_after_all_owned_processes_exit
+ERROR tests/test_warehouse_precheck_only.py::test_planner_process_startup_finishes_in_existing_zero_bootstrap
+ERROR tests/test_warehouse_precheck_only.py::test_ingress_cleanup_failure_prevents_success
+ERROR tests/test_warehouse_precheck_only.py::test_normal_cleanup_interrupts_owned_descendants_of_ros2_run
+ERROR tests/test_warehouse_precheck_only.py::test_failed_normal_cleanup_evidence_survives_successful_fallback
+ERROR tests/test_warehouse_precheck_only.py::test_stationary_normal_cleanup_never_publishes_motion_or_injects_fault
+ERROR tests/test_warehouse_precheck_only.py::test_stationary_normal_cleanup_retains_failure_and_zero_contract[duplicate_owner]
+ERROR tests/test_warehouse_precheck_only.py::test_stationary_normal_cleanup_retains_failure_and_zero_contract[goal_source]
+ERROR tests/test_warehouse_precheck_only.py::test_stationary_normal_cleanup_retains_failure_and_zero_contract[readiness]
+ERROR tests/test_warehouse_precheck_only.py::test_stationary_normal_cleanup_retains_failure_and_zero_contract[physical_stop]
+ERROR tests/test_warehouse_precheck_only.py::test_stationary_normal_cleanup_retains_failure_and_zero_contract[watchdog_completion]
+ERROR tests/test_warehouse_precheck_only.py::test_stationary_normal_cleanup_retains_failure_and_zero_contract[ingress_cleanup]
+ERROR tests/test_warehouse_precheck_only.py::test_negative_yaw_is_one_pure_pulse_then_exact_zero_and_rest
+ERROR tests/test_warehouse_precheck_only.py::test_negative_yaw_admission_rejection_sends_no_motion[clearance]
+ERROR tests/test_warehouse_precheck_only.py::test_negative_yaw_admission_rejection_sends_no_motion[readiness]
+ERROR tests/test_warehouse_precheck_only.py::test_negative_yaw_admission_rejection_sends_no_motion[duplicate_owner]
+ERROR tests/test_warehouse_precheck_only.py::test_negative_yaw_admission_rejection_sends_no_motion[goal_source]
+ERROR tests/test_warehouse_precheck_only.py::test_negative_yaw_admission_rejection_sends_no_motion[readmission_clock_freeze]
+ERROR tests/test_warehouse_precheck_only.py::test_negative_yaw_preserves_physical_stop_deadline_and_watchdog_failures[turn]
+ERROR tests/test_warehouse_precheck_only.py::test_negative_yaw_preserves_physical_stop_deadline_and_watchdog_failures[pulse_clock_freeze]
+ERROR tests/test_warehouse_precheck_only.py::test_negative_yaw_preserves_physical_stop_deadline_and_watchdog_failures[physical_stop]
+ERROR tests/test_warehouse_precheck_only.py::test_negative_yaw_preserves_physical_stop_deadline_and_watchdog_failures[watchdog_completion]
+ERROR tests/test_warehouse_precheck_only.py::test_incomplete_early_pocket_can_be_observed_free_during_required_rest
+ERROR tests/test_warehouse_precheck_only.py::test_final_pocket_rejects_persistent_unknown_or_occupied_after_rest[clearance]
+ERROR tests/test_warehouse_precheck_only.py::test_final_pocket_rejects_persistent_unknown_or_occupied_after_rest[occupied]
+ERROR tests/test_warehouse_precheck_only.py::test_final_admission_requires_new_fresh_map_during_rest[no_new_map]
+ERROR tests/test_warehouse_precheck_only.py::test_final_admission_requires_new_fresh_map_during_rest[stale_map]
+ERROR tests/test_warehouse_precheck_only.py::test_historical_yaw_is_one_fixed_positive_pulse_then_zero_rest
+ERROR tests/test_warehouse_precheck_only.py::test_historical_yaw_preserves_admission_and_safety_failures[clearance]
+ERROR tests/test_warehouse_precheck_only.py::test_historical_yaw_preserves_admission_and_safety_failures[occupied]
+ERROR tests/test_warehouse_precheck_only.py::test_historical_yaw_preserves_admission_and_safety_failures[no_new_map]
+ERROR tests/test_warehouse_precheck_only.py::test_historical_yaw_preserves_admission_and_safety_failures[stale_map]
+ERROR tests/test_warehouse_precheck_only.py::test_historical_yaw_preserves_admission_and_safety_failures[readiness]
+ERROR tests/test_warehouse_precheck_only.py::test_historical_yaw_preserves_admission_and_safety_failures[duplicate_owner]
+ERROR tests/test_warehouse_precheck_only.py::test_historical_yaw_preserves_admission_and_safety_failures[goal_source]
+ERROR tests/test_warehouse_precheck_only.py::test_historical_yaw_preserves_admission_and_safety_failures[readmission_clock_freeze]
+ERROR tests/test_warehouse_precheck_only.py::test_historical_yaw_preserves_admission_and_safety_failures[turn]
+ERROR tests/test_warehouse_precheck_only.py::test_historical_yaw_preserves_admission_and_safety_failures[pulse_clock_freeze]
+ERROR tests/test_warehouse_precheck_only.py::test_historical_yaw_preserves_admission_and_safety_failures[physical_stop]
+ERROR tests/test_warehouse_precheck_only.py::test_historical_yaw_preserves_admission_and_safety_failures[watchdog_completion]
+ERROR tests/test_warehouse_precheck_only.py::test_reviewed_brake_fault_requests_disable_without_delaying_zero_cleanup[False]
+ERROR tests/test_warehouse_precheck_only.py::test_reviewed_brake_fault_requests_disable_without_delaying_zero_cleanup[True]
+ERROR tests/test_warehouse_precheck_only.py::test_recording_end_hold_is_guarded_exact_zero_and_owned_cleanup
+ERROR tests/test_warehouse_precheck_only.py::test_canonical_stationary_view_remains_zero_and_not_motion_qualification
+ERROR tests/test_warehouse_precheck_only.py::test_stationary_gui_client_is_owned_and_server_stays_server_only
+ERROR tests/test_warehouse_precheck_only.py::test_dead_recording_coordinator_stops_owned_session_before_motion
+9 failed, 69 passed, 77 errors in 2.40s

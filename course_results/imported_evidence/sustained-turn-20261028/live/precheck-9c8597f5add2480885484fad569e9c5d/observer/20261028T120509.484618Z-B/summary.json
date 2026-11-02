@@ -1,0 +1,425 @@
+{
+  "label": "B",
+  "output": "/tmp/b2w-sustained-turn-20261028/live/precheck-9c8597f5add2480885484fad569e9c5d/observer/20261028T120509.484618Z-B",
+  "stop_reason": "observer_interrupted",
+  "mode": "dwb-debug",
+  "wall_duration_s": 40.62748648994602,
+  "clock_epochs": 1,
+  "aligned_samples": 317,
+  "topic_health": {
+    "/clock": {
+      "expected_type": "rosgraph_msgs/msg/Clock",
+      "discovered_types": [
+        "rosgraph_msgs/msg/Clock"
+      ],
+      "messages": 12900,
+      "state": "recorded"
+    },
+    "/goal_pose": {
+      "expected_type": "geometry_msgs/msg/PoseStamped",
+      "discovered_types": [],
+      "messages": 0,
+      "state": "absent"
+    },
+    "/plan": {
+      "expected_type": "nav_msgs/msg/Path",
+      "discovered_types": [],
+      "messages": 0,
+      "state": "absent"
+    },
+    "/course_navigation/cmd_vel_raw": {
+      "expected_type": "geometry_msgs/msg/Twist",
+      "discovered_types": [],
+      "messages": 0,
+      "state": "absent"
+    },
+    "/course_navigation/cmd_vel": {
+      "expected_type": "geometry_msgs/msg/Twist",
+      "discovered_types": [],
+      "messages": 0,
+      "state": "absent"
+    },
+    "/path_manager/path_manager_ros/nav_vel": {
+      "expected_type": "geometry_msgs/msg/Twist",
+      "discovered_types": [
+        "geometry_msgs/msg/Twist"
+      ],
+      "messages": 773,
+      "state": "recorded"
+    },
+    "/slam/odom": {
+      "expected_type": "nav_msgs/msg/Odometry",
+      "discovered_types": [
+        "nav_msgs/msg/Odometry"
+      ],
+      "messages": 147,
+      "state": "recorded"
+    },
+    "/sim/ground_truth/odom": {
+      "expected_type": "nav_msgs/msg/Odometry",
+      "discovered_types": [
+        "nav_msgs/msg/Odometry"
+      ],
+      "messages": 3225,
+      "state": "recorded"
+    },
+    "/collision_plate/force_torque": {
+      "expected_type": "geometry_msgs/msg/WrenchStamped",
+      "discovered_types": [
+        "geometry_msgs/msg/WrenchStamped"
+      ],
+      "messages": 3226,
+      "state": "recorded"
+    },
+    "/navigate_to_pose/_action/status": {
+      "expected_type": "action_msgs/msg/GoalStatusArray",
+      "discovered_types": [],
+      "messages": 0,
+      "state": "absent"
+    },
+    "/follow_path/_action/status": {
+      "expected_type": "action_msgs/msg/GoalStatusArray",
+      "discovered_types": [],
+      "messages": 0,
+      "state": "absent"
+    },
+    "/behavior_tree_log": {
+      "expected_type": "nav2_msgs/msg/BehaviorTreeLog",
+      "discovered_types": [],
+      "messages": 0,
+      "state": "absent"
+    },
+    "/rosout": {
+      "expected_type": "rcl_interfaces/msg/Log",
+      "discovered_types": [
+        "rcl_interfaces/msg/Log"
+      ],
+      "messages": 123,
+      "state": "recorded"
+    },
+    "/tf": {
+      "expected_type": "tf2_msgs/msg/TFMessage",
+      "discovered_types": [
+        "tf2_msgs/msg/TFMessage"
+      ],
+      "messages": 791,
+      "state": "recorded"
+    },
+    "/tf_static": {
+      "expected_type": "tf2_msgs/msg/TFMessage",
+      "discovered_types": [
+        "tf2_msgs/msg/TFMessage"
+      ],
+      "messages": 1,
+      "state": "recorded"
+    },
+    "/local_costmap/costmap_raw": {
+      "expected_type": "nav2_msgs/msg/Costmap",
+      "discovered_types": [],
+      "messages": 0,
+      "state": "absent"
+    },
+    "/global_costmap/costmap_raw": {
+      "expected_type": "nav2_msgs/msg/Costmap",
+      "discovered_types": [],
+      "messages": 0,
+      "state": "absent"
+    },
+    "/local_costmap/published_footprint": {
+      "expected_type": "geometry_msgs/msg/PolygonStamped",
+      "discovered_types": [],
+      "messages": 0,
+      "state": "absent"
+    },
+    "/global_costmap/published_footprint": {
+      "expected_type": "geometry_msgs/msg/PolygonStamped",
+      "discovered_types": [],
+      "messages": 0,
+      "state": "absent"
+    },
+    "/network_input_debug": {
+      "expected_type": "std_msgs/msg/Float64MultiArray",
+      "discovered_types": [
+        "std_msgs/msg/Float64MultiArray"
+      ],
+      "messages": 1510,
+      "state": "recorded"
+    },
+    "/joint_commands": {
+      "expected_type": "std_msgs/msg/Float64MultiArray",
+      "discovered_types": [
+        "std_msgs/msg/Float64MultiArray"
+      ],
+      "messages": 1510,
+      "state": "recorded"
+    },
+    "/joint_torques": {
+      "expected_type": "std_msgs/msg/Float64MultiArray",
+      "discovered_types": [
+        "std_msgs/msg/Float64MultiArray"
+      ],
+      "messages": 6439,
+      "state": "recorded"
+    },
+    "/joint_states": {
+      "expected_type": "sensor_msgs/msg/JointState",
+      "discovered_types": [
+        "sensor_msgs/msg/JointState"
+      ],
+      "messages": 3225,
+      "state": "recorded"
+    },
+    "/sim/raw/imu": {
+      "expected_type": "sensor_msgs/msg/Imu",
+      "discovered_types": [
+        "sensor_msgs/msg/Imu"
+      ],
+      "messages": 6451,
+      "state": "recorded"
+    },
+    "/evaluation": {
+      "expected_type": "dwb_msgs/msg/LocalPlanEvaluation",
+      "discovered_types": [],
+      "messages": 0,
+      "state": "absent"
+    },
+    "/received_global_plan": {
+      "expected_type": "nav_msgs/msg/Path",
+      "discovered_types": [],
+      "messages": 0,
+      "state": "absent"
+    },
+    "/transformed_global_plan": {
+      "expected_type": "nav_msgs/msg/Path",
+      "discovered_types": [],
+      "messages": 0,
+      "state": "absent"
+    },
+    "/local_plan": {
+      "expected_type": "nav_msgs/msg/Path",
+      "discovered_types": [],
+      "messages": 0,
+      "state": "absent"
+    }
+  },
+  "candidate_stationary_intervals": [],
+  "errors": [],
+  "runtime_parameter_nodes": [
+    "b2w_rl_sar_controller",
+    "velocity_adapter"
+  ],
+  "missing_parameter_nodes": [
+    "controller_server",
+    "planner_server",
+    "velocity_smoother",
+    "local_costmap/local_costmap",
+    "global_costmap/global_costmap"
+  ],
+  "first_causal_layer": null,
+  "physical_collision_proven": false,
+  "limitations": [
+    "Active-goal stationarity may be an intentional BT wait or goal rotation/arrival transition.",
+    "Plate wrench measures a small fixed-joint plate, includes dynamics; silent plate cannot exclude full-body contact.",
+    "Costmap clearing, projection, latency and SLAM error affect offline geometry; no swept-volume or 3D contact inference. Published footprint shape is assumed constant across <=0.75s skew.",
+    "Unstamped Twist timing is receive-clock timing; sub-sample causal ordering may remain ambiguous.",
+    "DWB detail is opt-in; positive short-circuited scores may be partial; nonbest predicted poses are omitted.",
+    "Observer receive rates and local TF ages do not establish controller timing or causality; LIGHT timing needs user validation."
+  ],
+  "cleanup": {
+    "observer_resources_destroyed": true,
+    "child_processes": [],
+    "session_processes_touched": false
+  },
+  "measurement_health": {
+    "mode": "dwb-debug",
+    "wall_duration_s": 40.62748648994602,
+    "simulation_duration_s": 32.24749999999676,
+    "sim_wall_ratio": 0.7937360340511581,
+    "rate_basis": "received count / attach wall duration; NOT publisher or controller rate; includes idle time",
+    "simulation_duration_basis": "sum of received clock advances within epochs; reset jumps excluded",
+    "topics": {
+      "/clock": {
+        "received_messages": 12900,
+        "observed_receive_hz_wall": 317.5190274985958
+      },
+      "/goal_pose": {
+        "received_messages": 0,
+        "observed_receive_hz_wall": null
+      },
+      "/plan": {
+        "received_messages": 0,
+        "observed_receive_hz_wall": null
+      },
+      "/course_navigation/cmd_vel_raw": {
+        "received_messages": 0,
+        "observed_receive_hz_wall": null
+      },
+      "/course_navigation/cmd_vel": {
+        "received_messages": 0,
+        "observed_receive_hz_wall": null
+      },
+      "/path_manager/path_manager_ros/nav_vel": {
+        "received_messages": 773,
+        "observed_receive_hz_wall": 19.02652777181508
+      },
+      "/slam/odom": {
+        "received_messages": 147,
+        "observed_receive_hz_wall": 3.618240080797952
+      },
+      "/sim/ground_truth/odom": {
+        "received_messages": 3225,
+        "observed_receive_hz_wall": 79.37975687464895
+      },
+      "/collision_plate/force_torque": {
+        "received_messages": 3226,
+        "observed_receive_hz_wall": 79.40437075274961
+      },
+      "/navigate_to_pose/_action/status": {
+        "received_messages": 0,
+        "observed_receive_hz_wall": null
+      },
+      "/follow_path/_action/status": {
+        "received_messages": 0,
+        "observed_receive_hz_wall": null
+      },
+      "/behavior_tree_log": {
+        "received_messages": 0,
+        "observed_receive_hz_wall": null
+      },
+      "/rosout": {
+        "received_messages": 123,
+        "observed_receive_hz_wall": 3.02750700638196
+      },
+      "/tf": {
+        "received_messages": 791,
+        "observed_receive_hz_wall": 19.469577577627074
+      },
+      "/tf_static": {
+        "received_messages": 1,
+        "observed_receive_hz_wall": 0.02461387810066634
+      },
+      "/local_costmap/costmap_raw": {
+        "received_messages": 0,
+        "observed_receive_hz_wall": null
+      },
+      "/global_costmap/costmap_raw": {
+        "received_messages": 0,
+        "observed_receive_hz_wall": null
+      },
+      "/local_costmap/published_footprint": {
+        "received_messages": 0,
+        "observed_receive_hz_wall": null
+      },
+      "/global_costmap/published_footprint": {
+        "received_messages": 0,
+        "observed_receive_hz_wall": null
+      },
+      "/network_input_debug": {
+        "received_messages": 1510,
+        "observed_receive_hz_wall": 37.166955932006175
+      },
+      "/joint_commands": {
+        "received_messages": 1510,
+        "observed_receive_hz_wall": 37.166955932006175
+      },
+      "/joint_torques": {
+        "received_messages": 6439,
+        "observed_receive_hz_wall": 158.48876109019056
+      },
+      "/joint_states": {
+        "received_messages": 3225,
+        "observed_receive_hz_wall": 79.37975687464895
+      },
+      "/sim/raw/imu": {
+        "received_messages": 6451,
+        "observed_receive_hz_wall": 158.78412762739856
+      },
+      "/evaluation": {
+        "received_messages": 0,
+        "observed_receive_hz_wall": null
+      },
+      "/received_global_plan": {
+        "received_messages": 0,
+        "observed_receive_hz_wall": null
+      },
+      "/transformed_global_plan": {
+        "received_messages": 0,
+        "observed_receive_hz_wall": null
+      },
+      "/local_plan": {
+        "received_messages": 0,
+        "observed_receive_hz_wall": null
+      }
+    },
+    "aligned_samples": 317,
+    "aligned_sample_observed_hz_wall": 7.802599357911229,
+    "aligned_sample_observed_hz_sim": 9.830219396853456,
+    "tf_age_s": {
+      "map_base": {
+        "count": 144,
+        "p50": 0.34500000000000064,
+        "p95": 0.3896250000000004,
+        "max": 0.4125000000000014
+      },
+      "odom_base": {
+        "count": 144,
+        "p50": 0.34500000000000064,
+        "p95": 0.3896250000000004,
+        "max": 0.4125000000000014
+      }
+    },
+    "command_age_s": {
+      "raw": {
+        "count": 0,
+        "p50": null,
+        "p95": null,
+        "max": null
+      },
+      "smooth": {
+        "count": 0,
+        "p50": null,
+        "p95": null,
+        "max": null
+      },
+      "final": {
+        "count": 316,
+        "p50": 0.022500000000000853,
+        "p95": 0.04749999999999943,
+        "max": 0.05500000000000149
+      }
+    },
+    "command_age_basis": "simulation receive-clock age; unstamped Twist transport/backlog latency is unknown",
+    "age_basis": "aligned sample ages including stale causal history; finite nonnegative only; linear quantiles",
+    "fresh_samples": {
+      "raw": {
+        "count": 0,
+        "fraction": 0.0
+      },
+      "smooth": {
+        "count": 0,
+        "fraction": 0.0
+      },
+      "final": {
+        "count": 316,
+        "fraction": 0.9968454258675079
+      },
+      "slam": {
+        "count": 144,
+        "fraction": 0.45425867507886436
+      },
+      "truth": {
+        "count": 316,
+        "fraction": 0.9968454258675079
+      },
+      "wrench": {
+        "count": 316,
+        "fraction": 0.9968454258675079
+      }
+    },
+    "freshness_limits_sim_s": {
+      "commands": 0.3,
+      "odometry_wrench": 0.5
+    },
+    "output_directory_bytes": 28403554
+  }
+}

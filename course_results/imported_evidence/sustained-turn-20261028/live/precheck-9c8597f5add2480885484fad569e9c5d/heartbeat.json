@@ -1,0 +1,20 @@
+{
+  "wall": 541685.683913991,
+  "clock_advanced_wall": 541685.621786842,
+  "phase": "shutdown",
+  "failure": null,
+  "complete": true,
+  "normal_rest": {
+    "start_sim": 27.0525,
+    "end_sim": 32.19,
+    "wall_s": 5.413770511979237,
+    "max_displacement_m": 0.0033944990285113353,
+    "max_yaw_rad": 0.004638326054228856,
+    "whole_stop_max_displacement_m": 0.017991839039103313,
+    "whole_stop_max_yaw_rad": 0.167426797609783,
+    "measured_lio_rest": true,
+    "measured_ground_truth_rest": true,
+    "six_axis_final_zero": true
+  },
+  "cleanup_passed": true
+}

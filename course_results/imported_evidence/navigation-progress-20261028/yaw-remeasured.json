@@ -1,0 +1,40 @@
+{
+  "source": "/tmp/b2w-heading-yaw-225-20261027/precheck-65b86e77b39c4acf8ad5e8a6277f3147/observer/20261026T163020.725077Z-B/events.jsonl",
+  "source_sha256": "aa7f3822712d3ed9666954b3fa3313f9b6b932bc0f75141daaef23e0e4d3daf2",
+  "session_report_sha256": "1e17e08556362eeb363971e07186292ccfc703eba994664f15e7ffdbcbbe9186",
+  "owner_interval_s": 0.5,
+  "delivered_interval_s": 0.45500000000000185,
+  "external_command_rad_s": 0.25,
+  "external_command_integral_rad": 0.11375000000000046,
+  "model_command_rad_s": 0.4000000059604645,
+  "model_interval_s": 0.46499999999999986,
+  "owner_turn_rad": 0.08108075621955749,
+  "net_retained_rad": 0.012269419683262124,
+  "owner_retention_fraction": 0.15132344905661618,
+  "delivery_turn_rad": 0.0830107802357015,
+  "delivery_retention_fraction": 0.14780513625367972,
+  "zero_to_final_rebound_rad": -0.07074136055243938,
+  "zero_to_qualified_rest_start_s": 1.3499999999999979,
+  "qualified_rest": {
+    "start_sim": 27.1725,
+    "end_sim": 32.395,
+    "wall_s": 5.37802099599503,
+    "max_displacement_m": 0.003513982072352582,
+    "max_yaw_rad": 0.0029580772601619514,
+    "whole_stop_max_displacement_m": 0.02693830838633856,
+    "whole_stop_max_yaw_rad": 0.06912897504387519,
+    "measured_lio_rest": true,
+    "measured_ground_truth_rest": true,
+    "six_axis_final_zero": true
+  },
+  "slam_relative_heading_samples": 68,
+  "slam_truth_relative_heading_max_rad": 0.0003195997214311755,
+  "pair_skew_max_s": 0.0,
+  "runtime_pass": true,
+  "functional_pass": false,
+  "watchdog": {
+    "reason": "normal_shutdown",
+    "emergency": false
+  },
+  "cleanup_pass": true
+}

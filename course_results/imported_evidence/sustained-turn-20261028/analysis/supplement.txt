@@ -1,0 +1,84 @@
+{
+  "session": "/tmp/b2w-sustained-turn-20261028/live/precheck-9c8597f5add2480885484fad569e9c5d",
+  "leg_peak_delta_from_initial_rad": {
+    "FL_hip_joint": 0.10186091141975101,
+    "FL_thigh_joint": 0.07740784419476676,
+    "FL_calf_joint": 0.07153290613830032,
+    "FR_hip_joint": 0.11411169987353666,
+    "FR_thigh_joint": 0.05689140380572699,
+    "FR_calf_joint": 0.06778059746225473,
+    "RL_hip_joint": 0.0796678938660916,
+    "RL_thigh_joint": 0.04375401929051692,
+    "RL_calf_joint": 0.0496941438081171,
+    "RR_hip_joint": 0.08790785141580244,
+    "RR_thigh_joint": 0.045694658857896364,
+    "RR_calf_joint": 0.0638075697418854
+  },
+  "leg_zero_to_final_delta_rad": {
+    "FL_hip_joint": 0.09733039999154536,
+    "FL_thigh_joint": -0.021902850317909284,
+    "FL_calf_joint": 0.08700223991212841,
+    "FR_hip_joint": 0.10661457220268052,
+    "FR_thigh_joint": 0.03342400218639241,
+    "FR_calf_joint": -0.06857916962120703,
+    "RL_hip_joint": -0.0735154911718554,
+    "RL_thigh_joint": 0.05591860914795166,
+    "RL_calf_joint": -0.033848143414485055,
+    "RR_hip_joint": -0.07357507083453671,
+    "RR_thigh_joint": -0.0900412434539386,
+    "RR_calf_joint": 0.04504374267823441
+  },
+  "wheel_order": [
+    "FL_foot_joint",
+    "FR_foot_joint",
+    "RL_foot_joint",
+    "RR_foot_joint"
+  ],
+  "wheel_initial_to_zero_delta_rad": [
+    -0.15377383649918452,
+    0.8555290989897558,
+    0.06136562404497943,
+    0.6997017073294426
+  ],
+  "wheel_zero_to_final_delta_rad": [
+    0.20366491426007188,
+    -0.27003496367444824,
+    0.2133177111292036,
+    0.06054277604701719
+  ],
+  "wheel_peak_velocity_rad_s": {
+    "FL_foot_joint": 1.8905176693596744,
+    "FR_foot_joint": 1.8160390971771583,
+    "RL_foot_joint": 1.7742284579014689,
+    "RR_foot_joint": 1.3311834835840508
+  },
+  "late_wheel_torque_mean_nm": [
+    0.7567459786468985,
+    -0.7431513127694791,
+    0.7567473681877825,
+    -0.7432460803491873
+  ],
+  "active_max_yaw_rate_rad_s": 0.2154619270004332,
+  "stop_max_yaw_rate_rad_s": 0.30589325819164515,
+  "last_second_max_speed_mps": 0.0007648255427972023,
+  "last_second_max_yaw_rate_rad_s": 7.201378409149584e-06,
+  "contact_messages": 158,
+  "contact_messages_all_four_feet": 158,
+  "contact_wrench_entries": 0,
+  "inventory_messages": 158,
+  "forbidden_contact_flags": 0,
+  "localization": {
+    "samples": 76,
+    "relative_registered_xy_max_m": 0.006265628687249101
+  },
+  "signal_samples": {
+    "/path_manager/path_manager_ros/nav_vel": 167,
+    "/network_input_debug": 393,
+    "/joint_states": 788,
+    "/joint_commands": 393,
+    "/joint_torques": 1572,
+    "/sim/raw/imu": 1576,
+    "/slam/odom": 78,
+    "/sim/ground_truth/odom": 787
+  }
+}

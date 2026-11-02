@@ -1,0 +1,70 @@
+Panels:
+  - Class: rviz_common/Displays
+    Name: Displays
+Visualization Manager:
+  Global Options:
+    Fixed Frame: map
+    Frame Rate: 20
+  Displays:
+    - Class: rviz_default_plugins/Grid
+      Name: Grid
+      Enabled: true
+    - Class: rviz_default_plugins/TF
+      Name: TF
+      Enabled: true
+      Marker Scale: 0.15
+      Show Arrows: false
+      Show Names: false
+    - Class: rviz_default_plugins/RobotModel
+      Name: B2-W
+      Enabled: true
+      Description Source: Topic
+      Visual Enabled: true
+      Description Topic:
+        Value: /b2w/robot_description
+        Reliability Policy: Reliable
+        Durability Policy: Transient Local
+    - Class: rviz_default_plugins/PointCloud2
+      Name: XT32
+      Enabled: true
+      Topic:
+        Value: /pointcloud
+        Reliability Policy: Best Effort
+      Size (m): 0.02
+      Color Transformer: AxisColor
+      Axis: Z
+      Alpha: 0.5
+    - Class: rviz_default_plugins/PointCloud2
+      Name: SLAM map
+      Enabled: true
+      Topic:
+        Value: /slam/map_points
+        Reliability Policy: Best Effort
+      Size (m): 0.03
+      Color Transformer: AxisColor
+      Axis: Z
+    - Class: rviz_default_plugins/Map
+      Name: Occupancy map
+      Enabled: true
+      Draw Behind: true
+      Alpha: 0.7
+      Topic:
+        Value: /map
+        Durability Policy: Transient Local
+    - Class: rviz_default_plugins/Path
+      Name: Global plan
+      Enabled: true
+      Topic:
+        Value: /plan
+  Tools:
+    - Class: rviz_default_plugins/Interact
+    - Class: rviz_default_plugins/MoveCamera
+    - Class: rviz_default_plugins/SetGoal
+      Topic: /goal_pose
+  Views:
+    Current:
+      Class: rviz_default_plugins/Orbit
+      Distance: 5
+      Pitch: 0.5
+      Yaw: 0.8
+      Target Frame: base_link

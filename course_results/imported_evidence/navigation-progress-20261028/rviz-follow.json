@@ -1,0 +1,21 @@
+{
+  "saved": "/tmp/b2w-navigation-ab-20261023/artifacts/video/manual_views/g1_g5.rviz",
+  "view_source": "/tmp/b2w-navigation-ab-20261023/artifacts/video/20261028T103930Z-ac6d8126/attempt_01/radar.rviz",
+  "before_sha256": "17cce0759a86d9c7a110b8fed4746893a0f73fe58717d3bee5129fe899f93607",
+  "after_sha256": "7f422c62b16e7dfb07dc2b710a2f5cae96eedb5935f288a2fc01e272892406c6",
+  "fixed_frame": "map",
+  "view": {
+    "Angle": 0.0,
+    "Class": "rviz_default_plugins/TopDownOrtho",
+    "Scale": 42.2995730952694,
+    "Target Frame": "base_link",
+    "X": 0.0,
+    "Y": 0.0
+  },
+  "gazebo_camera_unchanged": {
+    "gazebo_gui.config": "886d05401fc7de025657fb3be1b16a1cac10a31473aa093e6238d7457bb7093f",
+    "gazebo_camera_pose_final.txt": "65a374205b3f4113feabd6a33d243b266bd7fc7041bf272bdd085524b034c165",
+    "gazebo_camera_pose.txt": "9495f5bda12e52c1a6adf628dd9806cb81ec157df984125a36284e4506d0249d"
+  },
+  "validation": "YAML and generated config only; no live moving robot/view verification"
+}

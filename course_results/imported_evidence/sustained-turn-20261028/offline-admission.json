@@ -1,0 +1,37 @@
+{
+  "profile": "B",
+  "head": "f586ace808363cc9d2a9e082a32704ad3559272a",
+  "source_install_pins": 46,
+  "engine_shape_handles": 26,
+  "route_admission_source_pins": {
+    "scripts/warehouse_ab_trial.py": "0b32db40e619d3aaab28a86d329cf506e15c54554cac83be43938ad7f5ba8c50",
+    "scripts/warehouse_route_admission.py": "e642ab591012959ac2875578429d63ceb0dc82e4a508357b2abb79f6915b731a",
+    "scripts/record_warehouse_video.py": "8e6584b44444df2f1effe6ca7b54ffca935e6e45530671f9178469b7be97b0a7",
+    "artifacts/recovery/robot.urdf": "0d671533a491ceefbdcda251d125b0ee2261c9fe9bc682cb30341fc3e94bd3a9"
+  },
+  "profile_sha256": {
+    "nav2_smac2d_diag.yaml": "97e4eb2bcf58faa3f3a19728b4d17437b9dfe615d07964902e24bb5057a98e9e",
+    "nav2_smac2d_dwb_slow_diag.yaml": "077012b9618e71f27883cc51150f2f3c48571b71c943258c2e1eebfaf6fc0b69"
+  },
+  "engine_evidence_sha256": "eec6c03b22830f5abd91298e30fe6f220a5d8fa02b36e75dabe2fb2a79f1e695",
+  "backend_sha256": "44e5d8573b44ef1f555eba6f2fbf01c1f0ab657b0fd32016c441e884ec5e71a1",
+  "deployment_manifest": "/tmp/b2w-sustained-turn-20261028/candidate-deployment.json",
+  "deployment_manifest_sha256": "06fa316157fd3bce2314c2799a77c99a5424e53077c55b7b494582c537540c30",
+  "precheck_pulse_sim_s": 1.0,
+  "precheck_axis": "sustained-yaw",
+  "no_world_or_motion_started": true,
+  "domain": 211,
+  "wall_limit_s": 420.0,
+  "reviewed_envelope": null,
+  "stationary_containment": false,
+  "stationary_normal_cleanup": false,
+  "precheck_only": true,
+  "planning_only": false,
+  "motion_authorization": null,
+  "route_mode": "critical",
+  "continuation_yaws": null,
+  "requested_precheck_spawn": {
+    "x": 0.0,
+    "y": -1.0
+  }
+}

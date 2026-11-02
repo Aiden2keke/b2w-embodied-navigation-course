@@ -1,0 +1,68 @@
+{
+  "captured_private_imu_heading": 0.12397745,
+  "capture_count": 1,
+  "private_imu_samples": 6451,
+  "imu_truth_max_abs_yaw_difference_rad": 0.001535133860087759,
+  "heading_reference_error_end_rad": 0.16850366672087302,
+  "late_mean_added_scalar_nm": 0.7499999253437836,
+  "late_mean_formula_scalar_nm": 0.75,
+  "late_mean_gyro_rad_s": -2.5841193775839626e-06,
+  "peak_estimated_added_scalar_nm": 0.7721841109071116,
+  "actual_stop_peak_wheel_torque_nm": 1.9466200151690822,
+  "wheel_motor_20nm_saturation_count": 0,
+  "estimated_added_cap_samples": 1279,
+  "max_tilt_deg": 0.6058914929811516,
+  "retention_fraction": 0.06455071327825566,
+  "body_yaw_pass": false,
+  "runtime_safety_pass": true,
+  "qualified_rest": {
+    "start_sim": 27.0525,
+    "end_sim": 32.19,
+    "wall_s": 5.413770511979237,
+    "max_displacement_m": 0.0033944990285113353,
+    "max_yaw_rad": 0.004638326054228856,
+    "whole_stop_max_displacement_m": 0.017991839039103313,
+    "whole_stop_max_yaw_rad": 0.167426797609783,
+    "measured_lio_rest": true,
+    "measured_ground_truth_rest": true,
+    "six_axis_final_zero": true
+  },
+  "checkpoints": [
+    {
+      "name": "initial",
+      "imu_stamp": 24.315,
+      "imu_yaw": -0.05622803065741688,
+      "gyro": 5.56466320765503e-09,
+      "truth_yaw": -0.056228030671469954
+    },
+    {
+      "name": "zero",
+      "imu_stamp": 25.32,
+      "imu_yaw": 0.1250529088613668,
+      "gyro": 0.21501661317060206,
+      "truth_yaw": 0.1250529088613668
+    },
+    {
+      "name": "zero_plus_.3",
+      "imu_stamp": 25.62,
+      "imu_yaw": 0.06075001663470465,
+      "gyro": -0.23115869041342627,
+      "truth_yaw": 0.06075001663470465
+    },
+    {
+      "name": "rest_start",
+      "imu_stamp": 27.05,
+      "imu_yaw": -0.03988789378498258,
+      "gyro": -0.009322226242589382,
+      "truth_yaw": -0.03988789378498258
+    },
+    {
+      "name": "rest_end",
+      "imu_stamp": 32.19,
+      "imu_yaw": -0.04452621672087301,
+      "gyro": 1.435158950076776e-07,
+      "truth_yaw": -0.04452621672087301
+    }
+  ],
+  "interpretation": "Hold remains active with one valid reference; late added wheel scalar is .75 Nm and formula saturates at .75 Nm. Persistent heading error remains. Peak scalar estimates use asynchronous torque/joint alignment and are not direct measurements of clamp output. This is measured failure of retained heading within the existing budget, not proof that raising torque alone would fix the plant."
+}
