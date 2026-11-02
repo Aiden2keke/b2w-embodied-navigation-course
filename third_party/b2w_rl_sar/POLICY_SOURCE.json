@@ -1,0 +1,35 @@
+{
+  "repository": "https://github.com/fan-ziqi/rl_sar",
+  "revision": "376d42c9b128f963ab08579762d5a216a976ce39",
+  "license": "Apache-2.0",
+  "selected_robot": "b2w",
+  "selected_policy": "robot_lab",
+  "deployment_status": "downloaded; physical validation required",
+  "files": {
+    "policy/b2w/base.yaml": {
+      "bytes": 1787,
+      "sha256": "a883606bdbd5450ed04227b82cde54d9a3fc0eeedb55d61b36bdf43889f8d9f8"
+    },
+    "policy/b2w/robot_lab/config.yaml": {
+      "bytes": 2303,
+      "sha256": "d44bb3c36043f7216f7699a23d904fd01b5fc29ab7c35aabe56dc024d3f1cc74"
+    },
+    "policy/b2w/robot_lab/policy.pt": {
+      "bytes": 796064,
+      "sha256": "38155076408e8eccb22690c6c5be14bd1dcb9149245ca5e493308a9f6ff93b34"
+    },
+    "policy/b2w/robot_lab/policy.onnx": {
+      "bytes": 785091,
+      "sha256": "da31c0c1820b893608e2d02746bbada16d0abb5de6116277e37ccfb02024c564",
+      "derived_from": "policy.pt",
+      "conversion": "PyTorch 2.5.1+cpu, ONNX opset 17",
+      "parity_max_absolute_error": 1.239776611328125e-05
+    }
+  },
+  "robot_assets": {
+    "repository": "https://github.com/fan-ziqi/rl_sar_zoo",
+    "revision": "7dd30bdc7806898950b354260655d5a7f0ce844e",
+    "version": "1.0.2",
+    "license_note": "Preserve upstream attribution; asset license not determined by rl_sar code license."
+  }
+}
