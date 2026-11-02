@@ -1,0 +1,30 @@
+[WARN] [1793346723.049834770] [kdl_parser]: The root link base_link has an inertia specified in the URDF, but KDL does not support a root link with an inertia.  As a workaround, you can add an extra dummy link to your URDF.
+[INFO] [1793346723.050077234] [b2w_robot_state_publisher]: got segment FL_calf
+[INFO] [1793346723.050172445] [b2w_robot_state_publisher]: got segment FL_foot
+[INFO] [1793346723.050178051] [b2w_robot_state_publisher]: got segment FL_hip
+[INFO] [1793346723.050182400] [b2w_robot_state_publisher]: got segment FL_thigh
+[INFO] [1793346723.050186098] [b2w_robot_state_publisher]: got segment FR_calf
+[INFO] [1793346723.050189790] [b2w_robot_state_publisher]: got segment FR_foot
+[INFO] [1793346723.050193772] [b2w_robot_state_publisher]: got segment FR_hip
+[INFO] [1793346723.050197781] [b2w_robot_state_publisher]: got segment FR_thigh
+[INFO] [1793346723.050201420] [b2w_robot_state_publisher]: got segment RL_calf
+[INFO] [1793346723.050205253] [b2w_robot_state_publisher]: got segment RL_foot
+[INFO] [1793346723.050208811] [b2w_robot_state_publisher]: got segment RL_hip
+[INFO] [1793346723.050212574] [b2w_robot_state_publisher]: got segment RL_thigh
+[INFO] [1793346723.050216324] [b2w_robot_state_publisher]: got segment RR_calf
+[INFO] [1793346723.050219955] [b2w_robot_state_publisher]: got segment RR_foot
+[INFO] [1793346723.050223787] [b2w_robot_state_publisher]: got segment RR_hip
+[INFO] [1793346723.050227723] [b2w_robot_state_publisher]: got segment RR_thigh
+[INFO] [1793346723.050232087] [b2w_robot_state_publisher]: got segment base_link
+[INFO] [1793346723.050235827] [b2w_robot_state_publisher]: got segment collision_plate
+[INFO] [1793346723.050239654] [b2w_robot_state_publisher]: got segment f_dc_link
+[INFO] [1793346723.050242933] [b2w_robot_state_publisher]: got segment f_oc_link
+[INFO] [1793346723.050246389] [b2w_robot_state_publisher]: got segment head_Link
+[INFO] [1793346723.050250112] [b2w_robot_state_publisher]: got segment imu_link
+[INFO] [1793346723.050253955] [b2w_robot_state_publisher]: got segment lidar_link
+[INFO] [1793346723.050257795] [b2w_robot_state_publisher]: got segment logo_link
+[INFO] [1793346723.050267651] [b2w_robot_state_publisher]: got segment r_dc_link
+[INFO] [1793346723.050271456] [b2w_robot_state_publisher]: got segment r_oc_ink
+[INFO] [1793346723.050275374] [b2w_robot_state_publisher]: got segment tail_link
+[INFO] [1793346723.050278808] [b2w_robot_state_publisher]: got segment zed_x_camera
+[INFO] [1793346804.632700961] [rclcpp]: signal_handler(SIGINT/SIGTERM)

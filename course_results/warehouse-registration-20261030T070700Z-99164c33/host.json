@@ -1,0 +1,8 @@
+{
+  "host": {
+    "gpu_compute_empty": true,
+    "competing": [],
+    "gpu": "name, uuid, utilization.gpu [%], memory.used [MiB]\nNVIDIA RTX A4000, GPU-04245b67-87b5-7837-1cbf-bb0d55b1c646, 40 %, 4504 MiB\n"
+  },
+  "domain": 120
+}

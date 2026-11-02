@@ -1,0 +1,19 @@
+[INFO] [1793344021.227696209] [lifecycle_manager_navigation]: Creating
+[INFO] [1793344021.242706821] [lifecycle_manager_navigation]: [34m[1mCreating and initializing lifecycle service clients[0m[0m
+[INFO] [1793344021.685985555] [lifecycle_manager_navigation]: [34m[1mStarting managed nodes bringup...[0m[0m
+[INFO] [1793344021.686040551] [lifecycle_manager_navigation]: [34m[1mConfiguring controller_server[0m[0m
+[INFO] [1793344021.757684460] [lifecycle_manager_navigation]: [34m[1mConfiguring smoother_server[0m[0m
+[INFO] [1793344022.016956683] [lifecycle_manager_navigation]: [34m[1mConfiguring planner_server[0m[0m
+[INFO] [1793344022.063351673] [lifecycle_manager_navigation]: [34m[1mConfiguring behavior_server[0m[0m
+[INFO] [1793344022.102586033] [lifecycle_manager_navigation]: [34m[1mConfiguring bt_navigator[0m[0m
+[INFO] [1793344022.182473093] [lifecycle_manager_navigation]: [34m[1mConfiguring waypoint_follower[0m[0m
+[INFO] [1793344022.198170250] [lifecycle_manager_navigation]: [34m[1mConfiguring velocity_smoother[0m[0m
+[INFO] [1793344022.203373737] [lifecycle_manager_navigation]: [34m[1mActivating controller_server[0m[0m
+[INFO] [1793344047.043489982] [lifecycle_manager_navigation]: Server controller_server connected with bond.
+[INFO] [1793344047.043647449] [lifecycle_manager_navigation]: [34m[1mActivating smoother_server[0m[0m
+[INFO] [1793344047.162840330] [lifecycle_manager_navigation]: Server smoother_server connected with bond.
+[INFO] [1793344047.162940334] [lifecycle_manager_navigation]: [34m[1mActivating planner_server[0m[0m
+[INFO] [1793344047.693022055] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[INFO] [1793344047.693182842] [lifecycle_manager_navigation]: Running Nav2 LifecycleManager rcl preshutdown (lifecycle_manager_navigation)
+[ERROR] [1793344049.723999319] [lifecycle_manager_navigation]: Failed to change state for node: planner_server. Exception: planner_server/get_state service client: async_send_request failed.
+[ERROR] [1793344049.724106030] [lifecycle_manager_navigation]: Failed to bring up all requested nodes. Aborting bringup.

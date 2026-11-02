@@ -1,0 +1,2 @@
+[INFO] [1793347143.286446165] [b2w_rl_sar_controller]: Loaded rl_sar B2-W policy: 57 observations, 16 actions, 50 Hz policy / 200 Hz torque, /home/zyd/program/b2w-embodied-navigation-course/third_party/b2w_rl_sar/policy/b2w/robot_lab/policy.onnx
+[INFO] [1793347215.722109617] [rclcpp]: signal_handler(SIGINT/SIGTERM)

@@ -1,0 +1,300 @@
+[INFO] [1793346723.027828126] [controller_server]: 
+	controller_server lifecycle node launched. 
+	Waiting on external lifecycle transitions to activate
+	See https://design.ros2.org/articles/node_lifecycle.html for more information.
+[INFO] [1793346723.033690170] [controller_server]: Creating controller server
+[INFO] [1793346723.060769615] [local_costmap.local_costmap]: 
+	local_costmap lifecycle node launched. 
+	Waiting on external lifecycle transitions to activate
+	See https://design.ros2.org/articles/node_lifecycle.html for more information.
+[INFO] [1793346723.061487052] [local_costmap.local_costmap]: Creating Costmap
+[INFO] [1793346723.063759383] [controller_server]: Configuring controller interface
+[INFO] [1793346723.064042067] [controller_server]: getting goal checker plugins..
+[INFO] [1793346723.064394229] [controller_server]: Controller frequency set to 20.0000Hz
+[INFO] [1793346723.064464683] [local_costmap.local_costmap]: Configuring
+[INFO] [1793346723.074999320] [local_costmap.local_costmap]: Using plugin "static_layer"
+[INFO] [1793346723.080451797] [local_costmap.local_costmap]: Subscribing to the map topic (/map) with transient local durability
+[INFO] [1793346723.082121091] [local_costmap.local_costmap]: Initialized plugin "static_layer"
+[INFO] [1793346723.082166383] [local_costmap.local_costmap]: Using plugin "obstacle_layer"
+[INFO] [1793346723.082602438] [local_costmap.local_costmap]: Subscribed to Topics: lidar
+[INFO] [1793346723.084584656] [local_costmap.local_costmap]: Initialized plugin "obstacle_layer"
+[INFO] [1793346723.084698191] [local_costmap.local_costmap]: Using plugin "inflation_layer"
+[INFO] [1793346723.085447828] [local_costmap.local_costmap]: Initialized plugin "inflation_layer"
+[INFO] [1793346723.091925404] [controller_server]: Created progress_checker : progress_checker of type nav2_controller::SimpleProgressChecker
+[INFO] [1793346723.092548302] [controller_server]: Created goal checker : general_goal_checker of type nav2_controller::SimpleGoalChecker
+[INFO] [1793346723.092822830] [controller_server]: Controller Server has general_goal_checker  goal checkers available.
+[INFO] [1793346723.094420576] [controller_server]: Created controller : FollowPath of type dwb_core::DWBLocalPlanner
+[INFO] [1793346723.094858493] [controller_server]: Setting transform_tolerance to 0.200000
+[INFO] [1793346723.100778855] [controller_server]: Using critic "RotateToGoal" (dwb_critics::RotateToGoalCritic)
+[INFO] [1793346723.101138041] [controller_server]: Critic plugin initialized
+[INFO] [1793346723.101240164] [controller_server]: Using critic "Oscillation" (dwb_critics::OscillationCritic)
+[INFO] [1793346723.101595318] [controller_server]: Critic plugin initialized
+[INFO] [1793346723.101670664] [controller_server]: Using critic "BaseObstacle" (dwb_critics::BaseObstacleCritic)
+[INFO] [1793346723.101749653] [controller_server]: Critic plugin initialized
+[INFO] [1793346723.101800910] [controller_server]: Using critic "GoalAlign" (dwb_critics::GoalAlignCritic)
+[INFO] [1793346723.102117338] [controller_server]: Critic plugin initialized
+[INFO] [1793346723.102182688] [controller_server]: Using critic "PathAlign" (dwb_critics::PathAlignCritic)
+[INFO] [1793346723.102344732] [controller_server]: Critic plugin initialized
+[INFO] [1793346723.102402918] [controller_server]: Using critic "PathDist" (dwb_critics::PathDistCritic)
+[INFO] [1793346723.102517759] [controller_server]: Critic plugin initialized
+[INFO] [1793346723.102559798] [controller_server]: Using critic "GoalDist" (dwb_critics::GoalDistCritic)
+[INFO] [1793346723.102668590] [controller_server]: Critic plugin initialized
+[INFO] [1793346723.102707865] [controller_server]: Controller Server has FollowPath  controllers available.
+[INFO] [1793346723.335630420] [controller_server]: Activating
+[INFO] [1793346723.335697716] [local_costmap.local_costmap]: Activating
+[INFO] [1793346723.335719717] [local_costmap.local_costmap]: Checking transform
+[INFO] [1793346723.335761562] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[INFO] [1793346723.835851634] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[INFO] [1793346724.335827722] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[INFO] [1793346724.835825497] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[INFO] [1793346725.335804677] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[INFO] [1793346725.835836143] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[INFO] [1793346726.335824694] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[INFO] [1793346726.835822710] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[INFO] [1793346727.335826998] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[INFO] [1793346727.835825637] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[INFO] [1793346728.335838894] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[INFO] [1793346728.835895291] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[INFO] [1793346729.335819461] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[INFO] [1793346729.835824748] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[INFO] [1793346730.335830328] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[INFO] [1793346730.835807897] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[INFO] [1793346731.335818861] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[INFO] [1793346731.835821160] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[INFO] [1793346732.335843123] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[INFO] [1793346732.835799129] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[INFO] [1793346733.335819711] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[INFO] [1793346733.835837233] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[INFO] [1793346734.335819517] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[INFO] [1793346734.835817774] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[INFO] [1793346735.335814164] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[INFO] [1793346735.835830791] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[INFO] [1793346736.335823960] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[INFO] [1793346736.835899946] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[INFO] [1793346737.335802482] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[INFO] [1793346737.835806536] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[INFO] [1793346738.335800408] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[INFO] [1793346738.835829620] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[INFO] [1793346739.335885169] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[INFO] [1793346739.835812494] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[INFO] [1793346740.335833359] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[INFO] [1793346740.835796700] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[INFO] [1793346741.335850119] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[INFO] [1793346741.835811188] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[INFO] [1793346742.335817629] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[INFO] [1793346742.835941835] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[INFO] [1793346743.335792418] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[INFO] [1793346743.835823943] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[INFO] [1793346744.335796162] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[INFO] [1793346744.835821650] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[INFO] [1793346745.335793401] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[INFO] [1793346745.835791983] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[INFO] [1793346746.335817130] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[INFO] [1793346746.835800211] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[INFO] [1793346747.336611789] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[INFO] [1793346747.835810614] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[INFO] [1793346748.336495959] [local_costmap.local_costmap]: start
+[INFO] [1793346748.542085916] [controller_server]: Creating bond (controller_server) to lifecycle manager.
+[INFO] [1793346749.072406365] [local_costmap.local_costmap]: StaticLayer: Resizing static layer to 800 X 800 at 0.050000 m/pix
+[WARN] [1793346758.985142324] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346759.020331740] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346759.046468770] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346759.076028780] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346759.107189629] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346759.135751046] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346759.245014264] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346759.278322930] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346759.328996999] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346759.375795810] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346759.401133944] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346759.595874139] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346759.648529040] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346759.698933868] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346759.732970058] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346759.766068940] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346759.907421848] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346759.944845197] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346759.990823969] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346760.025177041] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346760.061101553] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346760.106292387] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346760.135813542] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346760.173604371] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346760.218345154] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346760.290386248] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346760.330012864] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346760.364998410] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346760.401561433] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346760.432938526] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346760.460358789] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346760.500503366] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346760.659997831] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346760.708403622] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346760.744279463] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346760.773057502] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346760.806483330] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346760.842866732] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346760.870730662] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346760.904752977] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346760.936000046] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346760.961854100] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346760.998911962] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346761.044919712] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346761.080377588] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346761.120817954] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346761.154159773] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346761.187660208] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346761.222970616] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346761.260081138] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346761.294678667] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346761.340106383] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346761.404377478] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346761.476243511] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346761.511197925] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346761.702517051] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346761.922845045] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346761.980042261] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346762.028069680] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346762.081459763] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346762.120112325] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346762.160940699] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346762.197366241] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346762.235123512] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346762.279771130] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346762.309350151] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346762.340756253] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346762.394448967] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346762.432003837] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346762.466248400] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346762.512010441] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346762.552907652] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346762.593004177] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346762.776319551] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346762.815067176] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346762.866138716] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346762.905059883] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346762.955885261] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346763.007511606] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346763.054071257] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346763.101160590] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346763.137794039] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346763.184220317] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346763.220301593] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346763.250740507] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346763.289829024] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346763.319416713] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346763.393526325] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346763.424310812] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346763.461041150] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346763.489851660] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346763.524460470] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346763.564911382] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346763.609402888] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346763.636844998] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346763.670478891] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346763.831567614] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346763.997016850] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346764.045426802] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346764.085481422] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346764.137722220] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346764.179741215] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346764.227855526] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346764.256926312] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346764.298786016] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346764.344115496] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346764.375381199] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346764.425869669] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346764.478816487] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346764.512761700] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346764.555529381] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346764.599311680] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346764.644198783] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346764.675238745] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346764.716178755] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346764.888958285] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346764.988525215] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346765.031937785] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346765.092490580] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346765.125392345] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346765.172183726] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346765.226432629] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346765.276192389] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346765.326835230] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346765.361860675] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346765.409028193] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346765.441482031] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346765.482596710] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346765.519727286] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346765.559133305] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346765.590064385] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346765.627588490] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346765.660851206] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346765.699202956] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346765.739426785] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346765.771335035] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346766.043321213] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346766.119323053] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346766.175328808] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346766.221556829] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346766.261075944] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346766.291879034] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346766.328772908] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346766.371919797] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346766.401196960] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346766.439360484] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346766.539177262] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346766.587432001] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346766.625478359] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346766.678036844] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346766.806713291] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346766.840182611] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346766.872624494] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346766.906987785] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346767.072821979] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346767.115218333] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346767.179307590] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346767.211360669] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346767.256102771] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346767.295223833] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346767.347606260] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346767.393369786] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346767.438840286] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346767.502648492] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346767.551085030] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346767.601686435] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346767.636558071] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346767.673804391] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346767.714589224] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346767.751127817] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346767.904407566] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346767.945367041] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346767.988289082] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346768.182271192] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346768.245684292] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346768.295348001] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346768.383517612] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346768.433714275] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346768.461242286] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346768.496390276] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346768.543184021] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346768.588649226] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346768.625258061] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346768.663562027] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346768.701875995] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346768.745987760] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346768.781832208] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346768.823448879] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346768.863080723] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346768.894912285] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346768.935164689] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346768.977017353] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346769.013648229] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793346769.066783073] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[INFO] [1793346804.616961514] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[INFO] [1793346804.617230893] [controller_server]: Running Nav2 LifecycleNode rcl preshutdown (controller_server)
+[INFO] [1793346804.617362298] [controller_server]: Deactivating
+[INFO] [1793346804.617440549] [local_costmap.local_costmap]: Deactivating
+[INFO] [1793346804.737140741] [controller_server]: Destroying bond (controller_server) to lifecycle manager.
+[INFO] [1793346804.747465656] [controller_server]: Cleaning up
+[INFO] [1793346804.747761077] [local_costmap.local_costmap]: Cleaning up
+[INFO] [1793346804.756706041] [controller_server]: Destroying bond (controller_server) to lifecycle manager.

@@ -1,0 +1,1 @@
+{"inhibited": true, "reason": "grid_worker:TimeoutError(grid_worker_deadline):phase=response_receive_decode:elapsed_s=0.505:phases=job_elapsed_s=0.505,request_pickle_send_s=0.020,response_read_s=0.051,response_shared_buffer_stage_s=0.017,worker_prepare_s=0.402,worker_progress_receive_s=0.415"}

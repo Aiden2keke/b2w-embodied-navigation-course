@@ -1,0 +1,2 @@
+[INFO] [1793344613.078489210] [sensor_disturbance]: XT32 snapshot time=0; IMU attitude from gyro/gravity measurements
+[WARN] [1793344614.766401184] [sensor_disturbance]: Gravity initialization requires valid acceleration

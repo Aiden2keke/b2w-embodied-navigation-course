@@ -1,0 +1,24 @@
+{
+  "world_from_map_se2": [
+    0.2892755505359325,
+    -0.029863411031933126,
+    -0.056388264429088175
+  ],
+  "world_ground_z": 0.034192480154180194,
+  "map_base": [
+    -0.34285402737536214,
+    -0.00010442335291965814,
+    -3.989079212894542e-05
+  ],
+  "truth_world": [
+    -0.0530394308176268,
+    -0.01064496851817733,
+    -0.05642815522121712
+  ],
+  "map_stamp": 18.8,
+  "truth_stamp": 18.8,
+  "verified": true,
+  "wall": 697173.935289583,
+  "samples": 5,
+  "source": "fresh timestamp-paired public TF/evaluation truth; presentation only; no public transform published"
+}

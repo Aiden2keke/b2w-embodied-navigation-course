@@ -1,0 +1,3 @@
+[INFO] [1793344612.157795451] [stage4_evaluation_bridge]: Creating GZ->ROS Bridge: [/b2w/evaluation/full_contacts (ignition.msgs.Contacts) -> /b2w/evaluation/full_contacts (ros_gz_interfaces/msg/Contacts)] (Lazy 0)
+[INFO] [1793344612.159347265] [stage4_evaluation_bridge]: Creating GZ->ROS Bridge: [/b2w/evaluation/collision_inventory (ignition.msgs.StringMsg) -> /b2w/evaluation/collision_inventory (std_msgs/msg/String)] (Lazy 0)
+[INFO] [1793344700.354322498] [rclcpp]: signal_handler(SIGINT/SIGTERM)

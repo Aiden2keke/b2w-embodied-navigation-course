@@ -1,0 +1,19 @@
+[INFO] [1793343021.209359960] [lifecycle_manager_navigation]: Creating
+[INFO] [1793343021.227048930] [lifecycle_manager_navigation]: [34m[1mCreating and initializing lifecycle service clients[0m[0m
+[INFO] [1793343021.339072026] [lifecycle_manager_navigation]: [34m[1mStarting managed nodes bringup...[0m[0m
+[INFO] [1793343021.339187275] [lifecycle_manager_navigation]: [34m[1mConfiguring controller_server[0m[0m
+[INFO] [1793343021.439131710] [lifecycle_manager_navigation]: [34m[1mConfiguring smoother_server[0m[0m
+[INFO] [1793343021.456873435] [lifecycle_manager_navigation]: [34m[1mConfiguring planner_server[0m[0m
+[INFO] [1793343021.528363906] [lifecycle_manager_navigation]: [34m[1mConfiguring behavior_server[0m[0m
+[INFO] [1793343021.614022963] [lifecycle_manager_navigation]: [34m[1mConfiguring bt_navigator[0m[0m
+[INFO] [1793343021.762990865] [lifecycle_manager_navigation]: [34m[1mConfiguring waypoint_follower[0m[0m
+[INFO] [1793343021.775503915] [lifecycle_manager_navigation]: [34m[1mConfiguring velocity_smoother[0m[0m
+[INFO] [1793343021.780116941] [lifecycle_manager_navigation]: [34m[1mActivating controller_server[0m[0m
+[INFO] [1793343047.080938422] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[INFO] [1793343047.081132180] [lifecycle_manager_navigation]: Running Nav2 LifecycleManager rcl preshutdown (lifecycle_manager_navigation)
+[INFO] [1793343047.093506336] [lifecycle_manager_navigation]: Server controller_server connected with bond.
+[INFO] [1793343047.093603685] [lifecycle_manager_navigation]: [34m[1mActivating smoother_server[0m[0m
+[INFO] [1793343047.128272781] [lifecycle_manager_navigation]: Server smoother_server connected with bond.
+[INFO] [1793343047.128366588] [lifecycle_manager_navigation]: [34m[1mActivating planner_server[0m[0m
+[ERROR] [1793343047.137731798] [lifecycle_manager_navigation]: Failed to change state for node: planner_server
+[ERROR] [1793343047.137966109] [lifecycle_manager_navigation]: Failed to bring up all requested nodes. Aborting bringup.

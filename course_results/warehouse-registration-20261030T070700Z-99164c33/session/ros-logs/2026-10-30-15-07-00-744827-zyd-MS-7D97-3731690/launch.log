@@ -1,0 +1,421 @@
+1793344020.7461665 [INFO] [launch]: All log files can be found below /home/zyd/program/b2w-embodied-navigation-course/course_results/warehouse-registration-20261030T070700Z-99164c33/session/ros-logs/2026-10-30-15-07-00-744827-zyd-MS-7D97-3731690
+1793344020.7463412 [INFO] [launch]: Default logging verbosity is set to INFO
+1793344020.9027429 [INFO] [ign-1]: process started with pid [3731726]
+1793344020.9037023 [INFO] [robot_state_publisher-2]: process started with pid [3731728]
+1793344020.9040558 [INFO] [create-3]: process started with pid [3731730]
+1793344020.9041884 [INFO] [parameter_bridge-4]: process started with pid [3731732]
+1793344020.9043083 [INFO] [b2w_rl_sar_controller-5]: process started with pid [3731734]
+1793344020.9044006 [INFO] [sensor_disturbance-6]: process started with pid [3731736]
+1793344020.9044998 [INFO] [sensor_cloud_disturbance-7]: process started with pid [3731738]
+1793344020.9045963 [INFO] [controller_server-8]: process started with pid [3731740]
+1793344020.9046876 [INFO] [smoother_server-9]: process started with pid [3731742]
+1793344020.9047773 [INFO] [planner_server-10]: process started with pid [3731744]
+1793344020.9048514 [INFO] [behavior_server-11]: process started with pid [3731746]
+1793344020.9049196 [INFO] [bt_navigator-12]: process started with pid [3731748]
+1793344020.9049885 [INFO] [waypoint_follower-13]: process started with pid [3731750]
+1793344020.9050624 [INFO] [velocity_smoother-14]: process started with pid [3731752]
+1793344020.9051211 [INFO] [map_projector-15]: process started with pid [3731756]
+1793344020.9051797 [INFO] [lifecycle_manager-16]: process started with pid [3731758]
+1793344020.9052424 [INFO] [velocity_adapter-17]: process started with pid [3731760]
+1793344021.2493379 [planner_server-10] [INFO] [1793344021.243708066] [planner_server]: 
+1793344021.2538557 [planner_server-10] 	planner_server lifecycle node launched. 
+1793344021.2545712 [planner_server-10] 	Waiting on external lifecycle transitions to activate
+1793344021.2548590 [planner_server-10] 	See https://design.ros2.org/articles/node_lifecycle.html for more information.
+1793344021.2563486 [controller_server-8] [INFO] [1793344021.245981185] [controller_server]: 
+1793344021.2570069 [controller_server-8] 	controller_server lifecycle node launched. 
+1793344021.2574022 [controller_server-8] 	Waiting on external lifecycle transitions to activate
+1793344021.2584398 [controller_server-8] 	See https://design.ros2.org/articles/node_lifecycle.html for more information.
+1793344021.2597930 [planner_server-10] [INFO] [1793344021.251148343] [planner_server]: Creating
+1793344021.2606783 [robot_state_publisher-2] [WARN] [1793344021.251925636] [kdl_parser]: The root link base_link has an inertia specified in the URDF, but KDL does not support a root link with an inertia.  As a workaround, you can add an extra dummy link to your URDF.
+1793344021.2608426 [robot_state_publisher-2] [INFO] [1793344021.254909718] [b2w_robot_state_publisher]: got segment FL_calf
+1793344021.2615266 [bt_navigator-12] [INFO] [1793344021.255898133] [bt_navigator]: 
+1793344021.2617064 [bt_navigator-12] 	bt_navigator lifecycle node launched. 
+1793344021.2617781 [bt_navigator-12] 	Waiting on external lifecycle transitions to activate
+1793344021.2618425 [bt_navigator-12] 	See https://design.ros2.org/articles/node_lifecycle.html for more information.
+1793344021.2626774 [bt_navigator-12] [INFO] [1793344021.256103977] [bt_navigator]: Creating
+1793344021.2635360 [robot_state_publisher-2] [INFO] [1793344021.255928543] [b2w_robot_state_publisher]: got segment FL_foot
+1793344021.2636843 [robot_state_publisher-2] [INFO] [1793344021.255967260] [b2w_robot_state_publisher]: got segment FL_hip
+1793344021.2637539 [robot_state_publisher-2] [INFO] [1793344021.255972382] [b2w_robot_state_publisher]: got segment FL_thigh
+1793344021.2638152 [robot_state_publisher-2] [INFO] [1793344021.255977968] [b2w_robot_state_publisher]: got segment FR_calf
+1793344021.2638741 [robot_state_publisher-2] [INFO] [1793344021.255983692] [b2w_robot_state_publisher]: got segment FR_foot
+1793344021.2639308 [robot_state_publisher-2] [INFO] [1793344021.255989956] [b2w_robot_state_publisher]: got segment FR_hip
+1793344021.2640178 [robot_state_publisher-2] [INFO] [1793344021.255993649] [b2w_robot_state_publisher]: got segment FR_thigh
+1793344021.2640810 [robot_state_publisher-2] [INFO] [1793344021.255997687] [b2w_robot_state_publisher]: got segment RL_calf
+1793344021.2641308 [robot_state_publisher-2] [INFO] [1793344021.256001447] [b2w_robot_state_publisher]: got segment RL_foot
+1793344021.2641838 [robot_state_publisher-2] [INFO] [1793344021.256005947] [b2w_robot_state_publisher]: got segment RL_hip
+1793344021.2642319 [robot_state_publisher-2] [INFO] [1793344021.256009336] [b2w_robot_state_publisher]: got segment RL_thigh
+1793344021.2643044 [robot_state_publisher-2] [INFO] [1793344021.256013246] [b2w_robot_state_publisher]: got segment RR_calf
+1793344021.2643592 [robot_state_publisher-2] [INFO] [1793344021.256017072] [b2w_robot_state_publisher]: got segment RR_foot
+1793344021.2644050 [robot_state_publisher-2] [INFO] [1793344021.256021108] [b2w_robot_state_publisher]: got segment RR_hip
+1793344021.2644460 [robot_state_publisher-2] [INFO] [1793344021.256025519] [b2w_robot_state_publisher]: got segment RR_thigh
+1793344021.2644804 [robot_state_publisher-2] [INFO] [1793344021.256034109] [b2w_robot_state_publisher]: got segment base_link
+1793344021.2645102 [robot_state_publisher-2] [INFO] [1793344021.256041660] [b2w_robot_state_publisher]: got segment collision_plate
+1793344021.2645428 [robot_state_publisher-2] [INFO] [1793344021.256046882] [b2w_robot_state_publisher]: got segment f_dc_link
+1793344021.2645700 [robot_state_publisher-2] [INFO] [1793344021.256050779] [b2w_robot_state_publisher]: got segment f_oc_link
+1793344021.2646003 [robot_state_publisher-2] [INFO] [1793344021.256054567] [b2w_robot_state_publisher]: got segment head_Link
+1793344021.2646253 [robot_state_publisher-2] [INFO] [1793344021.256057633] [b2w_robot_state_publisher]: got segment imu_link
+1793344021.2646544 [robot_state_publisher-2] [INFO] [1793344021.256061114] [b2w_robot_state_publisher]: got segment lidar_link
+1793344021.2646797 [robot_state_publisher-2] [INFO] [1793344021.256065688] [b2w_robot_state_publisher]: got segment logo_link
+1793344021.2647078 [robot_state_publisher-2] [INFO] [1793344021.256068719] [b2w_robot_state_publisher]: got segment r_dc_link
+1793344021.2647254 [robot_state_publisher-2] [INFO] [1793344021.256071748] [b2w_robot_state_publisher]: got segment r_oc_ink
+1793344021.2647419 [robot_state_publisher-2] [INFO] [1793344021.256076163] [b2w_robot_state_publisher]: got segment tail_link
+1793344021.2647648 [robot_state_publisher-2] [INFO] [1793344021.256079274] [b2w_robot_state_publisher]: got segment zed_x_camera
+1793344021.2650516 [velocity_smoother-14] [INFO] [1793344021.256708968] [velocity_smoother]: 
+1793344021.2651026 [velocity_smoother-14] 	velocity_smoother lifecycle node launched. 
+1793344021.2651353 [velocity_smoother-14] 	Waiting on external lifecycle transitions to activate
+1793344021.2651656 [velocity_smoother-14] 	See https://design.ros2.org/articles/node_lifecycle.html for more information.
+1793344021.2720683 [waypoint_follower-13] [INFO] [1793344021.258696740] [waypoint_follower]: 
+1793344021.2743459 [waypoint_follower-13] 	waypoint_follower lifecycle node launched. 
+1793344021.2744813 [waypoint_follower-13] 	Waiting on external lifecycle transitions to activate
+1793344021.2745180 [waypoint_follower-13] 	See https://design.ros2.org/articles/node_lifecycle.html for more information.
+1793344021.2753150 [controller_server-8] [INFO] [1793344021.259768941] [controller_server]: Creating controller server
+1793344021.2758658 [waypoint_follower-13] [INFO] [1793344021.260840105] [waypoint_follower]: Creating
+1793344021.2774477 [behavior_server-11] [INFO] [1793344021.269497875] [behavior_server]: 
+1793344021.2806075 [behavior_server-11] 	behavior_server lifecycle node launched. 
+1793344021.2808607 [behavior_server-11] 	Waiting on external lifecycle transitions to activate
+1793344021.2809050 [behavior_server-11] 	See https://design.ros2.org/articles/node_lifecycle.html for more information.
+1793344021.2816496 [smoother_server-9] [INFO] [1793344021.270311783] [smoother_server]: 
+1793344021.2819197 [smoother_server-9] 	smoother_server lifecycle node launched. 
+1793344021.2819681 [smoother_server-9] 	Waiting on external lifecycle transitions to activate
+1793344021.2820020 [smoother_server-9] 	See https://design.ros2.org/articles/node_lifecycle.html for more information.
+1793344021.2823699 [smoother_server-9] [INFO] [1793344021.273587210] [smoother_server]: Creating smoother server
+1793344021.2979560 [planner_server-10] [INFO] [1793344021.296878771] [global_costmap.global_costmap]: 
+1793344021.2990353 [planner_server-10] 	global_costmap lifecycle node launched. 
+1793344021.3015203 [planner_server-10] 	Waiting on external lifecycle transitions to activate
+1793344021.3017955 [planner_server-10] 	See https://design.ros2.org/articles/node_lifecycle.html for more information.
+1793344021.3030188 [planner_server-10] [INFO] [1793344021.299728103] [global_costmap.global_costmap]: Creating Costmap
+1793344021.3042409 [controller_server-8] [INFO] [1793344021.301245325] [local_costmap.local_costmap]: 
+1793344021.3048170 [controller_server-8] 	local_costmap lifecycle node launched. 
+1793344021.3050427 [controller_server-8] 	Waiting on external lifecycle transitions to activate
+1793344021.3053501 [controller_server-8] 	See https://design.ros2.org/articles/node_lifecycle.html for more information.
+1793344021.3055651 [controller_server-8] [INFO] [1793344021.302370869] [local_costmap.local_costmap]: Creating Costmap
+1793344021.3609159 [b2w_rl_sar_controller-5] [INFO] [1793344021.360073143] [b2w_rl_sar_controller]: Loaded rl_sar B2-W policy: 57 observations, 16 actions, 50 Hz policy / 200 Hz torque, /home/zyd/program/b2w-embodied-navigation-course/third_party/b2w_rl_sar/policy/b2w/robot_lab/policy.onnx
+1793344021.5639167 [ign-1] [1;32m[Msg] [0m[1;32mIgnition Gazebo Server v[0m[1;32m6.18.0[0m[1;32m[0m
+1793344021.5641723 [ign-1] [1;32m[Msg] [0m[1;32mLoading SDF world file[[0m[1;32m/home/zyd/program/b2w-embodied-navigation-course/course_results/warehouse-registration-20261030T070700Z-99164c33/observer.world[0m[1;32m].[0m
+1793344021.5651858 [ign-1] [1;33mWarning [Utils.cc:129][0m [/sdf/world[@name="course_world"]/model[@name="aws_robomaker_warehouse_Bucket_01_020"]/link[@name="body"]/pose[@frame=""]:/home/zyd/program/b2w-embodied-navigation-course/course_results/warehouse-registration-20261030T070700Z-99164c33/observer.world:L372]: XML Attribute[frame] in element[pose] not defined in SDF.
+1793344021.5655437 [ign-1] [1;33mWarning [Utils.cc:129][0m [/sdf/world[@name="course_world"]/model[@name="aws_robomaker_warehouse_Bucket_01_020"]/link[@name="body"]/collision[@name="collision_0"]/pose[@frame=""]:/home/zyd/program/b2w-embodied-navigation-course/course_results/warehouse-registration-20261030T070700Z-99164c33/observer.world:L389]: XML Attribute[frame] in element[pose] not defined in SDF.
+1793344021.5700006 [ign-1] [1;33mWarning [Utils.cc:129][0m [/sdf/world[@name="course_world"]/model[@name="aws_robomaker_warehouse_Bucket_01_021"]/link[@name="body"]/pose[@frame=""]:/home/zyd/program/b2w-embodied-navigation-course/course_results/warehouse-registration-20261030T070700Z-99164c33/observer.world:L423]: XML Attribute[frame] in element[pose] not defined in SDF.
+1793344021.5712395 [ign-1] [1;33mWarning [Utils.cc:129][0m [/sdf/world[@name="course_world"]/model[@name="aws_robomaker_warehouse_Bucket_01_021"]/link[@name="body"]/collision[@name="collision_0"]/pose[@frame=""]:/home/zyd/program/b2w-embodied-navigation-course/course_results/warehouse-registration-20261030T070700Z-99164c33/observer.world:L440]: XML Attribute[frame] in element[pose] not defined in SDF.
+1793344021.5788970 [ign-1] [1;33mWarning [Utils.cc:129][0m [/sdf/world[@name="course_world"]/model[@name="aws_robomaker_warehouse_Bucket_01_022"]/link[@name="body"]/pose[@frame=""]:/home/zyd/program/b2w-embodied-navigation-course/course_results/warehouse-registration-20261030T070700Z-99164c33/observer.world:L474]: XML Attribute[frame] in element[pose] not defined in SDF.
+1793344021.5799828 [ign-1] [1;33mWarning [Utils.cc:129][0m [/sdf/world[@name="course_world"]/model[@name="aws_robomaker_warehouse_Bucket_01_022"]/link[@name="body"]/collision[@name="collision_0"]/pose[@frame=""]:/home/zyd/program/b2w-embodied-navigation-course/course_results/warehouse-registration-20261030T070700Z-99164c33/observer.world:L491]: XML Attribute[frame] in element[pose] not defined in SDF.
+1793344021.6877673 [controller_server-8] [INFO] [1793344021.686308749] [controller_server]: Configuring controller interface
+1793344021.6879013 [controller_server-8] [INFO] [1793344021.686515697] [controller_server]: getting goal checker plugins..
+1793344021.6879611 [controller_server-8] [INFO] [1793344021.686622142] [controller_server]: Controller frequency set to 20.0000Hz
+1793344021.6880145 [controller_server-8] [INFO] [1793344021.686676956] [local_costmap.local_costmap]: Configuring
+1793344021.6970930 [controller_server-8] [INFO] [1793344021.696425602] [local_costmap.local_costmap]: Using plugin "static_layer"
+1793344021.7055948 [controller_server-8] [INFO] [1793344021.704989519] [local_costmap.local_costmap]: Subscribing to the map topic (/map) with transient local durability
+1793344021.7101157 [controller_server-8] [INFO] [1793344021.709142430] [local_costmap.local_costmap]: Initialized plugin "static_layer"
+1793344021.7106600 [controller_server-8] [INFO] [1793344021.709241778] [local_costmap.local_costmap]: Using plugin "obstacle_layer"
+1793344021.7125194 [controller_server-8] [INFO] [1793344021.709704384] [local_costmap.local_costmap]: Subscribed to Topics: lidar
+1793344021.7181406 [controller_server-8] [INFO] [1793344021.717637018] [local_costmap.local_costmap]: Initialized plugin "obstacle_layer"
+1793344021.7183425 [controller_server-8] [INFO] [1793344021.717689681] [local_costmap.local_costmap]: Using plugin "inflation_layer"
+1793344021.7186525 [controller_server-8] [INFO] [1793344021.718280086] [local_costmap.local_costmap]: Initialized plugin "inflation_layer"
+1793344021.7273698 [controller_server-8] [INFO] [1793344021.726844034] [controller_server]: Created progress_checker : progress_checker of type nav2_controller::SimpleProgressChecker
+1793344021.7288268 [controller_server-8] [INFO] [1793344021.728582966] [controller_server]: Created goal checker : general_goal_checker of type nav2_controller::SimpleGoalChecker
+1793344021.7290633 [controller_server-8] [INFO] [1793344021.728767786] [controller_server]: Controller Server has general_goal_checker  goal checkers available.
+1793344021.7322371 [controller_server-8] [INFO] [1793344021.732076092] [controller_server]: Created controller : FollowPath of type dwb_core::DWBLocalPlanner
+1793344021.7327147 [controller_server-8] [INFO] [1793344021.732568954] [controller_server]: Setting transform_tolerance to 0.200000
+1793344021.7475994 [controller_server-8] [INFO] [1793344021.746245190] [controller_server]: Using critic "RotateToGoal" (dwb_critics::RotateToGoalCritic)
+1793344021.7489157 [controller_server-8] [INFO] [1793344021.746955577] [controller_server]: Critic plugin initialized
+1793344021.7490754 [controller_server-8] [INFO] [1793344021.747097462] [controller_server]: Using critic "Oscillation" (dwb_critics::OscillationCritic)
+1793344021.7491539 [controller_server-8] [INFO] [1793344021.747289133] [controller_server]: Critic plugin initialized
+1793344021.7492101 [controller_server-8] [INFO] [1793344021.747362661] [controller_server]: Using critic "BaseObstacle" (dwb_critics::BaseObstacleCritic)
+1793344021.7492661 [controller_server-8] [INFO] [1793344021.747726303] [controller_server]: Critic plugin initialized
+1793344021.7493215 [controller_server-8] [INFO] [1793344021.747886047] [controller_server]: Using critic "GoalAlign" (dwb_critics::GoalAlignCritic)
+1793344021.7493711 [controller_server-8] [INFO] [1793344021.748301119] [controller_server]: Critic plugin initialized
+1793344021.7494173 [controller_server-8] [INFO] [1793344021.748381226] [controller_server]: Using critic "PathAlign" (dwb_critics::PathAlignCritic)
+1793344021.7498248 [controller_server-8] [INFO] [1793344021.748638118] [controller_server]: Critic plugin initialized
+1793344021.7499330 [controller_server-8] [INFO] [1793344021.748717732] [controller_server]: Using critic "PathDist" (dwb_critics::PathDistCritic)
+1793344021.7499835 [controller_server-8] [INFO] [1793344021.748942002] [controller_server]: Critic plugin initialized
+1793344021.7500267 [controller_server-8] [INFO] [1793344021.749006519] [controller_server]: Using critic "GoalDist" (dwb_critics::GoalDistCritic)
+1793344021.7500696 [controller_server-8] [INFO] [1793344021.749213755] [controller_server]: Critic plugin initialized
+1793344021.7501113 [controller_server-8] [INFO] [1793344021.749264872] [controller_server]: Controller Server has FollowPath  controllers available.
+1793344021.7584729 [smoother_server-9] [INFO] [1793344021.757854424] [smoother_server]: Configuring smoother server
+1793344022.0070372 [smoother_server-9] [INFO] [1793344022.006724395] [smoother_server]: Created smoother : simple_smoother of type nav2_smoother::SimpleSmoother
+1793344022.0081074 [smoother_server-9] [INFO] [1793344022.007852326] [smoother_server]: Smoother Server has simple_smoother  smoothers available.
+1793344022.0203874 [INFO] [create-3]: process has finished cleanly [pid 3731730]
+1793344022.0213723 [planner_server-10] [INFO] [1793344022.020514249] [planner_server]: Configuring
+1793344022.0214951 [planner_server-10] [INFO] [1793344022.020587362] [global_costmap.global_costmap]: Configuring
+1793344022.0260208 [planner_server-10] [INFO] [1793344022.025498271] [global_costmap.global_costmap]: Using plugin "static_layer"
+1793344022.0290096 [planner_server-10] [INFO] [1793344022.028594613] [global_costmap.global_costmap]: Subscribing to the map topic (/map) with transient local durability
+1793344022.0308278 [planner_server-10] [INFO] [1793344022.030470308] [global_costmap.global_costmap]: Initialized plugin "static_layer"
+1793344022.0311885 [planner_server-10] [INFO] [1793344022.030516951] [global_costmap.global_costmap]: Using plugin "obstacle_layer"
+1793344022.0315578 [planner_server-10] [INFO] [1793344022.031214535] [global_costmap.global_costmap]: Subscribed to Topics: lidar
+1793344022.0343823 [planner_server-10] [INFO] [1793344022.034042894] [global_costmap.global_costmap]: Initialized plugin "obstacle_layer"
+1793344022.0345588 [planner_server-10] [INFO] [1793344022.034079912] [global_costmap.global_costmap]: Using plugin "inflation_layer"
+1793344022.0348551 [planner_server-10] [INFO] [1793344022.034720222] [global_costmap.global_costmap]: Initialized plugin "inflation_layer"
+1793344022.0540190 [planner_server-10] [INFO] [1793344022.053613878] [planner_server]: Created global planner plugin GridBased of type nav2_smac_planner/SmacPlanner2D
+1793344022.0543063 [planner_server-10] [INFO] [1793344022.053668951] [planner_server]: Configuring GridBased of type SmacPlanner2D
+1793344022.0557263 [planner_server-10] [INFO] [1793344022.055377770] [planner_server]: Configured plugin GridBased of type SmacPlanner2D with tolerance 0.30, maximum iterations 1000000, max on approach iterations 1000, and not allowing unknown traversal.
+1793344022.0559423 [planner_server-10] [INFO] [1793344022.055436454] [planner_server]: Planner Server has GridBased  planners available.
+1793344022.0642629 [behavior_server-11] [INFO] [1793344022.063689038] [behavior_server]: Configuring
+1793344022.0713820 [behavior_server-11] [INFO] [1793344022.070841030] [behavior_server]: Creating behavior plugin spin of type nav2_behaviors/Spin
+1793344022.0722666 [behavior_server-11] [INFO] [1793344022.072102926] [behavior_server]: Configuring spin
+1793344022.0800140 [behavior_server-11] [INFO] [1793344022.079721945] [behavior_server]: Creating behavior plugin backup of type nav2_behaviors/BackUp
+1793344022.0811455 [behavior_server-11] [INFO] [1793344022.080951910] [behavior_server]: Configuring backup
+1793344022.0848682 [behavior_server-11] [INFO] [1793344022.084602177] [behavior_server]: Creating behavior plugin drive_on_heading of type nav2_behaviors/DriveOnHeading
+1793344022.0859239 [behavior_server-11] [INFO] [1793344022.085685541] [behavior_server]: Configuring drive_on_heading
+1793344022.0909519 [behavior_server-11] [INFO] [1793344022.090574671] [behavior_server]: Creating behavior plugin assisted_teleop of type nav2_behaviors/AssistedTeleop
+1793344022.0932417 [behavior_server-11] [INFO] [1793344022.092911215] [behavior_server]: Configuring assisted_teleop
+1793344022.0984566 [behavior_server-11] [INFO] [1793344022.098169458] [behavior_server]: Creating behavior plugin wait of type nav2_behaviors/Wait
+1793344022.0993855 [behavior_server-11] [INFO] [1793344022.099240381] [behavior_server]: Configuring wait
+1793344022.1030993 [bt_navigator-12] [INFO] [1793344022.102820244] [bt_navigator]: Configuring
+1793344022.1832571 [waypoint_follower-13] [INFO] [1793344022.182658052] [waypoint_follower]: Configuring
+1793344022.1977775 [waypoint_follower-13] [INFO] [1793344022.196955146] [waypoint_follower]: Created waypoint_task_executor : wait_at_waypoint of type nav2_waypoint_follower::WaitAtWaypoint
+1793344022.2008743 [velocity_smoother-14] [INFO] [1793344022.198894744] [velocity_smoother]: Configuring velocity smoother
+1793344022.2038050 [controller_server-8] [INFO] [1793344022.203499633] [controller_server]: Activating
+1793344022.2038722 [controller_server-8] [INFO] [1793344022.203540453] [local_costmap.local_costmap]: Activating
+1793344022.2038946 [controller_server-8] [INFO] [1793344022.203550764] [local_costmap.local_costmap]: Checking transform
+1793344022.2039196 [controller_server-8] [INFO] [1793344022.203573640] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+1793344022.2481632 [parameter_bridge-4] [INFO] [1793344022.245117605] [ros_gz_bridge]: Creating GZ->ROS Bridge: [/clock (ignition.msgs.Clock) -> /clock (rosgraph_msgs/msg/Clock)] (Lazy 0)
+1793344022.2503915 [parameter_bridge-4] [INFO] [1793344022.250012334] [ros_gz_bridge]: Creating GZ->ROS Bridge: [/joint_states (ignition.msgs.Model) -> /sim/raw/joint_states (sensor_msgs/msg/JointState)] (Lazy 0)
+1793344022.2644107 [parameter_bridge-4] [INFO] [1793344022.263896959] [ros_gz_bridge]: Creating GZ->ROS Bridge: [/sim/raw/ground_truth/odom (ignition.msgs.Odometry) -> /sim/ground_truth/odom (nav_msgs/msg/Odometry)] (Lazy 0)
+1793344022.2769754 [parameter_bridge-4] [INFO] [1793344022.274385988] [ros_gz_bridge]: Creating GZ->ROS Bridge: [/sim/raw/ground_truth/odom (ignition.msgs.Odometry) -> /sim/body_state (nav_msgs/msg/Odometry)] (Lazy 0)
+1793344022.2832880 [parameter_bridge-4] [INFO] [1793344022.281407702] [ros_gz_bridge]: Creating GZ->ROS Bridge: [/sim/raw/scan/points (ignition.msgs.PointCloudPacked) -> /sim/raw/pointcloud (sensor_msgs/msg/PointCloud2)] (Lazy 0)
+1793344022.2853627 [parameter_bridge-4] [INFO] [1793344022.284274860] [ros_gz_bridge]: Creating GZ->ROS Bridge: [/sim/raw/imu (ignition.msgs.IMU) -> /sim/raw/imu (sensor_msgs/msg/Imu)] (Lazy 0)
+1793344022.2868788 [parameter_bridge-4] [INFO] [1793344022.286621171] [ros_gz_bridge]: Creating GZ->ROS Bridge: [/collision_plate/force_torque (ignition.msgs.Wrench) -> /collision_plate/force_torque (geometry_msgs/msg/WrenchStamped)] (Lazy 0)
+1793344022.2905755 [parameter_bridge-4] [INFO] [1793344022.290212562] [ros_gz_bridge]: Creating GZ->ROS Bridge: [/zed_x_camera (ignition.msgs.Image) -> /zed/zed_node/depth/depth_registered (sensor_msgs/msg/Image)] (Lazy 0)
+1793344022.2935903 [parameter_bridge-4] [INFO] [1793344022.293305985] [ros_gz_bridge]: Creating ROS->GZ Bridge: [/model/b2w/joint/FR_hip_joint/cmd_force (std_msgs/msg/Float64) -> /model/b2w/joint/FR_hip_joint/cmd_force (ignition.msgs.Double)] (Lazy 0)
+1793344022.2961206 [parameter_bridge-4] [INFO] [1793344022.295732658] [ros_gz_bridge]: Creating ROS->GZ Bridge: [/model/b2w/joint/FR_thigh_joint/cmd_force (std_msgs/msg/Float64) -> /model/b2w/joint/FR_thigh_joint/cmd_force (ignition.msgs.Double)] (Lazy 0)
+1793344022.3017516 [parameter_bridge-4] [INFO] [1793344022.299857470] [ros_gz_bridge]: Creating ROS->GZ Bridge: [/model/b2w/joint/FR_calf_joint/cmd_force (std_msgs/msg/Float64) -> /model/b2w/joint/FR_calf_joint/cmd_force (ignition.msgs.Double)] (Lazy 0)
+1793344022.3031585 [parameter_bridge-4] [INFO] [1793344022.302384906] [ros_gz_bridge]: Creating ROS->GZ Bridge: [/model/b2w/joint/FL_hip_joint/cmd_force (std_msgs/msg/Float64) -> /model/b2w/joint/FL_hip_joint/cmd_force (ignition.msgs.Double)] (Lazy 0)
+1793344022.3046589 [parameter_bridge-4] [INFO] [1793344022.303317359] [ros_gz_bridge]: Creating ROS->GZ Bridge: [/model/b2w/joint/FL_thigh_joint/cmd_force (std_msgs/msg/Float64) -> /model/b2w/joint/FL_thigh_joint/cmd_force (ignition.msgs.Double)] (Lazy 0)
+1793344022.3052886 [parameter_bridge-4] [INFO] [1793344022.303856053] [ros_gz_bridge]: Creating ROS->GZ Bridge: [/model/b2w/joint/FL_calf_joint/cmd_force (std_msgs/msg/Float64) -> /model/b2w/joint/FL_calf_joint/cmd_force (ignition.msgs.Double)] (Lazy 0)
+1793344022.3057277 [parameter_bridge-4] [INFO] [1793344022.304346720] [ros_gz_bridge]: Creating ROS->GZ Bridge: [/model/b2w/joint/RR_hip_joint/cmd_force (std_msgs/msg/Float64) -> /model/b2w/joint/RR_hip_joint/cmd_force (ignition.msgs.Double)] (Lazy 0)
+1793344022.3063419 [parameter_bridge-4] [INFO] [1793344022.305987978] [ros_gz_bridge]: Creating ROS->GZ Bridge: [/model/b2w/joint/RR_thigh_joint/cmd_force (std_msgs/msg/Float64) -> /model/b2w/joint/RR_thigh_joint/cmd_force (ignition.msgs.Double)] (Lazy 0)
+1793344022.3086936 [parameter_bridge-4] [INFO] [1793344022.308191652] [ros_gz_bridge]: Creating ROS->GZ Bridge: [/model/b2w/joint/RR_calf_joint/cmd_force (std_msgs/msg/Float64) -> /model/b2w/joint/RR_calf_joint/cmd_force (ignition.msgs.Double)] (Lazy 0)
+1793344022.3105536 [parameter_bridge-4] [INFO] [1793344022.310323710] [ros_gz_bridge]: Creating ROS->GZ Bridge: [/model/b2w/joint/RL_hip_joint/cmd_force (std_msgs/msg/Float64) -> /model/b2w/joint/RL_hip_joint/cmd_force (ignition.msgs.Double)] (Lazy 0)
+1793344022.3140314 [parameter_bridge-4] [INFO] [1793344022.313378497] [ros_gz_bridge]: Creating ROS->GZ Bridge: [/model/b2w/joint/RL_thigh_joint/cmd_force (std_msgs/msg/Float64) -> /model/b2w/joint/RL_thigh_joint/cmd_force (ignition.msgs.Double)] (Lazy 0)
+1793344022.3160036 [parameter_bridge-4] [INFO] [1793344022.315609195] [ros_gz_bridge]: Creating ROS->GZ Bridge: [/model/b2w/joint/RL_calf_joint/cmd_force (std_msgs/msg/Float64) -> /model/b2w/joint/RL_calf_joint/cmd_force (ignition.msgs.Double)] (Lazy 0)
+1793344022.3176391 [parameter_bridge-4] [INFO] [1793344022.316931842] [ros_gz_bridge]: Creating ROS->GZ Bridge: [/model/b2w/joint/FR_foot_joint/cmd_force (std_msgs/msg/Float64) -> /model/b2w/joint/FR_foot_joint/cmd_force (ignition.msgs.Double)] (Lazy 0)
+1793344022.3187673 [parameter_bridge-4] [INFO] [1793344022.318595589] [ros_gz_bridge]: Creating ROS->GZ Bridge: [/model/b2w/joint/FL_foot_joint/cmd_force (std_msgs/msg/Float64) -> /model/b2w/joint/FL_foot_joint/cmd_force (ignition.msgs.Double)] (Lazy 0)
+1793344022.3201284 [parameter_bridge-4] [INFO] [1793344022.319825381] [ros_gz_bridge]: Creating ROS->GZ Bridge: [/model/b2w/joint/RR_foot_joint/cmd_force (std_msgs/msg/Float64) -> /model/b2w/joint/RR_foot_joint/cmd_force (ignition.msgs.Double)] (Lazy 0)
+1793344022.3211207 [parameter_bridge-4] [INFO] [1793344022.320828635] [ros_gz_bridge]: Creating ROS->GZ Bridge: [/model/b2w/joint/RL_foot_joint/cmd_force (std_msgs/msg/Float64) -> /model/b2w/joint/RL_foot_joint/cmd_force (ignition.msgs.Double)] (Lazy 0)
+1793344022.7043221 [controller_server-8] [INFO] [1793344022.703755469] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+1793344023.2038856 [controller_server-8] [INFO] [1793344023.203651319] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+1793344023.5727620 [ign-1] [1;32m[Msg] [0m[1;32mServing entity system service on [[0m[1;32m/[0m[1;32mentity/system/add[0m[1;32m][0m[1;32m[0m
+1793344023.5729070 [ign-1] [1;32m[Msg] [0m[1;32mCreate service on [[0m[1;32m/world/course_world/create[0m[1;32m][0m[1;32m[0m
+1793344023.5729308 [ign-1] [1;32m[Msg] [0m[1;32mRemove service on [[0m[1;32m/world/course_world/remove[0m[1;32m][0m[1;32m[0m
+1793344023.5729451 [ign-1] [1;32m[Msg] [0m[1;32mPose service on [[0m[1;32m/world/course_world/set_pose[0m[1;32m][0m[1;32m[0m
+1793344023.5729597 [ign-1] [1;32m[Msg] [0m[1;32mPose service on [[0m[1;32m/world/course_world/set_pose_vector[0m[1;32m][0m[1;32m[0m
+1793344023.5729728 [ign-1] [1;32m[Msg] [0m[1;32mLight configuration service on [[0m[1;32m/world/course_world/light_config[0m[1;32m][0m[1;32m[0m
+1793344023.5729842 [ign-1] [1;32m[Msg] [0m[1;32mPhysics service on [[0m[1;32m/world/course_world/set_physics[0m[1;32m][0m[1;32m[0m
+1793344023.5729961 [ign-1] [1;32m[Msg] [0m[1;32mSphericalCoordinates service on [[0m[1;32m/world/course_world/set_spherical_coordinates[0m[1;32m][0m[1;32m[0m
+1793344023.5730066 [ign-1] [1;32m[Msg] [0m[1;32mEnable collision service on [[0m[1;32m/world/course_world/enable_collision[0m[1;32m][0m[1;32m[0m
+1793344023.5730183 [ign-1] [1;32m[Msg] [0m[1;32mDisable collision service on [[0m[1;32m/world/course_world/disable_collision[0m[1;32m][0m[1;32m[0m
+1793344023.5730286 [ign-1] [1;32m[Msg] [0m[1;32mMaterial service on [[0m[1;32m/world/course_world/visual_config[0m[1;32m][0m[1;32m[0m
+1793344023.5730393 [ign-1] [1;32m[Msg] [0m[1;32mMaterial service on [[0m[1;32m/world/course_world/wheel_slip[0m[1;32m][0m[1;32m[0m
+1793344023.5730507 [ign-1] [1;32m[Msg] [0m[1;32mLoaded level [[0m[1;32m3[0m[1;32m][0m[1;32m[0m
+1793344023.5730629 [ign-1] [1;32m[Msg] [0m[1;32mServing world controls on [[0m[1;32m/world/course_world[0m[1;32m/control], [[0m[1;32m/world/course_world[0m[1;32m/control/state] and [[0m[1;32m/world/course_world[0m[1;32m/playback/control][0m[1;32m[0m
+1793344023.5730755 [ign-1] [1;32m[Msg] [0m[1;32mServing GUI information on [[0m[1;32m/world/course_world[0m[1;32m/[0m[1;32mgui/info[0m[1;32m][0m[1;32m[0m
+1793344023.5730872 [ign-1] [1;32m[Msg] [0m[1;32mWorld [[0m[1;32mcourse_world[0m[1;32m] initialized with [[0m[1;32mphysics[0m[1;32m] physics profile.[0m[1;32m[0m
+1793344023.5731046 [ign-1] [1;32m[Msg] [0m[1;32mServing world SDF generation service on [[0m[1;32m/world/course_world[0m[1;32m/[0m[1;32mgenerate_world_sdf[0m[1;32m][0m[1;32m[0m
+1793344023.5731277 [ign-1] [1;32m[Msg] [0m[1;32mServing world names on [[0m[1;32m/gazebo/worlds[0m[1;32m][0m[1;32m[0m
+1793344023.5731473 [ign-1] [1;32m[Msg] [0m[1;32mResource path add service on [[0m[1;32m/gazebo/resource_paths/add[0m[1;32m].[0m[1;32m[0m
+1793344023.5731647 [ign-1] [1;32m[Msg] [0m[1;32mResource path get service on [[0m[1;32m/gazebo/resource_paths/get[0m[1;32m].[0m[1;32m[0m
+1793344023.5731819 [ign-1] [1;32m[Msg] [0m[1;32mResource path resolve service on [[0m[1;32m/gazebo/resource_paths/resolve[0m[1;32m].[0m[1;32m[0m
+1793344023.5731978 [ign-1] [1;32m[Msg] [0m[1;32mResource paths published on [[0m[1;32m/gazebo/resource_paths[0m[1;32m].[0m[1;32m[0m
+1793344023.5732124 [ign-1] [1;32m[Msg] [0m[1;32mServer control service on [[0m[1;32m/server_control[0m[1;32m].[0m[1;32m[0m
+1793344023.5732253 [ign-1] [1;32m[Msg] [0m[1;32mFound no publishers on /stats, adding root stats topic[0m[1;32m[0m
+1793344023.5732386 [ign-1] [1;32m[Msg] [0m[1;32mFound no publishers on /clock, adding root clock topic[0m[1;32m[0m
+1793344023.5732522 [ign-1] [1;32m[Msg] [0m[1;32mOdometryPublisher publishing odometry on [[0m[1;32m/sim/raw/ground_truth/odom[0m[1;32m][0m[1;32m[0m
+1793344023.5732720 [ign-1] [1;32m[Msg] [0m[1;32mOdometryPublisher publishing odometry with covariance on [[0m[1;32m/model/b2w/odometry_with_covariance[0m[1;32m][0m[1;32m[0m
+1793344023.5732892 [ign-1] [1;32m[Msg] [0m[1;32mOdometryPublisher publishing Pose_V (TF) on [[0m[1;32m/sim/raw/ground_truth_tf[0m[1;32m][0m[1;32m[0m
+1793344023.5733063 [ign-1] [1;32m[Msg] [0m[1;32mApplyJointForce subscribing to Double messages on [[0m[1;32m/model/b2w/joint/FL_hip_joint/cmd_force[0m[1;32m][0m[1;32m[0m
+1793344023.5733175 [ign-1] [1;32m[Msg] [0m[1;32mApplyJointForce subscribing to Double messages on [[0m[1;32m/model/b2w/joint/FL_thigh_joint/cmd_force[0m[1;32m][0m[1;32m[0m
+1793344023.5733273 [ign-1] [1;32m[Msg] [0m[1;32mApplyJointForce subscribing to Double messages on [[0m[1;32m/model/b2w/joint/FL_calf_joint/cmd_force[0m[1;32m][0m[1;32m[0m
+1793344023.6154819 [ign-1] [1;33m[Wrn] [ColladaLoader.cc:2394] [0m[1;33mTriangle input semantic: '[0m[1;33mCOLOR[0m[1;33m' is currently[0m[1;33m not supported[0m[1;33m[0m
+1793344023.6309195 [parameter_bridge-4] [INFO] [1793344023.630494494] [ros_gz_bridge]: Passing message from ROS std_msgs/msg/Float64 to Gazebo gz.msgs.Double (showing msg only once per type)
+1793344023.7038939 [controller_server-8] [INFO] [1793344023.703629888] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+1793344024.1533875 [ign-1] libEGL warning: egl: failed to create dri2 screen
+1793344024.1653914 [ign-1] libEGL warning: egl: failed to create dri2 screen
+1793344024.2039626 [controller_server-8] [INFO] [1793344024.203633627] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+1793344024.7043047 [controller_server-8] [INFO] [1793344024.703734909] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+1793344024.8558805 [ign-1] [1;33m[Wrn] [ColladaLoader.cc:2394] [0m[1;33mTriangle input semantic: '[0m[1;33mCOLOR[0m[1;33m' is currently[0m[1;33m not supported[0m[1;33m[0m
+1793344024.8573680 [ign-1] [1;33m[Wrn] [ColladaLoader.cc:2394] [0m[1;33mTriangle input semantic: '[0m[1;33mCOLOR[0m[1;33m' is currently[0m[1;33m not supported[0m[1;33m[0m
+1793344025.2041454 [controller_server-8] [INFO] [1793344025.203654592] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+1793344025.7040262 [controller_server-8] [INFO] [1793344025.703640046] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+1793344026.2043555 [controller_server-8] [INFO] [1793344026.203689847] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+1793344026.7040169 [controller_server-8] [INFO] [1793344026.703666347] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+1793344027.2043781 [controller_server-8] [INFO] [1793344027.203723659] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+1793344027.7043982 [controller_server-8] [INFO] [1793344027.703661378] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+1793344028.2040160 [controller_server-8] [INFO] [1793344028.203661109] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+1793344028.7040131 [controller_server-8] [INFO] [1793344028.703662685] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+1793344029.2051179 [controller_server-8] [INFO] [1793344029.203730412] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+1793344029.7044678 [controller_server-8] [INFO] [1793344029.703673166] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+1793344030.2063046 [controller_server-8] [INFO] [1793344030.205434638] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+1793344030.7054703 [controller_server-8] [INFO] [1793344030.704317425] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+1793344031.2043855 [controller_server-8] [INFO] [1793344031.203651878] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+1793344031.7043116 [controller_server-8] [INFO] [1793344031.703657673] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+1793344032.2043257 [controller_server-8] [INFO] [1793344032.203644652] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+1793344032.7040234 [controller_server-8] [INFO] [1793344032.703665057] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+1793344033.2042379 [controller_server-8] [INFO] [1793344033.203636427] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+1793344033.7042525 [controller_server-8] [INFO] [1793344033.703627155] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+1793344034.2042813 [controller_server-8] [INFO] [1793344034.203651705] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+1793344034.7048392 [controller_server-8] [INFO] [1793344034.703832956] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+1793344035.2045407 [controller_server-8] [INFO] [1793344035.203665306] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+1793344035.7040606 [controller_server-8] [INFO] [1793344035.703635423] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+1793344036.2049491 [controller_server-8] [INFO] [1793344036.203698754] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+1793344036.7039313 [controller_server-8] [INFO] [1793344036.703631480] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+1793344037.2038510 [controller_server-8] [INFO] [1793344037.203582154] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+1793344037.7044396 [controller_server-8] [INFO] [1793344037.703663714] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+1793344038.2038682 [controller_server-8] [INFO] [1793344038.203623231] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+1793344038.7041395 [controller_server-8] [INFO] [1793344038.703659453] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+1793344039.2050505 [controller_server-8] [INFO] [1793344039.204326449] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+1793344039.7040811 [controller_server-8] [INFO] [1793344039.703650883] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+1793344040.2039165 [controller_server-8] [INFO] [1793344040.203652971] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+1793344040.7038884 [controller_server-8] [INFO] [1793344040.703641106] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+1793344040.9096324 [INFO] [lio_sam_imuPreintegration-18]: process started with pid [3733006]
+1793344040.9102094 [INFO] [lio_sam_imageProjection-19]: process started with pid [3733008]
+1793344040.9103570 [INFO] [lio_sam_featureExtraction-20]: process started with pid [3733010]
+1793344040.9104607 [INFO] [lio_sam_mapOptimization-21]: process started with pid [3733012]
+1793344040.9105489 [INFO] [pose_adapter-22]: process started with pid [3733014]
+1793344041.1162832 [lio_sam_featureExtraction-20] [INFO] [1793344041.113947852] [rclcpp]: [1;32m----> Feature Extraction Started.[0m
+1793344041.1908267 [lio_sam_imageProjection-19] [INFO] [1793344041.188908874] [rclcpp]: [1;32m----> Image Projection Started.[0m
+1793344041.2055933 [controller_server-8] [INFO] [1793344041.204018885] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+1793344041.2448366 [lio_sam_imuPreintegration-18] [INFO] [1793344041.241621536] [rclcpp]: [1;32m----> IMU Preintegration Started.[0m
+1793344041.3142304 [lio_sam_mapOptimization-21] [INFO] [1793344041.313466881] [rclcpp]: [1;32m----> Map Optimization Started.[0m
+1793344041.4999275 [lio_sam_imageProjection-19] [INFO] [1793344041.499155269] [lio_sam_imageProjection]: Waiting for IMU data ...
+1793344041.7062430 [controller_server-8] [INFO] [1793344041.704421721] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+1793344042.2051537 [controller_server-8] [INFO] [1793344042.204265835] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+1793344042.7041447 [controller_server-8] [INFO] [1793344042.703631338] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+1793344043.2042718 [controller_server-8] [INFO] [1793344043.203687158] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+1793344043.7042024 [controller_server-8] [INFO] [1793344043.703639371] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+1793344044.2046261 [controller_server-8] [INFO] [1793344044.203647538] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+1793344044.7055545 [controller_server-8] [INFO] [1793344044.703802375] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+1793344045.2046468 [controller_server-8] [INFO] [1793344045.203647364] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+1793344045.7044997 [controller_server-8] [INFO] [1793344045.703643448] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+1793344046.2045968 [controller_server-8] [INFO] [1793344046.203656185] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+1793344046.7060668 [controller_server-8] [INFO] [1793344046.703887597] [local_costmap.local_costmap]: start
+1793344046.9229639 [controller_server-8] [INFO] [1793344046.913758278] [controller_server]: Creating bond (controller_server) to lifecycle manager.
+1793344047.0462966 [smoother_server-9] [INFO] [1793344047.045123532] [smoother_server]: Activating
+1793344047.0465407 [smoother_server-9] [INFO] [1793344047.045339443] [smoother_server]: Creating bond (smoother_server) to lifecycle manager.
+1793344047.0974751 [planner_server-10] [INFO] [1793344047.095653117] [global_costmap.global_costmap]: StaticLayer: Resizing costmap to 800 X 800 at 0.050000 m/pix
+1793344047.1001275 [controller_server-8] [INFO] [1793344047.096657769] [local_costmap.local_costmap]: StaticLayer: Resizing static layer to 800 X 800 at 0.050000 m/pix
+1793344047.1645954 [planner_server-10] [INFO] [1793344047.163837425] [planner_server]: Activating
+1793344047.1647675 [planner_server-10] [INFO] [1793344047.163939053] [global_costmap.global_costmap]: Activating
+1793344047.1648386 [planner_server-10] [INFO] [1793344047.163958348] [global_costmap.global_costmap]: Checking transform
+1793344047.1648896 [planner_server-10] [INFO] [1793344047.164131126] [global_costmap.global_costmap]: start
+1793344047.6537130 [WARNING] [launch]: user interrupted with ctrl-c (SIGINT)
+1793344047.6670048 [INFO] [pose_adapter-22]: sending signal 'SIGINT' to process[pose_adapter-22]
+1793344047.6710608 [INFO] [lio_sam_mapOptimization-21]: sending signal 'SIGINT' to process[lio_sam_mapOptimization-21]
+1793344047.6767147 [INFO] [lio_sam_featureExtraction-20]: sending signal 'SIGINT' to process[lio_sam_featureExtraction-20]
+1793344047.6805832 [INFO] [lio_sam_imageProjection-19]: sending signal 'SIGINT' to process[lio_sam_imageProjection-19]
+1793344047.6838193 [INFO] [lio_sam_imuPreintegration-18]: sending signal 'SIGINT' to process[lio_sam_imuPreintegration-18]
+1793344047.6890278 [INFO] [velocity_adapter-17]: sending signal 'SIGINT' to process[velocity_adapter-17]
+1793344047.6926546 [INFO] [lifecycle_manager-16]: sending signal 'SIGINT' to process[lifecycle_manager-16]
+1793344047.6956327 [INFO] [map_projector-15]: sending signal 'SIGINT' to process[map_projector-15]
+1793344047.6986580 [INFO] [velocity_smoother-14]: sending signal 'SIGINT' to process[velocity_smoother-14]
+1793344047.7023349 [INFO] [waypoint_follower-13]: sending signal 'SIGINT' to process[waypoint_follower-13]
+1793344047.7057307 [INFO] [bt_navigator-12]: sending signal 'SIGINT' to process[bt_navigator-12]
+1793344047.7094395 [INFO] [behavior_server-11]: sending signal 'SIGINT' to process[behavior_server-11]
+1793344047.7126896 [INFO] [planner_server-10]: sending signal 'SIGINT' to process[planner_server-10]
+1793344047.7165301 [INFO] [smoother_server-9]: sending signal 'SIGINT' to process[smoother_server-9]
+1793344047.7205927 [INFO] [controller_server-8]: sending signal 'SIGINT' to process[controller_server-8]
+1793344047.7259471 [INFO] [sensor_cloud_disturbance-7]: sending signal 'SIGINT' to process[sensor_cloud_disturbance-7]
+1793344047.7316518 [INFO] [sensor_disturbance-6]: sending signal 'SIGINT' to process[sensor_disturbance-6]
+1793344047.7358520 [INFO] [b2w_rl_sar_controller-5]: sending signal 'SIGINT' to process[b2w_rl_sar_controller-5]
+1793344047.7418082 [INFO] [parameter_bridge-4]: sending signal 'SIGINT' to process[parameter_bridge-4]
+1793344047.7576351 [INFO] [robot_state_publisher-2]: sending signal 'SIGINT' to process[robot_state_publisher-2]
+1793344047.7624083 [INFO] [ign-1]: sending signal 'SIGINT' to process[ign-1]
+1793344047.7636268 [lio_sam_mapOptimization-21] [INFO] [1793344047.671722063] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+1793344047.7673867 [lio_sam_featureExtraction-20] [INFO] [1793344047.679316393] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+1793344047.7682345 [lio_sam_imageProjection-19] [INFO] [1793344047.681290014] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+1793344047.7684951 [lio_sam_imuPreintegration-18] [INFO] [1793344047.686355828] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+1793344047.7691638 [velocity_smoother-14] [INFO] [1793344047.699540507] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+1793344047.7692449 [velocity_smoother-14] [INFO] [1793344047.699685507] [velocity_smoother]: Running Nav2 LifecycleNode rcl preshutdown (velocity_smoother)
+1793344047.7712209 [velocity_smoother-14] [INFO] [1793344047.699760719] [velocity_smoother]: Cleaning up
+1793344047.7715364 [velocity_smoother-14] [INFO] [1793344047.699803194] [velocity_smoother]: Destroying bond (velocity_smoother) to lifecycle manager.
+1793344047.7727375 [velocity_smoother-14] [INFO] [1793344047.702075924] [velocity_smoother]: Destroying
+1793344047.7737648 [waypoint_follower-13] [INFO] [1793344047.702967334] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+1793344047.7738974 [waypoint_follower-13] [INFO] [1793344047.703185687] [waypoint_follower]: Running Nav2 LifecycleNode rcl preshutdown (waypoint_follower)
+1793344047.7739699 [waypoint_follower-13] [INFO] [1793344047.703341525] [waypoint_follower]: Cleaning up
+1793344047.7744524 [bt_navigator-12] [INFO] [1793344047.707761737] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+1793344047.7745442 [bt_navigator-12] [INFO] [1793344047.707991212] [bt_navigator]: Running Nav2 LifecycleNode rcl preshutdown (bt_navigator)
+1793344047.7747715 [bt_navigator-12] [INFO] [1793344047.709292232] [bt_navigator]: Cleaning up
+1793344047.7750006 [behavior_server-11] [INFO] [1793344047.711620898] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+1793344047.7750645 [behavior_server-11] [INFO] [1793344047.711870241] [behavior_server]: Running Nav2 LifecycleNode rcl preshutdown (behavior_server)
+1793344047.7751040 [behavior_server-11] [INFO] [1793344047.711997051] [behavior_server]: Cleaning up
+1793344047.7753406 [planner_server-10] [INFO] [1793344047.715357334] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+1793344047.7754076 [planner_server-10] [INFO] [1793344047.715541311] [planner_server]: Running Nav2 LifecycleNode rcl preshutdown (planner_server)
+1793344047.7754474 [planner_server-10] [INFO] [1793344047.715620356] [planner_server]: Destroying bond (planner_server) to lifecycle manager.
+1793344047.7754853 [planner_server-10] [ERROR] [1793344047.716897620] [global_costmap.global_costmap]: Failed to finish transition 3. Current state is now: active (Could not publish transition: publisher's context is invalid, at ./src/rcl/publisher.c:389, at ./src/rcl_lifecycle.c:368)
+1793344047.7755287 [planner_server-10] [INFO] [1793344047.716935834] [planner_server]: Activating plugin GridBased of type SmacPlanner2D
+1793344047.7757816 [smoother_server-9] [INFO] [1793344047.717227268] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+1793344047.7758510 [smoother_server-9] [INFO] [1793344047.717421946] [smoother_server]: Running Nav2 LifecycleNode rcl preshutdown (smoother_server)
+1793344047.7758937 [smoother_server-9] [INFO] [1793344047.717543222] [smoother_server]: Deactivating
+1793344047.7759454 [smoother_server-9] [INFO] [1793344047.717575933] [smoother_server]: Destroying bond (smoother_server) to lifecycle manager.
+1793344047.7761781 [planner_server-10] [ERROR] [1793344047.719695482] [planner_server]: Caught exception in callback for transition 13
+1793344047.7762463 [planner_server-10] [ERROR] [1793344047.719730782] [planner_server]: Original error: could not create service: rcl node's context is invalid, at ./src/rcl/node.c:428
+1793344047.7763042 [planner_server-10] [ERROR] [1793344047.719769379] [planner_server]: Failed to finish transition 3. Current state is now: errorprocessing (Could not publish transition: publisher's context is invalid, at ./src/rcl/publisher.c:389, at ./src/rcl_lifecycle.c:368)
+1793344047.7765212 [controller_server-8] [INFO] [1793344047.721620801] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+1793344047.7765822 [controller_server-8] [INFO] [1793344047.721843819] [controller_server]: Running Nav2 LifecycleNode rcl preshutdown (controller_server)
+1793344047.7766221 [controller_server-8] [INFO] [1793344047.721994388] [controller_server]: Deactivating
+1793344047.7766564 [controller_server-8] [INFO] [1793344047.722081430] [local_costmap.local_costmap]: Deactivating
+1793344047.7768404 [smoother_server-9] [INFO] [1793344047.730205990] [smoother_server]: Cleaning up
+1793344047.7770317 [planner_server-10] [INFO] [1793344047.730369955] [planner_server]: Destroying plugin GridBased of type SmacPlanner2D
+1793344047.7772353 [waypoint_follower-13] [INFO] [1793344047.734160402] [waypoint_follower]: Destroying bond (waypoint_follower) to lifecycle manager.
+1793344047.7774696 [b2w_rl_sar_controller-5] [INFO] [1793344047.738427649] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+1793344047.7776713 [parameter_bridge-4] [INFO] [1793344047.745173824] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+1793344047.7778418 [behavior_server-11] [INFO] [1793344047.752213290] [behavior_server]: Destroying bond (behavior_server) to lifecycle manager.
+1793344047.7781084 [robot_state_publisher-2] [INFO] [1793344047.758416713] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+1793344047.7783048 [smoother_server-9] [INFO] [1793344047.768483813] [smoother_server]: Destroying bond (smoother_server) to lifecycle manager.
+1793344047.7785203 [planner_server-10] Warning: class_loader.ClassLoader: SEVERE WARNING!!! Attempting to unload library while objects created by this loader exist in the heap! You should delete your objects before attempting to unload the library or destroying the ClassLoader. The library will NOT be unloaded.
+1793344047.7785881 [planner_server-10]          at line 127 in ./src/class_loader.cpp
+1793344047.7786291 [planner_server-10] terminate called without an active exception
+1793344047.7788193 [waypoint_follower-13] [INFO] [1793344047.773624290] [waypoint_follower]: Destroying
+1793344047.8532310 [INFO] [lio_sam_featureExtraction-20]: process has finished cleanly [pid 3733010]
+1793344047.8616755 [INFO] [velocity_smoother-14]: process has finished cleanly [pid 3731752]
+1793344047.8893018 [INFO] [parameter_bridge-4]: process has finished cleanly [pid 3731732]
+1793344047.9011381 [INFO] [lio_sam_imuPreintegration-18]: process has finished cleanly [pid 3733006]
+1793344047.9067829 [controller_server-8] [INFO] [1793344047.905591945] [controller_server]: Destroying bond (controller_server) to lifecycle manager.
+1793344047.9094205 [INFO] [lio_sam_mapOptimization-21]: process has finished cleanly [pid 3733012]
+1793344047.9173553 [controller_server-8] [INFO] [1793344047.916418026] [controller_server]: Cleaning up
+1793344047.9182529 [controller_server-8] [INFO] [1793344047.916813166] [local_costmap.local_costmap]: Cleaning up
+1793344048.0801539 [INFO] [pose_adapter-22]: process has finished cleanly [pid 3733014]
+1793344048.0967660 [ign-1] [1;32m[Msg] [0m[1;32mApplyJointForce subscribing to Double messages on [[0m[1;32m/model/b2w/joint/FL_foot_joint/cmd_force[0m[1;32m][0m[1;32m[0m
+1793344048.0968847 [ign-1] [1;32m[Msg] [0m[1;32mApplyJointForce subscribing to Double messages on [[0m[1;32m/model/b2w/joint/FR_hip_joint/cmd_force[0m[1;32m][0m[1;32m[0m
+1793344048.0969083 [ign-1] [1;32m[Msg] [0m[1;32mApplyJointForce subscribing to Double messages on [[0m[1;32m/model/b2w/joint/FR_thigh_joint/cmd_force[0m[1;32m][0m[1;32m[0m
+1793344048.0969234 [ign-1] [1;32m[Msg] [0m[1;32mApplyJointForce subscribing to Double messages on [[0m[1;32m/model/b2w/joint/FR_calf_joint/cmd_force[0m[1;32m][0m[1;32m[0m
+1793344048.0969357 [ign-1] [1;32m[Msg] [0m[1;32mApplyJointForce subscribing to Double messages on [[0m[1;32m/model/b2w/joint/FR_foot_joint/cmd_force[0m[1;32m][0m[1;32m[0m
+1793344048.0969472 [ign-1] [1;32m[Msg] [0m[1;32mApplyJointForce subscribing to Double messages on [[0m[1;32m/model/b2w/joint/RL_hip_joint/cmd_force[0m[1;32m][0m[1;32m[0m
+1793344048.0969577 [ign-1] [1;32m[Msg] [0m[1;32mApplyJointForce subscribing to Double messages on [[0m[1;32m/model/b2w/joint/RL_thigh_joint/cmd_force[0m[1;32m][0m[1;32m[0m
+1793344048.0969677 [ign-1] [1;32m[Msg] [0m[1;32mApplyJointForce subscribing to Double messages on [[0m[1;32m/model/b2w/joint/RL_calf_joint/cmd_force[0m[1;32m][0m[1;32m[0m
+1793344048.0969779 [ign-1] [1;32m[Msg] [0m[1;32mApplyJointForce subscribing to Double messages on [[0m[1;32m/model/b2w/joint/RL_foot_joint/cmd_force[0m[1;32m][0m[1;32m[0m
+1793344048.0969877 [ign-1] [1;32m[Msg] [0m[1;32mApplyJointForce subscribing to Double messages on [[0m[1;32m/model/b2w/joint/RR_hip_joint/cmd_force[0m[1;32m][0m[1;32m[0m
+1793344048.0969977 [ign-1] [1;32m[Msg] [0m[1;32mApplyJointForce subscribing to Double messages on [[0m[1;32m/model/b2w/joint/RR_thigh_joint/cmd_force[0m[1;32m][0m[1;32m[0m
+1793344048.0970073 [ign-1] [1;32m[Msg] [0m[1;32mApplyJointForce subscribing to Double messages on [[0m[1;32m/model/b2w/joint/RR_calf_joint/cmd_force[0m[1;32m][0m[1;32m[0m
+1793344048.0970173 [ign-1] [1;32m[Msg] [0m[1;32mApplyJointForce subscribing to Double messages on [[0m[1;32m/model/b2w/joint/RR_foot_joint/cmd_force[0m[1;32m][0m[1;32m[0m
+1793344048.0970275 [ign-1] [1;32m[Msg] [0m[1;32mLoading plugin [[0m[1;32mignition-rendering-ogre2[0m[1;32m][0m[1;32m[0m
+1793344048.0970471 [ign-1] [1;32m[Msg] [0m[1;32mServing scene information on [[0m[1;32m/world/course_world[0m[1;32m/[0m[1;32mscene/info[0m[1;32m][0m[1;32m[0m
+1793344048.0970576 [ign-1] [1;32m[Msg] [0m[1;32mServing graph information on [[0m[1;32m/world/course_world[0m[1;32m/[0m[1;32mscene/graph[0m[1;32m][0m[1;32m[0m
+1793344048.0970676 [ign-1] [1;32m[Msg] [0m[1;32mServing full state on [[0m[1;32m/world/course_world[0m[1;32m/[0m[1;32mstate[0m[1;32m][0m[1;32m[0m
+1793344048.0970776 [ign-1] [1;32m[Msg] [0m[1;32mServing full state (async) on [[0m[1;32m/world/course_world[0m[1;32m/[0m[1;32mstate_async[0m[1;32m][0m[1;32m[0m
+1793344048.0970871 [ign-1] [1;32m[Msg] [0m[1;32mPublishing scene information on [[0m[1;32m/world/course_world/scene/info[0m[1;32m][0m[1;32m[0m
+1793344048.0970979 [ign-1] [1;32m[Msg] [0m[1;32mPublishing entity deletions on [[0m[1;32m/world/course_world/scene/deletion[0m[1;32m][0m[1;32m[0m
+1793344048.0971079 [ign-1] [1;32m[Msg] [0m[1;32mPublishing state changes on [[0m[1;32m/world/course_world/state[0m[1;32m][0m[1;32m[0m
+1793344048.0971181 [ign-1] [1;32m[Msg] [0m[1;32mPublishing pose messages on [[0m[1;32m/world/course_world[0m[1;32m/[0m[1;32mpose/info[0m[1;32m][0m[1;32m[0m
+1793344048.0971286 [ign-1] [1;32m[Msg] [0m[1;32mPublishing dynamic pose messages on [[0m[1;32m/world/course_world[0m[1;32m/[0m[1;32mdynamic_pose/info[0m[1;32m][0m[1;32m[0m
+1793344048.1075249 [INFO] [sensor_cloud_disturbance-7]: process has finished cleanly [pid 3731738]
+1793344048.1465132 [INFO] [map_projector-15]: process has finished cleanly [pid 3731756]
+1793344048.1703072 [ERROR] [velocity_adapter-17]: process has died [pid 3731760, exit code 1, cmd '/home/zyd/program/b2w-embodied-navigation-course/install/course_navigation/lib/course_navigation/velocity_adapter --ros-args --params-file /tmp/launch_params_w8ac8cf4'].
+1793344048.2199636 [INFO] [ign-1]: process has finished cleanly [pid 3731726]
+1793344048.9208724 [ERROR] [planner_server-10]: process has died [pid 3731744, exit code -6, cmd '/opt/ros/humble/lib/nav2_planner/planner_server --ros-args -r __node:=planner_server --params-file /home/zyd/program/b2w-embodied-navigation-course/course_navigation/config/nav2_smac2d_diag.yaml -r cmd_vel:=/course_navigation/cmd_vel'].
+1793344049.9368749 [smoother_server-9] [INFO] [1793344049.936029206] [smoother_server]: Destroying
+1793344049.9417334 [bt_navigator-12] [INFO] [1793344049.940989209] [bt_navigator]: Completed Cleaning up
+1793344049.9420114 [bt_navigator-12] [INFO] [1793344049.941142558] [bt_navigator]: Destroying bond (bt_navigator) to lifecycle manager.
+1793344049.9543288 [bt_navigator-12] [INFO] [1793344049.953924591] [bt_navigator]: Destroying
+1793344049.9549613 [controller_server-8] [INFO] [1793344049.954718557] [controller_server]: Destroying bond (controller_server) to lifecycle manager.
+1793344049.9582784 [controller_server-8] [INFO] [1793344049.957865198] [local_costmap.local_costmap]: Destroying
+1793344049.9658089 [controller_server-8] [INFO] [1793344049.965448259] [controller_server]: Destroying
+1793344050.0212958 [behavior_server-11] [INFO] [1793344050.020916671] [behavior_server]: Destroying
+1793344050.0531185 [INFO] [robot_state_publisher-2]: process has finished cleanly [pid 3731728]
+1793344050.0550911 [INFO] [waypoint_follower-13]: process has finished cleanly [pid 3731750]
+1793344050.0628686 [INFO] [smoother_server-9]: process has finished cleanly [pid 3731742]
+1793344050.0663338 [INFO] [b2w_rl_sar_controller-5]: process has finished cleanly [pid 3731734]
+1793344050.0706396 [INFO] [bt_navigator-12]: process has finished cleanly [pid 3731748]
+1793344050.0834429 [INFO] [controller_server-8]: process has finished cleanly [pid 3731740]
+1793344050.0847747 [INFO] [lifecycle_manager-16]: process has finished cleanly [pid 3731758]
+1793344050.1053219 [INFO] [sensor_disturbance-6]: process has finished cleanly [pid 3731736]
+1793344050.1359587 [INFO] [behavior_server-11]: process has finished cleanly [pid 3731746]
+1793344050.9020715 [INFO] [lio_sam_imageProjection-19]: process has finished cleanly [pid 3733008]

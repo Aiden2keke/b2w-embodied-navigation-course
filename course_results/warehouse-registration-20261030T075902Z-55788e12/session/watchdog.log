@@ -1,0 +1,1 @@
+{"event": "stage4_watchdog_first_fault", "failed_predicate": "control.inhibit", "health": null, "health_age_s": null, "owner": null, "reason": "inhibit_latched", "sampled_wall": 699750.601619419}

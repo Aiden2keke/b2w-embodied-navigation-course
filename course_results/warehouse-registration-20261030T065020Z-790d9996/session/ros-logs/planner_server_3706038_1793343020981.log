@@ -1,0 +1,35 @@
+[INFO] [1793343021.273464669] [planner_server]: 
+	planner_server lifecycle node launched. 
+	Waiting on external lifecycle transitions to activate
+	See https://design.ros2.org/articles/node_lifecycle.html for more information.
+[INFO] [1793343021.275544889] [planner_server]: Creating
+[INFO] [1793343021.331797321] [global_costmap.global_costmap]: 
+	global_costmap lifecycle node launched. 
+	Waiting on external lifecycle transitions to activate
+	See https://design.ros2.org/articles/node_lifecycle.html for more information.
+[INFO] [1793343021.336556331] [global_costmap.global_costmap]: Creating Costmap
+[INFO] [1793343021.457329072] [planner_server]: Configuring
+[INFO] [1793343021.457399090] [global_costmap.global_costmap]: Configuring
+[INFO] [1793343021.467870121] [global_costmap.global_costmap]: Using plugin "static_layer"
+[INFO] [1793343021.470670515] [global_costmap.global_costmap]: Subscribing to the map topic (/map) with transient local durability
+[INFO] [1793343021.472536848] [global_costmap.global_costmap]: Initialized plugin "static_layer"
+[INFO] [1793343021.472576983] [global_costmap.global_costmap]: Using plugin "obstacle_layer"
+[INFO] [1793343021.472821231] [global_costmap.global_costmap]: Subscribed to Topics: lidar
+[INFO] [1793343021.475114370] [global_costmap.global_costmap]: Initialized plugin "obstacle_layer"
+[INFO] [1793343021.475144832] [global_costmap.global_costmap]: Using plugin "inflation_layer"
+[INFO] [1793343021.475652093] [global_costmap.global_costmap]: Initialized plugin "inflation_layer"
+[INFO] [1793343021.495413079] [planner_server]: Created global planner plugin GridBased of type nav2_smac_planner/SmacPlanner2D
+[INFO] [1793343021.495539656] [planner_server]: Configuring GridBased of type SmacPlanner2D
+[INFO] [1793343021.500158666] [planner_server]: Configured plugin GridBased of type SmacPlanner2D with tolerance 0.30, maximum iterations 1000000, max on approach iterations 1000, and not allowing unknown traversal.
+[INFO] [1793343021.500337796] [planner_server]: Planner Server has GridBased  planners available.
+[INFO] [1793343046.494718162] [global_costmap.global_costmap]: StaticLayer: Resizing costmap to 800 X 800 at 0.050000 m/pix
+[INFO] [1793343047.110973822] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[INFO] [1793343047.111170725] [planner_server]: Running Nav2 LifecycleNode rcl preshutdown (planner_server)
+[INFO] [1793343047.111277998] [planner_server]: Cleaning up
+[WARN] [1793343047.130799853] [rcl_lifecycle]: No transition matching 3 found for current state cleaningup
+[WARN] [1793343047.130989100] [rcl_lifecycle]: No transition matching 3 found for current state cleaningup
+[ERROR] [1793343047.131017726] [planner_server]: Unable to start transition 3 from current state cleaningup: Transition is not registered., at ./src/rcl_lifecycle.c:355
+[INFO] [1793343047.141144819] [global_costmap.global_costmap]: Cleaning up
+[INFO] [1793343047.169549485] [planner_server]: Cleaning up plugin GridBased of type SmacPlanner2D
+[INFO] [1793343047.170669361] [planner_server]: Destroying plugin GridBased of type SmacPlanner2D
+[INFO] [1793343047.191023850] [planner_server]: Destroying bond (planner_server) to lifecycle manager.

@@ -1,0 +1,78 @@
+{
+  "kind": "stage4_zero_motion_readiness",
+  "zero_motion_smoke_pass": false,
+  "cleanup_passed": false,
+  "error": "ValueError('Invalid structural-map source stamp')",
+  "first_sample": null,
+  "accepted_end_sim": null,
+  "contact_closure": null,
+  "wall_duration_s": 36.44636248704046,
+  "runtime": {
+    "child_processes": [],
+    "action_outcomes": [],
+    "cleanup": {
+      "passed": false,
+      "cancel": "no_owned_goal",
+      "owned_action_terminal": true,
+      "action_phase_failed": false,
+      "stationary_confirmed": false,
+      "terminal_watermark_sim": 30.025000000000002,
+      "terminal_observed_wall_s": 0.0,
+      "stop_source_start_s": null,
+      "stop_source_span_s": 0.0,
+      "stop_wall_span_s": 0.0,
+      "final_sample": null,
+      "accepted_stop_end_sim": null,
+      "independent_stop": {
+        "confirmed": false,
+        "reason": "no_inhibit_watermark"
+      },
+      "recording_complete": false
+    },
+    "collision_coverage": "plate_only_full_body_unknown",
+    "effective_parameters": {
+      "/planner_server": {
+        "expected_planner_frequency": 20.0,
+        "use_sim_time": true,
+        "planner_plugins": [
+          "GridBased"
+        ],
+        "GridBased.plugin": "nav2_smac_planner/SmacPlanner2D",
+        "GridBased.tolerance": 0.3,
+        "GridBased.allow_unknown": false
+      }
+    },
+    "structural_map_cadence": {
+      "startup_wall_periods_s": [
+        4.9794596310239285,
+        4.99425887898542
+      ],
+      "wall_budget_s": 7.5,
+      "source_budget_s": 7.5
+    },
+    "raw_journal": {
+      "complete": false,
+      "failure": "evidence_queue_limit",
+      "accepted": 6904,
+      "written": 1475,
+      "max_pending_bytes": 268339756,
+      "accepted_payload_bytes": 290777776,
+      "committed_payload_bytes": 23118464,
+      "record_processing_seconds": 18.56544908124488,
+      "max_producer_lateness_seconds": 0.0,
+      "close_seconds": 0.002618783968500793,
+      "elapsed_seconds": 36.05695452704094,
+      "path": "/home/zyd/program/b2w-embodied-navigation-course/course_results/warehouse-registration-20261030T075902Z-55788e12/session/probe/raw-e314a24422ff469b99a1815f3e6116bb.sqlite3",
+      "bytes": 23928832
+    },
+    "raw_sha256": null,
+    "raw_bytes": 23928832,
+    "raw_file": "/home/zyd/program/b2w-embodied-navigation-course/course_results/warehouse-registration-20261030T075902Z-55788e12/session/probe/raw-e314a24422ff469b99a1815f3e6116bb.sqlite3"
+  },
+  "motion_authorized": false,
+  "safety_complete": false,
+  "full_route_pass": false,
+  "segment_pass": false,
+  "limitation": "Passive operational evidence only; physical bounds/coverage/stop chain and independent review remain required",
+  "journal_sha256": "27867d55f0105fe9ad4f3d8e71ace081ff1f98c55518f9624239f220f2ede845"
+}

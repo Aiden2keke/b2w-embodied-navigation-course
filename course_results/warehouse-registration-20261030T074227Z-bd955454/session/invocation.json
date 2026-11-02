@@ -1,0 +1,44 @@
+{
+  "argv": [
+    "/usr/bin/python3",
+    "/opt/ros/humble/bin/ros2",
+    "launch",
+    "course_bringup",
+    "course.launch.py",
+    "mode:=navigation",
+    "scene:=warehouse",
+    "gui:=false",
+    "rviz:=false",
+    "goal_manager_enabled:=false",
+    "adaptive_speed:=false",
+    "map_mode:=online",
+    "locomotion_backend:=rl_sar",
+    "nav_params_file:=/home/zyd/program/b2w-embodied-navigation-course/course_navigation/config/nav2_smac2d_diag.yaml",
+    "world:=/home/zyd/program/b2w-embodied-navigation-course/course_results/warehouse-registration-20261030T074227Z-bd955454/observer.world",
+    "pretrained_directory:=/home/zyd/program/b2w-embodied-navigation-course/third_party/b2w_rl_sar",
+    "stage4_guard_manifest:=/home/zyd/program/b2w-embodied-navigation-course/course_results/warehouse-registration-20261030T074227Z-bd955454/session/guard.json"
+  ],
+  "inputs": {
+    "kind": "stage4_zero_session_inputs",
+    "version": 2,
+    "world": "/home/zyd/program/b2w-embodied-navigation-course/course_results/warehouse-registration-20261030T074227Z-bd955454/observer.world",
+    "world_sha256": "39d6517ca8537145eb8a59b99c60a4316d92bce1cdb4384383a1ba0d6ce9daa8",
+    "pretrained_directory": "/home/zyd/program/b2w-embodied-navigation-course/third_party/b2w_rl_sar",
+    "policy_source_sha256": "d6d5264d9ffab52331074d00b236a8985bad9c34ff9e328f0ecce610ec62414c",
+    "guard": {
+      "session_id": "8722dc4223b344c7af394c78cfa84306",
+      "collision_inventory_path": "/home/zyd/program/b2w-embodied-navigation-course/course_results/warehouse-registration-20261030T074227Z-bd955454/collision-inventory.json",
+      "collision_inventory_sha256": "527e08f8ac7832ced74baa4da21417887a535e1fae09d3e5dc5bb630fd494eb7",
+      "zero_only": true
+    },
+    "controller_prefix": "/home/zyd/program/b2w-embodied-navigation-course/.deps/nav2-controller-1.1.20/install/nav2_controller"
+  },
+  "owner": {
+    "pid": 3780246,
+    "start_ticks": "69868282",
+    "pgid": 3780205,
+    "uid": 1000
+  },
+  "token": "544a011605b34f829d136035476c4c00",
+  "motion_authorized": false
+}
