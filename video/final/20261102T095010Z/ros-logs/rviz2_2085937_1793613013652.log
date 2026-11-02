@@ -1,0 +1,18 @@
+[INFO] [1793613015.142480598] [rviz2]: Stereo is NOT SUPPORTED
+[INFO] [1793613015.142571352] [rviz2]: OpenGl version: 4.6 (GLSL 4.6)
+[INFO] [1793613015.425036491] [rviz2]: Stereo is NOT SUPPORTED
+[INFO] [1793613021.819193499] [rviz]: Message Filter dropping message: frame 'lidar_link' at time 1.300 for reason 'discarding message because the queue is full'
+[INFO] [1793613024.407526412] [rviz]: Message Filter dropping message: frame 'lidar_link' at time 4.000 for reason 'discarding message because the queue is full'
+[INFO] [1793613027.006215009] [rviz]: Message Filter dropping message: frame 'lidar_link' at time 6.500 for reason 'discarding message because the queue is full'
+[INFO] [1793613029.657281383] [rviz]: Message Filter dropping message: frame 'lidar_link' at time 9.100 for reason 'discarding message because the queue is full'
+[INFO] [1793613032.557096422] [rviz]: Message Filter dropping message: frame 'lidar_link' at time 11.600 for reason 'discarding message because the queue is full'
+[INFO] [1793613035.427060351] [rviz]: Message Filter dropping message: frame 'lidar_link' at time 13.700 for reason 'discarding message because the queue is full'
+[INFO] [1793613036.439700667] [rviz2]: Trying to create a map of size 800 x 800 using 1 swatches
+[INFO] [1793613039.866672347] [rviz]: Message Filter dropping message: frame 'lidar_link' at time 14.500 for reason 'discarding message because the queue is full'
+[INFO] [1793613046.819305645] [rviz]: Message Filter dropping message: frame 'lidar_link' at time 14.600 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1793613051.043516688] [rviz2]: Setting goal pose: Frame:map, Position(0.0236409, 0.413712, 0), Orientation(0, 0, 0, 1) = Angle: 0
+[INFO] [1793613074.521477114] [rviz2]: Setting goal pose: Frame:map, Position(0.194692, 6.60736, 0), Orientation(0, 0, 0.999212, 0.0396787) = Angle: 3.06221
+[INFO] [1793613111.834472200] [rviz2]: Setting goal pose: Frame:map, Position(-4.40491, 6.21798, 0), Orientation(0, 0, -0.731863, 0.681452) = Angle: -1.6421
+[INFO] [1793613138.510810690] [rviz2]: Setting goal pose: Frame:map, Position(-3.57747, 0.255534, 0), Orientation(0, 0, -0.208401, 0.978043) = Angle: -0.41988
+[INFO] [1793613167.172570821] [rviz2]: Setting goal pose: Frame:map, Position(4.79429, 2.39715, 0), Orientation(0, 0, 0.0369616, 0.999317) = Angle: 0.0739399
+[INFO] [1793613207.478122880] [rclcpp]: signal_handler(SIGINT/SIGTERM)

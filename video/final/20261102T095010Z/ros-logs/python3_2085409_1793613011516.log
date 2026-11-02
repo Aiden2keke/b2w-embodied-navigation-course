@@ -1,0 +1,10 @@
+[INFO] [1793613051.079996469] [goal_manager]: Goal 20261102T095051.048551Z: waiting for Nav2
+[INFO] [1793613057.641077273] [goal_manager]: Navigation succeeded; metrics saved for 20261102T095051.048551Z
+[INFO] [1793613074.523868079] [goal_manager]: Goal 20261102T095114.523171Z: waiting for Nav2
+[INFO] [1793613103.671989971] [goal_manager]: Navigation succeeded; metrics saved for 20261102T095114.523171Z
+[INFO] [1793613111.842501553] [goal_manager]: Goal 20261102T095151.841666Z: waiting for Nav2
+[INFO] [1793613135.168709021] [goal_manager]: Navigation succeeded; metrics saved for 20261102T095151.841666Z
+[INFO] [1793613138.517929151] [goal_manager]: Goal 20261102T095218.516771Z: waiting for Nav2
+[INFO] [1793613163.550190694] [goal_manager]: Navigation succeeded; metrics saved for 20261102T095218.516771Z
+[INFO] [1793613167.185568699] [goal_manager]: Goal 20261102T095247.184165Z: waiting for Nav2
+[INFO] [1793613201.810230166] [goal_manager]: Navigation succeeded; metrics saved for 20261102T095247.184165Z
