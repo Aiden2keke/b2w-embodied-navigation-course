@@ -1,0 +1,72 @@
+{
+  "success": false,
+  "end_reason": "replaced",
+  "collision_count": 0,
+  "collision_missing_reason": null,
+  "path_length_m": 0.606688861394224,
+  "path_length_missing_reason": null,
+  "time_to_goal_s": 3.6525000000000034,
+  "time_missing_reason": null,
+  "planning_latency_ms": 19.896397017873824,
+  "planning_latency_missing_reason": null,
+  "planning_measurement_status": "succeeded",
+  "planning_latency_definition": "ComputePathToPose action round trip, wall clock",
+  "path_source": "slam_base_link",
+  "goal_tolerance_m": 0.3,
+  "goal_id": "20261102T101120.240061Z",
+  "goal_map_xy": [
+    -4.456264972686768,
+    6.442080497741699
+  ],
+  "timeout_s": 120.0,
+  "goal_pose": {
+    "header": {
+      "stamp": {
+        "sec": 117,
+        "nanosec": 700000000
+      },
+      "frame_id": "map"
+    },
+    "pose": {
+      "position": {
+        "x": -4.456264972686768,
+        "y": 6.442080497741699,
+        "z": 0.0
+      },
+      "orientation": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.7518160991033723,
+        "w": 0.6593728483407458
+      }
+    }
+  },
+  "nav2_status": null,
+  "start_map_base_link": {
+    "header": {
+      "stamp": {
+        "sec": 117,
+        "nanosec": 200000000
+      },
+      "frame_id": "map"
+    },
+    "child_frame_id": "base_link",
+    "transform": {
+      "translation": {
+        "x": -3.6305909097110143,
+        "y": 1.0381229298289156,
+        "z": 0.6518262630258098
+      },
+      "rotation": {
+        "x": 0.009466404421686793,
+        "y": -0.0176753559821233,
+        "z": -0.46137312771795425,
+        "w": 0.8869795972839413
+      }
+    },
+    "age_s": 0.5
+  },
+  "end_map_base_link": null,
+  "collision_force_threshold_n": 50.0,
+  "final_goal_distance_m": 5.926907992319114
+}

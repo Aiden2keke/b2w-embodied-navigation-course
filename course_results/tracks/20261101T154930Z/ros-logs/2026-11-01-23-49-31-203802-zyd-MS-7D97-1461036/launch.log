@@ -1,0 +1,244 @@
+1793548171.2061670 [INFO] [launch]: All log files can be found below /home/zyd/program/b2w-embodied-navigation-course/course_results/tracks/20261101T154930Z/ros-logs/2026-11-01-23-49-31-203802-zyd-MS-7D97-1461036
+1793548171.2065849 [INFO] [launch]: Default logging verbosity is set to INFO
+1793548171.3345010 [INFO] [ign-1]: process started with pid [1461096]
+1793548171.3348167 [INFO] [robot_state_publisher-2]: process started with pid [1461105]
+1793548171.3348854 [INFO] [create-3]: process started with pid [1461107]
+1793548171.3349307 [INFO] [parameter_bridge-4]: process started with pid [1461109]
+1793548171.3349631 [INFO] [b2w_rl_sar_controller-5]: process started with pid [1461112]
+1793548171.3350079 [INFO] [sensor_disturbance-6]: process started with pid [1461114]
+1793548171.3350527 [INFO] [sensor_cloud_disturbance-7]: process started with pid [1461116]
+1793548171.4746382 [robot_state_publisher-2] [WARN] [1793548171.471820671] [kdl_parser]: The root link base_link has an inertia specified in the URDF, but KDL does not support a root link with an inertia.  As a workaround, you can add an extra dummy link to your URDF.
+1793548171.4755290 [robot_state_publisher-2] [INFO] [1793548171.472241478] [b2w_robot_state_publisher]: got segment FL_calf
+1793548171.4758980 [robot_state_publisher-2] [INFO] [1793548171.472363024] [b2w_robot_state_publisher]: got segment FL_foot
+1793548171.4761012 [robot_state_publisher-2] [INFO] [1793548171.472368024] [b2w_robot_state_publisher]: got segment FL_hip
+1793548171.4763994 [robot_state_publisher-2] [INFO] [1793548171.472371947] [b2w_robot_state_publisher]: got segment FL_thigh
+1793548171.4766612 [robot_state_publisher-2] [INFO] [1793548171.472376486] [b2w_robot_state_publisher]: got segment FR_calf
+1793548171.4768348 [robot_state_publisher-2] [INFO] [1793548171.472380575] [b2w_robot_state_publisher]: got segment FR_foot
+1793548171.4769552 [robot_state_publisher-2] [INFO] [1793548171.472384646] [b2w_robot_state_publisher]: got segment FR_hip
+1793548171.4770780 [robot_state_publisher-2] [INFO] [1793548171.472388991] [b2w_robot_state_publisher]: got segment FR_thigh
+1793548171.4772112 [robot_state_publisher-2] [INFO] [1793548171.472394060] [b2w_robot_state_publisher]: got segment RL_calf
+1793548171.4773700 [robot_state_publisher-2] [INFO] [1793548171.472398478] [b2w_robot_state_publisher]: got segment RL_foot
+1793548171.4774952 [robot_state_publisher-2] [INFO] [1793548171.472402187] [b2w_robot_state_publisher]: got segment RL_hip
+1793548171.4775343 [robot_state_publisher-2] [INFO] [1793548171.472405895] [b2w_robot_state_publisher]: got segment RL_thigh
+1793548171.4776731 [robot_state_publisher-2] [INFO] [1793548171.472410360] [b2w_robot_state_publisher]: got segment RR_calf
+1793548171.4779074 [robot_state_publisher-2] [INFO] [1793548171.472414374] [b2w_robot_state_publisher]: got segment RR_foot
+1793548171.4780290 [robot_state_publisher-2] [INFO] [1793548171.472418412] [b2w_robot_state_publisher]: got segment RR_hip
+1793548171.4781704 [robot_state_publisher-2] [INFO] [1793548171.472422449] [b2w_robot_state_publisher]: got segment RR_thigh
+1793548171.4783094 [robot_state_publisher-2] [INFO] [1793548171.472426411] [b2w_robot_state_publisher]: got segment base_link
+1793548171.4784253 [robot_state_publisher-2] [INFO] [1793548171.472430129] [b2w_robot_state_publisher]: got segment collision_plate
+1793548171.4800339 [robot_state_publisher-2] [INFO] [1793548171.472433912] [b2w_robot_state_publisher]: got segment f_dc_link
+1793548171.4810073 [robot_state_publisher-2] [INFO] [1793548171.472437628] [b2w_robot_state_publisher]: got segment f_oc_link
+1793548171.4813080 [robot_state_publisher-2] [INFO] [1793548171.472441579] [b2w_robot_state_publisher]: got segment head_Link
+1793548171.4815316 [robot_state_publisher-2] [INFO] [1793548171.472445032] [b2w_robot_state_publisher]: got segment imu_link
+1793548171.4816942 [robot_state_publisher-2] [INFO] [1793548171.472448976] [b2w_robot_state_publisher]: got segment lidar_link
+1793548171.4818294 [robot_state_publisher-2] [INFO] [1793548171.472453293] [b2w_robot_state_publisher]: got segment logo_link
+1793548171.4819646 [robot_state_publisher-2] [INFO] [1793548171.472457926] [b2w_robot_state_publisher]: got segment r_dc_link
+1793548171.4820893 [robot_state_publisher-2] [INFO] [1793548171.472461831] [b2w_robot_state_publisher]: got segment r_oc_ink
+1793548171.4822176 [robot_state_publisher-2] [INFO] [1793548171.472465499] [b2w_robot_state_publisher]: got segment tail_link
+1793548171.4822679 [robot_state_publisher-2] [INFO] [1793548171.472469639] [b2w_robot_state_publisher]: got segment zed_x_camera
+1793548171.5228510 [b2w_rl_sar_controller-5] [INFO] [1793548171.522154069] [b2w_rl_sar_controller]: Loaded rl_sar B2-W policy: 57 observations, 16 actions, 50 Hz policy / 200 Hz torque, /home/zyd/program/b2w-embodied-navigation-course/third_party/b2w_rl_sar/policy/b2w/robot_lab/policy.onnx
+1793548171.7752998 [ign-1] [1;32m[Msg] [0m[1;32mReceived world [[0m[1;32m/home/zyd/program/b2w-embodied-navigation-course/third_party/aws_warehouse/warehouse.world[0m[1;32m] from the GUI.[0m[1;32m[0m
+1793548171.7754478 [ign-1] [1;32m[Msg] [0m[1;32mIgnition Gazebo Server v[0m[1;32m6.18.0[0m[1;32m[0m
+1793548171.7755029 [ign-1] [1;32m[Msg] [0m[1;32mLoading SDF world file[[0m[1;32m/home/zyd/program/b2w-embodied-navigation-course/third_party/aws_warehouse/warehouse.world[0m[1;32m].[0m
+1793548171.7757652 [ign-1] [1;33mWarning [Utils.cc:129][0m [/sdf/world[@name="course_world"]/model[@name="aws_robomaker_warehouse_Bucket_01_020"]/link[@name="body"]/pose[@frame=""]:/home/zyd/program/b2w-embodied-navigation-course/third_party/aws_warehouse/warehouse.world:L373]: XML Attribute[frame] in element[pose] not defined in SDF.
+1793548171.7758837 [ign-1] [1;33mWarning [Utils.cc:129][0m [/sdf/world[@name="course_world"]/model[@name="aws_robomaker_warehouse_Bucket_01_020"]/link[@name="body"]/collision[@name="collision_0"]/pose[@frame=""]:/home/zyd/program/b2w-embodied-navigation-course/third_party/aws_warehouse/warehouse.world:L390]: XML Attribute[frame] in element[pose] not defined in SDF.
+1793548171.7786639 [ign-1] [1;33mWarning [Utils.cc:129][0m [/sdf/world[@name="course_world"]/model[@name="aws_robomaker_warehouse_Bucket_01_021"]/link[@name="body"]/pose[@frame=""]:/home/zyd/program/b2w-embodied-navigation-course/third_party/aws_warehouse/warehouse.world:L424]: XML Attribute[frame] in element[pose] not defined in SDF.
+1793548171.7791123 [ign-1] [1;33mWarning [Utils.cc:129][0m [/sdf/world[@name="course_world"]/model[@name="aws_robomaker_warehouse_Bucket_01_021"]/link[@name="body"]/collision[@name="collision_0"]/pose[@frame=""]:/home/zyd/program/b2w-embodied-navigation-course/third_party/aws_warehouse/warehouse.world:L441]: XML Attribute[frame] in element[pose] not defined in SDF.
+1793548171.7813327 [ign-1] [1;33mWarning [Utils.cc:129][0m [/sdf/world[@name="course_world"]/model[@name="aws_robomaker_warehouse_Bucket_01_022"]/link[@name="body"]/pose[@frame=""]:/home/zyd/program/b2w-embodied-navigation-course/third_party/aws_warehouse/warehouse.world:L475]: XML Attribute[frame] in element[pose] not defined in SDF.
+1793548171.7816348 [ign-1] [1;33mWarning [Utils.cc:129][0m [/sdf/world[@name="course_world"]/model[@name="aws_robomaker_warehouse_Bucket_01_022"]/link[@name="body"]/collision[@name="collision_0"]/pose[@frame=""]:/home/zyd/program/b2w-embodied-navigation-course/third_party/aws_warehouse/warehouse.world:L492]: XML Attribute[frame] in element[pose] not defined in SDF.
+1793548172.1302116 [INFO] [create-3]: process has finished cleanly [pid 1461107]
+1793548172.4020710 [ign-1] [1;33m[GUI] [Wrn] [Application.cc:802] [0m[1;33m[QT] file::/Gazebo/GazeboDrawer.qml:242:3: QML Connections: Implicitly defined onFoo properties in Connections are deprecated. Use this syntax instead: function onFoo(<arguments>) { ... }[0m[1;33m[0m
+1793548172.4873037 [parameter_bridge-4] [INFO] [1793548172.486983557] [ros_gz_bridge]: Creating GZ->ROS Bridge: [/clock (ignition.msgs.Clock) -> /clock (rosgraph_msgs/msg/Clock)] (Lazy 0)
+1793548172.4882939 [parameter_bridge-4] [INFO] [1793548172.488125214] [ros_gz_bridge]: Creating GZ->ROS Bridge: [/joint_states (ignition.msgs.Model) -> /sim/raw/joint_states (sensor_msgs/msg/JointState)] (Lazy 0)
+1793548172.4895816 [parameter_bridge-4] [INFO] [1793548172.489486343] [ros_gz_bridge]: Creating GZ->ROS Bridge: [/sim/raw/ground_truth/odom (ignition.msgs.Odometry) -> /sim/ground_truth/odom (nav_msgs/msg/Odometry)] (Lazy 0)
+1793548172.4903967 [parameter_bridge-4] [INFO] [1793548172.490332586] [ros_gz_bridge]: Creating GZ->ROS Bridge: [/sim/raw/ground_truth/odom (ignition.msgs.Odometry) -> /sim/body_state (nav_msgs/msg/Odometry)] (Lazy 0)
+1793548172.4907174 [parameter_bridge-4] [INFO] [1793548172.490662378] [ros_gz_bridge]: Creating GZ->ROS Bridge: [/sim/raw/scan/points (ignition.msgs.PointCloudPacked) -> /sim/raw/pointcloud (sensor_msgs/msg/PointCloud2)] (Lazy 0)
+1793548172.4911377 [parameter_bridge-4] [INFO] [1793548172.491087908] [ros_gz_bridge]: Creating GZ->ROS Bridge: [/sim/raw/imu (ignition.msgs.IMU) -> /sim/raw/imu (sensor_msgs/msg/Imu)] (Lazy 0)
+1793548172.4915478 [parameter_bridge-4] [INFO] [1793548172.491489930] [ros_gz_bridge]: Creating GZ->ROS Bridge: [/collision_plate/force_torque (ignition.msgs.Wrench) -> /collision_plate/force_torque (geometry_msgs/msg/WrenchStamped)] (Lazy 0)
+1793548172.4919837 [parameter_bridge-4] [INFO] [1793548172.491927688] [ros_gz_bridge]: Creating GZ->ROS Bridge: [/zed_x_camera (ignition.msgs.Image) -> /zed/zed_node/depth/depth_registered (sensor_msgs/msg/Image)] (Lazy 0)
+1793548172.4923453 [parameter_bridge-4] [INFO] [1793548172.492282966] [ros_gz_bridge]: Creating ROS->GZ Bridge: [/model/b2w/joint/FR_hip_joint/cmd_force (std_msgs/msg/Float64) -> /model/b2w/joint/FR_hip_joint/cmd_force (ignition.msgs.Double)] (Lazy 0)
+1793548172.4929526 [parameter_bridge-4] [INFO] [1793548172.492885062] [ros_gz_bridge]: Creating ROS->GZ Bridge: [/model/b2w/joint/FR_thigh_joint/cmd_force (std_msgs/msg/Float64) -> /model/b2w/joint/FR_thigh_joint/cmd_force (ignition.msgs.Double)] (Lazy 0)
+1793548172.4933865 [parameter_bridge-4] [INFO] [1793548172.493288076] [ros_gz_bridge]: Creating ROS->GZ Bridge: [/model/b2w/joint/FR_calf_joint/cmd_force (std_msgs/msg/Float64) -> /model/b2w/joint/FR_calf_joint/cmd_force (ignition.msgs.Double)] (Lazy 0)
+1793548172.4940288 [parameter_bridge-4] [INFO] [1793548172.493835143] [ros_gz_bridge]: Creating ROS->GZ Bridge: [/model/b2w/joint/FL_hip_joint/cmd_force (std_msgs/msg/Float64) -> /model/b2w/joint/FL_hip_joint/cmd_force (ignition.msgs.Double)] (Lazy 0)
+1793548172.4951110 [parameter_bridge-4] [INFO] [1793548172.494886719] [ros_gz_bridge]: Creating ROS->GZ Bridge: [/model/b2w/joint/FL_thigh_joint/cmd_force (std_msgs/msg/Float64) -> /model/b2w/joint/FL_thigh_joint/cmd_force (ignition.msgs.Double)] (Lazy 0)
+1793548172.4965165 [parameter_bridge-4] [INFO] [1793548172.496231540] [ros_gz_bridge]: Creating ROS->GZ Bridge: [/model/b2w/joint/FL_calf_joint/cmd_force (std_msgs/msg/Float64) -> /model/b2w/joint/FL_calf_joint/cmd_force (ignition.msgs.Double)] (Lazy 0)
+1793548172.5909138 [ign-1] [1;33m[GUI] [Wrn] [Application.cc:802] [0m[1;33m[QT] file::/EntityContextMenuPlugin/EntityContextMenuPlugin.qml:56:5: QML Connections: Implicitly defined onFoo properties in Connections are deprecated. Use this syntax instead: function onFoo(<arguments>) { ... }[0m[1;33m[0m
+1793548172.5968764 [parameter_bridge-4] [INFO] [1793548172.596630535] [ros_gz_bridge]: Creating ROS->GZ Bridge: [/model/b2w/joint/RR_hip_joint/cmd_force (std_msgs/msg/Float64) -> /model/b2w/joint/RR_hip_joint/cmd_force (ignition.msgs.Double)] (Lazy 0)
+1793548172.5972288 [parameter_bridge-4] [INFO] [1793548172.597075552] [ros_gz_bridge]: Creating ROS->GZ Bridge: [/model/b2w/joint/RR_thigh_joint/cmd_force (std_msgs/msg/Float64) -> /model/b2w/joint/RR_thigh_joint/cmd_force (ignition.msgs.Double)] (Lazy 0)
+1793548172.5975344 [parameter_bridge-4] [INFO] [1793548172.597435963] [ros_gz_bridge]: Creating ROS->GZ Bridge: [/model/b2w/joint/RR_calf_joint/cmd_force (std_msgs/msg/Float64) -> /model/b2w/joint/RR_calf_joint/cmd_force (ignition.msgs.Double)] (Lazy 0)
+1793548172.5978477 [parameter_bridge-4] [INFO] [1793548172.597779915] [ros_gz_bridge]: Creating ROS->GZ Bridge: [/model/b2w/joint/RL_hip_joint/cmd_force (std_msgs/msg/Float64) -> /model/b2w/joint/RL_hip_joint/cmd_force (ignition.msgs.Double)] (Lazy 0)
+1793548172.5981529 [parameter_bridge-4] [INFO] [1793548172.598099289] [ros_gz_bridge]: Creating ROS->GZ Bridge: [/model/b2w/joint/RL_thigh_joint/cmd_force (std_msgs/msg/Float64) -> /model/b2w/joint/RL_thigh_joint/cmd_force (ignition.msgs.Double)] (Lazy 0)
+1793548172.5984788 [parameter_bridge-4] [INFO] [1793548172.598427980] [ros_gz_bridge]: Creating ROS->GZ Bridge: [/model/b2w/joint/RL_calf_joint/cmd_force (std_msgs/msg/Float64) -> /model/b2w/joint/RL_calf_joint/cmd_force (ignition.msgs.Double)] (Lazy 0)
+1793548172.5988963 [parameter_bridge-4] [INFO] [1793548172.598783886] [ros_gz_bridge]: Creating ROS->GZ Bridge: [/model/b2w/joint/FR_foot_joint/cmd_force (std_msgs/msg/Float64) -> /model/b2w/joint/FR_foot_joint/cmd_force (ignition.msgs.Double)] (Lazy 0)
+1793548172.5992219 [parameter_bridge-4] [INFO] [1793548172.599158966] [ros_gz_bridge]: Creating ROS->GZ Bridge: [/model/b2w/joint/FL_foot_joint/cmd_force (std_msgs/msg/Float64) -> /model/b2w/joint/FL_foot_joint/cmd_force (ignition.msgs.Double)] (Lazy 0)
+1793548172.5995715 [parameter_bridge-4] [INFO] [1793548172.599499150] [ros_gz_bridge]: Creating ROS->GZ Bridge: [/model/b2w/joint/RR_foot_joint/cmd_force (std_msgs/msg/Float64) -> /model/b2w/joint/RR_foot_joint/cmd_force (ignition.msgs.Double)] (Lazy 0)
+1793548172.5998991 [parameter_bridge-4] [INFO] [1793548172.599835210] [ros_gz_bridge]: Creating ROS->GZ Bridge: [/model/b2w/joint/RL_foot_joint/cmd_force (std_msgs/msg/Float64) -> /model/b2w/joint/RL_foot_joint/cmd_force (ignition.msgs.Double)] (Lazy 0)
+1793548172.7997186 [ign-1] [1;33m[GUI] [Wrn] [Application.cc:802] [0m[1;33m[QT] file::/Spawn/Spawn.qml:32:3: QML Connections: Implicitly defined onFoo properties in Connections are deprecated. Use this syntax instead: function onFoo(<arguments>) { ... }[0m[1;33m[0m
+1793548172.8457265 [ign-1] [1;32m[Msg] [0m[1;32mIgnition Gazebo GUI    v[0m[1;32m6.18.0[0m[1;32m[0m
+1793548172.8460093 [ign-1] [1;32m[GUI] [0m[1;32m[Msg] [0m[1;32mLoading config [[0m[1;32m/home/zyd/.ignition/gazebo/6/gui.config[0m[1;32m][0m[1;32m[0m
+1793548172.8460972 [ign-1] [1;32m[GUI] [0m[1;32m[Msg] [0m[1;32mAdded plugin [[0m[1;32m3D View[0m[1;32m] to main window[0m[1;32m[0m
+1793548172.8461752 [ign-1] [1;32m[GUI] [0m[1;32m[Msg] [0m[1;32mLoaded plugin [[0m[1;32mMinimalScene[0m[1;32m] from path [[0m[1;32m/usr/lib/x86_64-linux-gnu/ign-gui-6/plugins/libMinimalScene.so[0m[1;32m][0m[1;32m[0m
+1793548172.8462405 [ign-1] [1;32m[GUI] [0m[1;32m[Msg] [0m[1;32mAdded plugin [[0m[1;32mEntity Context Menu[0m[1;32m] to main window[0m[1;32m[0m
+1793548172.8463202 [ign-1] [1;32m[GUI] [0m[1;32m[Msg] [0m[1;32mLoaded plugin [[0m[1;32mEntityContextMenuPlugin[0m[1;32m] from path [[0m[1;32m/usr/lib/x86_64-linux-gnu/ign-gazebo-6/plugins/gui/libEntityContextMenuPlugin.so[0m[1;32m][0m[1;32m[0m
+1793548172.8463821 [ign-1] [1;32m[GUI] [0m[1;32m[Msg] [0m[1;32mAdded plugin [[0m[1;32mScene Manager[0m[1;32m] to main window[0m[1;32m[0m
+1793548172.8464413 [ign-1] [1;32m[GUI] [0m[1;32m[Msg] [0m[1;32mLoaded plugin [[0m[1;32mGzSceneManager[0m[1;32m] from path [[0m[1;32m/usr/lib/x86_64-linux-gnu/ign-gazebo-6/plugins/gui/libGzSceneManager.so[0m[1;32m][0m[1;32m[0m
+1793548172.8464985 [ign-1] [1;32m[GUI] [0m[1;32m[Msg] [0m[1;32mCamera view controller topic advertised on [[0m[1;32m/gui/camera/view_control[0m[1;32m][0m[1;32m[0m
+1793548172.8465540 [ign-1] [1;32m[GUI] [0m[1;32m[Msg] [0m[1;32mCamera reference visual topic advertised on [[0m[1;32m/gui/camera/view_control/reference_visual[0m[1;32m][0m[1;32m[0m
+1793548172.8466094 [ign-1] [1;32m[GUI] [0m[1;32m[Msg] [0m[1;32mCamera view control sensitivity advertised on [[0m[1;32m/gui/camera/view_control/sensitivity[0m[1;32m][0m[1;32m[0m
+1793548172.8466635 [ign-1] [1;32m[GUI] [0m[1;32m[Msg] [0m[1;32mAdded plugin [[0m[1;32mInteractive view control[0m[1;32m] to main window[0m[1;32m[0m
+1793548172.8467393 [ign-1] [1;32m[GUI] [0m[1;32m[Msg] [0m[1;32mLoaded plugin [[0m[1;32mInteractiveViewControl[0m[1;32m] from path [[0m[1;32m/usr/lib/x86_64-linux-gnu/ign-gui-6/plugins/libInteractiveViewControl.so[0m[1;32m][0m[1;32m[0m
+1793548172.8467941 [ign-1] [1;32m[GUI] [0m[1;32m[Msg] [0m[1;32mAdded plugin [[0m[1;32mCamera tracking[0m[1;32m] to main window[0m[1;32m[0m
+1793548172.8468468 [ign-1] [1;32m[GUI] [0m[1;32m[Msg] [0m[1;32mLoaded plugin [[0m[1;32mCameraTracking[0m[1;32m] from path [[0m[1;32m/usr/lib/x86_64-linux-gnu/ign-gui-6/plugins/libCameraTracking.so[0m[1;32m][0m[1;32m[0m
+1793548172.8468983 [ign-1] [1;32m[GUI] [0m[1;32m[Msg] [0m[1;32mListening to stats on [[0m[1;32m/world/course_world/stats[0m[1;32m][0m[1;32m[0m
+1793548172.8469498 [ign-1] [1;32m[GUI] [0m[1;32m[Msg] [0m[1;32mAdded plugin [[0m[1;32mMarker Manager[0m[1;32m] to main window[0m[1;32m[0m
+1793548172.8470013 [ign-1] [1;32m[GUI] [0m[1;32m[Msg] [0m[1;32mLoaded plugin [[0m[1;32mMarkerManager[0m[1;32m] from path [[0m[1;32m/usr/lib/x86_64-linux-gnu/ign-gui-6/plugins/libMarkerManager.so[0m[1;32m][0m[1;32m[0m
+1793548172.8470523 [ign-1] [1;32m[GUI] [0m[1;32m[Msg] [0m[1;32mAdded plugin [[0m[1;32mSelect entities[0m[1;32m] to main window[0m[1;32m[0m
+1793548172.8471029 [ign-1] [1;32m[GUI] [0m[1;32m[Msg] [0m[1;32mLoaded plugin [[0m[1;32mSelectEntities[0m[1;32m] from path [[0m[1;32m/usr/lib/x86_64-linux-gnu/ign-gazebo-6/plugins/gui/libSelectEntities.so[0m[1;32m][0m[1;32m[0m
+1793548172.8471534 [ign-1] [1;32m[GUI] [0m[1;32m[Msg] [0m[1;32mAdded plugin [[0m[1;32mSpawn[0m[1;32m] to main window[0m[1;32m[0m
+1793548172.8472042 [ign-1] [1;32m[GUI] [0m[1;32m[Msg] [0m[1;32mLoaded plugin [[0m[1;32mSpawn[0m[1;32m] from path [[0m[1;32m/usr/lib/x86_64-linux-gnu/ign-gazebo-6/plugins/gui/libSpawn.so[0m[1;32m][0m[1;32m[0m
+1793548172.8472548 [ign-1] [1;32m[GUI] [0m[1;32m[Msg] [0m[1;32mView as transparent service on [[0m[1;32m/gui/view/transparent[0m[1;32m][0m[1;32m[0m
+1793548172.8473175 [ign-1] [1;32m[GUI] [0m[1;32m[Msg] [0m[1;32mView as wireframes service on [[0m[1;32m/gui/view/wireframes[0m[1;32m][0m[1;32m[0m
+1793548172.8473687 [ign-1] [1;32m[GUI] [0m[1;32m[Msg] [0m[1;32mView center of mass service on [[0m[1;32m/gui/view/com[0m[1;32m][0m[1;32m[0m
+1793548172.8474185 [ign-1] [1;32m[GUI] [0m[1;32m[Msg] [0m[1;32mView inertia service on [[0m[1;32m/gui/view/inertia[0m[1;32m][0m[1;32m[0m
+1793548173.0655212 [ign-1] [1;33m[GUI] [Wrn] [Application.cc:802] [0m[1;33m[QT] file::/TransformControl/TransformControl.qml:104:3: QML Connections: Implicitly defined onFoo properties in Connections are deprecated. Use this syntax instead: function onFoo(<arguments>) { ... }[0m[1;33m[0m
+1793548173.0656502 [ign-1] [1;33m[GUI] [Wrn] [Application.cc:802] [0m[1;33m[QT] file::/TransformControl/TransformControl.qml:99:3: QML Connections: Implicitly defined onFoo properties in Connections are deprecated. Use this syntax instead: function onFoo(<arguments>) { ... }[0m[1;33m[0m
+1793548173.0656996 [ign-1] [1;33m[GUI] [Wrn] [Application.cc:802] [0m[1;33m[QT] file::/TransformControl/TransformControl.qml:94:3: QML Connections: Implicitly defined onFoo properties in Connections are deprecated. Use this syntax instead: function onFoo(<arguments>) { ... }[0m[1;33m[0m
+1793548173.0657301 [ign-1] [1;33m[GUI] [Wrn] [Application.cc:802] [0m[1;33m[QT] file::/TransformControl/TransformControl.qml:89:3: QML Connections: Implicitly defined onFoo properties in Connections are deprecated. Use this syntax instead: function onFoo(<arguments>) { ... }[0m[1;33m[0m
+1793548173.3622713 [ign-1] [1;32m[GUI] [0m[1;32m[Msg] [0m[1;32mView collisions service on [[0m[1;32m/gui/view/collisions[0m[1;32m][0m[1;32m[0m
+1793548173.3623896 [ign-1] [1;32m[GUI] [0m[1;32m[Msg] [0m[1;32mView joints service on [[0m[1;32m/gui/view/joints[0m[1;32m][0m[1;32m[0m
+1793548173.3624239 [ign-1] [1;32m[GUI] [0m[1;32m[Msg] [0m[1;32mView frames service on [[0m[1;32m/gui/view/frames[0m[1;32m][0m[1;32m[0m
+1793548173.3624387 [ign-1] [1;32m[GUI] [0m[1;32m[Msg] [0m[1;32mAdded plugin [[0m[1;32mVisualization capabilities[0m[1;32m] to main window[0m[1;32m[0m
+1793548173.3624516 [ign-1] [1;32m[GUI] [0m[1;32m[Msg] [0m[1;32mLoaded plugin [[0m[1;32mVisualizationCapabilities[0m[1;32m] from path [[0m[1;32m/usr/lib/x86_64-linux-gnu/ign-gazebo-6/plugins/gui/libVisualizationCapabilities.so[0m[1;32m][0m[1;32m[0m
+1793548173.3624647 [ign-1] [1;32m[GUI] [0m[1;32m[Msg] [0m[1;32mUsing world control service [[0m[1;32m/world/course_world/control[0m[1;32m][0m[1;32m[0m
+1793548173.3624775 [ign-1] [1;32m[GUI] [0m[1;32m[Msg] [0m[1;32mListening to stats on [[0m[1;32m/world/course_world/stats[0m[1;32m][0m[1;32m[0m
+1793548173.3624878 [ign-1] [1;32m[GUI] [0m[1;32m[Msg] [0m[1;32mAdded plugin [[0m[1;32mWorld control[0m[1;32m] to main window[0m[1;32m[0m
+1793548173.3624988 [ign-1] [1;32m[GUI] [0m[1;32m[Msg] [0m[1;32mLoaded plugin [[0m[1;32mWorldControl[0m[1;32m] from path [[0m[1;32m/usr/lib/x86_64-linux-gnu/ign-gui-6/plugins/libWorldControl.so[0m[1;32m][0m[1;32m[0m
+1793548173.3625097 [ign-1] [1;32m[GUI] [0m[1;32m[Msg] [0m[1;32mListening to stats on [[0m[1;32m/world/course_world/stats[0m[1;32m][0m[1;32m[0m
+1793548173.3625200 [ign-1] [1;32m[GUI] [0m[1;32m[Msg] [0m[1;32mAdded plugin [[0m[1;32mWorld stats[0m[1;32m] to main window[0m[1;32m[0m
+1793548173.3625302 [ign-1] [1;32m[GUI] [0m[1;32m[Msg] [0m[1;32mLoaded plugin [[0m[1;32mWorldStats[0m[1;32m] from path [[0m[1;32m/usr/lib/x86_64-linux-gnu/ign-gui-6/plugins/libWorldStats.so[0m[1;32m][0m[1;32m[0m
+1793548173.3625405 [ign-1] [1;32m[GUI] [0m[1;32m[Msg] [0m[1;32mAdded plugin [[0m[1;32mShapes[0m[1;32m] to main window[0m[1;32m[0m
+1793548173.3625512 [ign-1] [1;32m[GUI] [0m[1;32m[Msg] [0m[1;32mLoaded plugin [[0m[1;32mShapes[0m[1;32m] from path [[0m[1;32m/usr/lib/x86_64-linux-gnu/ign-gazebo-6/plugins/gui/libShapes.so[0m[1;32m][0m[1;32m[0m
+1793548173.3625610 [ign-1] [1;32m[GUI] [0m[1;32m[Msg] [0m[1;32mAdded plugin [[0m[1;32mLights[0m[1;32m] to main window[0m[1;32m[0m
+1793548173.3625710 [ign-1] [1;32m[GUI] [0m[1;32m[Msg] [0m[1;32mLoaded plugin [[0m[1;32mLights[0m[1;32m] from path [[0m[1;32m/usr/lib/x86_64-linux-gnu/ign-gazebo-6/plugins/gui/libLights.so[0m[1;32m][0m[1;32m[0m
+1793548173.3625808 [ign-1] [1;32m[GUI] [0m[1;32m[Msg] [0m[1;32mAdded plugin [[0m[1;32mTransform control[0m[1;32m] to main window[0m[1;32m[0m
+1793548173.3625915 [ign-1] [1;32m[GUI] [0m[1;32m[Msg] [0m[1;32mLoaded plugin [[0m[1;32mTransformControl[0m[1;32m] from path [[0m[1;32m/usr/lib/x86_64-linux-gnu/ign-gazebo-6/plugins/gui/libTransformControl.so[0m[1;32m][0m[1;32m[0m
+1793548173.3626018 [ign-1] [1;32m[GUI] [0m[1;32m[Msg] [0m[1;32mScreenshot service on [[0m[1;32m/gui/screenshot[0m[1;32m][0m[1;32m[0m
+1793548173.3626118 [ign-1] [1;32m[GUI] [0m[1;32m[Msg] [0m[1;32mAdded plugin [[0m[1;32mScreenshot[0m[1;32m] to main window[0m[1;32m[0m
+1793548173.3626218 [ign-1] [1;32m[GUI] [0m[1;32m[Msg] [0m[1;32mLoaded plugin [[0m[1;32mScreenshot[0m[1;32m] from path [[0m[1;32m/usr/lib/x86_64-linux-gnu/ign-gui-6/plugins/libScreenshot.so[0m[1;32m][0m[1;32m[0m
+1793548173.3626323 [ign-1] [1;32m[GUI] [0m[1;32m[Msg] [0m[1;32mAdded plugin [[0m[1;32mCopy/Paste[0m[1;32m] to main window[0m[1;32m[0m
+1793548173.3626418 [ign-1] [1;32m[GUI] [0m[1;32m[Msg] [0m[1;32mLoaded plugin [[0m[1;32mCopyPaste[0m[1;32m] from path [[0m[1;32m/usr/lib/x86_64-linux-gnu/ign-gazebo-6/plugins/gui/libCopyPaste.so[0m[1;32m][0m[1;32m[0m
+1793548173.3626523 [ign-1] [1;32m[GUI] [0m[1;32m[Msg] [0m[1;32mAdded plugin [[0m[1;32mComponent inspector[0m[1;32m] to main window[0m[1;32m[0m
+1793548173.3626621 [ign-1] [1;32m[GUI] [0m[1;32m[Msg] [0m[1;32mLoaded plugin [[0m[1;32mComponentInspector[0m[1;32m] from path [[0m[1;32m/usr/lib/x86_64-linux-gnu/ign-gazebo-6/plugins/gui/libComponentInspector.so[0m[1;32m][0m[1;32m[0m
+1793548173.3626742 [ign-1] [1;32m[GUI] [0m[1;32m[Msg] [0m[1;32mAdded plugin [[0m[1;32mEntity tree[0m[1;32m] to main window[0m[1;32m[0m
+1793548173.5198817 [ign-1] [1;33m[GUI] [Wrn] [Application.cc:802] [0m[1;33m[QT] file::/WorldStats/WorldStats.qml:53:3: QML RowLayout: Binding loop detected for property "x"[0m[1;33m[0m
+1793548173.6829996 [ign-1] [1;32m[GUI] [0m[1;32m[Msg] [0m[1;32mLoaded plugin [[0m[1;32mEntityTree[0m[1;32m] from path [[0m[1;32m/usr/lib/x86_64-linux-gnu/ign-gazebo-6/plugins/gui/libEntityTree.so[0m[1;32m][1;32m[Msg] [0m[1;32mServing entity system service on [[0m[1;32m/[0m[1;32mentity/system/add[0m[1;32m][0m[1;32m[0m
+1793548173.6832309 [ign-1] [1;32m[Msg] [0m[1;32mCreate service on [[0m[1;32m/world/course_world/create[0m[1;32m][0m[1;32m[0m
+1793548173.6833403 [ign-1] [1;32m[Msg] [0m[1;32mRemove service on [[0m[1;32m/world/course_world/remove[0m[1;32m][0m[1;32m[0m
+1793548173.6833692 [ign-1] [1;32m[Msg] [0m[1;32mPose service on [[0m[1;32m/world/course_world/set_pose[0m[1;32m][0m[1;32m[0m
+1793548173.6833897 [ign-1] [1;32m[Msg] [0m[1;32mPose service on [[0m[1;32m/world/course_world/set_pose_vector[0m[1;32m][0m[1;32m[0m
+1793548173.6834095 [ign-1] [1;32m[Msg] [0m[1;32mLight configuration service on [[0m[1;32m/world/course_world/light_config[0m[1;32m][0m[1;32m[0m
+1793548173.6834280 [ign-1] [1;32m[Msg] [0m[1;32mPhysics service on [[0m[1;32m/world/course_world/set_physics[0m[1;32m][0m[1;32m[0m
+1793548173.6834474 [ign-1] [1;32m[Msg] [0m[1;32mSphericalCoordinates service on [[0m[1;32m/world/course_world/set_spherical_coordinates[0m[1;32m][0m[1;32m[0m
+1793548173.6834671 [ign-1] [1;32m[Msg] [0m[1;32mEnable collision service on [[0m[1;32m/world/course_world/enable_collision[0m[1;32m][0m[1;32m[0m
+1793548173.6834853 [ign-1] [1;32m[Msg] [0m[1;32mDisable collision service on [[0m[1;32m/world/course_world/disable_collision[0m[1;32m][0m[1;32m[0m
+1793548173.6835001 [ign-1] [1;32m[Msg] [0m[1;32mMaterial service on [[0m[1;32m/world/course_world/visual_config[0m[1;32m][0m[1;32m[0m
+1793548173.6835170 [ign-1] [1;32m[Msg] [0m[1;32mMaterial service on [[0m[1;32m/world/course_world/wheel_slip[0m[1;32m][0m[1;32m[0m
+1793548173.6835320 [ign-1] [1;32m[Msg] [0m[1;32mLoaded level [[0m[1;32m3[0m[1;32m][0m[1;32m[0m
+1793548173.6835496 [ign-1] [1;32m[Msg] [0m[1;32mServing world controls on [[0m[1;32m/world/course_world[0m[1;32m/control], [[0m[1;32m/world/course_world[0m[1;32m/control/state] and [[0m[1;32m/world/course_world[0m[1;32m/playback/control][0m[1;32m[0m
+1793548173.6835659 [ign-1] [1;32m[Msg] [0m[1;32mServing GUI information on [[0m[1;32m/world/course_world[0m[1;32m/[0m[1;32mgui/info[0m[1;32m][0m[1;32m[0m
+1793548173.6835825 [ign-1] [1;32m[Msg] [0m[1;32mWorld [[0m[1;32mcourse_world[0m[1;32m] initialized with [[0m[1;32mphysics[0m[1;32m] physics profile.[0m[1;32m[0m
+1793548173.6835980 [ign-1] [1;32m[Msg] [0m[1;32mServing world SDF generation service on [[0m[1;32m/world/course_world[0m[1;32m/[0m[1;32mgenerate_world_sdf[0m[1;32m][0m[1;32m[0m
+1793548173.6836147 [ign-1] [1;32m[Msg] [0m[1;32mServing world names on [[0m[1;32m/gazebo/worlds[0m[1;32m][0m[1;32m[0m
+1793548173.6836317 [ign-1] [1;32m[Msg] [0m[1;32mResource path add service on [[0m[1;32m/gazebo/resource_paths/add[0m[1;32m].[0m[1;32m[0m
+1793548173.6836481 [ign-1] [1;32m[Msg] [0m[1;32mResource path get service on [[0m[1;32m/gazebo/resource_paths/get[0m[1;32m].[0m[1;32m[0m
+1793548173.6836634 [ign-1] [1;32m[Msg] [0m[1;32mResource path resolve service on [[0m[1;32m/gazebo/resource_paths/resolve[0m[1;32m].[0m[1;32m[0m
+1793548173.6836793 [ign-1] [1;32m[Msg] [0m[1;32mResource paths published on [[0m[1;32m/gazebo/resource_paths[0m[1;32m].[0m[1;32m[0m
+1793548173.6836967 [ign-1] [1;32m[Msg] [0m[1;32mServer control service on [[0m[1;32m/server_control[0m[1;32m].[0m[1;32m[0m
+1793548173.6837244 [ign-1] [1;32m[Msg] [0m[1;32mFound no publishers on /stats, adding root stats topic[0m[1;32m[0m
+1793548173.6837413 [ign-1] [1;32m[Msg] [0m[1;32mFound no publishers on /clock, adding root clock topic[0m[1;32m[0m
+1793548173.6837571 [ign-1] [1;32m[Msg] [0m[1;32mOdometryPublisher publishing odometry on [[0m[1;32m/sim/raw/ground_truth/odom[0m[1;32m][0m[1;32m[0m
+1793548173.6837718 [ign-1] [1;32m[Msg] [0m[1;32mOdometryPublisher publishing odometry with covariance on [[0m[1;32m/model/b2w/odometry_with_covariance[0m[1;32m][0m[1;32m[0m
+1793548173.6837885 [ign-1] [1;32m[Msg] [0m[1;32mOdometryPublisher publishing Pose_V (TF) on [[0m[1;32m/sim/raw/ground_truth_tf[0m[1;32m][0m[1;32m[0m
+1793548173.6838033 [ign-1] [1;32m[Msg] [0m[1;32mApplyJointForce subscribing to Double messages on [[0m[1;32m/model/b2w/joint/FL_hip_joint/cmd_force[0m[1;32m][0m[1;32m[0m
+1793548173.6838191 [ign-1] [1;32m[Msg] [0m[1;32mApplyJointForce subscribing to Double messages on [[0m[1;32m/model/b2w/joint/FL_thigh_joint/cmd_force[0m[1;32m][0m[1;32m[0m
+1793548173.6838346 [ign-1] [1;32m[Msg] [0m[1;32mApplyJointForce subscribing to Double messages on [[0m[1;32m/model/b2w/joint/FL_calf_joint/cmd_force[0m[1;32m][0m[1;32m[0m
+1793548173.7058263 [ign-1] [1;33m[Wrn] [ColladaLoader.cc:2394] [0m[1;33mTriangle input semantic: '[0m[1;33mCOLOR[0m[1;33m' is currently[0m[1;33m not supported[0m[1;33m[0m
+1793548173.7235193 [parameter_bridge-4] [INFO] [1793548173.723128096] [ros_gz_bridge]: Passing message from ROS std_msgs/msg/Float64 to Gazebo gz.msgs.Double (showing msg only once per type)
+1793548173.7248917 [ign-1] [1;33m[Wrn] [Component.hh:144] [0m[1;33mTrying to serialize component with data type [[0m[1;33mSt6vectorIdSaIdEE[0m[1;33m], which doesn't have [0m[1;33m`operator<<`. Component will not be serialized.[0m[1;33m[0m
+1793548174.2063699 [ign-1] libEGL warning: egl: failed to create dri2 screen
+1793548174.2135315 [ign-1] libEGL warning: egl: failed to create dri2 screen
+1793548174.8951988 [ign-1] [1;33m[Wrn] [ColladaLoader.cc:2394] [0m[1;33mTriangle input semantic: '[0m[1;33mCOLOR[0m[1;33m' is currently[0m[1;33m not supported[0m[1;33m[0m
+1793548174.8969193 [ign-1] [1;33m[Wrn] [ColladaLoader.cc:2394] [0m[1;33mTriangle input semantic: '[0m[1;33mCOLOR[0m[1;33m' is currently[0m[1;33m not supported[0m[1;33m[0m
+1793548174.9697895 [ign-1] [1;33m[GUI] [Wrn] [Component.hh:189] [0m[1;33mTrying to deserialize component with data type [[0m[1;33mSt6vectorIdSaIdEE[0m[1;33m], which doesn't have [0m[1;33m`operator>>`. Component will not be deserialized.[0m[1;33m[0m
+1793548175.2348650 [ign-1] libEGL warning: egl: failed to create dri2 screen
+1793548175.2425139 [ign-1] libEGL warning: egl: failed to create dri2 screen
+1793548175.8947489 [ign-1] [1;33m[GUI] [Wrn] [ColladaLoader.cc:2394] [0m[1;33mTriangle input semantic: '[0m[1;33mCOLOR[0m[1;33m' is currently[0m[1;33m not supported[0m[1;33m[0m
+1793548175.8962159 [ign-1] [1;33m[GUI] [Wrn] [ColladaLoader.cc:2394] [0m[1;33mTriangle input semantic: '[0m[1;33mCOLOR[0m[1;33m' is currently[0m[1;33m not supported[0m[1;33m[0m
+1793548191.3660140 [INFO] [lio_sam_imuPreintegration-8]: process started with pid [1462029]
+1793548191.3665106 [INFO] [lio_sam_imageProjection-9]: process started with pid [1462031]
+1793548191.3666961 [INFO] [lio_sam_featureExtraction-10]: process started with pid [1462033]
+1793548191.3667877 [INFO] [lio_sam_mapOptimization-11]: process started with pid [1462035]
+1793548191.3668447 [INFO] [pose_adapter-12]: process started with pid [1462037]
+1793548191.5391500 [lio_sam_imageProjection-9] [INFO] [1793548191.538322669] [rclcpp]: [1;32m----> Image Projection Started.[0m
+1793548191.5746047 [lio_sam_featureExtraction-10] [INFO] [1793548191.572156461] [rclcpp]: [1;32m----> Feature Extraction Started.[0m
+1793548191.6053963 [lio_sam_imuPreintegration-8] [INFO] [1793548191.604550723] [rclcpp]: [1;32m----> IMU Preintegration Started.[0m
+1793548191.6663215 [lio_sam_mapOptimization-11] [INFO] [1793548191.663275545] [rclcpp]: [1;32m----> Map Optimization Started.[0m
+1793548191.8774333 [lio_sam_imageProjection-9] [INFO] [1793548191.876137512] [lio_sam_imageProjection]: Waiting for IMU data ...
+1793548215.4685173 [parameter_bridge-4] [INFO] [1793548215.462418839] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+1793548215.4699938 [lio_sam_imageProjection-9] [INFO] [1793548215.462413819] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+1793548215.4710035 [lio_sam_featureExtraction-10] [INFO] [1793548215.462414179] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+1793548215.4715052 [lio_sam_mapOptimization-11] [INFO] [1793548215.462438103] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+1793548215.4719176 [b2w_rl_sar_controller-5] [INFO] [1793548215.462716097] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+1793548215.4724422 [lio_sam_imuPreintegration-8] [INFO] [1793548215.463022639] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+1793548215.4728937 [robot_state_publisher-2] [INFO] [1793548215.464374096] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+1793548215.6091926 [INFO] [robot_state_publisher-2]: process has finished cleanly [pid 1461105]
+1793548215.6108515 [INFO] [lio_sam_featureExtraction-10]: process has finished cleanly [pid 1462033]
+1793548215.6180828 [INFO] [parameter_bridge-4]: process has finished cleanly [pid 1461109]
+1793548215.6220369 [INFO] [pose_adapter-12]: sending signal 'SIGINT' to process[pose_adapter-12]
+1793548215.6231189 [INFO] [lio_sam_mapOptimization-11]: sending signal 'SIGINT' to process[lio_sam_mapOptimization-11]
+1793548215.6240983 [INFO] [lio_sam_imageProjection-9]: sending signal 'SIGINT' to process[lio_sam_imageProjection-9]
+1793548215.6249983 [INFO] [lio_sam_imuPreintegration-8]: sending signal 'SIGINT' to process[lio_sam_imuPreintegration-8]
+1793548215.6258409 [INFO] [sensor_cloud_disturbance-7]: sending signal 'SIGINT' to process[sensor_cloud_disturbance-7]
+1793548215.6264856 [INFO] [sensor_disturbance-6]: sending signal 'SIGINT' to process[sensor_disturbance-6]
+1793548215.6271248 [INFO] [b2w_rl_sar_controller-5]: sending signal 'SIGINT' to process[b2w_rl_sar_controller-5]
+1793548215.6278789 [INFO] [ign-1]: sending signal 'SIGINT' to process[ign-1]
+1793548215.6308756 [INFO] [lio_sam_imuPreintegration-8]: process has finished cleanly [pid 1462029]
+1793548215.6337297 [INFO] [lio_sam_imageProjection-9]: process has finished cleanly [pid 1462031]
+1793548215.6561701 [INFO] [b2w_rl_sar_controller-5]: process has finished cleanly [pid 1461112]
+1793548215.6599631 [INFO] [lio_sam_mapOptimization-11]: process has finished cleanly [pid 1462035]
+1793548215.8174212 [INFO] [sensor_disturbance-6]: process has finished cleanly [pid 1461114]
+1793548215.8297958 [INFO] [pose_adapter-12]: process has finished cleanly [pid 1462037]
+1793548215.8512156 [ERROR] [sensor_cloud_disturbance-7]: process has died [pid 1461116, exit code 1, cmd '/home/zyd/program/b2w-embodied-navigation-course/install/course_sim/lib/course_sim/sensor_cloud_disturbance --ros-args --params-file /tmp/launch_params_aw2hzu1k --params-file /tmp/launch_params_1747fs4b'].
+1793548216.2436106 [ign-1] [1;32m[Msg] [0m[1;32mApplyJointForce subscribing to Double messages on [[0m[1;32m/model/b2w/joint/FL_foot_joint/cmd_force[0[0m[1;32m[0m
+1793548216.2438993 [ign-1] [1;32m[GUI] [0m[1;32m[Msg] [0m[1;32mUsing server control service [[0m[1;32m/server_control[0m[1;32m][0m[1;32m[0m
+1793548216.2439618 [ign-1] [1;32m[GUI] [0m[1;32m[Msg] [0m[1;32mLoading plugin [[0m[1;32mignition-rendering-ogre2[0m[1;32m][0m[1;32m[0m
+1793548216.2440002 [ign-1] [1;32m[GUI] [0m[1;32m[Msg] [0m[1;32mLoading plugin [[0m[1;32mignition-rendering-ogre2[0m[1;32m][0m[1;32m[0m
+1793548216.2440350 [ign-1] [1;32m[GUI] [0m[1;32m[Msg] [0m[1;32mLoading plugin [[0m[1;32mignition-rendering-ogre2[0m[1;32m][0m[1;32m[0m
+1793548216.2440691 [ign-1] [1;32m[GUI] [0m[1;32m[Msg] [0m[1;32mLoading plugin [[0m[1;32mignition-rendering-ogre2[0m[1;32m][0m[1;32m[0m
+1793548216.2441266 [ign-1] [1;32m[GUI] [0m[1;32m[Msg] [0m[1;32mLoading plugin [[0m[1;32mignition-rendering-ogre2[0m[1;32m][0m[1;32m[0m
+1793548216.2441595 [ign-1] [1;32m[GUI] [0m[1;32m[Msg] [0m[1;32mLoading plugin [[0m[1;32mignition-rendering-ogre2[0m[1;32m][0m[1;32m[0m
+1793548216.2441902 [ign-1] [1;32m[GUI] [0m[1;32m[Msg] [0m[1;32mLoading plugin [[0m[1;32mignition-rendering-ogre2[0m[1;32m][0m[1;32m[0m
+1793548216.2442219 [ign-1] [1;32m[GUI] [0m[1;32m[Msg] [0m[1;32mMove to service on [[0m[1;32m/gui/move_to[0m[1;32m][0m[1;32m[0m
+1793548216.2442520 [ign-1] [1;32m[GUI] [0m[1;32m[Msg] [0m[1;32mFollow service on [[0m[1;32m/gui/follow[0m[1;32m][0m[1;32m[0m
+1793548216.2442944 [ign-1] [1;32m[GUI] [0m[1;32m[Msg] [0m[1;32mMove to pose service on [[0m[1;32m/gui/move_to/pose[0m[1;32m][0m[1;32m[0m
+1793548216.2443247 [ign-1] [1;32m[GUI] [0m[1;32m[Msg] [0m[1;32mCamera pose topic advertised on [[0m[1;32m/gui/camera/pose[0m[1;32m][0m[1;32m[0m
+1793548216.2443564 [ign-1] [1;32m[GUI] [0m[1;32m[Msg] [0m[1;32mFollow offset service on [[0m[1;32m/gui/follow/offset[0m[1;32m][0m[1;32m[0m
+1793548216.2443855 [ign-1] [1;32m[GUI] [0m[1;32m[Msg] [0m[1;32mLoading plugin [[0m[1;32mignition-rendering-ogre2[0m[1;32m][0m[1;32m[0m
+1793548216.2444150 [ign-1] [1;32m[GUI] [0m[1;32m[Msg] [0m[1;32mLoading plugin [[0m[1;32mignition-rendering-ogre2[0m[1;32m][0m[1;32m[0m
+1793548216.2444465 [ign-1] [1;32m[GUI] [0m[1;32m[Msg] [0m[1;32mLoading plugin [[0m[1;32mignition-rendering-ogre2[0m[1;32m][0m[1;32m[0m
+1793548216.2444761 [ign-1] [1;32m[GUI] [0m[1;32m[Msg] [0m[1;32mLoading plugin [[0m[1;32mignition-rendering-ogre2[0m[1;32m][0m[1;32m[0m
+1793548220.6270669 [ERROR] [ign-1]: process[ign-1] failed to terminate '5' seconds after receiving 'SIGINT', escalating to 'SIGTERM'
+1793548220.6295099 [INFO] [ign-1]: sending signal 'SIGTERM' to process[ign-1]
+1793548221.7329781 [ign-1] /usr/lib/ruby/ignition/cmdgazebo6.rb:183:in `kill': No such process (Errno::ESRCH)
+1793548221.7333908 [ign-1] 	from /usr/lib/ruby/ignition/cmdgazebo6.rb:183:in `killProcess'
+1793548221.7335503 [ign-1] 	from /usr/lib/ruby/ignition/cmdgazebo6.rb:509:in `handle_signal'
+1793548221.7336509 [ign-1] 	from /usr/lib/ruby/ignition/cmdgazebo6.rb:519:in `block in execute'
+1793548221.7337065 [ign-1] /usr/lib/ruby/ignition/cmdgazebo6.rb:183:in `kill': No such process (Errno::ESRCH)
+1793548221.7337601 [ign-1] 	from /usr/lib/ruby/ignition/cmdgazebo6.rb:183:in `killProcess'
+1793548221.7338099 [ign-1] 	from /usr/lib/ruby/ignition/cmdgazebo6.rb:509:in `handle_signal'
+1793548221.7338598 [ign-1] 	from /usr/lib/ruby/ignition/cmdgazebo6.rb:514:in `block in execute'
+1793548221.7339108 [ign-1] 	from /usr/lib/ruby/ignition/cmdgazebo6.rb:524:in `wait2'
+1793548221.7339616 [ign-1] 	from /usr/lib/ruby/ignition/cmdgazebo6.rb:524:in `execute'
+1793548221.7340119 [ign-1] 	from /usr/bin/ign:301:in `<main>'
+1793548221.7345247 [ign-1] Escalating to SIGKILL on [Ignition Gazebo Server]
+1793548221.7450204 [ERROR] [ign-1]: process has died [pid 1461096, exit code 1, cmd 'ign gazebo -r -v 3 /home/zyd/program/b2w-embodied-navigation-course/third_party/aws_warehouse/warehouse.world'].

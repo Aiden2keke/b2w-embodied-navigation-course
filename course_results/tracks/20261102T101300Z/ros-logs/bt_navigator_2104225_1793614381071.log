@@ -1,0 +1,53 @@
+[INFO] [1793614381.329366518] [bt_navigator]: 
+	bt_navigator lifecycle node launched. 
+	Waiting on external lifecycle transitions to activate
+	See https://design.ros2.org/articles/node_lifecycle.html for more information.
+[INFO] [1793614381.331719531] [bt_navigator]: Creating
+[INFO] [1793614381.997750840] [bt_navigator]: Configuring
+[INFO] [1793614408.307986674] [bt_navigator]: Activating
+[INFO] [1793614408.473395866] [bt_navigator]: Creating bond (bt_navigator) to lifecycle manager.
+[INFO] [1793614558.210180427] [bt_navigator]: Begin navigating from current location (-0.35, -0.00) to (0.41, 6.29)
+[WARN] [1793614558.476883420] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[WARN] [1793614561.318844939] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[WARN] [1793614561.332799979] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[WARN] [1793614563.821114172] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[WARN] [1793614564.454239343] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[WARN] [1793614564.530403752] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[WARN] [1793614567.591755664] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[WARN] [1793614569.365443812] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[WARN] [1793614570.720557914] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[WARN] [1793614573.244518103] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[WARN] [1793614573.512797805] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[WARN] [1793614573.711474953] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[WARN] [1793614575.181311847] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[WARN] [1793614577.845554533] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[WARN] [1793614583.013431973] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[WARN] [1793614586.371081341] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[WARN] [1793614586.762724701] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[WARN] [1793614587.154487327] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[WARN] [1793614587.394074984] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[INFO] [1793614588.451045401] [bt_navigator]: Goal succeeded
+[INFO] [1793614591.303729295] [bt_navigator]: Begin navigating from current location (0.36, 6.18) to (-4.27, 6.29)
+[WARN] [1793614596.491118327] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[WARN] [1793614596.493945358] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[WARN] [1793614599.134352735] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[WARN] [1793614601.754355813] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[WARN] [1793614604.874763150] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[WARN] [1793614605.067461934] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[WARN] [1793614605.525003485] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[WARN] [1793614605.895886266] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[WARN] [1793614607.346203532] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[WARN] [1793614607.976227995] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[WARN] [1793614608.184056775] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[INFO] [1793614612.174332952] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[INFO] [1793614612.174627884] [bt_navigator]: Running Nav2 LifecycleNode rcl preshutdown (bt_navigator)
+[INFO] [1793614612.174895707] [bt_navigator]: Deactivating
+[WARN] [1793614612.174943443] [bt_navigator]: [navigate_to_pose] [ActionServer] Requested to deactivate server but goal is still executing. Should check if action server is running before deactivating.
+[ERROR] [1793614612.209303702] [bt_navigator_navigate_to_pose_rclcpp_node]: Failed to get result for wait in node halt!
+[WARN] [1793614612.209473734] [bt_navigator]: [navigate_to_pose] [ActionServer] Aborting handle.
+[INFO] [1793614612.209648806] [bt_navigator]: Goal canceled
+[WARN] [1793614612.209668271] [bt_navigator]: [navigate_to_pose] [ActionServer] Stopping the thread per request.
+[INFO] [1793614612.209781598] [bt_navigator]: Destroying bond (bt_navigator) to lifecycle manager.
+[INFO] [1793614612.231601486] [bt_navigator]: Cleaning up
+[INFO] [1793614612.423449742] [bt_navigator]: Completed Cleaning up
+[INFO] [1793614612.423556428] [bt_navigator]: Destroying bond (bt_navigator) to lifecycle manager.

@@ -1,0 +1,26 @@
+{
+  "kind": "manual_warehouse_view",
+  "outcome": "stopped_by_user",
+  "success": null,
+  "stop_reason": "interrupted",
+  "motion_enabled": false,
+  "trajectory_samples": 100,
+  "trajectory_source": "public map->base_link TF",
+  "map_source": null,
+  "map_sha256": null,
+  "map_error": null,
+  "tf_epoch_count": 1,
+  "map_stamp_ns": null,
+  "last_tf_age_s": 0.52,
+  "final_position": {
+    "x": -0.3436438244658869,
+    "y": -0.00021093677497008653,
+    "yaw_rad": -2.6331438776015368e-05
+  },
+  "artifacts": {
+    "csv": "/home/zyd/program/b2w-embodied-navigation-course/course_results/tracks/20261101T154828Z/trajectory.csv",
+    "image": "/home/zyd/program/b2w-embodied-navigation-course/course_results/tracks/20261101T154828Z/trajectory.png"
+  },
+  "started_utc": "2026-11-01T15:48:29.224028+00:00",
+  "ended_utc": "2026-11-01T15:49:15.380012+00:00"
+}

@@ -1,0 +1,1049 @@
+/home/zyd/program/b2w-embodied-navigation-course/third_party/aws_warehouse/warehouse.world
+Warehouse ROS_DOMAIN_ID=91; use the same domain for goal/recording terminals.
+B2-W ROS_DOMAIN_ID=91 ROS_LOCALHOST_ONLY=1
+[INFO] [launch]: All log files can be found below /tmp/warehouse-baseline-20261013/ros-log/2026-10-13-15-22-52-924511-zyd-MS-7D97-3085869
+[INFO] [launch]: Default logging verbosity is set to INFO
+[INFO] [ign-1]: process started with pid [3085935]
+[INFO] [robot_state_publisher-2]: process started with pid [3085937]
+[INFO] [create-3]: process started with pid [3085939]
+[INFO] [parameter_bridge-4]: process started with pid [3085941]
+[INFO] [b2w_rl_sar_controller-5]: process started with pid [3085943]
+[INFO] [sensor_disturbance-6]: process started with pid [3085945]
+[INFO] [controller_server-7]: process started with pid [3085947]
+[INFO] [smoother_server-8]: process started with pid [3085949]
+[INFO] [planner_server-9]: process started with pid [3085951]
+[INFO] [behavior_server-10]: process started with pid [3085953]
+[INFO] [bt_navigator-11]: process started with pid [3085955]
+[INFO] [waypoint_follower-12]: process started with pid [3085957]
+[INFO] [velocity_smoother-13]: process started with pid [3085959]
+[INFO] [map_projector-14]: process started with pid [3085961]
+[INFO] [lifecycle_manager-15]: process started with pid [3085963]
+[INFO] [velocity_adapter-16]: process started with pid [3085965]
+[INFO] [goal_manager-17]: process started with pid [3085968]
+[INFO] [rviz2-18]: process started with pid [3085971]
+[lifecycle_manager-15] [INFO] [1791876173.240715696] [lifecycle_manager_navigation]: Creating
+[velocity_smoother-13] [INFO] [1791876173.240973099] [velocity_smoother]: 
+[velocity_smoother-13] 	velocity_smoother lifecycle node launched. 
+[velocity_smoother-13] 	Waiting on external lifecycle transitions to activate
+[velocity_smoother-13] 	See https://design.ros2.org/articles/node_lifecycle.html for more information.
+[lifecycle_manager-15] [INFO] [1791876173.258265273] [lifecycle_manager_navigation]: [34m[1mCreating and initializing lifecycle service clients[0m[0m
+[smoother_server-8] [INFO] [1791876173.266371850] [smoother_server]: 
+[smoother_server-8] 	smoother_server lifecycle node launched. 
+[smoother_server-8] 	Waiting on external lifecycle transitions to activate
+[smoother_server-8] 	See https://design.ros2.org/articles/node_lifecycle.html for more information.
+[smoother_server-8] [INFO] [1791876173.269695834] [smoother_server]: Creating smoother server
+[behavior_server-10] [INFO] [1791876173.306541508] [behavior_server]: 
+[behavior_server-10] 	behavior_server lifecycle node launched. 
+[behavior_server-10] 	Waiting on external lifecycle transitions to activate
+[behavior_server-10] 	See https://design.ros2.org/articles/node_lifecycle.html for more information.
+[waypoint_follower-12] [INFO] [1791876173.325474156] [waypoint_follower]: 
+[waypoint_follower-12] 	waypoint_follower lifecycle node launched. 
+[waypoint_follower-12] 	Waiting on external lifecycle transitions to activate
+[waypoint_follower-12] 	See https://design.ros2.org/articles/node_lifecycle.html for more information.
+[waypoint_follower-12] [INFO] [1791876173.325982005] [waypoint_follower]: Creating
+[create-3] [INFO] [1791876173.328267545] [ros_gz_sim]: Waiting messages on topic [/b2w/robot_description].
+[controller_server-7] [INFO] [1791876173.328725261] [controller_server]: 
+[controller_server-7] 	controller_server lifecycle node launched. 
+[controller_server-7] 	Waiting on external lifecycle transitions to activate
+[controller_server-7] 	See https://design.ros2.org/articles/node_lifecycle.html for more information.
+[planner_server-9] [INFO] [1791876173.332690708] [planner_server]: 
+[planner_server-9] 	planner_server lifecycle node launched. 
+[planner_server-9] 	Waiting on external lifecycle transitions to activate
+[planner_server-9] 	See https://design.ros2.org/articles/node_lifecycle.html for more information.
+[controller_server-7] [INFO] [1791876173.333924381] [controller_server]: Creating controller server
+[planner_server-9] [INFO] [1791876173.333990180] [planner_server]: Creating
+[bt_navigator-11] [INFO] [1791876173.344312273] [bt_navigator]: 
+[bt_navigator-11] 	bt_navigator lifecycle node launched. 
+[bt_navigator-11] 	Waiting on external lifecycle transitions to activate
+[bt_navigator-11] 	See https://design.ros2.org/articles/node_lifecycle.html for more information.
+[bt_navigator-11] [INFO] [1791876173.344604141] [bt_navigator]: Creating
+[lifecycle_manager-15] [INFO] [1791876173.352274597] [lifecycle_manager_navigation]: [34m[1mStarting managed nodes bringup...[0m[0m
+[lifecycle_manager-15] [INFO] [1791876173.352340658] [lifecycle_manager_navigation]: [34m[1mConfiguring controller_server[0m[0m
+[planner_server-9] [INFO] [1791876173.366125283] [global_costmap.global_costmap]: 
+[planner_server-9] 	global_costmap lifecycle node launched. 
+[planner_server-9] 	Waiting on external lifecycle transitions to activate
+[planner_server-9] 	See https://design.ros2.org/articles/node_lifecycle.html for more information.
+[planner_server-9] [INFO] [1791876173.366750356] [global_costmap.global_costmap]: Creating Costmap
+[controller_server-7] [INFO] [1791876173.372854301] [local_costmap.local_costmap]: 
+[controller_server-7] 	local_costmap lifecycle node launched. 
+[controller_server-7] 	Waiting on external lifecycle transitions to activate
+[controller_server-7] 	See https://design.ros2.org/articles/node_lifecycle.html for more information.
+[controller_server-7] [INFO] [1791876173.373873201] [local_costmap.local_costmap]: Creating Costmap
+[controller_server-7] [INFO] [1791876173.377290085] [controller_server]: Configuring controller interface
+[controller_server-7] [INFO] [1791876173.377407948] [controller_server]: getting goal checker plugins..
+[controller_server-7] [INFO] [1791876173.377464649] [controller_server]: Controller frequency set to 20.0000Hz
+[controller_server-7] [INFO] [1791876173.377499564] [local_costmap.local_costmap]: Configuring
+[robot_state_publisher-2] [WARN] [1791876173.381416888] [kdl_parser]: The root link base_link has an inertia specified in the URDF, but KDL does not support a root link with an inertia.  As a workaround, you can add an extra dummy link to your URDF.
+[robot_state_publisher-2] [INFO] [1791876173.381687305] [b2w_robot_state_publisher]: got segment FL_calf
+[robot_state_publisher-2] [INFO] [1791876173.381854867] [b2w_robot_state_publisher]: got segment FL_foot
+[robot_state_publisher-2] [INFO] [1791876173.381867109] [b2w_robot_state_publisher]: got segment FL_hip
+[robot_state_publisher-2] [INFO] [1791876173.381875817] [b2w_robot_state_publisher]: got segment FL_thigh
+[robot_state_publisher-2] [INFO] [1791876173.381882735] [b2w_robot_state_publisher]: got segment FR_calf
+[robot_state_publisher-2] [INFO] [1791876173.381889861] [b2w_robot_state_publisher]: got segment FR_foot
+[robot_state_publisher-2] [INFO] [1791876173.381896931] [b2w_robot_state_publisher]: got segment FR_hip
+[robot_state_publisher-2] [INFO] [1791876173.381903442] [b2w_robot_state_publisher]: got segment FR_thigh
+[robot_state_publisher-2] [INFO] [1791876173.381910735] [b2w_robot_state_publisher]: got segment RL_calf
+[robot_state_publisher-2] [INFO] [1791876173.381917439] [b2w_robot_state_publisher]: got segment RL_foot
+[robot_state_publisher-2] [INFO] [1791876173.381924164] [b2w_robot_state_publisher]: got segment RL_hip
+[robot_state_publisher-2] [INFO] [1791876173.381930868] [b2w_robot_state_publisher]: got segment RL_thigh
+[robot_state_publisher-2] [INFO] [1791876173.382033505] [b2w_robot_state_publisher]: got segment RR_calf
+[robot_state_publisher-2] [INFO] [1791876173.382041495] [b2w_robot_state_publisher]: got segment RR_foot
+[robot_state_publisher-2] [INFO] [1791876173.382049050] [b2w_robot_state_publisher]: got segment RR_hip
+[robot_state_publisher-2] [INFO] [1791876173.382055275] [b2w_robot_state_publisher]: got segment RR_thigh
+[robot_state_publisher-2] [INFO] [1791876173.382061946] [b2w_robot_state_publisher]: got segment base_link
+[robot_state_publisher-2] [INFO] [1791876173.382068432] [b2w_robot_state_publisher]: got segment collision_plate
+[robot_state_publisher-2] [INFO] [1791876173.382076375] [b2w_robot_state_publisher]: got segment f_dc_link
+[robot_state_publisher-2] [INFO] [1791876173.382085054] [b2w_robot_state_publisher]: got segment f_oc_link
+[robot_state_publisher-2] [INFO] [1791876173.382092087] [b2w_robot_state_publisher]: got segment head_Link
+[robot_state_publisher-2] [INFO] [1791876173.382098895] [b2w_robot_state_publisher]: got segment imu_link
+[robot_state_publisher-2] [INFO] [1791876173.382105859] [b2w_robot_state_publisher]: got segment lidar_link
+[robot_state_publisher-2] [INFO] [1791876173.382112922] [b2w_robot_state_publisher]: got segment logo_link
+[robot_state_publisher-2] [INFO] [1791876173.382119201] [b2w_robot_state_publisher]: got segment r_dc_link
+[robot_state_publisher-2] [INFO] [1791876173.382125759] [b2w_robot_state_publisher]: got segment r_oc_ink
+[robot_state_publisher-2] [INFO] [1791876173.382132076] [b2w_robot_state_publisher]: got segment tail_link
+[robot_state_publisher-2] [INFO] [1791876173.382138021] [b2w_robot_state_publisher]: got segment zed_x_camera
+[controller_server-7] [INFO] [1791876173.385004081] [local_costmap.local_costmap]: Using plugin "static_layer"
+[controller_server-7] [INFO] [1791876173.397333457] [local_costmap.local_costmap]: Subscribing to the map topic (/map) with transient local durability
+[controller_server-7] [INFO] [1791876173.399824890] [local_costmap.local_costmap]: Initialized plugin "static_layer"
+[controller_server-7] [INFO] [1791876173.399876203] [local_costmap.local_costmap]: Using plugin "obstacle_layer"
+[controller_server-7] [INFO] [1791876173.400242314] [local_costmap.local_costmap]: Subscribed to Topics: lidar
+[controller_server-7] [INFO] [1791876173.403376925] [local_costmap.local_costmap]: Initialized plugin "obstacle_layer"
+[controller_server-7] [INFO] [1791876173.403439252] [local_costmap.local_costmap]: Using plugin "inflation_layer"
+[controller_server-7] [INFO] [1791876173.403990940] [local_costmap.local_costmap]: Initialized plugin "inflation_layer"
+[b2w_rl_sar_controller-5] [INFO] [1791876173.405103322] [b2w_rl_sar_controller]: Loaded rl_sar B2-W policy: 57 observations, 16 actions, 50 Hz policy / 200 Hz torque, /home/zyd/program/b2w-embodied-navigation-course/third_party/b2w_rl_sar/policy/b2w/robot_lab/policy.onnx
+[controller_server-7] [INFO] [1791876173.413266641] [controller_server]: Created progress_checker : progress_checker of type nav2_controller::SimpleProgressChecker
+[controller_server-7] [INFO] [1791876173.413946623] [controller_server]: Created goal checker : general_goal_checker of type nav2_controller::SimpleGoalChecker
+[controller_server-7] [INFO] [1791876173.414201690] [controller_server]: Controller Server has general_goal_checker  goal checkers available.
+[controller_server-7] [INFO] [1791876173.415457947] [controller_server]: Created controller : FollowPath of type dwb_core::DWBLocalPlanner
+[controller_server-7] [INFO] [1791876173.415853540] [controller_server]: Setting transform_tolerance to 0.200000
+[controller_server-7] [INFO] [1791876173.424667585] [controller_server]: Using critic "RotateToGoal" (dwb_critics::RotateToGoalCritic)
+[controller_server-7] [INFO] [1791876173.424930555] [controller_server]: Critic plugin initialized
+[controller_server-7] [INFO] [1791876173.424998260] [controller_server]: Using critic "Oscillation" (dwb_critics::OscillationCritic)
+[controller_server-7] [INFO] [1791876173.425166994] [controller_server]: Critic plugin initialized
+[controller_server-7] [INFO] [1791876173.425213952] [controller_server]: Using critic "BaseObstacle" (dwb_critics::BaseObstacleCritic)
+[controller_server-7] [INFO] [1791876173.425292628] [controller_server]: Critic plugin initialized
+[controller_server-7] [INFO] [1791876173.425339773] [controller_server]: Using critic "GoalAlign" (dwb_critics::GoalAlignCritic)
+[controller_server-7] [INFO] [1791876173.425480087] [controller_server]: Critic plugin initialized
+[controller_server-7] [INFO] [1791876173.425514622] [controller_server]: Using critic "PathAlign" (dwb_critics::PathAlignCritic)
+[controller_server-7] [INFO] [1791876173.425643278] [controller_server]: Critic plugin initialized
+[controller_server-7] [INFO] [1791876173.425677167] [controller_server]: Using critic "PathDist" (dwb_critics::PathDistCritic)
+[controller_server-7] [INFO] [1791876173.425765595] [controller_server]: Critic plugin initialized
+[controller_server-7] [INFO] [1791876173.425805127] [controller_server]: Using critic "GoalDist" (dwb_critics::GoalDistCritic)
+[controller_server-7] [INFO] [1791876173.425905603] [controller_server]: Critic plugin initialized
+[controller_server-7] [INFO] [1791876173.425918309] [controller_server]: Controller Server has FollowPath  controllers available.
+[lifecycle_manager-15] [INFO] [1791876173.433178414] [lifecycle_manager_navigation]: [34m[1mConfiguring smoother_server[0m[0m
+[smoother_server-8] [INFO] [1791876173.433392154] [smoother_server]: Configuring smoother server
+[smoother_server-8] [INFO] [1791876173.441790350] [smoother_server]: Created smoother : simple_smoother of type nav2_smoother::SimpleSmoother
+[smoother_server-8] [INFO] [1791876173.442038576] [smoother_server]: Smoother Server has simple_smoother  smoothers available.
+[lifecycle_manager-15] [INFO] [1791876173.447811296] [lifecycle_manager_navigation]: [34m[1mConfiguring planner_server[0m[0m
+[planner_server-9] [INFO] [1791876173.448245143] [planner_server]: Configuring
+[planner_server-9] [INFO] [1791876173.448306711] [global_costmap.global_costmap]: Configuring
+[planner_server-9] [INFO] [1791876173.454865707] [global_costmap.global_costmap]: Using plugin "static_layer"
+[planner_server-9] [INFO] [1791876173.456767081] [global_costmap.global_costmap]: Subscribing to the map topic (/map) with transient local durability
+[planner_server-9] [INFO] [1791876173.457598552] [global_costmap.global_costmap]: Initialized plugin "static_layer"
+[planner_server-9] [INFO] [1791876173.457623338] [global_costmap.global_costmap]: Using plugin "obstacle_layer"
+[planner_server-9] [INFO] [1791876173.457817202] [global_costmap.global_costmap]: Subscribed to Topics: lidar
+[planner_server-9] [INFO] [1791876173.459383680] [global_costmap.global_costmap]: Initialized plugin "obstacle_layer"
+[planner_server-9] [INFO] [1791876173.459401415] [global_costmap.global_costmap]: Using plugin "inflation_layer"
+[planner_server-9] [INFO] [1791876173.459786493] [global_costmap.global_costmap]: Initialized plugin "inflation_layer"
+[planner_server-9] [INFO] [1791876173.465581597] [planner_server]: Created global planner plugin GridBased of type nav2_navfn_planner/NavfnPlanner
+[planner_server-9] [INFO] [1791876173.465610573] [planner_server]: Configuring plugin GridBased of type NavfnPlanner
+[planner_server-9] [INFO] [1791876173.466181094] [planner_server]: Planner Server has GridBased  planners available.
+[lifecycle_manager-15] [INFO] [1791876173.475381680] [lifecycle_manager_navigation]: [34m[1mConfiguring behavior_server[0m[0m
+[behavior_server-10] [INFO] [1791876173.475734406] [behavior_server]: Configuring
+[behavior_server-10] [INFO] [1791876173.484092201] [behavior_server]: Creating behavior plugin spin of type nav2_behaviors/Spin
+[behavior_server-10] [INFO] [1791876173.485073545] [behavior_server]: Configuring spin
+[behavior_server-10] [INFO] [1791876173.490602286] [behavior_server]: Creating behavior plugin backup of type nav2_behaviors/BackUp
+[behavior_server-10] [INFO] [1791876173.491084606] [behavior_server]: Configuring backup
+[behavior_server-10] [INFO] [1791876173.494259217] [behavior_server]: Creating behavior plugin drive_on_heading of type nav2_behaviors/DriveOnHeading
+[behavior_server-10] [INFO] [1791876173.495016761] [behavior_server]: Configuring drive_on_heading
+[behavior_server-10] [INFO] [1791876173.499297991] [behavior_server]: Creating behavior plugin assisted_teleop of type nav2_behaviors/AssistedTeleop
+[behavior_server-10] [INFO] [1791876173.500878988] [behavior_server]: Configuring assisted_teleop
+[behavior_server-10] [INFO] [1791876173.507521846] [behavior_server]: Creating behavior plugin wait of type nav2_behaviors/Wait
+[behavior_server-10] [INFO] [1791876173.508268569] [behavior_server]: Configuring wait
+[lifecycle_manager-15] [INFO] [1791876173.512586839] [lifecycle_manager_navigation]: [34m[1mConfiguring bt_navigator[0m[0m
+[bt_navigator-11] [INFO] [1791876173.512791755] [bt_navigator]: Configuring
+[lifecycle_manager-15] [INFO] [1791876173.587605988] [lifecycle_manager_navigation]: [34m[1mConfiguring waypoint_follower[0m[0m
+[waypoint_follower-12] [INFO] [1791876173.588156212] [waypoint_follower]: Configuring
+[ign-1] [1;33mWarning [Utils.cc:129][0m [/sdf/world[@name="course_world"]/model[@name="aws_robomaker_warehouse_Bucket_01_020"]/link[@name="body"]/pose[@frame=""]:/home/zyd/program/b2w-embodied-navigation-course/third_party/aws_warehouse/warehouse.world:L373]: XML Attribute[frame] in element[pose] not defined in SDF.
+[ign-1] [1;33mWarning [Utils.cc:129][0m [/sdf/world[@name="course_world"]/model[@name="aws_robomaker_warehouse_Bucket_01_020"]/link[@name="body"]/collision[@name="collision_0"]/pose[@frame=""]:/home/zyd/program/b2w-embodied-navigation-course/third_party/aws_warehouse/warehouse.world:L390]: XML Attribute[frame] in element[pose] not defined in SDF.
+[ign-1] [1;33mWarning [Utils.cc:129][0m [/sdf/world[@name="course_world"]/model[@name="aws_robomaker_warehouse_Bucket_01_021"]/link[@name="body"]/pose[@frame=""]:/home/zyd/program/b2w-embodied-navigation-course/third_party/aws_warehouse/warehouse.world:L424]: XML Attribute[frame] in element[pose] not defined in SDF.
+[ign-1] [1;33mWarning [Utils.cc:129][0m [/sdf/world[@name="course_world"]/model[@name="aws_robomaker_warehouse_Bucket_01_021"]/link[@name="body"]/collision[@name="collision_0"]/pose[@frame=""]:/home/zyd/program/b2w-embodied-navigation-course/third_party/aws_warehouse/warehouse.world:L441]: XML Attribute[frame] in element[pose] not defined in SDF.
+[ign-1] [1;33mWarning [Utils.cc:129][0m [/sdf/world[@name="course_world"]/model[@name="aws_robomaker_warehouse_Bucket_01_022"]/link[@name="body"]/pose[@frame=""]:/home/zyd/program/b2w-embodied-navigation-course/third_party/aws_warehouse/warehouse.world:L475]: XML Attribute[frame] in element[pose] not defined in SDF.
+[ign-1] [1;33mWarning [Utils.cc:129][0m [/sdf/world[@name="course_world"]/model[@name="aws_robomaker_warehouse_Bucket_01_022"]/link[@name="body"]/collision[@name="collision_0"]/pose[@frame=""]:/home/zyd/program/b2w-embodied-navigation-course/third_party/aws_warehouse/warehouse.world:L492]: XML Attribute[frame] in element[pose] not defined in SDF.
+[waypoint_follower-12] [INFO] [1791876173.628640770] [waypoint_follower]: Created waypoint_task_executor : wait_at_waypoint of type nav2_waypoint_follower::WaitAtWaypoint
+[lifecycle_manager-15] [INFO] [1791876173.630328341] [lifecycle_manager_navigation]: [34m[1mConfiguring velocity_smoother[0m[0m
+[velocity_smoother-13] [INFO] [1791876173.630665672] [velocity_smoother]: Configuring velocity smoother
+[lifecycle_manager-15] [INFO] [1791876173.636056300] [lifecycle_manager_navigation]: [34m[1mActivating controller_server[0m[0m
+[controller_server-7] [INFO] [1791876173.636395918] [controller_server]: Activating
+[controller_server-7] [INFO] [1791876173.636474836] [local_costmap.local_costmap]: Activating
+[controller_server-7] [INFO] [1791876173.636495655] [local_costmap.local_costmap]: Checking transform
+[controller_server-7] [INFO] [1791876173.636545566] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[sensor_disturbance-6] [INFO] [1791876173.707150362] [sensor_disturbance]: XT32 snapshot time=0; IMU attitude from gyro/gravity measurements
+[create-3] [INFO] [1791876173.866168215] [ros_gz_sim]: Requested creation of entity.
+[create-3] [INFO] [1791876173.866212481] [ros_gz_sim]: OK creation of entity.
+[INFO] [create-3]: process has finished cleanly [pid 3085939]
+[controller_server-7] [INFO] [1791876174.136589516] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[ign-1] [1;33m[GUI] [Wrn] [Application.cc:802] [0m[1;33m[QT] file::/Gazebo/GazeboDrawer.qml:242:3: QML Connections: Implicitly defined onFoo properties in Connections are deprecated. Use this syntax instead: function onFoo(<arguments>) { ... }[0m[1;33m[0m
+[rviz2-18] [INFO] [1791876174.249741102] [rviz2]: Stereo is NOT SUPPORTED
+[rviz2-18] [INFO] [1791876174.249826502] [rviz2]: OpenGl version: 4.6 (GLSL 4.6)
+[rviz2-18] [INFO] [1791876174.346763445] [rviz2]: Stereo is NOT SUPPORTED
+[parameter_bridge-4] [INFO] [1791876174.357459823] [ros_gz_bridge]: Creating GZ->ROS Bridge: [/clock (ignition.msgs.Clock) -> /clock (rosgraph_msgs/msg/Clock)] (Lazy 0)
+[ign-1] [1;33m[GUI] [Wrn] [Application.cc:802] [0m[1;33m[QT] file::/EntityContextMenuPlugin/EntityContextMenuPlugin.qml:56:5: QML Connections: Implicitly defined onFoo properties in Connections are deprecated. Use this syntax instead: function onFoo(<arguments>) { ... }[0m[1;33m[0m
+[parameter_bridge-4] [INFO] [1791876174.417857962] [ros_gz_bridge]: Creating GZ->ROS Bridge: [/joint_states (ignition.msgs.Model) -> /sim/raw/joint_states (sensor_msgs/msg/JointState)] (Lazy 0)
+[parameter_bridge-4] [INFO] [1791876174.420235462] [ros_gz_bridge]: Creating GZ->ROS Bridge: [/sim/raw/ground_truth/odom (ignition.msgs.Odometry) -> /sim/ground_truth/odom (nav_msgs/msg/Odometry)] (Lazy 0)
+[parameter_bridge-4] [INFO] [1791876174.421921571] [ros_gz_bridge]: Creating GZ->ROS Bridge: [/sim/raw/ground_truth/odom (ignition.msgs.Odometry) -> /sim/body_state (nav_msgs/msg/Odometry)] (Lazy 0)
+[parameter_bridge-4] [INFO] [1791876174.422714825] [ros_gz_bridge]: Creating GZ->ROS Bridge: [/sim/raw/scan/points (ignition.msgs.PointCloudPacked) -> /sim/raw/pointcloud (sensor_msgs/msg/PointCloud2)] (Lazy 0)
+[parameter_bridge-4] [INFO] [1791876174.423425984] [ros_gz_bridge]: Creating GZ->ROS Bridge: [/sim/raw/imu (ignition.msgs.IMU) -> /sim/raw/imu (sensor_msgs/msg/Imu)] (Lazy 0)
+[parameter_bridge-4] [INFO] [1791876174.424068729] [ros_gz_bridge]: Creating GZ->ROS Bridge: [/collision_plate/force_torque (ignition.msgs.Wrench) -> /collision_plate/force_torque (geometry_msgs/msg/WrenchStamped)] (Lazy 0)
+[parameter_bridge-4] [INFO] [1791876174.424756860] [ros_gz_bridge]: Creating GZ->ROS Bridge: [/zed_x_camera (ignition.msgs.Image) -> /zed/zed_node/depth/depth_registered (sensor_msgs/msg/Image)] (Lazy 0)
+[parameter_bridge-4] [INFO] [1791876174.425384395] [ros_gz_bridge]: Creating ROS->GZ Bridge: [/model/b2w/joint/FR_hip_joint/cmd_force (std_msgs/msg/Float64) -> /model/b2w/joint/FR_hip_joint/cmd_force (ignition.msgs.Double)] (Lazy 0)
+[parameter_bridge-4] [INFO] [1791876174.426266581] [ros_gz_bridge]: Creating ROS->GZ Bridge: [/model/b2w/joint/FR_thigh_joint/cmd_force (std_msgs/msg/Float64) -> /model/b2w/joint/FR_thigh_joint/cmd_force (ignition.msgs.Double)] (Lazy 0)
+[parameter_bridge-4] [INFO] [1791876174.426856613] [ros_gz_bridge]: Creating ROS->GZ Bridge: [/model/b2w/joint/FR_calf_joint/cmd_force (std_msgs/msg/Float64) -> /model/b2w/joint/FR_calf_joint/cmd_force (ignition.msgs.Double)] (Lazy 0)
+[parameter_bridge-4] [INFO] [1791876174.427402465] [ros_gz_bridge]: Creating ROS->GZ Bridge: [/model/b2w/joint/FL_hip_joint/cmd_force (std_msgs/msg/Float64) -> /model/b2w/joint/FL_hip_joint/cmd_force (ignition.msgs.Double)] (Lazy 0)
+[parameter_bridge-4] [INFO] [1791876174.427955089] [ros_gz_bridge]: Creating ROS->GZ Bridge: [/model/b2w/joint/FL_thigh_joint/cmd_force (std_msgs/msg/Float64) -> /model/b2w/joint/FL_thigh_joint/cmd_force (ignition.msgs.Double)] (Lazy 0)
+[parameter_bridge-4] [INFO] [1791876174.428508598] [ros_gz_bridge]: Creating ROS->GZ Bridge: [/model/b2w/joint/FL_calf_joint/cmd_force (std_msgs/msg/Float64) -> /model/b2w/joint/FL_calf_joint/cmd_force (ignition.msgs.Double)] (Lazy 0)
+[parameter_bridge-4] [INFO] [1791876174.429067787] [ros_gz_bridge]: Creating ROS->GZ Bridge: [/model/b2w/joint/RR_hip_joint/cmd_force (std_msgs/msg/Float64) -> /model/b2w/joint/RR_hip_joint/cmd_force (ignition.msgs.Double)] (Lazy 0)
+[parameter_bridge-4] [INFO] [1791876174.429759973] [ros_gz_bridge]: Creating ROS->GZ Bridge: [/model/b2w/joint/RR_thigh_joint/cmd_force (std_msgs/msg/Float64) -> /model/b2w/joint/RR_thigh_joint/cmd_force (ignition.msgs.Double)] (Lazy 0)
+[parameter_bridge-4] [INFO] [1791876174.430633653] [ros_gz_bridge]: Creating ROS->GZ Bridge: [/model/b2w/joint/RR_calf_joint/cmd_force (std_msgs/msg/Float64) -> /model/b2w/joint/RR_calf_joint/cmd_force (ignition.msgs.Double)] (Lazy 0)
+[parameter_bridge-4] [INFO] [1791876174.431482009] [ros_gz_bridge]: Creating ROS->GZ Bridge: [/model/b2w/joint/RL_hip_joint/cmd_force (std_msgs/msg/Float64) -> /model/b2w/joint/RL_hip_joint/cmd_force (ignition.msgs.Double)] (Lazy 0)
+[parameter_bridge-4] [INFO] [1791876174.432355682] [ros_gz_bridge]: Creating ROS->GZ Bridge: [/model/b2w/joint/RL_thigh_joint/cmd_force (std_msgs/msg/Float64) -> /model/b2w/joint/RL_thigh_joint/cmd_force (ignition.msgs.Double)] (Lazy 0)
+[parameter_bridge-4] [INFO] [1791876174.433417030] [ros_gz_bridge]: Creating ROS->GZ Bridge: [/model/b2w/joint/RL_calf_joint/cmd_force (std_msgs/msg/Float64) -> /model/b2w/joint/RL_calf_joint/cmd_force (ignition.msgs.Double)] (Lazy 0)
+[parameter_bridge-4] [INFO] [1791876174.434424472] [ros_gz_bridge]: Creating ROS->GZ Bridge: [/model/b2w/joint/FR_foot_joint/cmd_force (std_msgs/msg/Float64) -> /model/b2w/joint/FR_foot_joint/cmd_force (ignition.msgs.Double)] (Lazy 0)
+[parameter_bridge-4] [INFO] [1791876174.435502841] [ros_gz_bridge]: Creating ROS->GZ Bridge: [/model/b2w/joint/FL_foot_joint/cmd_force (std_msgs/msg/Float64) -> /model/b2w/joint/FL_foot_joint/cmd_force (ignition.msgs.Double)] (Lazy 0)
+[parameter_bridge-4] [INFO] [1791876174.436405570] [ros_gz_bridge]: Creating ROS->GZ Bridge: [/model/b2w/joint/RR_foot_joint/cmd_force (std_msgs/msg/Float64) -> /model/b2w/joint/RR_foot_joint/cmd_force (ignition.msgs.Double)] (Lazy 0)
+[parameter_bridge-4] [INFO] [1791876174.437191862] [ros_gz_bridge]: Creating ROS->GZ Bridge: [/model/b2w/joint/RL_foot_joint/cmd_force (std_msgs/msg/Float64) -> /model/b2w/joint/RL_foot_joint/cmd_force (ignition.msgs.Double)] (Lazy 0)
+[controller_server-7] [INFO] [1791876174.636607018] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[ign-1] [1;33m[GUI] [Wrn] [Application.cc:802] [0m[1;33m[QT] file::/Spawn/Spawn.qml:32:3: QML Connections: Implicitly defined onFoo properties in Connections are deprecated. Use this syntax instead: function onFoo(<arguments>) { ... }[0m[1;33m[0m
+[ign-1] [1;33m[GUI] [Wrn] [Application.cc:802] [0m[1;33m[QT] file::/TransformControl/TransformControl.qml:104:3: QML Connections: Implicitly defined onFoo properties in Connections are deprecated. Use this syntax instead: function onFoo(<arguments>) { ... }[0m[1;33m[0m
+[ign-1] [1;33m[GUI] [Wrn] [Application.cc:802] [0m[1;33m[QT] file::/TransformControl/TransformControl.qml:99:3: QML Connections: Implicitly defined onFoo properties in Connections are deprecated. Use this syntax instead: function onFoo(<arguments>) { ... }[0m[1;33m[0m
+[ign-1] [1;33m[GUI] [Wrn] [Application.cc:802] [0m[1;33m[QT] file::/TransformControl/TransformControl.qml:94:3: QML Connections: Implicitly defined onFoo properties in Connections are deprecated. Use this syntax instead: function onFoo(<arguments>) { ... }[0m[1;33m[0m
+[ign-1] [1;33m[GUI] [Wrn] [Application.cc:802] [0m[1;33m[QT] file::/TransformControl/TransformControl.qml:89:3: QML Connections: Implicitly defined onFoo properties in Connections are deprecated. Use this syntax instead: function onFoo(<arguments>) { ... }[0m[1;33m[0m
+[controller_server-7] [INFO] [1791876175.136582420] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[ign-1] [1;33m[GUI] [Wrn] [Application.cc:802] [0m[1;33m[QT] file::/WorldStats/WorldStats.qml:53:3: QML RowLayout: Binding loop detected for property "x"[0m[1;33m[0m
+[ign-1] [1;33m[Wrn] [ColladaLoader.cc:2394] [0m[1;33mTriangle input semantic: '[0m[1;33mCOLOR[0m[1;33m' is currently[0m[1;33m not supported[0m[1;33m[0m
+[parameter_bridge-4] [INFO] [1791876175.494442128] [ros_gz_bridge]: Passing message from ROS std_msgs/msg/Float64 to Gazebo gz.msgs.Double (showing msg only once per type)
+[ign-1] [1;33m[Wrn] [Component.hh:144] [0m[1;33mTrying to serialize component with data type [[0m[1;33mSt6vectorIdSaIdEE[0m[1;33m], which doesn't have [0m[1;33m`operator<<`. Component will not be serialized.[0m[1;33m[0m
+[sensor_disturbance-6] [WARN] [1791876175.497445248] [sensor_disturbance]: Gravity initialization requires valid acceleration
+[controller_server-7] [INFO] [1791876175.636609856] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[ign-1] libEGL warning: egl: failed to create dri2 screen
+[ign-1] libEGL warning: egl: failed to create dri2 screen
+[controller_server-7] [INFO] [1791876176.136580415] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[ign-1] [1;33m[Wrn] [ColladaLoader.cc:2394] [0m[1;33mTriangle input semantic: '[0m[1;33mCOLOR[0m[1;33m' is currently[0m[1;33m not supported[0m[1;33m[0m
+[ign-1] [1;33m[Wrn] [ColladaLoader.cc:2394] [0m[1;33mTriangle input semantic: '[0m[1;33mCOLOR[0m[1;33m' is currently[0m[1;33m not supported[0m[1;33m[0m
+[ign-1] [1;33m[GUI] [Wrn] [Component.hh:189] [0m[1;33mTrying to deserialize component with data type [[0m[1;33mSt6vectorIdSaIdEE[0m[1;33m], which doesn't have [0m[1;33m`operator>>`. Component will not be deserialized.[0m[1;33m[0m
+[controller_server-7] [INFO] [1791876176.636578898] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[ign-1] libEGL warning: egl: failed to create dri2 screen
+[ign-1] libEGL warning: egl: failed to create dri2 screen
+[ign-1] [1;33m[GUI] [Wrn] [ColladaLoader.cc:2394] [0m[1;33mTriangle input semantic: '[0m[1;33mCOLOR[0m[1;33m' is currently[0m[1;33m not supported[0m[1;33m[0m
+[ign-1] [1;33m[GUI] [Wrn] [ColladaLoader.cc:2394] [0m[1;33mTriangle input semantic: '[0m[1;33mCOLOR[0m[1;33m' is currently[0m[1;33m not supported[0m[1;33m[0m
+[controller_server-7] [INFO] [1791876177.136614537] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-7] [INFO] [1791876177.636596678] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-7] [INFO] [1791876178.136586702] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-7] [INFO] [1791876178.636622341] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-7] [INFO] [1791876179.136588688] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-7] [INFO] [1791876179.636604912] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-7] [INFO] [1791876180.136582929] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-7] [INFO] [1791876180.636608963] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-7] [INFO] [1791876181.136581758] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-7] [INFO] [1791876181.636621855] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[sensor_disturbance-6] [WARN] [1791876181.722079538] [sensor_disturbance]: Gravity initialization requires valid acceleration
+[controller_server-7] [INFO] [1791876182.136592689] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-7] [INFO] [1791876182.636583919] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-7] [INFO] [1791876183.136948451] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-7] [INFO] [1791876183.636582360] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-7] [INFO] [1791876184.136602680] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[rviz2-18] [INFO] [1791876184.324120761] [rviz]: Message Filter dropping message: frame 'lidar_link' at time 1.500 for reason 'discarding message because the queue is full'
+[controller_server-7] [INFO] [1791876184.636587209] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-7] [INFO] [1791876185.136611607] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-7] [INFO] [1791876185.636581137] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-7] [INFO] [1791876186.136583119] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-7] [INFO] [1791876186.636591247] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[rviz2-18] [INFO] [1791876186.974828927] [rviz]: Message Filter dropping message: frame 'lidar_link' at time 4.100 for reason 'discarding message because the queue is full'
+[controller_server-7] [INFO] [1791876187.136610881] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-7] [INFO] [1791876187.636610225] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-7] [INFO] [1791876188.136593416] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-7] [INFO] [1791876188.636593284] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-7] [INFO] [1791876189.136593086] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[rviz2-18] [INFO] [1791876189.574922413] [rviz]: Message Filter dropping message: frame 'lidar_link' at time 6.700 for reason 'discarding message because the queue is full'
+[controller_server-7] [INFO] [1791876189.636618824] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-7] [INFO] [1791876190.136600387] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-7] [INFO] [1791876190.636598559] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-7] [INFO] [1791876191.136592100] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-7] [INFO] [1791876191.636596783] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-7] [INFO] [1791876192.136621398] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[rviz2-18] [INFO] [1791876192.174867717] [rviz]: Message Filter dropping message: frame 'lidar_link' at time 9.300 for reason 'discarding message because the queue is full'
+[controller_server-7] [INFO] [1791876192.636592305] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[INFO] [lio_sam_imuPreintegration-19]: process started with pid [3086768]
+[INFO] [lio_sam_imageProjection-20]: process started with pid [3086770]
+[INFO] [lio_sam_featureExtraction-21]: process started with pid [3086772]
+[INFO] [lio_sam_mapOptimization-22]: process started with pid [3086774]
+[INFO] [pose_adapter-23]: process started with pid [3086776]
+[controller_server-7] [INFO] [1791876193.136911604] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[lio_sam_featureExtraction-21] [INFO] [1791876193.220680721] [rclcpp]: [1;32m----> Feature Extraction Started.[0m
+[lio_sam_imageProjection-20] [INFO] [1791876193.262232615] [rclcpp]: [1;32m----> Image Projection Started.[0m
+[lio_sam_mapOptimization-22] [INFO] [1791876193.323539550] [rclcpp]: [1;32m----> Map Optimization Started.[0m
+[lio_sam_imuPreintegration-19] [INFO] [1791876193.338129334] [rclcpp]: [1;32m----> IMU Preintegration Started.[0m
+[controller_server-7] [INFO] [1791876193.640327986] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[pose_adapter-23] [INFO] [1791876193.760185644] [pose_adapter]: Public TF from LIO-SAM only; twist from differentiated base poses
+[controller_server-7] [INFO] [1791876194.136592487] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-7] [INFO] [1791876194.636615401] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[rviz2-18] [INFO] [1791876194.873970862] [rviz]: Message Filter dropping message: frame 'lidar_link' at time 11.900 for reason 'discarding message because the queue is full'
+[controller_server-7] [INFO] [1791876195.136621175] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-7] [INFO] [1791876195.636585729] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-7] [INFO] [1791876196.136598153] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-7] [INFO] [1791876196.636596541] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-7] [INFO] [1791876197.136596979] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[rviz2-18] [INFO] [1791876197.424604915] [rviz]: Message Filter dropping message: frame 'lidar_link' at time 14.400 for reason 'discarding message because the queue is full'
+[controller_server-7] [INFO] [1791876197.636597299] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[controller_server-7] [INFO] [1791876198.136585051] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[pose_adapter-23] [INFO] [1791876198.338316148] [pose_adapter]: Ground datum measured from LiDAR: translation z=0.8011 m
+[controller_server-7] [INFO] [1791876198.636893245] [local_costmap.local_costmap]: start
+[controller_server-7] [INFO] [1791876198.841492634] [controller_server]: Creating bond (controller_server) to lifecycle manager.
+[lifecycle_manager-15] [INFO] [1791876198.947013079] [lifecycle_manager_navigation]: Server controller_server connected with bond.
+[lifecycle_manager-15] [INFO] [1791876198.947224484] [lifecycle_manager_navigation]: [34m[1mActivating smoother_server[0m[0m
+[smoother_server-8] [INFO] [1791876198.948174360] [smoother_server]: Activating
+[smoother_server-8] [INFO] [1791876198.948283224] [smoother_server]: Creating bond (smoother_server) to lifecycle manager.
+[controller_server-7] [INFO] [1791876198.999222468] [local_costmap.local_costmap]: StaticLayer: Resizing static layer to 800 X 800 at 0.050000 m/pix
+[planner_server-9] [INFO] [1791876198.999556549] [global_costmap.global_costmap]: StaticLayer: Resizing costmap to 800 X 800 at 0.050000 m/pix
+[rviz2-18] [INFO] [1791876199.041722165] [rviz2]: Trying to create a map of size 800 x 800 using 1 swatches
+[lifecycle_manager-15] [INFO] [1791876199.060860306] [lifecycle_manager_navigation]: Server smoother_server connected with bond.
+[lifecycle_manager-15] [INFO] [1791876199.060939648] [lifecycle_manager_navigation]: [34m[1mActivating planner_server[0m[0m
+[planner_server-9] [INFO] [1791876199.061436055] [planner_server]: Activating
+[planner_server-9] [INFO] [1791876199.061516750] [global_costmap.global_costmap]: Activating
+[planner_server-9] [INFO] [1791876199.061546559] [global_costmap.global_costmap]: Checking transform
+[planner_server-9] [INFO] [1791876199.061720426] [global_costmap.global_costmap]: start
+[planner_server-9] [INFO] [1791876200.113664836] [planner_server]: Activating plugin GridBased of type NavfnPlanner
+[planner_server-9] [INFO] [1791876200.116223319] [planner_server]: Creating bond (planner_server) to lifecycle manager.
+[lifecycle_manager-15] [INFO] [1791876200.222744284] [lifecycle_manager_navigation]: Server planner_server connected with bond.
+[lifecycle_manager-15] [INFO] [1791876200.222850383] [lifecycle_manager_navigation]: [34m[1mActivating behavior_server[0m[0m
+[behavior_server-10] [INFO] [1791876200.223669081] [behavior_server]: Activating
+[behavior_server-10] [INFO] [1791876200.223742979] [behavior_server]: Activating spin
+[behavior_server-10] [INFO] [1791876200.223770699] [behavior_server]: Activating backup
+[behavior_server-10] [INFO] [1791876200.223788307] [behavior_server]: Activating drive_on_heading
+[behavior_server-10] [INFO] [1791876200.223809837] [behavior_server]: Activating assisted_teleop
+[behavior_server-10] [INFO] [1791876200.223828523] [behavior_server]: Activating wait
+[behavior_server-10] [INFO] [1791876200.223858803] [behavior_server]: Creating bond (behavior_server) to lifecycle manager.
+[lifecycle_manager-15] [INFO] [1791876200.330452134] [lifecycle_manager_navigation]: Server behavior_server connected with bond.
+[lifecycle_manager-15] [INFO] [1791876200.330532613] [lifecycle_manager_navigation]: [34m[1mActivating bt_navigator[0m[0m
+[bt_navigator-11] [INFO] [1791876200.330948795] [bt_navigator]: Activating
+[bt_navigator-11] [INFO] [1791876200.430787787] [bt_navigator]: Creating bond (bt_navigator) to lifecycle manager.
+[lifecycle_manager-15] [INFO] [1791876200.541084259] [lifecycle_manager_navigation]: Server bt_navigator connected with bond.
+[lifecycle_manager-15] [INFO] [1791876200.541251860] [lifecycle_manager_navigation]: [34m[1mActivating waypoint_follower[0m[0m
+[waypoint_follower-12] [INFO] [1791876200.542068357] [waypoint_follower]: Activating
+[waypoint_follower-12] [INFO] [1791876200.542175913] [waypoint_follower]: Creating bond (waypoint_follower) to lifecycle manager.
+[lifecycle_manager-15] [INFO] [1791876200.651317522] [lifecycle_manager_navigation]: Server waypoint_follower connected with bond.
+[lifecycle_manager-15] [INFO] [1791876200.651370383] [lifecycle_manager_navigation]: [34m[1mActivating velocity_smoother[0m[0m
+[velocity_smoother-13] [INFO] [1791876200.651767509] [velocity_smoother]: Activating
+[velocity_smoother-13] [INFO] [1791876200.651844333] [velocity_smoother]: Creating bond (velocity_smoother) to lifecycle manager.
+[lifecycle_manager-15] [INFO] [1791876200.757099536] [lifecycle_manager_navigation]: Server velocity_smoother connected with bond.
+[lifecycle_manager-15] [INFO] [1791876200.757159576] [lifecycle_manager_navigation]: [34m[1mManaged nodes are active[0m[0m
+[lifecycle_manager-15] [INFO] [1791876200.757169738] [lifecycle_manager_navigation]: [34m[1mCreating bond timer...[0m[0m
+[rviz2-18] [INFO] [1791876207.950468411] [rviz]: Message Filter dropping message: frame 'lidar_link' at time 15.500 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[goal_manager-17] [INFO] [1791876253.462292033] [goal_manager]: Goal 20261013T072413.440645Z: waiting for Nav2
+[bt_navigator-11] [INFO] [1791876253.536038714] [bt_navigator]: Begin navigating from current location (-0.34, -0.00) to (1.00, -1.00)
+[controller_server-7] [INFO] [1791876253.567840777] [controller_server]: Received a goal, begin computing control effort.
+[controller_server-7] [WARN] [1791876253.567986714] [controller_server]: No goal checker was specified in parameter 'current_goal_checker'. Server will use only plugin loaded general_goal_checker . This warning will appear once.
+[controller_server-7] [INFO] [1791876254.618536283] [controller_server]: Passing new path to controller.
+[controller_server-7] [INFO] [1791876255.668511723] [controller_server]: Passing new path to controller.
+[controller_server-7] [INFO] [1791876256.668517574] [controller_server]: Passing new path to controller.
+[controller_server-7] [INFO] [1791876257.719207397] [controller_server]: Passing new path to controller.
+[controller_server-7] [INFO] [1791876258.673419868] [controller_server]: Reached the goal!
+[bt_navigator-11] [INFO] [1791876258.706830958] [bt_navigator]: Goal succeeded
+[goal_manager-17] [INFO] [1791876258.710322079] [goal_manager]: Navigation succeeded; metrics saved for 20261013T072413.440645Z
+[rviz2-18] [INFO] [1791876598.665272603] [rviz2]: Setting goal pose: Frame:map, Position(1.66746, -1.63192, 0), Orientation(0, 0, 0.768348, 0.640033) = Angle: 1.75251
+[goal_manager-17] [INFO] [1791876598.666950556] [goal_manager]: Goal 20261013T072958.666301Z: waiting for Nav2
+[bt_navigator-11] [INFO] [1791876598.736800859] [bt_navigator]: Begin navigating from current location (1.30, -0.95) to (1.67, -1.63)
+[controller_server-7] [INFO] [1791876598.767601901] [controller_server]: Received a goal, begin computing control effort.
+[controller_server-7] [INFO] [1791876599.817932862] [controller_server]: Passing new path to controller.
+[controller_server-7] [INFO] [1791876600.867931159] [controller_server]: Passing new path to controller.
+[controller_server-7] [INFO] [1791876601.868731071] [controller_server]: Passing new path to controller.
+[controller_server-7] [INFO] [1791876602.917929971] [controller_server]: Passing new path to controller.
+[controller_server-7] [INFO] [1791876603.917930760] [controller_server]: Passing new path to controller.
+[controller_server-7] [INFO] [1791876604.967945881] [controller_server]: Passing new path to controller.
+[controller_server-7] [INFO] [1791876606.017951786] [controller_server]: Passing new path to controller.
+[controller_server-7] [INFO] [1791876607.017939896] [controller_server]: Passing new path to controller.
+[controller_server-7] [INFO] [1791876608.067943005] [controller_server]: Passing new path to controller.
+[controller_server-7] [INFO] [1791876609.067928246] [controller_server]: Passing new path to controller.
+[controller_server-7] [INFO] [1791876610.117926018] [controller_server]: Passing new path to controller.
+[controller_server-7] [INFO] [1791876611.167941489] [controller_server]: Passing new path to controller.
+[controller_server-7] [INFO] [1791876612.167922923] [controller_server]: Passing new path to controller.
+[rviz2-18] [INFO] [1791876612.261649372] [rviz2]: Setting goal pose: Frame:map, Position(-0.927945, 5.6564, 0), Orientation(0, 0, 0.768348, 0.640033) = Angle: 1.75251
+[goal_manager-17] [INFO] [1791876612.264664149] [goal_manager]: Navigation replaced; metrics saved for 20261013T072958.666301Z
+[goal_manager-17] [INFO] [1791876612.265300671] [goal_manager]: Goal 20261013T073012.264874Z: waiting for Nav2
+[controller_server-7] [INFO] [1791876612.267924517] [controller_server]: Goal was canceled. Stopping the robot.
+[controller_server-7] [INFO] [1791876612.267985917] [controller_server]: [follow_path] [ActionServer] Client requested to cancel the goal. Cancelling.
+[bt_navigator-11] [INFO] [1791876612.268109693] [bt_navigator]: [navigate_to_pose] [ActionServer] Client requested to cancel the goal. Cancelling.
+[bt_navigator-11] [INFO] [1791876612.268246756] [bt_navigator]: Goal canceled
+[bt_navigator-11] [INFO] [1791876612.337661299] [bt_navigator]: Begin navigating from current location (1.56, -1.46) to (-0.93, 5.66)
+[controller_server-7] [INFO] [1791876612.378451771] [controller_server]: Received a goal, begin computing control effort.
+[controller_server-7] [INFO] [1791876613.428840302] [controller_server]: Passing new path to controller.
+[controller_server-7] [INFO] [1791876614.478832190] [controller_server]: Passing new path to controller.
+[controller_server-7] [INFO] [1791876615.478843564] [controller_server]: Passing new path to controller.
+[controller_server-7] [INFO] [1791876616.528870339] [controller_server]: Passing new path to controller.
+[controller_server-7] [INFO] [1791876617.528849070] [controller_server]: Passing new path to controller.
+[controller_server-7] [INFO] [1791876618.578867583] [controller_server]: Passing new path to controller.
+[controller_server-7] [INFO] [1791876619.628844755] [controller_server]: Passing new path to controller.
+[controller_server-7] [INFO] [1791876620.628865407] [controller_server]: Passing new path to controller.
+[controller_server-7] [INFO] [1791876621.678855967] [controller_server]: Passing new path to controller.
+[controller_server-7] [INFO] [1791876622.728860336] [controller_server]: Passing new path to controller.
+[controller_server-7] [INFO] [1791876623.729023693] [controller_server]: Passing new path to controller.
+[controller_server-7] [INFO] [1791876624.778861072] [controller_server]: Passing new path to controller.
+[controller_server-7] [INFO] [1791876625.778861606] [controller_server]: Passing new path to controller.
+[controller_server-7] [INFO] [1791876626.828868114] [controller_server]: Passing new path to controller.
+[controller_server-7] [INFO] [1791876627.829057400] [controller_server]: Passing new path to controller.
+[controller_server-7] [INFO] [1791876628.878864146] [controller_server]: Passing new path to controller.
+[controller_server-7] [INFO] [1791876629.928801889] [controller_server]: Passing new path to controller.
+[controller_server-7] [INFO] [1791876630.928846192] [controller_server]: Passing new path to controller.
+[controller_server-7] [INFO] [1791876631.978844067] [controller_server]: Passing new path to controller.
+[controller_server-7] [INFO] [1791876633.028847993] [controller_server]: Passing new path to controller.
+[controller_server-7] [INFO] [1791876634.028848864] [controller_server]: Passing new path to controller.
+[controller_server-7] [INFO] [1791876634.131802210] [controller_server]: Reached the goal!
+[bt_navigator-11] [INFO] [1791876634.167986612] [bt_navigator]: Goal succeeded
+[goal_manager-17] [INFO] [1791876634.169157135] [goal_manager]: Navigation succeeded; metrics saved for 20261013T073012.264874Z
+[rviz2-18] [INFO] [1791876638.571764598] [rviz2]: Setting goal pose: Frame:map, Position(-4.29428, 4.23631, 0), Orientation(0, 0, 0.768348, 0.640033) = Angle: 1.75251
+[goal_manager-17] [INFO] [1791876638.577142862] [goal_manager]: Goal 20261013T073038.576302Z: waiting for Nav2
+[bt_navigator-11] [INFO] [1791876638.642364950] [bt_navigator]: Begin navigating from current location (-0.71, 5.61) to (-4.29, 4.24)
+[controller_server-7] [INFO] [1791876638.671472499] [local_costmap.local_costmap]: Message Filter dropping message: frame 'lidar_link' at time 443.800 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[planner_server-9] [INFO] [1791876638.672470153] [global_costmap.global_costmap]: Message Filter dropping message: frame 'lidar_link' at time 443.800 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[controller_server-7] [INFO] [1791876638.684052052] [controller_server]: Received a goal, begin computing control effort.
+[controller_server-7] [INFO] [1791876639.735971760] [controller_server]: Passing new path to controller.
+[controller_server-7] [INFO] [1791876640.785976524] [controller_server]: Passing new path to controller.
+[controller_server-7] [INFO] [1791876641.785976707] [controller_server]: Passing new path to controller.
+[controller_server-7] [INFO] [1791876642.836055876] [controller_server]: Passing new path to controller.
+[controller_server-7] [INFO] [1791876643.835964020] [controller_server]: Passing new path to controller.
+[controller_server-7] [INFO] [1791876644.885962386] [controller_server]: Passing new path to controller.
+[controller_server-7] [INFO] [1791876645.935966563] [controller_server]: Passing new path to controller.
+[controller_server-7] [INFO] [1791876646.936013538] [controller_server]: Passing new path to controller.
+[controller_server-7] [INFO] [1791876647.985977381] [controller_server]: Passing new path to controller.
+[controller_server-7] [INFO] [1791876648.986142035] [controller_server]: Passing new path to controller.
+[controller_server-7] [INFO] [1791876650.036241924] [controller_server]: Passing new path to controller.
+[controller_server-7] [INFO] [1791876651.085965964] [controller_server]: Passing new path to controller.
+[controller_server-7] [INFO] [1791876652.085971209] [controller_server]: Passing new path to controller.
+[controller_server-7] [INFO] [1791876653.135962673] [controller_server]: Passing new path to controller.
+[planner_server-9] [INFO] [1791876653.738304456] [global_costmap.global_costmap]: Message Filter dropping message: frame 'lidar_link' at time 458.200 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[controller_server-7] [INFO] [1791876653.739264892] [local_costmap.local_costmap]: Message Filter dropping message: frame 'lidar_link' at time 458.200 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[controller_server-7] [INFO] [1791876654.136131034] [controller_server]: Passing new path to controller.
+[controller_server-7] [INFO] [1791876655.188584309] [controller_server]: Passing new path to controller.
+[controller_server-7] [INFO] [1791876656.185967980] [controller_server]: Passing new path to controller.
+[controller_server-7] [INFO] [1791876657.235958258] [controller_server]: Passing new path to controller.
+[controller_server-7] [INFO] [1791876658.286027063] [controller_server]: Passing new path to controller.
+[controller_server-7] [INFO] [1791876659.285960777] [controller_server]: Passing new path to controller.
+[controller_server-7] [INFO] [1791876660.335970370] [controller_server]: Passing new path to controller.
+[controller_server-7] [INFO] [1791876661.336025671] [controller_server]: Passing new path to controller.
+[controller_server-7] [INFO] [1791876662.385968482] [controller_server]: Passing new path to controller.
+[controller_server-7] [INFO] [1791876663.385954632] [controller_server]: Passing new path to controller.
+[controller_server-7] [INFO] [1791876664.435985564] [controller_server]: Passing new path to controller.
+[controller_server-7] [INFO] [1791876665.486034095] [controller_server]: Passing new path to controller.
+[controller_server-7] [INFO] [1791876666.486472739] [controller_server]: Passing new path to controller.
+[controller_server-7] [INFO] [1791876667.535964455] [controller_server]: Passing new path to controller.
+[controller_server-7] [INFO] [1791876668.535977023] [controller_server]: Passing new path to controller.
+[controller_server-7] [INFO] [1791876668.706473269] [local_costmap.local_costmap]: Message Filter dropping message: frame 'lidar_link' at time 472.900 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[planner_server-9] [INFO] [1791876668.706472293] [global_costmap.global_costmap]: Message Filter dropping message: frame 'lidar_link' at time 472.900 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[controller_server-7] [INFO] [1791876669.585960110] [controller_server]: Passing new path to controller.
+[controller_server-7] [INFO] [1791876670.586072270] [controller_server]: Passing new path to controller.
+[controller_server-7] [INFO] [1791876671.636014109] [controller_server]: Passing new path to controller.
+[controller_server-7] [INFO] [1791876672.685965260] [controller_server]: Passing new path to controller.
+[rviz2-18] [INFO] [1791876672.714422576] [rviz2]: Setting goal pose: Frame:map, Position(0.392966, 3.11513, 0), Orientation(0, 0, 0.768348, 0.640033) = Angle: 1.75251
+[goal_manager-17] [INFO] [1791876672.716757139] [goal_manager]: Navigation replaced; metrics saved for 20261013T073038.576302Z
+[goal_manager-17] [INFO] [1791876672.717037807] [goal_manager]: Goal 20261013T073112.716835Z: waiting for Nav2
+[controller_server-7] [INFO] [1791876672.735965359] [controller_server]: Goal was canceled. Stopping the robot.
+[controller_server-7] [INFO] [1791876672.736085914] [controller_server]: [follow_path] [ActionServer] Client requested to cancel the goal. Cancelling.
+[bt_navigator-11] [INFO] [1791876672.737032990] [bt_navigator]: [navigate_to_pose] [ActionServer] Client requested to cancel the goal. Cancelling.
+[bt_navigator-11] [INFO] [1791876672.737307623] [bt_navigator]: Goal canceled
+[bt_navigator-11] [INFO] [1791876672.739035939] [bt_navigator]: Begin navigating from current location (-4.15, 4.00) to (0.39, 3.12)
+[controller_server-7] [INFO] [1791876672.770001251] [controller_server]: Received a goal, begin computing control effort.
+[controller_server-7] [INFO] [1791876673.820567040] [controller_server]: Passing new path to controller.
+[controller_server-7] [INFO] [1791876674.870535749] [controller_server]: Passing new path to controller.
+[rviz2-18] [INFO] [1791876675.165700035] [rviz2]: Setting goal pose: Frame:map, Position(0.111853, 5.8296, 0), Orientation(0, 0, 0.768348, 0.640033) = Angle: 1.75251
+[goal_manager-17] [INFO] [1791876675.167085208] [goal_manager]: Navigation replaced; metrics saved for 20261013T073112.716835Z
+[goal_manager-17] [INFO] [1791876675.167335197] [goal_manager]: Goal 20261013T073115.167156Z: waiting for Nav2
+[controller_server-7] [INFO] [1791876675.170565032] [controller_server]: Goal was canceled. Stopping the robot.
+[controller_server-7] [INFO] [1791876675.170659331] [controller_server]: [follow_path] [ActionServer] Client requested to cancel the goal. Cancelling.
+[bt_navigator-11] [INFO] [1791876675.170840934] [bt_navigator]: [navigate_to_pose] [ActionServer] Client requested to cancel the goal. Cancelling.
+[bt_navigator-11] [INFO] [1791876675.171044298] [bt_navigator]: Goal canceled
+[bt_navigator-11] [INFO] [1791876675.238443227] [bt_navigator]: Begin navigating from current location (-4.21, 4.15) to (0.11, 5.83)
+[controller_server-7] [INFO] [1791876675.279285340] [controller_server]: Received a goal, begin computing control effort.
+[controller_server-7] [INFO] [1791876676.329722047] [controller_server]: Passing new path to controller.
+[controller_server-7] [INFO] [1791876677.379706486] [controller_server]: Passing new path to controller.
+[controller_server-7] [INFO] [1791876678.379729995] [controller_server]: Passing new path to controller.
+[controller_server-7] [INFO] [1791876679.429721072] [controller_server]: Passing new path to controller.
+[controller_server-7] [INFO] [1791876680.429807879] [controller_server]: Passing new path to controller.
+[controller_server-7] [INFO] [1791876681.479838920] [controller_server]: Passing new path to controller.
+[controller_server-7] [INFO] [1791876682.529734537] [controller_server]: Passing new path to controller.
+[controller_server-7] [INFO] [1791876683.529716619] [controller_server]: Passing new path to controller.
+[controller_server-7] [INFO] [1791876684.564415016] [local_costmap.local_costmap]: Message Filter dropping message: frame 'lidar_link' at time 488.400 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[planner_server-9] [INFO] [1791876684.567254218] [global_costmap.global_costmap]: Message Filter dropping message: frame 'lidar_link' at time 488.400 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[controller_server-7] [INFO] [1791876684.579728321] [controller_server]: Passing new path to controller.
+[controller_server-7] [INFO] [1791876685.579774105] [controller_server]: Passing new path to controller.
+[controller_server-7] [ERROR] [1791876685.586082572] [tf_help]: Transform data too old when converting from map to odom
+[controller_server-7] [ERROR] [1791876685.586219159] [tf_help]: Data time: 489s 932500000ns, Transform time: 489s 400000000ns
+[controller_server-7] [ERROR] [1791876685.634061194] [tf_help]: Transform data too old when converting from map to odom
+[controller_server-7] [ERROR] [1791876685.634191574] [tf_help]: Data time: 489s 932500000ns, Transform time: 489s 400000000ns
+[controller_server-7] [ERROR] [1791876685.683358599] [tf_help]: Transform data too old when converting from map to odom
+[controller_server-7] [ERROR] [1791876685.683562997] [tf_help]: Data time: 489s 932500000ns, Transform time: 489s 400000000ns
+[controller_server-7] [ERROR] [1791876685.739365598] [tf_help]: Transform data too old when converting from map to odom
+[controller_server-7] [ERROR] [1791876685.739522196] [tf_help]: Data time: 489s 932500000ns, Transform time: 489s 400000000ns
+[controller_server-7] [INFO] [1791876686.629744917] [controller_server]: Passing new path to controller.
+[controller_server-7] [INFO] [1791876687.629873638] [controller_server]: Passing new path to controller.
+[controller_server-7] [INFO] [1791876688.679725394] [controller_server]: Passing new path to controller.
+[controller_server-7] [ERROR] [1791876688.684289419] [tf_help]: Transform data too old when converting from map to odom
+[controller_server-7] [ERROR] [1791876688.684393610] [tf_help]: Data time: 492s 852500000ns, Transform time: 492s 300000000ns
+[controller_server-7] [ERROR] [1791876688.733056561] [tf_help]: Transform data too old when converting from map to odom
+[controller_server-7] [ERROR] [1791876688.733118717] [tf_help]: Data time: 492s 852500000ns, Transform time: 492s 300000000ns
+[controller_server-7] [INFO] [1791876689.729865183] [controller_server]: Passing new path to controller.
+[controller_server-7] [INFO] [1791876690.729729249] [controller_server]: Passing new path to controller.
+[controller_server-7] [INFO] [1791876691.779680015] [controller_server]: Passing new path to controller.
+[planner_server-9] [INFO] [1791876692.306662358] [global_costmap.global_costmap]: Message Filter dropping message: frame 'lidar_link' at time 495.700 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[controller_server-7] [INFO] [1791876692.779705080] [controller_server]: Passing new path to controller.
+[controller_server-7] [ERROR] [1791876692.784983211] [tf_help]: Transform data too old when converting from map to odom
+[controller_server-7] [ERROR] [1791876692.785125910] [tf_help]: Data time: 496s 632500000ns, Transform time: 496s 100000000ns
+[controller_server-7] [ERROR] [1791876692.832604740] [tf_help]: Transform data too old when converting from map to odom
+[controller_server-7] [ERROR] [1791876692.832674191] [tf_help]: Data time: 496s 632500000ns, Transform time: 496s 100000000ns
+[controller_server-7] [INFO] [1791876693.715867501] [local_costmap.local_costmap]: Message Filter dropping message: frame 'lidar_link' at time 497.000 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[controller_server-7] [INFO] [1791876693.829725574] [controller_server]: Passing new path to controller.
+[controller_server-7] [INFO] [1791876694.879717745] [controller_server]: Passing new path to controller.
+[controller_server-7] [INFO] [1791876695.880099891] [controller_server]: Passing new path to controller.
+[controller_server-7] [INFO] [1791876696.929735489] [controller_server]: Passing new path to controller.
+[controller_server-7] [INFO] [1791876697.929729203] [controller_server]: Passing new path to controller.
+[planner_server-9] [INFO] [1791876698.802171972] [global_costmap.global_costmap]: Message Filter dropping message: frame 'lidar_link' at time 501.800 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[controller_server-7] [INFO] [1791876698.802900765] [local_costmap.local_costmap]: Message Filter dropping message: frame 'lidar_link' at time 501.800 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[controller_server-7] [INFO] [1791876698.979727338] [controller_server]: Passing new path to controller.
+[controller_server-7] [INFO] [1791876700.029707147] [controller_server]: Passing new path to controller.
+[controller_server-7] [INFO] [1791876701.029704642] [controller_server]: Passing new path to controller.
+[controller_server-7] [INFO] [1791876702.079729798] [controller_server]: Passing new path to controller.
+[controller_server-7] [INFO] [1791876703.079715444] [controller_server]: Passing new path to controller.
+[controller_server-7] [INFO] [1791876703.771192645] [local_costmap.local_costmap]: Message Filter dropping message: frame 'lidar_link' at time 506.500 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[planner_server-9] [INFO] [1791876703.771320651] [global_costmap.global_costmap]: Message Filter dropping message: frame 'lidar_link' at time 506.500 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[controller_server-7] [INFO] [1791876704.129717330] [controller_server]: Passing new path to controller.
+[controller_server-7] [INFO] [1791876705.181482048] [controller_server]: Passing new path to controller.
+[controller_server-7] [INFO] [1791876706.179728626] [controller_server]: Passing new path to controller.
+[controller_server-7] [INFO] [1791876707.229724793] [controller_server]: Passing new path to controller.
+[controller_server-7] [INFO] [1791876708.229703114] [controller_server]: Passing new path to controller.
+[controller_server-7] [INFO] [1791876708.693679925] [local_costmap.local_costmap]: Message Filter dropping message: frame 'lidar_link' at time 511.300 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[planner_server-9] [INFO] [1791876708.693680470] [global_costmap.global_costmap]: Message Filter dropping message: frame 'lidar_link' at time 511.300 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[controller_server-7] [INFO] [1791876709.279726407] [controller_server]: Passing new path to controller.
+[controller_server-7] [INFO] [1791876710.329715159] [controller_server]: Passing new path to controller.
+[controller_server-7] [INFO] [1791876711.329740478] [controller_server]: Passing new path to controller.
+[controller_server-7] [INFO] [1791876712.033234330] [controller_server]: Reached the goal!
+[bt_navigator-11] [INFO] [1791876712.068978551] [bt_navigator]: Goal succeeded
+[goal_manager-17] [INFO] [1791876712.071777071] [goal_manager]: Navigation succeeded; metrics saved for 20261013T073115.167156Z
+[planner_server-9] [INFO] [1791876713.708703434] [global_costmap.global_costmap]: Message Filter dropping message: frame 'lidar_link' at time 516.200 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[controller_server-7] [INFO] [1791876713.709618804] [local_costmap.local_costmap]: Message Filter dropping message: frame 'lidar_link' at time 516.200 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[rviz2-18] [INFO] [1791876715.794771532] [rviz2]: Setting goal pose: Frame:map, Position(5.41413, 1.13131, 0), Orientation(0, 0, 0.768348, 0.640033) = Angle: 1.75251
+[goal_manager-17] [INFO] [1791876715.796114109] [goal_manager]: Goal 20261013T073155.795510Z: waiting for Nav2
+[bt_navigator-11] [INFO] [1791876715.845742415] [bt_navigator]: Begin navigating from current location (0.11, 5.83) to (5.41, 1.13)
+[planner_server-9] [WARN] [1791876715.854491302] [planner_server]: GridBased: failed to create plan with tolerance 0.30.
+[planner_server-9] [WARN] [1791876715.854683074] [planner_server]: Planning algorithm GridBased failed to generate a valid path to (5.41, 1.13)
+[planner_server-9] [WARN] [1791876715.854708057] [planner_server]: [compute_path_to_pose] [ActionServer] Aborting handle.
+[planner_server-9] [WARN] [1791876715.863765410] [planner_server]: GridBased: failed to create plan with tolerance 0.30.
+[planner_server-9] [WARN] [1791876715.863930114] [planner_server]: Planning algorithm GridBased failed to generate a valid path to (5.41, 1.13)
+[planner_server-9] [WARN] [1791876715.863966371] [planner_server]: [compute_path_to_pose] [ActionServer] Aborting handle.
+[planner_server-9] [INFO] [1791876715.886964371] [global_costmap.global_costmap]: Received request to clear entirely the global_costmap
+[planner_server-9] [WARN] [1791876716.084949387] [planner_server]: GridBased: failed to create plan with tolerance 0.30.
+[planner_server-9] [WARN] [1791876716.085053412] [planner_server]: Planning algorithm GridBased failed to generate a valid path to (5.41, 1.13)
+[planner_server-9] [WARN] [1791876716.085072686] [planner_server]: [compute_path_to_pose] [ActionServer] Aborting handle.
+[controller_server-7] [INFO] [1791876716.096594044] [local_costmap.local_costmap]: Received request to clear entirely the local_costmap
+[planner_server-9] [INFO] [1791876716.097574680] [global_costmap.global_costmap]: Received request to clear entirely the global_costmap
+[planner_server-9] [WARN] [1791876717.083984150] [planner_server]: GridBased: failed to create plan with tolerance 0.30.
+[planner_server-9] [WARN] [1791876717.084134422] [planner_server]: Planning algorithm GridBased failed to generate a valid path to (5.41, 1.13)
+[planner_server-9] [WARN] [1791876717.084157449] [planner_server]: [compute_path_to_pose] [ActionServer] Aborting handle.
+[planner_server-9] [INFO] [1791876717.096303201] [global_costmap.global_costmap]: Received request to clear entirely the global_costmap
+[planner_server-9] [WARN] [1791876718.083559473] [planner_server]: GridBased: failed to create plan with tolerance 0.30.
+[planner_server-9] [WARN] [1791876718.083760470] [planner_server]: Planning algorithm GridBased failed to generate a valid path to (5.41, 1.13)
+[planner_server-9] [WARN] [1791876718.083791180] [planner_server]: [compute_path_to_pose] [ActionServer] Aborting handle.
+[behavior_server-10] [INFO] [1791876718.097184504] [behavior_server]: Running spin
+[behavior_server-10] [INFO] [1791876718.097528508] [behavior_server]: Turning 1.57 for spin behavior.
+[behavior_server-10] [INFO] [1791876720.397788554] [behavior_server]: spin completed successfully
+[planner_server-9] [WARN] [1791876720.433921638] [planner_server]: GridBased: failed to create plan with tolerance 0.30.
+[planner_server-9] [WARN] [1791876720.434797309] [planner_server]: Planning algorithm GridBased failed to generate a valid path to (5.41, 1.13)
+[planner_server-9] [WARN] [1791876720.434837346] [planner_server]: [compute_path_to_pose] [ActionServer] Aborting handle.
+[planner_server-9] [INFO] [1791876720.446239722] [global_costmap.global_costmap]: Received request to clear entirely the global_costmap
+[planner_server-9] [WARN] [1791876721.085656329] [planner_server]: GridBased: failed to create plan with tolerance 0.30.
+[planner_server-9] [WARN] [1791876721.085833870] [planner_server]: Planning algorithm GridBased failed to generate a valid path to (5.41, 1.13)
+[planner_server-9] [WARN] [1791876721.085861524] [planner_server]: [compute_path_to_pose] [ActionServer] Aborting handle.
+[behavior_server-10] [INFO] [1791876721.112529355] [behavior_server]: Running wait
+[rviz2-18] [INFO] [1791876722.416261309] [rviz2]: Setting goal pose: Frame:map, Position(4.86278, 2.28134, 0), Orientation(0, 0, 0.768348, 0.640033) = Angle: 1.75251
+[goal_manager-17] [INFO] [1791876722.419182288] [goal_manager]: Navigation replaced; metrics saved for 20261013T073155.795510Z
+[goal_manager-17] [INFO] [1791876722.419659937] [goal_manager]: Goal 20261013T073202.419398Z: waiting for Nav2
+[bt_navigator-11] [ERROR] [1791876722.447370633] [bt_navigator_navigate_to_pose_rclcpp_node]: Failed to get result for wait in node halt!
+[bt_navigator-11] [INFO] [1791876722.447729517] [bt_navigator]: [navigate_to_pose] [ActionServer] Client requested to cancel the goal. Cancelling.
+[bt_navigator-11] [WARN] [1791876722.447916532] [bt_navigator]: [navigate_to_pose] [ActionServer] Aborting handle.
+[bt_navigator-11] [INFO] [1791876722.447983128] [bt_navigator]: Goal canceled
+[goal_manager-17] [INFO] [1791876722.470024381] [goal_manager]: Navigation aborted; metrics saved for 20261013T073202.419398Z
+[behavior_server-10] [INFO] [1791876722.512988617] [behavior_server]: Canceling wait
+[behavior_server-10] [INFO] [1791876722.513244448] [behavior_server]: [wait] [ActionServer] Client requested to cancel the goal. Cancelling.
+[rviz2-18] [INFO] [1791876732.170954915] [rviz2]: Setting goal pose: Frame:map, Position(-4.54061, 5.24317, 0), Orientation(0, 0, 0.768348, 0.640033) = Angle: 1.75251
+[goal_manager-17] [INFO] [1791876732.171829443] [goal_manager]: Goal 20261013T073212.171403Z: waiting for Nav2
+[bt_navigator-11] [INFO] [1791876732.242282268] [bt_navigator]: Begin navigating from current location (0.02, 5.62) to (-4.54, 5.24)
+[controller_server-7] [INFO] [1791876732.283407088] [controller_server]: Received a goal, begin computing control effort.
+[controller_server-7] [INFO] [1791876733.333961650] [controller_server]: Passing new path to controller.
+[controller_server-7] [INFO] [1791876734.384100945] [controller_server]: Passing new path to controller.
+[controller_server-7] [INFO] [1791876735.383933372] [controller_server]: Passing new path to controller.
+[controller_server-7] [INFO] [1791876736.433927445] [controller_server]: Passing new path to controller.
+[controller_server-7] [INFO] [1791876737.433932633] [controller_server]: Passing new path to controller.
+[controller_server-7] [INFO] [1791876738.483969038] [controller_server]: Passing new path to controller.
+[controller_server-7] [INFO] [1791876739.533941054] [controller_server]: Passing new path to controller.
+[rviz2-18] [INFO] [1791876740.252567502] [rviz2]: Setting goal pose: Frame:map, Position(4.92457, 2.16842, 0), Orientation(0, 0, 0.768348, 0.640033) = Angle: 1.75251
+[goal_manager-17] [INFO] [1791876740.255254929] [goal_manager]: Navigation replaced; metrics saved for 20261013T073212.171403Z
+[goal_manager-17] [INFO] [1791876740.255654521] [goal_manager]: Goal 20261013T073220.255352Z: waiting for Nav2
+[bt_navigator-11] [ERROR] [1791876740.283017751] [bt_navigator_navigate_to_pose_rclcpp_node]: Failed to get result for follow_path in node halt!
+[bt_navigator-11] [INFO] [1791876740.283322503] [bt_navigator]: [navigate_to_pose] [ActionServer] Client requested to cancel the goal. Cancelling.
+[bt_navigator-11] [INFO] [1791876740.283615824] [bt_navigator]: Goal canceled
+[controller_server-7] [INFO] [1791876740.283939263] [controller_server]: Goal was canceled. Stopping the robot.
+[controller_server-7] [INFO] [1791876740.284053925] [controller_server]: [follow_path] [ActionServer] Client requested to cancel the goal. Cancelling.
+[bt_navigator-11] [INFO] [1791876740.338853459] [bt_navigator]: Begin navigating from current location (0.06, 3.94) to (4.92, 2.17)
+[controller_server-7] [INFO] [1791876740.370677840] [controller_server]: Received a goal, begin computing control effort.
+[controller_server-7] [INFO] [1791876741.421419688] [controller_server]: Passing new path to controller.
+[controller_server-7] [INFO] [1791876742.472605801] [controller_server]: Passing new path to controller.
+[controller_server-7] [INFO] [1791876743.471530938] [controller_server]: Passing new path to controller.
+[controller_server-7] [INFO] [1791876743.719806961] [local_costmap.local_costmap]: Message Filter dropping message: frame 'lidar_link' at time 545.300 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[planner_server-9] [INFO] [1791876743.719859808] [global_costmap.global_costmap]: Message Filter dropping message: frame 'lidar_link' at time 545.300 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[controller_server-7] [INFO] [1791876744.521443593] [controller_server]: Passing new path to controller.
+[controller_server-7] [INFO] [1791876745.521403733] [controller_server]: Passing new path to controller.
+[controller_server-7] [INFO] [1791876746.571427705] [controller_server]: Passing new path to controller.
+[controller_server-7] [INFO] [1791876747.571415213] [controller_server]: Passing new path to controller.
+[controller_server-7] [INFO] [1791876748.621745451] [controller_server]: Passing new path to controller.
+[controller_server-7] [ERROR] [1791876748.628080079] [tf_help]: Transform data too old when converting from map to odom
+[controller_server-7] [ERROR] [1791876748.628205222] [tf_help]: Data time: 550s 507500000ns, Transform time: 550s 0ns
+[controller_server-7] [ERROR] [1791876748.676108556] [tf_help]: Transform data too old when converting from map to odom
+[controller_server-7] [ERROR] [1791876748.676184765] [tf_help]: Data time: 550s 507500000ns, Transform time: 550s 0ns
+[planner_server-9] [INFO] [1791876748.711183072] [global_costmap.global_costmap]: Message Filter dropping message: frame 'lidar_link' at time 550.100 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[controller_server-7] [INFO] [1791876748.711173005] [local_costmap.local_costmap]: Message Filter dropping message: frame 'lidar_link' at time 550.100 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[controller_server-7] [ERROR] [1791876748.724155008] [tf_help]: Transform data too old when converting from map to odom
+[controller_server-7] [ERROR] [1791876748.724207221] [tf_help]: Data time: 550s 507500000ns, Transform time: 550s 0ns
+[controller_server-7] [ERROR] [1791876748.774771180] [tf_help]: Transform data too old when converting from map to odom
+[controller_server-7] [ERROR] [1791876748.774849658] [tf_help]: Data time: 550s 507500000ns, Transform time: 550s 0ns
+[controller_server-7] [ERROR] [1791876748.824122315] [tf_help]: Transform data too old when converting from map to odom
+[controller_server-7] [ERROR] [1791876748.824171258] [tf_help]: Data time: 550s 507500000ns, Transform time: 550s 0ns
+[controller_server-7] [INFO] [1791876749.671426478] [controller_server]: Passing new path to controller.
+[controller_server-7] [INFO] [1791876750.671409500] [controller_server]: Passing new path to controller.
+[controller_server-7] [INFO] [1791876751.721415676] [controller_server]: Passing new path to controller.
+[controller_server-7] [INFO] [1791876752.721417975] [controller_server]: Passing new path to controller.
+[controller_server-7] [INFO] [1791876753.771415149] [controller_server]: Passing new path to controller.
+[controller_server-7] [ERROR] [1791876753.775071901] [tf_help]: Transform data too old when converting from map to odom
+[controller_server-7] [ERROR] [1791876753.775178658] [tf_help]: Data time: 555s 617500000ns, Transform time: 555s 0ns
+[controller_server-7] [INFO] [1791876753.777695318] [local_costmap.local_costmap]: Message Filter dropping message: frame 'lidar_link' at time 555.100 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[planner_server-9] [INFO] [1791876753.777727723] [global_costmap.global_costmap]: Message Filter dropping message: frame 'lidar_link' at time 555.100 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[controller_server-7] [ERROR] [1791876753.824759951] [tf_help]: Transform data too old when converting from map to odom
+[controller_server-7] [ERROR] [1791876753.826210424] [tf_help]: Data time: 555s 617500000ns, Transform time: 555s 0ns
+[controller_server-7] [INFO] [1791876754.821403408] [controller_server]: Passing new path to controller.
+[controller_server-7] [INFO] [1791876755.821682201] [controller_server]: Passing new path to controller.
+[controller_server-7] [INFO] [1791876756.871410236] [controller_server]: Passing new path to controller.
+[controller_server-7] [INFO] [1791876757.871413918] [controller_server]: Passing new path to controller.
+[planner_server-9] [INFO] [1791876758.799841785] [global_costmap.global_costmap]: Message Filter dropping message: frame 'lidar_link' at time 560.000 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[controller_server-7] [INFO] [1791876758.800279029] [local_costmap.local_costmap]: Message Filter dropping message: frame 'lidar_link' at time 560.000 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[controller_server-7] [INFO] [1791876758.876526383] [controller_server]: Reached the goal!
+[bt_navigator-11] [INFO] [1791876758.909379504] [bt_navigator]: Goal succeeded
+[goal_manager-17] [INFO] [1791876758.911991050] [goal_manager]: Navigation succeeded; metrics saved for 20261013T073220.255352Z
+[planner_server-9] [INFO] [1791876764.058340497] [global_costmap.global_costmap]: Message Filter dropping message: frame 'lidar_link' at time 564.800 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[controller_server-7] [INFO] [1791876808.756304984] [local_costmap.local_costmap]: Message Filter dropping message: frame 'lidar_link' at time 608.500 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[planner_server-9] [INFO] [1791876808.758948582] [global_costmap.global_costmap]: Message Filter dropping message: frame 'lidar_link' at time 608.500 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[parameter_bridge-4] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[parameter_bridge-4] Exception sending a multicast message:Network is unreachable
+[parameter_bridge-4] Exception sending a multicast message:Network is unreachable
+[parameter_bridge-4] Exception sending a multicast message:Network is unreachable
+[parameter_bridge-4] Exception sending a multicast message:Network is unreachable
+[parameter_bridge-4] Exception sending a multicast message:Network is unreachable
+[parameter_bridge-4] Exception sending a multicast message:Network is unreachable
+[parameter_bridge-4] Exception sending a multicast message:Network is unreachable
+[parameter_bridge-4] Exception sending a multicast message:Network is unreachable
+[parameter_bridge-4] Exception sending a multicast message:Network is unreachable
+[parameter_bridge-4] Exception sending a multicast message:Network is unreachable
+[parameter_bridge-4] Exception sending a multicast message:Network is unreachable
+[parameter_bridge-4] Exception sending a multicast message:Network is unreachable
+[parameter_bridge-4] Exception sending a multicast message:Network is unreachable
+[parameter_bridge-4] Exception sending a multicast message:Network is unreachable
+[parameter_bridge-4] Exception sending a multicast message:Network is unreachable
+[parameter_bridge-4] Exception sending a multicast message:Network is unreachable
+[parameter_bridge-4] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[parameter_bridge-4] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[parameter_bridge-4] Exception sending a multicast message:Network is unreachable
+[parameter_bridge-4] Exception sending a multicast message:Network is unreachable
+[parameter_bridge-4] Exception sending a multicast message:Network is unreachable
+[parameter_bridge-4] Exception sending a multicast message:Network is unreachable
+[parameter_bridge-4] Exception sending a multicast message:Network is unreachable
+[parameter_bridge-4] Exception sending a multicast message:Network is unreachable
+[parameter_bridge-4] Exception sending a multicast message:Network is unreachable
+[parameter_bridge-4] Exception sending a multicast message:Network is unreachable
+[parameter_bridge-4] Exception sending a multicast message:Network is unreachable
+[parameter_bridge-4] Exception sending a multicast message:Network is unreachable
+[parameter_bridge-4] Exception sending a multicast message:Network is unreachable
+[parameter_bridge-4] Exception sending a multicast message:Network is unreachable
+[parameter_bridge-4] Exception sending a multicast message:Network is unreachable
+[parameter_bridge-4] Exception sending a multicast message:Network is unreachable
+[parameter_bridge-4] Exception sending a multicast message:Network is unreachable
+[parameter_bridge-4] Exception sending a multicast message:Network is unreachable
+[parameter_bridge-4] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[parameter_bridge-4] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[ign-1] Exception sending a multicast message:Network is unreachable
+[planner_server-9] [INFO] [1791876838.720517809] [global_costmap.global_costmap]: Message Filter dropping message: frame 'lidar_link' at time 637.900 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[controller_server-7] [INFO] [1791876838.720533449] [local_costmap.local_costmap]: Message Filter dropping message: frame 'lidar_link' at time 637.900 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[planner_server-9] [INFO] [1791876903.729123832] [global_costmap.global_costmap]: Message Filter dropping message: frame 'lidar_link' at time 701.800 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[controller_server-7] [INFO] [1791876903.731941403] [local_costmap.local_costmap]: Message Filter dropping message: frame 'lidar_link' at time 701.800 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[planner_server-9] [INFO] [1791876928.788281678] [global_costmap.global_costmap]: Message Filter dropping message: frame 'lidar_link' at time 725.900 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[controller_server-7] [INFO] [1791876928.788380011] [local_costmap.local_costmap]: Message Filter dropping message: frame 'lidar_link' at time 725.900 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[controller_server-7] [INFO] [1791876958.783664018] [local_costmap.local_costmap]: Message Filter dropping message: frame 'lidar_link' at time 755.500 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[planner_server-9] [INFO] [1791876958.786172952] [global_costmap.global_costmap]: Message Filter dropping message: frame 'lidar_link' at time 755.500 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[controller_server-7] [INFO] [1791876973.894759019] [local_costmap.local_costmap]: Message Filter dropping message: frame 'lidar_link' at time 770.000 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[planner_server-9] [INFO] [1791876973.894811066] [global_costmap.global_costmap]: Message Filter dropping message: frame 'lidar_link' at time 770.000 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[planner_server-9] [INFO] [1791876983.859895033] [global_costmap.global_costmap]: Message Filter dropping message: frame 'lidar_link' at time 779.000 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[controller_server-7] [INFO] [1791876983.861545280] [local_costmap.local_costmap]: Message Filter dropping message: frame 'lidar_link' at time 779.000 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[WARNING] [launch]: user interrupted with ctrl-c (SIGINT)
+[rviz2-18] [INFO] [1791876985.172323337] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[lifecycle_manager-15] [INFO] [1791876985.172316759] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[lifecycle_manager-15] [INFO] [1791876985.172608184] [lifecycle_manager_navigation]: Running Nav2 LifecycleManager rcl preshutdown (lifecycle_manager_navigation)
+[lifecycle_manager-15] [INFO] [1791876985.172692330] [lifecycle_manager_navigation]: [34m[1mTerminating bond timer...[0m[0m
+[velocity_smoother-13] [INFO] [1791876985.172382992] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[velocity_smoother-13] [INFO] [1791876985.172596395] [velocity_smoother]: Running Nav2 LifecycleNode rcl preshutdown (velocity_smoother)
+[velocity_smoother-13] [INFO] [1791876985.172758480] [velocity_smoother]: Deactivating
+[velocity_smoother-13] [INFO] [1791876985.172796372] [velocity_smoother]: Destroying bond (velocity_smoother) to lifecycle manager.
+[lio_sam_mapOptimization-22] [INFO] [1791876985.172388323] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[lio_sam_featureExtraction-21] [INFO] [1791876985.172402454] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[lio_sam_imageProjection-20] [INFO] [1791876985.172395052] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[behavior_server-10] [INFO] [1791876985.172403812] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[behavior_server-10] [INFO] [1791876985.172595198] [behavior_server]: Running Nav2 LifecycleNode rcl preshutdown (behavior_server)
+[behavior_server-10] [INFO] [1791876985.172759009] [behavior_server]: Deactivating
+[behavior_server-10] [INFO] [1791876985.172855351] [behavior_server]: Destroying bond (behavior_server) to lifecycle manager.
+[bt_navigator-11] [INFO] [1791876985.172452672] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[bt_navigator-11] [INFO] [1791876985.172593838] [bt_navigator]: Running Nav2 LifecycleNode rcl preshutdown (bt_navigator)
+[bt_navigator-11] [INFO] [1791876985.172759606] [bt_navigator]: Deactivating
+[bt_navigator-11] [INFO] [1791876985.172798279] [bt_navigator]: Destroying bond (bt_navigator) to lifecycle manager.
+[lio_sam_imuPreintegration-19] [INFO] [1791876985.172841566] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[b2w_rl_sar_controller-5] [INFO] [1791876985.173082973] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[waypoint_follower-12] [INFO] [1791876985.173376240] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[waypoint_follower-12] [INFO] [1791876985.173531314] [waypoint_follower]: Running Nav2 LifecycleNode rcl preshutdown (waypoint_follower)
+[waypoint_follower-12] [INFO] [1791876985.173640097] [waypoint_follower]: Deactivating
+[waypoint_follower-12] [INFO] [1791876985.173668032] [waypoint_follower]: Destroying bond (waypoint_follower) to lifecycle manager.
+[planner_server-9] [INFO] [1791876985.174256150] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[planner_server-9] [INFO] [1791876985.174397475] [planner_server]: Running Nav2 LifecycleNode rcl preshutdown (planner_server)
+[planner_server-9] [INFO] [1791876985.174536379] [planner_server]: Deactivating
+[planner_server-9] [INFO] [1791876985.174601426] [global_costmap.global_costmap]: Deactivating
+[controller_server-7] [INFO] [1791876985.174257561] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[controller_server-7] [INFO] [1791876985.174396522] [controller_server]: Running Nav2 LifecycleNode rcl preshutdown (controller_server)
+[controller_server-7] [INFO] [1791876985.174536098] [controller_server]: Deactivating
+[controller_server-7] [INFO] [1791876985.174621357] [local_costmap.local_costmap]: Deactivating
+[parameter_bridge-4] [INFO] [1791876985.174575053] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[smoother_server-8] [INFO] [1791876985.174700857] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[smoother_server-8] [INFO] [1791876985.174818154] [smoother_server]: Running Nav2 LifecycleNode rcl preshutdown (smoother_server)
+[smoother_server-8] [INFO] [1791876985.174936384] [smoother_server]: Deactivating
+[smoother_server-8] [INFO] [1791876985.174962343] [smoother_server]: Destroying bond (smoother_server) to lifecycle manager.
+[smoother_server-8] [INFO] [1791876985.185422042] [smoother_server]: Cleaning up
+[robot_state_publisher-2] [INFO] [1791876985.176785561] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[velocity_smoother-13] [INFO] [1791876985.183253535] [velocity_smoother]: Cleaning up
+[velocity_smoother-13] [INFO] [1791876985.183374402] [velocity_smoother]: Destroying bond (velocity_smoother) to lifecycle manager.
+[velocity_smoother-13] [INFO] [1791876985.191354305] [velocity_smoother]: Destroying
+[bt_navigator-11] [INFO] [1791876985.183248788] [bt_navigator]: Cleaning up
+[behavior_server-10] [INFO] [1791876985.183290465] [behavior_server]: Cleaning up
+[waypoint_follower-12] [INFO] [1791876985.184069389] [waypoint_follower]: Cleaning up
+[smoother_server-8] [INFO] [1791876985.200578177] [smoother_server]: Destroying bond (smoother_server) to lifecycle manager.
+[behavior_server-10] [INFO] [1791876985.203847620] [behavior_server]: Destroying bond (behavior_server) to lifecycle manager.
+[waypoint_follower-12] [INFO] [1791876985.207791450] [waypoint_follower]: Destroying bond (waypoint_follower) to lifecycle manager.
+[waypoint_follower-12] [INFO] [1791876985.213207803] [waypoint_follower]: Destroying
+[smoother_server-8] [INFO] [1791876985.219399783] [smoother_server]: Destroying
+[controller_server-7] [INFO] [1791876985.237192109] [controller_server]: Destroying bond (controller_server) to lifecycle manager.
+[controller_server-7] [INFO] [1791876985.248038516] [controller_server]: Cleaning up
+[controller_server-7] [INFO] [1791876985.248881467] [local_costmap.local_costmap]: Cleaning up
+[behavior_server-10] [INFO] [1791876985.273014074] [behavior_server]: Destroying
+[lifecycle_manager-15] [INFO] [1791876985.297252285] [lifecycle_manager_navigation]: Destroying lifecycle_manager_navigation
+[controller_server-7] [INFO] [1791876985.316418490] [controller_server]: Destroying bond (controller_server) to lifecycle manager.
+[controller_server-7] [INFO] [1791876985.323281945] [local_costmap.local_costmap]: Destroying
+[controller_server-7] [INFO] [1791876985.328938506] [controller_server]: Destroying
+[bt_navigator-11] [INFO] [1791876985.336087297] [bt_navigator]: Completed Cleaning up
+[bt_navigator-11] [INFO] [1791876985.336171354] [bt_navigator]: Destroying bond (bt_navigator) to lifecycle manager.
+[INFO] [lio_sam_featureExtraction-21]: process has finished cleanly [pid 3086772]
+[bt_navigator-11] [INFO] [1791876985.340506614] [bt_navigator]: Destroying
+[sensor_disturbance-6] The following exception was never retrieved: Failed to publish: publisher's context is invalid, at ./src/rcl/publisher.c:389
+[INFO] [robot_state_publisher-2]: process has finished cleanly [pid 3085937]
+[INFO] [smoother_server-8]: process has finished cleanly [pid 3085949]
+[INFO] [velocity_smoother-13]: process has finished cleanly [pid 3085959]
+[INFO] [b2w_rl_sar_controller-5]: process has finished cleanly [pid 3085943]
+[INFO] [lio_sam_imageProjection-20]: process has finished cleanly [pid 3086770]
+[INFO] [waypoint_follower-12]: process has finished cleanly [pid 3085957]
+[INFO] [lio_sam_imuPreintegration-19]: process has finished cleanly [pid 3086768]
+[INFO] [behavior_server-10]: process has finished cleanly [pid 3085953]
+[INFO] [lifecycle_manager-15]: process has finished cleanly [pid 3085963]
+[INFO] [controller_server-7]: process has finished cleanly [pid 3085947]
+[INFO] [bt_navigator-11]: process has finished cleanly [pid 3085955]
+[INFO] [lio_sam_mapOptimization-22]: process has finished cleanly [pid 3086774]
+[INFO] [rviz2-18]: process has finished cleanly [pid 3085971]
+[INFO] [velocity_adapter-16]: process has finished cleanly [pid 3085965]
+[INFO] [sensor_disturbance-6]: process has finished cleanly [pid 3085945]
+[INFO] [pose_adapter-23]: process has finished cleanly [pid 3086776]
+[INFO] [goal_manager-17]: process has finished cleanly [pid 3085968]
+[INFO] [map_projector-14]: process has finished cleanly [pid 3085961]
+[INFO] [ign-1]: process has finished cleanly [pid 3085935]
+[planner_server-9] [INFO] [1791876986.061964714] [planner_server]: Deactivating plugin GridBased of type NavfnPlanner
+[planner_server-9] [INFO] [1791876986.062034504] [planner_server]: Destroying bond (planner_server) to lifecycle manager.
+[planner_server-9] [INFO] [1791876986.072277431] [planner_server]: Cleaning up
+[planner_server-9] [INFO] [1791876986.076659849] [global_costmap.global_costmap]: Cleaning up
+[planner_server-9] [INFO] [1791876986.079194913] [planner_server]: Cleaning up plugin GridBased of type NavfnPlanner
+[planner_server-9] [INFO] [1791876986.079226496] [planner_server]: Destroying plugin GridBased of type NavfnPlanner
+[planner_server-9] [INFO] [1791876986.081501283] [planner_server]: Destroying bond (planner_server) to lifecycle manager.
+[planner_server-9] [INFO] [1791876986.083906779] [global_costmap.global_costmap]: Destroying
+[planner_server-9] [INFO] [1791876986.086832809] [planner_server]: Destroying
+[INFO] [planner_server-9]: process has finished cleanly [pid 3085951]
+[ERROR] [parameter_bridge-4]: process has died [pid 3085941, exit code -11, cmd '/opt/ros/humble/lib/ros_gz_bridge/parameter_bridge --ros-args --params-file /tmp/launch_params_kcdvqg3k'].

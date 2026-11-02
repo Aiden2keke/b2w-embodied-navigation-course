@@ -1,0 +1,4 @@
+[INFO] [1793614036.596991341] [goal_manager]: Goal 20261102T100716.549405Z: waiting for Nav2
+[INFO] [1793614070.270343106] [goal_manager]: Navigation succeeded; metrics saved for 20261102T100716.549405Z
+[INFO] [1793614074.327031446] [goal_manager]: Goal 20261102T100754.326389Z: waiting for Nav2
+[INFO] [1793614110.488381656] [goal_manager]: Navigation shutdown; metrics saved for 20261102T100754.326389Z

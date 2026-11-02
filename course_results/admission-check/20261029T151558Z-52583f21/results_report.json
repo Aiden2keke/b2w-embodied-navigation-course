@@ -1,0 +1,10 @@
+{
+  "success": false,
+  "attempts": 0,
+  "mode": "run",
+  "output": "course_results/admission-check/20261029T151558Z-52583f21",
+  "max_attempts": 1,
+  "max_total_minutes": 1,
+  "stop_reason": "blocked_prerequisites",
+  "error": "RuntimeError('Missing independently reviewed artifacts/video/reviewed_run.json and .json.sha256; retained heading/Profile-B envelope remain unqualified')"
+}

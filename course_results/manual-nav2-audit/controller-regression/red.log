@@ -1,0 +1,14 @@
+[ERROR] [1793548939.269421720] [tf_help]: Transform data too old when converting from map to odom
+[ERROR] [1793548939.269466519] [tf_help]: Data time: 57s 707500000ns, Transform time: 57s 100000000ns
+PASS: synthetic TF installed
+FAIL: stale endpoint transform rejects near odom origin
+FAIL: failed transform never invokes GoalChecker
+FAIL: failed transform cannot latch XY success
+PASS: successful nonidentity transform of distant goal rejects
+PASS: successful transform reaches GoalChecker
+PASS: legitimate arrival at transformed endpoint succeeds
+PASS: arrival checked exactly once
+PASS: arrival with wrong heading rejects
+PASS: same-frame legitimate arrival succeeds
+PASS: missing robot pose rejects before checker
+Failures: 3

@@ -1,0 +1,12 @@
+[INFO] [1793548175.249474617] [rviz2]: Stereo is NOT SUPPORTED
+[INFO] [1793548175.249563986] [rviz2]: OpenGl version: 4.6 (GLSL 4.6)
+[INFO] [1793548175.517598387] [rviz2]: Stereo is NOT SUPPORTED
+[INFO] [1793548182.056626131] [rviz]: Message Filter dropping message: frame 'lidar_link' at time 1.500 for reason 'discarding message because the queue is full'
+[INFO] [1793548184.717733871] [rviz]: Message Filter dropping message: frame 'lidar_link' at time 4.000 for reason 'discarding message because the queue is full'
+[INFO] [1793548187.406406881] [rviz]: Message Filter dropping message: frame 'lidar_link' at time 6.500 for reason 'discarding message because the queue is full'
+[INFO] [1793548190.156093376] [rviz]: Message Filter dropping message: frame 'lidar_link' at time 9.100 for reason 'discarding message because the queue is full'
+[INFO] [1793548193.318916361] [rviz]: Message Filter dropping message: frame 'lidar_link' at time 11.700 for reason 'discarding message because the queue is full'
+[INFO] [1793548196.257483888] [rviz]: Message Filter dropping message: frame 'lidar_link' at time 14.300 for reason 'discarding message because the queue is full'
+[INFO] [1793548197.307764378] [rviz2]: Trying to create a map of size 800 x 800 using 1 swatches
+[INFO] [1793548207.546022987] [rviz]: Message Filter dropping message: frame 'lidar_link' at time 14.900 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1793548215.462446486] [rclcpp]: signal_handler(SIGINT/SIGTERM)

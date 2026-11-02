@@ -1,0 +1,45 @@
+{
+  "kind": "manual_warehouse_view",
+  "outcome": "stopped_by_user",
+  "success": null,
+  "stop_reason": "interrupted",
+  "motion_enabled": false,
+  "trajectory_samples": 5540,
+  "trajectory_source": "/sim/ground_truth/odom",
+  "map_source": "/home/zyd/program/b2w-embodied-navigation-course/course_navigation/maps/warehouse_ground_truth_floorplan.png",
+  "map_sha256": "91ac49f0d4b5816a4efd02e055ad26af88c43d2ee11c6db9f57305628ee36d72",
+  "map_error": null,
+  "tf_epoch_count": 1,
+  "map_stamp_ns": 55000000000,
+  "last_tf_age_s": 0.005,
+  "final_position": {
+    "x": -0.06746473873330554,
+    "y": -0.013056587622374069,
+    "yaw_rad": -0.06329971688505093
+  },
+  "artifacts": {
+    "csv": "/home/zyd/program/b2w-embodied-navigation-course/course_results/tracks/20261102T031146Z/trajectory.csv",
+    "image": "/home/zyd/program/b2w-embodied-navigation-course/course_results/tracks/20261102T031146Z/trajectory.png"
+  },
+  "started_utc": "2026-11-02T03:11:47.268533+00:00",
+  "ended_utc": "2026-11-02T03:13:02.124627+00:00",
+  "images": {
+    "ground_truth": {
+      "path": "course_results/tracks/20261102T031146Z/trajectory_ground_truth.png",
+      "source_topic": "/sim/ground_truth/odom",
+      "coordinate_frame": "world (topic frame sim_world)",
+      "map_asset": "course_navigation/maps/warehouse_ground_truth_floorplan.png",
+      "map_sha256": "91ac49f0d4b5816a4efd02e055ad26af88c43d2ee11c6db9f57305628ee36d72",
+      "resolution_m_per_pixel": 0.02,
+      "pixel_contract": "top-left pixel center: x=xmin+(column+.5)*resolution; y=ymax-(row+.5)*resolution"
+    },
+    "slam": {
+      "path": "course_results/tracks/20261102T031146Z/trajectory_slam.png",
+      "source_topic": "/slam/odom",
+      "coordinate_frame": "odom",
+      "map_asset": null,
+      "available": false,
+      "reason": "No complete registered SLAM map asset found; current /map excluded."
+    }
+  }
+}

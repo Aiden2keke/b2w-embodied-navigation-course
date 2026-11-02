@@ -1,0 +1,24 @@
+{
+  "success": false,
+  "end_reason": "shutdown",
+  "collision_count": 0,
+  "collision_missing_reason": null,
+  "path_length_m": 1.531358415357868,
+  "path_length_missing_reason": null,
+  "time_to_goal_s": 18.367500000000007,
+  "time_missing_reason": null,
+  "planning_latency_ms": 45.47348798951134,
+  "planning_latency_missing_reason": null,
+  "planning_measurement_status": "succeeded",
+  "planning_latency_definition": "ComputePathToPose action round trip, wall clock",
+  "path_source": "slam_base_link",
+  "goal_tolerance_m": 0.3,
+  "goal_id": "20261014T030846.442404Z",
+  "goal_map_xy": [
+    0.873779296875,
+    6.299648284912109
+  ],
+  "timeout_s": 120.0,
+  "collision_force_threshold_n": 50.0,
+  "final_goal_distance_m": 1.5091634972403996
+}

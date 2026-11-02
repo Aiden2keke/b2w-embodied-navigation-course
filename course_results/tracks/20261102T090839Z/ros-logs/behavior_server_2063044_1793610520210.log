@@ -1,0 +1,51 @@
+[INFO] [1793610520.439420598] [behavior_server]: 
+	behavior_server lifecycle node launched. 
+	Waiting on external lifecycle transitions to activate
+	See https://design.ros2.org/articles/node_lifecycle.html for more information.
+[INFO] [1793610520.721864588] [behavior_server]: Configuring
+[INFO] [1793610520.745411181] [behavior_server]: Creating behavior plugin spin of type nav2_behaviors/Spin
+[INFO] [1793610520.746366974] [behavior_server]: Configuring spin
+[INFO] [1793610520.769974986] [behavior_server]: Creating behavior plugin backup of type nav2_behaviors/BackUp
+[INFO] [1793610520.772042591] [behavior_server]: Configuring backup
+[INFO] [1793610520.797586549] [behavior_server]: Creating behavior plugin drive_on_heading of type nav2_behaviors/DriveOnHeading
+[INFO] [1793610520.798921133] [behavior_server]: Configuring drive_on_heading
+[INFO] [1793610520.808704480] [behavior_server]: Creating behavior plugin assisted_teleop of type nav2_behaviors/AssistedTeleop
+[INFO] [1793610520.812606262] [behavior_server]: Configuring assisted_teleop
+[INFO] [1793610520.842549258] [behavior_server]: Creating behavior plugin wait of type nav2_behaviors/Wait
+[INFO] [1793610520.846630739] [behavior_server]: Configuring wait
+[INFO] [1793610548.127646507] [behavior_server]: Activating
+[INFO] [1793610548.127695689] [behavior_server]: Activating spin
+[INFO] [1793610548.127707204] [behavior_server]: Activating backup
+[INFO] [1793610548.127715078] [behavior_server]: Activating drive_on_heading
+[INFO] [1793610548.127722729] [behavior_server]: Activating assisted_teleop
+[INFO] [1793610548.127728927] [behavior_server]: Activating wait
+[INFO] [1793610548.127740773] [behavior_server]: Creating bond (behavior_server) to lifecycle manager.
+[INFO] [1793610619.043589885] [behavior_server]: Running spin
+[INFO] [1793610619.045086196] [behavior_server]: Turning 1.57 for spin behavior.
+[WARN] [1793610619.147823626] [behavior_server]: Collision Ahead - Exiting Spin
+[WARN] [1793610619.147945512] [behavior_server]: spin failed
+[WARN] [1793610619.147969825] [behavior_server]: [spin] [ActionServer] Aborting handle.
+[INFO] [1793610619.175144117] [behavior_server]: Running wait
+[INFO] [1793610626.376871215] [behavior_server]: wait completed successfully
+[INFO] [1793610627.286083808] [behavior_server]: Running backup
+[INFO] [1793610627.286423896] [behavior_server]: DriveOnHeading: no acceleration or deceleration limits set
+[WARN] [1793610627.286579602] [behavior_server]: Collision Ahead - Exiting DriveOnHeading
+[WARN] [1793610627.286585858] [behavior_server]: backup failed
+[WARN] [1793610627.286593312] [behavior_server]: [backup] [ActionServer] Aborting handle.
+[INFO] [1793610628.803891796] [behavior_server]: Running spin
+[INFO] [1793610628.804078703] [behavior_server]: Turning 1.57 for spin behavior.
+[WARN] [1793610628.904377448] [behavior_server]: Collision Ahead - Exiting Spin
+[WARN] [1793610628.904438867] [behavior_server]: spin failed
+[WARN] [1793610628.904452665] [behavior_server]: [spin] [ActionServer] Aborting handle.
+[INFO] [1793610628.938302357] [behavior_server]: Running wait
+[INFO] [1793610635.539239955] [behavior_server]: wait completed successfully
+[INFO] [1793610636.333669690] [behavior_server]: Running backup
+[WARN] [1793610636.333933009] [behavior_server]: Collision Ahead - Exiting DriveOnHeading
+[WARN] [1793610636.333951166] [behavior_server]: backup failed
+[WARN] [1793610636.333961212] [behavior_server]: [backup] [ActionServer] Aborting handle.
+[INFO] [1793610636.567075041] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[INFO] [1793610636.567191238] [behavior_server]: Running Nav2 LifecycleNode rcl preshutdown (behavior_server)
+[INFO] [1793610636.567306749] [behavior_server]: Deactivating
+[INFO] [1793610636.567392923] [behavior_server]: Destroying bond (behavior_server) to lifecycle manager.
+[INFO] [1793610636.578318125] [behavior_server]: Cleaning up
+[INFO] [1793610636.583111144] [behavior_server]: Destroying bond (behavior_server) to lifecycle manager.

@@ -1,0 +1,192 @@
+1793607639.4552164 [INFO] [launch]: All log files can be found below /home/zyd/program/b2w-embodied-navigation-course/course_results/tracks/20261102T082039Z/ros-logs/2026-11-02-16-20-39-453729-zyd-MS-7D97-26
+1793607639.4554350 [INFO] [launch]: Default logging verbosity is set to INFO
+1793607639.5732381 [INFO] [ign-1]: process started with pid [48]
+1793607639.5735989 [INFO] [robot_state_publisher-2]: process started with pid [50]
+1793607639.5737119 [INFO] [create-3]: process started with pid [52]
+1793607639.5738027 [INFO] [parameter_bridge-4]: process started with pid [54]
+1793607639.5738833 [INFO] [b2w_rl_sar_controller-5]: process started with pid [56]
+1793607639.5739615 [INFO] [sensor_disturbance-6]: process started with pid [58]
+1793607639.5740345 [INFO] [sensor_cloud_disturbance-7]: process started with pid [60]
+1793607639.5785215 [robot_state_publisher-2] getifaddrs: Operation not permitted
+1793607639.5787084 [robot_state_publisher-2] getifaddrs: Operation not permitted
+1793607639.5791099 [b2w_rl_sar_controller-5] getifaddrs: Operation not permitted
+1793607639.5792279 [b2w_rl_sar_controller-5] getifaddrs: Operation not permitted
+1793607639.6130493 [parameter_bridge-4] getifaddrs: Operation not permitted
+1793607639.6136489 [parameter_bridge-4] getifaddrs: Operation not permitted
+1793607639.6302321 [robot_state_publisher-2] getifaddrs: Operation not permitted
+1793607639.6316416 [b2w_rl_sar_controller-5] getifaddrs: Operation not permitted
+1793607639.6339879 [b2w_rl_sar_controller-5] getifaddrs: Operation not permitted
+1793607639.6342831 [b2w_rl_sar_controller-5] getifaddrs: Operation not permitted
+1793607639.6343632 [b2w_rl_sar_controller-5] getifaddrs: Operation not permitted
+1793607639.6351042 [robot_state_publisher-2] getifaddrs: Operation not permitted
+1793607639.6352034 [robot_state_publisher-2] getifaddrs: Operation not permitted
+1793607639.6352773 [robot_state_publisher-2] getifaddrs: Operation not permitted
+1793607639.6355443 [b2w_rl_sar_controller-5] [37;1m2026-11-02 16:20:39.629 [31;1m[[37;1mTRANSPORT[31;1m Error] [37mAll whitelist interfaces were filtered out[34;1m -> Function [36mUDPv4Transport[m
+1793607639.6356051 [b2w_rl_sar_controller-5] [37;1m2026-11-02 16:20:39.629 [31;1m[[37;1mTRANSPORT_UDP[31;1m Error] [37mError creating socket: Operation not permitted[34;1m -> Function [36minit[m
+1793607639.6356435 [b2w_rl_sar_controller-5] [37;1m2026-11-02 16:20:39.629 [31;1m[[37;1mRTPS_PARTICIPANT[31;1m Error] [37mUser transport failed to register.[34;1m -> Function [36mRTPSParticipantImpl[m
+1793607639.6356769 [b2w_rl_sar_controller-5] [37;1m2026-11-02 16:20:39.629 [31;1m[[37;1mTRANSPORT[31;1m Error] [37mAll whitelist interfaces were filtered out[34;1m -> Function [36mUDPv4Transport[m
+1793607639.6357081 [b2w_rl_sar_controller-5] [37;1m2026-11-02 16:20:39.629 [31;1m[[37;1mTRANSPORT_UDP[31;1m Error] [37mError creating socket: Operation not permitted[34;1m -> Function [36minit[m
+1793607639.6357398 [b2w_rl_sar_controller-5] [37;1m2026-11-02 16:20:39.629 [31;1m[[37;1mRTPS_PARTICIPANT[31;1m Error] [37mUser transport failed to register.[34;1m -> Function [36mRTPSParticipantImpl[m
+1793607639.6359303 [robot_state_publisher-2] [37;1m2026-11-02 16:20:39.629 [31;1m[[37;1mTRANSPORT[31;1m Error] [37mAll whitelist interfaces were filtered out[34;1m -> Function [36mUDPv4Transport[m
+1793607639.6359768 [robot_state_publisher-2] [37;1m2026-11-02 16:20:39.629 [31;1m[[37;1mTRANSPORT_UDP[31;1m Error] [37mError creating socket: Operation not permitted[34;1m -> Function [36minit[m
+1793607639.6360118 [robot_state_publisher-2] [37;1m2026-11-02 16:20:39.629 [31;1m[[37;1mRTPS_PARTICIPANT[31;1m Error] [37mUser transport failed to register.[34;1m -> Function [36mRTPSParticipantImpl[m
+1793607639.6360431 [robot_state_publisher-2] [37;1m2026-11-02 16:20:39.629 [31;1m[[37;1mTRANSPORT[31;1m Error] [37mAll whitelist interfaces were filtered out[34;1m -> Function [36mUDPv4Transport[m
+1793607639.6360724 [robot_state_publisher-2] [37;1m2026-11-02 16:20:39.629 [31;1m[[37;1mTRANSPORT_UDP[31;1m Error] [37mError creating socket: Operation not permitted[34;1m -> Function [36minit[m
+1793607639.6361320 [robot_state_publisher-2] [37;1m2026-11-02 16:20:39.629 [31;1m[[37;1mRTPS_PARTICIPANT[31;1m Error] [37mUser transport failed to register.[34;1m -> Function [36mRTPSParticipantImpl[m
+1793607639.6798162 [parameter_bridge-4] getifaddrs: Operation not permitted
+1793607639.6805937 [parameter_bridge-4] getifaddrs: Operation not permitted
+1793607639.6808341 [parameter_bridge-4] getifaddrs: Operation not permitted
+1793607639.6813509 [parameter_bridge-4] getifaddrs: Operation not permitted
+1793607639.6824663 [parameter_bridge-4] [37;1m2026-11-02 16:20:39.678 [31;1m[[37;1mTRANSPORT[31;1m Error] [37mAll whitelist interfaces were filtered out[34;1m -> Function [36mUDPv4Transport[m
+1793607639.6826892 [parameter_bridge-4] [37;1m2026-11-02 16:20:39.678 [31;1m[[37;1mTRANSPORT_UDP[31;1m Error] [37mError creating socket: Operation not permitted[34;1m -> Function [36minit[m
+1793607639.6843181 [parameter_bridge-4] [37;1m2026-11-02 16:20:39.678 [31;1m[[37;1mRTPS_PARTICIPANT[31;1m Error] [37mUser transport failed to register.[34;1m -> Function [36mRTPSParticipantImpl[m
+1793607639.6845155 [parameter_bridge-4] [37;1m2026-11-02 16:20:39.678 [31;1m[[37;1mTRANSPORT[31;1m Error] [37mAll whitelist interfaces were filtered out[34;1m -> Function [36mUDPv4Transport[m
+1793607639.6846197 [parameter_bridge-4] [37;1m2026-11-02 16:20:39.678 [31;1m[[37;1mTRANSPORT_UDP[31;1m Error] [37mError creating socket: Operation not permitted[34;1m -> Function [36minit[m
+1793607639.6847091 [parameter_bridge-4] [37;1m2026-11-02 16:20:39.678 [31;1m[[37;1mRTPS_PARTICIPANT[31;1m Error] [37mUser transport failed to register.[34;1m -> Function [36mRTPSParticipantImpl[m
+1793607639.6933560 [robot_state_publisher-2] [WARN] [1793607639.692487651] [kdl_parser]: The root link base_link has an inertia specified in the URDF, but KDL does not support a root link with an inertia.  As a workaround, you can add an extra dummy link to your URDF.
+1793607639.6935151 [robot_state_publisher-2] [INFO] [1793607639.692684200] [b2w_robot_state_publisher]: got segment FL_calf
+1793607639.6935790 [robot_state_publisher-2] [INFO] [1793607639.692811667] [b2w_robot_state_publisher]: got segment FL_foot
+1793607639.6936328 [robot_state_publisher-2] [INFO] [1793607639.692822427] [b2w_robot_state_publisher]: got segment FL_hip
+1793607639.6936846 [robot_state_publisher-2] [INFO] [1793607639.692827257] [b2w_robot_state_publisher]: got segment FL_thigh
+1793607639.6937346 [robot_state_publisher-2] [INFO] [1793607639.692831184] [b2w_robot_state_publisher]: got segment FR_calf
+1793607639.6937826 [robot_state_publisher-2] [INFO] [1793607639.692835029] [b2w_robot_state_publisher]: got segment FR_foot
+1793607639.6975963 [robot_state_publisher-2] [INFO] [1793607639.692838685] [b2w_robot_state_publisher]: got segment FR_hip
+1793607639.6978381 [robot_state_publisher-2] [INFO] [1793607639.692842459] [b2w_robot_state_publisher]: got segment FR_thigh
+1793607639.6980877 [robot_state_publisher-2] [INFO] [1793607639.692845879] [b2w_robot_state_publisher]: got segment RL_calf
+1793607639.6983159 [robot_state_publisher-2] [INFO] [1793607639.692849424] [b2w_robot_state_publisher]: got segment RL_foot
+1793607639.6985047 [robot_state_publisher-2] [INFO] [1793607639.692852687] [b2w_robot_state_publisher]: got segment RL_hip
+1793607639.6986811 [robot_state_publisher-2] [INFO] [1793607639.692856156] [b2w_robot_state_publisher]: got segment RL_thigh
+1793607639.6988542 [robot_state_publisher-2] [INFO] [1793607639.692859198] [b2w_robot_state_publisher]: got segment RR_calf
+1793607639.6990745 [robot_state_publisher-2] [INFO] [1793607639.692863181] [b2w_robot_state_publisher]: got segment RR_foot
+1793607639.6992579 [robot_state_publisher-2] [INFO] [1793607639.692866554] [b2w_robot_state_publisher]: got segment RR_hip
+1793607639.6994395 [robot_state_publisher-2] [INFO] [1793607639.692869846] [b2w_robot_state_publisher]: got segment RR_thigh
+1793607639.6996546 [robot_state_publisher-2] [INFO] [1793607639.692872933] [b2w_robot_state_publisher]: got segment base_link
+1793607639.6998372 [robot_state_publisher-2] [INFO] [1793607639.692876499] [b2w_robot_state_publisher]: got segment collision_plate
+1793607639.6999950 [robot_state_publisher-2] [INFO] [1793607639.692879604] [b2w_robot_state_publisher]: got segment f_dc_link
+1793607639.7001512 [robot_state_publisher-2] [INFO] [1793607639.692882754] [b2w_robot_state_publisher]: got segment f_oc_link
+1793607639.7003212 [robot_state_publisher-2] [INFO] [1793607639.692885317] [b2w_robot_state_publisher]: got segment head_Link
+1793607639.7004838 [robot_state_publisher-2] [INFO] [1793607639.692888292] [b2w_robot_state_publisher]: got segment imu_link
+1793607639.7006333 [robot_state_publisher-2] [INFO] [1793607639.692891511] [b2w_robot_state_publisher]: got segment lidar_link
+1793607639.7007852 [robot_state_publisher-2] [INFO] [1793607639.692894477] [b2w_robot_state_publisher]: got segment logo_link
+1793607639.7009435 [robot_state_publisher-2] [INFO] [1793607639.692897934] [b2w_robot_state_publisher]: got segment r_dc_link
+1793607639.7010970 [robot_state_publisher-2] [INFO] [1793607639.692901004] [b2w_robot_state_publisher]: got segment r_oc_ink
+1793607639.7012560 [robot_state_publisher-2] [INFO] [1793607639.692904629] [b2w_robot_state_publisher]: got segment tail_link
+1793607639.7014308 [robot_state_publisher-2] [INFO] [1793607639.692908154] [b2w_robot_state_publisher]: got segment zed_x_camera
+1793607639.7030563 [b2w_rl_sar_controller-5] [INFO] [1793607639.702117926] [b2w_rl_sar_controller]: Loaded rl_sar B2-W policy: 57 observations, 16 actions, 50 Hz policy / 200 Hz torque, /home/zyd/program/b2w-embodied-navigation-course/third_party/b2w_rl_sar/policy/b2w/robot_lab/policy.onnx
+1793607639.7034855 [parameter_bridge-4] Socket creation failed.
+1793607639.7036455 [parameter_bridge-4] Socket creation failed.
+1793607639.7037663 [parameter_bridge-4] Did you set the environment variable IGN_IP with a correct IP address? 
+1793607639.7038741 [parameter_bridge-4]   [127.0.0.1] seems an invalid local IP address.
+1793607639.7039807 [parameter_bridge-4]   Using 127.0.0.1 as hostname.
+1793607639.7042823 [parameter_bridge-4] terminate called after throwing an instance of 'std::out_of_range'
+1793607639.7044139 [parameter_bridge-4]   what():  vector::_M_range_check: __n (which is 0) >= this->size() (which is 0)
+1793607639.7731481 [ign-1] Error opening log file: /home/zyd/.ignition/auto_default.log
+1793607639.7736201 [ign-1] Socket creation failed.
+1793607639.7736940 [ign-1] Socket creation failed.
+1793607639.7737474 [ign-1] Did you set the environment variable IGN_IP with a correct IP address? 
+1793607639.7737963 [ign-1]   [127.0.0.1] seems an invalid local IP address.
+1793607639.7738419 [ign-1]   Using 127.0.0.1 as hostname.
+1793607639.7740417 [ign-1] terminate called after throwing an instance of 'std::out_of_range'
+1793607639.7740998 [ign-1]   what():  vector::_M_range_check: __n (which is 0) >= this->size() (which is 0)
+1793607639.7741487 [ign-1] Stack trace (most recent call last):
+1793607639.7743962 [ign-1] #31   Object "/lib/x86_64-linux-gnu/libc.so.6", at 0x7c3aed629d8f, in 
+1793607639.7746236 [ign-1] #30   Object "ign gazebo server", at 0x5e347ddca17e, in 
+1793607639.7746849 [ign-1] #29   Object "/lib/x86_64-linux-gnu/libruby-3.0.so.3.0", at 0x7c3aedaa8e19, in ruby_run_node
+1793607639.7747324 [ign-1] #28   Object "/lib/x86_64-linux-gnu/libruby-3.0.so.3.0", at 0x7c3aedaa5317, in 
+1793607639.7747900 [ign-1] #27   Object "/lib/x86_64-linux-gnu/libruby-3.0.so.3.0", at 0x7c3aedc3a30c, in rb_vm_exec
+1793607639.7748401 [ign-1] #26   Object "/lib/x86_64-linux-gnu/libruby-3.0.so.3.0", at 0x7c3aedc34c96, in 
+1793607639.7748890 [ign-1] #25   Object "/lib/x86_64-linux-gnu/libruby-3.0.so.3.0", at 0x7c3aedc31fc5, in 
+1793607639.7749405 [ign-1] #24   Object "/lib/x86_64-linux-gnu/libruby-3.0.so.3.0", at 0x7c3aedc2fc34, in 
+1793607639.7749889 [ign-1] #23   Object "/lib/x86_64-linux-gnu/libruby-3.0.so.3.0", at 0x7c3aedb7ba4e, in 
+1793607639.7751799 [ign-1] #22   Object "/lib/x86_64-linux-gnu/libruby-3.0.so.3.0", at 0x7c3aedaa69ac, in rb_protect
+1793607639.7752740 [ign-1] #21   Object "/lib/x86_64-linux-gnu/libruby-3.0.so.3.0", at 0x7c3aedc3ec61, in rb_yield
+1793607639.7753329 [ign-1] #20   Object "/lib/x86_64-linux-gnu/libruby-3.0.so.3.0", at 0x7c3aedc3a30c, in rb_vm_exec
+1793607639.7753825 [ign-1] #19   Object "/lib/x86_64-linux-gnu/libruby-3.0.so.3.0", at 0x7c3aedc34c96, in 
+1793607639.7754300 [ign-1] #18   Object "/lib/x86_64-linux-gnu/libruby-3.0.so.3.0", at 0x7c3aedc31fc5, in 
+1793607639.7754776 [ign-1] #17   Object "/lib/x86_64-linux-gnu/libruby-3.0.so.3.0", at 0x7c3aedc2fc34, in 
+1793607639.7755859 [ign-1] #16   Object "/usr/lib/x86_64-linux-gnu/ruby/3.0.0/fiddle.so", at 0x7c3aedda044b, in 
+1793607639.7756381 [ign-1] #15   Object "/lib/x86_64-linux-gnu/libruby-3.0.so.3.0", at 0x7c3aedbfd088, in rb_nogvl
+1793607639.7757180 [ign-1] #14   Object "/usr/lib/x86_64-linux-gnu/ruby/3.0.0/fiddle.so", at 0x7c3aedd9fd6b, in 
+1793607639.7757719 [ign-1] #13   Object "/lib/x86_64-linux-gnu/libffi.so.8", at 0x7c3aedd91492, in 
+1793607639.7758200 [ign-1] #12   Object "/lib/x86_64-linux-gnu/libffi.so.8", at 0x7c3aedd94e2d, in 
+1793607639.7758679 [ign-1] #11   Object "/usr/lib/x86_64-linux-gnu/libignition-gazebo6-ign.so.6.18.0", at 0x7c3ae97681ce, in runServer
+1793607639.7759173 [ign-1] #10   Object "/lib/x86_64-linux-gnu/libignition-transport11.so.11", at 0x7c3ae8bb22bf, in ignition::transport::v11::Node::Node(ignition::transport::v11::NodeOptions const&)
+1793607639.7759678 [ign-1] #9    Object "/lib/x86_64-linux-gnu/libignition-transport11.so.11", at 0x7c3ae8b9d2a6, in 
+1793607639.7760150 [ign-1] #8    Object "/lib/x86_64-linux-gnu/libignition-transport11.so.11", at 0x7c3ae8bc97d5, in ignition::transport::v11::NodeShared::NodeShared()
+1793607639.7760632 [ign-1] #7    Object "/lib/x86_64-linux-gnu/libstdc++.so.6", at 0x7c3ae94a54cc, in 
+1793607639.7761116 [ign-1] #6    Object "/lib/x86_64-linux-gnu/libstdc++.so.6", at 0x7c3ae94ae4d7, in __cxa_throw
+1793607639.7761602 [ign-1] #5    Object "/lib/x86_64-linux-gnu/libstdc++.so.6", at 0x7c3ae94ae276, in std::terminate()
+1793607639.7762089 [ign-1] #4    Object "/lib/x86_64-linux-gnu/libstdc++.so.6", at 0x7c3ae94ae20b, in 
+1793607639.7762575 [ign-1] #3    Object "/lib/x86_64-linux-gnu/libstdc++.so.6", at 0x7c3ae94a2b9d, in 
+1793607639.7763240 [ign-1] Socket creation failed.#2    Object "
+1793607639.7763815 [ign-1] /lib/x86_64-linux-gnu/libc.so.6", at Socket creation failed.0x7c3aed6287f2
+1793607639.7764308 [ign-1] , in Did you set the environment variable IGN_IP with a correct IP address? abort
+1793607639.7764785 [ign-1] 
+1793607639.7765279 [ign-1]   [127.0.0.1] seems an invalid local IP #address.
+1793607639.7765770 [ign-1] 1   Using 127.0.0.1 as hostname.
+1793607639.7766194 [ign-1]    Object "/lib/x86_64-linux-gnu/libc.so.6", at 0x7c3aed642475, in raise
+1793607639.7766619 [ign-1] #0    Object "/lib/x86_64-linux-gnu/libc.so.6", at 0x7c3aed6969bc, in pthread_kill
+1793607639.7767012 [ign-1] Aborted (Signal sent by tkill() 173 1000)
+1793607639.7770143 [ign-1] [1;32m[Msg] [0m[1;32mIgnition Gazebo GUI    v[0m[1;32m6.18.0[0m[1;32m[0m
+1793607639.7771287 [ign-1] terminate called after throwing an instance of 'std::out_of_range'
+1793607639.7771673 [ign-1]   what():  vector::_M_range_check: __n (which is 0) >= this->size() (which is 0)
+1793607639.7771909 [ign-1] Stack trace (most recent call last):
+1793607639.7772877 [ign-1] #31   Object "/lib/x86_64-linux-gnu/libruby-3.0.so.3.0", at 0x7c3aedaa8e19, in ruby_run_node
+1793607639.7773271 [ign-1] #30   Object "/lib/x86_64-linux-gnu/libruby-3.0.so.3.0", at 0x7c3aedaa5317, in 
+1793607639.7773478 [ign-1] #29   Object "/lib/x86_64-linux-gnu/libruby-3.0.so.3.0", at 0x7c3aedc3a30c, in rb_vm_exec
+1793607639.7773654 [ign-1] #28   Object "/lib/x86_64-linux-gnu/libruby-3.0.so.3.0", at 0x7c3aedc34c96, in 
+1793607639.7773812 [ign-1] #27   Object "/lib/x86_64-linux-gnu/libruby-3.0.so.3.0", at 0x7c3aedc31fc5, in 
+1793607639.7773964 [ign-1] #26   Object "/lib/x86_64-linux-gnu/libruby-3.0.so.3.0", at 0x7c3aedc2fc34, in 
+1793607639.7774210 [ign-1] #25   Object "/lib/x86_64-linux-gnu/libruby-3.0.so.3.0", at 0x7c3aedb7ba4e, in 
+1793607639.7774370 [ign-1] #24   Object "/lib/x86_64-linux-gnu/libruby-3.0.so.3.0", at 0x7c3aedaa69ac, in rb_protect
+1793607639.7774515 [ign-1] #23   Object "/lib/x86_64-linux-gnu/libruby-3.0.so.3.0", at 0x7c3aedc3ec61, in rb_yield
+1793607639.7774673 [ign-1] #22   Object "/lib/x86_64-linux-gnu/libruby-3.0.so.3.0", at 0x7c3aedc3a30c, in rb_vm_exec
+1793607639.7774928 [ign-1] #21   Object "/lib/x86_64-linux-gnu/libruby-3.0.so.3.0", at 0x7c3aedc34c96, in 
+1793607639.7775109 [ign-1] #20   Object "/lib/x86_64-linux-gnu/libruby-3.0.so.3.0", at 0x7c3aedc31fc5, in 
+1793607639.7775285 [ign-1] #19   Object "/lib/x86_64-linux-gnu/libruby-3.0.so.3.0", at 0x7c3aedc2fc34, in 
+1793607639.7775464 [ign-1] #18   Object "/usr/lib/x86_64-linux-gnu/ruby/3.0.0/fiddle.so", at 0x7c3aedda044b, in 
+1793607639.7775631 [ign-1] #17   Object "/lib/x86_64-linux-gnu/libruby-3.0.so.3.0", at 0x7c3aedbfd088, in rb_nogvl
+1793607639.7775819 [ign-1] #16   Object "/usr/lib/x86_64-linux-gnu/ruby/3.0.0/fiddle.so", at 0x7c3aedd9fd6b, in 
+1793607639.7775996 [ign-1] #15   Object "/lib/x86_64-linux-gnu/libffi.so.8", at 0x7c3aedd91492, in 
+1793607639.7776172 [ign-1] #14   Object "/lib/x86_64-linux-gnu/libffi.so.8", at 0x7c3aedd94e2d, in 
+1793607639.7776341 [ign-1] #13   Object "/usr/lib/x86_64-linux-gnu/libignition-gazebo6-ign.so.6.18.0", at 0x7c3ae9766bac, in runGui
+1793607639.7776518 [ign-1] #12   Object "/lib/x86_64-linux-gnu/libignition-gazebo6-gui.so.6", at 0x7c3ae88fbb65, in ignition::gazebo::v6::gui::runGui(int&, char**, char const*, char const*, int, char const*)
+1793607639.7776711 [ign-1] #11   Object "/lib/x86_64-linux-gnu/libignition-gazebo6-gui.so.6", at 0x7c3ae88fa24f, in ignition::gazebo::v6::gui::createGui(int&, char**, char const*, char const*, bool, char const*, int, char const*)
+1793607639.7776895 [ign-1] #10   Object "/lib/x86_64-linux-gnu/libignition-transport11.so.11", at 0x7c3ae8bb22bf, in ignition::transport::v11::Node::Node(ignition::transport::v11::NodeOptions const&)
+1793607639.7777064 [ign-1] #9    Object "/lib/x86_64-linux-gnu/libignition-transport11.so.11", at 0x7c3ae8b9d2a6, in 
+1793607639.7777238 [ign-1] #8    Object "/lib/x86_64-linux-gnu/libignition-transport11.so.11", at 0x7c3ae8bc97d5, in ignition::transport::v11::NodeShared::NodeShared()
+1793607639.7777419 [ign-1] #7    Object "/lib/x86_64-linux-gnu/libstdc++.so.6", at 0x7c3ae94a54cc, in 
+1793607639.7777596 [ign-1] #6    Object "/lib/x86_64-linux-gnu/libstdc++.so.6", at 0x7c3ae94ae4d7, in __cxa_throw
+1793607639.7777767 [ign-1] #5    Object "/lib/x86_64-linux-gnu/libstdc++.so.6", at 0x7c3ae94ae276, in std::terminate()
+1793607639.7777936 [ign-1] #4    Object "/lib/x86_64-linux-gnu/libstdc++.so.6", at 0x7c3ae94ae20b, in 
+1793607639.7778111 [ign-1] #3    Object "/lib/x86_64-linux-gnu/libstdc++.so.6", at 0x7c3ae94a2b9d, in 
+1793607639.7778287 [ign-1] #2    Object "/lib/x86_64-linux-gnu/libc.so.6", at 0x7c3aed6287f2, in abort
+1793607639.7778463 [ign-1] #1    Object "/lib/x86_64-linux-gnu/libc.so.6", at 0x7c3aed642475, in raise
+1793607639.7778640 [ign-1] #0    Object "/lib/x86_64-linux-gnu/libc.so.6", at 0x7c3aed6969bc, in pthread_kill
+1793607639.7778821 [ign-1] Aborted (Signal sent by tkill() 174 1000)
+1793607639.8334608 [ERROR] [parameter_bridge-4]: process has died [pid 54, exit code -6, cmd '/opt/ros/humble/lib/ros_gz_bridge/parameter_bridge --ros-args --params-file /tmp/launch_params_n60dw4xg'].
+1793607639.8345356 [ERROR] [create-3]: process has died [pid 52, exit code -6, cmd '/opt/ros/humble/lib/ros_gz_sim/create -world course_world -name b2w -topic /b2w/robot_description -x 0.0 -y 0.0 -z 1.0 --ros-args'].
+1793607639.8371530 [INFO] [sensor_cloud_disturbance-7]: sending signal 'SIGINT' to process[sensor_cloud_disturbance-7]
+1793607639.8378980 [INFO] [sensor_disturbance-6]: sending signal 'SIGINT' to process[sensor_disturbance-6]
+1793607639.8384840 [INFO] [b2w_rl_sar_controller-5]: sending signal 'SIGINT' to process[b2w_rl_sar_controller-5]
+1793607639.8392844 [INFO] [robot_state_publisher-2]: sending signal 'SIGINT' to process[robot_state_publisher-2]
+1793607639.8400576 [INFO] [ign-1]: sending signal 'SIGINT' to process[ign-1]
+1793607639.8403246 [b2w_rl_sar_controller-5] [INFO] [1793607639.838654937] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+1793607639.8415530 [robot_state_publisher-2] [INFO] [1793607639.841017648] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+1793607639.8870602 [ign-1] /usr/lib/ruby/ignition/cmdgazebo6.rb:183:in `kill': No such process (Errno::ESRCH)
+1793607639.8871899 [ign-1] 	from /usr/lib/ruby/ignition/cmdgazebo6.rb:183:in `killProcess'
+1793607639.8872333 [ign-1] 	from /usr/lib/ruby/ignition/cmdgazebo6.rb:510:in `handle_signal'
+1793607639.8905630 [ign-1] 	from /usr/lib/ruby/ignition/cmdgazebo6.rb:514:in `block in execute'
+1793607639.8907015 [ign-1] 	from /usr/lib/ruby/ignition/cmdgazebo6.rb:524:in `wait2'
+1793607639.8907385 [ign-1] 	from /usr/lib/ruby/ignition/cmdgazebo6.rb:524:in `execute'
+1793607639.8907666 [ign-1] 	from /usr/bin/ign:301:in `<main>'
+1793607639.9124932 [ERROR] [ign-1]: process has died [pid 48, exit code 1, cmd 'ign gazebo -r -v 3 /home/zyd/program/b2w-embodied-navigation-course/third_party/aws_warehouse/warehouse.world --gui-config /home/zyd/program/b2w-embodied-navigation-course/course_results/tracks/20261102T082039Z/gazebo_gui.config'].
+1793607639.9646466 [INFO] [robot_state_publisher-2]: process has finished cleanly [pid 50]
+1793607639.9679854 [INFO] [b2w_rl_sar_controller-5]: process has finished cleanly [pid 56]
+1793607644.8419986 [ERROR] [sensor_cloud_disturbance-7]: process[sensor_cloud_disturbance-7] failed to terminate '5' seconds after receiving 'SIGINT', escalating to 'SIGTERM'
+1793607644.8428969 [ERROR] [sensor_disturbance-6]: process[sensor_disturbance-6] failed to terminate '5' seconds after receiving 'SIGINT', escalating to 'SIGTERM'
+1793607644.8435547 [INFO] [sensor_cloud_disturbance-7]: sending signal 'SIGTERM' to process[sensor_cloud_disturbance-7]
+1793607644.8461471 [INFO] [sensor_disturbance-6]: sending signal 'SIGTERM' to process[sensor_disturbance-6]
+1793607645.0167310 [INFO] [sensor_cloud_disturbance-7]: process has finished cleanly [pid 60]
+1793607649.8430066 [ERROR] [sensor_disturbance-6]: process[sensor_disturbance-6] failed to terminate '10.0' seconds after receiving 'SIGTERM', escalating to 'SIGKILL'
+1793607649.8439791 [INFO] [sensor_disturbance-6]: process has finished cleanly [pid 58]

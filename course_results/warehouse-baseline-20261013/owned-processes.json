@@ -1,0 +1,152 @@
+[
+  {
+    "pid": 3085869,
+    "ppid": 444280,
+    "start_ticks": 32610073,
+    "cmd": "/usr/bin/python3 /opt/ros/humble/bin/ros2 launch course_bringup course.launch.py mode:=navigation scene:=warehouse gui:=true rviz:=true fault_profile:=normal seed:=0 results_directory:=/tmp/warehouse-baseline-20261013/metrics "
+  },
+  {
+    "pid": 3085935,
+    "ppid": 3085869,
+    "start_ticks": 32610156,
+    "cmd": "ign gazebo -r -v 3 /home/zyd/program/b2w-embodied-navigation-course/third_party/aws_warehouse/warehouse.world               "
+  },
+  {
+    "pid": 3085937,
+    "ppid": 3085869,
+    "start_ticks": 32610156,
+    "cmd": "/opt/ros/humble/lib/robot_state_publisher/robot_state_publisher --ros-args -r __node:=b2w_robot_state_publisher --params-file /tmp/launch_params_955m8u6x -r robot_description:=/b2w/robot_description "
+  },
+  {
+    "pid": 3085941,
+    "ppid": 3085869,
+    "start_ticks": 32610156,
+    "cmd": "/opt/ros/humble/lib/ros_gz_bridge/parameter_bridge --ros-args --params-file /tmp/launch_params_kcdvqg3k "
+  },
+  {
+    "pid": 3085943,
+    "ppid": 3085869,
+    "start_ticks": 32610157,
+    "cmd": "/home/zyd/program/b2w-embodied-navigation-course/install/b2w_controllers/lib/b2w_controllers/b2w_rl_sar_controller --ros-args --params-file /home/zyd/program/b2w-embodied-navigation-course/install/course_sim/share/course_sim/config/rl_sar.yaml --params-file /tmp/launch_params_zyuy5xab "
+  },
+  {
+    "pid": 3085945,
+    "ppid": 3085869,
+    "start_ticks": 32610157,
+    "cmd": "/usr/bin/python3 /home/zyd/program/b2w-embodied-navigation-course/install/course_sim/lib/course_sim/sensor_disturbance --ros-args --params-file /tmp/launch_params_mfljbtvi --params-file /tmp/launch_params_456ml9w4 "
+  },
+  {
+    "pid": 3085947,
+    "ppid": 3085869,
+    "start_ticks": 32610157,
+    "cmd": "/opt/ros/humble/lib/nav2_controller/controller_server --ros-args -r __node:=controller_server --params-file /home/zyd/program/b2w-embodied-navigation-course/install/course_navigation/share/course_navigation/config/nav2.yaml -r cmd_vel:=/course_navigation/cmd_vel_raw "
+  },
+  {
+    "pid": 3085949,
+    "ppid": 3085869,
+    "start_ticks": 32610157,
+    "cmd": "/opt/ros/humble/lib/nav2_smoother/smoother_server --ros-args -r __node:=smoother_server --params-file /home/zyd/program/b2w-embodied-navigation-course/install/course_navigation/share/course_navigation/config/nav2.yaml -r cmd_vel:=/course_navigation/cmd_vel "
+  },
+  {
+    "pid": 3085951,
+    "ppid": 3085869,
+    "start_ticks": 32610157,
+    "cmd": "/opt/ros/humble/lib/nav2_planner/planner_server --ros-args -r __node:=planner_server --params-file /home/zyd/program/b2w-embodied-navigation-course/install/course_navigation/share/course_navigation/config/nav2.yaml -r cmd_vel:=/course_navigation/cmd_vel "
+  },
+  {
+    "pid": 3085953,
+    "ppid": 3085869,
+    "start_ticks": 32610157,
+    "cmd": "/opt/ros/humble/lib/nav2_behaviors/behavior_server --ros-args -r __node:=behavior_server --params-file /home/zyd/program/b2w-embodied-navigation-course/install/course_navigation/share/course_navigation/config/nav2.yaml -r cmd_vel:=/course_navigation/cmd_vel "
+  },
+  {
+    "pid": 3085955,
+    "ppid": 3085869,
+    "start_ticks": 32610157,
+    "cmd": "/opt/ros/humble/lib/nav2_bt_navigator/bt_navigator --ros-args -r __node:=bt_navigator --params-file /home/zyd/program/b2w-embodied-navigation-course/install/course_navigation/share/course_navigation/config/nav2.yaml -r cmd_vel:=/course_navigation/cmd_vel -r goal_pose:=/course_navigation/unused_nav2_goal_pose "
+  },
+  {
+    "pid": 3085957,
+    "ppid": 3085869,
+    "start_ticks": 32610157,
+    "cmd": "/opt/ros/humble/lib/nav2_waypoint_follower/waypoint_follower --ros-args -r __node:=waypoint_follower --params-file /home/zyd/program/b2w-embodied-navigation-course/install/course_navigation/share/course_navigation/config/nav2.yaml -r cmd_vel:=/course_navigation/cmd_vel "
+  },
+  {
+    "pid": 3085959,
+    "ppid": 3085869,
+    "start_ticks": 32610157,
+    "cmd": "/opt/ros/humble/lib/nav2_velocity_smoother/velocity_smoother --ros-args -r __node:=velocity_smoother --params-file /home/zyd/program/b2w-embodied-navigation-course/install/course_navigation/share/course_navigation/config/nav2.yaml -r cmd_vel:=/course_navigation/cmd_vel_raw -r cmd_vel_smoothed:=/course_navigation/cmd_vel "
+  },
+  {
+    "pid": 3085961,
+    "ppid": 3085869,
+    "start_ticks": 32610157,
+    "cmd": "/usr/bin/python3 /home/zyd/program/b2w-embodied-navigation-course/install/course_navigation/lib/course_navigation/map_projector --ros-args --params-file /tmp/launch_params_shyty90a "
+  },
+  {
+    "pid": 3085963,
+    "ppid": 3085869,
+    "start_ticks": 32610157,
+    "cmd": "/opt/ros/humble/lib/nav2_lifecycle_manager/lifecycle_manager --ros-args -r __node:=lifecycle_manager_navigation --params-file /tmp/launch_params__4kfuihn "
+  },
+  {
+    "pid": 3085965,
+    "ppid": 3085869,
+    "start_ticks": 32610157,
+    "cmd": "/usr/bin/python3 /home/zyd/program/b2w-embodied-navigation-course/install/course_navigation/lib/course_navigation/velocity_adapter --ros-args --params-file /tmp/launch_params_gg383bhf "
+  },
+  {
+    "pid": 3085968,
+    "ppid": 3085869,
+    "start_ticks": 32610157,
+    "cmd": "/usr/bin/python3 /home/zyd/program/b2w-embodied-navigation-course/install/course_navigation/lib/course_navigation/goal_manager --ros-args --params-file /tmp/launch_params_q_b3a2gd "
+  },
+  {
+    "pid": 3085971,
+    "ppid": 3085869,
+    "start_ticks": 32610158,
+    "cmd": "/opt/ros/humble/lib/rviz2/rviz2 -d /tmp/course-1jwzsird.rviz --ros-args --params-file /tmp/launch_params__d8dy53e "
+  },
+  {
+    "pid": 3086151,
+    "ppid": 3085935,
+    "start_ticks": 32610189,
+    "cmd": "ign gazebo server                                                                                                           "
+  },
+  {
+    "pid": 3086154,
+    "ppid": 3085935,
+    "start_ticks": 32610189,
+    "cmd": "ign gazebo gui                                                                                                              "
+  },
+  {
+    "pid": 3086768,
+    "ppid": 3085869,
+    "start_ticks": 32612158,
+    "cmd": "/home/zyd/program/b2w-embodied-navigation-course/install/lio_sam/lib/lio_sam/lio_sam_imuPreintegration --ros-args --params-file /home/zyd/program/b2w-embodied-navigation-course/install/course_slam/share/course_slam/config/lio_sam.yaml -r /tf:=/lio_internal/tf "
+  },
+  {
+    "pid": 3086770,
+    "ppid": 3085869,
+    "start_ticks": 32612159,
+    "cmd": "/home/zyd/program/b2w-embodied-navigation-course/install/lio_sam/lib/lio_sam/lio_sam_imageProjection --ros-args --params-file /home/zyd/program/b2w-embodied-navigation-course/install/course_slam/share/course_slam/config/lio_sam.yaml -r /tf:=/lio_internal/tf "
+  },
+  {
+    "pid": 3086772,
+    "ppid": 3085869,
+    "start_ticks": 32612159,
+    "cmd": "/home/zyd/program/b2w-embodied-navigation-course/install/lio_sam/lib/lio_sam/lio_sam_featureExtraction --ros-args --params-file /home/zyd/program/b2w-embodied-navigation-course/install/course_slam/share/course_slam/config/lio_sam.yaml -r /tf:=/lio_internal/tf "
+  },
+  {
+    "pid": 3086774,
+    "ppid": 3085869,
+    "start_ticks": 32612159,
+    "cmd": "/home/zyd/program/b2w-embodied-navigation-course/install/lio_sam/lib/lio_sam/lio_sam_mapOptimization --ros-args --params-file /home/zyd/program/b2w-embodied-navigation-course/install/course_slam/share/course_slam/config/lio_sam.yaml -r /tf:=/lio_internal/tf "
+  },
+  {
+    "pid": 3086776,
+    "ppid": 3085869,
+    "start_ticks": 32612159,
+    "cmd": "/usr/bin/python3 /home/zyd/program/b2w-embodied-navigation-course/install/course_slam/lib/course_slam/pose_adapter --ros-args --params-file /home/zyd/program/b2w-embodied-navigation-course/install/course_slam/share/course_slam/config/adapter.yaml --params-file /tmp/launch_params_v68klw4j "
+  }
+]

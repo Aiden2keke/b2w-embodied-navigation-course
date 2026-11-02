@@ -1,0 +1,24 @@
+{
+  "publishers": {
+    "/clock": [],
+    "/tf": [],
+    "/joint_states": [],
+    "/sim/raw/imu": [],
+    "/joint_torques": [],
+    "/b2w/robot_description": []
+  },
+  "counts": {},
+  "tf_time_reversals": 0,
+  "tf_examples": [],
+  "checks": {
+    "body_feedback": false,
+    "body_stable": false,
+    "idle_drift_below_15cm": false,
+    "one_clock": false,
+    "one_controller": false,
+    "one_description": false,
+    "tf_monotonic": true,
+    "sensor_clock_monotonic": true
+  },
+  "passed": false
+}

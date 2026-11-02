@@ -1,0 +1,247 @@
+[INFO] [1793613453.126754248] [controller_server]: 
+	controller_server lifecycle node launched. 
+	Waiting on external lifecycle transitions to activate
+	See https://design.ros2.org/articles/node_lifecycle.html for more information.
+[INFO] [1793613453.145280016] [controller_server]: Creating controller server
+[INFO] [1793613453.198562220] [local_costmap.local_costmap]: 
+	local_costmap lifecycle node launched. 
+	Waiting on external lifecycle transitions to activate
+	See https://design.ros2.org/articles/node_lifecycle.html for more information.
+[INFO] [1793613453.199540171] [local_costmap.local_costmap]: Creating Costmap
+[INFO] [1793613453.221779425] [controller_server]: Configuring controller interface
+[INFO] [1793613453.222435996] [controller_server]: getting goal checker plugins..
+[INFO] [1793613453.222618578] [controller_server]: Controller frequency set to 20.0000Hz
+[INFO] [1793613453.222806105] [local_costmap.local_costmap]: Configuring
+[INFO] [1793613453.246456875] [local_costmap.local_costmap]: Using plugin "static_layer"
+[INFO] [1793613453.252691368] [local_costmap.local_costmap]: Subscribing to the map topic (/map) with transient local durability
+[INFO] [1793613453.260172457] [local_costmap.local_costmap]: Initialized plugin "static_layer"
+[INFO] [1793613453.260285470] [local_costmap.local_costmap]: Using plugin "obstacle_layer"
+[INFO] [1793613453.270907795] [local_costmap.local_costmap]: Subscribed to Topics: lidar
+[INFO] [1793613453.276214351] [local_costmap.local_costmap]: Initialized plugin "obstacle_layer"
+[INFO] [1793613453.276266312] [local_costmap.local_costmap]: Using plugin "inflation_layer"
+[INFO] [1793613453.277984285] [local_costmap.local_costmap]: Initialized plugin "inflation_layer"
+[INFO] [1793613453.302413971] [controller_server]: Created progress_checker : progress_checker of type nav2_controller::SimpleProgressChecker
+[INFO] [1793613453.303540387] [controller_server]: Created goal checker : general_goal_checker of type nav2_controller::SimpleGoalChecker
+[INFO] [1793613453.304498560] [controller_server]: Controller Server has general_goal_checker  goal checkers available.
+[INFO] [1793613453.306832470] [controller_server]: Created controller : FollowPath of type dwb_core::DWBLocalPlanner
+[INFO] [1793613453.310346441] [controller_server]: Setting transform_tolerance to 0.200000
+[INFO] [1793613453.328946557] [controller_server]: Using critic "RotateToGoal" (dwb_critics::RotateToGoalCritic)
+[INFO] [1793613453.329398212] [controller_server]: Critic plugin initialized
+[INFO] [1793613453.329499082] [controller_server]: Using critic "Oscillation" (dwb_critics::OscillationCritic)
+[INFO] [1793613453.329758211] [controller_server]: Critic plugin initialized
+[INFO] [1793613453.329834123] [controller_server]: Using critic "BaseObstacle" (dwb_critics::BaseObstacleCritic)
+[INFO] [1793613453.329924664] [controller_server]: Critic plugin initialized
+[INFO] [1793613453.329989686] [controller_server]: Using critic "GoalAlign" (dwb_critics::GoalAlignCritic)
+[INFO] [1793613453.330217535] [controller_server]: Critic plugin initialized
+[INFO] [1793613453.330293480] [controller_server]: Using critic "PathAlign" (dwb_critics::PathAlignCritic)
+[INFO] [1793613453.330502903] [controller_server]: Critic plugin initialized
+[INFO] [1793613453.330582365] [controller_server]: Using critic "PathDist" (dwb_critics::PathDistCritic)
+[INFO] [1793613453.330755454] [controller_server]: Critic plugin initialized
+[INFO] [1793613453.330826219] [controller_server]: Using critic "GoalDist" (dwb_critics::GoalDistCritic)
+[INFO] [1793613453.330998012] [controller_server]: Critic plugin initialized
+[INFO] [1793613453.331019462] [controller_server]: Controller Server has FollowPath  controllers available.
+[INFO] [1793613453.846173116] [controller_server]: Activating
+[INFO] [1793613453.846219529] [local_costmap.local_costmap]: Activating
+[INFO] [1793613453.846233465] [local_costmap.local_costmap]: Checking transform
+[INFO] [1793613453.846278735] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[INFO] [1793613454.346307324] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[INFO] [1793613454.846307905] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[INFO] [1793613455.346305276] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[INFO] [1793613455.846292816] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[INFO] [1793613456.346321617] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[INFO] [1793613456.846285405] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[INFO] [1793613457.346364759] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[INFO] [1793613457.846304994] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[INFO] [1793613458.346285420] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[INFO] [1793613458.846304225] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[INFO] [1793613459.346350498] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[INFO] [1793613459.846340685] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[INFO] [1793613460.346310384] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[INFO] [1793613460.846322142] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[INFO] [1793613461.346312472] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[INFO] [1793613461.846293477] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[INFO] [1793613462.346334904] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[INFO] [1793613462.846322294] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[INFO] [1793613463.346338666] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[INFO] [1793613463.846300217] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[INFO] [1793613464.346308850] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[INFO] [1793613464.846292073] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[INFO] [1793613465.346286963] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[INFO] [1793613465.846284791] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[INFO] [1793613466.346311275] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[INFO] [1793613466.846431101] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[INFO] [1793613467.346322767] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[INFO] [1793613467.846293634] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[INFO] [1793613468.346308429] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[INFO] [1793613468.846294549] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[INFO] [1793613469.346319579] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[INFO] [1793613469.846293230] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[INFO] [1793613470.346324102] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[INFO] [1793613470.846305218] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[INFO] [1793613471.346731242] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[INFO] [1793613471.846297313] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[INFO] [1793613472.346291640] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[INFO] [1793613472.846504408] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[INFO] [1793613473.346296961] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[INFO] [1793613473.846705452] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[INFO] [1793613474.346292657] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[INFO] [1793613474.846311851] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[INFO] [1793613475.346340914] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[INFO] [1793613475.846283767] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[INFO] [1793613476.346316679] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[INFO] [1793613476.846293469] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[INFO] [1793613477.346317056] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[INFO] [1793613477.846301304] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[INFO] [1793613478.346494137] [local_costmap.local_costmap]: start
+[INFO] [1793613478.550899442] [controller_server]: Creating bond (controller_server) to lifecycle manager.
+[INFO] [1793613478.955502884] [local_costmap.local_costmap]: StaticLayer: Resizing static layer to 800 X 800 at 0.050000 m/pix
+[INFO] [1793613588.258956971] [controller_server]: Received a goal, begin computing control effort.
+[WARN] [1793613588.259070938] [controller_server]: No goal checker was specified in parameter 'current_goal_checker'. Server will use only plugin loaded general_goal_checker . This warning will appear once.
+[INFO] [1793613589.309461740] [controller_server]: Passing new path to controller.
+[INFO] [1793613590.359461236] [controller_server]: Passing new path to controller.
+[INFO] [1793613591.364065796] [controller_server]: Passing new path to controller.
+[INFO] [1793613592.409445194] [controller_server]: Passing new path to controller.
+[INFO] [1793613593.412434445] [controller_server]: Passing new path to controller.
+[INFO] [1793613594.460880159] [controller_server]: Passing new path to controller.
+[INFO] [1793613595.509503473] [controller_server]: Passing new path to controller.
+[INFO] [1793613596.561098250] [controller_server]: Passing new path to controller.
+[INFO] [1793613597.561079922] [controller_server]: Passing new path to controller.
+[ERROR] [1793613597.568316862] [tf_help]: Transform data too old when converting from map to odom
+[ERROR] [1793613597.568476286] [tf_help]: Data time: 115s 827500000ns, Transform time: 115s 300000000ns
+[INFO] [1793613598.611858504] [controller_server]: Passing new path to controller.
+[INFO] [1793613599.659575685] [controller_server]: Passing new path to controller.
+[INFO] [1793613600.662302461] [controller_server]: Passing new path to controller.
+[INFO] [1793613601.710262085] [controller_server]: Passing new path to controller.
+[INFO] [1793613602.709451799] [controller_server]: Passing new path to controller.
+[INFO] [1793613603.759863892] [controller_server]: Passing new path to controller.
+[INFO] [1793613604.759455294] [controller_server]: Passing new path to controller.
+[INFO] [1793613605.813025439] [controller_server]: Passing new path to controller.
+[INFO] [1793613606.812367473] [controller_server]: Passing new path to controller.
+[INFO] [1793613607.859449809] [controller_server]: Passing new path to controller.
+[INFO] [1793613608.859485068] [controller_server]: Passing new path to controller.
+[INFO] [1793613609.909448976] [controller_server]: Passing new path to controller.
+[INFO] [1793613610.909568592] [controller_server]: Passing new path to controller.
+[INFO] [1793613611.959478216] [controller_server]: Passing new path to controller.
+[INFO] [1793613612.959650672] [controller_server]: Passing new path to controller.
+[INFO] [1793613614.009446640] [controller_server]: Passing new path to controller.
+[INFO] [1793613615.065438514] [controller_server]: Passing new path to controller.
+[INFO] [1793613616.109544632] [controller_server]: Passing new path to controller.
+[INFO] [1793613616.819225272] [controller_server]: Reached the goal!
+[INFO] [1793613622.068297336] [controller_server]: Received a goal, begin computing control effort.
+[INFO] [1793613623.119120286] [controller_server]: Passing new path to controller.
+[INFO] [1793613624.118794380] [controller_server]: Passing new path to controller.
+[INFO] [1793613625.168848161] [controller_server]: Passing new path to controller.
+[INFO] [1793613626.170062441] [controller_server]: Passing new path to controller.
+[INFO] [1793613627.221332213] [controller_server]: Passing new path to controller.
+[INFO] [1793613628.268790401] [controller_server]: Passing new path to controller.
+[INFO] [1793613629.269353464] [controller_server]: Passing new path to controller.
+[INFO] [1793613630.318793335] [controller_server]: Passing new path to controller.
+[INFO] [1793613631.320290217] [controller_server]: Passing new path to controller.
+[INFO] [1793613632.368797009] [controller_server]: Passing new path to controller.
+[INFO] [1793613633.398388873] [local_costmap.local_costmap]: Received request to clear entirely the local_costmap
+[WARN] [1793613633.399582067] [controller_server]: [follow_path] [ActionServer] Aborting handle.
+[INFO] [1793613633.559049331] [controller_server]: Passing new path to controller.
+[WARN] [1793613633.582328259] [controller_server]: Control loop missed its desired rate of 20.0000Hz
+[WARN] [1793613633.718772750] [controller_server]: No valid trajectories out of 419! 
+[WARN] [1793613633.787475911] [controller_server]: No valid trajectories out of 419! 
+[WARN] [1793613634.295827359] [controller_server]: No valid trajectories out of 419! 
+[WARN] [1793613634.345133793] [controller_server]: No valid trajectories out of 419! 
+[INFO] [1793613634.432459330] [controller_server]: Passing new path to controller.
+[WARN] [1793613634.654563857] [controller_server]: No valid trajectories out of 419! 
+[WARN] [1793613634.693716689] [controller_server]: No valid trajectories out of 419! 
+[WARN] [1793613634.736472928] [controller_server]: No valid trajectories out of 419! 
+[WARN] [1793613634.787514868] [controller_server]: No valid trajectories out of 419! 
+[WARN] [1793613634.839149543] [controller_server]: No valid trajectories out of 419! 
+[WARN] [1793613634.890054016] [controller_server]: No valid trajectories out of 419! 
+[WARN] [1793613634.937698299] [controller_server]: No valid trajectories out of 419! 
+[WARN] [1793613634.999676241] [controller_server]: No valid trajectories out of 419! 
+[WARN] [1793613635.038124830] [controller_server]: No valid trajectories out of 419! 
+[WARN] [1793613635.088697413] [controller_server]: No valid trajectories out of 419! 
+[WARN] [1793613635.137830367] [controller_server]: No valid trajectories out of 419! 
+[WARN] [1793613635.189784722] [controller_server]: No valid trajectories out of 419! 
+[ERROR] [1793613635.191164028] [controller_server]: Controller patience exceeded
+[WARN] [1793613635.191650180] [controller_server]: [follow_path] [ActionServer] Aborting handle.
+[INFO] [1793613635.206276254] [local_costmap.local_costmap]: Received request to clear entirely the local_costmap
+[INFO] [1793613635.836993287] [controller_server]: Received a goal, begin computing control effort.
+[WARN] [1793613635.842917524] [controller_server]: No valid trajectories out of 419! 
+[WARN] [1793613635.893277747] [controller_server]: No valid trajectories out of 419! 
+[WARN] [1793613635.946724709] [controller_server]: No valid trajectories out of 419! 
+[WARN] [1793613635.993454030] [controller_server]: No valid trajectories out of 419! 
+[WARN] [1793613636.042283102] [controller_server]: No valid trajectories out of 419! 
+[WARN] [1793613636.095144367] [controller_server]: No valid trajectories out of 419! 
+[WARN] [1793613636.147518376] [controller_server]: No valid trajectories out of 419! 
+[WARN] [1793613636.193164039] [controller_server]: No valid trajectories out of 419! 
+[WARN] [1793613636.245965962] [controller_server]: No valid trajectories out of 419! 
+[ERROR] [1793613636.246071865] [controller_server]: Controller patience exceeded
+[WARN] [1793613636.248642296] [controller_server]: [follow_path] [ActionServer] Aborting handle.
+[INFO] [1793613636.267844100] [local_costmap.local_costmap]: Received request to clear entirely the local_costmap
+[INFO] [1793613636.279511158] [controller_server]: Received a goal, begin computing control effort.
+[WARN] [1793613636.367918976] [controller_server]: No valid trajectories out of 419! 
+[WARN] [1793613636.369223651] [controller_server]: Control loop missed its desired rate of 20.0000Hz
+[WARN] [1793613636.377200678] [controller_server]: No valid trajectories out of 419! 
+[WARN] [1793613636.380665995] [controller_server]: Control loop missed its desired rate of 20.0000Hz
+[WARN] [1793613636.396100604] [controller_server]: No valid trajectories out of 419! 
+[WARN] [1793613636.436201766] [controller_server]: No valid trajectories out of 419! 
+[WARN] [1793613636.494404319] [controller_server]: No valid trajectories out of 419! 
+[WARN] [1793613636.537863309] [controller_server]: No valid trajectories out of 419! 
+[WARN] [1793613636.589914062] [controller_server]: No valid trajectories out of 419! 
+[WARN] [1793613636.634907471] [controller_server]: No valid trajectories out of 419! 
+[WARN] [1793613636.685838516] [controller_server]: No valid trajectories out of 419! 
+[WARN] [1793613636.736109893] [controller_server]: No valid trajectories out of 419! 
+[ERROR] [1793613636.736430842] [controller_server]: Controller patience exceeded
+[WARN] [1793613636.737104695] [controller_server]: [follow_path] [ActionServer] Aborting handle.
+[INFO] [1793613644.138446333] [controller_server]: Received a goal, begin computing control effort.
+[WARN] [1793613644.145668113] [controller_server]: No valid trajectories out of 419! 
+[WARN] [1793613644.193868473] [controller_server]: No valid trajectories out of 419! 
+[WARN] [1793613644.243429540] [controller_server]: No valid trajectories out of 419! 
+[WARN] [1793613644.295011140] [controller_server]: No valid trajectories out of 419! 
+[WARN] [1793613644.345399742] [controller_server]: No valid trajectories out of 419! 
+[WARN] [1793613644.394853770] [controller_server]: No valid trajectories out of 419! 
+[WARN] [1793613644.446119945] [controller_server]: No valid trajectories out of 419! 
+[WARN] [1793613644.496167066] [controller_server]: No valid trajectories out of 419! 
+[WARN] [1793613644.543689448] [controller_server]: No valid trajectories out of 419! 
+[WARN] [1793613644.595332819] [controller_server]: No valid trajectories out of 419! 
+[ERROR] [1793613644.595438870] [controller_server]: Controller patience exceeded
+[WARN] [1793613644.595667065] [controller_server]: [follow_path] [ActionServer] Aborting handle.
+[INFO] [1793613644.606266509] [local_costmap.local_costmap]: Received request to clear entirely the local_costmap
+[INFO] [1793613644.607237383] [controller_server]: Received a goal, begin computing control effort.
+[WARN] [1793613644.762110056] [controller_server]: No valid trajectories out of 419! 
+[WARN] [1793613644.762516403] [controller_server]: Control loop missed its desired rate of 20.0000Hz
+[WARN] [1793613644.768524781] [controller_server]: No valid trajectories out of 419! 
+[WARN] [1793613644.827532216] [controller_server]: No valid trajectories out of 419! 
+[WARN] [1793613644.884381047] [controller_server]: No valid trajectories out of 419! 
+[WARN] [1793613644.943473958] [controller_server]: No valid trajectories out of 419! 
+[WARN] [1793613645.000723912] [controller_server]: No valid trajectories out of 419! 
+[ERROR] [1793613645.000853345] [controller_server]: Controller patience exceeded
+[WARN] [1793613645.003123928] [controller_server]: [follow_path] [ActionServer] Aborting handle.
+[INFO] [1793613645.046185130] [local_costmap.local_costmap]: Received request to clear entirely the local_costmap
+[INFO] [1793613645.836159292] [controller_server]: Received a goal, begin computing control effort.
+[WARN] [1793613645.840105267] [controller_server]: No valid trajectories out of 419! 
+[WARN] [1793613645.891169928] [controller_server]: No valid trajectories out of 419! 
+[WARN] [1793613645.945635522] [controller_server]: No valid trajectories out of 419! 
+[WARN] [1793613645.991308816] [controller_server]: No valid trajectories out of 419! 
+[WARN] [1793613646.041513075] [controller_server]: No valid trajectories out of 419! 
+[WARN] [1793613646.092810825] [controller_server]: No valid trajectories out of 419! 
+[WARN] [1793613646.143155225] [controller_server]: No valid trajectories out of 419! 
+[WARN] [1793613646.190165395] [controller_server]: No valid trajectories out of 419! 
+[ERROR] [1793613646.190254361] [controller_server]: Controller patience exceeded
+[WARN] [1793613646.190377642] [controller_server]: [follow_path] [ActionServer] Aborting handle.
+[INFO] [1793613646.206128229] [local_costmap.local_costmap]: Received request to clear entirely the local_costmap
+[INFO] [1793613646.207229060] [controller_server]: Received a goal, begin computing control effort.
+[WARN] [1793613646.365840877] [controller_server]: No valid trajectories out of 419! 
+[WARN] [1793613646.367975487] [controller_server]: Control loop missed its desired rate of 20.0000Hz
+[WARN] [1793613646.376343437] [controller_server]: No valid trajectories out of 419! 
+[WARN] [1793613646.435421581] [controller_server]: No valid trajectories out of 419! 
+[WARN] [1793613646.492853045] [controller_server]: No valid trajectories out of 419! 
+[WARN] [1793613646.547933479] [controller_server]: No valid trajectories out of 419! 
+[WARN] [1793613646.604141153] [controller_server]: No valid trajectories out of 419! 
+[ERROR] [1793613646.604388646] [controller_server]: Controller patience exceeded
+[WARN] [1793613646.604737410] [controller_server]: [follow_path] [ActionServer] Aborting handle.
+[INFO] [1793613647.569148326] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[INFO] [1793613647.569453221] [controller_server]: Running Nav2 LifecycleNode rcl preshutdown (controller_server)
+[INFO] [1793613647.569599892] [controller_server]: Deactivating
+[INFO] [1793613647.569689932] [local_costmap.local_costmap]: Deactivating
+[INFO] [1793613647.748820133] [controller_server]: Destroying bond (controller_server) to lifecycle manager.
+[INFO] [1793613647.759536328] [controller_server]: Cleaning up
+[INFO] [1793613647.763787887] [local_costmap.local_costmap]: Cleaning up
+[INFO] [1793613647.788064527] [controller_server]: Destroying bond (controller_server) to lifecycle manager.

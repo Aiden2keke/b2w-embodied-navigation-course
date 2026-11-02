@@ -1,0 +1,217 @@
+-1.707694411277771 5.4659056663513184 8.4832897186279297 5.8289048477806311e-08 1.1306832986144009 -1.1138865789986532
+Manual warehouse visualization only: guarded Nav2 motion is unavailable; no goal can command the robot.
+Recording public /map and map->base_link poses to /home/zyd/program/b2w-embodied-navigation-course/course_results/tracks/20261101T160222Z
+[INFO] [launch]: All log files can be found below /home/zyd/program/b2w-embodied-navigation-course/course_results/tracks/20261101T160222Z/ros-logs/2026-11-02-00-02-22-630109-zyd-MS-7D97-1472229
+[INFO] [launch]: Default logging verbosity is set to INFO
+[INFO] [ign-1]: process started with pid [1472277]
+[INFO] [robot_state_publisher-2]: process started with pid [1472279]
+[INFO] [create-3]: process started with pid [1472281]
+[INFO] [parameter_bridge-4]: process started with pid [1472283]
+[INFO] [b2w_rl_sar_controller-5]: process started with pid [1472285]
+[INFO] [sensor_disturbance-6]: process started with pid [1472287]
+[INFO] [sensor_cloud_disturbance-7]: process started with pid [1472289]
+[b2w_rl_sar_controller-5] [INFO] [1793548942.849526048] [b2w_rl_sar_controller]: Loaded rl_sar B2-W policy: 57 observations, 16 actions, 50 Hz policy / 200 Hz torque, /home/zyd/program/b2w-embodied-navigation-course/third_party/b2w_rl_sar/policy/b2w/robot_lab/policy.onnx
+[create-3] [INFO] [1793548942.856934342] [ros_gz_sim]: Waiting messages on topic [/b2w/robot_description].
+[robot_state_publisher-2] [WARN] [1793548942.904541655] [kdl_parser]: The root link base_link has an inertia specified in the URDF, but KDL does not support a root link with an inertia.  As a workaround, you can add an extra dummy link to your URDF.
+[robot_state_publisher-2] [INFO] [1793548942.904889826] [b2w_robot_state_publisher]: got segment FL_calf
+[robot_state_publisher-2] [INFO] [1793548942.905072523] [b2w_robot_state_publisher]: got segment FL_foot
+[robot_state_publisher-2] [INFO] [1793548942.905082451] [b2w_robot_state_publisher]: got segment FL_hip
+[robot_state_publisher-2] [INFO] [1793548942.905087037] [b2w_robot_state_publisher]: got segment FL_thigh
+[robot_state_publisher-2] [INFO] [1793548942.905091878] [b2w_robot_state_publisher]: got segment FR_calf
+[robot_state_publisher-2] [INFO] [1793548942.905096026] [b2w_robot_state_publisher]: got segment FR_foot
+[robot_state_publisher-2] [INFO] [1793548942.905101123] [b2w_robot_state_publisher]: got segment FR_hip
+[robot_state_publisher-2] [INFO] [1793548942.905104912] [b2w_robot_state_publisher]: got segment FR_thigh
+[robot_state_publisher-2] [INFO] [1793548942.905109278] [b2w_robot_state_publisher]: got segment RL_calf
+[robot_state_publisher-2] [INFO] [1793548942.905114404] [b2w_robot_state_publisher]: got segment RL_foot
+[robot_state_publisher-2] [INFO] [1793548942.905118606] [b2w_robot_state_publisher]: got segment RL_hip
+[robot_state_publisher-2] [INFO] [1793548942.905123908] [b2w_robot_state_publisher]: got segment RL_thigh
+[robot_state_publisher-2] [INFO] [1793548942.905128832] [b2w_robot_state_publisher]: got segment RR_calf
+[robot_state_publisher-2] [INFO] [1793548942.905134238] [b2w_robot_state_publisher]: got segment RR_foot
+[robot_state_publisher-2] [INFO] [1793548942.905139069] [b2w_robot_state_publisher]: got segment RR_hip
+[robot_state_publisher-2] [INFO] [1793548942.905145962] [b2w_robot_state_publisher]: got segment RR_thigh
+[robot_state_publisher-2] [INFO] [1793548942.905151400] [b2w_robot_state_publisher]: got segment base_link
+[robot_state_publisher-2] [INFO] [1793548942.905155959] [b2w_robot_state_publisher]: got segment collision_plate
+[robot_state_publisher-2] [INFO] [1793548942.905160576] [b2w_robot_state_publisher]: got segment f_dc_link
+[robot_state_publisher-2] [INFO] [1793548942.905165754] [b2w_robot_state_publisher]: got segment f_oc_link
+[robot_state_publisher-2] [INFO] [1793548942.905170082] [b2w_robot_state_publisher]: got segment head_Link
+[robot_state_publisher-2] [INFO] [1793548942.905175687] [b2w_robot_state_publisher]: got segment imu_link
+[robot_state_publisher-2] [INFO] [1793548942.905181309] [b2w_robot_state_publisher]: got segment lidar_link
+[robot_state_publisher-2] [INFO] [1793548942.905185665] [b2w_robot_state_publisher]: got segment logo_link
+[robot_state_publisher-2] [INFO] [1793548942.905189836] [b2w_robot_state_publisher]: got segment r_dc_link
+[robot_state_publisher-2] [INFO] [1793548942.905194001] [b2w_robot_state_publisher]: got segment r_oc_ink
+[robot_state_publisher-2] [INFO] [1793548942.905199415] [b2w_robot_state_publisher]: got segment tail_link
+[robot_state_publisher-2] [INFO] [1793548942.905203963] [b2w_robot_state_publisher]: got segment zed_x_camera
+[ign-1] [1;33mWarning [Utils.cc:129][0m [/sdf/world[@name="course_world"]/model[@name="aws_robomaker_warehouse_Bucket_01_020"]/link[@name="body"]/pose[@frame=""]:/home/zyd/program/b2w-embodied-navigation-course/third_party/aws_warehouse/warehouse.world:L373]: XML Attribute[frame] in element[pose] not defined in SDF.
+[ign-1] [1;33mWarning [Utils.cc:129][0m [/sdf/world[@name="course_world"]/model[@name="aws_robomaker_warehouse_Bucket_01_020"]/link[@name="body"]/collision[@name="collision_0"]/pose[@frame=""]:/home/zyd/program/b2w-embodied-navigation-course/third_party/aws_warehouse/warehouse.world:L390]: XML Attribute[frame] in element[pose] not defined in SDF.
+[ign-1] [1;33mWarning [Utils.cc:129][0m [/sdf/world[@name="course_world"]/model[@name="aws_robomaker_warehouse_Bucket_01_021"]/link[@name="body"]/pose[@frame=""]:/home/zyd/program/b2w-embodied-navigation-course/third_party/aws_warehouse/warehouse.world:L424]: XML Attribute[frame] in element[pose] not defined in SDF.
+[ign-1] [1;33mWarning [Utils.cc:129][0m [/sdf/world[@name="course_world"]/model[@name="aws_robomaker_warehouse_Bucket_01_021"]/link[@name="body"]/collision[@name="collision_0"]/pose[@frame=""]:/home/zyd/program/b2w-embodied-navigation-course/third_party/aws_warehouse/warehouse.world:L441]: XML Attribute[frame] in element[pose] not defined in SDF.
+[ign-1] [1;33mWarning [Utils.cc:129][0m [/sdf/world[@name="course_world"]/model[@name="aws_robomaker_warehouse_Bucket_01_022"]/link[@name="body"]/pose[@frame=""]:/home/zyd/program/b2w-embodied-navigation-course/third_party/aws_warehouse/warehouse.world:L475]: XML Attribute[frame] in element[pose] not defined in SDF.
+[ign-1] [1;33mWarning [Utils.cc:129][0m [/sdf/world[@name="course_world"]/model[@name="aws_robomaker_warehouse_Bucket_01_022"]/link[@name="body"]/collision[@name="collision_0"]/pose[@frame=""]:/home/zyd/program/b2w-embodied-navigation-course/third_party/aws_warehouse/warehouse.world:L492]: XML Attribute[frame] in element[pose] not defined in SDF.
+[sensor_cloud_disturbance-7] [INFO] [1793548943.214167913] [sensor_cloud_disturbance]: XT32 snapshot time=0; IMU attitude from gyro/gravity measurements
+[sensor_disturbance-6] [INFO] [1793548943.253272596] [sensor_disturbance]: XT32 snapshot time=0; IMU attitude from gyro/gravity measurements
+[create-3] [INFO] [1793548943.451907361] [ros_gz_sim]: Requested creation of entity.
+[create-3] [INFO] [1793548943.451962377] [ros_gz_sim]: OK creation of entity.
+[INFO] [create-3]: process has finished cleanly [pid 1472281]
+[ign-1] [1;33m[GUI] [Wrn] [Application.cc:802] [0m[1;33m[QT] file::/Gazebo/GazeboDrawer.qml:242:3: QML Connections: Implicitly defined onFoo properties in Connections are deprecated. Use this syntax instead: function onFoo(<arguments>) { ... }[0m[1;33m[0m
+[parameter_bridge-4] [INFO] [1793548943.952409252] [ros_gz_bridge]: Creating GZ->ROS Bridge: [/clock (ignition.msgs.Clock) -> /clock (rosgraph_msgs/msg/Clock)] (Lazy 0)
+[parameter_bridge-4] [INFO] [1793548943.953391732] [ros_gz_bridge]: Creating GZ->ROS Bridge: [/joint_states (ignition.msgs.Model) -> /sim/raw/joint_states (sensor_msgs/msg/JointState)] (Lazy 0)
+[parameter_bridge-4] [INFO] [1793548943.954587812] [ros_gz_bridge]: Creating GZ->ROS Bridge: [/sim/raw/ground_truth/odom (ignition.msgs.Odometry) -> /sim/ground_truth/odom (nav_msgs/msg/Odometry)] (Lazy 0)
+[parameter_bridge-4] [INFO] [1793548943.955468640] [ros_gz_bridge]: Creating GZ->ROS Bridge: [/sim/raw/ground_truth/odom (ignition.msgs.Odometry) -> /sim/body_state (nav_msgs/msg/Odometry)] (Lazy 0)
+[parameter_bridge-4] [INFO] [1793548943.955785290] [ros_gz_bridge]: Creating GZ->ROS Bridge: [/sim/raw/scan/points (ignition.msgs.PointCloudPacked) -> /sim/raw/pointcloud (sensor_msgs/msg/PointCloud2)] (Lazy 0)
+[parameter_bridge-4] [INFO] [1793548943.956191842] [ros_gz_bridge]: Creating GZ->ROS Bridge: [/sim/raw/imu (ignition.msgs.IMU) -> /sim/raw/imu (sensor_msgs/msg/Imu)] (Lazy 0)
+[parameter_bridge-4] [INFO] [1793548943.956596390] [ros_gz_bridge]: Creating GZ->ROS Bridge: [/collision_plate/force_torque (ignition.msgs.Wrench) -> /collision_plate/force_torque (geometry_msgs/msg/WrenchStamped)] (Lazy 0)
+[parameter_bridge-4] [INFO] [1793548943.957066422] [ros_gz_bridge]: Creating GZ->ROS Bridge: [/zed_x_camera (ignition.msgs.Image) -> /zed/zed_node/depth/depth_registered (sensor_msgs/msg/Image)] (Lazy 0)
+[parameter_bridge-4] [INFO] [1793548943.957484473] [ros_gz_bridge]: Creating ROS->GZ Bridge: [/model/b2w/joint/FR_hip_joint/cmd_force (std_msgs/msg/Float64) -> /model/b2w/joint/FR_hip_joint/cmd_force (ignition.msgs.Double)] (Lazy 0)
+[parameter_bridge-4] [INFO] [1793548943.958171265] [ros_gz_bridge]: Creating ROS->GZ Bridge: [/model/b2w/joint/FR_thigh_joint/cmd_force (std_msgs/msg/Float64) -> /model/b2w/joint/FR_thigh_joint/cmd_force (ignition.msgs.Double)] (Lazy 0)
+[parameter_bridge-4] [INFO] [1793548943.958621034] [ros_gz_bridge]: Creating ROS->GZ Bridge: [/model/b2w/joint/FR_calf_joint/cmd_force (std_msgs/msg/Float64) -> /model/b2w/joint/FR_calf_joint/cmd_force (ignition.msgs.Double)] (Lazy 0)
+[parameter_bridge-4] [INFO] [1793548943.958967762] [ros_gz_bridge]: Creating ROS->GZ Bridge: [/model/b2w/joint/FL_hip_joint/cmd_force (std_msgs/msg/Float64) -> /model/b2w/joint/FL_hip_joint/cmd_force (ignition.msgs.Double)] (Lazy 0)
+[parameter_bridge-4] [INFO] [1793548943.959283414] [ros_gz_bridge]: Creating ROS->GZ Bridge: [/model/b2w/joint/FL_thigh_joint/cmd_force (std_msgs/msg/Float64) -> /model/b2w/joint/FL_thigh_joint/cmd_force (ignition.msgs.Double)] (Lazy 0)
+[parameter_bridge-4] [INFO] [1793548943.959584597] [ros_gz_bridge]: Creating ROS->GZ Bridge: [/model/b2w/joint/FL_calf_joint/cmd_force (std_msgs/msg/Float64) -> /model/b2w/joint/FL_calf_joint/cmd_force (ignition.msgs.Double)] (Lazy 0)
+[parameter_bridge-4] [INFO] [1793548943.959875681] [ros_gz_bridge]: Creating ROS->GZ Bridge: [/model/b2w/joint/RR_hip_joint/cmd_force (std_msgs/msg/Float64) -> /model/b2w/joint/RR_hip_joint/cmd_force (ignition.msgs.Double)] (Lazy 0)
+[parameter_bridge-4] [INFO] [1793548943.960172149] [ros_gz_bridge]: Creating ROS->GZ Bridge: [/model/b2w/joint/RR_thigh_joint/cmd_force (std_msgs/msg/Float64) -> /model/b2w/joint/RR_thigh_joint/cmd_force (ignition.msgs.Double)] (Lazy 0)
+[parameter_bridge-4] [INFO] [1793548943.960474095] [ros_gz_bridge]: Creating ROS->GZ Bridge: [/model/b2w/joint/RR_calf_joint/cmd_force (std_msgs/msg/Float64) -> /model/b2w/joint/RR_calf_joint/cmd_force (ignition.msgs.Double)] (Lazy 0)
+[parameter_bridge-4] [INFO] [1793548943.960771245] [ros_gz_bridge]: Creating ROS->GZ Bridge: [/model/b2w/joint/RL_hip_joint/cmd_force (std_msgs/msg/Float64) -> /model/b2w/joint/RL_hip_joint/cmd_force (ignition.msgs.Double)] (Lazy 0)
+[parameter_bridge-4] [INFO] [1793548943.961065368] [ros_gz_bridge]: Creating ROS->GZ Bridge: [/model/b2w/joint/RL_thigh_joint/cmd_force (std_msgs/msg/Float64) -> /model/b2w/joint/RL_thigh_joint/cmd_force (ignition.msgs.Double)] (Lazy 0)
+[parameter_bridge-4] [INFO] [1793548943.961372448] [ros_gz_bridge]: Creating ROS->GZ Bridge: [/model/b2w/joint/RL_calf_joint/cmd_force (std_msgs/msg/Float64) -> /model/b2w/joint/RL_calf_joint/cmd_force (ignition.msgs.Double)] (Lazy 0)
+[parameter_bridge-4] [INFO] [1793548943.961684641] [ros_gz_bridge]: Creating ROS->GZ Bridge: [/model/b2w/joint/FR_foot_joint/cmd_force (std_msgs/msg/Float64) -> /model/b2w/joint/FR_foot_joint/cmd_force (ignition.msgs.Double)] (Lazy 0)
+[parameter_bridge-4] [INFO] [1793548943.962014500] [ros_gz_bridge]: Creating ROS->GZ Bridge: [/model/b2w/joint/FL_foot_joint/cmd_force (std_msgs/msg/Float64) -> /model/b2w/joint/FL_foot_joint/cmd_force (ignition.msgs.Double)] (Lazy 0)
+[parameter_bridge-4] [INFO] [1793548943.962337255] [ros_gz_bridge]: Creating ROS->GZ Bridge: [/model/b2w/joint/RR_foot_joint/cmd_force (std_msgs/msg/Float64) -> /model/b2w/joint/RR_foot_joint/cmd_force (ignition.msgs.Double)] (Lazy 0)
+[parameter_bridge-4] [INFO] [1793548943.962680407] [ros_gz_bridge]: Creating ROS->GZ Bridge: [/model/b2w/joint/RL_foot_joint/cmd_force (std_msgs/msg/Float64) -> /model/b2w/joint/RL_foot_joint/cmd_force (ignition.msgs.Double)] (Lazy 0)
+[ign-1] [1;33m[GUI] [Wrn] [Application.cc:802] [0m[1;33m[QT] file::/EntityContextMenuPlugin/EntityContextMenuPlugin.qml:56:5: QML Connections: Implicitly defined onFoo properties in Connections are deprecated. Use this syntax instead: function onFoo(<arguments>) { ... }[0m[1;33m[0m
+[ign-1] [1;33m[GUI] [Wrn] [Application.cc:802] [0m[1;33m[QT] file::/Spawn/Spawn.qml:32:3: QML Connections: Implicitly defined onFoo properties in Connections are deprecated. Use this syntax instead: function onFoo(<arguments>) { ... }[0m[1;33m[0m
+[ign-1] [1;33m[GUI] [Wrn] [Application.cc:802] [0m[1;33m[QT] file::/TransformControl/TransformControl.qml:104:3: QML Connections: Implicitly defined onFoo properties in Connections are deprecated. Use this syntax instead: function onFoo(<arguments>) { ... }[0m[1;33m[0m
+[ign-1] [1;33m[GUI] [Wrn] [Application.cc:802] [0m[1;33m[QT] file::/TransformControl/TransformControl.qml:99:3: QML Connections: Implicitly defined onFoo properties in Connections are deprecated. Use this syntax instead: function onFoo(<arguments>) { ... }[0m[1;33m[0m
+[ign-1] [1;33m[GUI] [Wrn] [Application.cc:802] [0m[1;33m[QT] file::/TransformControl/TransformControl.qml:94:3: QML Connections: Implicitly defined onFoo properties in Connections are deprecated. Use this syntax instead: function onFoo(<arguments>) { ... }[0m[1;33m[0m
+[ign-1] [1;33m[GUI] [Wrn] [Application.cc:802] [0m[1;33m[QT] file::/TransformControl/TransformControl.qml:89:3: QML Connections: Implicitly defined onFoo properties in Connections are deprecated. Use this syntax instead: function onFoo(<arguments>) { ... }[0m[1;33m[0m
+[ign-1] [1;33m[GUI] [Wrn] [Application.cc:802] [0m[1;33m[QT] file::/WorldStats/WorldStats.qml:53:3: QML RowLayout: Binding loop detected for property "x"[0m[1;33m[0m
+[ign-1] [1;33m[Wrn] [ColladaLoader.cc:2394] [0m[1;33mTriangle input semantic: '[0m[1;33mCOLOR[0m[1;33m' is currently[0m[1;33m not supported[0m[1;33m[0m
+[parameter_bridge-4] [INFO] [1793548945.168903273] [ros_gz_bridge]: Passing message from ROS std_msgs/msg/Float64 to Gazebo gz.msgs.Double (showing msg only once per type)
+[ign-1] [1;33m[Wrn] [Component.hh:144] [0m[1;33mTrying to serialize component with data type [[0m[1;33mSt6vectorIdSaIdEE[0m[1;33m], which doesn't have [0m[1;33m`operator<<`. Component will not be serialized.[0m[1;33m[0m
+[sensor_disturbance-6] [WARN] [1793548945.173127840] [sensor_disturbance]: Gravity initialization requires valid acceleration
+[ign-1] libEGL warning: egl: failed to create dri2 screen
+[ign-1] libEGL warning: egl: failed to create dri2 screen
+[ign-1] [1;33m[Wrn] [ColladaLoader.cc:2394] [0m[1;33mTriangle input semantic: '[0m[1;33mCOLOR[0m[1;33m' is currently[0m[1;33m not supported[0m[1;33m[0m
+[ign-1] [1;33m[Wrn] [ColladaLoader.cc:2394] [0m[1;33mTriangle input semantic: '[0m[1;33mCOLOR[0m[1;33m' is currently[0m[1;33m not supported[0m[1;33m[0m
+[INFO] [1793548947.023167444] [rviz2]: Stereo is NOT SUPPORTED
+[INFO] [1793548947.023345873] [rviz2]: OpenGl version: 4.6 (GLSL 4.6)
+[INFO] [1793548947.096197626] [rviz2]: Stereo is NOT SUPPORTED
+[ign-1] [1;33m[GUI] [Wrn] [Component.hh:189] [0m[1;33mTrying to deserialize component with data type [[0m[1;33mSt6vectorIdSaIdEE[0m[1;33m], which doesn't have [0m[1;33m`operator>>`. Component will not be deserialized.[0m[1;33m[0m
+[ign-1] libEGL warning: egl: failed to create dri2 screen
+[ign-1] libEGL warning: egl: failed to create dri2 screen
+[ign-1] [1;33m[GUI] [Wrn] [ColladaLoader.cc:2394] [0m[1;33mTriangle input semantic: '[0m[1;33mCOLOR[0m[1;33m' is currently[0m[1;33m not supported[0m[1;33m[0m
+[ign-1] [1;33m[GUI] [Wrn] [ColladaLoader.cc:2394] [0m[1;33mTriangle input semantic: '[0m[1;33mCOLOR[0m[1;33m' is currently[0m[1;33m not supported[0m[1;33m[0m
+[sensor_disturbance-6] [WARN] [1793548951.514031815] [sensor_disturbance]: Gravity initialization requires valid acceleration
+[INFO] [1793548954.207547738] [rviz]: Message Filter dropping message: frame 'lidar_link' at time 1.500 for reason 'discarding message because the queue is full'
+[INFO] [1793548956.806025299] [rviz]: Message Filter dropping message: frame 'lidar_link' at time 4.000 for reason 'discarding message because the queue is full'
+[INFO] [1793548959.506403408] [rviz]: Message Filter dropping message: frame 'lidar_link' at time 6.600 for reason 'discarding message because the queue is full'
+[INFO] [1793548962.256060951] [rviz]: Message Filter dropping message: frame 'lidar_link' at time 9.100 for reason 'discarding message because the queue is full'
+[INFO] [lio_sam_imuPreintegration-8]: process started with pid [1473402]
+[INFO] [lio_sam_imageProjection-9]: process started with pid [1473404]
+[INFO] [lio_sam_featureExtraction-10]: process started with pid [1473406]
+[INFO] [lio_sam_mapOptimization-11]: process started with pid [1473408]
+[INFO] [pose_adapter-12]: process started with pid [1473410]
+[lio_sam_imageProjection-9] [INFO] [1793548962.903011030] [rclcpp]: [1;32m----> Image Projection Started.[0m
+[lio_sam_featureExtraction-10] [INFO] [1793548962.912558645] [rclcpp]: [1;32m----> Feature Extraction Started.[0m
+[lio_sam_mapOptimization-11] [INFO] [1793548962.947878326] [rclcpp]: [1;32m----> Map Optimization Started.[0m
+[lio_sam_imuPreintegration-8] [INFO] [1793548962.967489072] [rclcpp]: [1;32m----> IMU Preintegration Started.[0m
+[pose_adapter-12] [INFO] [1793548963.402481842] [pose_adapter]: Public TF from LIO-SAM only; twist from differentiated base poses
+[INFO] [1793548965.134879002] [rviz]: Message Filter dropping message: frame 'lidar_link' at time 11.700 for reason 'discarding message because the queue is full'
+[INFO] [1793548968.007002485] [rviz]: Message Filter dropping message: frame 'lidar_link' at time 14.300 for reason 'discarding message because the queue is full'
+[pose_adapter-12] [INFO] [1793548968.632656348] [pose_adapter]: Ground datum measured from LiDAR: translation z=0.8011 m
+[INFO] [1793548969.005033983] [rviz2]: Trying to create a map of size 800 x 800 using 1 swatches
+[INFO] [1793548978.761104443] [rviz]: Message Filter dropping message: frame 'lidar_link' at time 14.900 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1793549033.496548470] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[INFO] [1793549033.498079720] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[b2w_rl_sar_controller-5] [INFO] [1793549033.496292576] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[lio_sam_imageProjection-9] [INFO] [1793549033.496279918] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[lio_sam_featureExtraction-10] [INFO] [1793549033.496295948] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[robot_state_publisher-2] [INFO] [1793549033.496328886] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[lio_sam_mapOptimization-11] [INFO] [1793549033.496431332] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[lio_sam_imuPreintegration-8] [INFO] [1793549033.496621103] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[parameter_bridge-4] [INFO] [1793549033.497976993] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[pose_adapter-12] Traceback (most recent call last):
+[pose_adapter-12]   File "/home/zyd/program/b2w-embodied-navigation-course/install/course_slam/lib/course_slam/pose_adapter", line 33, in <module>
+[pose_adapter-12]     sys.exit(load_entry_point('course-slam', 'console_scripts', 'pose_adapter')())
+[pose_adapter-12]   File "/home/zyd/program/b2w-embodied-navigation-course/build/course_slam/course_slam/pose_adapter.py", line 150, in main
+[pose_adapter-12]     rclpy.spin(node)
+[pose_adapter-12]   File "/opt/ros/humble/local/lib/python3.10/dist-packages/rclpy/__init__.py", line 229, in spin
+[pose_adapter-12]     executor.spin_once()
+[pose_adapter-12]   File "/opt/ros/humble/local/lib/python3.10/dist-packages/rclpy/executors.py", line 812, in spin_once
+[pose_adapter-12]     self._spin_once_impl(timeout_sec)
+[pose_adapter-12]   File "/opt/ros/humble/local/lib/python3.10/dist-packages/rclpy/executors.py", line 801, in _spin_once_impl
+[pose_adapter-12]     handler, entity, node = self.wait_for_ready_callbacks(timeout_sec=timeout_sec)
+[pose_adapter-12]   File "/opt/ros/humble/local/lib/python3.10/dist-packages/rclpy/executors.py", line 784, in wait_for_ready_callbacks
+[pose_adapter-12]     return next(self._cb_iter)
+[pose_adapter-12]   File "/opt/ros/humble/local/lib/python3.10/dist-packages/rclpy/executors.py", line 657, in _wait_for_ready_callbacks
+[pose_adapter-12]     wait_set = _rclpy.WaitSet(
+[pose_adapter-12] rclpy._rclpy_pybind11.RCLError: failed to initialize wait set: the given context is not valid, either rcl_init() was not called or rcl_shutdown() was called., at ./src/rcl/wait.c:130
+[sensor_cloud_disturbance-7] Traceback (most recent call last):
+[sensor_cloud_disturbance-7]   File "/home/zyd/program/b2w-embodied-navigation-course/install/course_sim/lib/course_sim/sensor_cloud_disturbance", line 33, in <module>
+[sensor_cloud_disturbance-7]     sys.exit(load_entry_point('course-sim==0.1.0', 'console_scripts', 'sensor_cloud_disturbance')())
+[sensor_cloud_disturbance-7]   File "/home/zyd/program/b2w-embodied-navigation-course/install/course_sim/lib/python3.10/site-packages/course_sim/sensor_disturbance.py", line 94, in cloud_main
+[sensor_cloud_disturbance-7]     run('cloud')
+[sensor_cloud_disturbance-7]   File "/home/zyd/program/b2w-embodied-navigation-course/install/course_sim/lib/python3.10/site-packages/course_sim/sensor_disturbance.py", line 103, in run
+[sensor_cloud_disturbance-7]     executor.spin()
+[sensor_cloud_disturbance-7]   File "/opt/ros/humble/local/lib/python3.10/dist-packages/rclpy/executors.py", line 323, in spin
+[sensor_cloud_disturbance-7]     self.spin_once()
+[sensor_cloud_disturbance-7]   File "/opt/ros/humble/local/lib/python3.10/dist-packages/rclpy/executors.py", line 812, in spin_once
+[sensor_cloud_disturbance-7]     self._spin_once_impl(timeout_sec)
+[sensor_cloud_disturbance-7]   File "/opt/ros/humble/local/lib/python3.10/dist-packages/rclpy/executors.py", line 809, in _spin_once_impl
+[sensor_cloud_disturbance-7]     raise handler.exception()
+[sensor_cloud_disturbance-7]   File "/opt/ros/humble/local/lib/python3.10/dist-packages/rclpy/task.py", line 309, in _execute_coroutine_step
+[sensor_cloud_disturbance-7]     result = coro.send(None)
+[sensor_cloud_disturbance-7]   File "/opt/ros/humble/local/lib/python3.10/dist-packages/rclpy/executors.py", line 488, in handler
+[sensor_cloud_disturbance-7]     await call_coroutine(entity, arg)
+[sensor_cloud_disturbance-7]   File "/opt/ros/humble/local/lib/python3.10/dist-packages/rclpy/executors.py", line 407, in _execute_subscription
+[sensor_cloud_disturbance-7]     await await_or_execute(sub.callback, msg)
+[sensor_cloud_disturbance-7]   File "/opt/ros/humble/local/lib/python3.10/dist-packages/rclpy/executors.py", line 110, in await_or_execute
+[sensor_cloud_disturbance-7]     return callback(*args)
+[sensor_cloud_disturbance-7]   File "/home/zyd/program/b2w-embodied-navigation-course/install/course_sim/lib/python3.10/site-packages/course_sim/sensor_disturbance.py", line 61, in cloud
+[sensor_cloud_disturbance-7]     self.cloud_pub.publish(encode(points, header))
+[sensor_cloud_disturbance-7]   File "/opt/ros/humble/local/lib/python3.10/dist-packages/rclpy/publisher.py", line 70, in publish
+[sensor_cloud_disturbance-7]     self.__publisher.publish(msg)
+[sensor_cloud_disturbance-7] rclpy._rclpy_pybind11.RCLError: Failed to publish: publisher's context is invalid, at ./src/rcl/publisher.c:389
+[INFO] [lio_sam_featureExtraction-10]: process has finished cleanly [pid 1473406]
+[INFO] [robot_state_publisher-2]: process has finished cleanly [pid 1472279]
+[INFO] [parameter_bridge-4]: process has finished cleanly [pid 1472283]
+[INFO] [pose_adapter-12]: sending signal 'SIGINT' to process[pose_adapter-12]
+[INFO] [lio_sam_mapOptimization-11]: sending signal 'SIGINT' to process[lio_sam_mapOptimization-11]
+[INFO] [lio_sam_imageProjection-9]: sending signal 'SIGINT' to process[lio_sam_imageProjection-9]
+[INFO] [lio_sam_imuPreintegration-8]: sending signal 'SIGINT' to process[lio_sam_imuPreintegration-8]
+[INFO] [sensor_cloud_disturbance-7]: sending signal 'SIGINT' to process[sensor_cloud_disturbance-7]
+[INFO] [sensor_disturbance-6]: sending signal 'SIGINT' to process[sensor_disturbance-6]
+[INFO] [b2w_rl_sar_controller-5]: sending signal 'SIGINT' to process[b2w_rl_sar_controller-5]
+[INFO] [lio_sam_imageProjection-9]: process has finished cleanly [pid 1473404]
+[INFO] [lio_sam_imuPreintegration-8]: process has finished cleanly [pid 1473402]
+[INFO] [ign-1]: sending signal 'SIGINT' to process[ign-1]
+[INFO] [lio_sam_mapOptimization-11]: process has finished cleanly [pid 1473408]
+[INFO] [b2w_rl_sar_controller-5]: process has finished cleanly [pid 1472285]
+[INFO] [sensor_disturbance-6]: process has finished cleanly [pid 1472287]
+[ERROR] [pose_adapter-12]: process has died [pid 1473410, exit code 1, cmd '/home/zyd/program/b2w-embodied-navigation-course/install/course_slam/lib/course_slam/pose_adapter --ros-args --params-file /home/zyd/program/b2w-embodied-navigation-course/install/course_slam/share/course_slam/config/adapter.yaml --params-file /tmp/launch_params_02_c_3l5'].
+[ERROR] [sensor_cloud_disturbance-7]: process has died [pid 1472289, exit code 1, cmd '/home/zyd/program/b2w-embodied-navigation-course/install/course_sim/lib/course_sim/sensor_cloud_disturbance --ros-args --params-file /tmp/launch_params_uplm9ot8 --params-file /tmp/launch_params_emjpv01i'].
+Traceback (most recent call last):
+  File "/home/zyd/program/b2w-embodied-navigation-course/scripts/warehouse_manual_logger.py", line 235, in <module>
+    main()
+  File "/home/zyd/program/b2w-embodied-navigation-course/scripts/warehouse_manual_logger.py", line 231, in main
+    ManualLogger(args.output_dir).run()
+  File "/home/zyd/program/b2w-embodied-navigation-course/scripts/warehouse_manual_logger.py", line 216, in run
+    self.rclpy.spin(self.node)
+  File "/opt/ros/humble/local/lib/python3.10/dist-packages/rclpy/__init__.py", line 229, in spin
+    executor.spin_once()
+  File "/opt/ros/humble/local/lib/python3.10/dist-packages/rclpy/executors.py", line 812, in spin_once
+    self._spin_once_impl(timeout_sec)
+  File "/opt/ros/humble/local/lib/python3.10/dist-packages/rclpy/executors.py", line 801, in _spin_once_impl
+    handler, entity, node = self.wait_for_ready_callbacks(timeout_sec=timeout_sec)
+  File "/opt/ros/humble/local/lib/python3.10/dist-packages/rclpy/executors.py", line 784, in wait_for_ready_callbacks
+    return next(self._cb_iter)
+  File "/opt/ros/humble/local/lib/python3.10/dist-packages/rclpy/executors.py", line 657, in _wait_for_ready_callbacks
+    wait_set = _rclpy.WaitSet(
+rclpy._rclpy_pybind11.RCLError: failed to initialize wait set: the given context is not valid, either rcl_init() was not called or rcl_shutdown() was called., at ./src/rcl/wait.c:130
+[ign-1] /usr/lib/ruby/ignition/cmdgazebo6.rb:183:in `kill': No such process (Errno::ESRCH)
+[ign-1] 	from /usr/lib/ruby/ignition/cmdgazebo6.rb:183:in `killProcess'
+[ign-1] 	from /usr/lib/ruby/ignition/cmdgazebo6.rb:509:in `handle_signal'
+[ign-1] 	from /usr/lib/ruby/ignition/cmdgazebo6.rb:514:in `block in execute'
+[ign-1] 	from /usr/lib/ruby/ignition/cmdgazebo6.rb:524:in `wait2'
+[ign-1] 	from /usr/lib/ruby/ignition/cmdgazebo6.rb:524:in `execute'
+[ign-1] 	from /usr/bin/ign:301:in `<main>'
+[ERROR] [ign-1]: process has died [pid 1472277, exit code 1, cmd 'ign gazebo -r -v 3 /home/zyd/program/b2w-embodied-navigation-course/third_party/aws_warehouse/warehouse.world'].

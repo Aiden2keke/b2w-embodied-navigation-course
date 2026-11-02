@@ -1,0 +1,94 @@
+1793548099.6396470 [INFO] [launch]: All log files can be found below /home/zyd/program/b2w-embodied-navigation-course/course_results/tracks/20261101T154819Z/ros-logs/2026-11-01-23-48-19-638481-zyd-MS-7D97-25
+1793548099.6398144 [INFO] [launch]: Default logging verbosity is set to INFO
+1793548099.7875917 [INFO] [ign-1]: process started with pid [57]
+1793548099.7879596 [INFO] [robot_state_publisher-2]: process started with pid [59]
+1793548099.7880752 [INFO] [create-3]: process started with pid [61]
+1793548099.7881680 [INFO] [parameter_bridge-4]: process started with pid [63]
+1793548099.7882493 [INFO] [b2w_rl_sar_controller-5]: process started with pid [65]
+1793548099.7883515 [INFO] [sensor_disturbance-6]: process started with pid [67]
+1793548099.7884288 [INFO] [sensor_cloud_disturbance-7]: process started with pid [69]
+1793548099.7954278 [b2w_rl_sar_controller-5] getifaddrs: Operation not permitted
+1793548099.7958639 [b2w_rl_sar_controller-5] getifaddrs: Operation not permitted
+1793548099.8010144 [robot_state_publisher-2] getifaddrs: Operation not permitted
+1793548099.8014133 [robot_state_publisher-2] getifaddrs: Operation not permitted
+1793548099.8473475 [b2w_rl_sar_controller-5] getifaddrs: Operation not permitted
+1793548099.8481491 [b2w_rl_sar_controller-5] getifaddrs: Operation not permitted
+1793548099.8482213 [b2w_rl_sar_controller-5] getifaddrs: Operation not permitted
+1793548099.8482547 [b2w_rl_sar_controller-5] getifaddrs: Operation not permitted
+1793548099.8484962 [b2w_rl_sar_controller-5] [37;1m2026-11-01 23:48:19.846 [31;1m[[37;1mTRANSPORT[31;1m Error] [37mAll whitelist interfaces were filtered out[34;1m -> Function [36mUDPv4Transport[m
+1793548099.8485258 [b2w_rl_sar_controller-5] [37;1m2026-11-01 23:48:19.846 [31;1m[[37;1mTRANSPORT_UDP[31;1m Error] [37mError creating socket: Operation not permitted[34;1m -> Function [36minit[m
+1793548099.8485429 [b2w_rl_sar_controller-5] [37;1m2026-11-01 23:48:19.847 [31;1m[[37;1mRTPS_PARTICIPANT[31;1m Error] [37mUser transport failed to register.[34;1m -> Function [36mRTPSParticipantImpl[m
+1793548099.8485556 [b2w_rl_sar_controller-5] [37;1m2026-11-01 23:48:19.847 [31;1m[[37;1mTRANSPORT[31;1m Error] [37mAll whitelist interfaces were filtered out[34;1m -> Function [36mUDPv4Transport[m
+1793548099.8485672 [b2w_rl_sar_controller-5] [37;1m2026-11-01 23:48:19.847 [31;1m[[37;1mTRANSPORT_UDP[31;1m Error] [37mError creating socket: Operation not permitted[34;1m -> Function [36minit[m
+1793548099.8485777 [b2w_rl_sar_controller-5] [37;1m2026-11-01 23:48:19.847 [31;1m[[37;1mRTPS_PARTICIPANT[31;1m Error] [37mUser transport failed to register.[34;1m -> Function [36mRTPSParticipantImpl[m
+1793548099.8571053 [robot_state_publisher-2] getifaddrs: Operation not permitted
+1793548099.8581839 [robot_state_publisher-2] getifaddrs: Operation not permitted
+1793548099.8583279 [robot_state_publisher-2] getifaddrs: Operation not permitted
+1793548099.8583665 [robot_state_publisher-2] getifaddrs: Operation not permitted
+1793548099.8586307 [robot_state_publisher-2] [37;1m2026-11-01 23:48:19.856 [31;1m[[37;1mTRANSPORT[31;1m Error] [37mAll whitelist interfaces were filtered out[34;1m -> Function [36mUDPv4Transport[m
+1793548099.8586967 [robot_state_publisher-2] [37;1m2026-11-01 23:48:19.856 [31;1m[[37;1mTRANSPORT_UDP[31;1m Error] [37mError creating socket: Operation not permitted[34;1m -> Function [36minit[m
+1793548099.8587201 [robot_state_publisher-2] [37;1m2026-11-01 23:48:19.856 [31;1m[[37;1mRTPS_PARTICIPANT[31;1m Error] [37mUser transport failed to register.[34;1m -> Function [36mRTPSParticipantImpl[m
+1793548099.8587425 [robot_state_publisher-2] [37;1m2026-11-01 23:48:19.856 [31;1m[[37;1mTRANSPORT[31;1m Error] [37mAll whitelist interfaces were filtered out[34;1m -> Function [36mUDPv4Transport[m
+1793548099.8587601 [robot_state_publisher-2] [37;1m2026-11-01 23:48:19.856 [31;1m[[37;1mTRANSPORT_UDP[31;1m Error] [37mError creating socket: Operation not permitted[34;1m -> Function [36minit[m
+1793548099.8587809 [robot_state_publisher-2] [37;1m2026-11-01 23:48:19.856 [31;1m[[37;1mRTPS_PARTICIPANT[31;1m Error] [37mUser transport failed to register.[34;1m -> Function [36mRTPSParticipantImpl[m
+1793548099.8589733 [parameter_bridge-4] getifaddrs: Operation not permitted
+1793548099.8590410 [parameter_bridge-4] getifaddrs: Operation not permitted
+1793548099.8987467 [parameter_bridge-4] getifaddrs: Operation not permitted
+1793548099.8993790 [parameter_bridge-4] getifaddrs: Operation not permitted
+1793548099.8994801 [parameter_bridge-4] getifaddrs: Operation not permitted
+1793548099.8995326 [parameter_bridge-4] getifaddrs: Operation not permitted
+1793548099.9001424 [parameter_bridge-4] [37;1m2026-11-01 23:48:19.898 [31;1m[[37;1mTRANSPORT[31;1m Error] [37mAll whitelist interfaces were filtered out[34;1m -> Function [36mUDPv4Transport[m
+1793548099.9001896 [parameter_bridge-4] [37;1m2026-11-01 23:48:19.898 [31;1m[[37;1mTRANSPORT_UDP[31;1m Error] [37mError creating socket: Operation not permitted[34;1m -> Function [36minit[m
+1793548099.9002097 [parameter_bridge-4] [37;1m2026-11-01 23:48:19.898 [31;1m[[37;1mRTPS_PARTICIPANT[31;1m Error] [37mUser transport failed to register.[34;1m -> Function [36mRTPSParticipantImpl[m
+1793548099.9002271 [parameter_bridge-4] [37;1m2026-11-01 23:48:19.898 [31;1m[[37;1mTRANSPORT[31;1m Error] [37mAll whitelist interfaces were filtered out[34;1m -> Function [36mUDPv4Transport[m
+1793548099.9002442 [parameter_bridge-4] [37;1m2026-11-01 23:48:19.898 [31;1m[[37;1mTRANSPORT_UDP[31;1m Error] [37mError creating socket: Operation not permitted[34;1m -> Function [36minit[m
+1793548099.9002666 [parameter_bridge-4] [37;1m2026-11-01 23:48:19.898 [31;1m[[37;1mRTPS_PARTICIPANT[31;1m Error] [37mUser transport failed to register.[34;1m -> Function [36mRTPSParticipantImpl[m
+1793548099.9037886 [b2w_rl_sar_controller-5] [INFO] [1793548099.902996317] [b2w_rl_sar_controller]: Loaded rl_sar B2-W policy: 57 observations, 16 actions, 50 Hz policy / 200 Hz torque, /home/zyd/program/b2w-embodied-navigation-course/third_party/b2w_rl_sar/policy/b2w/robot_lab/policy.onnx
+1793548099.9093421 [robot_state_publisher-2] [WARN] [1793548099.909123575] [kdl_parser]: The root link base_link has an inertia specified in the URDF, but KDL does not support a root link with an inertia.  As a workaround, you can add an extra dummy link to your URDF.
+1793548099.9102862 [robot_state_publisher-2] [INFO] [1793548099.909286146] [b2w_robot_state_publisher]: got segment FL_calf
+1793548099.9106534 [robot_state_publisher-2] [INFO] [1793548099.909467522] [b2w_robot_state_publisher]: got segment FL_foot
+1793548099.9108956 [robot_state_publisher-2] [INFO] [1793548099.909480479] [b2w_robot_state_publisher]: got segment FL_hip
+1793548099.9111302 [robot_state_publisher-2] [INFO] [1793548099.909488079] [b2w_robot_state_publisher]: got segment FL_thigh
+1793548099.9113390 [robot_state_publisher-2] [INFO] [1793548099.909494954] [b2w_robot_state_publisher]: got segment FR_calf
+1793548099.9115269 [robot_state_publisher-2] [INFO] [1793548099.909501658] [b2w_robot_state_publisher]: got segment FR_foot
+1793548099.9117134 [robot_state_publisher-2] [INFO] [1793548099.909507849] [b2w_robot_state_publisher]: got segment FR_hip
+1793548099.9120212 [robot_state_publisher-2] [INFO] [1793548099.909560636] [b2w_robot_state_publisher]: got segment FR_thigh
+1793548099.9122224 [robot_state_publisher-2] [INFO] [1793548099.909568072] [b2w_robot_state_publisher]: got segment RL_calf
+1793548099.9124527 [robot_state_publisher-2] [INFO] [1793548099.909574469] [b2w_robot_state_publisher]: got segment RL_foot
+1793548099.9126225 [robot_state_publisher-2] [INFO] [1793548099.909580494] [b2w_robot_state_publisher]: got segment RL_hip
+1793548099.9127827 [robot_state_publisher-2] [INFO] [1793548099.909586578] [b2w_robot_state_publisher]: got segment RL_thigh
+1793548099.9129362 [robot_state_publisher-2] [INFO] [1793548099.909592547] [b2w_robot_state_publisher]: got segment RR_calf
+1793548099.9130948 [robot_state_publisher-2] [INFO] [1793548099.909598622] [b2w_robot_state_publisher]: got segment RR_foot
+1793548099.9132726 [robot_state_publisher-2] [INFO] [1793548099.909604832] [b2w_robot_state_publisher]: got segment RR_hip
+1793548099.9134634 [robot_state_publisher-2] [INFO] [1793548099.909610926] [b2w_robot_state_publisher]: got segment RR_thigh
+1793548099.9136276 [robot_state_publisher-2] [INFO] [1793548099.909617029] [b2w_robot_state_publisher]: got segment base_link
+1793548099.9137871 [robot_state_publisher-2] [INFO] [1793548099.909622909] [b2w_robot_state_publisher]: got segment collision_plate
+1793548099.9139481 [robot_state_publisher-2] [INFO] [1793548099.909629267] [b2w_robot_state_publisher]: got segment f_dc_link
+1793548099.9141102 [robot_state_publisher-2] [INFO] [1793548099.909635282] [b2w_robot_state_publisher]: got segment f_oc_link
+1793548099.9142754 [robot_state_publisher-2] [INFO] [1793548099.909641143] [b2w_robot_state_publisher]: got segment head_Link
+1793548099.9144361 [robot_state_publisher-2] [INFO] [1793548099.909647110] [b2w_robot_state_publisher]: got segment imu_link
+1793548099.9146004 [robot_state_publisher-2] [INFO] [1793548099.909652987] [b2w_robot_state_publisher]: got segment lidar_link
+1793548099.9147930 [robot_state_publisher-2] [INFO] [1793548099.909658781] [b2w_robot_state_publisher]: got segment logo_link
+1793548099.9149539 [robot_state_publisher-2] [INFO] [1793548099.909665246] [b2w_robot_state_publisher]: got segment r_dc_link
+1793548099.9151065 [robot_state_publisher-2] [INFO] [1793548099.909671332] [b2w_robot_state_publisher]: got segment r_oc_ink
+1793548099.9152555 [robot_state_publisher-2] [INFO] [1793548099.909677162] [b2w_robot_state_publisher]: got segment tail_link
+1793548099.9154165 [robot_state_publisher-2] [INFO] [1793548099.909683115] [b2w_robot_state_publisher]: got segment zed_x_camera
+1793548099.9199517 [parameter_bridge-4] error in getifaddrs: Unknown error -1
+1793548099.9722166 [ign-1] Error opening log file: /home/zyd/.ignition/auto_default.log
+1793548099.9731095 [ign-1] error in getifaddrs: Unknown error -1
+1793548099.9736862 [ign-1] [1;32m[Msg] [0m[1;32mIgnition Gazebo GUI    v[0m[1;32m6.18.0[0m[1;32m[0m
+1793548099.9738650 [ign-1] error in getifaddrs: Unknown error -1
+1793548099.9874475 [INFO] [ign-1]: process has finished cleanly [pid 57]
+1793548099.9901099 [INFO] [sensor_cloud_disturbance-7]: sending signal 'SIGINT' to process[sensor_cloud_disturbance-7]
+1793548099.9907253 [INFO] [sensor_disturbance-6]: sending signal 'SIGINT' to process[sensor_disturbance-6]
+1793548099.9912765 [INFO] [b2w_rl_sar_controller-5]: sending signal 'SIGINT' to process[b2w_rl_sar_controller-5]
+1793548099.9918625 [INFO] [parameter_bridge-4]: sending signal 'SIGINT' to process[parameter_bridge-4]
+1793548099.9922161 [INFO] [create-3]: sending signal 'SIGINT' to process[create-3]
+1793548099.9927058 [INFO] [robot_state_publisher-2]: sending signal 'SIGINT' to process[robot_state_publisher-2]
+1793548099.9929321 [b2w_rl_sar_controller-5] [INFO] [1793548099.991382847] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+1793548099.9930573 [parameter_bridge-4] [INFO] [1793548099.991953916] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+1793548099.9932585 [robot_state_publisher-2] [INFO] [1793548099.992780309] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+1793548100.0227451 [ERROR] [create-3]: process has died [pid 61, exit code 255, cmd '/opt/ros/humble/lib/ros_gz_sim/create -world course_world -name b2w -topic /b2w/robot_description -x 0.0 -y 0.0 -z 1.0 --ros-args'].
+1793548100.0822732 [ERROR] [parameter_bridge-4]: process has died [pid 63, exit code -11, cmd '/opt/ros/humble/lib/ros_gz_bridge/parameter_bridge --ros-args --params-file /tmp/launch_params_0mqe9ar8'].
+1793548100.1012561 [INFO] [robot_state_publisher-2]: process has finished cleanly [pid 59]
+1793548100.1211617 [INFO] [b2w_rl_sar_controller-5]: process has finished cleanly [pid 65]

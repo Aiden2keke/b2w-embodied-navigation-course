@@ -1,0 +1,86 @@
+.............................................................F.F........ [ 69%]
+................................                                         [100%]
+=================================== FAILURES ===================================
+____________ test_real_grid_worker_prepares_then_joins_on_shutdown _____________
+
+tmp_path = PosixPath('/tmp/pytest-of-zyd/pytest-390/test_real_grid_worker_prepares0')
+
+    def test_real_grid_worker_prepares_then_joins_on_shutdown(tmp_path):
+        from course_navigation.stage4_guard import GridPreparation
+        g,cfg=configured(tmp_path);worker=GridPreparation(g)
+        try:
+            worker.submit('local',grid(),frame='odom',source=10.1,receipt=20.1,encoding='costmap',epoch='trial')
+            deadline=time.monotonic()+2.
+            while time.monotonic()<deadline:
+                with g.lock:entry=g.grids.get('local')
+                if entry and entry[1]==10.1:break
+                time.sleep(.005)
+>           assert entry and entry[1]==10.1
+E           assert (None)
+
+tests/test_stage4_safety_guard.py:190: AssertionError
+____ test_stage4_launch_forwards_manifest_and_excludes_other_command_owners ____
+
+    def test_stage4_launch_forwards_manifest_and_excludes_other_command_owners():
+        from test_dwb_stage1_launch import load,context_for
+        from launch_ros.actions import Node
+        from launch_ros.utilities import evaluate_parameters
+        root=Path(__file__).resolve().parents[1]
+        m=load(root/'course_navigation/launch/navigation.launch.py')
+        for enabled in ('true','false'):
+>           context=context_for(m,stage4_guard_manifest='/tmp/private-session/guard.json',goal_manager_enabled=enabled)
+
+tests/test_stage4_safety_guard.py:211: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_dwb_stage1_launch.py:53: in context_for
+    context=LaunchContext()
+/opt/ros/humble/lib/python3.10/site-packages/launch/launch_context.py:73: in __init__
+    self.__logger = launch.logging.get_logger(__name__)
+/opt/ros/humble/lib/python3.10/site-packages/launch/logging/__init__.py:298: in get_logger
+    launch_log_file_handler = launch_config.get_log_file_handler()
+/opt/ros/humble/lib/python3.10/site-packages/launch/logging/__init__.py:272: in get_log_file_handler
+    file_path = self.get_log_file_path(file_name)
+/opt/ros/humble/lib/python3.10/site-packages/launch/logging/__init__.py:258: in get_log_file_path
+    return os.path.join(self.log_dir, file_name)
+/opt/ros/humble/lib/python3.10/site-packages/launch/logging/__init__.py:119: in log_dir
+    self._log_dir = _make_unique_log_dir(
+/opt/ros/humble/lib/python3.10/site-packages/launch/logging/__init__.py:81: in _make_unique_log_dir
+    os.makedirs(log_dir, exist_ok=True)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+name = '/home/zyd/.ros/log/2026-11-02-00-03-11-067409-zyd-MS-7D97-2', mode = 511
+exist_ok = True
+
+    def makedirs(name, mode=0o777, exist_ok=False):
+        """makedirs(name [, mode=0o777][, exist_ok=False])
+    
+        Super-mkdir; create a leaf directory and all intermediate ones.  Works like
+        mkdir, except that any intermediate path segment (not just the rightmost)
+        will be created if it does not exist. If the target directory already
+        exists, raise an OSError if exist_ok is False. Otherwise no exception is
+        raised.  This is recursive.
+    
+        """
+        head, tail = path.split(name)
+        if not tail:
+            head, tail = path.split(head)
+        if head and tail and not path.exists(head):
+            try:
+                makedirs(head, exist_ok=exist_ok)
+            except FileExistsError:
+                # Defeats race condition when another thread created the path
+                pass
+            cdir = curdir
+            if isinstance(tail, bytes):
+                cdir = bytes(curdir, 'ASCII')
+            if tail == cdir:           # xxx/newdir/. exists if xxx/newdir exists
+                return
+        try:
+>           mkdir(name, mode)
+E           OSError: [Errno 30] Read-only file system: '/home/zyd/.ros/log/2026-11-02-00-03-11-067409-zyd-MS-7D97-2'
+
+/usr/lib/python3.10/os.py:225: OSError
+=========================== short test summary info ============================
+FAILED tests/test_stage4_safety_guard.py::test_real_grid_worker_prepares_then_joins_on_shutdown
+FAILED tests/test_stage4_safety_guard.py::test_stage4_launch_forwards_manifest_and_excludes_other_command_owners
+2 failed, 102 passed in 6.50s

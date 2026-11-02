@@ -1,0 +1,134 @@
+{
+  "kind": "manual_warehouse_map_export",
+  "outcome": "offline_preview",
+  "success": true,
+  "motion_enabled": false,
+  "motion_classification": "stationary",
+  "motion_classification_reason": "source session records motion_enabled=false; endpoint/balance variation is not drawn as travel",
+  "trajectory_samples": 5540,
+  "trajectory_source": "/sim/ground_truth/odom",
+  "trajectory_source_frame": "sim_world",
+  "trajectory_frame": "world",
+  "source_to_world_relation": "sim_world and world are identity-aligned by the SDF ground-truth odometry publisher",
+  "source_session": "/home/zyd/program/b2w-embodied-navigation-course/course_results/tracks/20261102T031146Z",
+  "source_csv_sha256": "b1e59d4d1e75b4623d8ded27ad537bc29ac287dba3cb5041b03f482b0147cb3d",
+  "artifacts": {
+    "trajectory.csv": "/home/zyd/program/b2w-embodied-navigation-course/course_results/previews/warehouse-dual-map-20261102T031146Z-final/trajectory.csv",
+    "trajectory.png": "/home/zyd/program/b2w-embodied-navigation-course/course_results/previews/warehouse-dual-map-20261102T031146Z-final/trajectory.png",
+    "trajectory_ground_truth.png": "/home/zyd/program/b2w-embodied-navigation-course/course_results/previews/warehouse-dual-map-20261102T031146Z-final/trajectory_ground_truth.png",
+    "trajectory_slam.png": "/home/zyd/program/b2w-embodied-navigation-course/course_results/previews/warehouse-dual-map-20261102T031146Z-final/trajectory_slam.png",
+    "result.json": "/home/zyd/program/b2w-embodied-navigation-course/course_results/previews/warehouse-dual-map-20261102T031146Z-final/result.json"
+  },
+  "images": {
+    "ground_truth": {
+      "path": "/home/zyd/program/b2w-embodied-navigation-course/course_results/previews/warehouse-dual-map-20261102T031146Z-final/trajectory_ground_truth.png",
+      "source_topic": "/sim/ground_truth/odom",
+      "source_frame": "sim_world",
+      "coordinate_frame": "world",
+      "map_asset": "/home/zyd/program/b2w-embodied-navigation-course/course_navigation/maps/warehouse_ground_truth_floorplan.png",
+      "map_sha256": "91ac49f0d4b5816a4efd02e055ad26af88c43d2ee11c6db9f57305628ee36d72",
+      "resolution_m_per_pixel": 0.02,
+      "pixel_contract": "top-left pixel center: x=xmin+(column+.5)*resolution; y=ymax-(row+.5)*resolution",
+      "style": "Gazebo-inspired colors applied to canonical collision geometry",
+      "stationary": true,
+      "trajectory_drawn": false,
+      "start_world_xy": [
+        3.392382133255319e-22,
+        -8.267494791888695e-21
+      ],
+      "end_world_xy": [
+        -0.06746473873330554,
+        -0.013056587622374069
+      ],
+      "start_image_pixel_xy": [
+        349.0117495,
+        522.833374
+      ],
+      "end_image_pixel_xy": [
+        345.6385125633347,
+        523.4862033811188
+      ]
+    },
+    "slam": {
+      "path": "/home/zyd/program/b2w-embodied-navigation-course/course_results/previews/warehouse-dual-map-20261102T031146Z-final/trajectory_slam.png",
+      "source_topic": "/sim/ground_truth/odom",
+      "trajectory_source_frame": "sim_world",
+      "trajectory_frame": "world",
+      "trajectory_label": "ground truth; not SLAM localization",
+      "coordinate_frame": "saved_slam_map",
+      "map_asset": "/home/zyd/program/b2w-embodied-navigation-course/experiments/g1_g5/waypoints/20261019-v1/warehouse.pgm",
+      "available": true,
+      "trajectory_drawn": false,
+      "map_sha256": "e90f2dd81c89d41828ddb9f60732bdcae5cc7526dcf4a8919638a335d4a585f3",
+      "yaml_asset": "/home/zyd/program/b2w-embodied-navigation-course/experiments/g1_g5/waypoints/20261019-v1/warehouse.yaml",
+      "yaml_sha256": "8932cb8452f65c202b37e497df0b5fa57d83f038d0b21a6df2ae069bf34ebf55",
+      "resolution_m_per_pixel": 0.05,
+      "origin": [
+        -20,
+        -20,
+        0
+      ],
+      "registration_path": "/home/zyd/program/b2w-embodied-navigation-course/course_navigation/maps/warehouse_saved_map_registration.json",
+      "registration_sha256": "1d3e76392ad1ba15e85bb6a825dd13552d5a5ea0c32ace8d3616bc367ea8ea8e",
+      "registration": {
+        "source_frame": "world",
+        "target_frame": "saved_slam_map",
+        "x_m": -0.30585564746006044,
+        "y_m": 0.053931095729784495,
+        "yaw_rad": 0.060792739830594654
+      },
+      "registration_fit_rmse_m": 0.09713610119352874,
+      "registration_holdout_error_m": 0.04952388105343857,
+      "start_world_xy": [
+        3.392382133255319e-22,
+        -8.267494791888695e-21
+      ],
+      "end_world_xy": [
+        -0.06746473873330554,
+        -0.013056587622374069
+      ],
+      "start_saved_map_xy": [
+        -0.30585564746006044,
+        0.053931095729784495
+      ],
+      "end_saved_map_xy": [
+        -0.3724025010264525,
+        0.03679978716601506
+      ],
+      "pgm_size_px": [
+        800,
+        800
+      ],
+      "pixel_contract": "top-left pixel center: x=origin_x+(column+0.5)*resolution; y=origin_y+(height-row-0.5)*resolution",
+      "crop_world_extent_m": [
+        -8.6,
+        -11.549999999999999,
+        8.0,
+        11.55
+      ],
+      "start_image_pixel_xy": [
+        393.3828870507988,
+        398.4213780854043
+      ],
+      "end_image_pixel_xy": [
+        392.0519499794709,
+        398.7640042566797
+      ],
+      "stationary": true,
+      "display_crop_pixels": {
+        "row0": 169,
+        "row1": 631,
+        "col0": 228,
+        "col1": 560
+      },
+      "start_display_pixel_xy": [
+        165.3828870507988,
+        229.42137808540429
+      ],
+      "end_display_pixel_xy": [
+        164.05194997947092,
+        229.7640042566797
+      ]
+    }
+  }
+}

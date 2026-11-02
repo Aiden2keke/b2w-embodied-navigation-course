@@ -1,0 +1,26 @@
+{
+  "kind": "manual_warehouse_view",
+  "outcome": "stopped_by_user",
+  "success": null,
+  "stop_reason": "shutdown",
+  "motion_enabled": false,
+  "trajectory_samples": 93,
+  "trajectory_source": "public map->base_link TF",
+  "map_source": "/map nav_msgs/msg/OccupancyGrid",
+  "map_sha256": "69bc0237b85583fc8f9b508611c5ca617b9d3b63036e621b558155a4d4947e42",
+  "map_error": null,
+  "tf_epoch_count": 1,
+  "map_stamp_ns": 32000000000,
+  "last_tf_age_s": 0.37,
+  "final_position": {
+    "x": -0.34342389804730994,
+    "y": -0.000240294503951744,
+    "yaw_rad": -2.578215484165665e-05
+  },
+  "artifacts": {
+    "csv": "/home/zyd/program/b2w-embodied-navigation-course/course_results/tracks/20261101T154930Z/trajectory.csv",
+    "image": "/home/zyd/program/b2w-embodied-navigation-course/course_results/tracks/20261101T154930Z/trajectory.png"
+  },
+  "started_utc": "2026-11-01T15:49:31.389418+00:00",
+  "ended_utc": "2026-11-01T15:50:16.146258+00:00"
+}

@@ -1,0 +1,21 @@
+[INFO] [1793614170.958820810] [goal_manager]: Goal 20261102T100930.928554Z: waiting for Nav2
+[INFO] [1793614200.708899571] [goal_manager]: Navigation succeeded; metrics saved for 20261102T100930.928554Z
+[INFO] [1793614207.993473397] [goal_manager]: Goal 20261102T101007.992168Z: waiting for Nav2
+[INFO] [1793614228.582271093] [goal_manager]: Navigation succeeded; metrics saved for 20261102T101007.992168Z
+[INFO] [1793614236.539727869] [goal_manager]: Goal 20261102T101036.539229Z: waiting for Nav2
+[INFO] [1793614255.708423744] [goal_manager]: Navigation succeeded; metrics saved for 20261102T101036.539229Z
+[INFO] [1793614263.534555121] [goal_manager]: Goal 20261102T101103.533736Z: waiting for Nav2
+[INFO] [1793614280.239029718] [goal_manager]: Navigation replaced; metrics saved for 20261102T101103.533736Z
+[INFO] [1793614280.240436187] [goal_manager]: Goal 20261102T101120.240061Z: waiting for Nav2
+[INFO] [1793614285.962767407] [goal_manager]: Navigation replaced; metrics saved for 20261102T101120.240061Z
+[INFO] [1793614285.969858434] [goal_manager]: Goal 20261102T101125.963130Z: waiting for Nav2
+[INFO] [1793614286.027281511] [goal_manager]: Navigation aborted; metrics saved for 20261102T101125.963130Z
+[INFO] [1793614298.773789632] [goal_manager]: Goal 20261102T101138.772223Z: waiting for Nav2
+[INFO] [1793614327.776352633] [goal_manager]: Navigation succeeded; metrics saved for 20261102T101138.772223Z
+[INFO] [1793614331.884238422] [goal_manager]: Goal 20261102T101211.881513Z: waiting for Nav2
+[INFO] [1793614360.273387841] [goal_manager]: Navigation replaced; metrics saved for 20261102T101211.881513Z
+[INFO] [1793614360.275879415] [goal_manager]: Goal 20261102T101240.275364Z: waiting for Nav2
+[INFO] [1793614360.307872825] [goal_manager]: Navigation aborted; metrics saved for 20261102T101240.275364Z
+[INFO] [1793614366.772152090] [goal_manager]: Goal 20261102T101246.771454Z: waiting for Nav2
+[INFO] [1793614371.131191575] [goal_manager]: Navigation shutdown; metrics saved for 20261102T101246.771454Z
+[ERROR] [1793614371.411397638] [rclpy.signals]: rcl_trigger_guard_condition() failed: guard condition implementation is invalid, at ./src/rcl/guard_condition.c:172

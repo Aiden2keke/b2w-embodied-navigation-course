@@ -1,0 +1,2 @@
+[INFO] [1793607843.436409474] [rclcpp]: [1;32m----> IMU Preintegration Started.[0m
+[INFO] [1793607850.186028387] [rclcpp]: signal_handler(SIGINT/SIGTERM)

@@ -1,0 +1,9 @@
+[INFO] [1793289839.461946865] [b2w_rl_sar_controller]: Loaded rl_sar B2-W policy: 57 observations, 16 actions, 50 Hz policy / 200 Hz torque, /home/zyd/program/b2w-embodied-navigation-course/third_party/b2w_rl_sar/policy/b2w/robot_lab/policy.onnx
+[INFO] [1793289841.776466382] [b2w_rl_sar_controller]: Stop brake captured reference=0.000000000
+[INFO] [1793289843.071003311] [b2w_rl_sar_controller]: Stop brake captured reference=0.000000000
+[INFO] [1793289845.315710921] [b2w_rl_sar_controller]: Stop brake captured reference=0.000000000
+[INFO] [1793289846.435888828] [b2w_rl_sar_controller]: Stop brake captured reference=3.130000000
+[INFO] [1793289847.132287962] [b2w_rl_sar_controller]: Stop brake captured reference=0.000000000
+[WARN] [1793289847.500108251] [b2w_rl_sar_controller]: ROS clock reset: cleared feedback, actions and command; waiting to stand again
+[INFO] [1793289848.150684044] [b2w_rl_sar_controller]: Stop brake captured reference=0.000000000
+[INFO] [1793289848.687201858] [rclcpp]: signal_handler(SIGINT/SIGTERM)

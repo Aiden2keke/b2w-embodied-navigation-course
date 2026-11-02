@@ -1,0 +1,20 @@
+{
+  "git_head": "193170687179a8e86d096c86eb44a632aa971fc9",
+  "scene": "warehouse",
+  "fault_profile": "normal",
+  "seed": 0,
+  "goal_map": [
+    1,
+    -1
+  ],
+  "gui": true,
+  "rviz": true,
+  "algorithm_or_parameter_changes": false,
+  "source_sha256": {
+    "course_navigation/course_navigation/goal_manager.py": "505814778f5b1dc27d907c8104801566020aec47fb5941022900849588dd93b0",
+    "course_navigation/course_navigation/velocity_adapter.py": "90b943b33e76e3fa5f4203bc3a38231a463d67dd1b604901f37ef5cc6d18e961",
+    "course_navigation/config/nav2.yaml": "d63852ab2eed9c6cc1c258aaf2bdc2b11753ff9d9969e1885785d3cab2a87046",
+    "course_slam/course_slam/pose_adapter.py": "1e0b3f0d4e57e18b077cc706a73ee184906aef4ad22010f05515c8e9661e3ad3"
+  },
+  "actual_loaded_modules": "build symlinks resolve to current source; velocity TF check is availability; goal tick TF check is availability; goal finish TF age check <=0.5 s only for final pose sampling"
+}

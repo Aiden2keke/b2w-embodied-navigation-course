@@ -1,0 +1,43 @@
+{
+  "kind": "stage4_grid_worker_performance_benchmark",
+  "date": "2026-10-30",
+  "scope": "Offline 800x800 saved-map geometry and local IPC only; no Gazebo or motion",
+  "map": {
+    "width": 800,
+    "height": 800,
+    "resolution_m": 0.05,
+    "yaml_sha256": "8932cb8452f65c202b37e497df0b5fa57d83f038d0b21a6df2ae069bf34ebf55",
+    "image_sha256": "e90f2dd81c89d41828ddb9f60732bdcae5cc7526dcf4a8919638a335d4a585f3",
+    "non_free_cells": 541449
+  },
+  "before": {
+    "grid_revision_s": 0.047555,
+    "clearance_grid_build_s": 0.129056,
+    "pickle_dump_s": 0.021697,
+    "pickle_load_s": 0.035375,
+    "pickle_bytes": 38851258
+  },
+  "after": {
+    "grid_revision_s": 0.0548,
+    "clearance_grid_build_s": 0.1002,
+    "pickle_dump_s": 0.0116,
+    "pickle_load_s": 0.014,
+    "pickle_bytes": 20096185,
+    "size_reduction_percent": 48.3,
+    "submit_to_worker_accept_s": 0.4324,
+    "worker_failure": null,
+    "worker_alive_after_accept": true
+  },
+  "checks": {
+    "json_revision_contract_preserved": true,
+    "clearance_before_after_equal": true,
+    "restored_tree_data_is_points": true,
+    "grid_data_is_compact_bytes_view": true,
+    "motion_safety_deadline_s": 0.5
+  },
+  "code_sha256": {
+    "course_navigation/course_navigation/stage4_geometry.py": "dacc0d3738ca02e2589a7bfd40d90233d1736f074f2348972688c8ba1c8de27e",
+    "course_navigation/course_navigation/stage4_guard.py": "403dc23a17fca61469e55d7a58e989393d1d324f709783730e94f61125c71ad1",
+    "course_navigation/course_navigation/stage4_grid_worker.py": "648504ce8dc883be45932d0e86c3313e785d2c8b8e73638acbda264db2654958"
+  }
+}

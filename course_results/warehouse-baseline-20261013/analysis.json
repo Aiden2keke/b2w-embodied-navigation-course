@@ -1,0 +1,89 @@
+{
+  "goal_to_executing_wall_s": 0.10017770202830434,
+  "commands": {
+    "raw": {
+      "cycles": 104,
+      "nonzero": 103,
+      "max_abs_xyz": [
+        0.40000000000000013,
+        0.0,
+        0.6
+      ]
+    },
+    "smoothed": {
+      "cycles": 103,
+      "nonzero": 103,
+      "max_abs_xyz": [
+        0.4,
+        0.0,
+        0.6
+      ]
+    },
+    "final": {
+      "cycles": 106,
+      "nonzero": 102,
+      "max_abs_xyz": [
+        0.4,
+        0.0,
+        0.6
+      ]
+    }
+  },
+  "global_plan_messages": 7,
+  "global_plan_pose_counts": [
+    66,
+    66,
+    63,
+    48,
+    28,
+    17,
+    7
+  ],
+  "odom_xy_start_end": [
+    [
+      -0.3447222481498026,
+      -0.00023141029834088125
+    ],
+    [
+      0.7804359091800177,
+      -0.9466336059555852
+    ]
+  ],
+  "odom_displacement_m": 1.4702577988062808,
+  "observer_tf_unavailable": {
+    "event_count": 0,
+    "duration_wall_s": 0,
+    "time_ratio": 0.0,
+    "longest_wall_s": 0,
+    "cycles": 0
+  },
+  "observer_zero_with_tf_unavailable": {
+    "event_count": 0,
+    "duration_wall_s": 0,
+    "time_ratio": 0.0,
+    "longest_wall_s": 0,
+    "cycles": 0
+  },
+  "observer_tf_age_gt_0_5": {
+    "event_count": 0,
+    "duration_wall_s": 0,
+    "time_ratio": 0.0,
+    "longest_wall_s": 0,
+    "cycles": 0
+  },
+  "observer_zero_with_odom_stale": {
+    "event_count": 0,
+    "duration_wall_s": 0,
+    "time_ratio": 0.0,
+    "longest_wall_s": 0,
+    "cycles": 0
+  },
+  "observer_zero_with_fresh_nonzero_smoothed": {
+    "event_count": 1,
+    "duration_wall_s": 0.04903342598117888,
+    "time_ratio": 0.009304014280348598,
+    "longest_wall_s": 0.04903342598117888,
+    "cycles": 1
+  },
+  "note": "Gate causal counts are external observations. Actual code has no TF-age gate. Acceptance wait is upper bounded by publish-to-EXECUTING duration; freshness-specific waiting is not separately instrumented."
+}

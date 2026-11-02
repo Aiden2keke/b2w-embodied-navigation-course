@@ -1,0 +1,12 @@
+{
+  "kind": "stage4-clearance-tree-leafsize-probe",
+  "date": "2026-10-30",
+  "scope": "Offline 800x800 saved-map geometry/IPC only; no Gazebo or motion",
+  "map": {"width": 800, "height": 800, "resolution_m": 0.05, "non_free_cells": 541449},
+  "default_leafsize_16": {"median_build_ms": 84.66, "median_50_query_ball_calls_ms": 0.43, "nodes": 89733, "full_pickle_bytes": 20096185},
+  "draft_leafsize_256": {"median_build_ms": 51.87, "median_50_query_ball_calls_ms": 0.40, "nodes": 6681, "full_pickle_bytes": 14116442},
+  "draft_submit_to_worker_accept_s": 0.3559,
+  "deadline_s": 0.5,
+  "clearance_before_after_equal": true,
+  "adoption_status": "Not kept in source; source stage4_geometry.py restored byte-identical to installed copy to match active host validation."
+}

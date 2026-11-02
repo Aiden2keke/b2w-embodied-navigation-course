@@ -1,0 +1,16 @@
+[INFO] [1793614624.923580060] [rviz2]: Stereo is NOT SUPPORTED
+[INFO] [1793614624.923889618] [rviz2]: OpenGl version: 4.6 (GLSL 4.6)
+[INFO] [1793614625.121433334] [rviz2]: Stereo is NOT SUPPORTED
+[INFO] [1793614630.356827396] [rviz]: Message Filter dropping message: frame 'lidar_link' at time 1.500 for reason 'discarding message because the queue is full'
+[INFO] [1793614632.957054768] [rviz]: Message Filter dropping message: frame 'lidar_link' at time 4.000 for reason 'discarding message because the queue is full'
+[INFO] [1793614635.556927537] [rviz]: Message Filter dropping message: frame 'lidar_link' at time 6.500 for reason 'discarding message because the queue is full'
+[INFO] [1793614638.257384693] [rviz]: Message Filter dropping message: frame 'lidar_link' at time 9.100 for reason 'discarding message because the queue is full'
+[INFO] [1793614641.262638753] [rviz]: Message Filter dropping message: frame 'lidar_link' at time 11.700 for reason 'discarding message because the queue is full'
+[INFO] [1793614644.126230947] [rviz]: Message Filter dropping message: frame 'lidar_link' at time 14.300 for reason 'discarding message because the queue is full'
+[INFO] [1793614646.220976411] [rviz2]: Trying to create a map of size 800 x 800 using 1 swatches
+[INFO] [1793614656.745702453] [rviz]: Message Filter dropping message: frame 'lidar_link' at time 15.900 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1793614700.724824059] [rviz2]: Setting goal pose: Frame:map, Position(0.508275, 6.60757, 0), Orientation(0, 0, 0.998325, 0.0578472) = Angle: 3.02583
+[INFO] [1793614735.387519823] [rviz2]: Setting goal pose: Frame:map, Position(-4.17258, 6.513, 0), Orientation(0, 0, -0.910089, 0.414413) = Angle: -2.287
+[INFO] [1793614759.975690659] [rviz2]: Setting goal pose: Frame:map, Position(0.0827421, 6.72577, 0), Orientation(0, 0, -0.157329, 0.987546) = Angle: -0.31597
+[INFO] [1793614790.238683064] [rviz2]: Setting goal pose: Frame:map, Position(4.76359, 2.25768, 0), Orientation(0, 0, 0.0399043, 0.999204) = Angle: 0.0798299
+[INFO] [1793614830.551186526] [rclcpp]: signal_handler(SIGINT/SIGTERM)

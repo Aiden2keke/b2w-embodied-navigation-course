@@ -1,0 +1,429 @@
+{
+  "goal_sent": true,
+  "readiness": {
+    "smoother_server": 3,
+    "controller_server": 3,
+    "planner_server": 3,
+    "behavior_server": 3,
+    "bt_navigator": 3,
+    "waypoint_follower": 3,
+    "velocity_smoother": 3
+  },
+  "counts": {
+    "clock": 8667,
+    "cloud": 215,
+    "imu": 4280,
+    "map": 22,
+    "odom": 194,
+    "map_points": 4
+  },
+  "ages": {
+    "cloud": {
+      "n": 215,
+      "p50": 0.04250000000000398,
+      "p95": 0.07500000000000284,
+      "max": 0.09749999999999659
+    },
+    "imu": {
+      "n": 4280,
+      "p50": 0.0024999999999977263,
+      "p95": 0.009999999999998366,
+      "max": 0.030000000000001137
+    },
+    "map": {
+      "n": 22,
+      "p50": 0.052499999999994884,
+      "p95": 0.05737499999999791,
+      "max": 0.7575000000000003
+    },
+    "odom": {
+      "n": 194,
+      "p50": 0.29749999999999943,
+      "p95": 0.3474999999999966,
+      "max": 0.3849999999999909
+    },
+    "map_points": {
+      "n": 4,
+      "p50": 0.37375000000000114,
+      "p95": 0.4581250000000011,
+      "max": 0.46750000000000114
+    }
+  },
+  "tf_age_during_goal": {
+    "n": 110,
+    "p50": 0.38249999999999595,
+    "p95": 0.43000000000000554,
+    "max": 0.4625
+  },
+  "final_command_cycles": 110,
+  "tf_unavailable_observer_cycles": 0,
+  "statuses": [
+    {
+      "key": "nav_status",
+      "wall": 326182.064299601,
+      "values": [
+        {
+          "uuid": "9cad1e2382104cfb9ab4b7c629f1277c",
+          "status": 2
+        }
+      ]
+    },
+    {
+      "key": "planner_status",
+      "wall": 326182.064404902,
+      "values": [
+        {
+          "uuid": "b0aabf68327341459afc5796310f113a",
+          "status": 2
+        }
+      ]
+    },
+    {
+      "key": "planner_status",
+      "wall": 326182.066545419,
+      "values": [
+        {
+          "uuid": "b0aabf68327341459afc5796310f113a",
+          "status": 2
+        },
+        {
+          "uuid": "b3af2b6448eb15711d2204e1fdf6ef92",
+          "status": 2
+        }
+      ]
+    },
+    {
+      "key": "planner_status",
+      "wall": 326182.075970861,
+      "values": [
+        {
+          "uuid": "b0aabf68327341459afc5796310f113a",
+          "status": 4
+        },
+        {
+          "uuid": "b3af2b6448eb15711d2204e1fdf6ef92",
+          "status": 2
+        }
+      ]
+    },
+    {
+      "key": "planner_status",
+      "wall": 326182.077353863,
+      "values": [
+        {
+          "uuid": "b0aabf68327341459afc5796310f113a",
+          "status": 4
+        },
+        {
+          "uuid": "b3af2b6448eb15711d2204e1fdf6ef92",
+          "status": 4
+        }
+      ]
+    },
+    {
+      "key": "planner_status",
+      "wall": 326183.114401408,
+      "values": [
+        {
+          "uuid": "b0aabf68327341459afc5796310f113a",
+          "status": 4
+        },
+        {
+          "uuid": "b3af2b6448eb15711d2204e1fdf6ef92",
+          "status": 4
+        },
+        {
+          "uuid": "403f5cc3577fd3f18f2b738a172fb124",
+          "status": 2
+        }
+      ]
+    },
+    {
+      "key": "planner_status",
+      "wall": 326183.118018282,
+      "values": [
+        {
+          "uuid": "b0aabf68327341459afc5796310f113a",
+          "status": 4
+        },
+        {
+          "uuid": "b3af2b6448eb15711d2204e1fdf6ef92",
+          "status": 4
+        },
+        {
+          "uuid": "403f5cc3577fd3f18f2b738a172fb124",
+          "status": 4
+        }
+      ]
+    },
+    {
+      "key": "planner_status",
+      "wall": 326184.134792735,
+      "values": [
+        {
+          "uuid": "b0aabf68327341459afc5796310f113a",
+          "status": 4
+        },
+        {
+          "uuid": "b3af2b6448eb15711d2204e1fdf6ef92",
+          "status": 4
+        },
+        {
+          "uuid": "403f5cc3577fd3f18f2b738a172fb124",
+          "status": 4
+        },
+        {
+          "uuid": "7d311752f4acdc19a055e760c30c2cb7",
+          "status": 2
+        }
+      ]
+    },
+    {
+      "key": "planner_status",
+      "wall": 326184.139196278,
+      "values": [
+        {
+          "uuid": "b0aabf68327341459afc5796310f113a",
+          "status": 4
+        },
+        {
+          "uuid": "b3af2b6448eb15711d2204e1fdf6ef92",
+          "status": 4
+        },
+        {
+          "uuid": "403f5cc3577fd3f18f2b738a172fb124",
+          "status": 4
+        },
+        {
+          "uuid": "7d311752f4acdc19a055e760c30c2cb7",
+          "status": 4
+        }
+      ]
+    },
+    {
+      "key": "planner_status",
+      "wall": 326185.164376186,
+      "values": [
+        {
+          "uuid": "b0aabf68327341459afc5796310f113a",
+          "status": 4
+        },
+        {
+          "uuid": "b3af2b6448eb15711d2204e1fdf6ef92",
+          "status": 4
+        },
+        {
+          "uuid": "403f5cc3577fd3f18f2b738a172fb124",
+          "status": 4
+        },
+        {
+          "uuid": "7d311752f4acdc19a055e760c30c2cb7",
+          "status": 4
+        },
+        {
+          "uuid": "2392dc068ef1ef313abc0219745e7de1",
+          "status": 2
+        }
+      ]
+    },
+    {
+      "key": "planner_status",
+      "wall": 326185.169523576,
+      "values": [
+        {
+          "uuid": "b0aabf68327341459afc5796310f113a",
+          "status": 4
+        },
+        {
+          "uuid": "b3af2b6448eb15711d2204e1fdf6ef92",
+          "status": 4
+        },
+        {
+          "uuid": "403f5cc3577fd3f18f2b738a172fb124",
+          "status": 4
+        },
+        {
+          "uuid": "7d311752f4acdc19a055e760c30c2cb7",
+          "status": 4
+        },
+        {
+          "uuid": "2392dc068ef1ef313abc0219745e7de1",
+          "status": 4
+        }
+      ]
+    },
+    {
+      "key": "planner_status",
+      "wall": 326186.193893782,
+      "values": [
+        {
+          "uuid": "b0aabf68327341459afc5796310f113a",
+          "status": 4
+        },
+        {
+          "uuid": "b3af2b6448eb15711d2204e1fdf6ef92",
+          "status": 4
+        },
+        {
+          "uuid": "403f5cc3577fd3f18f2b738a172fb124",
+          "status": 4
+        },
+        {
+          "uuid": "7d311752f4acdc19a055e760c30c2cb7",
+          "status": 4
+        },
+        {
+          "uuid": "2392dc068ef1ef313abc0219745e7de1",
+          "status": 4
+        },
+        {
+          "uuid": "b7c979c874d402307ebbad18d986ab15",
+          "status": 2
+        }
+      ]
+    },
+    {
+      "key": "planner_status",
+      "wall": 326186.198297953,
+      "values": [
+        {
+          "uuid": "b0aabf68327341459afc5796310f113a",
+          "status": 4
+        },
+        {
+          "uuid": "b3af2b6448eb15711d2204e1fdf6ef92",
+          "status": 4
+        },
+        {
+          "uuid": "403f5cc3577fd3f18f2b738a172fb124",
+          "status": 4
+        },
+        {
+          "uuid": "7d311752f4acdc19a055e760c30c2cb7",
+          "status": 4
+        },
+        {
+          "uuid": "2392dc068ef1ef313abc0219745e7de1",
+          "status": 4
+        },
+        {
+          "uuid": "b7c979c874d402307ebbad18d986ab15",
+          "status": 4
+        }
+      ]
+    },
+    {
+      "key": "planner_status",
+      "wall": 326187.225326336,
+      "values": [
+        {
+          "uuid": "b0aabf68327341459afc5796310f113a",
+          "status": 4
+        },
+        {
+          "uuid": "b3af2b6448eb15711d2204e1fdf6ef92",
+          "status": 4
+        },
+        {
+          "uuid": "403f5cc3577fd3f18f2b738a172fb124",
+          "status": 4
+        },
+        {
+          "uuid": "7d311752f4acdc19a055e760c30c2cb7",
+          "status": 4
+        },
+        {
+          "uuid": "2392dc068ef1ef313abc0219745e7de1",
+          "status": 4
+        },
+        {
+          "uuid": "b7c979c874d402307ebbad18d986ab15",
+          "status": 4
+        },
+        {
+          "uuid": "0cd0fea9d55b7ae2aab2cdb07aa034b0",
+          "status": 2
+        }
+      ]
+    },
+    {
+      "key": "planner_status",
+      "wall": 326187.227307534,
+      "values": [
+        {
+          "uuid": "b0aabf68327341459afc5796310f113a",
+          "status": 4
+        },
+        {
+          "uuid": "b3af2b6448eb15711d2204e1fdf6ef92",
+          "status": 4
+        },
+        {
+          "uuid": "403f5cc3577fd3f18f2b738a172fb124",
+          "status": 4
+        },
+        {
+          "uuid": "7d311752f4acdc19a055e760c30c2cb7",
+          "status": 4
+        },
+        {
+          "uuid": "2392dc068ef1ef313abc0219745e7de1",
+          "status": 4
+        },
+        {
+          "uuid": "b7c979c874d402307ebbad18d986ab15",
+          "status": 4
+        },
+        {
+          "uuid": "0cd0fea9d55b7ae2aab2cdb07aa034b0",
+          "status": 3
+        }
+      ]
+    },
+    {
+      "key": "planner_status",
+      "wall": 326187.229268222,
+      "values": [
+        {
+          "uuid": "b0aabf68327341459afc5796310f113a",
+          "status": 4
+        },
+        {
+          "uuid": "b3af2b6448eb15711d2204e1fdf6ef92",
+          "status": 4
+        },
+        {
+          "uuid": "403f5cc3577fd3f18f2b738a172fb124",
+          "status": 4
+        },
+        {
+          "uuid": "7d311752f4acdc19a055e760c30c2cb7",
+          "status": 4
+        },
+        {
+          "uuid": "2392dc068ef1ef313abc0219745e7de1",
+          "status": 4
+        },
+        {
+          "uuid": "b7c979c874d402307ebbad18d986ab15",
+          "status": 4
+        },
+        {
+          "uuid": "0cd0fea9d55b7ae2aab2cdb07aa034b0",
+          "status": 4
+        }
+      ]
+    },
+    {
+      "key": "nav_status",
+      "wall": 326187.234252536,
+      "values": [
+        {
+          "uuid": "9cad1e2382104cfb9ab4b7c629f1277c",
+          "status": 4
+        }
+      ]
+    }
+  ],
+  "measurement_limit": "External observer TF buffer and callback timing; causal gate counts are not internal instrumentation. Loaded adapter has no TF-age threshold gate; it checks TF availability only."
+}

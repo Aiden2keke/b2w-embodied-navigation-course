@@ -1,0 +1,13 @@
+[INFO] [1793606188.967067306] [rviz2]: Stereo is NOT SUPPORTED
+[INFO] [1793606188.967256649] [rviz2]: OpenGl version: 4.6 (GLSL 4.6)
+[INFO] [1793606189.101827631] [rviz2]: Stereo is NOT SUPPORTED
+[INFO] [1793606197.107869561] [rviz]: Message Filter dropping message: frame 'lidar_link' at time 1.500 for reason 'discarding message because the queue is full'
+[INFO] [1793606199.956278719] [rviz]: Message Filter dropping message: frame 'lidar_link' at time 4.100 for reason 'discarding message because the queue is full'
+[INFO] [1793606202.605992814] [rviz]: Message Filter dropping message: frame 'lidar_link' at time 6.700 for reason 'discarding message because the queue is full'
+[INFO] [1793606205.246012072] [rviz]: Message Filter dropping message: frame 'lidar_link' at time 9.200 for reason 'discarding message because the queue is full'
+[INFO] [1793606208.058123516] [rviz]: Message Filter dropping message: frame 'lidar_link' at time 11.700 for reason 'discarding message because the queue is full'
+[INFO] [1793606210.864219437] [rviz2]: Trying to create a map of size 800 x 800 using 1 swatches
+[INFO] [1793606221.849543649] [rviz]: Message Filter dropping message: frame 'lidar_link' at time 13.800 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1793606229.947275699] [rviz2]: Setting goal pose: Frame:map, Position(-0.408542, 7.6523, 0), Orientation(0, 0, 0.829848, 0.557989) = Angle: 1.95767
+[INFO] [1793606245.586783645] [rviz2]: Setting goal pose: Frame:map, Position(0.0358638, 6.92453, 0), Orientation(0, 0, 0.994033, 0.109076) = Angle: 2.92301
+[INFO] [1793606251.934727334] [rclcpp]: signal_handler(SIGINT/SIGTERM)

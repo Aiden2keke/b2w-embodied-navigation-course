@@ -1,0 +1,884 @@
+1793613960.3741634 [INFO] [launch]: All log files can be found below /home/zyd/program/b2w-embodied-navigation-course/course_results/tracks/20261102T100600Z/ros-logs/2026-11-02-18-06-00-373501-zyd-MS-7D97-2097097
+1793613960.3742661 [INFO] [launch]: Default logging verbosity is set to INFO
+1793613960.5045705 [INFO] [ign-1]: process started with pid [2097125]
+1793613960.5053425 [INFO] [robot_state_publisher-2]: process started with pid [2097127]
+1793613960.5055444 [INFO] [create-3]: process started with pid [2097129]
+1793613960.5056508 [INFO] [parameter_bridge-4]: process started with pid [2097131]
+1793613960.5057523 [INFO] [b2w_rl_sar_controller-5]: process started with pid [2097133]
+1793613960.5058422 [INFO] [sensor_disturbance-6]: process started with pid [2097135]
+1793613960.5059288 [INFO] [sensor_cloud_disturbance-7]: process started with pid [2097137]
+1793613960.5060267 [INFO] [controller_server-8]: process started with pid [2097139]
+1793613960.5061133 [INFO] [smoother_server-9]: process started with pid [2097141]
+1793613960.5061817 [INFO] [planner_server-10]: process started with pid [2097143]
+1793613960.5063365 [INFO] [behavior_server-11]: process started with pid [2097145]
+1793613960.5064468 [INFO] [bt_navigator-12]: process started with pid [2097147]
+1793613960.5065413 [INFO] [waypoint_follower-13]: process started with pid [2097149]
+1793613960.5066371 [INFO] [velocity_smoother-14]: process started with pid [2097151]
+1793613960.5067348 [INFO] [map_projector-15]: process started with pid [2097153]
+1793613960.5068324 [INFO] [lifecycle_manager-16]: process started with pid [2097155]
+1793613960.5069537 [INFO] [velocity_adapter-17]: process started with pid [2097159]
+1793613960.5070605 [INFO] [goal_manager-18]: process started with pid [2097163]
+1793613960.7998753 [behavior_server-11] [INFO] [1793613960.798771874] [behavior_server]: 
+1793613960.8002770 [behavior_server-11] 	behavior_server lifecycle node launched. 
+1793613960.8004110 [behavior_server-11] 	Waiting on external lifecycle transitions to activate
+1793613960.8004546 [behavior_server-11] 	See https://design.ros2.org/articles/node_lifecycle.html for more information.
+1793613960.8042722 [robot_state_publisher-2] [WARN] [1793613960.799155488] [kdl_parser]: The root link base_link has an inertia specified in the URDF, but KDL does not support a root link with an inertia.  As a workaround, you can add an extra dummy link to your URDF.
+1793613960.8056722 [robot_state_publisher-2] [INFO] [1793613960.801420103] [b2w_robot_state_publisher]: got segment FL_calf
+1793613960.8058691 [robot_state_publisher-2] [INFO] [1793613960.801849023] [b2w_robot_state_publisher]: got segment FL_foot
+1793613960.8059382 [robot_state_publisher-2] [INFO] [1793613960.801865558] [b2w_robot_state_publisher]: got segment FL_hip
+1793613960.8059733 [robot_state_publisher-2] [INFO] [1793613960.801873065] [b2w_robot_state_publisher]: got segment FL_thigh
+1793613960.8060026 [robot_state_publisher-2] [INFO] [1793613960.801880200] [b2w_robot_state_publisher]: got segment FR_calf
+1793613960.8060322 [robot_state_publisher-2] [INFO] [1793613960.801886348] [b2w_robot_state_publisher]: got segment FR_foot
+1793613960.8060591 [robot_state_publisher-2] [INFO] [1793613960.801892926] [b2w_robot_state_publisher]: got segment FR_hip
+1793613960.8060882 [robot_state_publisher-2] [INFO] [1793613960.801899057] [b2w_robot_state_publisher]: got segment FR_thigh
+1793613960.8061166 [robot_state_publisher-2] [INFO] [1793613960.801905504] [b2w_robot_state_publisher]: got segment RL_calf
+1793613960.8061442 [robot_state_publisher-2] [INFO] [1793613960.801911484] [b2w_robot_state_publisher]: got segment RL_foot
+1793613960.8061712 [robot_state_publisher-2] [INFO] [1793613960.801918670] [b2w_robot_state_publisher]: got segment RL_hip
+1793613960.8061991 [robot_state_publisher-2] [INFO] [1793613960.801925993] [b2w_robot_state_publisher]: got segment RL_thigh
+1793613960.8062251 [robot_state_publisher-2] [INFO] [1793613960.801932380] [b2w_robot_state_publisher]: got segment RR_calf
+1793613960.8062515 [robot_state_publisher-2] [INFO] [1793613960.801938637] [b2w_robot_state_publisher]: got segment RR_foot
+1793613960.8068719 [robot_state_publisher-2] [INFO] [1793613960.801944535] [b2w_robot_state_publisher]: got segment RR_hip
+1793613960.8069451 [robot_state_publisher-2] [INFO] [1793613960.801950507] [b2w_robot_state_publisher]: got segment RR_thigh
+1793613960.8069975 [robot_state_publisher-2] [INFO] [1793613960.801957075] [b2w_robot_state_publisher]: got segment base_link
+1793613960.8070323 [robot_state_publisher-2] [INFO] [1793613960.801962987] [b2w_robot_state_publisher]: got segment collision_plate
+1793613960.8070605 [robot_state_publisher-2] [INFO] [1793613960.801969211] [b2w_robot_state_publisher]: got segment f_dc_link
+1793613960.8070877 [robot_state_publisher-2] [INFO] [1793613960.801975840] [b2w_robot_state_publisher]: got segment f_oc_link
+1793613960.8071122 [robot_state_publisher-2] [INFO] [1793613960.801981544] [b2w_robot_state_publisher]: got segment head_Link
+1793613960.8071358 [robot_state_publisher-2] [INFO] [1793613960.801987240] [b2w_robot_state_publisher]: got segment imu_link
+1793613960.8071609 [robot_state_publisher-2] [INFO] [1793613960.801993335] [b2w_robot_state_publisher]: got segment lidar_link
+1793613960.8071887 [robot_state_publisher-2] [INFO] [1793613960.801999034] [b2w_robot_state_publisher]: got segment logo_link
+1793613960.8075736 [robot_state_publisher-2] [INFO] [1793613960.802005001] [b2w_robot_state_publisher]: got segment r_dc_link
+1793613960.8099113 [robot_state_publisher-2] [INFO] [1793613960.802010646] [b2w_robot_state_publisher]: got segment r_oc_ink
+1793613960.8101766 [robot_state_publisher-2] [INFO] [1793613960.802016546] [b2w_robot_state_publisher]: got segment tail_link
+1793613960.8103499 [robot_state_publisher-2] [INFO] [1793613960.802022277] [b2w_robot_state_publisher]: got segment zed_x_camera
+1793613960.8383522 [bt_navigator-12] [INFO] [1793613960.837572627] [bt_navigator]: 
+1793613960.8403051 [bt_navigator-12] 	bt_navigator lifecycle node launched. 
+1793613960.8405325 [bt_navigator-12] 	Waiting on external lifecycle transitions to activate
+1793613960.8405688 [bt_navigator-12] 	See https://design.ros2.org/articles/node_lifecycle.html for more information.
+1793613960.8414712 [bt_navigator-12] [INFO] [1793613960.839340610] [bt_navigator]: Creating
+1793613960.8496668 [waypoint_follower-13] [INFO] [1793613960.848887030] [waypoint_follower]: 
+1793613960.8502204 [waypoint_follower-13] 	waypoint_follower lifecycle node launched. 
+1793613960.8502922 [waypoint_follower-13] 	Waiting on external lifecycle transitions to activate
+1793613960.8503273 [waypoint_follower-13] 	See https://design.ros2.org/articles/node_lifecycle.html for more information.
+1793613960.8510690 [waypoint_follower-13] [INFO] [1793613960.849983107] [waypoint_follower]: Creating
+1793613960.8602805 [planner_server-10] [INFO] [1793613960.859605821] [planner_server]: 
+1793613960.8607092 [planner_server-10] 	planner_server lifecycle node launched. 
+1793613960.8636520 [planner_server-10] 	Waiting on external lifecycle transitions to activate
+1793613960.8641255 [planner_server-10] 	See https://design.ros2.org/articles/node_lifecycle.html for more information.
+1793613960.8656766 [planner_server-10] [INFO] [1793613960.862502751] [planner_server]: Creating
+1793613960.8664687 [controller_server-8] [INFO] [1793613960.862609144] [controller_server]: 
+1793613960.8666193 [controller_server-8] 	controller_server lifecycle node launched. 
+1793613960.8666790 [controller_server-8] 	Waiting on external lifecycle transitions to activate
+1793613960.8667245 [controller_server-8] 	See https://design.ros2.org/articles/node_lifecycle.html for more information.
+1793613960.8816507 [smoother_server-9] [INFO] [1793613960.880832597] [smoother_server]: 
+1793613960.8819275 [smoother_server-9] 	smoother_server lifecycle node launched. 
+1793613960.8821461 [smoother_server-9] 	Waiting on external lifecycle transitions to activate
+1793613960.8822687 [smoother_server-9] 	See https://design.ros2.org/articles/node_lifecycle.html for more information.
+1793613960.8838820 [smoother_server-9] [INFO] [1793613960.883532875] [smoother_server]: Creating smoother server
+1793613960.8858898 [controller_server-8] [INFO] [1793613960.885070997] [controller_server]: Creating controller server
+1793613960.8955858 [planner_server-10] [INFO] [1793613960.894843512] [global_costmap.global_costmap]: 
+1793613960.8961391 [planner_server-10] 	global_costmap lifecycle node launched. 
+1793613960.8963552 [planner_server-10] 	Waiting on external lifecycle transitions to activate
+1793613960.8964181 [planner_server-10] 	See https://design.ros2.org/articles/node_lifecycle.html for more information.
+1793613960.8971643 [planner_server-10] [INFO] [1793613960.895672411] [global_costmap.global_costmap]: Creating Costmap
+1793613960.9111667 [velocity_smoother-14] [INFO] [1793613960.910195102] [velocity_smoother]: 
+1793613960.9124315 [velocity_smoother-14] 	velocity_smoother lifecycle node launched. 
+1793613960.9129024 [velocity_smoother-14] 	Waiting on external lifecycle transitions to activate
+1793613960.9131711 [velocity_smoother-14] 	See https://design.ros2.org/articles/node_lifecycle.html for more information.
+1793613960.9356065 [controller_server-8] [INFO] [1793613960.934486583] [local_costmap.local_costmap]: 
+1793613960.9363425 [controller_server-8] 	local_costmap lifecycle node launched. 
+1793613960.9364913 [controller_server-8] 	Waiting on external lifecycle transitions to activate
+1793613960.9365549 [controller_server-8] 	See https://design.ros2.org/articles/node_lifecycle.html for more information.
+1793613960.9377048 [controller_server-8] [INFO] [1793613960.935254623] [local_costmap.local_costmap]: Creating Costmap
+1793613960.9627643 [b2w_rl_sar_controller-5] [INFO] [1793613960.960080845] [b2w_rl_sar_controller]: Loaded rl_sar B2-W policy: 57 observations, 16 actions, 50 Hz policy / 200 Hz torque, /home/zyd/program/b2w-embodied-navigation-course/third_party/b2w_rl_sar/policy/b2w/robot_lab/policy.onnx
+1793613960.9840815 [controller_server-8] [INFO] [1793613960.981969687] [controller_server]: Configuring controller interface
+1793613960.9870725 [controller_server-8] [INFO] [1793613960.982199406] [controller_server]: getting goal checker plugins..
+1793613960.9872477 [controller_server-8] [INFO] [1793613960.982245871] [controller_server]: Controller frequency set to 20.0000Hz
+1793613960.9876246 [controller_server-8] [INFO] [1793613960.982302681] [local_costmap.local_costmap]: Configuring
+1793613960.9920089 [controller_server-8] [INFO] [1793613960.991530996] [local_costmap.local_costmap]: Using plugin "static_layer"
+1793613960.9983292 [controller_server-8] [INFO] [1793613960.997936273] [local_costmap.local_costmap]: Subscribing to the map topic (/map) with transient local durability
+1793613961.0021648 [controller_server-8] [INFO] [1793613961.001932291] [local_costmap.local_costmap]: Initialized plugin "static_layer"
+1793613961.0024800 [controller_server-8] [INFO] [1793613961.001967911] [local_costmap.local_costmap]: Using plugin "obstacle_layer"
+1793613961.0042350 [controller_server-8] [INFO] [1793613961.003637301] [local_costmap.local_costmap]: Subscribed to Topics: lidar
+1793613961.0119462 [controller_server-8] [INFO] [1793613961.010299255] [local_costmap.local_costmap]: Initialized plugin "obstacle_layer"
+1793613961.0126584 [controller_server-8] [INFO] [1793613961.010347725] [local_costmap.local_costmap]: Using plugin "inflation_layer"
+1793613961.0134137 [controller_server-8] [INFO] [1793613961.012204842] [local_costmap.local_costmap]: Initialized plugin "inflation_layer"
+1793613961.0370862 [controller_server-8] [INFO] [1793613961.036728927] [controller_server]: Created progress_checker : progress_checker of type nav2_controller::SimpleProgressChecker
+1793613961.0436714 [controller_server-8] [INFO] [1793613961.038315591] [controller_server]: Created goal checker : general_goal_checker of type nav2_controller::SimpleGoalChecker
+1793613961.0446525 [controller_server-8] [INFO] [1793613961.043107114] [controller_server]: Controller Server has general_goal_checker  goal checkers available.
+1793613961.0451050 [controller_server-8] [INFO] [1793613961.044866167] [controller_server]: Created controller : FollowPath of type dwb_core::DWBLocalPlanner
+1793613961.0527506 [controller_server-8] [INFO] [1793613961.052136037] [controller_server]: Setting transform_tolerance to 0.200000
+1793613961.0931103 [controller_server-8] [INFO] [1793613961.087798309] [controller_server]: Using critic "RotateToGoal" (dwb_critics::RotateToGoalCritic)
+1793613961.0934470 [controller_server-8] [INFO] [1793613961.088374572] [controller_server]: Critic plugin initialized
+1793613961.0935063 [controller_server-8] [INFO] [1793613961.088461190] [controller_server]: Using critic "Oscillation" (dwb_critics::OscillationCritic)
+1793613961.0935361 [controller_server-8] [INFO] [1793613961.088575456] [controller_server]: Critic plugin initialized
+1793613961.0935628 [controller_server-8] [INFO] [1793613961.088619792] [controller_server]: Using critic "BaseObstacle" (dwb_critics::BaseObstacleCritic)
+1793613961.0935900 [controller_server-8] [INFO] [1793613961.088669063] [controller_server]: Critic plugin initialized
+1793613961.0936155 [controller_server-8] [INFO] [1793613961.088700014] [controller_server]: Using critic "GoalAlign" (dwb_critics::GoalAlignCritic)
+1793613961.0971344 [controller_server-8] [INFO] [1793613961.088871321] [controller_server]: Critic plugin initialized
+1793613961.0973232 [controller_server-8] [INFO] [1793613961.088913901] [controller_server]: Using critic "PathAlign" (dwb_critics::PathAlignCritic)
+1793613961.0986702 [controller_server-8] [INFO] [1793613961.089047471] [controller_server]: Critic plugin initialized
+1793613961.0987544 [controller_server-8] [INFO] [1793613961.089089926] [controller_server]: Using critic "PathDist" (dwb_critics::PathDistCritic)
+1793613961.0987825 [controller_server-8] [INFO] [1793613961.089191530] [controller_server]: Critic plugin initialized
+1793613961.0988085 [controller_server-8] [INFO] [1793613961.089226023] [controller_server]: Using critic "GoalDist" (dwb_critics::GoalDistCritic)
+1793613961.0988324 [controller_server-8] [INFO] [1793613961.089338558] [controller_server]: Critic plugin initialized
+1793613961.0988550 [controller_server-8] [INFO] [1793613961.089357889] [controller_server]: Controller Server has FollowPath  controllers available.
+1793613961.1430032 [smoother_server-9] [INFO] [1793613961.139165396] [smoother_server]: Configuring smoother server
+1793613961.1641605 [smoother_server-9] [INFO] [1793613961.160383475] [smoother_server]: Created smoother : simple_smoother of type nav2_smoother::SimpleSmoother
+1793613961.1660359 [smoother_server-9] [INFO] [1793613961.160648987] [smoother_server]: Smoother Server has simple_smoother  smoothers available.
+1793613961.1973896 [planner_server-10] [INFO] [1793613961.195180434] [planner_server]: Configuring
+1793613961.1980264 [planner_server-10] [INFO] [1793613961.195299489] [global_costmap.global_costmap]: Configuring
+1793613961.2200332 [ign-1] [1;32m[Msg] [0m[1;32mReceived world [[0m[1;32m/home/zyd/program/b2w-embodied-navigation-course/third_party/aws_warehouse/warehouse.world[0m[1;32m] from the GUI.[0m[1;32m[0m
+1793613961.2204747 [ign-1] [1;32m[Msg] [0m[1;32mIgnition Gazebo Server v[0m[1;32m6.18.0[0m[1;32m[0m
+1793613961.2218099 [ign-1] [1;32m[Msg] [0m[1;32mLoading SDF world file[[0m[1;32m/home/zyd/program/b2w-embodied-navigation-course/third_party/aws_warehouse/warehouse.world[0m[1;32m].[0m
+1793613961.2228124 [ign-1] [1;33mWarning [Utils.cc:129][0m [/sdf/world[@name="course_world"]/model[@name="aws_robomaker_warehouse_Bucket_01_020"]/link[@name="body"]/pose[@frame=""]:/home/zyd/program/b2w-embodied-navigation-course/third_party/aws_warehouse/warehouse.world:L373]: XML Attribute[frame] in element[pose] not defined in SDF.
+1793613961.2246821 [ign-1] [1;33mWarning [Utils.cc:129][0m [/sdf/world[@name="course_world"]/model[@name="aws_robomaker_warehouse_Bucket_01_020"]/link[@name="body"]/collision[@name="collision_0"]/pose[@frame=""]:/home/zyd/program/b2w-embodied-navigation-course/third_party/aws_warehouse/warehouse.world:L390]: XML Attribute[frame] in element[pose] not defined in SDF.
+1793613961.2323360 [ign-1] [1;33mWarning [Utils.cc:129][0m [/sdf/world[@name="course_world"]/model[@name="aws_robomaker_warehouse_Bucket_01_021"]/link[@name="body"]/pose[@frame=""]:/home/zyd/program/b2w-embodied-navigation-course/third_party/aws_warehouse/warehouse.world:L424]: XML Attribute[frame] in element[pose] not defined in SDF.
+1793613961.2326984 [ign-1] [1;33mWarning [Utils.cc:129][0m [/sdf/world[@name="course_world"]/model[@name="aws_robomaker_warehouse_Bucket_01_021"]/link[@name="body"]/collision[@name="collision_0"]/pose[@frame=""]:/home/zyd/program/b2w-embodied-navigation-course/third_party/aws_warehouse/warehouse.world:L441]: XML Attribute[frame] in element[pose] not defined in SDF.
+1793613961.2388203 [ign-1] [1;33mWarning [Utils.cc:129][0m [/sdf/world[@name="course_world"]/model[@name="aws_robomaker_warehouse_Bucket_01_022"]/link[@name="body"]/pose[@frame=""]:/home/zyd/program/b2w-embodied-navigation-course/third_party/aws_warehouse/warehouse.world:L475]: XML Attribute[frame] in element[pose] not defined in SDF.
+1793613961.2398896 [ign-1] [1;33mWarning [Utils.cc:129][0m [/sdf/world[@name="course_world"]/model[@name="aws_robomaker_warehouse_Bucket_01_022"]/link[@name="body"]/collision[@name="collision_0"]/pose[@frame=""]:/home/zyd/program/b2w-embodied-navigation-course/third_party/aws_warehouse/warehouse.world:L492]: XML Attribute[frame] in element[pose] not defined in SDF.
+1793613961.2409720 [planner_server-10] [INFO] [1793613961.240777346] [global_costmap.global_costmap]: Using plugin "static_layer"
+1793613961.2468424 [planner_server-10] [INFO] [1793613961.245766679] [global_costmap.global_costmap]: Subscribing to the map topic (/map) with transient local durability
+1793613961.2540932 [planner_server-10] [INFO] [1793613961.253370498] [global_costmap.global_costmap]: Initialized plugin "static_layer"
+1793613961.2546148 [planner_server-10] [INFO] [1793613961.253451767] [global_costmap.global_costmap]: Using plugin "obstacle_layer"
+1793613961.2564785 [planner_server-10] [INFO] [1793613961.253981930] [global_costmap.global_costmap]: Subscribed to Topics: lidar
+1793613961.2636819 [planner_server-10] [INFO] [1793613961.263000942] [global_costmap.global_costmap]: Initialized plugin "obstacle_layer"
+1793613961.2638791 [planner_server-10] [INFO] [1793613961.263055950] [global_costmap.global_costmap]: Using plugin "inflation_layer"
+1793613961.2668636 [planner_server-10] [INFO] [1793613961.266395219] [global_costmap.global_costmap]: Initialized plugin "inflation_layer"
+1793613961.2877123 [planner_server-10] [INFO] [1793613961.286926702] [planner_server]: Created global planner plugin GridBased of type nav2_navfn_planner/NavfnPlanner
+1793613961.2884028 [planner_server-10] [INFO] [1793613961.287005630] [planner_server]: Configuring plugin GridBased of type NavfnPlanner
+1793613961.2891991 [planner_server-10] [INFO] [1793613961.287387938] [planner_server]: Planner Server has GridBased  planners available.
+1793613961.3066361 [behavior_server-11] [INFO] [1793613961.305905427] [behavior_server]: Configuring
+1793613961.3181393 [behavior_server-11] [INFO] [1793613961.314526463] [behavior_server]: Creating behavior plugin spin of type nav2_behaviors/Spin
+1793613961.3201890 [behavior_server-11] [INFO] [1793613961.315621816] [behavior_server]: Configuring spin
+1793613961.3225777 [behavior_server-11] [INFO] [1793613961.322072126] [behavior_server]: Creating behavior plugin backup of type nav2_behaviors/BackUp
+1793613961.3234146 [behavior_server-11] [INFO] [1793613961.323050140] [behavior_server]: Configuring backup
+1793613961.3296247 [behavior_server-11] [INFO] [1793613961.329015982] [behavior_server]: Creating behavior plugin drive_on_heading of type nav2_behaviors/DriveOnHeading
+1793613961.3305612 [behavior_server-11] [INFO] [1793613961.329958326] [behavior_server]: Configuring drive_on_heading
+1793613961.3431787 [behavior_server-11] [INFO] [1793613961.342670833] [behavior_server]: Creating behavior plugin assisted_teleop of type nav2_behaviors/AssistedTeleop
+1793613961.3461263 [behavior_server-11] [INFO] [1793613961.345846123] [behavior_server]: Configuring assisted_teleop
+1793613961.3665900 [behavior_server-11] [INFO] [1793613961.366164321] [behavior_server]: Creating behavior plugin wait of type nav2_behaviors/Wait
+1793613961.3676181 [behavior_server-11] [INFO] [1793613961.367179637] [behavior_server]: Configuring wait
+1793613961.3807957 [bt_navigator-12] [INFO] [1793613961.380657871] [bt_navigator]: Configuring
+1793613961.4507813 [waypoint_follower-13] [INFO] [1793613961.449973458] [waypoint_follower]: Configuring
+1793613961.4677150 [waypoint_follower-13] [INFO] [1793613961.466712984] [waypoint_follower]: Created waypoint_task_executor : wait_at_waypoint of type nav2_waypoint_follower::WaitAtWaypoint
+1793613961.4692562 [velocity_smoother-14] [INFO] [1793613961.468849427] [velocity_smoother]: Configuring velocity smoother
+1793613961.4734366 [controller_server-8] [INFO] [1793613961.472824157] [controller_server]: Activating
+1793613961.4735596 [controller_server-8] [INFO] [1793613961.472885031] [local_costmap.local_costmap]: Activating
+1793613961.4736185 [controller_server-8] [INFO] [1793613961.472904548] [local_costmap.local_costmap]: Checking transform
+1793613961.4736583 [controller_server-8] [INFO] [1793613961.472940275] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+1793613961.6258016 [INFO] [create-3]: process has finished cleanly [pid 2097129]
+1793613961.8326721 [parameter_bridge-4] [INFO] [1793613961.830986445] [ros_gz_bridge]: Creating GZ->ROS Bridge: [/clock (ignition.msgs.Clock) -> /clock (rosgraph_msgs/msg/Clock)] (Lazy 0)
+1793613961.8380570 [parameter_bridge-4] [INFO] [1793613961.837096386] [ros_gz_bridge]: Creating GZ->ROS Bridge: [/joint_states (ignition.msgs.Model) -> /sim/raw/joint_states (sensor_msgs/msg/JointState)] (Lazy 0)
+1793613961.8435919 [parameter_bridge-4] [INFO] [1793613961.843159041] [ros_gz_bridge]: Creating GZ->ROS Bridge: [/sim/raw/ground_truth/odom (ignition.msgs.Odometry) -> /sim/ground_truth/odom (nav_msgs/msg/Odometry)] (Lazy 0)
+1793613961.8470538 [parameter_bridge-4] [INFO] [1793613961.846641696] [ros_gz_bridge]: Creating GZ->ROS Bridge: [/sim/raw/ground_truth/odom (ignition.msgs.Odometry) -> /sim/body_state (nav_msgs/msg/Odometry)] (Lazy 0)
+1793613961.8503385 [parameter_bridge-4] [INFO] [1793613961.849567702] [ros_gz_bridge]: Creating GZ->ROS Bridge: [/sim/raw/scan/points (ignition.msgs.PointCloudPacked) -> /sim/raw/pointcloud (sensor_msgs/msg/PointCloud2)] (Lazy 0)
+1793613961.8523932 [parameter_bridge-4] [INFO] [1793613961.851940893] [ros_gz_bridge]: Creating GZ->ROS Bridge: [/sim/raw/imu (ignition.msgs.IMU) -> /sim/raw/imu (sensor_msgs/msg/Imu)] (Lazy 0)
+1793613961.8548069 [parameter_bridge-4] [INFO] [1793613961.854296541] [ros_gz_bridge]: Creating GZ->ROS Bridge: [/collision_plate/force_torque (ignition.msgs.Wrench) -> /collision_plate/force_torque (geometry_msgs/msg/WrenchStamped)] (Lazy 0)
+1793613961.8568115 [parameter_bridge-4] [INFO] [1793613961.856329427] [ros_gz_bridge]: Creating GZ->ROS Bridge: [/zed_x_camera (ignition.msgs.Image) -> /zed/zed_node/depth/depth_registered (sensor_msgs/msg/Image)] (Lazy 0)
+1793613961.8582425 [parameter_bridge-4] [INFO] [1793613961.857929862] [ros_gz_bridge]: Creating ROS->GZ Bridge: [/model/b2w/joint/FR_hip_joint/cmd_force (std_msgs/msg/Float64) -> /model/b2w/joint/FR_hip_joint/cmd_force (ignition.msgs.Double)] (Lazy 0)
+1793613961.8607156 [parameter_bridge-4] [INFO] [1793613961.860184157] [ros_gz_bridge]: Creating ROS->GZ Bridge: [/model/b2w/joint/FR_thigh_joint/cmd_force (std_msgs/msg/Float64) -> /model/b2w/joint/FR_thigh_joint/cmd_force (ignition.msgs.Double)] (Lazy 0)
+1793613961.8625736 [parameter_bridge-4] [INFO] [1793613961.862034503] [ros_gz_bridge]: Creating ROS->GZ Bridge: [/model/b2w/joint/FR_calf_joint/cmd_force (std_msgs/msg/Float64) -> /model/b2w/joint/FR_calf_joint/cmd_force (ignition.msgs.Double)] (Lazy 0)
+1793613961.8642907 [parameter_bridge-4] [INFO] [1793613961.863817674] [ros_gz_bridge]: Creating ROS->GZ Bridge: [/model/b2w/joint/FL_hip_joint/cmd_force (std_msgs/msg/Float64) -> /model/b2w/joint/FL_hip_joint/cmd_force (ignition.msgs.Double)] (Lazy 0)
+1793613961.8658268 [parameter_bridge-4] [INFO] [1793613961.865392379] [ros_gz_bridge]: Creating ROS->GZ Bridge: [/model/b2w/joint/FL_thigh_joint/cmd_force (std_msgs/msg/Float64) -> /model/b2w/joint/FL_thigh_joint/cmd_force (ignition.msgs.Double)] (Lazy 0)
+1793613961.8674655 [parameter_bridge-4] [INFO] [1793613961.867027181] [ros_gz_bridge]: Creating ROS->GZ Bridge: [/model/b2w/joint/FL_calf_joint/cmd_force (std_msgs/msg/Float64) -> /model/b2w/joint/FL_calf_joint/cmd_force (ignition.msgs.Double)] (Lazy 0)
+1793613961.8690591 [parameter_bridge-4] [INFO] [1793613961.868683022] [ros_gz_bridge]: Creating ROS->GZ Bridge: [/model/b2w/joint/RR_hip_joint/cmd_force (std_msgs/msg/Float64) -> /model/b2w/joint/RR_hip_joint/cmd_force (ignition.msgs.Double)] (Lazy 0)
+1793613961.8704805 [parameter_bridge-4] [INFO] [1793613961.870137896] [ros_gz_bridge]: Creating ROS->GZ Bridge: [/model/b2w/joint/RR_thigh_joint/cmd_force (std_msgs/msg/Float64) -> /model/b2w/joint/RR_thigh_joint/cmd_force (ignition.msgs.Double)] (Lazy 0)
+1793613961.8718390 [parameter_bridge-4] [INFO] [1793613961.871486430] [ros_gz_bridge]: Creating ROS->GZ Bridge: [/model/b2w/joint/RR_calf_joint/cmd_force (std_msgs/msg/Float64) -> /model/b2w/joint/RR_calf_joint/cmd_force (ignition.msgs.Double)] (Lazy 0)
+1793613961.8733759 [parameter_bridge-4] [INFO] [1793613961.873031399] [ros_gz_bridge]: Creating ROS->GZ Bridge: [/model/b2w/joint/RL_hip_joint/cmd_force (std_msgs/msg/Float64) -> /model/b2w/joint/RL_hip_joint/cmd_force (ignition.msgs.Double)] (Lazy 0)
+1793613961.8745978 [parameter_bridge-4] [INFO] [1793613961.874315656] [ros_gz_bridge]: Creating ROS->GZ Bridge: [/model/b2w/joint/RL_thigh_joint/cmd_force (std_msgs/msg/Float64) -> /model/b2w/joint/RL_thigh_joint/cmd_force (ignition.msgs.Double)] (Lazy 0)
+1793613961.8756635 [parameter_bridge-4] [INFO] [1793613961.875499930] [ros_gz_bridge]: Creating ROS->GZ Bridge: [/model/b2w/joint/RL_calf_joint/cmd_force (std_msgs/msg/Float64) -> /model/b2w/joint/RL_calf_joint/cmd_force (ignition.msgs.Double)] (Lazy 0)
+1793613961.8767359 [parameter_bridge-4] [INFO] [1793613961.876483616] [ros_gz_bridge]: Creating ROS->GZ Bridge: [/model/b2w/joint/FR_foot_joint/cmd_force (std_msgs/msg/Float64) -> /model/b2w/joint/FR_foot_joint/cmd_force (ignition.msgs.Double)] (Lazy 0)
+1793613961.8786173 [parameter_bridge-4] [INFO] [1793613961.878344540] [ros_gz_bridge]: Creating ROS->GZ Bridge: [/model/b2w/joint/FL_foot_joint/cmd_force (std_msgs/msg/Float64) -> /model/b2w/joint/FL_foot_joint/cmd_force (ignition.msgs.Double)] (Lazy 0)
+1793613961.8799095 [parameter_bridge-4] [INFO] [1793613961.879603327] [ros_gz_bridge]: Creating ROS->GZ Bridge: [/model/b2w/joint/RR_foot_joint/cmd_force (std_msgs/msg/Float64) -> /model/b2w/joint/RR_foot_joint/cmd_force (ignition.msgs.Double)] (Lazy 0)
+1793613961.8810339 [parameter_bridge-4] [INFO] [1793613961.880828877] [ros_gz_bridge]: Creating ROS->GZ Bridge: [/model/b2w/joint/RL_foot_joint/cmd_force (std_msgs/msg/Float64) -> /model/b2w/joint/RL_foot_joint/cmd_force (ignition.msgs.Double)] (Lazy 0)
+1793613961.9733272 [controller_server-8] [INFO] [1793613961.972992841] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+1793613962.2117455 [ign-1] [1;33m[GUI] [Wrn] [Application.cc:802] [0m[1;33m[QT] file::/Gazebo/GazeboDrawer.qml:242:3: QML Connections: Implicitly defined onFoo properties in Connections are deprecated. Use this syntax instead: function onFoo(<arguments>) { ... }[0m[1;33m[0m
+1793613962.4434144 [ign-1] [1;33m[GUI] [Wrn] [Application.cc:802] [0m[1;33m[QT] file::/EntityContextMenuPlugin/EntityContextMenuPlugin.qml:56:5: QML Connections: Implicitly defined onFoo properties in Connections are deprecated. Use this syntax instead: function onFoo(<arguments>) { ... }[0m[1;33m[0m
+1793613962.4733958 [controller_server-8] [INFO] [1793613962.472994921] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+1793613962.6818731 [ign-1] [1;33m[GUI] [Wrn] [Application.cc:802] [0m[1;33m[QT] file::/Spawn/Spawn.qml:32:3: QML Connections: Implicitly defined onFoo properties in Connections are deprecated. Use this syntax instead: function onFoo(<arguments>) { ... }[0m[1;33m[0m
+1793613962.7232213 [ign-1] [1;32m[Msg] [0m[1;32mIgnition Gazebo GUI    v[0m[1;32m6.18.0[0m[1;32m[0m
+1793613962.7238965 [ign-1] [1;32m[GUI] [0m[1;32m[Msg] [0m[1;32mLoading config [[0m[1;32m/home/zyd/program/b2w-embodied-navigation-course/course_results/tracks/20261102T100600Z/gazebo_gui.config[0m[1;32m][0m[1;32m[0m
+1793613962.7241454 [ign-1] [1;32m[GUI] [0m[1;32m[Msg] [0m[1;32mAdded plugin [[0m[1;32m3D View[0m[1;32m] to main window[0m[1;32m[0m
+1793613962.7242076 [ign-1] [1;32m[GUI] [0m[1;32m[Msg] [0m[1;32mLoaded plugin [[0m[1;32mMinimalScene[0m[1;32m] from path [[0m[1;32m/usr/lib/x86_64-linux-gnu/ign-gui-6/plugins/libMinimalScene.so[0m[1;32m][0m[1;32m[0m
+1793613962.7242560 [ign-1] [1;32m[GUI] [0m[1;32m[Msg] [0m[1;32mAdded plugin [[0m[1;32mEntity Context Menu[0m[1;32m] to main window[0m[1;32m[0m
+1793613962.7243180 [ign-1] [1;32m[GUI] [0m[1;32m[Msg] [0m[1;32mLoaded plugin [[0m[1;32mEntityContextMenuPlugin[0m[1;32m] from path [[0m[1;32m/usr/lib/x86_64-linux-gnu/ign-gazebo-6/plugins/gui/libEntityContextMenuPlugin.so[0m[1;32m][0m[1;32m[0m
+1793613962.7243621 [ign-1] [1;32m[GUI] [0m[1;32m[Msg] [0m[1;32mAdded plugin [[0m[1;32mScene Manager[0m[1;32m] to main window[0m[1;32m[0m
+1793613962.7244058 [ign-1] [1;32m[GUI] [0m[1;32m[Msg] [0m[1;32mLoaded plugin [[0m[1;32mGzSceneManager[0m[1;32m] from path [[0m[1;32m/usr/lib/x86_64-linux-gnu/ign-gazebo-6/plugins/gui/libGzSceneManager.so[0m[1;32m][0m[1;32m[0m
+1793613962.7244463 [ign-1] [1;32m[GUI] [0m[1;32m[Msg] [0m[1;32mCamera view controller topic advertised on [[0m[1;32m/gui/camera/view_control[0m[1;32m][0m[1;32m[0m
+1793613962.7244914 [ign-1] [1;32m[GUI] [0m[1;32m[Msg] [0m[1;32mCamera reference visual topic advertised on [[0m[1;32m/gui/camera/view_control/reference_visual[0m[1;32m][0m[1;32m[0m
+1793613962.7245338 [ign-1] [1;32m[GUI] [0m[1;32m[Msg] [0m[1;32mCamera view control sensitivity advertised on [[0m[1;32m/gui/camera/view_control/sensitivity[0m[1;32m][0m[1;32m[0m
+1793613962.7245762 [ign-1] [1;32m[GUI] [0m[1;32m[Msg] [0m[1;32mAdded plugin [[0m[1;32mInteractive view control[0m[1;32m] to main window[0m[1;32m[0m
+1793613962.7246077 [ign-1] [1;32m[GUI] [0m[1;32m[Msg] [0m[1;32mLoaded plugin [[0m[1;32mInteractiveViewControl[0m[1;32m] from path [[0m[1;32m/usr/lib/x86_64-linux-gnu/ign-gui-6/plugins/libInteractiveViewControl.so[0m[1;32m][0m[1;32m[0m
+1793613962.7246265 [ign-1] [1;32m[GUI] [0m[1;32m[Msg] [0m[1;32mAdded plugin [[0m[1;32mCamera tracking[0m[1;32m] to main window[0m[1;32m[0m
+1793613962.7246423 [ign-1] [1;32m[GUI] [0m[1;32m[Msg] [0m[1;32mLoaded plugin [[0m[1;32mCameraTracking[0m[1;32m] from path [[0m[1;32m/usr/lib/x86_64-linux-gnu/ign-gui-6/plugins/libCameraTracking.so[0m[1;32m][0m[1;32m[0m
+1793613962.7246623 [ign-1] [1;32m[GUI] [0m[1;32m[Msg] [0m[1;32mListening to stats on [[0m[1;32m/world/course_world/stats[0m[1;32m][0m[1;32m[0m
+1793613962.7246804 [ign-1] [1;32m[GUI] [0m[1;32m[Msg] [0m[1;32mAdded plugin [[0m[1;32mMarker Manager[0m[1;32m] to main window[0m[1;32m[0m
+1793613962.7246988 [ign-1] [1;32m[GUI] [0m[1;32m[Msg] [0m[1;32mLoaded plugin [[0m[1;32mMarkerManager[0m[1;32m] from path [[0m[1;32m/usr/lib/x86_64-linux-gnu/ign-gui-6/plugins/libMarkerManager.so[0m[1;32m][0m[1;32m[0m
+1793613962.7247126 [ign-1] [1;32m[GUI] [0m[1;32m[Msg] [0m[1;32mAdded plugin [[0m[1;32mSelect entities[0m[1;32m] to main window[0m[1;32m[0m
+1793613962.7247698 [ign-1] [1;32m[GUI] [0m[1;32m[Msg] [0m[1;32mLoaded plugin [[0m[1;32mSelectEntities[0m[1;32m] from path [[0m[1;32m/usr/lib/x86_64-linux-gnu/ign-gazebo-6/plugins/gui/libSelectEntities.so[0m[1;32m][0m[1;32m[0m
+1793613962.7247851 [ign-1] [1;32m[GUI] [0m[1;32m[Msg] [0m[1;32mAdded plugin [[0m[1;32mSpawn[0m[1;32m] to main window[0m[1;32m[0m
+1793613962.7248008 [ign-1] [1;32m[GUI] [0m[1;32m[Msg] [0m[1;32mLoaded plugin [[0m[1;32mSpawn[0m[1;32m] from path [[0m[1;32m/usr/lib/x86_64-linux-gnu/ign-gazebo-6/plugins/gui/libSpawn.so[0m[1;32m][0m[1;32m[0m
+1793613962.7248151 [ign-1] [1;32m[GUI] [0m[1;32m[Msg] [0m[1;32mView as transparent service on [[0m[1;32m/gui/view/transparent[0m[1;32m][0m[1;32m[0m
+1793613962.7248313 [ign-1] [1;32m[GUI] [0m[1;32m[Msg] [0m[1;32mView as wireframes service on [[0m[1;32m/gui/view/wireframes[0m[1;32m][0m[1;32m[0m
+1793613962.7248459 [ign-1] [1;32m[GUI] [0m[1;32m[Msg] [0m[1;32mView center of mass service on [[0m[1;32m/gui/view/com[0m[1;32m][0m[1;32m[0m
+1793613962.7248592 [ign-1] [1;32m[GUI] [0m[1;32m[Msg] [0m[1;32mView inertia service on [[0m[1;32m/gui/view/inertia[0m[1;32m][0m[1;32m[0m
+1793613962.9518502 [ign-1] [1;33m[GUI] [Wrn] [Application.cc:802] [0m[1;33m[QT] file::/TransformControl/TransformControl.qml:104:3: QML Connections: Implicitly defined onFoo properties in Connections are deprecated. Use this syntax instead: function onFoo(<arguments>) { ... }[0m[1;33m[0m
+1793613962.9520159 [ign-1] [1;33m[GUI] [Wrn] [Application.cc:802] [0m[1;33m[QT] file::/TransformControl/TransformControl.qml:99:3: QML Connections: Implicitly defined onFoo properties in Connections are deprecated. Use this syntax instead: function onFoo(<arguments>) { ... }[0m[1;33m[0m
+1793613962.9520564 [ign-1] [1;33m[GUI] [Wrn] [Application.cc:802] [0m[1;33m[QT] file::/TransformControl/TransformControl.qml:94:3: QML Connections: Implicitly defined onFoo properties in Connections are deprecated. Use this syntax instead: function onFoo(<arguments>) { ... }[0m[1;33m[0m
+1793613962.9520779 [ign-1] [1;33m[GUI] [Wrn] [Application.cc:802] [0m[1;33m[QT] file::/TransformControl/TransformControl.qml:89:3: QML Connections: Implicitly defined onFoo properties in Connections are deprecated. Use this syntax instead: function onFoo(<arguments>) { ... }[0m[1;33m[0m
+1793613962.9733772 [controller_server-8] [INFO] [1793613962.972993175] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+1793613963.0674834 [ign-1] [1;32m[GUI][1;32m[Msg] [0m[1;32mServing entity system service on [[0m[1;32m/[0m[1;32mentity/system/add[0m[1;32m][0m[1;32m[0m
+1793613963.0675876 [ign-1] [1;32m[Msg] [0m[1;32mCreate service on [[0m[1;32m/world/course_world/create[0m[1;32m][0m[1;32m[0m
+1793613963.0676107 [ign-1] [1;32m[Msg] [0m[1;32mRemove service on [[0m[1;32m/world/course_world/remove[0m[1;32m][0m[1;32m[0m
+1793613963.0676239 [ign-1] [1;32m[Msg] [0m[1;32mPose service on [[0m[1;32m/world/course_world/set_pose[0m[1;32m][0m[1;32m[0m
+1793613963.0676353 [ign-1] [1;32m[Msg] [0m[1;32mPose service on [[0m[1;32m/world/course_world/set_pose_vector[0m[1;32m][0m[1;32m[0m
+1793613963.0676472 [ign-1] [1;32m[Msg] [0m[1;32mLight configuration service on [[0m[1;32m/world/course_world/light_config[0m[1;32m][0m[1;32m[0m
+1793613963.0676596 [ign-1] [1;32m[Msg] [0m[1;32mPhysics service on [[0m[1;32m/world/course_world/set_physics[0m[1;32m][0m[1;32m[0m
+1793613963.0676701 [ign-1] [1;32m[Msg] [0m[1;32mSphericalCoordinates service on [[0m[1;32m/world/course_world/set_spherical_coordinates[0m[1;32m][0m[1;32m[0m
+1793613963.0676799 [ign-1] [1;32m[Msg] [0m[1;32mEnable collision service on [[0m[1;32m/world/course_world/enable_collision[0m[1;32m][0m[1;32m[0m
+1793613963.0676901 [ign-1] [1;32m[Msg] [0m[1;32mDisable collision service on [[0m[1;32m/world/course_world/disable_collision[0m[1;32m][0m[1;32m[0m
+1793613963.0677059 [ign-1] [1;32m[Msg] [0m[1;32mMaterial service on [[0m[1;32m/world/course_world/visual_config[0m[1;32m][0m[1;32m[0m
+1793613963.0677159 [ign-1] [1;32m[Msg] [0m[1;32mMaterial service on [[0m[1;32m/world/course_world/wheel_slip[0m[1;32m][0m[1;32m[0m
+1793613963.0677264 [ign-1] [1;32m[Msg] [0m[1;32mLoaded level [[0m[1;32m3[0m[1;32m][0m[1;32m[0m
+1793613963.0677385 [ign-1] [1;32m[Msg] [0m[1;32mServing world controls on [[0m[1;32m/world/course_world[0m[1;32m/control], [[0m[1;32m/world/course_world[0m[1;32m/control/state] and [[0m[1;32m/world/course_world[0m[1;32m/playback/control][0m[1;32m[0m
+1793613963.0677502 [ign-1] [1;32m[Msg] [0m[1;32mServing GUI information on [[0m[1;32m/world/course_world[0m[1;32m/[0m[1;32mgui/info[0m[1;32m][0m[1;32m[0m
+1793613963.0677602 [ign-1] [1;32m[Msg] [0m[1;32mWorld [[0m[1;32mcourse_world[0m[1;32m] initialized with [[0m[1;32mphysics[0m[1;32m] physics profile.[0m[1;32m[0m
+1793613963.0677700 [ign-1] [1;32m[Msg] [0m[1;32mServing world SDF generation service on [[0m[1;32m/world/course_world[0m[1;32m/[0m[1;32mgenerate_world_sdf[0m[1;32m][0m[1;32m[0m
+1793613963.0677803 [ign-1] [1;32m[Msg] [0m[1;32mServing world names on [[0m[1;32m/gazebo/worlds[0m[1;32m][0m[1;32m[0m
+1793613963.0677903 [ign-1] [1;32m[Msg] [0m[1;32mResource path add service on [[0m[1;32m/gazebo/resource_paths/add[0m[1;32m].[0m[1;32m[0m
+1793613963.0678003 [ign-1] [1;32m[Msg] [0m[1;32mResource path get service on [[0m[1;32m/gazebo/resource_paths/get[0m[1;32m].[0m[1;32m[0m
+1793613963.0678103 [ign-1] [1;32m[Msg] [0m[1;32mResource path resolve service on [[0m[1;32m/gazebo/resource_paths/resolve[0m[1;32m].[0m[1;32m[0m
+1793613963.0678213 [ign-1] [1;32m[Msg] [0m[1;32mResource paths published on [[0m[1;32m/gazebo/resource_paths[0m[1;32m].[0m[1;32m[0m
+1793613963.0678313 [ign-1] [1;32m[Msg] [0m[1;32mServer control service on [[0m[1;32m/server_control[0m[1;32m].[0m[1;32m[0m
+1793613963.0678411 [ign-1] [1;32m[Msg] [0m[1;32mFound no publishers on /stats, adding root stats topic[0m[1;32m[0m
+1793613963.0678508 [ign-1] [1;32m[Msg] [0m[1;32mFound no publishers on /clock, adding root clock topic[0m[1;32m[0m
+1793613963.0678604 [ign-1] [1;32m[Msg] [0m[1;32mOdometryPublisher publishing odometry on [[0m[1;32m/sim/raw/ground_truth/odom[0m[1;32m][0m[1;32m[0m
+1793613963.0678706 [ign-1] [1;32m[Msg] [0m[1;32mOdometryPublisher publishing odometry with covariance on [[0m[1;32m/model/b2w/odometry_with_covariance[0m[1;32m][0m[1;32m[0m
+1793613963.0678806 [ign-1] [1;32m[Msg] [0m[1;32mOdometryPublisher publishing Pose_V (TF) on [[0m[1;32m/sim/raw/ground_truth_tf[0m[1;32m][0m[1;32m[0m
+1793613963.0678909 [ign-1] [1;32m[Msg] [0m[1;32mApplyJointForce subscribing to Double messages on [[0m[1;32m/model/b2w/joint/FL_hip_joint/cmd_force[0m[1;32m][0m[1;32m[0m
+1793613963.0679007 [ign-1] [1;32m[Msg] [0m[1;32mApplyJointForce subscribing to Double messages on [[0m[1;32m/model/b2w/joint/FL_thigh_joint/cmd_force[0m[1;32m][0m[1;32m[0m
+1793613963.0679109 [ign-1] [1;32m[Msg] [0m[1;32mApplyJointForce subscribing to Double messages on [[0m[1;32m/model/b2w/joint/FL_calf_joint/cmd_force[0m[1;32m][0m[1;32m[0m
+1793613963.0808885 [ign-1] [1;33m[Wrn] [ColladaLoader.cc:2394] [0m[1;33mTriangle input semantic: '[0m[1;33mCOLOR[0m[1;33m' is currently[0m[1;33m not supported[0m[1;33m[0m
+1793613963.1004951 [parameter_bridge-4] [INFO] [1793613963.099870026] [ros_gz_bridge]: Passing message from ROS std_msgs/msg/Float64 to Gazebo gz.msgs.Double (showing msg only once per type)
+1793613963.1028526 [ign-1] [1;33m[Wrn] [Component.hh:144] [0m[1;33mTrying to serialize component with data type [[0m[1;33mSt6vectorIdSaIdEE[0m[1;33m], which doesn't have [0m[1;33m`operator<<`. Component will not be serialized.[0m[1;33m[0m
+1793613963.2300117 [ign-1] [1;32m[Msg] [0m[1;32mApplyJointForce subscribing to Double messages on [[0m[1;32m/model/b2w/joint/FL_foot_joint/cmd_force[0 [0m[1;32m[Msg] [0m[1;32mView collisions service on [[0m[1;32m/gui/view/collisions[0m[1;32m][0m[1;32m[0m
+1793613963.2302358 [ign-1] [1;32m[GUI] [0m[1;32m[Msg] [0m[1;32mView joints service on [[0m[1;32m/gui/view/joints[0m[1;32m][0m[1;32m[0m
+1793613963.2302961 [ign-1] [1;32m[GUI] [0m[1;32m[Msg] [0m[1;32mView frames service on [[0m[1;32m/gui/view/frames[0m[1;32m][0m[1;32m[0m
+1793613963.2303109 [ign-1] [1;32m[GUI] [0m[1;32m[Msg] [0m[1;32mAdded plugin [[0m[1;32mVisualization capabilities[0m[1;32m] to main window[0m[1;32m[0m
+1793613963.2303257 [ign-1] [1;32m[GUI] [0m[1;32m[Msg] [0m[1;32mLoaded plugin [[0m[1;32mVisualizationCapabilities[0m[1;32m] from path [[0m[1;32m/usr/lib/x86_64-linux-gnu/ign-gazebo-6/plugins/gui/libVisualizationCapabilities.so[0m[1;32m][0m[1;32m[0m
+1793613963.2303381 [ign-1] [1;32m[GUI] [0m[1;32m[Msg] [0m[1;32mUsing world control service [[0m[1;32m/world/course_world/control[0m[1;32m][0m[1;32m[0m
+1793613963.2303491 [ign-1] [1;32m[GUI] [0m[1;32m[Msg] [0m[1;32mListening to stats on [[0m[1;32m/world/course_world/stats[0m[1;32m][0m[1;32m[0m
+1793613963.2303600 [ign-1] [1;32m[GUI] [0m[1;32m[Msg] [0m[1;32mAdded plugin [[0m[1;32mWorld control[0m[1;32m] to main window[0m[1;32m[0m
+1793613963.2303720 [ign-1] [1;32m[GUI] [0m[1;32m[Msg] [0m[1;32mLoaded plugin [[0m[1;32mWorldControl[0m[1;32m] from path [[0m[1;32m/usr/lib/x86_64-linux-gnu/ign-gui-6/plugins/libWorldControl.so[0m[1;32m][0m[1;32m[0m
+1793613963.2303817 [ign-1] [1;32m[GUI] [0m[1;32m[Msg] [0m[1;32mListening to stats on [[0m[1;32m/world/course_world/stats[0m[1;32m][0m[1;32m[0m
+1793613963.2303913 [ign-1] [1;32m[GUI] [0m[1;32m[Msg] [0m[1;32mAdded plugin [[0m[1;32mWorld stats[0m[1;32m] to main window[0m[1;32m[0m
+1793613963.2304018 [ign-1] [1;32m[GUI] [0m[1;32m[Msg] [0m[1;32mLoaded plugin [[0m[1;32mWorldStats[0m[1;32m] from path [[0m[1;32m/usr/lib/x86_64-linux-gnu/ign-gui-6/plugins/libWorldStats.so[0m[1;32m][0m[1;32m[0m
+1793613963.2304115 [ign-1] [1;32m[GUI] [0m[1;32m[Msg] [0m[1;32mAdded plugin [[0m[1;32mShapes[0m[1;32m] to main window[0m[1;32m[0m
+1793613963.2304218 [ign-1] [1;32m[GUI] [0m[1;32m[Msg] [0m[1;32mLoaded plugin [[0m[1;32mShapes[0m[1;32m] from path [[0m[1;32m/usr/lib/x86_64-linux-gnu/ign-gazebo-6/plugins/gui/libShapes.so[0m[1;32m][0m[1;32m[0m
+1793613963.2304318 [ign-1] [1;32m[GUI] [0m[1;32m[Msg] [0m[1;32mAdded plugin [[0m[1;32mLights[0m[1;32m] to main window[0m[1;32m[0m
+1793613963.2304416 [ign-1] [1;32m[GUI] [0m[1;32m[Msg] [0m[1;32mLoaded plugin [[0m[1;32mLights[0m[1;32m] from path [[0m[1;32m/usr/lib/x86_64-linux-gnu/ign-gazebo-6/plugins/gui/libLights.so[0m[1;32m][0m[1;32m[0m
+1793613963.2304511 [ign-1] [1;32m[GUI] [0m[1;32m[Msg] [0m[1;32mAdded plugin [[0m[1;32mTransform control[0m[1;32m] to main window[0m[1;32m[0m
+1793613963.2304616 [ign-1] [1;32m[GUI] [0m[1;32m[Msg] [0m[1;32mLoaded plugin [[0m[1;32mTransformControl[0m[1;32m] from path [[0m[1;32m/usr/lib/x86_64-linux-gnu/ign-gazebo-6/plugins/gui/libTransformControl.so[0m[1;32m][0m[1;32m[0m
+1793613963.2304721 [ign-1] [1;32m[GUI] [0m[1;32m[Msg] [0m[1;32mScreenshot service on [[0m[1;32m/gui/screenshot[0m[1;32m][0m[1;32m[0m
+1793613963.2304816 [ign-1] [1;32m[GUI] [0m[1;32m[Msg] [0m[1;32mAdded plugin [[0m[1;32mScreenshot[0m[1;32m] to main window[0m[1;32m[0m
+1793613963.2304916 [ign-1] [1;32m[GUI] [0m[1;32m[Msg] [0m[1;32mLoaded plugin [[0m[1;32mScreenshot[0m[1;32m] from path [[0m[1;32m/usr/lib/x86_64-linux-gnu/ign-gui-6/plugins/libScreenshot.so[0m[1;32m][0m[1;32m[0m
+1793613963.2305014 [ign-1] [1;32m[GUI] [0m[1;32m[Msg] [0m[1;32mAdded plugin [[0m[1;32mCopy/Paste[0m[1;32m] to main window[0m[1;32m[0m
+1793613963.2305117 [ign-1] [1;32m[GUI] [0m[1;32m[Msg] [0m[1;32mLoaded plugin [[0m[1;32mCopyPaste[0m[1;32m] from path [[0m[1;32m/usr/lib/x86_64-linux-gnu/ign-gazebo-6/plugins/gui/libCopyPaste.so[0m[1;32m][0m[1;32m[0m
+1793613963.2305253 [ign-1] [1;32m[GUI] [0m[1;32m[Msg] [0m[1;32mAdded plugin [[0m[1;32mComponent inspector[0m[1;32m] to main window[0m[1;32m[0m
+1793613963.2305360 [ign-1] [1;32m[GUI] [0m[1;32m[Msg] [0m[1;32mLoaded plugin [[0m[1;32mComponentInspector[0m[1;32m] from path [[0m[1;32m/usr/lib/x86_64-linux-gnu/ign-gazebo-6/plugins/gui/libComponentInspector.so[0m[1;32m][0m[1;32m[0m
+1793613963.2305474 [ign-1] [1;32m[GUI] [0m[1;32m[Msg] [0m[1;32mAdded plugin [[0m[1;32mEntity tree[0m[1;32m] to main window[0m[1;32m[0m
+1793613963.4736507 [controller_server-8] [INFO] [1793613963.473010487] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+1793613963.5388889 [ign-1] libEGL warning: egl: failed to create dri2 screen
+1793613963.5447299 [ign-1] libEGL warning: egl: failed to create dri2 screen
+1793613963.9735374 [controller_server-8] [INFO] [1793613963.972988442] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+1793613964.0511284 [ign-1] [1;33m[Wrn] [ColladaLoader.cc:2394] [0m[1;33mTriangle input semantic: '[0m[1;33mCOLOR[0m[1;33m' is currently[0m[1;33m not supported[0m[1;33m[0m
+1793613964.0526376 [ign-1] [1;33m[Wrn] [ColladaLoader.cc:2394] [0m[1;33mTriangle input semantic: '[0m[1;33mCOLOR[0m[1;33m' is currently[0m[1;33m not supported[0m[1;33m[0m
+1793613964.3276305 [ign-1] [1;33m[GUI] [Wrn] [Component.hh:189] [0m[1;33mTrying to deserialize component with data type [[0m[1;33mSt6vectorIdSaIdEE[0m[1;33m], which doesn't have [0m[1;33m`operator>>`. Component will not be deserialized.[0m[1;33m[0m
+1793613964.4733593 [controller_server-8] [INFO] [1793613964.473009491] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+1793613964.5562124 [ign-1] [1;33m[GUI] [Wrn] [Application.cc:802] [0m[1;33m[QT] file::/WorldStats/WorldStats.qml:53:3: QML RowLayout: Binding loop detected for property "x"[0m[1;33m[0m
+1793613964.9733512 [controller_server-8] [INFO] [1793613964.972987059] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+1793613965.4055998 [ign-1] libEGL warning: egl: failed to create dri2 screen
+1793613965.4096613 [ign-1] libEGL warning: egl: failed to create dri2 screen
+1793613965.4734104 [controller_server-8] [INFO] [1793613965.472999369] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+1793613965.9747181 [controller_server-8] [INFO] [1793613965.973062573] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+1793613966.1048670 [ign-1] [1;33m[GUI] [Wrn] [ColladaLoader.cc:2394] [0m[1;33mTriangle input semantic: '[0m[1;33mCOLOR[0m[1;33m' is currently[0m[1;33m not supported[0m[1;33m[0m
+1793613966.1063604 [ign-1] [1;33m[GUI] [Wrn] [ColladaLoader.cc:2394] [0m[1;33mTriangle input semantic: '[0m[1;33mCOLOR[0m[1;33m' is currently[0m[1;33m not supported[0m[1;33m[0m
+1793613966.4734535 [controller_server-8] [INFO] [1793613966.473014708] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+1793613966.9750006 [controller_server-8] [INFO] [1793613966.973982367] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+1793613967.4736567 [controller_server-8] [INFO] [1793613967.473016054] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+1793613967.9735806 [controller_server-8] [INFO] [1793613967.973001171] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+1793613968.4736922 [controller_server-8] [INFO] [1793613968.473008384] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+1793613968.9735625 [controller_server-8] [INFO] [1793613968.973020646] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+1793613969.4736850 [controller_server-8] [INFO] [1793613969.473000671] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+1793613969.9734805 [controller_server-8] [INFO] [1793613969.972987149] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+1793613970.4734340 [controller_server-8] [INFO] [1793613970.472985815] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+1793613970.9745605 [controller_server-8] [INFO] [1793613970.973064924] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+1793613971.4736519 [controller_server-8] [INFO] [1793613971.472999641] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+1793613971.9736748 [controller_server-8] [INFO] [1793613971.972996706] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+1793613972.4734294 [controller_server-8] [INFO] [1793613972.473055411] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+1793613972.9736624 [controller_server-8] [INFO] [1793613972.972987658] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+1793613973.4734502 [controller_server-8] [INFO] [1793613973.472993111] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+1793613973.9733288 [controller_server-8] [INFO] [1793613973.972981107] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+1793613974.4739807 [controller_server-8] [INFO] [1793613974.473005666] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+1793613974.9734597 [controller_server-8] [INFO] [1793613974.972984243] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+1793613975.4734111 [controller_server-8] [INFO] [1793613975.472985009] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+1793613975.9732785 [controller_server-8] [INFO] [1793613975.972980169] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+1793613976.4734287 [controller_server-8] [INFO] [1793613976.472998535] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+1793613976.9734809 [controller_server-8] [INFO] [1793613976.972994471] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+1793613977.4741511 [controller_server-8] [INFO] [1793613977.473027884] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+1793613977.9740911 [controller_server-8] [INFO] [1793613977.973006002] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+1793613978.4734030 [controller_server-8] [INFO] [1793613978.473001665] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+1793613978.9737301 [controller_server-8] [INFO] [1793613978.973012263] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+1793613979.4737334 [controller_server-8] [INFO] [1793613979.472987318] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+1793613979.9732924 [controller_server-8] [INFO] [1793613979.972963237] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+1793613980.4733522 [controller_server-8] [INFO] [1793613980.472986871] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+1793613980.5058243 [INFO] [lio_sam_imuPreintegration-19]: process started with pid [2098009]
+1793613980.5067348 [INFO] [lio_sam_imageProjection-20]: process started with pid [2098011]
+1793613980.5069125 [INFO] [lio_sam_featureExtraction-21]: process started with pid [2098013]
+1793613980.5069895 [INFO] [lio_sam_mapOptimization-22]: process started with pid [2098015]
+1793613980.5070748 [INFO] [pose_adapter-23]: process started with pid [2098017]
+1793613980.7643635 [lio_sam_featureExtraction-21] [INFO] [1793613980.762123598] [rclcpp]: [1;32m----> Feature Extraction Started.[0m
+1793613980.7680595 [lio_sam_imageProjection-20] [INFO] [1793613980.765771878] [rclcpp]: [1;32m----> Image Projection Started.[0m
+1793613980.8547707 [lio_sam_mapOptimization-22] [INFO] [1793613980.854111862] [rclcpp]: [1;32m----> Map Optimization Started.[0m
+1793613980.8657894 [lio_sam_imuPreintegration-19] [INFO] [1793613980.865100317] [rclcpp]: [1;32m----> IMU Preintegration Started.[0m
+1793613980.9746366 [controller_server-8] [INFO] [1793613980.973036961] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+1793613981.4735270 [controller_server-8] [INFO] [1793613981.472987923] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+1793613981.9734395 [controller_server-8] [INFO] [1793613981.972982933] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+1793613982.4733877 [controller_server-8] [INFO] [1793613982.472986166] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+1793613982.9739397 [controller_server-8] [INFO] [1793613982.972992901] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+1793613983.4733369 [controller_server-8] [INFO] [1793613983.472953740] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+1793613983.9740620 [controller_server-8] [INFO] [1793613983.973022108] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+1793613984.4750459 [controller_server-8] [INFO] [1793613984.474647731] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+1793613984.9737892 [controller_server-8] [INFO] [1793613984.972983465] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+1793613985.4742312 [controller_server-8] [INFO] [1793613985.472983776] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+1793613985.9740329 [controller_server-8] [INFO] [1793613985.973405773] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+1793613986.4736295 [controller_server-8] [INFO] [1793613986.472990569] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+1793613986.9744215 [controller_server-8] [INFO] [1793613986.973485851] [local_costmap.local_costmap]: start
+1793613987.1785154 [controller_server-8] [INFO] [1793613987.177865881] [controller_server]: Creating bond (controller_server) to lifecycle manager.
+1793613987.2937715 [smoother_server-9] [INFO] [1793613987.292200328] [smoother_server]: Activating
+1793613987.2940817 [smoother_server-9] [INFO] [1793613987.292338331] [smoother_server]: Creating bond (smoother_server) to lifecycle manager.
+1793613987.4171438 [planner_server-10] [INFO] [1793613987.415145627] [planner_server]: Activating
+1793613987.4174156 [planner_server-10] [INFO] [1793613987.415283595] [global_costmap.global_costmap]: Activating
+1793613987.4174986 [planner_server-10] [INFO] [1793613987.415309708] [global_costmap.global_costmap]: Checking transform
+1793613987.4177952 [planner_server-10] [INFO] [1793613987.415540576] [global_costmap.global_costmap]: start
+1793613987.7360494 [controller_server-8] [INFO] [1793613987.734602572] [local_costmap.local_costmap]: StaticLayer: Resizing static layer to 800 X 800 at 0.050000 m/pix
+1793613987.7372415 [planner_server-10] [INFO] [1793613987.736857844] [global_costmap.global_costmap]: StaticLayer: Resizing costmap to 800 X 800 at 0.050000 m/pix
+1793613988.4683461 [planner_server-10] [INFO] [1793613988.467798449] [planner_server]: Activating plugin GridBased of type NavfnPlanner
+1793613988.4710844 [planner_server-10] [INFO] [1793613988.470605490] [planner_server]: Creating bond (planner_server) to lifecycle manager.
+1793613988.5796444 [behavior_server-11] [INFO] [1793613988.578869740] [behavior_server]: Activating
+1793613988.5798194 [behavior_server-11] [INFO] [1793613988.578918802] [behavior_server]: Activating spin
+1793613988.5798550 [behavior_server-11] [INFO] [1793613988.578933682] [behavior_server]: Activating backup
+1793613988.5799236 [behavior_server-11] [INFO] [1793613988.578949676] [behavior_server]: Activating drive_on_heading
+1793613988.5799525 [behavior_server-11] [INFO] [1793613988.578960836] [behavior_server]: Activating assisted_teleop
+1793613988.5799770 [behavior_server-11] [INFO] [1793613988.578975745] [behavior_server]: Activating wait
+1793613988.5800009 [behavior_server-11] [INFO] [1793613988.579004578] [behavior_server]: Creating bond (behavior_server) to lifecycle manager.
+1793613988.7089255 [bt_navigator-12] [INFO] [1793613988.708594632] [bt_navigator]: Activating
+1793613988.9966114 [bt_navigator-12] [INFO] [1793613988.995928831] [bt_navigator]: Creating bond (bt_navigator) to lifecycle manager.
+1793613989.1159205 [waypoint_follower-13] [INFO] [1793613989.115481022] [waypoint_follower]: Activating
+1793613989.1161211 [waypoint_follower-13] [INFO] [1793613989.115548592] [waypoint_follower]: Creating bond (waypoint_follower) to lifecycle manager.
+1793613989.2367344 [velocity_smoother-14] [INFO] [1793613989.236282033] [velocity_smoother]: Activating
+1793613989.2403107 [velocity_smoother-14] [INFO] [1793613989.236652255] [velocity_smoother]: Creating bond (velocity_smoother) to lifecycle manager.
+1793614036.6249948 [bt_navigator-12] [INFO] [1793614036.623385242] [bt_navigator]: Begin navigating from current location (-0.34, -0.00) to (0.57, 6.89)
+1793614036.6684973 [controller_server-8] [INFO] [1793614036.668031234] [controller_server]: Received a goal, begin computing control effort.
+1793614036.6693738 [controller_server-8] [WARN] [1793614036.668134606] [controller_server]: No goal checker was specified in parameter 'current_goal_checker'. Server will use only plugin loaded general_goal_checker . This warning will appear once.
+1793614037.7192819 [controller_server-8] [INFO] [1793614037.718543857] [controller_server]: Passing new path to controller.
+1793614038.5352380 [bt_navigator-12] [WARN] [1793614038.533689072] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+1793614038.7741714 [controller_server-8] [INFO] [1793614038.769006030] [controller_server]: Passing new path to controller.
+1793614039.3673537 [bt_navigator-12] [WARN] [1793614039.363595913] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+1793614039.7345212 [bt_navigator-12] [WARN] [1793614039.733877077] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+1793614039.7709868 [controller_server-8] [INFO] [1793614039.768554139] [controller_server]: Passing new path to controller.
+1793614040.2484734 [bt_navigator-12] [WARN] [1793614040.244100252] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+1793614040.8189709 [controller_server-8] [INFO] [1793614040.818533018] [controller_server]: Passing new path to controller.
+1793614041.5787964 [bt_navigator-12] [WARN] [1793614041.573687274] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+1793614041.6329951 [bt_navigator-12] [WARN] [1793614041.625541304] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+1793614041.6609869 [bt_navigator-12] [WARN] [1793614041.658602660] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+1793614041.7950702 [bt_navigator-12] [WARN] [1793614041.793581102] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+1793614041.8290508 [controller_server-8] [INFO] [1793614041.818659390] [controller_server]: Passing new path to controller.
+1793614042.8710668 [controller_server-8] [INFO] [1793614042.868563397] [controller_server]: Passing new path to controller.
+1793614043.8458326 [bt_navigator-12] [WARN] [1793614043.843559869] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+1793614043.8769174 [controller_server-8] [INFO] [1793614043.870360236] [controller_server]: Passing new path to controller.
+1793614044.9210782 [controller_server-8] [INFO] [1793614044.918527573] [controller_server]: Passing new path to controller.
+1793614045.9125595 [bt_navigator-12] [WARN] [1793614045.904306313] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+1793614045.9732559 [controller_server-8] [INFO] [1793614045.970383608] [controller_server]: Passing new path to controller.
+1793614046.6186616 [bt_navigator-12] [WARN] [1793614046.617642197] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+1793614046.8294325 [bt_navigator-12] [WARN] [1793614046.826444901] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+1793614046.9778888 [controller_server-8] [INFO] [1793614046.968545261] [controller_server]: Passing new path to controller.
+1793614047.4868977 [bt_navigator-12] [WARN] [1793614047.483775835] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+1793614048.0208147 [controller_server-8] [INFO] [1793614048.019384201] [controller_server]: Passing new path to controller.
+1793614049.0199316 [controller_server-8] [INFO] [1793614049.018854825] [controller_server]: Passing new path to controller.
+1793614049.1653371 [bt_navigator-12] [WARN] [1793614049.164748461] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+1793614050.0694110 [controller_server-8] [INFO] [1793614050.068535504] [controller_server]: Passing new path to controller.
+1793614050.1253035 [bt_navigator-12] [WARN] [1793614050.124370339] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+1793614050.3061984 [bt_navigator-12] [WARN] [1793614050.304326600] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+1793614051.1255281 [controller_server-8] [INFO] [1793614051.119290197] [controller_server]: Passing new path to controller.
+1793614052.1768420 [controller_server-8] [INFO] [1793614052.169358237] [controller_server]: Passing new path to controller.
+1793614053.2196832 [controller_server-8] [INFO] [1793614053.218543219] [controller_server]: Passing new path to controller.
+1793614053.9564645 [bt_navigator-12] [WARN] [1793614053.953747076] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+1793614054.1860147 [bt_navigator-12] [WARN] [1793614054.184682479] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+1793614054.2198648 [controller_server-8] [INFO] [1793614054.218647550] [controller_server]: Passing new path to controller.
+1793614055.1691959 [bt_navigator-12] [WARN] [1793614055.167961179] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+1793614055.2725763 [controller_server-8] [INFO] [1793614055.269185989] [controller_server]: Passing new path to controller.
+1793614056.0784125 [bt_navigator-12] [WARN] [1793614056.074839849] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+1793614056.2779481 [controller_server-8] [INFO] [1793614056.268526280] [controller_server]: Passing new path to controller.
+1793614057.3202953 [controller_server-8] [INFO] [1793614057.319066444] [controller_server]: Passing new path to controller.
+1793614057.8945351 [bt_navigator-12] [WARN] [1793614057.893603587] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+1793614058.3312049 [bt_navigator-12] [WARN] [1793614058.326955258] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+1793614058.3717327 [controller_server-8] [INFO] [1793614058.369371182] [controller_server]: Passing new path to controller.
+1793614059.4265082 [controller_server-8] [INFO] [1793614059.419320598] [controller_server]: Passing new path to controller.
+1793614059.7213013 [bt_navigator-12] [WARN] [1793614059.719301087] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+1793614060.4197156 [controller_server-8] [INFO] [1793614060.418532254] [controller_server]: Passing new path to controller.
+1793614061.4693379 [controller_server-8] [INFO] [1793614061.468542612] [controller_server]: Passing new path to controller.
+1793614062.5230870 [controller_server-8] [INFO] [1793614062.518528798] [controller_server]: Passing new path to controller.
+1793614063.5234032 [controller_server-8] [INFO] [1793614063.519038824] [controller_server]: Passing new path to controller.
+1793614064.5695853 [controller_server-8] [INFO] [1793614064.568939740] [controller_server]: Passing new path to controller.
+1793614064.6659524 [bt_navigator-12] [WARN] [1793614064.660224673] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+1793614065.0057974 [bt_navigator-12] [WARN] [1793614065.004658848] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+1793614065.6207652 [controller_server-8] [INFO] [1793614065.618571578] [controller_server]: Passing new path to controller.
+1793614065.7351193 [bt_navigator-12] [WARN] [1793614065.734422718] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+1793614066.6193295 [controller_server-8] [INFO] [1793614066.618538229] [controller_server]: Passing new path to controller.
+1793614067.6698914 [controller_server-8] [INFO] [1793614067.668658252] [controller_server]: Passing new path to controller.
+1793614068.6769862 [controller_server-8] [INFO] [1793614068.672396545] [controller_server]: Passing new path to controller.
+1793614069.7188592 [controller_server-8] [INFO] [1793614069.718525186] [controller_server]: Passing new path to controller.
+1793614070.2287216 [controller_server-8] [INFO] [1793614070.224974340] [controller_server]: Reached the goal!
+1793614070.2656755 [bt_navigator-12] [INFO] [1793614070.264445264] [bt_navigator]: Goal succeeded
+1793614074.4280558 [bt_navigator-12] [INFO] [1793614074.427554649] [bt_navigator]: Begin navigating from current location (0.52, 6.86) to (-4.11, 6.42)
+1793614074.4383059 [bt_navigator-12] [WARN] [1793614074.437702711] [bt_navigator_navigate_to_pose_rclcpp_node]: Timed out while waiting for action server to acknowledge goal request for compute_path_to_pose
+1793614074.4389586 [planner_server-10] [INFO] [1793614074.438540188] [global_costmap.global_costmap]: Received request to clear entirely the global_costmap
+1793614074.4686861 [bt_navigator-12] [WARN] [1793614074.468121105] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+1793614075.0590453 [bt_navigator-12] [WARN] [1793614075.058377337] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+1793614075.4536257 [planner_server-10] [WARN] [1793614075.453175030] [planner_server]: Planner loop missed its desired rate of 20.0000 Hz. Current loop rate is 1.6393 Hz
+1793614075.4810874 [controller_server-8] [INFO] [1793614075.478761268] [controller_server]: Received a goal, begin computing control effort.
+1793614076.5332320 [controller_server-8] [INFO] [1793614076.529215662] [controller_server]: Passing new path to controller.
+1793614076.6991711 [bt_navigator-12] [WARN] [1793614076.698506506] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+1793614077.0225005 [bt_navigator-12] [WARN] [1793614077.019437791] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+1793614077.5809119 [controller_server-8] [INFO] [1793614077.579219568] [controller_server]: Passing new path to controller.
+1793614078.5808387 [controller_server-8] [INFO] [1793614078.579923399] [controller_server]: Passing new path to controller.
+1793614079.6334679 [controller_server-8] [INFO] [1793614079.632709737] [controller_server]: Passing new path to controller.
+1793614080.1288950 [bt_navigator-12] [WARN] [1793614080.127957192] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+1793614080.5751839 [bt_navigator-12] [WARN] [1793614080.573477952] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+1793614080.5992420 [bt_navigator-12] [WARN] [1793614080.592610374] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+1793614080.6307957 [controller_server-8] [INFO] [1793614080.629223036] [controller_server]: Passing new path to controller.
+1793614081.1212785 [bt_navigator-12] [WARN] [1793614081.119731339] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+1793614081.4330873 [bt_navigator-12] [WARN] [1793614081.429682392] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+1793614081.6907701 [controller_server-8] [INFO] [1793614081.681834836] [controller_server]: Passing new path to controller.
+1793614082.6925886 [bt_navigator-12] [WARN] [1793614082.691253076] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+1793614082.7358356 [controller_server-8] [INFO] [1793614082.730437866] [controller_server]: Passing new path to controller.
+1793614083.4214516 [bt_navigator-12] [WARN] [1793614083.420302441] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+1793614083.6752033 [bt_navigator-12] [WARN] [1793614083.674449467] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+1793614083.7039835 [bt_navigator-12] [WARN] [1793614083.701443986] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+1793614083.7314460 [controller_server-8] [INFO] [1793614083.729312768] [controller_server]: Passing new path to controller.
+1793614084.7425876 [bt_navigator-12] [WARN] [1793614084.741208836] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+1793614084.7827523 [controller_server-8] [INFO] [1793614084.780579803] [controller_server]: Passing new path to controller.
+1793614085.8366282 [controller_server-8] [INFO] [1793614085.830298511] [controller_server]: Passing new path to controller.
+1793614086.3500555 [controller_server-8] [WARN] [1793614086.349506043] [controller_server]: No valid trajectories out of 419! 
+1793614086.4060695 [controller_server-8] [WARN] [1793614086.400990991] [controller_server]: No valid trajectories out of 419! 
+1793614086.4360180 [controller_server-8] [WARN] [1793614086.434946150] [controller_server]: No valid trajectories out of 419! 
+1793614086.6355157 [controller_server-8] [WARN] [1793614086.634536023] [controller_server]: No valid trajectories out of 419! 
+1793614086.6859007 [controller_server-8] [WARN] [1793614086.684429923] [controller_server]: No valid trajectories out of 419! 
+1793614086.7436154 [controller_server-8] [WARN] [1793614086.740870734] [controller_server]: No valid trajectories out of 419! 
+1793614086.8024194 [controller_server-8] [WARN] [1793614086.801130269] [controller_server]: No valid trajectories out of 419! 
+1793614086.8358629 [controller_server-8] [INFO] [1793614086.829226647] [controller_server]: Passing new path to controller.
+1793614086.8419878 [controller_server-8] [WARN] [1793614086.838280472] [controller_server]: No valid trajectories out of 419! 
+1793614086.8911641 [controller_server-8] [WARN] [1793614086.889886988] [controller_server]: No valid trajectories out of 419! 
+1793614086.9395282 [controller_server-8] [WARN] [1793614086.937750280] [controller_server]: No valid trajectories out of 419! 
+1793614086.9908288 [controller_server-8] [WARN] [1793614086.989190286] [controller_server]: No valid trajectories out of 419! 
+1793614087.0363812 [controller_server-8] [WARN] [1793614087.035494260] [controller_server]: No valid trajectories out of 419! 
+1793614087.0934403 [controller_server-8] [WARN] [1793614087.092660773] [controller_server]: No valid trajectories out of 419! 
+1793614087.0937121 [controller_server-8] [ERROR] [1793614087.092743391] [controller_server]: Controller patience exceeded
+1793614087.0950267 [controller_server-8] [WARN] [1793614087.094064571] [controller_server]: [follow_path] [ActionServer] Aborting handle.
+1793614087.1132059 [controller_server-8] [INFO] [1793614087.110565398] [local_costmap.local_costmap]: Received request to clear entirely the local_costmap
+1793614087.1145175 [controller_server-8] [INFO] [1793614087.112061695] [controller_server]: Received a goal, begin computing control effort.
+1793614087.2124982 [controller_server-8] [WARN] [1793614087.211066181] [controller_server]: Control loop missed its desired rate of 20.0000Hz
+1793614087.2195938 [controller_server-8] [WARN] [1793614087.217920136] [controller_server]: Control loop missed its desired rate of 20.0000Hz
+1793614087.3274534 [controller_server-8] [WARN] [1793614087.325836316] [controller_server]: No valid trajectories out of 419! 
+1793614087.3688498 [controller_server-8] [WARN] [1793614087.368070202] [controller_server]: No valid trajectories out of 419! 
+1793614087.4270771 [controller_server-8] [WARN] [1793614087.422970165] [controller_server]: No valid trajectories out of 419! 
+1793614087.4712894 [controller_server-8] [WARN] [1793614087.470016072] [controller_server]: No valid trajectories out of 419! 
+1793614087.7730498 [controller_server-8] [WARN] [1793614087.771956027] [controller_server]: No valid trajectories out of 419! 
+1793614087.8345425 [controller_server-8] [WARN] [1793614087.829992136] [controller_server]: No valid trajectories out of 419! 
+1793614087.8643341 [controller_server-8] [INFO] [1793614087.862641096] [controller_server]: Passing new path to controller.
+1793614087.8712554 [controller_server-8] [WARN] [1793614087.869835660] [controller_server]: No valid trajectories out of 419! 
+1793614087.9214680 [controller_server-8] [WARN] [1793614087.916009575] [controller_server]: No valid trajectories out of 419! 
+1793614087.9729433 [controller_server-8] [WARN] [1793614087.972104030] [controller_server]: No valid trajectories out of 419! 
+1793614088.0338764 [controller_server-8] [WARN] [1793614088.029490358] [controller_server]: No valid trajectories out of 419! 
+1793614088.1345725 [controller_server-8] [WARN] [1793614088.126756985] [controller_server]: No valid trajectories out of 419! 
+1793614088.1681466 [controller_server-8] [WARN] [1793614088.167348517] [controller_server]: No valid trajectories out of 419! 
+1793614088.2281632 [controller_server-8] [WARN] [1793614088.221145160] [controller_server]: No valid trajectories out of 419! 
+1793614088.2677801 [controller_server-8] [WARN] [1793614088.267118814] [controller_server]: No valid trajectories out of 419! 
+1793614088.3188827 [controller_server-8] [WARN] [1793614088.318044775] [controller_server]: No valid trajectories out of 419! 
+1793614088.3749428 [controller_server-8] [WARN] [1793614088.373452754] [controller_server]: No valid trajectories out of 419! 
+1793614088.4542301 [controller_server-8] [WARN] [1793614088.444085038] [controller_server]: No valid trajectories out of 419! 
+1793614088.4709632 [controller_server-8] [WARN] [1793614088.470132511] [controller_server]: No valid trajectories out of 419! 
+1793614088.5234783 [controller_server-8] [WARN] [1793614088.521268196] [controller_server]: No valid trajectories out of 419! 
+1793614088.5813551 [controller_server-8] [WARN] [1793614088.579586142] [controller_server]: No valid trajectories out of 419! 
+1793614088.5854144 [controller_server-8] [ERROR] [1793614088.579696830] [controller_server]: Controller patience exceeded
+1793614088.5859404 [controller_server-8] [WARN] [1793614088.579984143] [controller_server]: [follow_path] [ActionServer] Aborting handle.
+1793614088.5911188 [controller_server-8] [INFO] [1793614088.590363263] [local_costmap.local_costmap]: Received request to clear entirely the local_costmap
+1793614088.5978818 [planner_server-10] [INFO] [1793614088.594402019] [global_costmap.global_costmap]: Received request to clear entirely the global_costmap
+1793614089.4475245 [planner_server-10] [WARN] [1793614089.446800358] [planner_server]: Planner loop missed its desired rate of 20.0000 Hz. Current loop rate is 1.6598 Hz
+1793614089.4612756 [controller_server-8] [INFO] [1793614089.460529757] [controller_server]: Received a goal, begin computing control effort.
+1793614089.4854031 [controller_server-8] [WARN] [1793614089.475234118] [controller_server]: No valid trajectories out of 419! 
+1793614089.5260012 [controller_server-8] [WARN] [1793614089.524371826] [controller_server]: No valid trajectories out of 419! 
+1793614089.5699680 [controller_server-8] [WARN] [1793614089.568241393] [controller_server]: No valid trajectories out of 419! 
+1793614089.6178489 [controller_server-8] [WARN] [1793614089.616852563] [controller_server]: No valid trajectories out of 419! 
+1793614089.6677752 [controller_server-8] [WARN] [1793614089.666638386] [controller_server]: No valid trajectories out of 419! 
+1793614089.7180724 [controller_server-8] [WARN] [1793614089.717180057] [controller_server]: No valid trajectories out of 419! 
+1793614089.7742157 [controller_server-8] [WARN] [1793614089.772755036] [controller_server]: No valid trajectories out of 419! 
+1793614089.8350513 [controller_server-8] [WARN] [1793614089.830055650] [controller_server]: No valid trajectories out of 419! 
+1793614089.8700442 [controller_server-8] [WARN] [1793614089.868994183] [controller_server]: No valid trajectories out of 419! 
+1793614089.9233274 [controller_server-8] [WARN] [1793614089.920548667] [controller_server]: No valid trajectories out of 419! 
+1793614089.9239407 [controller_server-8] [ERROR] [1793614089.921515466] [controller_server]: Controller patience exceeded
+1793614089.9252169 [controller_server-8] [WARN] [1793614089.922864154] [controller_server]: [follow_path] [ActionServer] Aborting handle.
+1793614089.9474638 [controller_server-8] [INFO] [1793614089.946459041] [local_costmap.local_costmap]: Received request to clear entirely the local_costmap
+1793614089.9555409 [controller_server-8] [INFO] [1793614089.947558637] [controller_server]: Received a goal, begin computing control effort.
+1793614089.9561009 [bt_navigator-12] [WARN] [1793614089.954391527] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+1793614089.9955513 [controller_server-8] [WARN] [1793614089.994548793] [controller_server]: No valid trajectories out of 419! 
+1793614090.0053799 [controller_server-8] [WARN] [1793614090.004793983] [controller_server]: No valid trajectories out of 419! 
+1793614090.0687118 [controller_server-8] [WARN] [1793614090.067460761] [controller_server]: No valid trajectories out of 419! 
+1793614090.1136062 [controller_server-8] [WARN] [1793614090.111328172] [controller_server]: No valid trajectories out of 419! 
+1793614090.1570241 [controller_server-8] [WARN] [1793614090.154161339] [controller_server]: No valid trajectories out of 419! 
+1793614090.2083554 [controller_server-8] [WARN] [1793614090.205612157] [controller_server]: No valid trajectories out of 419! 
+1793614090.2380188 [bt_navigator-12] [WARN] [1793614090.234056470] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+1793614090.2552156 [controller_server-8] [WARN] [1793614090.254217999] [controller_server]: No valid trajectories out of 419! 
+1793614090.3116686 [bt_navigator-12] [WARN] [1793614090.307081628] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+1793614090.3127017 [controller_server-8] [WARN] [1793614090.310911847] [controller_server]: No valid trajectories out of 419! 
+1793614090.3566749 [controller_server-8] [WARN] [1793614090.354734933] [controller_server]: No valid trajectories out of 419! 
+1793614090.3573294 [controller_server-8] [ERROR] [1793614090.354854341] [controller_server]: Controller patience exceeded
+1793614090.3585193 [controller_server-8] [WARN] [1793614090.355380747] [controller_server]: [follow_path] [ActionServer] Aborting handle.
+1793614090.3769791 [behavior_server-11] [INFO] [1793614090.374898280] [behavior_server]: Running spin
+1793614090.3795893 [behavior_server-11] [INFO] [1793614090.375203959] [behavior_server]: Turning 1.57 for spin behavior.
+1793614090.4028311 [bt_navigator-12] [WARN] [1793614090.402421509] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+1793614090.4776311 [behavior_server-11] [WARN] [1793614090.476924844] [behavior_server]: Collision Ahead - Exiting Spin
+1793614090.4792163 [behavior_server-11] [WARN] [1793614090.476976104] [behavior_server]: spin failed
+1793614090.4797873 [behavior_server-11] [WARN] [1793614090.476990079] [behavior_server]: [spin] [ActionServer] Aborting handle.
+1793614090.4818890 [bt_navigator-12] [WARN] [1793614090.481431267] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+1793614090.4970062 [behavior_server-11] [INFO] [1793614090.495386800] [behavior_server]: Running wait
+1793614090.9340963 [bt_navigator-12] [WARN] [1793614090.929854318] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+1793614091.9656916 [bt_navigator-12] [WARN] [1793614091.961469321] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+1793614093.4039154 [bt_navigator-12] [WARN] [1793614093.402637985] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+1793614093.8176551 [bt_navigator-12] [WARN] [1793614093.810696154] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+1793614094.0130751 [bt_navigator-12] [WARN] [1793614094.010309826] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+1793614094.8956106 [bt_navigator-12] [WARN] [1793614094.894616851] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+1793614097.1814165 [bt_navigator-12] [WARN] [1793614097.180417632] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+1793614097.2908664 [bt_navigator-12] [WARN] [1793614097.290407123] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+1793614097.7963033 [behavior_server-11] [INFO] [1793614097.795742676] [behavior_server]: wait completed successfully
+1793614097.8544850 [controller_server-8] [INFO] [1793614097.850822714] [controller_server]: Received a goal, begin computing control effort.
+1793614097.8582413 [controller_server-8] [WARN] [1793614097.857334097] [controller_server]: No valid trajectories out of 419! 
+1793614097.9051230 [controller_server-8] [WARN] [1793614097.904566409] [controller_server]: No valid trajectories out of 419! 
+1793614097.9572260 [controller_server-8] [WARN] [1793614097.956358012] [controller_server]: No valid trajectories out of 419! 
+1793614098.0075014 [controller_server-8] [WARN] [1793614098.006512997] [controller_server]: No valid trajectories out of 419! 
+1793614098.0631397 [controller_server-8] [WARN] [1793614098.061542634] [controller_server]: No valid trajectories out of 419! 
+1793614098.1180570 [controller_server-8] [WARN] [1793614098.115938052] [controller_server]: No valid trajectories out of 419! 
+1793614098.1673763 [controller_server-8] [WARN] [1793614098.163656190] [controller_server]: No valid trajectories out of 419! 
+1793614098.1828547 [bt_navigator-12] [WARN] [1793614098.181685262] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+1793614098.2118773 [controller_server-8] [WARN] [1793614098.210543933] [controller_server]: No valid trajectories out of 419! 
+1793614098.2650149 [controller_server-8] [WARN] [1793614098.263324133] [controller_server]: No valid trajectories out of 419! 
+1793614098.3135042 [controller_server-8] [WARN] [1793614098.311371442] [controller_server]: No valid trajectories out of 419! 
+1793614098.3577886 [controller_server-8] [WARN] [1793614098.356747307] [controller_server]: No valid trajectories out of 419! 
+1793614098.3592486 [controller_server-8] [ERROR] [1793614098.356886446] [controller_server]: Controller patience exceeded
+1793614098.3601141 [controller_server-8] [WARN] [1793614098.358171214] [controller_server]: [follow_path] [ActionServer] Aborting handle.
+1793614098.3634994 [controller_server-8] [INFO] [1793614098.362306718] [local_costmap.local_costmap]: Received request to clear entirely the local_costmap
+1793614098.3695905 [controller_server-8] [INFO] [1793614098.368904842] [controller_server]: Received a goal, begin computing control effort.
+1793614098.4390461 [controller_server-8] [WARN] [1793614098.422870484] [controller_server]: No valid trajectories out of 419! 
+1793614098.4400136 [controller_server-8] [WARN] [1793614098.435884208] [controller_server]: Control loop missed its desired rate of 20.0000Hz
+1793614098.4530084 [controller_server-8] [WARN] [1793614098.452295798] [controller_server]: No valid trajectories out of 419! 
+1793614098.4768217 [controller_server-8] [WARN] [1793614098.475956731] [controller_server]: No valid trajectories out of 419! 
+1793614098.5342531 [controller_server-8] [WARN] [1793614098.531733613] [controller_server]: No valid trajectories out of 419! 
+1793614098.5853007 [controller_server-8] [WARN] [1793614098.582960201] [controller_server]: No valid trajectories out of 419! 
+1793614098.6372161 [controller_server-8] [WARN] [1793614098.634983751] [controller_server]: No valid trajectories out of 419! 
+1793614098.6785312 [controller_server-8] [WARN] [1793614098.675820268] [controller_server]: No valid trajectories out of 419! 
+1793614098.7023494 [bt_navigator-12] [WARN] [1793614098.701707858] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+1793614098.7271686 [controller_server-8] [WARN] [1793614098.726562332] [controller_server]: No valid trajectories out of 419! 
+1793614098.7819893 [controller_server-8] [WARN] [1793614098.778588325] [controller_server]: No valid trajectories out of 419! 
+1793614098.8282275 [controller_server-8] [WARN] [1793614098.826733297] [controller_server]: No valid trajectories out of 419! 
+1793614098.8752911 [controller_server-8] [WARN] [1793614098.874433823] [controller_server]: No valid trajectories out of 419! 
+1793614098.8760090 [controller_server-8] [ERROR] [1793614098.874518884] [controller_server]: Controller patience exceeded
+1793614098.8818154 [controller_server-8] [WARN] [1793614098.874857752] [controller_server]: [follow_path] [ActionServer] Aborting handle.
+1793614098.8857403 [controller_server-8] [INFO] [1793614098.881118827] [controller_server]: Received a goal, begin computing control effort.
+1793614098.8960562 [controller_server-8] [WARN] [1793614098.894633505] [controller_server]: No valid trajectories out of 419! 
+1793614098.9378648 [controller_server-8] [WARN] [1793614098.936680290] [controller_server]: No valid trajectories out of 419! 
+1793614098.9896405 [controller_server-8] [WARN] [1793614098.988486423] [controller_server]: No valid trajectories out of 419! 
+1793614099.0382068 [controller_server-8] [WARN] [1793614099.037466959] [controller_server]: No valid trajectories out of 419! 
+1793614099.0880635 [controller_server-8] [WARN] [1793614099.087542182] [controller_server]: No valid trajectories out of 419! 
+1793614099.1411600 [controller_server-8] [WARN] [1793614099.140014540] [controller_server]: No valid trajectories out of 419! 
+1793614099.1886332 [controller_server-8] [WARN] [1793614099.187751916] [controller_server]: No valid trajectories out of 419! 
+1793614099.2447102 [controller_server-8] [WARN] [1793614099.241057218] [controller_server]: No valid trajectories out of 419! 
+1793614099.2816777 [bt_navigator-12] [WARN] [1793614099.280350745] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+1793614099.2923102 [controller_server-8] [WARN] [1793614099.290222320] [controller_server]: No valid trajectories out of 419! 
+1793614099.2948570 [controller_server-8] [ERROR] [1793614099.290490634] [controller_server]: Controller patience exceeded
+1793614099.2964070 [controller_server-8] [WARN] [1793614099.293244932] [controller_server]: [follow_path] [ActionServer] Aborting handle.
+1793614099.3022199 [behavior_server-11] [INFO] [1793614099.301178917] [behavior_server]: Running backup
+1793614099.3044465 [behavior_server-11] [INFO] [1793614099.301569771] [behavior_server]: DriveOnHeading: no acceleration or deceleration limits set
+1793614099.3055475 [behavior_server-11] [WARN] [1793614099.302295495] [behavior_server]: Collision Ahead - Exiting DriveOnHeading
+1793614099.3056169 [behavior_server-11] [WARN] [1793614099.302338031] [behavior_server]: backup failed
+1793614099.3056533 [behavior_server-11] [WARN] [1793614099.302360989] [behavior_server]: [backup] [ActionServer] Aborting handle.
+1793614099.3322327 [controller_server-8] [INFO] [1793614099.330949101] [local_costmap.local_costmap]: Received request to clear entirely the local_costmap
+1793614099.3360591 [planner_server-10] [INFO] [1793614099.334847054] [global_costmap.global_costmap]: Received request to clear entirely the global_costmap
+1793614099.4400449 [planner_server-10] [WARN] [1793614099.438871777] [planner_server]: Planner loop missed its desired rate of 20.0000 Hz. Current loop rate is 15.3846 Hz
+1793614099.4570892 [controller_server-8] [INFO] [1793614099.452947784] [controller_server]: Received a goal, begin computing control effort.
+1793614099.4597087 [controller_server-8] [WARN] [1793614099.459142599] [controller_server]: No valid trajectories out of 419! 
+1793614099.5083809 [controller_server-8] [WARN] [1793614099.507570802] [controller_server]: No valid trajectories out of 419! 
+1793614099.5659783 [controller_server-8] [WARN] [1793614099.564613734] [controller_server]: No valid trajectories out of 419! 
+1793614099.6096787 [controller_server-8] [WARN] [1793614099.608910419] [controller_server]: No valid trajectories out of 419! 
+1793614099.6633303 [bt_navigator-12] [WARN] [1793614099.661810698] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+1793614099.6656873 [controller_server-8] [WARN] [1793614099.664574939] [controller_server]: No valid trajectories out of 419! 
+1793614099.7256489 [controller_server-8] [WARN] [1793614099.723403530] [controller_server]: No valid trajectories out of 419! 
+1793614099.7625430 [controller_server-8] [WARN] [1793614099.761563367] [controller_server]: No valid trajectories out of 419! 
+1793614099.8098381 [controller_server-8] [WARN] [1793614099.809098259] [controller_server]: No valid trajectories out of 419! 
+1793614099.8697319 [controller_server-8] [WARN] [1793614099.868452106] [controller_server]: No valid trajectories out of 419! 
+1793614099.9129455 [controller_server-8] [WARN] [1793614099.911653578] [controller_server]: No valid trajectories out of 419! 
+1793614099.9662585 [controller_server-8] [WARN] [1793614099.965184592] [controller_server]: No valid trajectories out of 419! 
+1793614099.9668469 [controller_server-8] [ERROR] [1793614099.965332249] [controller_server]: Controller patience exceeded
+1793614099.9676766 [controller_server-8] [WARN] [1793614099.965745415] [controller_server]: [follow_path] [ActionServer] Aborting handle.
+1793614099.9847066 [controller_server-8] [INFO] [1793614099.982087545] [local_costmap.local_costmap]: Received request to clear entirely the local_costmap
+1793614099.9860487 [controller_server-8] [INFO] [1793614099.982710480] [controller_server]: Received a goal, begin computing control effort.
+1793614100.2013218 [controller_server-8] [WARN] [1793614100.195377393] [controller_server]: No valid trajectories out of 419! 
+1793614100.2020357 [controller_server-8] [WARN] [1793614100.195579708] [controller_server]: Control loop missed its desired rate of 20.0000Hz
+1793614100.2161710 [controller_server-8] [WARN] [1793614100.215560431] [controller_server]: No valid trajectories out of 419! 
+1793614100.2718041 [controller_server-8] [WARN] [1793614100.270836555] [controller_server]: No valid trajectories out of 419! 
+1793614100.3302329 [controller_server-8] [WARN] [1793614100.329158665] [controller_server]: No valid trajectories out of 419! 
+1793614100.3877337 [controller_server-8] [WARN] [1793614100.386537152] [controller_server]: No valid trajectories out of 419! 
+1793614100.4446087 [controller_server-8] [WARN] [1793614100.442143468] [controller_server]: No valid trajectories out of 419! 
+1793614100.4467223 [controller_server-8] [ERROR] [1793614100.442351964] [controller_server]: Controller patience exceeded
+1793614100.4489405 [controller_server-8] [WARN] [1793614100.443698063] [controller_server]: [follow_path] [ActionServer] Aborting handle.
+1793614100.4639289 [behavior_server-11] [INFO] [1793614100.463224509] [behavior_server]: Running spin
+1793614100.4643440 [behavior_server-11] [INFO] [1793614100.463436993] [behavior_server]: Turning 1.57 for spin behavior.
+1793614100.5658512 [behavior_server-11] [WARN] [1793614100.563802099] [behavior_server]: Collision Ahead - Exiting Spin
+1793614100.5664597 [behavior_server-11] [WARN] [1793614100.563889397] [behavior_server]: spin failed
+1793614100.5665634 [behavior_server-11] [WARN] [1793614100.563902826] [behavior_server]: [spin] [ActionServer] Aborting handle.
+1793614100.5945404 [behavior_server-11] [INFO] [1793614100.593883394] [behavior_server]: Running wait
+1793614101.0053990 [bt_navigator-12] [WARN] [1793614101.004534066] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+1793614103.7661176 [bt_navigator-12] [WARN] [1793614103.762744395] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+1793614104.0757408 [bt_navigator-12] [WARN] [1793614104.075048536] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+1793614104.2431390 [bt_navigator-12] [WARN] [1793614104.242576755] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+1793614107.3974345 [behavior_server-11] [INFO] [1793614107.394624164] [behavior_server]: wait completed successfully
+1793614107.4459014 [controller_server-8] [INFO] [1793614107.443251266] [controller_server]: Received a goal, begin computing control effort.
+1793614107.4492769 [controller_server-8] [WARN] [1793614107.448361963] [controller_server]: No valid trajectories out of 419! 
+1793614107.5018411 [controller_server-8] [WARN] [1793614107.499273400] [controller_server]: No valid trajectories out of 419! 
+1793614107.5484185 [controller_server-8] [WARN] [1793614107.547806806] [controller_server]: No valid trajectories out of 419! 
+1793614107.6030009 [controller_server-8] [WARN] [1793614107.602121989] [controller_server]: No valid trajectories out of 419! 
+1793614107.6472628 [controller_server-8] [WARN] [1793614107.646914205] [controller_server]: No valid trajectories out of 419! 
+1793614107.7010968 [controller_server-8] [WARN] [1793614107.699373477] [controller_server]: No valid trajectories out of 419! 
+1793614107.7506678 [controller_server-8] [WARN] [1793614107.748575161] [controller_server]: No valid trajectories out of 419! 
+1793614107.8094695 [controller_server-8] [WARN] [1793614107.807165598] [controller_server]: No valid trajectories out of 419! 
+1793614107.8102512 [controller_server-8] [ERROR] [1793614107.807297102] [controller_server]: Controller patience exceeded
+1793614107.8110609 [controller_server-8] [WARN] [1793614107.807424984] [controller_server]: [follow_path] [ActionServer] Aborting handle.
+1793614107.8242383 [controller_server-8] [INFO] [1793614107.822138848] [local_costmap.local_costmap]: Received request to clear entirely the local_costmap
+1793614107.8278732 [controller_server-8] [INFO] [1793614107.824645207] [controller_server]: Received a goal, begin computing control effort.
+1793614107.9880104 [controller_server-8] [WARN] [1793614107.987722763] [controller_server]: No valid trajectories out of 419! 
+1793614107.9883809 [controller_server-8] [WARN] [1793614107.987820747] [controller_server]: Control loop missed its desired rate of 20.0000Hz
+1793614107.9904554 [controller_server-8] [WARN] [1793614107.990095722] [controller_server]: No valid trajectories out of 419! 
+1793614108.0447686 [controller_server-8] [WARN] [1793614108.044159088] [controller_server]: No valid trajectories out of 419! 
+1793614108.1013849 [controller_server-8] [WARN] [1793614108.100562892] [controller_server]: No valid trajectories out of 419! 
+1793614108.1595440 [controller_server-8] [WARN] [1793614108.158308345] [controller_server]: No valid trajectories out of 419! 
+1793614108.2151160 [controller_server-8] [WARN] [1793614108.213895974] [controller_server]: No valid trajectories out of 419! 
+1793614108.2156723 [controller_server-8] [ERROR] [1793614108.214031031] [controller_server]: Controller patience exceeded
+1793614108.2164040 [controller_server-8] [WARN] [1793614108.214291371] [controller_server]: [follow_path] [ActionServer] Aborting handle.
+1793614108.2332063 [behavior_server-11] [INFO] [1793614108.232476424] [behavior_server]: Running backup
+1793614108.2339783 [behavior_server-11] [WARN] [1793614108.232761141] [behavior_server]: Collision Ahead - Exiting DriveOnHeading
+1793614108.2340848 [behavior_server-11] [WARN] [1793614108.232779081] [behavior_server]: backup failed
+1793614108.2341449 [behavior_server-11] [WARN] [1793614108.232784416] [behavior_server]: [backup] [ActionServer] Aborting handle.
+1793614108.2527556 [controller_server-8] [INFO] [1793614108.252127621] [local_costmap.local_costmap]: Received request to clear entirely the local_costmap
+1793614108.2538347 [planner_server-10] [INFO] [1793614108.252640168] [global_costmap.global_costmap]: Received request to clear entirely the global_costmap
+1793614108.4379110 [planner_server-10] [WARN] [1793614108.437356740] [planner_server]: Planner loop missed its desired rate of 20.0000 Hz. Current loop rate is 6.2500 Hz
+1793614108.4534101 [controller_server-8] [INFO] [1793614108.452531625] [controller_server]: Received a goal, begin computing control effort.
+1793614108.4572437 [controller_server-8] [WARN] [1793614108.456863879] [controller_server]: No valid trajectories out of 419! 
+1793614108.5092926 [controller_server-8] [WARN] [1793614108.508196619] [controller_server]: No valid trajectories out of 419! 
+1793614108.5597677 [controller_server-8] [WARN] [1793614108.558778604] [controller_server]: No valid trajectories out of 419! 
+1793614108.6108096 [controller_server-8] [WARN] [1793614108.609445223] [controller_server]: No valid trajectories out of 419! 
+1793614108.6665697 [controller_server-8] [WARN] [1793614108.665652661] [controller_server]: No valid trajectories out of 419! 
+1793614108.7099366 [controller_server-8] [WARN] [1793614108.709121860] [controller_server]: No valid trajectories out of 419! 
+1793614108.7664173 [controller_server-8] [WARN] [1793614108.765297390] [controller_server]: No valid trajectories out of 419! 
+1793614108.8207464 [controller_server-8] [WARN] [1793614108.818599280] [controller_server]: No valid trajectories out of 419! 
+1793614108.8609507 [controller_server-8] [WARN] [1793614108.859780832] [controller_server]: No valid trajectories out of 419! 
+1793614108.9103060 [controller_server-8] [WARN] [1793614108.908819837] [controller_server]: No valid trajectories out of 419! 
+1793614108.9108069 [controller_server-8] [ERROR] [1793614108.908944823] [controller_server]: Controller patience exceeded
+1793614108.9115517 [controller_server-8] [WARN] [1793614108.911066119] [controller_server]: [follow_path] [ActionServer] Aborting handle.
+1793614108.9256065 [controller_server-8] [INFO] [1793614108.923784024] [local_costmap.local_costmap]: Received request to clear entirely the local_costmap
+1793614108.9268768 [controller_server-8] [INFO] [1793614108.925316943] [controller_server]: Received a goal, begin computing control effort.
+1793614108.9936233 [controller_server-8] [WARN] [1793614108.992953822] [controller_server]: No valid trajectories out of 419! 
+1793614108.9947259 [controller_server-8] [WARN] [1793614108.993293177] [controller_server]: Control loop missed its desired rate of 20.0000Hz
+1793614108.9984131 [controller_server-8] [WARN] [1793614108.998035081] [controller_server]: No valid trajectories out of 419! 
+1793614109.0310385 [controller_server-8] [WARN] [1793614109.030036244] [controller_server]: No valid trajectories out of 419! 
+1793614109.0844281 [controller_server-8] [WARN] [1793614109.082378160] [controller_server]: No valid trajectories out of 419! 
+1793614109.1304474 [controller_server-8] [WARN] [1793614109.129708549] [controller_server]: No valid trajectories out of 419! 
+1793614109.1937442 [controller_server-8] [WARN] [1793614109.192935412] [controller_server]: No valid trajectories out of 419! 
+1793614109.2305932 [controller_server-8] [WARN] [1793614109.229840168] [controller_server]: No valid trajectories out of 419! 
+1793614109.2868311 [controller_server-8] [WARN] [1793614109.284272506] [controller_server]: No valid trajectories out of 419! 
+1793614109.2883883 [controller_server-8] [ERROR] [1793614109.284404228] [controller_server]: Controller patience exceeded
+1793614109.2885382 [controller_server-8] [WARN] [1793614109.284631305] [controller_server]: [follow_path] [ActionServer] Aborting handle.
+1793614109.3042290 [behavior_server-11] [INFO] [1793614109.302983277] [behavior_server]: Running spin
+1793614109.3048816 [behavior_server-11] [INFO] [1793614109.303228004] [behavior_server]: Turning 1.57 for spin behavior.
+1793614109.4046826 [behavior_server-11] [WARN] [1793614109.403487919] [behavior_server]: Collision Ahead - Exiting Spin
+1793614109.4051628 [behavior_server-11] [WARN] [1793614109.403591078] [behavior_server]: spin failed
+1793614109.4057274 [behavior_server-11] [WARN] [1793614109.403601941] [behavior_server]: [spin] [ActionServer] Aborting handle.
+1793614109.4347401 [behavior_server-11] [INFO] [1793614109.433606428] [behavior_server]: Running wait
+1793614110.4853737 [controller_server-8] [INFO] [1793614110.480915202] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+1793614110.4875383 [controller_server-8] [INFO] [1793614110.481280350] [controller_server]: Running Nav2 LifecycleNode rcl preshutdown (controller_server)
+1793614110.4904075 [controller_server-8] [INFO] [1793614110.481482852] [controller_server]: Deactivating
+1793614110.4906378 [controller_server-8] [INFO] [1793614110.481604369] [local_costmap.local_costmap]: Deactivating
+1793614110.4939477 [velocity_smoother-14] [INFO] [1793614110.480985264] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+1793614110.4945199 [velocity_smoother-14] [INFO] [1793614110.481978862] [velocity_smoother]: Running Nav2 LifecycleNode rcl preshutdown (velocity_smoother)
+1793614110.4951029 [velocity_smoother-14] [INFO] [1793614110.482162258] [velocity_smoother]: Deactivating
+1793614110.4953392 [velocity_smoother-14] [INFO] [1793614110.482204062] [velocity_smoother]: Destroying bond (velocity_smoother) to lifecycle manager.
+1793614110.4961982 [lio_sam_imuPreintegration-19] [INFO] [1793614110.480979504] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+1793614110.4971802 [lio_sam_imageProjection-20] [INFO] [1793614110.481619959] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+1793614110.4975083 [lio_sam_featureExtraction-21] [INFO] [1793614110.481737544] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+1793614110.4981072 [behavior_server-11] [INFO] [1793614110.481977690] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+1793614110.4983344 [behavior_server-11] [INFO] [1793614110.482175485] [behavior_server]: Running Nav2 LifecycleNode rcl preshutdown (behavior_server)
+1793614110.4985046 [behavior_server-11] [INFO] [1793614110.482298847] [behavior_server]: Deactivating
+1793614110.4986506 [behavior_server-11] [WARN] [1793614110.482374858] [behavior_server]: [wait] [ActionServer] Requested to deactivate server but goal is still executing. Should check if action server is running before deactivating.
+1793614110.4991601 [b2w_rl_sar_controller-5] [INFO] [1793614110.482103285] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+1793614110.4997370 [smoother_server-9] [INFO] [1793614110.482163574] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+1793614110.4999862 [smoother_server-9] [INFO] [1793614110.482394394] [smoother_server]: Running Nav2 LifecycleNode rcl preshutdown (smoother_server)
+1793614110.5001576 [smoother_server-9] [INFO] [1793614110.482571011] [smoother_server]: Deactivating
+1793614110.5004165 [smoother_server-9] [INFO] [1793614110.482606282] [smoother_server]: Destroying bond (smoother_server) to lifecycle manager.
+1793614110.5008433 [waypoint_follower-13] [INFO] [1793614110.482597579] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+1793614110.5010762 [waypoint_follower-13] [INFO] [1793614110.482744369] [waypoint_follower]: Running Nav2 LifecycleNode rcl preshutdown (waypoint_follower)
+1793614110.5012355 [waypoint_follower-13] [INFO] [1793614110.482849676] [waypoint_follower]: Deactivating
+1793614110.5018742 [waypoint_follower-13] [INFO] [1793614110.482871220] [waypoint_follower]: Destroying bond (waypoint_follower) to lifecycle manager.
+1793614110.5031188 [bt_navigator-12] [INFO] [1793614110.482782458] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+1793614110.5032876 [bt_navigator-12] [INFO] [1793614110.482922602] [bt_navigator]: Running Nav2 LifecycleNode rcl preshutdown (bt_navigator)
+1793614110.5033617 [bt_navigator-12] [INFO] [1793614110.483028936] [bt_navigator]: Deactivating
+1793614110.5034220 [bt_navigator-12] [WARN] [1793614110.483056942] [bt_navigator]: [navigate_to_pose] [ActionServer] Requested to deactivate server but goal is still executing. Should check if action server is running before deactivating.
+1793614110.5037603 [planner_server-10] [INFO] [1793614110.483045263] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+1793614110.5038798 [planner_server-10] [INFO] [1793614110.483183453] [planner_server]: Running Nav2 LifecycleNode rcl preshutdown (planner_server)
+1793614110.5039625 [planner_server-10] [INFO] [1793614110.483290173] [planner_server]: Deactivating
+1793614110.5040255 [planner_server-10] [INFO] [1793614110.483340277] [global_costmap.global_costmap]: Deactivating
+1793614110.5042837 [robot_state_publisher-2] [INFO] [1793614110.483195240] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+1793614110.5045111 [parameter_bridge-4] [INFO] [1793614110.483241267] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+1793614110.5046852 [lio_sam_mapOptimization-22] [INFO] [1793614110.483297402] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+1793614110.5051827 [velocity_smoother-14] [INFO] [1793614110.497478010] [velocity_smoother]: Cleaning up
+1793614110.5052738 [velocity_smoother-14] [INFO] [1793614110.497577364] [velocity_smoother]: Destroying bond (velocity_smoother) to lifecycle manager.
+1793614110.5055070 [smoother_server-9] [INFO] [1793614110.497882629] [smoother_server]: Cleaning up
+1793614110.5058348 [waypoint_follower-13] [INFO] [1793614110.497964118] [waypoint_follower]: Cleaning up
+1793614110.5201075 [waypoint_follower-13] [INFO] [1793614110.519199989] [waypoint_follower]: Destroying bond (waypoint_follower) to lifecycle manager.
+1793614110.5215487 [bt_navigator-12] [ERROR] [1793614110.520082011] [bt_navigator_navigate_to_pose_rclcpp_node]: Failed to get result for wait in node halt!
+1793614110.5217912 [bt_navigator-12] [WARN] [1793614110.520629409] [bt_navigator]: [navigate_to_pose] [ActionServer] Aborting handle.
+1793614110.5222828 [velocity_smoother-14] [INFO] [1793614110.520352951] [velocity_smoother]: Destroying
+1793614110.5225780 [bt_navigator-12] [INFO] [1793614110.522343440] [bt_navigator]: Goal canceled
+1793614110.5226407 [bt_navigator-12] [WARN] [1793614110.522396323] [bt_navigator]: [navigate_to_pose] [ActionServer] Stopping the thread per request.
+1793614110.5238471 [bt_navigator-12] [INFO] [1793614110.523171732] [bt_navigator]: Destroying bond (bt_navigator) to lifecycle manager.
+1793614110.5365238 [waypoint_follower-13] [INFO] [1793614110.531037692] [waypoint_follower]: Destroying
+1793614110.5380869 [smoother_server-9] [INFO] [1793614110.532211502] [smoother_server]: Destroying bond (smoother_server) to lifecycle manager.
+1793614110.5387936 [behavior_server-11] [INFO] [1793614110.533935374] [behavior_server]: Canceling wait
+1793614110.5389178 [behavior_server-11] [WARN] [1793614110.534115121] [LifecyclePublisher]: Trying to publish message on the topic '/course_navigation/cmd_vel', but the publisher is not activated
+1793614110.5389674 [behavior_server-11] [INFO] [1793614110.534162170] [behavior_server]: [wait] [ActionServer] Client requested to cancel the goal. Cancelling.
+1793614110.5390055 [behavior_server-11] [WARN] [1793614110.534365714] [behavior_server]: [wait] [ActionServer] Stopping the thread per request.
+1793614110.5393209 [behavior_server-11] [INFO] [1793614110.535923465] [behavior_server]: Destroying bond (behavior_server) to lifecycle manager.
+1793614110.5395749 [bt_navigator-12] [INFO] [1793614110.538428884] [bt_navigator]: Cleaning up
+1793614110.5426180 [smoother_server-9] [INFO] [1793614110.541798022] [smoother_server]: Destroying
+1793614110.5472105 [behavior_server-11] [INFO] [1793614110.546549032] [behavior_server]: Cleaning up
+1793614110.5591352 [behavior_server-11] [INFO] [1793614110.558049895] [behavior_server]: Destroying bond (behavior_server) to lifecycle manager.
+1793614110.5792124 [controller_server-8] [INFO] [1793614110.574241550] [controller_server]: Destroying bond (controller_server) to lifecycle manager.
+1793614110.5889215 [controller_server-8] [INFO] [1793614110.586483593] [controller_server]: Cleaning up
+1793614110.5893407 [controller_server-8] [INFO] [1793614110.587383334] [local_costmap.local_costmap]: Cleaning up
+1793614110.6260626 [behavior_server-11] [INFO] [1793614110.625244345] [behavior_server]: Destroying
+1793614110.6337900 [controller_server-8] [INFO] [1793614110.633282392] [controller_server]: Destroying bond (controller_server) to lifecycle manager.
+1793614110.6433277 [controller_server-8] [INFO] [1793614110.638846308] [local_costmap.local_costmap]: Destroying
+1793614110.6538312 [controller_server-8] [INFO] [1793614110.652404570] [controller_server]: Destroying
+1793614110.6659825 [INFO] [robot_state_publisher-2]: process has finished cleanly [pid 2097127]
+1793614110.6735101 [bt_navigator-12] [INFO] [1793614110.673129129] [bt_navigator]: Completed Cleaning up
+1793614110.6748116 [bt_navigator-12] [INFO] [1793614110.673241436] [bt_navigator]: Destroying bond (bt_navigator) to lifecycle manager.
+1793614110.6759892 [INFO] [parameter_bridge-4]: process has finished cleanly [pid 2097131]
+1793614110.6877217 [INFO] [pose_adapter-23]: sending signal 'SIGINT' to process[pose_adapter-23]
+1793614110.6918144 [INFO] [lio_sam_mapOptimization-22]: sending signal 'SIGINT' to process[lio_sam_mapOptimization-22]
+1793614110.6958764 [INFO] [lio_sam_featureExtraction-21]: sending signal 'SIGINT' to process[lio_sam_featureExtraction-21]
+1793614110.6995077 [INFO] [lio_sam_imageProjection-20]: sending signal 'SIGINT' to process[lio_sam_imageProjection-20]
+1793614110.7024770 [INFO] [lio_sam_featureExtraction-21]: process has finished cleanly [pid 2098013]
+1793614110.7047427 [INFO] [lio_sam_imuPreintegration-19]: sending signal 'SIGINT' to process[lio_sam_imuPreintegration-19]
+1793614110.7091439 [INFO] [goal_manager-18]: sending signal 'SIGINT' to process[goal_manager-18]
+1793614110.7135105 [INFO] [velocity_adapter-17]: sending signal 'SIGINT' to process[velocity_adapter-17]
+1793614110.7159357 [INFO] [lio_sam_imageProjection-20]: process has finished cleanly [pid 2098011]
+1793614110.7169204 [INFO] [velocity_smoother-14]: process has finished cleanly [pid 2097151]
+1793614110.7177980 [INFO] [lifecycle_manager-16]: sending signal 'SIGINT' to process[lifecycle_manager-16]
+1793614110.7197845 [INFO] [b2w_rl_sar_controller-5]: process has finished cleanly [pid 2097133]
+1793614110.7202370 [INFO] [waypoint_follower-13]: process has finished cleanly [pid 2097149]
+1793614110.7210250 [INFO] [map_projector-15]: sending signal 'SIGINT' to process[map_projector-15]
+1793614110.7270279 [INFO] [bt_navigator-12]: sending signal 'SIGINT' to process[bt_navigator-12]
+1793614110.7299271 [INFO] [behavior_server-11]: sending signal 'SIGINT' to process[behavior_server-11]
+1793614110.7337251 [INFO] [planner_server-10]: sending signal 'SIGINT' to process[planner_server-10]
+1793614110.7388976 [INFO] [smoother_server-9]: sending signal 'SIGINT' to process[smoother_server-9]
+1793614110.7413197 [INFO] [smoother_server-9]: process has finished cleanly [pid 2097141]
+1793614110.7432239 [INFO] [controller_server-8]: sending signal 'SIGINT' to process[controller_server-8]
+1793614110.7441974 [INFO] [lio_sam_imuPreintegration-19]: process has finished cleanly [pid 2098009]
+1793614110.7461467 [INFO] [sensor_cloud_disturbance-7]: sending signal 'SIGINT' to process[sensor_cloud_disturbance-7]
+1793614110.7481515 [INFO] [sensor_disturbance-6]: sending signal 'SIGINT' to process[sensor_disturbance-6]
+1793614110.7523184 [INFO] [ign-1]: sending signal 'SIGINT' to process[ign-1]
+1793614110.7529726 [bt_navigator-12] [INFO] [1793614110.686056195] [bt_navigator]: Destroying
+1793614110.7631314 [INFO] [behavior_server-11]: process has finished cleanly [pid 2097145]
+1793614110.7646239 [INFO] [lifecycle_manager-16]: process has finished cleanly [pid 2097155]
+1793614110.7726746 [INFO] [lio_sam_mapOptimization-22]: process has finished cleanly [pid 2098015]
+1793614110.7929220 [INFO] [controller_server-8]: process has finished cleanly [pid 2097139]
+1793614110.8181336 [INFO] [bt_navigator-12]: process has finished cleanly [pid 2097147]
+1793614110.9081538 [INFO] [velocity_adapter-17]: process has finished cleanly [pid 2097159]
+1793614110.9306185 [INFO] [sensor_cloud_disturbance-7]: process has finished cleanly [pid 2097137]
+1793614110.9414530 [INFO] [pose_adapter-23]: process has finished cleanly [pid 2098017]
+1793614110.9553585 [INFO] [map_projector-15]: process has finished cleanly [pid 2097153]
+1793614110.9709408 [INFO] [goal_manager-18]: process has finished cleanly [pid 2097163]
+1793614110.9915407 [ERROR] [sensor_disturbance-6]: process has died [pid 2097135, exit code 1, cmd '/home/zyd/program/b2w-embodied-navigation-course/install/course_sim/lib/course_sim/sensor_disturbance --ros-args --params-file /tmp/launch_params_uwl_g6gc --params-file /tmp/launch_params_pnotlwnp'].
+1793614111.4161437 [planner_server-10] [INFO] [1793614111.415758433] [planner_server]: Deactivating plugin GridBased of type NavfnPlanner
+1793614111.4164865 [planner_server-10] [INFO] [1793614111.415801929] [planner_server]: Destroying bond (planner_server) to lifecycle manager.
+1793614111.4265378 [planner_server-10] [INFO] [1793614111.426058045] [planner_server]: Cleaning up
+1793614111.4294226 [planner_server-10] [INFO] [1793614111.428996845] [global_costmap.global_costmap]: Cleaning up
+1793614111.4328594 [planner_server-10] [INFO] [1793614111.432310291] [planner_server]: Cleaning up plugin GridBased of type NavfnPlanner
+1793614111.4332213 [planner_server-10] [INFO] [1793614111.432376365] [planner_server]: Destroying plugin GridBased of type NavfnPlanner
+1793614111.4350612 [planner_server-10] [INFO] [1793614111.434824230] [planner_server]: Destroying bond (planner_server) to lifecycle manager.
+1793614111.4358120 [planner_server-10] [INFO] [1793614111.435593354] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+1793614111.4373162 [planner_server-10] [INFO] [1793614111.437171110] [global_costmap.global_costmap]: Destroying
+1793614111.4429390 [planner_server-10] [INFO] [1793614111.442146555] [planner_server]: Destroying
+1793614111.4583411 [ign-1] [1;32m[GUI] [0m[1;32m[Msg] [0m[1;32mLoaded plugin [[0m[1;32mEntityTree[0m[1;32m] from path [[0m[1;32m/usr/lib/x86_64-linux-gnu/ign-gazebo-6/plugins/gui/libEntityTree.so[0m[1;32m][0m[1;32m[0m
+1793614111.4584908 [ign-1] [1;32m[GUI] [0m[1;32m[Msg] [0m[1;32mUsing server control service [[0m[1;32m/server_control[0m[1;32m][0m[1;32m[0m
+1793614111.4585183 [ign-1] [1;32m[GUI] [0m[1;32m[Msg] [0m[1;32mLoading plugin [[0m[1;32mignition-rendering-ogre2[0m[1;32m][0m[1;32m[0m
+1793614111.4585328 [ign-1] [1;32m[GUI] [0m[1;32m[Msg] [0m[1;32mLoading plugin [[0m[1;32mignition-rendering-ogre2[0m[1;32m][0m[1;32m[0m
+1793614111.4585457 [ign-1] [1;32m[GUI] [0m[1;32m[Msg] [0m[1;32mLoading plugin [[0m[1;32mignition-rendering-ogre2[0m[1;32m][0m[1;32m[0m
+1793614111.4585562 [ign-1] [1;32m[GUI] [0m[1;32m[Msg] [0m[1;32mLoading plugin [[0m[1;32mignition-rendering-ogre2[0m[1;32m][0m[1;32m[0m
+1793614111.4585674 [ign-1] [1;32m[GUI] [0m[1;32m[Msg] [0m[1;32mLoading plugin [[0m[1;32mignition-rendering-ogre2[0m[1;32m][0m[1;32m[0m
+1793614111.4585841 [ign-1] [1;32m[GUI] [0m[1;32m[Msg] [0m[1;32mLoading plugin [[0m[1;32mignition-rendering-ogre2[0m[1;32m][0m[1;32m[0m
+1793614111.4586158 [ign-1] [1;32m[GUI] [0m[1;32m[Msg] [0m[1;32mLoading plugin [[0m[1;32mignition-rendering-ogre2[0m[1;32m][0m[1;32m[0m
+1793614111.4586337 [ign-1] [1;32m[GUI] [0m[1;32m[Msg] [0m[1;32mMove to service on [[0m[1;32m/gui/move_to[0m[1;32m][0m[1;32m[0m
+1793614111.4586451 [ign-1] [1;32m[GUI] [0m[1;32m[Msg] [0m[1;32mFollow service on [[0m[1;32m/gui/follow[0m[1;32m][0m[1;32m[0m
+1793614111.4586580 [ign-1] [1;32m[GUI] [0m[1;32m[Msg] [0m[1;32mMove to pose service on [[0m[1;32m/gui/move_to/pose[0m[1;32m][0m[1;32m[0m
+1793614111.4586740 [ign-1] [1;32m[GUI] [0m[1;32m[Msg] [0m[1;32mCamera pose topic advertised on [[0m[1;32m/gui/camera/pose[0m[1;32m][0m[1;32m[0m
+1793614111.4586914 [ign-1] [1;32m[GUI] [0m[1;32m[Msg] [0m[1;32mFollow offset service on [[0m[1;32m/gui/follow/offset[0m[1;32m][0m[1;32m[0m
+1793614111.4587111 [ign-1] [1;32m[GUI] [0m[1;32m[Msg] [0m[1;32mLoading plugin [[0m[1;32mignition-rendering-ogre2[0m[1;32m][0m[1;32m[0m
+1793614111.4587307 [ign-1] [1;32m[GUI] [0m[1;32m[Msg] [0m[1;32mLoading plugin [[0m[1;32mignition-rendering-ogre2[0m[1;32m][0m[1;32m[0m
+1793614111.4587529 [ign-1] [1;32m[GUI] [0m[1;32m[Msg] [0m[1;32mLoading plugin [[0m[1;32mignition-rendering-ogre2[0m[1;32m][0m[1;32m[0m
+1793614111.4587731 [ign-1] [1;32m[GUI] [0m[1;32m[Msg] [0m[1;32mLoading plugin [[0m[1;32mignition-rendering-ogre2[0m[1;32m][0m[1;32m[0m
+1793614111.5588491 [INFO] [planner_server-10]: process has finished cleanly [pid 2097143]
+1793614111.7249787 [ign-1] m[1;32m][0m[1;32m[0m
+1793614111.7253966 [ign-1] [1;32m[Msg] [0m[1;32mApplyJointForce subscribing to Double messages on [[0m[1;32m/model/b2w/joint/FR_hip_joint/cmd_force[0m[1;32m][0m[1;32m[0m
+1793614111.7254903 [ign-1] [1;32m[Msg] [0m[1;32mApplyJointForce subscribing to Double messages on [[0m[1;32m/model/b2w/joint/FR_thigh_joint/cmd_force[0m[1;32m][0m[1;32m[0m
+1793614111.7255092 [ign-1] [1;32m[Msg] [0m[1;32mApplyJointForce subscribing to Double messages on [[0m[1;32m/model/b2w/joint/FR_calf_joint/cmd_force[0m[1;32m][0m[1;32m[0m
+1793614111.7255247 [ign-1] [1;32m[Msg] [0m[1;32mApplyJointForce subscribing to Double messages on [[0m[1;32m/model/b2w/joint/FR_foot_joint/cmd_force[0m[1;32m][0m[1;32m[0m
+1793614111.7255378 [ign-1] [1;32m[Msg] [0m[1;32mApplyJointForce subscribing to Double messages on [[0m[1;32m/model/b2w/joint/RL_hip_joint/cmd_force[0m[1;32m][0m[1;32m[0m
+1793614111.7255490 [ign-1] [1;32m[Msg] [0m[1;32mApplyJointForce subscribing to Double messages on [[0m[1;32m/model/b2w/joint/RL_thigh_joint/cmd_force[0m[1;32m][0m[1;32m[0m
+1793614111.7255607 [ign-1] [1;32m[Msg] [0m[1;32mApplyJointForce subscribing to Double messages on [[0m[1;32m/model/b2w/joint/RL_calf_joint/cmd_force[0m[1;32m][0m[1;32m[0m
+1793614111.7255707 [ign-1] [1;32m[Msg] [0m[1;32mApplyJointForce subscribing to Double messages on [[0m[1;32m/model/b2w/joint/RL_foot_joint/cmd_force[0m[1;32m][0m[1;32m[0m
+1793614111.7255807 [ign-1] [1;32m[Msg] [0m[1;32mApplyJointForce subscribing to Double messages on [[0m[1;32m/model/b2w/joint/RR_hip_joint/cmd_force[0m[1;32m][0m[1;32m[0m
+1793614111.7255909 [ign-1] [1;32m[Msg] [0m[1;32mApplyJointForce subscribing to Double messages on [[0m[1;32m/model/b2w/joint/RR_thigh_joint/cmd_force[0m[1;32m][0m[1;32m[0m
+1793614111.7256021 [ign-1] [1;32m[Msg] [0m[1;32mApplyJointForce subscribing to Double messages on [[0m[1;32m/model/b2w/joint/RR_calf_joint/cmd_force[0m[1;32m][0m[1;32m[0m
+1793614111.7256124 [ign-1] [1;32m[Msg] [0m[1;32mApplyJointForce subscribing to Double messages on [[0m[1;32m/model/b2w/joint/RR_foot_joint/cmd_force[0m[1;32m][0m[1;32m[0m
+1793614111.7256231 [ign-1] [1;32m[Msg] [0m[1;32mLoading plugin [[0m[1;32mignition-rendering-ogre2[0m[1;32m][0m[1;32m[0m
+1793614111.7256339 [ign-1] [1;32m[Msg] [0m[1;32mServing scene information on [[0m[1;32m/world/course_world[0m[1;32m/[0m[1;32mscene/info[0m[1;32m][0m[1;32m[0m
+1793614111.7256625 [ign-1] [1;32m[Msg] [0m[1;32mServing graph information on [[0m[1;32m/world/course_world[0m[1;32m/[0m[1;32mscene/graph[0m[1;32m][0m[1;32m[0m
+1793614111.7256727 [ign-1] [1;32m[Msg] [0m[1;32mServing full state on [[0m[1;32m/world/course_world[0m[1;32m/[0m[1;32mstate[0m[1;32m][0m[1;32m[0m
+1793614111.7256830 [ign-1] [1;32m[Msg] [0m[1;32mServing full state (async) on [[0m[1;32m/world/course_world[0m[1;32m/[0m[1;32mstate_async[0m[1;32m][0m[1;32m[0m
+1793614111.7256927 [ign-1] [1;32m[Msg] [0m[1;32mPublishing scene information on [[0m[1;32m/world/course_world/scene/info[0m[1;32m][0m[1;32m[0m
+1793614111.7257044 [ign-1] [1;32m[Msg] [0m[1;32mPublishing entity deletions on [[0m[1;32m/world/course_world/scene/deletion[0m[1;32m][0m[1;32m[0m
+1793614111.7257149 [ign-1] [1;32m[Msg] [0m[1;32mPublishing state changes on [[0m[1;32m/world/course_world/state[0m[1;32m][0m[1;32m[0m
+1793614111.7257254 [ign-1] [1;32m[Msg] [0m[1;32mPublishing pose messages on [[0m[1;32m/world/course_world[0m[1;32m/[0m[1;32mpose/info[0m[1;32m][0m[1;32m[0m
+1793614111.7257354 [ign-1] [1;32m[Msg] [0m[1;32mPublishing dynamic pose messages on [[0m[1;32m/world/course_world[0m[1;32m/[0m[1;32mdynamic_pose/info[0m[1;32m][0m[1;32m[0m
+1793614111.8585999 [ign-1] /usr/lib/ruby/ignition/cmdgazebo6.rb:183:in `kill': No such process (Errno::ESRCH)
+1793614111.8588145 [ign-1] 	from /usr/lib/ruby/ignition/cmdgazebo6.rb:183:in `killProcess'
+1793614111.8588710 [ign-1] 	from /usr/lib/ruby/ignition/cmdgazebo6.rb:509:in `handle_signal'
+1793614111.8589010 [ign-1] 	from /usr/lib/ruby/ignition/cmdgazebo6.rb:514:in `block in execute'
+1793614111.8589284 [ign-1] /usr/lib/ruby/ignition/cmdgazebo6.rb:183:in `kill': No such process (Errno::ESRCH)
+1793614111.8589573 [ign-1] 	from /usr/lib/ruby/ignition/cmdgazebo6.rb:183:in `killProcess'
+1793614111.8589821 [ign-1] 	from /usr/lib/ruby/ignition/cmdgazebo6.rb:509:in `handle_signal'
+1793614111.8590057 [ign-1] 	from /usr/lib/ruby/ignition/cmdgazebo6.rb:514:in `block in execute'
+1793614111.8590302 [ign-1] 	from /usr/lib/ruby/ignition/cmdgazebo6.rb:524:in `wait2'
+1793614111.8590546 [ign-1] 	from /usr/lib/ruby/ignition/cmdgazebo6.rb:524:in `execute'
+1793614111.8590772 [ign-1] 	from /usr/bin/ign:301:in `<main>'
+1793614111.8635006 [ERROR] [ign-1]: process has died [pid 2097125, exit code 1, cmd 'ign gazebo -r -v 3 /home/zyd/program/b2w-embodied-navigation-course/third_party/aws_warehouse/warehouse.world --gui-config /home/zyd/program/b2w-embodied-navigation-course/course_results/tracks/20261102T100600Z/gazebo_gui.config'].

@@ -1,0 +1,79 @@
+{
+  "success": false,
+  "attempts": 0,
+  "mode": "dry_run",
+  "output": "course_results/integration-dry-run/20261029T054459Z-245bb7ad",
+  "max_attempts": 12,
+  "max_total_minutes": 120,
+  "stop_reason": "dry_run_no_launch",
+  "canonical_route": {
+    "schema_version": 1,
+    "route_id": "warehouse-user-selected-20261016",
+    "frame_id": "map",
+    "evaluation_tolerance_m": 0.05,
+    "map_reproducibility": "unverified_across_fresh_startups",
+    "critical_segment": [
+      "G1",
+      "G2"
+    ],
+    "goals": [
+      {
+        "name": "G1",
+        "position": [
+          -0.18571805953979492,
+          7.189985752105713
+        ],
+        "orientation": "corridor_heading"
+      },
+      {
+        "name": "G2",
+        "position": [
+          -4.47874116897583,
+          6.116940498352051
+        ],
+        "orientation": "corridor_heading"
+      },
+      {
+        "name": "G3",
+        "position": [
+          -3.928757667541504,
+          3.436979293823242
+        ],
+        "orientation": null
+      },
+      {
+        "name": "G4",
+        "position": [
+          0.5741653442382812,
+          6.976665496826172
+        ],
+        "orientation": null
+      },
+      {
+        "name": "G5",
+        "position": [
+          5.592322826385498,
+          2.1632280349731445
+        ],
+        "orientation": null
+      }
+    ],
+    "observed_evidence": {
+      "source": "user_observation_and_existing_goal_manager_json",
+      "start_to_G1": "succeeded_with_original_manager_tolerance",
+      "G1_to_G2": "first_known_failure_segment_later_replaced",
+      "G3_to_G5": "issued_after_G1_to_G2_failure_not_independent_failures",
+      "captured_RViz_quaternion": "accidental_do_not_use"
+    }
+  },
+  "ffmpeg": "/home/zyd/miniconda3/envs/zyd_raylab_legRL/lib/python3.1/site-packages/imageio_ffmpeg/binaries/ffmpeg-linux-x86_64-v7.0.2",
+  "route_blocker": "No accepted retained-heading/Profile-B route review/envelope currently available",
+  "requirements": [
+    "reviewed_run.json + externally reviewed SHA256 sidecar",
+    "accepted empirical controller review and deployment-matching envelope",
+    "G3-G5 arrival headings",
+    "independent source review before motion",
+    "fresh GPU/domain/map/TF/contact/collision/watchdog/cleanup",
+    "owned X11/XWayland windows and verified dual recording"
+  ]
+}

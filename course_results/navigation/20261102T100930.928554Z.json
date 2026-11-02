@@ -1,0 +1,95 @@
+{
+  "success": true,
+  "end_reason": "succeeded",
+  "collision_count": 0,
+  "collision_missing_reason": null,
+  "path_length_m": 7.170854353166056,
+  "path_length_missing_reason": null,
+  "time_to_goal_s": 21.5925,
+  "time_missing_reason": null,
+  "planning_latency_ms": 24.900390999391675,
+  "planning_latency_missing_reason": null,
+  "planning_measurement_status": "succeeded",
+  "planning_latency_definition": "ComputePathToPose action round trip, wall clock",
+  "path_source": "slam_base_link",
+  "goal_tolerance_m": 0.3,
+  "goal_id": "20261102T100930.928554Z",
+  "goal_map_xy": [
+    0.011820467188954353,
+    6.867612838745117
+  ],
+  "timeout_s": 120.0,
+  "goal_pose": {
+    "header": {
+      "stamp": {
+        "sec": 42,
+        "nanosec": 307500000
+      },
+      "frame_id": "map"
+    },
+    "pose": {
+      "position": {
+        "x": 0.011820467188954353,
+        "y": 6.867612838745117,
+        "z": 0.0
+      },
+      "orientation": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 1.0,
+        "w": 6.123233995736766e-17
+      }
+    }
+  },
+  "nav2_status": 4,
+  "start_map_base_link": {
+    "header": {
+      "stamp": {
+        "sec": 42,
+        "nanosec": 0
+      },
+      "frame_id": "map"
+    },
+    "child_frame_id": "base_link",
+    "transform": {
+      "translation": {
+        "x": -0.3442592755402802,
+        "y": -0.00012968147314852853,
+        "z": 0.6241236649588047
+      },
+      "rotation": {
+        "x": -0.00019725323055972885,
+        "y": 0.0020724381170208433,
+        "z": -1.5010118520476137e-05,
+        "w": 0.9999978329307072
+      }
+    },
+    "age_s": 0.30750000000000455
+  },
+  "end_map_base_link": {
+    "header": {
+      "stamp": {
+        "sec": 63,
+        "nanosec": 500000000
+      },
+      "frame_id": "map"
+    },
+    "child_frame_id": "base_link",
+    "transform": {
+      "translation": {
+        "x": -0.007666905623229877,
+        "y": 6.8315126988637775,
+        "z": 0.715325175385081
+      },
+      "rotation": {
+        "x": 0.009489932746185143,
+        "y": -0.005126173953750617,
+        "z": 0.9891515424874532,
+        "w": 0.14650218261773784
+      }
+    },
+    "age_s": 0.4000000000000057
+  },
+  "collision_force_threshold_n": 50.0,
+  "final_goal_distance_m": 0.041024112404454846
+}

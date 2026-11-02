@@ -1,0 +1,95 @@
+{
+  "success": true,
+  "end_reason": "succeeded",
+  "collision_count": 0,
+  "collision_missing_reason": null,
+  "path_length_m": 6.454704145971267,
+  "path_length_missing_reason": null,
+  "time_to_goal_s": 18.97999999999999,
+  "time_missing_reason": null,
+  "planning_latency_ms": 31.660869950428605,
+  "planning_latency_missing_reason": null,
+  "planning_measurement_status": "succeeded",
+  "planning_latency_definition": "ComputePathToPose action round trip, wall clock",
+  "path_source": "slam_base_link",
+  "goal_tolerance_m": 0.3,
+  "goal_id": "20261102T101138.772223Z",
+  "goal_map_xy": [
+    -4.456264972686768,
+    6.442080497741699
+  ],
+  "timeout_s": 120.0,
+  "goal_pose": {
+    "header": {
+      "stamp": {
+        "sec": 129,
+        "nanosec": 790000000
+      },
+      "frame_id": "map"
+    },
+    "pose": {
+      "position": {
+        "x": -4.456264972686768,
+        "y": 6.442080497741699,
+        "z": 0.0
+      },
+      "orientation": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "w": 1.0
+      }
+    }
+  },
+  "nav2_status": 4,
+  "start_map_base_link": {
+    "header": {
+      "stamp": {
+        "sec": 129,
+        "nanosec": 300000000
+      },
+      "frame_id": "map"
+    },
+    "child_frame_id": "base_link",
+    "transform": {
+      "translation": {
+        "x": -3.437073820575776,
+        "y": 0.5863139025622646,
+        "z": 0.6449179295795764
+      },
+      "rotation": {
+        "x": -0.006618067042516263,
+        "y": -0.0014432961174441618,
+        "z": 0.9723307248598464,
+        "w": -0.2335103414807661
+      }
+    },
+    "age_s": 0.4900000000000091
+  },
+  "end_map_base_link": {
+    "header": {
+      "stamp": {
+        "sec": 148,
+        "nanosec": 300000000
+      },
+      "frame_id": "map"
+    },
+    "child_frame_id": "base_link",
+    "transform": {
+      "translation": {
+        "x": -4.436795301398958,
+        "y": 6.543414734177074,
+        "z": 0.6635566694388857
+      },
+      "rotation": {
+        "x": 0.012096157459603558,
+        "y": 0.009185402509351607,
+        "z": 0.13811913464217093,
+        "w": 0.990299154801796
+      }
+    },
+    "age_s": 0.46999999999999886
+  },
+  "collision_force_threshold_n": 50.0,
+  "final_goal_distance_m": 0.10318767161825003
+}

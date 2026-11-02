@@ -1,0 +1,2 @@
+[INFO] [1793550740.257182506] [pose_adapter]: Public TF from LIO-SAM only; twist from differentiated base poses
+[INFO] [1793550745.425130832] [pose_adapter]: Ground datum measured from LiDAR: translation z=0.8010 m

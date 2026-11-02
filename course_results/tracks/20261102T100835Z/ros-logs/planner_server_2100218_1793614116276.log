@@ -1,0 +1,58 @@
+[INFO] [1793614116.569654671] [planner_server]: 
+	planner_server lifecycle node launched. 
+	Waiting on external lifecycle transitions to activate
+	See https://design.ros2.org/articles/node_lifecycle.html for more information.
+[INFO] [1793614116.571797294] [planner_server]: Creating
+[INFO] [1793614116.621896005] [global_costmap.global_costmap]: 
+	global_costmap lifecycle node launched. 
+	Waiting on external lifecycle transitions to activate
+	See https://design.ros2.org/articles/node_lifecycle.html for more information.
+[INFO] [1793614116.623162539] [global_costmap.global_costmap]: Creating Costmap
+[INFO] [1793614116.959479611] [planner_server]: Configuring
+[INFO] [1793614116.959581275] [global_costmap.global_costmap]: Configuring
+[INFO] [1793614116.971058058] [global_costmap.global_costmap]: Using plugin "static_layer"
+[INFO] [1793614116.986450769] [global_costmap.global_costmap]: Subscribing to the map topic (/map) with transient local durability
+[INFO] [1793614116.997938481] [global_costmap.global_costmap]: Initialized plugin "static_layer"
+[INFO] [1793614116.998010725] [global_costmap.global_costmap]: Using plugin "obstacle_layer"
+[INFO] [1793614117.001155748] [global_costmap.global_costmap]: Subscribed to Topics: lidar
+[INFO] [1793614117.011755614] [global_costmap.global_costmap]: Initialized plugin "obstacle_layer"
+[INFO] [1793614117.011992843] [global_costmap.global_costmap]: Using plugin "inflation_layer"
+[INFO] [1793614117.015879471] [global_costmap.global_costmap]: Initialized plugin "inflation_layer"
+[INFO] [1793614117.035496071] [planner_server]: Created global planner plugin GridBased of type nav2_navfn_planner/NavfnPlanner
+[INFO] [1793614117.035533500] [planner_server]: Configuring plugin GridBased of type NavfnPlanner
+[INFO] [1793614117.036481719] [planner_server]: Planner Server has GridBased  planners available.
+[INFO] [1793614143.134946964] [planner_server]: Activating
+[INFO] [1793614143.135113167] [global_costmap.global_costmap]: Activating
+[INFO] [1793614143.135146038] [global_costmap.global_costmap]: Checking transform
+[INFO] [1793614143.135463898] [global_costmap.global_costmap]: start
+[INFO] [1793614143.613788299] [global_costmap.global_costmap]: StaticLayer: Resizing costmap to 800 X 800 at 0.050000 m/pix
+[INFO] [1793614144.187815375] [planner_server]: Activating plugin GridBased of type NavfnPlanner
+[INFO] [1793614144.190776344] [planner_server]: Creating bond (planner_server) to lifecycle manager.
+[INFO] [1793614252.397829928] [global_costmap.global_costmap]: Message Filter dropping message: frame 'lidar_link' at time 98.800 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1793614277.297994196] [global_costmap.global_costmap]: Message Filter dropping message: frame 'lidar_link' at time 115.200 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1793614282.262656179] [global_costmap.global_costmap]: Message Filter dropping message: frame 'lidar_link' at time 118.500 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1793614287.169863701] [global_costmap.global_costmap]: Message Filter dropping message: frame 'lidar_link' at time 121.500 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1793614292.250461956] [global_costmap.global_costmap]: Message Filter dropping message: frame 'lidar_link' at time 125.000 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1793614297.294524480] [global_costmap.global_costmap]: Message Filter dropping message: frame 'lidar_link' at time 128.300 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1793614302.489292120] [global_costmap.global_costmap]: Message Filter dropping message: frame 'lidar_link' at time 131.600 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1793614307.411746531] [global_costmap.global_costmap]: Message Filter dropping message: frame 'lidar_link' at time 134.800 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1793614317.434905703] [global_costmap.global_costmap]: Message Filter dropping message: frame 'lidar_link' at time 141.500 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1793614322.392633916] [global_costmap.global_costmap]: Message Filter dropping message: frame 'lidar_link' at time 144.600 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1793614337.461059666] [global_costmap.global_costmap]: Message Filter dropping message: frame 'lidar_link' at time 154.600 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[INFO] [1793614344.770701082] [global_costmap.global_costmap]: Received request to clear entirely the global_costmap
+[WARN] [1793614345.165971141] [planner_server]: Planner loop missed its desired rate of 20.0000 Hz. Current loop rate is 4.2105 Hz
+[INFO] [1793614354.980356164] [global_costmap.global_costmap]: Received request to clear entirely the global_costmap
+[WARN] [1793614355.167840459] [planner_server]: Planner loop missed its desired rate of 20.0000 Hz. Current loop rate is 6.7797 Hz
+[INFO] [1793614368.321398489] [global_costmap.global_costmap]: Received request to clear entirely the global_costmap
+[WARN] [1793614369.189032301] [planner_server]: Planner loop missed its desired rate of 20.0000 Hz. Current loop rate is 1.7937 Hz
+[INFO] [1793614371.119820682] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[INFO] [1793614371.120031225] [planner_server]: Running Nav2 LifecycleNode rcl preshutdown (planner_server)
+[INFO] [1793614371.120193069] [planner_server]: Deactivating
+[INFO] [1793614371.120271114] [global_costmap.global_costmap]: Deactivating
+[INFO] [1793614371.135707326] [planner_server]: Deactivating plugin GridBased of type NavfnPlanner
+[INFO] [1793614371.135784844] [planner_server]: Destroying bond (planner_server) to lifecycle manager.
+[INFO] [1793614371.146239483] [planner_server]: Cleaning up
+[INFO] [1793614371.227399984] [global_costmap.global_costmap]: Cleaning up
+[INFO] [1793614371.236202946] [planner_server]: Cleaning up plugin GridBased of type NavfnPlanner
+[INFO] [1793614371.236424920] [planner_server]: Destroying plugin GridBased of type NavfnPlanner
+[INFO] [1793614371.294848625] [planner_server]: Destroying bond (planner_server) to lifecycle manager.

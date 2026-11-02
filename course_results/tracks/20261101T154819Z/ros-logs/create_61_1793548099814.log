@@ -1,0 +1,2 @@
+[INFO] [1793548099.897487678] [ros_gz_sim]: Waiting messages on topic [/b2w/robot_description].
+[INFO] [1793548099.992304345] [rclcpp]: signal_handler(SIGINT/SIGTERM)

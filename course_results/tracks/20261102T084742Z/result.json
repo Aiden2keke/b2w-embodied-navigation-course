@@ -1,0 +1,200 @@
+{
+  "kind": "manual_warehouse_view",
+  "outcome": "stopped_by_user",
+  "success": null,
+  "stop_reason": "interrupted",
+  "motion_enabled": true,
+  "motion_classification": "measured_motion",
+  "trajectory_samples": 40452,
+  "trajectory_source": "/sim/ground_truth/odom",
+  "trajectory_source_frame": "sim_world",
+  "trajectory_frame": "world",
+  "source_to_world_relation": "sim_world and world are identity-aligned by the SDF ground-truth odometry publisher",
+  "map_source": "/home/zyd/program/b2w-embodied-navigation-course/course_navigation/maps/warehouse_ground_truth_floorplan.png",
+  "map_sha256": "91ac49f0d4b5816a4efd02e055ad26af88c43d2ee11c6db9f57305628ee36d72",
+  "map_error": null,
+  "truth_epoch_count": 1,
+  "last_truth_age_s": 0.007500000000000001,
+  "final_position": {
+    "x": 1.0714275668896167,
+    "y": -0.13136395788154148,
+    "yaw_rad": -0.058790377326088696
+  },
+  "artifacts": {
+    "csv": "/home/zyd/program/b2w-embodied-navigation-course/course_results/tracks/20261102T084742Z/trajectory.csv",
+    "image": "/home/zyd/program/b2w-embodied-navigation-course/course_results/tracks/20261102T084742Z/trajectory.png"
+  },
+  "images": {
+    "ground_truth": {
+      "path": "/home/zyd/program/b2w-embodied-navigation-course/course_results/tracks/20261102T084742Z/trajectory_ground_truth.png",
+      "source_topic": "/sim/ground_truth/odom",
+      "source_frame": "sim_world",
+      "coordinate_frame": "world",
+      "map_asset": "/home/zyd/program/b2w-embodied-navigation-course/course_navigation/maps/warehouse_ground_truth_floorplan.png",
+      "map_sha256": "91ac49f0d4b5816a4efd02e055ad26af88c43d2ee11c6db9f57305628ee36d72",
+      "resolution_m_per_pixel": 0.02,
+      "pixel_contract": "top-left pixel center: x=xmin+(column+.5)*resolution; y=ymax-(row+.5)*resolution",
+      "start_world_xy": [
+        3.392382133255319e-22,
+        -8.267494791888695e-21
+      ],
+      "end_world_xy": [
+        1.0714275668896167,
+        -0.13136395788154148
+      ],
+      "start_image_pixel_xy": [
+        349.0117495,
+        522.833374
+      ],
+      "end_image_pixel_xy": [
+        402.5831278444808,
+        529.4015718940772
+      ],
+      "trajectory_drawn": true,
+      "stationary": false
+    },
+    "slam": {
+      "path": "/home/zyd/program/b2w-embodied-navigation-course/course_results/tracks/20261102T084742Z/trajectory_slam.png",
+      "source_topic": "/sim/ground_truth/odom",
+      "trajectory_source_frame": "sim_world",
+      "trajectory_frame": "world",
+      "trajectory_label": "ground truth; not SLAM localization",
+      "map_asset": "/home/zyd/program/b2w-embodied-navigation-course/experiments/g1_g5/waypoints/20261019-v1/warehouse.pgm",
+      "map_sha256": "e90f2dd81c89d41828ddb9f60732bdcae5cc7526dcf4a8919638a335d4a585f3",
+      "available": true,
+      "yaml_asset": "/home/zyd/program/b2w-embodied-navigation-course/experiments/g1_g5/waypoints/20261019-v1/warehouse.yaml",
+      "yaml_sha256": "8932cb8452f65c202b37e497df0b5fa57d83f038d0b21a6df2ae069bf34ebf55",
+      "resolution_m_per_pixel": 0.05,
+      "origin": [
+        -20,
+        -20,
+        0
+      ],
+      "pgm_size_px": [
+        800,
+        800
+      ],
+      "pixel_contract": "top-left pixel center: x=origin_x+(column+0.5)*resolution; y=origin_y+(height-row-0.5)*resolution",
+      "display_crop_pixels": {
+        "row0": 169,
+        "row1": 631,
+        "col0": 228,
+        "col1": 560
+      },
+      "registration_path": "/home/zyd/program/b2w-embodied-navigation-course/course_navigation/maps/warehouse_saved_map_registration.json",
+      "registration_sha256": "1d3e76392ad1ba15e85bb6a825dd13552d5a5ea0c32ace8d3616bc367ea8ea8e",
+      "registration": {
+        "source_frame": "world",
+        "target_frame": "saved_slam_map",
+        "x_m": -0.30585564746006044,
+        "y_m": 0.053931095729784495,
+        "yaw_rad": 0.060792739830594654
+      },
+      "registration_fit_rmse_m": 0.09713610119352874,
+      "registration_holdout_error_m": 0.04952388105343857,
+      "coordinate_frame": "saved_slam_map",
+      "recorded_truth_poses": 40452,
+      "trajectory_drawn": true,
+      "start_saved_map_xy": [
+        -0.30585564746006044,
+        0.053931095729784495
+      ],
+      "end_saved_map_xy": [
+        0.7715737178189253,
+        -0.012095288056013925
+      ],
+      "start_image_pixel_xy": [
+        393.3828870507988,
+        398.4213780854043
+      ],
+      "end_image_pixel_xy": [
+        414.9314743563785,
+        399.7419057611202
+      ],
+      "start_display_pixel_xy": [
+        165.3828870507988,
+        229.42137808540429
+      ],
+      "end_display_pixel_xy": [
+        186.9314743563785,
+        230.74190576112022
+      ],
+      "stationary": false
+    }
+  },
+  "started_utc": "2026-11-02T08:47:42.733351+00:00",
+  "ended_utc": "2026-11-02T08:55:59.172955+00:00",
+  "motion_classification_reason": "RViz goals were received and /sim/ground_truth/odom displacement exceeded the 0.15 m progress threshold",
+  "measured_motion_evidence": {
+    "source_topic": "/sim/ground_truth/odom",
+    "max_displacement_from_session_start_m": 1.0794505641859231,
+    "first_xy_m": [
+      3.392382133255319e-22,
+      -8.267494791888695e-21
+    ],
+    "last_xy_m": [
+      1.0714275668896167,
+      -0.13136395788154148
+    ]
+  },
+  "navigation_tests": [
+    {
+      "source": "RViz 2D Goal Pose",
+      "goal_map_xy": [
+        0.5910167098045349,
+        0.023640533909201622
+      ],
+      "result_json": "/home/zyd/program/b2w-embodied-navigation-course/course_results/navigation/20261102T085357.807536Z.json",
+      "nav2_result": "succeeded",
+      "nav2_status": 4,
+      "nav2_collision_count": 0,
+      "ground_truth_start": {
+        "sim_time_s": 304.3,
+        "x": -0.06405896415589017,
+        "y": -0.011129411205418
+      },
+      "ground_truth_end": {
+        "sim_time_s": 306.8,
+        "x": 0.6317940498753822,
+        "y": -0.06236830072134088
+      },
+      "ground_truth_displacement_m": 0.6977369425042873
+    },
+    {
+      "source": "RViz 2D Goal Pose",
+      "goal_map_xy": [
+        1.9858155250549316,
+        0.023640533909201622
+      ],
+      "result_json": "/home/zyd/program/b2w-embodied-navigation-course/course_results/navigation/20261102T085538.152374Z.json",
+      "nav2_result": "canceled_by_user",
+      "cancel_service": "/course_navigation/cancel_goal",
+      "cancel_service_success": true,
+      "cancel_reply_wall_s": 0.017468239064328372,
+      "ground_truth_start": {
+        "sim_time_s": 389.69,
+        "x": 0.6879398118164081,
+        "y": -0.08417823559211866
+      },
+      "ground_truth_at_cancel": {
+        "sim_time_s": 390.39,
+        "x": 0.7894259261033807,
+        "y": -0.09389497166943167
+      },
+      "ground_truth_end_4s_after_cancel": {
+        "sim_time_s": 394.39,
+        "x": 1.0587594796318636,
+        "y": -0.13073477979767248
+      },
+      "pre_cancel_displacement_m": 0.10195021507120339,
+      "post_cancel_displacement_m": 0.2718413774965205,
+      "end_ground_truth_speed_mps": 0.000614537853,
+      "final_nav_velocity_command": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "nav2_collision_count": 0
+    }
+  ]
+}
