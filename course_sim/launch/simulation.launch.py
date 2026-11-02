@@ -63,6 +63,13 @@ def setup(context):
     if headless == 'true' or (headless == 'auto' and not os.environ.get('DISPLAY')):
         command.append('--headless-rendering')
     command.append(world)
+    if gui:
+        gui_config = os.environ.get('IGN_GUI_CONFIG_PATH', '').strip()
+        if gui_config:
+            if not Path(gui_config).is_file():
+                raise FileNotFoundError(f'Gazebo GUI config missing: {gui_config}')
+            command.extend(['--gui-config', gui_config])
+            print(f'Gazebo GUI config: {gui_config}')
     seed = int(LaunchConfiguration('seed').perform(context))
     simulator = ExecuteProcess(cmd=command, output='log')
     bridge = Node(package='ros_gz_bridge', executable='parameter_bridge',

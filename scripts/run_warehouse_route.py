@@ -224,13 +224,14 @@ def evaluate_practical_goal(goal, metrics, tolerance):
     return result
 
 
-def run_full(config, *, execute=False, advancement='strict', transport_factory=None,
+def run_full(config, *, execute=False, advancement='strict', continuation_yaws=None, transport_factory=None,
              checkpoint=lambda report: None):
     """One owned attach session, one manager request per leg, fail-fast, no retry."""
     if advancement not in ('strict', 'practical'):
         raise ValueError('Unknown advancement policy')
     practical = advancement == 'practical'
-    goals = full_goals(config)  # Validate even dry-run, before constructing any transport.
+    goals = (planned_goals(config, 'full', continuation_yaws) if continuation_yaws is not None
+             else full_goals(config))  # Validate before constructing any transport.
     order = [g['name'] for g in goals]
     report = dict(mode='full', route_mode='full', route_order=order, dry_run=not execute,
                   advancement=advancement, practical_route_completed=False, strict_full_route_pass=False,
@@ -366,6 +367,21 @@ def run_full(config, *, execute=False, advancement='strict', transport_factory=N
     return report
 
 
+def run_selected_route(config, *, mode='critical', execute=False, continuation_yaws=None,
+                       transport_factory=None, checkpoint=lambda report: None):
+    """Dispatch only the authorized scope; critical mode cannot reach G3-G5."""
+    if mode == 'critical':
+        if continuation_yaws is not None:
+            raise ValueError('Full-route headings are invalid in critical mode')
+        return run_critical(config, execute=execute, transport_factory=transport_factory,
+                            checkpoint=checkpoint)
+    if mode == 'full':
+        return run_full(config, execute=execute, advancement='strict',
+                        continuation_yaws=continuation_yaws,
+                        transport_factory=transport_factory, checkpoint=checkpoint)
+    raise ValueError('Unknown warehouse route mode')
+
+
 def find_metrics(directory, sent, previous):
     """Read existing goal_manager files; exact header+pose excludes old/same-XY goals."""
     matches = []
@@ -385,10 +401,13 @@ def find_metrics(directory, sent, previous):
 
 class RosGoalTransport:
     """USER-RUN ONLY. Attach to the existing manager; no actions, launch or cmd_vel publisher."""
-    def __init__(self, ready_timeout=45., evidence_directory=None):
+    def __init__(self, ready_timeout=45., evidence_directory=None, *,
+                 reuse_existing_context=False, progress_callback=None):
         self.ready_timeout = ready_timeout
+        self.reuse_existing_context = reuse_existing_context
+        self.progress_callback = progress_callback
         self.node = None
-        self.initialized = False
+        self.initialized = False  # True only when this transport owns rclpy.init().
         self.pending = self.foreign_goal = False
         self.expected = None
         self.owned_poses = []
@@ -419,8 +438,14 @@ class RosGoalTransport:
 
         self.rclpy, self.PoseStamped = rclpy, PoseStamped
         self.convert, self.Trigger = message_to_ordereddict, Trigger
-        rclpy.init()
-        self.initialized = True
+        if rclpy.ok():
+            if not self.reuse_existing_context:
+                raise RuntimeError('ROS context already initialized; explicit shared-context mode required')
+        else:
+            if self.reuse_existing_context:
+                raise RuntimeError('Shared ROS context requested but owner context is not initialized')
+            rclpy.init()
+            self.initialized = True
         self.node = Node('warehouse_route_benchmark', parameter_overrides=[
             Parameter('use_sim_time', value=True)])
         self.tf = Buffer()
@@ -590,6 +615,18 @@ class RosGoalTransport:
         if self.foreign_goal:
             raise RuntimeError('Another /goal_pose producer observed; stop without canceling its goal')
         self.rclpy.spin_once(self.node, timeout_sec=.05)
+        if self.progress_callback is not None:
+            self.progress_callback()
+        self.capture_pose()
+
+    def _spin_during_cleanup(self, deadline):
+        """Service both ROS nodes during bounded cancellation without overrunning its deadline."""
+        remaining = deadline-time.monotonic()
+        if remaining <= 0 or not self.rclpy.ok():
+            return
+        self.rclpy.spin_once(self.node, timeout_sec=min(.05, remaining))
+        if self.progress_callback is not None:
+            self.progress_callback()
         self.capture_pose()
 
     def require_ready(self, deadline):
@@ -613,6 +650,10 @@ class RosGoalTransport:
                 pass
             if (len(managers) == 1 and idle and fresh and self.publisher.get_subscription_count() >= 2
                     and self.cancel.service_is_ready() and self.readiness.active(time.monotonic())):
+                if self.evidence is not None:
+                    self.evidence.capture_start_pose(dict(header=self.convert(tf.header), pose=dict(
+                        position=self.convert(tf.transform.translation),
+                        orientation=self.convert(tf.transform.rotation))))
                 return
             self.spin(deadline)
 
@@ -668,12 +709,15 @@ class RosGoalTransport:
                     passed = False
                 elif self.rclpy.ok() and self.cancel.service_is_ready():
                     future = self.cancel.call_async(self.Trigger.Request())
-                    self.rclpy.spin_until_future_complete(self.node, future, timeout_sec=3.)
+                    rpc_deadline = time.monotonic() + 3.
+                    while (self.rclpy.ok() and not future.done() and
+                           time.monotonic() < rpc_deadline):
+                        self._spin_during_cleanup(rpc_deadline)
                     acknowledged = future.done() and future.exception() is None
                     deadline = time.monotonic() + self.cancel_confirmation_timeout
                     passed = False
                     while acknowledged and self.rclpy.ok() and time.monotonic() < deadline:
-                        self.rclpy.spin_once(self.node, timeout_sec=.05)
+                        self._spin_during_cleanup(deadline)
                         if self.foreign_goal:
                             break
                         if self.owned_actions and all(s in (4, 5, 6) for s in self.owned_actions.values()):
@@ -686,6 +730,8 @@ class RosGoalTransport:
             self.finish_evidence()
             if self.evidence is not None:
                 try:
+                    if self.latest_map is not None:
+                        self.evidence.save_map(self.convert(self.latest_map))
                     self.evidence.save()
                 except Exception as error:
                     self.evidence_error(error)

@@ -677,7 +677,9 @@ def finish_planning_capture(output,capture):
     return result
 
 
-def route_start_admission(node, monitor, output, wait, prepare_navigation, *, planning_only=False, envelope=None, owned_goal_producer=None, deferred_capture=None):
+def route_start_admission(node, monitor, output, wait, prepare_navigation, *, planning_only=False,
+                          envelope=None, owned_goal_producer=None, deferred_capture=None,
+                          target_pose=None, full_path=False, admission_label='initial'):
     """Planning-only route entry. No NavigateToPose or command on rejection.
 
     Current evidence does not bound plant response at either A/B operating cap.
@@ -687,12 +689,17 @@ def route_start_admission(node, monitor, output, wait, prepare_navigation, *, pl
     """
     from warehouse_route_admission import admit, admit_directional, collision_radius, initial_prefix
     from run_warehouse_route import load_route, critical_goals
+    from warehouse_route_admission import validated_full_path
     from rclpy.action import ActionClient
     from nav2_msgs.action import ComputePathToPose
     from geometry_msgs.msg import PoseStamped
     radius = None if planning_only else collision_radius(ROOT/'artifacts/recovery/robot.urdf')
+    if not admission_label.replace('-', '').isalnum():
+        raise ValueError('Invalid route admission label')
+    admission_path=output/'route-start-admission.json' if admission_label=='initial' else output/f'route-admission-{admission_label}.json'
+    map_path=output/'route-start-map.json' if admission_label=='initial' else output/f'route-admission-{admission_label}-map.json'
     def save(result):
-        write_json(output/'route-start-admission.json', result)
+        write_json(admission_path, result)
         # Retain exactly the sensor grid used by the predicate, once per
         # decision. Compact serialization avoids the historical indented-map
         # callback starvation. The watchdog stays armed through evidence I/O.
@@ -701,7 +708,7 @@ def route_start_admission(node, monitor, output, wait, prepare_navigation, *, pl
                         map_evidence=getattr(monitor,'map_evidence',None),
                         tf_diagnostic=getattr(monitor,'tf_diagnostic',None),
                         readiness=getattr(monitor,'last_readiness',None),decision=result)
-        target=output/'route-start-map.json';temporary=target.with_suffix('.json.tmp')
+        target=map_path;temporary=target.with_suffix('.json.tmp')
         temporary.write_text(json.dumps(snapshot,separators=(',',':'),allow_nan=False)+'\n')
         temporary.replace(target)
     if planning_only:
@@ -730,7 +737,12 @@ def route_start_admission(node, monitor, output, wait, prepare_navigation, *, pl
             or (goal_producers and not allowed_producer)
             or monitor.final is None or any(monitor.final)):
         raise RuntimeError('Route planning requires unique idle velocity owner and no goal producer')
-    goal = critical_goals(load_route())[0]
+    if target_pose is None:
+        goal = critical_goals(load_route())[0]
+    else:
+        if target_pose.get('header', {}).get('frame_id') != 'map':
+            raise ValueError('Per-leg target must use canonical map frame')
+        goal = dict(name=admission_label, pose=target_pose)
     client = ActionClient(node, ComputePathToPose, '/compute_path_to_pose')
     try:
         wait(client.server_is_ready, 10.)
@@ -747,7 +759,7 @@ def route_start_admission(node, monitor, output, wait, prepare_navigation, *, pl
         if hasattr(monitor,'tf'):
             from rclpy.time import Time
             from rosidl_runtime_py.convert import message_to_ordereddict
-            write_json(output/'planning-tf.json',{parent+'->'+child:message_to_ordereddict(
+            write_json(output/f'planning-tf-{admission_label}.json',{parent+'->'+child:message_to_ordereddict(
                 monitor.tf.lookup_transform(parent,child,Time()))
                 for parent,child in (('map','odom'),('odom','base_link'),('map','base_link'))})
         future = client.send_goal_async(request)
@@ -771,7 +783,8 @@ def route_start_admission(node, monitor, output, wait, prepare_navigation, *, pl
             planner_id=request.planner_id,use_start=request.use_start,
             goal=goal,request_pose=request_pose,response_pose=monitor.pose(),
             tf_diagnostic=getattr(monitor,'tf_diagnostic',None))
-        write_json(output/'initial-smac-plan.json',packet)
+        plan_path=output/'initial-smac-plan.json' if admission_label=='initial' else output/f'route-plan-{admission_label}.json'
+        write_json(plan_path,packet)
         prefix=initial_prefix(packet,monitor.pose(),(position['x'],position['y']),monitor.clock)
         if planning_only:
             if not monitor.ready() or monitor.physical_veto():
@@ -779,14 +792,18 @@ def route_start_admission(node, monitor, output, wait, prepare_navigation, *, pl
             deferred_capture.update(snapshot=capture_planning_snapshot(monitor),prefix=prefix)
             return dict(planning_completed=True,motion_admitted=False,
                 clearance='deferred_until_owned_teardown')
+        admitted_path=(validated_full_path(packet,monitor.pose(),(position['x'],position['y']),monitor.clock)
+                       if full_path else prefix)
         if envelope is None:
-            result=admit(monitor.grid,pose=monitor.pose(),path=prefix,radius=radius,
+            result=admit(monitor.grid,pose=monitor.pose(),path=admitted_path,radius=radius,
                 padding=.05,reaction_stop_m=None,ready=monitor.ready() and not monitor.physical_veto())
         else:
-            result=admit_directional(monitor.grid,pose=monitor.pose(),path=prefix,half_extents=envelope['half_extents'],
+            result=admit_directional(monitor.grid,pose=monitor.pose(),path=admitted_path,half_extents=envelope['half_extents'],
                 padding=envelope['padding_m']+envelope['localization_error_m']+envelope['tracking_error_m'],
                 stop=envelope['stop'],ready=monitor.ready() and not monitor.physical_veto())
-        result.update(initial_prefix=prefix,articulated_collision_radius_m=radius,
+        result.update(initial_prefix=prefix,admitted_path=admitted_path,admission_label=admission_label,
+            complete_leg_path_checked=full_path,admission_start_pose=monitor.pose(),
+            admission_goal_xy=[position['x'],position['y']],articulated_collision_radius_m=radius,
             unavailable_bounds=['physical reaction/stopping and tracking deviation at A/B cap',
                                 'metric localization error beyond existing configured padding'],
             qualification_observed_coast_m=.04259545786007883,
@@ -1142,7 +1159,7 @@ def execute(args, output):
             report['normal_rest'] = report['precheck'][-1]['rest']
             report['success'] = True
         else:
-            from run_warehouse_route import RosGoalTransport, run_critical, load_route
+            from run_warehouse_route import RosGoalTransport, run_selected_route, load_route
             def prepare_navigation():
                 nonlocal publisher
                 if planning_only:
@@ -1197,26 +1214,27 @@ def execute(args, output):
                 report['normal_rest']=rest()
                 report['success']=report['planning']['planning_completed']
             else:
+                from warehouse_route_admission import require_bound_execution_path
+                # A standalone ComputePathToPose query cannot authorize a
+                # later NavigateToPose action that may replan. Keep all
+                # autonomous route motion blocked until the exact execution
+                # path is coupled to the swept-corridor check.
+                require_bound_execution_path(getattr(args, 'route_mode', 'critical'))
                 report['route_start_admission'] = route_start_admission(
                     node, monitor, output, wait, prepare_navigation, envelope=envelope)
                 class GuardedTransport(RosGoalTransport):
-                    initial_admission_consumed=False
                     def send_and_wait(self,pose,on_sent):
-                        video=getattr(args,'video_ready_file',None)
-                        if video is not None:
-                            from record_warehouse_video import is_ready
-                            wait(lambda:is_ready(video,session_start_wall),60. if not self.initial_admission_consumed else 1.)
-                        if not self.initial_admission_consumed:
-                            # Refresh the actual plan after transport discovery
-                            # and synchronous native audits, before the first goal.
-                            route_start_admission(node,monitor,output,wait,lambda:None,
-                                envelope=envelope,owned_goal_producer=self.node.get_name())
-                            self.initial_admission_consumed=True
+                        goal_index=len(report.get('waypoint_observations',[]))+1
+                        goal_name='G'+str(goal_index)
+                        # Replan and check the complete swept path + directional
+                        # stopping envelope before every goal, not only G1.
+                        admission=route_start_admission(node,monitor,output,wait,lambda:None,
+                            envelope=envelope,owned_goal_producer=self.node.get_name(),
+                            target_pose=pose,full_path=True,admission_label=goal_name)
+                        report.setdefault('route_leg_admissions',[]).append(admission)
                         sent_snapshot={}
                         def recorded_sent(sent,state='published'):
                             if state=='published':sent_snapshot['pose']=sent
-                            if state=='published' and 'recording_journey_start_wall' not in report:
-                                report['recording_journey_start_wall']=time.monotonic()
                             on_sent(sent,state)
                         result=super().send_and_wait(pose,recorded_sent)
                         from rosidl_runtime_py.convert import message_to_ordereddict
@@ -1227,6 +1245,12 @@ def execute(args, output):
                             truth_message=message_to_ordereddict(monitor.truth[2]),
                             contact_samples=monitor.samples,contact_failure=monitor.contacts.failure,
                             readiness=monitor.readiness()))
+                        if result['metrics'].get('nav2_status')==4 and goal_index < (5 if args.route_mode=='full' else 2):
+                            # No next leg until the previous leg has a measured
+                            # six-axis zero and continuous 5s sim/3s wall rest.
+                            stop=rest(inject_zero=False)
+                            report.setdefault('settled_waypoint_stops',[]).append(
+                                dict(waypoint=goal_name,**stop))
                         return result
                     def start(self):
                         result=super().start()
@@ -1234,28 +1258,17 @@ def execute(args, output):
                             manifest=getattr(args, 'deployment_manifest', None))
                         write_json(output/'navigation-native-deployment.json',report['navigation_native_deployment'])
                         return result
-                    def spin(self, deadline):
-                        super().spin(deadline)
-                        step(deadline)
                 transport = GuardedTransport(ready_timeout=30., evidence_directory=output/'route', reuse_existing_context=True,
                     progress_callback=lambda:step(time.monotonic()+1.))
                 (output/'route').mkdir()
                 def checkpoint(value):
                     write_json(output/'route'/'report.json', value)
-                report['route'] = run_critical(load_route(), execute=True, transport_factory=lambda:transport,checkpoint=checkpoint,
-                    mode=getattr(args, 'route_mode', 'critical'), continuation_yaws=getattr(args, 'continuation_yaws', None))
+                report['route'] = run_selected_route(load_route(),
+                    mode=getattr(args, 'route_mode', 'critical'),
+                    continuation_yaws=getattr(args, 'continuation_yaws', None), execute=True,
+                    transport_factory=lambda:transport, checkpoint=checkpoint)
                 report['normal_rest'] = rest(inject_zero=False)
                 report['success'] = bool(report['route']['success'])
-        hold=getattr(args,'recording_end_hold_s',0.)
-        if hold:
-            start_wall=time.monotonic();start_sim=monitor.clock;end=start_wall+hold
-            while time.monotonic()<end:
-                if publisher is not None:zero()
-                step(end+1.)
-                if not monitor.resting() or monitor.final is None or any(monitor.final):
-                    raise RuntimeError('Measured rest lost during recording end hold')
-            report['recording_end_hold']=dict(start_wall=start_wall,end_wall=time.monotonic(),
-                start_sim=start_sim,end_sim=monitor.clock,exact_zero=True,measured_rest=True)
         monitor.normal_rest = report['normal_rest']; monitor.phase='shutdown'; monitor.update()
         # ros2 run catches PID-only SIGINT and waits for its unsignaled child.
         # Interrupt every token-owned, identity-checked descendant as well.
@@ -1342,6 +1355,23 @@ def execute(args, output):
                 report['planning_geometry']=finish_planning_capture(output,deferred_capture)
             except Exception as analysis_error:
                 report['planning_analysis_error']=repr(analysis_error);report['success']=False
+        # Route artifacts use only the same public map->base_link localization
+        # and OccupancyGrid evidence already captured by the passive route tap.
+        # This is offline reporting; it does not feed goals, controls or safety.
+        try:
+            from run_warehouse_route import load_route
+            from warehouse_track_artifacts import write_track_artifacts
+            evidence_root=output/'route'
+            index_path=evidence_root/'evidence'/'index.json'
+            evidence_index=json.loads(index_path.read_text()) if index_path.is_file() else {'segments': [], 'errors': ['No route localization capture']}
+            track_result=write_track_artifacts(output, load_route(), report,
+                evidence_index, evidence_root=evidence_root, metrics_root=output/'goal-manager')
+            report['track_artifacts']={name:str(output/name) for name in
+                ('trajectory.png','trajectory.csv','result.json')}
+            report['track_artifact_status']='generated'
+        except Exception as artifact_error:
+            report['track_artifact_status']='error'
+            report['track_artifact_error']=repr(artifact_error)
         write_json(output/'session-report.json', report)
     return 0 if report['success'] else 1
 
@@ -1498,7 +1528,7 @@ def check_inputs(args):
     return dict(profile=args.profile,head=subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),
         source_install_pins=len(manifest['source_install']),engine_shape_handles=26,
         route_admission_source_pins={str(path.relative_to(ROOT)):digest(path) for path in
-            (ROOT/'scripts/warehouse_ab_trial.py', ROOT/'scripts/warehouse_route_admission.py',ROOT/'scripts/record_warehouse_video.py',
+            (ROOT/'scripts/warehouse_ab_trial.py', ROOT/'scripts/warehouse_route_admission.py',
              ROOT/'artifacts/recovery/robot.urdf')},
         profile_sha256={name:digest(ROOT/'course_navigation/config'/name) for name in
             ('nav2_smac2d_diag.yaml','nav2_smac2d_dwb_slow_diag.yaml')},
@@ -1545,8 +1575,6 @@ def main(argv=None):
     parser.add_argument('--stationary-view-s',type=float,default=0.,help='Guarded stationary viewing,0..90wall seconds within the original watchdog bound')
     parser.add_argument('--recording-parent-pid',type=int,help='Optional exact recording coordinator PID for fail-closed liveness')
     parser.add_argument('--recording-parent-start-ticks',type=int,help='Required matching PID start identity')
-    parser.add_argument('--recording-end-hold-s',type=float,default=0.,help='Bounded zero/measured-rest recording hold before owned shutdown,0..5wall seconds')
-    parser.add_argument('--video-ready-file',type=Path,help='Wait for this live capture ledger before the first route goal; require it for every goal')
     parser.add_argument('--route-envelope',type=Path,help='Reviewed operational footprint and directional stopping evidence JSON')
     parser.add_argument('--route-envelope-sha256',help='Expected SHA256 from the independent envelope review')
     parser.add_argument('--output-root',type=Path,default=ROOT/'course_results/trials')
@@ -1556,8 +1584,6 @@ def main(argv=None):
         help='Reviewed source/install/native identity manifest; historical default is preserved')
     args=parser.parse_args(argv);args.wall_limit=150. if args.stationary_containment else 420.
     if (args.recording_parent_pid is None)!=(args.recording_parent_start_ticks is None) or (args.recording_parent_pid is not None and (args.recording_parent_pid<=0 or args.recording_parent_start_ticks<=0)):parser.error('Recording coordinator requires a positive PID/start identity pair')
-    if not math.isfinite(args.recording_end_hold_s) or not 0<=args.recording_end_hold_s<=5:
-        parser.error('Recording end hold must be in[0,5]wall seconds')
     if not math.isfinite(args.precheck_pulse_s) or not 0 < args.precheck_pulse_s <= 2.:
         parser.error('--precheck-pulse-s must be finite and in (0,2]')
     if args.precheck_axis == 'historical-yaw' and args.precheck_pulse_s > .5:
@@ -1566,8 +1592,7 @@ def main(argv=None):
         if args.precheck_pulse_s > 1. or args.profile != 'B' or not args.controller_revision_sha256:
             parser.error('sustained-yaw requires Profile B, reviewed revision and explicit duration at most 1s')
         if (args.gui or args.gui_config or args.stationary_view_only or args.stationary_view_s or
-                args.recording_parent_pid or args.recording_parent_start_ticks or
-                args.recording_end_hold_s or args.video_ready_file):
+                args.recording_parent_pid or args.recording_parent_start_ticks):
             parser.error('sustained-yaw rejects GUI/viewing/recording options')
     if args.precheck_axis != 'forward-turn' and not args.precheck_only:
         parser.error('--precheck-axis requires --precheck-only')
@@ -1589,8 +1614,6 @@ def main(argv=None):
         parser.error('Planning-only rejects motion authority and route continuation')
     if args.planning_only and args.execute and not args.authorize_planning:
         parser.error('Planning-only execution requires separate --authorize-planning')
-    if args.video_ready_file and (not args.gui or args.planning_only or args.precheck_only or args.stationary_containment):
-        parser.error('Video readiness belongs to GUI route mode')
     if bool(args.route_envelope)!=bool(args.route_envelope_sha256):
         parser.error('Route envelope requires its reviewed SHA256')
     if args.route_envelope and (args.planning_only or args.precheck_only or args.stationary_containment):

@@ -96,9 +96,13 @@ scripts/test_course.sh
 scripts/setup_course_humble.sh --json
 /usr/bin/python3 scripts/prepare_rl_sar.py
 
-# 完整仓库导航：Gazebo + RViz + LIO-SAM + Nav2
-scripts/run_warehouse.sh
+# Warehouse 手动设定目标演示：Gazebo + RViz + LIO-SAM + Nav2 NavFn/DWB
+bash scripts/run_warehouse_manual.sh
 ```
+
+该演示由用户在 RViz 手动选择目标，机器人使用已验证的 Gazebo 导航链路自主前往目标；不是全自主探索。
+每次会话在 `course_results/tracks/<UTC时间戳>/` 保存真值轨迹、双地图导出和会话元数据。显示、操作步骤与
+轨迹含义见 README 的 [Warehouse / Confined Industrial Space Demo](README.md#warehouse--confined-industrial-space-demo)。
 
 可选 SmacPlanner2D + Humble RPP + 几何自适应速度的一次完整路线测试见
 [ADAPTIVE_SPEED.md](docs/ADAPTIVE_SPEED.md)。必须显式提供实测走廊宽度

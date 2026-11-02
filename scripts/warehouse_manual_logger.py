@@ -17,6 +17,7 @@ SAVED_MAP_DIR = ROOT / 'experiments/g1_g5/waypoints/20261019-v1'
 SAVED_PGM = SAVED_MAP_DIR / 'warehouse.pgm'
 SAVED_YAML = SAVED_MAP_DIR / 'warehouse.yaml'
 SAVED_REGISTRATION = ROOT / 'course_navigation/maps/warehouse_saved_map_registration.json'
+MOTION_DISPLACEMENT_THRESHOLD_M = 0.15
 
 
 def sha256(path):
@@ -190,6 +191,21 @@ def export_map_images(output, rows, metadata, background, registration, stationa
     render_fixed_track(output/'trajectory_ground_truth.png',rows,metadata,background,stationary=stationary)
     render_saved_slam_track(output/'trajectory_slam.png',rows,registration,stationary=stationary)
     return transform_truth_rows_to_saved_map(rows,registration)
+
+
+def has_measured_motion(rows, threshold_m=MOTION_DISPLACEMENT_THRESHOLD_M):
+    """Classify motion from actual ground-truth displacement, ignoring small pose noise."""
+    if len(rows) < 2 or not math.isfinite(threshold_m) or threshold_m <= 0:
+        return False
+    try:
+        x0, y0 = float(rows[0]['x']), float(rows[0]['y'])
+        if not math.isfinite(x0) or not math.isfinite(y0):
+            return False
+        return any(math.isfinite(float(row['x'])) and math.isfinite(float(row['y'])) and
+                   math.hypot(float(row['x']) - x0, float(row['y']) - y0) >= threshold_m
+                   for row in rows[1:])
+    except (KeyError, TypeError, ValueError, OverflowError):
+        return False
 
 
 def export_recorded_session(session_directory, output_directory):
@@ -430,12 +446,21 @@ class ManualLogger:
         self.node.create_subscription(OccupancyGrid, '/map', self.on_map, transient)
         self.node.create_subscription(Odometry, '/sim/ground_truth/odom', self.on_truth, qos_profile_sensor_data)
         self.node.create_subscription(Odometry, '/slam/odom', self.on_slam, qos_profile_sensor_data)
+        self.node.create_subscription(PoseStamped, '/goal_pose', self.on_goal, qos_profile_sensor_data)
         self.node.create_timer(.2, self.sample, clock=Clock(clock_type=ClockType.STEADY_TIME))
         self.output = Path(output); self.output.mkdir(parents=True, exist_ok=True)
         self.started = time.time(); self.stop_reason = 'shutdown'
-        # This launcher has no navigation goal owner; pose changes in a
-        # zero-motion capture are standing/balance variation, not a traveled route.
         self.motion_enabled = False
+        self.goal_start_xy = None
+        self.goal_pending = False
+        self.goal_truth_rows = []
+
+    def on_goal(self, _msg):
+        self.goal_pending = True
+        self.goal_start_xy = ([self.truth_rows[-1]['x'], self.truth_rows[-1]['y']]
+                              if self.truth_rows else None)
+        self.goal_truth_rows = ([dict(x=self.goal_start_xy[0], y=self.goal_start_xy[1])]
+                                if self.goal_start_xy is not None else [])
 
     def on_slam(self, msg):
         if msg.header.frame_id != 'odom' or msg.child_frame_id != 'base_link': return
@@ -468,6 +493,14 @@ class ManualLogger:
         self.truth_rows.append(dict(timestamp_ns=stamp, x=float(p.x), y=float(p.y),
                                     yaw_rad=yaw_of(q), segment=segment, epoch=epoch,
                                     source='/sim/ground_truth/odom'))
+        row = self.truth_rows[-1]
+        if self.goal_pending:
+            if self.goal_start_xy is None:
+                self.goal_start_xy = [row['x'], row['y']]
+            self.goal_truth_rows.append(row)
+        if self.goal_pending and has_measured_motion(self.goal_truth_rows):
+            self.motion_enabled = True
+            self.goal_pending = False
 
     def on_map(self, msg):
         if msg.header.frame_id != 'map':

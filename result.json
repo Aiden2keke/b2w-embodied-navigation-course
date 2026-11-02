@@ -1,0 +1,26 @@
+{
+  "kind": "manual_warehouse_view",
+  "outcome": "stopped_by_user",
+  "success": null,
+  "stop_reason": "shutdown",
+  "motion_enabled": false,
+  "trajectory_samples": 2,
+  "trajectory_source": "public map->base_link TF",
+  "map_source": "/map nav_msgs/msg/OccupancyGrid",
+  "map_sha256": "646b0b0c58bd2ec58cbcab53793147f8fb3d266bd747dc352e9b23cf2e65d8b0",
+  "map_error": null,
+  "tf_epoch_count": 3,
+  "map_stamp_ns": 1000000000,
+  "last_tf_age_s": 0.0,
+  "final_position": {
+    "x": 3.0,
+    "y": -1.5,
+    "yaw_rad": 0.0
+  },
+  "artifacts": {
+    "csv": "trajectory.csv",
+    "image": "trajectory.png"
+  },
+  "started_utc": "2026-11-01T15:33:52.948361+00:00",
+  "ended_utc": "2026-11-01T15:33:53.802441+00:00"
+}

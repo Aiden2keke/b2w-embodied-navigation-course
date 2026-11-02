@@ -48,6 +48,9 @@ course_results/
 bags/
 ros2_torch/
 
+# Final session logs are local runtime traces; compact metadata and trajectory evidence are archived.
+/video/final/*/ros-logs/
+
 # Imported G1–G5 runtime fingerprints and locally built contact probe.
 /artifacts/recovery/
 /artifacts/contact-engine-probe/

@@ -1,4 +1,27 @@
-# Saved-view stationary setup and recording
+# Saved-view stationary setup and recording (retired)
+
+The automatic recording workflow documented below is retired. Do not use
+`scripts/run_g1_g5_record.py --run`, `--prepare-only`, or `--record-only` for the
+Warehouse presentation. The current user-operated command is documented in
+[CODEX_GUIDE.md](../CODEX_GUIDE.md):
+
+```bash
+scripts/run_warehouse_navigation.py --run --review-config course_results/tracks/reviewed_run.json
+```
+
+It does not capture video, manipulate Gazebo cameras, repair WebM, or produce
+MP4. The user records the screen manually. A unique `course_results/tracks/`
+run directory contains `trajectory.png`, `trajectory.csv`, and `result.json`,
+including for interrupted/failed executions when localization evidence exists.
+The independent motion qualification and runtime safety gates remain mandatory.
+At present, autonomous route execution is additionally fail-closed: the
+reviewed `ComputePathToPose` result is not yet the path executed by Nav2's
+separate `NavigateToPose` action. The command therefore cannot dispatch motion
+until that binding or an equivalent continuous clearance veto is implemented
+and reviewed. Planning and artifact generation remain available without
+claiming route qualification.
+
+The historical material below describes the former recording system only.
 
 From the repository root:
 

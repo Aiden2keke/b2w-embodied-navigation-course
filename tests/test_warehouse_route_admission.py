@@ -8,6 +8,17 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]/'scripts'))
 import warehouse_route_admission as admission
 
 
+@pytest.mark.parametrize('mode', ['critical', 'full'])
+def test_route_motion_fails_closed_until_admitted_path_is_the_executed_path(mode):
+    with pytest.raises(RuntimeError, match='not bound to the path executed by Nav2'):
+        admission.require_bound_execution_path(mode)
+
+
+def test_unknown_route_mode_fails_closed():
+    with pytest.raises(ValueError, match='Unknown warehouse route execution mode'):
+        admission.require_bound_execution_path('other')
+
+
 def grid():
     return dict(width=120, height=120, resolution=.05, origin=(-3., -3.), data=[0]*14400)
 
@@ -75,6 +86,16 @@ def test_plan_validation_requires_success_fresh_map_frame_and_goal_endpoint():
                         dict(poses=[(0.,0.,0.),(2.,2.,0.)])):
         with pytest.raises(ValueError):
             admission.initial_prefix(dict(packet,**replacement),(0.,0.,0.),(0.,1.),10.1)
+
+
+def test_full_leg_validation_keeps_every_planned_pose_and_rejects_stale_or_mismatched_goal():
+    packet=dict(status=4,frame='map',stamp=10.,poses=[(0.,0.,0.),(.4,0.,0.),(1.,0.,0.)])
+    path=admission.validated_full_path(packet,(0.,0.,0.),(1.,0.),10.1)
+    assert len(path)==3 and path[-1][:2]==(1.,0.)
+    for replacement in (dict(status=6),dict(frame='odom'),dict(stamp=9.),dict(poses=[]),
+                        dict(poses=[(0.,0.,0.),(2.,2.,0.)])):
+        with pytest.raises(ValueError):
+            admission.validated_full_path(dict(packet,**replacement),(0.,0.,0.),(1.,0.),10.1)
 
 
 def test_path_collision_is_diagnosed_even_when_stopping_bound_is_missing():

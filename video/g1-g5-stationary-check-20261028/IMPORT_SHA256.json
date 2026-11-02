@@ -1,0 +1,16 @@
+{
+  "kind": "stationary_recording_import",
+  "route_success": false,
+  "files": [
+    {
+      "path": "video/g1-g5-stationary-check-20261028/radar.webm",
+      "bytes": 13056757,
+      "sha256": "5edc1802d4e1036fb0486f4b74ddd4f096897dc96bd7f9eb2090477b8c21bcfe"
+    },
+    {
+      "path": "video/g1-g5-stationary-check-20261028/warehouse.webm",
+      "bytes": 12258650,
+      "sha256": "362aef68876f048003c3959ec186ea7f19c7d36460f9a40bd8ba9cbec166b293"
+    }
+  ]
+}

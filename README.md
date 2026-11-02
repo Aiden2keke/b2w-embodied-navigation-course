@@ -14,6 +14,66 @@
 
 可下载的 B2-W / rl_sar 策略、本机控制器适配、固定版本下载和物理检查入口见 [docs/RL_SAR_SETUP.md](docs/RL_SAR_SETUP.md)。实际平衡、停车与导航验收状态见 [docs/LOCOMOTION_STATUS.md](docs/LOCOMOTION_STATUS.md)。
 
+## Warehouse / Confined Industrial Space Demo
+
+本演示在 Gazebo Fortress 仓库场景中运行 B2-W：ROS 2 Humble、LIO-SAM、Nav2 NavFn + DWB、速度平滑器和已安装的 B2-W RL-SAR 运控策略。Warehouse 是危险受限工业室内环境（废弃工厂）的代理场景；未验证真实火灾、烟雾、有毒气体、坍塌物理或现实部署。
+
+### 前置条件
+
+- Ubuntu、ROS 2 Humble、Gazebo Fortress 和图形桌面。
+- 已构建的项目 ROS workspace，以及按[安装与模型准备指南](CODEX_GUIDE.md)准备好的项目依赖和运控策略。
+- 不需要 GPS 或外部云端定位。
+
+### 启动与操作
+
+在仓库根目录的终端运行：
+
+```bash
+bash scripts/run_warehouse_manual.sh
+```
+
+普通图形会话不需要额外设置 `DISPLAY`。若当前工作站需要指定显示器，可用：
+
+```bash
+DISPLAY=:1 bash scripts/run_warehouse_manual.sh
+```
+
+1. 在一个终端启动脚本，等待 Gazebo、RViz、LIO-SAM 和 Nav2 初始化。
+2. 确认机器人和导航地图已显示。
+3. 在 RViz 选择 **Set Goal**，在可达且无碰撞的位置按下并拖动，设置目标位置和朝向。
+4. 机器人会规划并执行目标；可继续指定附近的目标。用户手动选择目标，机器人自主导航到每个目标；这不是全自主探索。
+5. 在启动终端按 `Ctrl+C` 停止并导出本次记录的轨迹数据。
+
+狭窄通道偶尔会让 DWB 报告 `No valid trajectories`。遇到这种情况，请选择安全、可达的中间目标再继续。
+
+### 轨迹结果
+
+每次会话在 `course_results/tracks/<timestamp>/` 创建新目录，主要输出如下：
+
+- `trajectory_ground_truth.png`：世界/真值几何地图及机器人实测轨迹。
+- `trajectory_slam.png`：历史 SLAM 地图背景；同一条真值轨迹使用已接受的 world-to-saved-map 配准变换到该地图坐标系。
+- `trajectory.csv`：从 `/sim/ground_truth/odom` 记录的位姿。
+- `result.json`：会话元数据和导出结果。
+
+SLAM 地图背景上的蓝色轨迹也来自真值位姿经过配准后的结果，不是独立测得的 SLAM 定位精度。用 Bash 打开最近一次同时包含两张地图的完整会话：
+
+```bash
+latest=""
+while IFS= read -r entry; do
+  session="${entry#* }"
+  if [[ -f "$session/trajectory_ground_truth.png" ]]; then
+    latest="$session"
+    break
+  fi
+done < <(find course_results/tracks -type f -name trajectory_slam.png -printf '%T@ %h\n' | sort -nr)
+if [[ -z "$latest" ]]; then
+  echo "未找到包含两张轨迹地图的完整会话" >&2
+  exit 1
+fi
+xdg-open "$latest/trajectory_ground_truth.png"
+xdg-open "$latest/trajectory_slam.png"
+```
+
 This repository is used as the codebase for our course project on autonomous localization and navigation of the Unitree B2-W wheeled-legged robot in confined GPS/network-denied environments.
 
 We reuse the original B2-W Gazebo simulation and low-level ONNX locomotion controller, and extend the system with three independently developed modules:

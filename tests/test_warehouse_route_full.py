@@ -36,6 +36,22 @@ def run(live, checkpoint=lambda r: None):
                           transport_factory=lambda: live, checkpoint=checkpoint)
 
 
+def test_full_route_accepts_reviewed_continuation_headings_without_motion():
+    headings = [0.4, -0.5, 0.6]
+    report = route.run_full(route.load_route(), continuation_yaws=headings)
+    assert report['dry_run'] is True
+    assert [g['yaw_rad'] for g in report['planned_goals'][2:]] == headings
+    assert [g['orientation_provenance'] for g in report['planned_goals'][2:]] == ['reviewed_arrival'] * 3
+
+
+def test_route_mode_critical_cannot_expand_to_full_route():
+    live = Transport()
+    report = route.run_selected_route(route.load_route(), mode='critical', execute=True,
+                                      transport_factory=lambda: live)
+    assert [segment['name'] for segment in report['segments']] == ['G1', 'G2']
+    assert live.closed
+
+
 def test_full_goals_frozen_order_position_heading_and_honest_provenance():
     config = route.load_route()
     original = copy.deepcopy(config)

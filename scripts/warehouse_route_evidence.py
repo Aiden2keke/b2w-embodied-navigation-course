@@ -84,6 +84,8 @@ class RouteEvidence:
         self.segments, self.errors = [], []
         self.last_clock_ns = None
         self.epoch_invalid = False
+        self.map_source = None
+        self.start_pose = None
 
     def observe_clock(self, now_ns):
         reset = self.last_clock_ns is not None and now_ns < self.last_clock_ns
@@ -111,6 +113,12 @@ class RouteEvidence:
                                 'Clock reset across run' if self.epoch_invalid else None),
                             truth_poses=[], registration_pairs=[], truth_frames=[],
                             truth_invalid_reason='Clock reset across run' if self.epoch_invalid else None)
+
+    def capture_start_pose(self, pose):
+        """Keep the fresh public localized run origin for early admission failures."""
+        if self.start_pose is None:
+            path_chunks({'header': {'frame_id': 'map'}, 'poses': [pose]})
+            self.start_pose = copy.deepcopy(pose)
 
     def sample_truth(self, odometry):
         """Evaluation-only alias sim_world→world; original WORLD XY unchanged."""
@@ -216,11 +224,29 @@ class RouteEvidence:
             self.current = None
         self.save()
 
+    def save_map(self, grid):
+        """Retain the last same-run public OccupancyGrid even if no goal was dispatched."""
+        map_geometry(grid)
+        directory = self.run / 'evidence'
+        directory.mkdir(parents=True, exist_ok=True)
+        temporary = directory / 'map.tmp.json'
+        write(temporary, grid)
+        sha = digest(temporary)
+        destination = directory / f'map-{sha}.json'
+        if destination.exists():
+            temporary.unlink()
+        else:
+            temporary.replace(destination)
+        self.map_source = dict(topic='/map', message_type='nav_msgs/msg/OccupancyGrid',
+            file=str(destination.relative_to(self.run)), sha256=sha, header=grid['header'])
+        self.save()
+
     def save(self):
         directory = self.run / 'evidence'
         directory.mkdir(parents=True, exist_ok=True)
         temporary = directory / 'index.tmp.json'
         write(temporary, dict(route_id=self.route['route_id'], run_id=self.run.name,
                              route_content_sha256=route_content_sha256(self.route),
-                             segments=self.segments, errors=self.errors))
+                             segments=self.segments, errors=self.errors,
+                             map_source=self.map_source, start_pose=self.start_pose))
         temporary.replace(directory / 'index.json')

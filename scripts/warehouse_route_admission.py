@@ -159,6 +159,20 @@ def initial_prefix(packet, pose, goal, clock, length=.5):
     return prefix
 
 
+def validated_full_path(packet, pose, goal, clock, max_age_s=.5):
+    """Validate the complete fresh planner path for one admitted route leg."""
+    points=packet['poses']
+    if (packet['status']!=4 or packet['frame']!='map' or
+            not 0<=clock-packet['stamp']<=max_age_s or len(points)<2 or
+            any(len(p)!=3 or not all(math.isfinite(v) for v in p) for p in points) or
+            len(pose)!=3 or not all(math.isfinite(v) for v in pose) or
+            len(goal)!=2 or not all(math.isfinite(v) for v in goal) or
+            math.dist(points[0][:2],pose[:2])>.05 or
+            math.dist(points[-1][:2],goal)>.05):
+        raise ValueError('Full-leg plan is missing, stale, mismatched or outside map frame')
+    return [tuple(point) for point in points]
+
+
 def _rectangle_conflict(grid,pose,front,rear,side):
     """SAT overlap of a rotated body rectangle and complete axis-aligned cells."""
     r=grid['resolution'];ox,oy=grid['origin'];w,h=grid['width'],grid['height']
@@ -259,6 +273,23 @@ def load_envelope(file,expected_sha,urdf_sha,profile_sha,command_caps,deployment
         p=Path(row['path']);p=p if p.is_absolute() else file.parent/p
         if hashlib.sha256(p.read_bytes()).hexdigest()!=row['sha256']:raise ValueError('Raw qualification evidence changed')
     return e
+
+
+def require_bound_execution_path(execution_mode):
+    """Fail closed while NavigateToPose can replan beyond the admitted path.
+
+    The warehouse route currently publishes ``/goal_pose`` after checking a
+    separate ``ComputePathToPose`` response. Nav2's goal manager then creates a
+    new NavigateToPose action, so the checked path is not the executed path.
+    Route motion must remain disabled until the route transport sends that
+    exact checked path (or provides an equivalent continuous clearance veto).
+    """
+    if execution_mode not in ('critical', 'full'):
+        raise ValueError('Unknown warehouse route execution mode')
+    raise RuntimeError(
+        'Warehouse route motion blocked: admitted planner path is not bound to '
+        'the path executed by Nav2; use an exact-path FollowPath transport or '
+        'a reviewed continuous clearance veto before enabling motion')
 
 
 def arrival_yaw(packet,goal,grid,half_extents,padding,clock):

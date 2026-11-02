@@ -17,6 +17,42 @@ import warehouse_truth_floorplan as floor
 SESSION = ROOT / 'course_results/tracks/20261102T031146Z'
 
 
+def test_measured_motion_uses_real_displacement_and_ignores_small_stationary_drift():
+    stationary = [dict(x=0.0, y=0.0), dict(x=0.03, y=0.01), dict(x=-0.02, y=0.01)]
+    traveled = [dict(x=0.0, y=0.0), dict(x=0.08, y=0.0), dict(x=0.16, y=0.0)]
+
+    assert not logger.has_measured_motion(stationary)
+    assert logger.has_measured_motion(traveled)
+
+
+def test_logger_requires_goal_then_measured_ground_truth_displacement():
+    capture = logger.ManualLogger.__new__(logger.ManualLogger)
+    capture.truth_rows = []
+    capture.goal_truth_rows = []
+    capture.goal_start_xy = None
+    capture.goal_pending = False
+    capture.motion_enabled = False
+    capture.node = SimpleNamespace(get_clock=lambda: SimpleNamespace(
+        now=lambda: SimpleNamespace(nanoseconds=1_000_000_000)))
+
+    def odometry(t, x):
+        q = SimpleNamespace(x=0.0, y=0.0, z=0.0, w=1.0)
+        p = SimpleNamespace(x=x, y=0.0, z=0.6)
+        sec = int(t)
+        return SimpleNamespace(header=SimpleNamespace(
+            stamp=SimpleNamespace(sec=sec, nanosec=round((t-sec)*1e9)),
+            frame_id='sim_world'), child_frame_id='base_link',
+            pose=SimpleNamespace(pose=SimpleNamespace(position=p, orientation=q)))
+
+    capture.on_truth(odometry(0.6, 0.20))  # Startup balance movement alone is not navigation.
+    assert not capture.motion_enabled
+    capture.on_goal(SimpleNamespace())
+    capture.on_truth(odometry(0.7, 0.25))
+    assert not capture.motion_enabled
+    capture.on_truth(odometry(0.8, 0.36))
+    assert capture.motion_enabled
+
+
 @pytest.mark.skipif(not SESSION.is_dir(), reason='recorded 20261102T031146Z session is not present')
 def test_recorded_session_exports_both_registered_maps_without_rewriting_source(tmp_path):
     source_csv = SESSION / 'trajectory.csv'

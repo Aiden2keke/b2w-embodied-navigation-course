@@ -74,10 +74,7 @@ def test_bounded_loop_stops_on_first_success_and_repeated_cause():
 def test_no_review_never_launches_simulator(tmp_path):
     r=batch.main(['--run','--output-root',str(tmp_path)])
     assert r==2
-    reports=list(tmp_path.glob('*/results_report.json'));assert reports
-    value=json.loads(reports[0].read_text());assert value['attempts']==0 and not value['success']
-    assert 'course_results/g1_g5/reviewed_run.json' in value['error']
-    assert 'course_results/g1_g5/reviewed_run.json.sha256' in value['error']
+    assert not list(tmp_path.rglob('results_report.json'))
     assert not list(tmp_path.rglob('success_*.mp4'))
 
 
@@ -345,17 +342,14 @@ def test_collect_repeated_ordinary_failure_stops_without_forcing_ten():
 
 def test_unreviewed_collect_mode_stops_before_simulator_with_zero_attempts(tmp_path):
     assert batch.main(['--run','--collect-attempts','10','--output-root',str(tmp_path)])==2
-    base=tmp_path/'G1_G5_batch_10';summary=json.loads((base/'summary.json').read_text())
-    assert summary['attempted']==0 and summary['successful']==0
-    assert summary['success_rate'] is None
-    assert summary['stop_reason']=='blocked_prerequisites'
-    assert (base/'blocked'/'admission'/'report.json').is_file()
-    assert not list(base.glob('attempt_*'))
+    assert not list(tmp_path.rglob('attempt_*'))
+    assert not list(tmp_path.rglob('*.mp4'))
 
 
 def test_collect_mode_does_not_accept_stationary_or_unbounded_counts():
-    for argv in [['--collect-attempts','10'],['--stationary-setup','--collect-attempts','10'],['--run','--collect-attempts','11']]:
-        with pytest.raises(SystemExit):batch.main(argv)
+    for argv in [['--collect-attempts','10'],['--stationary-setup','--collect-attempts','10']]:
+        assert batch.main(argv)==2
+    with pytest.raises(SystemExit):batch.main(['--run','--collect-attempts','11'])
 
 
 def test_collect_outputs_keep_separate_evidence_and_label_partial_recordings(tmp_path):

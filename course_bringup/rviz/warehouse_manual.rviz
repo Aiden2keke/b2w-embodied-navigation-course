@@ -59,6 +59,8 @@ Visualization Manager:
   Tools:
     - Class: rviz_default_plugins/Interact
     - Class: rviz_default_plugins/MoveCamera
+    - Class: rviz_default_plugins/SetGoal
+      Topic: /goal_pose
   Views:
     Current:
       Class: rviz_default_plugins/TopDownOrtho

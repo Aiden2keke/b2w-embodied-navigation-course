@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
-"""One-command existing-owner Warehouse batch. Fails closed before unqualified motion."""
+"""Retired automatic video workflow; use run_warehouse_navigation.py for manual recording."""
 import argparse,csv,fcntl,json,math,os,re,shlex,signal,subprocess,sys,time,uuid
 import select
 from datetime import datetime,timezone
 from pathlib import Path
 import g1_g5_media as media
 ROOT=Path(__file__).resolve().parents[1]
-DEFAULT_OUTPUT=ROOT/'course_results/g1_g5'
+DEFAULT_OUTPUT=ROOT/'course_results/tracks'
 MANUAL_VIEWS=ROOT/'artifacts/video/manual_views'
 
 
@@ -19,11 +19,11 @@ def bounded_int(high):
 
 def parser():
     p=argparse.ArgumentParser(description=__doc__);m=p.add_mutually_exclusive_group()
-    m.add_argument('--stationary-setup',action='store_true',help='Canonical zero-only setup; adjust RViz and Save Config As the manual view file')
-    m.add_argument('--record-only',action='store_true',help='Zero-only dual-view restore/MP4 check; no route or qualification pulses')
-    m.add_argument('--prepare-only',action='store_true',help='One zero-only owned GUI/camera/recording smoke; no navigation')
-    m.add_argument('--dry-run',action='store_true',help='Offline requirements/command review; no ROS or GUI launch')
-    m.add_argument('--run',action='store_true',help='Run only with existing independently reviewed route/controller evidence')
+    m.add_argument('--stationary-setup',action='store_true',help='Retired')
+    m.add_argument('--record-only',action='store_true',help='Retired')
+    m.add_argument('--prepare-only',action='store_true',help='Retired')
+    m.add_argument('--dry-run',action='store_true',help='Offline requirements review; no ROS or GUI launch')
+    m.add_argument('--run',action='store_true',help='Retired; use scripts/run_warehouse_navigation.py --run')
     p.add_argument('--stationary-seconds',type=bounded_int(90),default=60,help='Stationary setup viewing time,1..90wall seconds; original owner watchdog remains150s')
     p.add_argument('--max-attempts',type=bounded_int(12),default=12);p.add_argument('--max-total-minutes',type=bounded_int(120),default=120)
     p.add_argument('--collect-attempts',type=bounded_int(10),help='Collect at most ten independent results; requires --run')
@@ -227,11 +227,13 @@ def read_review(path):
     expected=side.read_text().split()[0]
     if media.digest(path)!=expected:raise RuntimeError('Reviewed run configuration SHA256 changed')
     cfg=json.loads(path.read_text())
-    for key in ['deployment_manifest','route_envelope','control_review','recording_review']:
+    for key in ['deployment_manifest','route_envelope','control_review']:
         if key not in cfg:raise RuntimeError('Missing independently reviewed '+key)
         item=cfg[key];p=Path(item['path'])
         if media.digest(p)!=item['sha256']:raise RuntimeError(key+' pin mismatch')
-    files=['scripts/run_g1_g5_record.py','scripts/g1_g5_media.py','scripts/g1_g5_presentation.py','scripts/record_warehouse_video.py','scripts/warehouse_ab_trial.py','scripts/run_warehouse_route.py','scripts/warehouse_route_admission.py']
+    files=['scripts/run_warehouse_navigation.py','scripts/warehouse_track_artifacts.py',
+           'scripts/run_g1_g5_record.py',
+           'scripts/warehouse_ab_trial.py','scripts/run_warehouse_route.py','scripts/warehouse_route_admission.py']
     if set(cfg.get('source_pins',{}))!=set(files) or any(media.digest(ROOT/p)!=cfg['source_pins'][p] for p in files):raise RuntimeError('Independently reviewed automation source pins changed/incomplete')
     control=json.loads(Path(cfg['control_review']['path']).read_text())
     required=['retained_heading','bidirectional_turning','small_command_tracking','profile_B_directional_stopping','balance_and_stop','independent_review']
@@ -245,10 +247,6 @@ def read_review(path):
     if len(y)!=3 or not all(type(v) in (int,float) and math.isfinite(v) for v in y):raise RuntimeError('G3-G5 reviewed arrival headings absent')
     from warehouse_route_admission import load_envelope
     cfg['envelope']=load_envelope(cfg['route_envelope']['path'],cfg['route_envelope']['sha256'],media.digest(ROOT/'artifacts/recovery/robot.urdf'),media.digest(ROOT/'course_navigation/config/nav2_smac2d_dwb_slow_diag.yaml'),[.2,.6],cfg['deployment_manifest']['sha256'])
-    camera=cfg.get('camera_review',{})
-    pins={str(MANUAL_VIEWS/name):media.digest(MANUAL_VIEWS/name) for name in ['gazebo_gui.config','gazebo_camera_pose_final.txt']}
-    if camera.get('route_visibility_accepted') is not True or camera.get('saved_inputs')!=pins or camera.get('rviz_sha256')!=media.digest(MANUAL_VIEWS/'g1_g5.rviz'):raise RuntimeError('Saved-view route visibility review absent/stale')
-    validate_recording_review(cfg['recording_review'],pins,camera['rviz_sha256'])
     cfg['_review_path']=str(path);cfg['_review_sha256']=expected
     return cfg
 
@@ -790,6 +788,9 @@ def perform_attempt(index,base,cfg,deadline,prepare=False,setup_seconds=0,record
 
 def main(argv=None):
     p=parser();args=p.parse_args(argv)
+    if args.run or args.stationary_setup or args.record_only or args.prepare_only or args.collect_attempts:
+        print('The automatic video workflow is retired. Run scripts/run_warehouse_navigation.py --run; screen recording is manual.', file=sys.stderr)
+        return 2
     if args.collect_attempts and not args.run:p.error('--collect-attempts requires --run')
     args.output_root.mkdir(parents=True,exist_ok=True)
     collect=bool(args.collect_attempts)
@@ -803,7 +804,7 @@ def main(argv=None):
         cfg=read_review(args.review_config) if args.run else None
         if not args.run and not prepare:
             from run_warehouse_route import load_route
-            report.update(stop_reason='dry_run_no_launch',canonical_route=load_route(),ffmpeg=media.ffmpeg(),route_blocker='No accepted retained-heading/Profile-B route review/envelope currently available',requirements=['reviewed_run.json + externally reviewed SHA256 sidecar','accepted empirical controller review and deployment-matching envelope','G3-G5 arrival headings','independent source review before motion','fresh GPU/domain/map/TF/contact/collision/watchdog/cleanup','owned X11/XWayland windows and verified dual recording'])
+            report.update(stop_reason='dry_run_no_launch',canonical_route=load_route(),route_blocker='No accepted retained-heading/Profile-B route review/envelope currently available',requirements=['reviewed_run.json + externally reviewed SHA256 sidecar','accepted empirical controller review and deployment-matching envelope','G3-G5 arrival headings','independent source review before motion','fresh GPU/domain/map/TF/contact/collision/watchdog/cleanup'])
         else:
             lock=ROOT/'course_results'/f'.b2w-g1-g5-batch-{os.getuid()}.lock'
             with lock.open('a+') as lease:
