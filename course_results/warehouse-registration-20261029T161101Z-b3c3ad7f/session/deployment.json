@@ -1,0 +1,28 @@
+{
+  "kind": "stage4_session_deployment",
+  "version": 1,
+  "session_id": "676c344e3a5d4c668c883d68aebeba49",
+  "guard_manifest": "/home/zyd/program/b2w-embodied-navigation-course/course_results/warehouse-registration-20261029T161101Z-b3c3ad7f/session/guard.json",
+  "guard_manifest_sha256": "669e8d49966fbedcf70de9d34b2ba0018ab7757a1e4086fa456c2100000f66ad",
+  "adapter": {
+    "pgid": 3248252,
+    "pid": 3248325,
+    "start_ticks": "64279669",
+    "uid": 1000
+  },
+  "controller": {
+    "prefix": "/home/zyd/program/b2w-embodied-navigation-course/.deps/nav2-controller-1.1.20/install/nav2_controller",
+    "executable": "/home/zyd/program/b2w-embodied-navigation-course/.deps/nav2-controller-1.1.20/install/nav2_controller/lib/nav2_controller/controller_server",
+    "library": "/home/zyd/program/b2w-embodied-navigation-course/.deps/nav2-controller-1.1.20/install/nav2_controller/lib/libcontroller_server_core.so",
+    "process": {
+      "pid": 3248302,
+      "start_ticks": "64279668",
+      "pgid": 3248252,
+      "uid": 1000
+    },
+    "owner_token": "c1c0c7ab242c4f68b4161f6d304decba",
+    "exe_sha256": "40653e793f7707537e41940fd280d2abf6054a61ffcbb4a085e07ba591d137ee",
+    "library_sha256": "388ba725baa46fc07699de44c1945e7056a9c0a04dc0a8fdad55055798ad4ad6",
+    "description": "Reviewed endpoint-transform guard; process mapped library required in Stage 4, underlay is rejected"
+  }
+}

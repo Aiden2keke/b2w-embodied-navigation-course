@@ -1,0 +1,192 @@
+[INFO] [1793290262.021275703] [controller_server]: 
+	controller_server lifecycle node launched. 
+	Waiting on external lifecycle transitions to activate
+	See https://design.ros2.org/articles/node_lifecycle.html for more information.
+[INFO] [1793290262.024708181] [controller_server]: Creating controller server
+[INFO] [1793290262.050312631] [local_costmap.local_costmap]: 
+	local_costmap lifecycle node launched. 
+	Waiting on external lifecycle transitions to activate
+	See https://design.ros2.org/articles/node_lifecycle.html for more information.
+[INFO] [1793290262.050921343] [local_costmap.local_costmap]: Creating Costmap
+[INFO] [1793290262.235140754] [controller_server]: Configuring controller interface
+[INFO] [1793290262.241652900] [controller_server]: getting goal checker plugins..
+[INFO] [1793290262.242066607] [controller_server]: Controller frequency set to 20.0000Hz
+[INFO] [1793290262.242148155] [local_costmap.local_costmap]: Configuring
+[INFO] [1793290262.252045852] [local_costmap.local_costmap]: Using plugin "static_layer"
+[INFO] [1793290262.256225553] [local_costmap.local_costmap]: Subscribing to the map topic (/map) with transient local durability
+[INFO] [1793290262.258803159] [local_costmap.local_costmap]: Initialized plugin "static_layer"
+[INFO] [1793290262.258868112] [local_costmap.local_costmap]: Using plugin "obstacle_layer"
+[INFO] [1793290262.259547482] [local_costmap.local_costmap]: Subscribed to Topics: lidar
+[INFO] [1793290262.264968973] [local_costmap.local_costmap]: Initialized plugin "obstacle_layer"
+[INFO] [1793290262.265021582] [local_costmap.local_costmap]: Using plugin "inflation_layer"
+[INFO] [1793290262.265799020] [local_costmap.local_costmap]: Initialized plugin "inflation_layer"
+[INFO] [1793290262.279169016] [controller_server]: Created progress_checker : progress_checker of type nav2_controller::SimpleProgressChecker
+[INFO] [1793290262.280388380] [controller_server]: Created goal checker : general_goal_checker of type nav2_controller::SimpleGoalChecker
+[INFO] [1793290262.280688674] [controller_server]: Controller Server has general_goal_checker  goal checkers available.
+[INFO] [1793290262.283921988] [controller_server]: Created controller : FollowPath of type dwb_core::DWBLocalPlanner
+[INFO] [1793290262.284885432] [controller_server]: Setting transform_tolerance to 0.200000
+[INFO] [1793290262.300823997] [controller_server]: Using critic "RotateToGoal" (dwb_critics::RotateToGoalCritic)
+[INFO] [1793290262.301133220] [controller_server]: Critic plugin initialized
+[INFO] [1793290262.301209394] [controller_server]: Using critic "Oscillation" (dwb_critics::OscillationCritic)
+[INFO] [1793290262.301406497] [controller_server]: Critic plugin initialized
+[INFO] [1793290262.301509165] [controller_server]: Using critic "BaseObstacle" (dwb_critics::BaseObstacleCritic)
+[INFO] [1793290262.301596187] [controller_server]: Critic plugin initialized
+[INFO] [1793290262.301637180] [controller_server]: Using critic "GoalAlign" (dwb_critics::GoalAlignCritic)
+[INFO] [1793290262.301804540] [controller_server]: Critic plugin initialized
+[INFO] [1793290262.301851936] [controller_server]: Using critic "PathAlign" (dwb_critics::PathAlignCritic)
+[INFO] [1793290262.301997749] [controller_server]: Critic plugin initialized
+[INFO] [1793290262.302048329] [controller_server]: Using critic "PathDist" (dwb_critics::PathDistCritic)
+[INFO] [1793290262.302172929] [controller_server]: Critic plugin initialized
+[INFO] [1793290262.302218924] [controller_server]: Using critic "GoalDist" (dwb_critics::GoalDistCritic)
+[INFO] [1793290262.302356323] [controller_server]: Critic plugin initialized
+[INFO] [1793290262.302392687] [controller_server]: Controller Server has FollowPath  controllers available.
+[INFO] [1793290262.492912437] [controller_server]: Activating
+[INFO] [1793290262.492962410] [local_costmap.local_costmap]: Activating
+[INFO] [1793290262.492980047] [local_costmap.local_costmap]: Checking transform
+[INFO] [1793290262.493010915] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[INFO] [1793290262.993173602] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[INFO] [1793290263.493115220] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[INFO] [1793290263.993083456] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[INFO] [1793290264.493109237] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[INFO] [1793290264.993094534] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[INFO] [1793290265.493099013] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[INFO] [1793290265.993077345] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[INFO] [1793290266.493079420] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[INFO] [1793290266.993062783] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[INFO] [1793290267.493078531] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[INFO] [1793290267.993068408] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[INFO] [1793290268.493061942] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[INFO] [1793290268.993070720] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[INFO] [1793290269.493074206] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[INFO] [1793290269.993067997] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[INFO] [1793290270.493080822] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[INFO] [1793290270.993062490] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[INFO] [1793290271.493062279] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[INFO] [1793290271.993067845] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[INFO] [1793290272.494325824] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[INFO] [1793290272.993060932] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[INFO] [1793290273.493043857] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[INFO] [1793290273.993081598] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[INFO] [1793290274.493059517] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[INFO] [1793290274.993134256] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[INFO] [1793290275.493073000] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[INFO] [1793290275.993059102] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[INFO] [1793290276.493100714] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[INFO] [1793290276.993071082] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[INFO] [1793290277.493087358] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[INFO] [1793290277.993102372] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[INFO] [1793290278.493068136] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[INFO] [1793290278.993106049] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[INFO] [1793290279.493090914] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[INFO] [1793290279.993074454] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[INFO] [1793290280.493085198] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[INFO] [1793290280.993061805] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[INFO] [1793290281.493110124] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[INFO] [1793290281.993068375] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[INFO] [1793290282.493068572] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[INFO] [1793290282.993109739] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[INFO] [1793290283.493364619] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[INFO] [1793290283.993063116] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[INFO] [1793290284.493079000] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[INFO] [1793290284.993129555] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[INFO] [1793290285.493068249] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[INFO] [1793290285.993349142] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[INFO] [1793290286.493078687] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[INFO] [1793290286.993118185] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[INFO] [1793290287.493207519] [local_costmap.local_costmap]: start
+[INFO] [1793290287.695613610] [controller_server]: Creating bond (controller_server) to lifecycle manager.
+[INFO] [1793290287.951058667] [local_costmap.local_costmap]: StaticLayer: Resizing static layer to 800 X 800 at 0.050000 m/pix
+[WARN] [1793290301.352192391] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793290301.401718248] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793290301.577870236] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793290301.624987932] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793290301.672125615] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793290301.720967601] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793290301.770743031] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793290301.807337215] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793290301.853528561] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793290301.893564784] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793290301.927374506] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793290301.966794001] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793290302.010664328] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793290302.043978184] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793290302.079704411] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793290302.127778864] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793290302.165096451] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793290302.204097713] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793290302.229186817] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793290302.261994231] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793290302.296618426] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793290302.329516143] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793290302.364213109] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793290302.402288983] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793290302.467133300] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793290302.650974455] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793290302.701528427] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793290302.762647055] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793290302.815560477] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793290302.856325216] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793290302.891137067] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793290302.935560920] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793290303.081978636] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793290303.134557621] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793290303.180428799] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793290303.216676066] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793290303.259288444] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793290303.300971774] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793290303.333705399] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793290303.372809716] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793290303.401274954] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793290303.437497430] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793290303.477071695] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793290303.506847533] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793290303.538343102] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793290303.578597694] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793290303.731439313] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793290303.777156653] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793290303.821049749] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793290303.855338199] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793290303.912793166] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793290303.952711146] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793290303.993063773] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793290304.031389600] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793290304.117169665] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793290304.152179327] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793290304.188963205] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793290304.315809056] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793290304.360748107] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793290304.394283415] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793290304.449293651] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793290304.488060868] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793290304.535872702] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793290304.575040784] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793290304.603296049] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793290304.797578819] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793290304.853786374] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793290304.907801966] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793290305.105426743] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793290305.202019604] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793290305.248540933] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793290305.298696045] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793290305.342142824] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793290305.404570285] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793290305.457204445] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793290305.516663175] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793290305.568973144] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793290305.617847108] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793290305.656190038] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793290305.689937434] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793290305.734278599] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793290305.770120491] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793290305.894284825] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793290306.086440903] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793290306.139516686] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[WARN] [1793290306.187110448] [rclcpp]: Failed to get parameters: FollowPath.stateful
+[INFO] [1793290309.985278679] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[INFO] [1793290309.985482445] [controller_server]: Running Nav2 LifecycleNode rcl preshutdown (controller_server)
+[INFO] [1793290309.985636234] [controller_server]: Deactivating
+[INFO] [1793290309.985738306] [local_costmap.local_costmap]: Deactivating
+[INFO] [1793290310.095459410] [controller_server]: Destroying bond (controller_server) to lifecycle manager.
+[INFO] [1793290310.106624476] [controller_server]: Cleaning up
+[INFO] [1793290310.111724118] [local_costmap.local_costmap]: Cleaning up
+[INFO] [1793290310.136802273] [controller_server]: Destroying bond (controller_server) to lifecycle manager.

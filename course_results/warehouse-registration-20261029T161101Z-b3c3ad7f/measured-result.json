@@ -1,0 +1,15 @@
+{
+  "command_samples": 58,
+  "nonzero_command_samples": 0,
+  "truth_samples": 267,
+  "truth_stamp_interval_s": [
+    29.33,
+    32.3
+  ],
+  "max_translation_from_first_recorded_truth_m": 0.00014882350833596194,
+  "max_yaw_from_first_recorded_truth_rad": 1.400496043996169e-07,
+  "max_recorded_planar_speed_m_s": 8.999045537780802e-05,
+  "max_recorded_yaw_speed_rad_s": 6.166898636195128e-07,
+  "whole_session_rest_qualified": false,
+  "zero_only_probe_passed": false
+}

@@ -1,0 +1,57 @@
+{
+  "kind": "stage4_zero_motion_readiness",
+  "zero_motion_smoke_pass": false,
+  "cleanup_passed": false,
+  "error": "ValueError('evidence_queue_limit') cleanup: RCLError('failed to shutdown: rcl_shutdown already called on the given context, at ./src/rcl/init.c:241')",
+  "first_sample": null,
+  "accepted_end_sim": null,
+  "contact_closure": null,
+  "wall_duration_s": 22.165478121954948,
+  "runtime": {
+    "child_processes": [],
+    "action_outcomes": [],
+    "cleanup": {
+      "passed": false,
+      "stationary_confirmed": false,
+      "error": "ExternalShutdownException()",
+      "recording_complete": false
+    },
+    "collision_coverage": "plate_only_full_body_unknown",
+    "effective_parameters": {
+      "/planner_server": {
+        "expected_planner_frequency": 20.0,
+        "use_sim_time": true,
+        "planner_plugins": [
+          "GridBased"
+        ],
+        "GridBased.plugin": "nav2_smac_planner/SmacPlanner2D",
+        "GridBased.tolerance": 0.3,
+        "GridBased.allow_unknown": false
+      }
+    },
+    "structural_map_cadence": {
+      "startup_wall_periods_s": [
+        5.091919678961858
+      ],
+      "wall_budget_s": null,
+      "source_budget_s": 7.5
+    },
+    "raw_journal": {
+      "complete": false,
+      "failure": "evidence_queue_limit",
+      "accepted": 3745,
+      "written": 2327,
+      "path": "/home/zyd/program/b2w-embodied-navigation-course/course_results/warehouse-registration-20261029T161101Z-b3c3ad7f/session/probe/raw-60540db3cf1c4afe93f03425212ebe74.sqlite3",
+      "bytes": 47349760
+    },
+    "raw_sha256": null,
+    "raw_bytes": 47349760,
+    "raw_file": "/home/zyd/program/b2w-embodied-navigation-course/course_results/warehouse-registration-20261029T161101Z-b3c3ad7f/session/probe/raw-60540db3cf1c4afe93f03425212ebe74.sqlite3"
+  },
+  "motion_authorized": false,
+  "safety_complete": false,
+  "full_route_pass": false,
+  "segment_pass": false,
+  "limitation": "Passive operational evidence only; physical bounds/coverage/stop chain and independent review remain required",
+  "journal_sha256": "6ea58ff28860466c02a4bccd64d59a3b92e60dbaf8646b5cbb16f77c23c1918a"
+}

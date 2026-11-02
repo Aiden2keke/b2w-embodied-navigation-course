@@ -1,0 +1,3 @@
+[INFO] [1793290262.004765022] [ros_gz_sim]: Waiting messages on topic [/b2w/robot_description].
+[INFO] [1793290262.403777605] [ros_gz_sim]: Requested creation of entity.
+[INFO] [1793290262.403859061] [ros_gz_sim]: OK creation of entity.

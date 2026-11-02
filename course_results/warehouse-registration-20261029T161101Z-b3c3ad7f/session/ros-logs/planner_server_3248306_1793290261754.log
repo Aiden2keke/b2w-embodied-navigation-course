@@ -1,0 +1,43 @@
+[INFO] [1793290261.956541366] [planner_server]: 
+	planner_server lifecycle node launched. 
+	Waiting on external lifecycle transitions to activate
+	See https://design.ros2.org/articles/node_lifecycle.html for more information.
+[INFO] [1793290261.958820126] [planner_server]: Creating
+[INFO] [1793290262.043680629] [global_costmap.global_costmap]: 
+	global_costmap lifecycle node launched. 
+	Waiting on external lifecycle transitions to activate
+	See https://design.ros2.org/articles/node_lifecycle.html for more information.
+[INFO] [1793290262.044307553] [global_costmap.global_costmap]: Creating Costmap
+[INFO] [1793290262.344453205] [planner_server]: Configuring
+[INFO] [1793290262.344562705] [global_costmap.global_costmap]: Configuring
+[INFO] [1793290262.352041875] [global_costmap.global_costmap]: Using plugin "static_layer"
+[INFO] [1793290262.357463020] [global_costmap.global_costmap]: Subscribing to the map topic (/map) with transient local durability
+[INFO] [1793290262.359304164] [global_costmap.global_costmap]: Initialized plugin "static_layer"
+[INFO] [1793290262.359347169] [global_costmap.global_costmap]: Using plugin "obstacle_layer"
+[INFO] [1793290262.359655394] [global_costmap.global_costmap]: Subscribed to Topics: lidar
+[INFO] [1793290262.363084151] [global_costmap.global_costmap]: Initialized plugin "obstacle_layer"
+[INFO] [1793290262.363136914] [global_costmap.global_costmap]: Using plugin "inflation_layer"
+[INFO] [1793290262.363792482] [global_costmap.global_costmap]: Initialized plugin "inflation_layer"
+[INFO] [1793290262.381689467] [planner_server]: Created global planner plugin GridBased of type nav2_smac_planner/SmacPlanner2D
+[INFO] [1793290262.381754012] [planner_server]: Configuring GridBased of type SmacPlanner2D
+[INFO] [1793290262.384040424] [planner_server]: Configured plugin GridBased of type SmacPlanner2D with tolerance 0.30, maximum iterations 1000000, max on approach iterations 1000, and not allowing unknown traversal.
+[INFO] [1793290262.384125409] [planner_server]: Planner Server has GridBased  planners available.
+[INFO] [1793290287.919132015] [planner_server]: Activating
+[INFO] [1793290287.919375102] [global_costmap.global_costmap]: Activating
+[INFO] [1793290287.919432556] [global_costmap.global_costmap]: Checking transform
+[INFO] [1793290287.919838978] [global_costmap.global_costmap]: start
+[INFO] [1793290287.951229532] [global_costmap.global_costmap]: StaticLayer: Resizing costmap to 800 X 800 at 0.050000 m/pix
+[INFO] [1793290288.973249903] [planner_server]: Activating plugin GridBased of type SmacPlanner2D
+[INFO] [1793290288.975825040] [planner_server]: Creating bond (planner_server) to lifecycle manager.
+[WARN] [1793290298.418067377] [planner_server.rclcpp]: failed to send response to /planner_server/get_parameters (timeout): client will not receive response, at ./src/rmw_response.cpp:154, at ./src/rcl/service.c:314
+[INFO] [1793290309.974384279] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[INFO] [1793290309.974618094] [planner_server]: Running Nav2 LifecycleNode rcl preshutdown (planner_server)
+[INFO] [1793290309.974760284] [planner_server]: Deactivating
+[INFO] [1793290309.974818334] [global_costmap.global_costmap]: Deactivating
+[INFO] [1793290310.920369458] [planner_server]: Deactivating plugin GridBased of type SmacPlanner2D
+[INFO] [1793290310.920563605] [planner_server]: Destroying bond (planner_server) to lifecycle manager.
+[INFO] [1793290310.930821058] [planner_server]: Cleaning up
+[INFO] [1793290310.936751956] [global_costmap.global_costmap]: Cleaning up
+[INFO] [1793290310.941942868] [planner_server]: Cleaning up plugin GridBased of type SmacPlanner2D
+[INFO] [1793290310.942225418] [planner_server]: Destroying plugin GridBased of type SmacPlanner2D
+[INFO] [1793290310.950360526] [planner_server]: Destroying bond (planner_server) to lifecycle manager.
