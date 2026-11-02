@@ -1,0 +1,195 @@
+{
+  "kind": "warehouse_saved_map_registration",
+  "version": 1,
+  "transform": {
+    "source_frame": "world",
+    "target_frame": "saved_slam_map",
+    "x_m": -0.30585564746006044,
+    "y_m": 0.053931095729784495,
+    "yaw_rad": 0.060792739830594654
+  },
+  "fitted_scale": 1.0140445549703587,
+  "fit_pair_count": 4,
+  "holdout_pair_count": 1,
+  "fit_rmse_m": 0.09713610119352874,
+  "fit_max_error_m": 0.13320622774688756,
+  "holdout_error_m": 0.04952388105343857,
+  "residuals_m": [
+    0.05806799792844705,
+    0.11325951363447655,
+    0.13320622774688756,
+    0.061629373659204324,
+    0.04952388105343857
+  ],
+  "source_landmarks_world": [
+    [
+      -4.758957130568148,
+      8.057512961049566
+    ],
+    [
+      -0.6974941037990003,
+      6.1446054603869635
+    ],
+    [
+      -1.224236748908992,
+      -5.91502878292075
+    ],
+    [
+      2.7540563865269982,
+      -1.6456410278187086
+    ],
+    [
+      6.66304127918536,
+      -9.10320795069175
+    ]
+  ],
+  "target_landmarks_saved_map": [
+    [
+      -5.588110698288119,
+      7.846939129830901
+    ],
+    [
+      -1.3712976145004845,
+      6.257995069273239
+    ],
+    [
+      -1.1879579152053772,
+      -6.056321400048613
+    ],
+    [
+      2.6010625368936537,
+      -1.442272301121566
+    ],
+    [
+      6.940102086878028,
+      -8.653633806729395
+    ]
+  ],
+  "accepted": true,
+  "image_hashes": {
+    "world_geometry": "91ac49f0d4b5816a4efd02e055ad26af88c43d2ee11c6db9f57305628ee36d72",
+    "world_metadata": "0704affb4fc029baad259cd65111ad748cca9d381fbd6ed33cfb5edc88b76e7e",
+    "saved_pgm": "e90f2dd81c89d41828ddb9f60732bdcae5cc7526dcf4a8919638a335d4a585f3",
+    "saved_yaml": "8932cb8452f65c202b37e497df0b5fa57d83f038d0b21a6df2ae069bf34ebf55"
+  },
+  "coordinate_conventions": {
+    "world_frame": "world",
+    "world_pixel_contract": "top-left pixel center: x=xmin+(column+.5)*resolution; y=ymax-(row+.5)*resolution",
+    "saved_frame": "saved_slam_map",
+    "saved_resolution_m_per_pixel": 0.05,
+    "saved_origin": [
+      -20,
+      -20,
+      0
+    ],
+    "saved_image_row0": "highest map y; image origin upper"
+  },
+  "validation": {
+    "method": "visual paired landmarks; final pair excluded from SE2 fit",
+    "fit_threshold_m": 0.15,
+    "holdout_threshold_m": 0.15,
+    "min_fit_span_m": 2.0
+  },
+  "landmarks": [
+    {
+      "index": 1,
+      "world_pixel": [
+        111.06389297159262,
+        119.9577259475218
+      ],
+      "saved_map_pixel": [
+        287.7377860342376,
+        242.561217403382
+      ],
+      "world_xy": [
+        -4.758957130568148,
+        8.057512961049566
+      ],
+      "saved_map_xy": [
+        -5.588110698288119,
+        7.846939129830901
+      ],
+      "residual_m": 0.05806799792844705
+    },
+    {
+      "index": 2,
+      "world_pixel": [
+        314.13704431005,
+        215.6031009806519
+      ],
+      "saved_map_pixel": [
+        372.0740477099903,
+        274.34009861453524
+      ],
+      "world_xy": [
+        -0.6974941037990003,
+        6.1446054603869635
+      ],
+      "saved_map_xy": [
+        -1.3712976145004845,
+        6.257995069273239
+      ],
+      "residual_m": 0.11325951363447655
+    },
+    {
+      "index": 3,
+      "world_pixel": [
+        287.7999120545504,
+        818.5848131460375
+      ],
+      "saved_map_pixel": [
+        375.7408416958924,
+        520.6264280009723
+      ],
+      "world_xy": [
+        -1.224236748908992,
+        -5.91502878292075
+      ],
+      "saved_map_xy": [
+        -1.1879579152053772,
+        -6.056321400048613
+      ],
+      "residual_m": 0.13320622774688756
+    },
+    {
+      "index": 4,
+      "world_pixel": [
+        486.71456882634993,
+        605.1154253909355
+      ],
+      "saved_map_pixel": [
+        451.52125073787306,
+        428.34544602243136
+      ],
+      "world_xy": [
+        2.7540563865269982,
+        -1.6456410278187086
+      ],
+      "saved_map_xy": [
+        2.6010625368936537,
+        -1.442272301121566
+      ],
+      "residual_m": 0.061629373659204324
+    },
+    {
+      "index": 5,
+      "world_pixel": [
+        682.163813459268,
+        977.9937715345876
+      ],
+      "saved_map_pixel": [
+        538.3020417375606,
+        572.5726761345879
+      ],
+      "world_xy": [
+        6.66304127918536,
+        -9.10320795069175
+      ],
+      "saved_map_xy": [
+        6.940102086878028,
+        -8.653633806729395
+      ],
+      "residual_m": 0.04952388105343857
+    }
+  ]
+}
