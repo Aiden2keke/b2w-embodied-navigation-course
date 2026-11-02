@@ -1,0 +1,656 @@
+{
+  "profile": "B",
+  "token": "da8e0d3df2cf4a7899b294ad43f79a93",
+  "invocations": [
+    {
+      "name": "stack",
+      "argv": [
+        "/usr/bin/python3",
+        "/opt/ros/humble/bin/ros2",
+        "launch",
+        "course_bringup",
+        "course.launch.py",
+        "mode:=slam",
+        "scene:=warehouse",
+        "gui:=false",
+        "rviz:=false",
+        "headless_rendering:=false",
+        "world:=/tmp/b2w-presentation-demo-20261028/rolling-live/precheck-d453aabd343e4e54b09c684336508e36/observer.world",
+        "fault_profile:=normal",
+        "seed:=0",
+        "horizontal_samples:=2000",
+        "pretrained_directory:=/tmp/b2w-navigation-ab-20261023/third_party/b2w_rl_sar",
+        "spawn_x:=0.0",
+        "spawn_y:=-1.0",
+        "rl_sar_params_file:=/tmp/b2w-navigation-ab-20261023/course_sim/config/rl_sar_stop_brake.yaml"
+      ],
+      "process": {
+        "pid": 2437356,
+        "start_ticks": 55581420,
+        "state": "R"
+      }
+    },
+    {
+      "name": "contact-bridge",
+      "argv": [
+        "/usr/bin/python3",
+        "/opt/ros/humble/bin/ros2",
+        "run",
+        "ros_gz_bridge",
+        "parameter_bridge",
+        "/b2w/evaluation/full_contacts@ros_gz_interfaces/msg/Contacts[ignition.msgs.Contacts",
+        "/b2w/evaluation/collision_inventory@std_msgs/msg/String[ignition.msgs.StringMsg",
+        "--ros-args",
+        "-r",
+        "__node:=warehouse_ab_evaluation_bridge",
+        "-p",
+        "use_sim_time:=true"
+      ],
+      "process": {
+        "pid": 2437357,
+        "start_ticks": 55581422,
+        "state": "R"
+      }
+    },
+    {
+      "name": "observer",
+      "argv": [
+        "/usr/bin/python3",
+        "/tmp/b2w-navigation-ab-20261023/scripts/observe_warehouse_narrow_failure.py",
+        "--duration",
+        "420.0",
+        "--label",
+        "B",
+        "--dwb-debug",
+        "--output-root",
+        "/tmp/b2w-presentation-demo-20261028/rolling-live/precheck-d453aabd343e4e54b09c684336508e36/observer"
+      ],
+      "process": {
+        "pid": 2437358,
+        "start_ticks": 55581424,
+        "state": "R"
+      }
+    },
+    {
+      "name": "precheck-map",
+      "argv": [
+        "/usr/bin/python3",
+        "/opt/ros/humble/bin/ros2",
+        "run",
+        "course_navigation",
+        "map_projector",
+        "--ros-args",
+        "-p",
+        "use_sim_time:=true",
+        "-p",
+        "size:=[40.0,40.0]",
+        "-p",
+        "origin:=[-20.0,-20.0]"
+      ],
+      "process": {
+        "pid": 2437359,
+        "start_ticks": 55581426,
+        "state": "R"
+      }
+    },
+    {
+      "name": "precheck-adapter",
+      "argv": [
+        "/usr/bin/python3",
+        "/opt/ros/humble/bin/ros2",
+        "run",
+        "course_navigation",
+        "velocity_adapter",
+        "--ros-args",
+        "-p",
+        "use_sim_time:=true",
+        "-p",
+        "input_topic:=/warehouse_ab/precheck"
+      ],
+      "process": {
+        "pid": 2437360,
+        "start_ticks": 55581428,
+        "state": "R"
+      }
+    }
+  ],
+  "success": true,
+  "planning_only": false,
+  "precheck": [
+    {
+      "kind": "rolling-demo",
+      "command": {
+        "vx": 0.05,
+        "wz": 0.05
+      },
+      "start_sim": 24.9375,
+      "start_sensor": [
+        -0.34333385852569814,
+        8.230243149250222e-05,
+        -5.422001719136724e-05
+      ],
+      "start_truth_evaluation": [
+        -0.05295030916634842,
+        -1.0105421160863604,
+        -0.05623603482093431
+      ],
+      "command_publication_attempted": true,
+      "requested_pulse_sim_s": 1.0,
+      "end_pulse_sim": 25.9675,
+      "pulse_wall_s": 1.122293259948492,
+      "rest": {
+        "start_sim": 27.965,
+        "end_sim": 33.3225,
+        "wall_s": 5.879369255970232,
+        "max_displacement_m": 0.008548421719820782,
+        "max_yaw_rad": 0.009149741396972444,
+        "whole_stop_max_displacement_m": 0.0303753103936783,
+        "whole_stop_max_yaw_rad": 0.1296163660744692,
+        "measured_lio_rest": true,
+        "measured_ground_truth_rest": true,
+        "six_axis_final_zero": true
+      },
+      "end_sensor": [
+        -0.2395671627197435,
+        0.0018881435801539135,
+        -0.013806816635628084
+      ],
+      "end_truth_evaluation": [
+        0.05199805706743536,
+        -1.0208480650062266,
+        -0.07008587842135032
+      ]
+    }
+  ],
+  "precheck_only": true,
+  "motion_authorization": "precheck-only",
+  "physics_rng_seeded": false,
+  "seed": 0,
+  "safety_qualification": "bounded independent simulation diagnostic; not Stage4 qualification",
+  "requested_precheck_spawn": {
+    "x": 0.0,
+    "y": -1.0
+  },
+  "stationary_view_only": false,
+  "route_mode": "critical",
+  "continuation_yaws": null,
+  "world": {
+    "source_sha256": "7d20bdf819f35d5ad8b32e65a9f0dfcf489b70b3a2e8189c711354d26d00ef30",
+    "output_sha256": "3bad8a2eaca844fb8dd119387e4eba9aedb949a9263ba545a336f8f4d1200ce9",
+    "plugin_sha256": "14f3ae72a724e39421e7d7eda51e2bdb7c2c230570ba88b5a5a11743c0fa55c1",
+    "geometry_and_settings_preserved": true
+  },
+  "stationary_startup_containment_test": {
+    "contained": true,
+    "state": "T",
+    "threads": {
+      "2437400": "T",
+      "2437521": "T",
+      "2437522": "T",
+      "2437523": "T",
+      "2437524": "T",
+      "2437525": "T",
+      "2437526": "T",
+      "2437573": "T",
+      "2437684": "T",
+      "2437685": "T",
+      "2437686": "T",
+      "2437687": "T",
+      "2437688": "T",
+      "2437689": "T",
+      "2437690": "T",
+      "2437737": "T",
+      "2437745": "T",
+      "2437746": "T",
+      "2437747": "T",
+      "2437748": "T",
+      "2437749": "T",
+      "2437750": "T",
+      "2437751": "T",
+      "2437752": "T",
+      "2437753": "T",
+      "2437754": "T",
+      "2437755": "T",
+      "2437756": "T",
+      "2437757": "T",
+      "2437758": "T",
+      "2437759": "T",
+      "2437760": "T",
+      "2437761": "T",
+      "2437762": "T",
+      "2437763": "T",
+      "2437764": "T"
+    },
+    "physical_stop_measured": false,
+    "resumed_before_arming": true
+  },
+  "actual_server": {
+    "pid": 2437400,
+    "start_ticks": 55581454,
+    "state": "R",
+    "backend": "/usr/lib/x86_64-linux-gnu/ign-physics-5/engine-plugins/libignition-physics5-dartsim-plugin.so.5.4.0",
+    "backend_sha256": "44e5d8573b44ef1f555eba6f2fbf01c1f0ab657b0fd32016c441e884ec5e71a1",
+    "contact_observer": {
+      "path": "/tmp/b2w-navigation-ab-20261023/artifacts/recovery/contact-build/libb2w_contact_observer.so",
+      "sha256": "14f3ae72a724e39421e7d7eda51e2bdb7c2c230570ba88b5a5a11743c0fa55c1"
+    },
+    "robot_description_sha256": "0d671533a491ceefbdcda251d125b0ee2261c9fe9bc682cb30341fc3e94bd3a9",
+    "construction_log_files": [
+      "/tmp/b2w-presentation-demo-20261028/rolling-live/precheck-d453aabd343e4e54b09c684336508e36/stack.log"
+    ]
+  },
+  "controller_stop_brake": {
+    "differential_stop_brake": true,
+    "stop_brake_stiffness_nm_rad": 4.0,
+    "stop_brake_torque_cap_nm": 0.75,
+    "stop_brake_slew_nm_s": 5.0,
+    "stop_brake_body_heading": true,
+    "stop_brake_heading_stiffness_nm_rad": 8.0,
+    "stop_brake_heading_damping_nm_s_rad": 0.5
+  },
+  "pre_motion_snapshot": {
+    "clock": 18.5675,
+    "pose": [
+      -0.3426751451958121,
+      5.098791764028544e-05,
+      -3.351869028403376e-05
+    ],
+    "contacts": 361,
+    "actual_truth_evaluation": [
+      -0.052607784531620835,
+      -1.010561315749225,
+      -0.056235699153769275
+    ],
+    "support_feet": [
+      "FL_foot::FL_foot_collision",
+      "FR_foot::FR_foot_collision",
+      "RL_foot::RL_foot_collision",
+      "RR_foot::RR_foot_collision"
+    ],
+    "expected_inventory": {
+      "converted_sdf": "/tmp/b2w-navigation-ab-20261023/artifacts/recovery/robot.sdf",
+      "converted_sdf_sha256": "72972964a26ca5983e9286a28453ac8f74b0e747d7eec7b3024c35d16adddcc3",
+      "collisions": [
+        "FL_calf::FL_calf_collision",
+        "FL_calf::FL_calf_collision_1",
+        "FL_foot::FL_foot_collision",
+        "FL_hip::FL_hip_collision",
+        "FL_thigh::FL_thigh_collision",
+        "FR_calf::FR_calf_collision",
+        "FR_calf::FR_calf_collision_1",
+        "FR_foot::FR_foot_collision",
+        "FR_hip::FR_hip_collision",
+        "FR_thigh::FR_thigh_collision",
+        "RL_calf::RL_calf_collision",
+        "RL_calf::RL_calf_collision_1",
+        "RL_foot::RL_foot_collision",
+        "RL_hip::RL_hip_collision",
+        "RL_thigh::RL_thigh_collision",
+        "RR_calf::RR_calf_collision",
+        "RR_calf::RR_calf_collision_1",
+        "RR_foot::RR_foot_collision",
+        "RR_hip::RR_hip_collision",
+        "RR_thigh::RR_thigh_collision",
+        "base_link::base_link_collision",
+        "base_link::base_link_fixed_joint_lump__head_Link_collision_1",
+        "base_link::base_link_fixed_joint_lump__lidar_link_collision_2",
+        "base_link::base_link_fixed_joint_lump__tail_link_collision_3",
+        "collision_plate::collision_plate_collision",
+        "zed_x_camera::zed_x_camera_collision"
+      ]
+    },
+    "command_publishers": [
+      "velocity_adapter"
+    ],
+    "native_deployment": {
+      "processes": [
+        {
+          "pid": 2437409,
+          "start_ticks": 55581454,
+          "executable": "/tmp/b2w-navigation-ab-20261023/install/b2w_controllers/lib/b2w_controllers/b2w_rl_sar_controller",
+          "cmdline": [
+            "/tmp/b2w-navigation-ab-20261023/install/b2w_controllers/lib/b2w_controllers/b2w_rl_sar_controller",
+            "--ros-args",
+            "--params-file",
+            "/tmp/b2w-navigation-ab-20261023/install/course_sim/share/course_sim/config/rl_sar.yaml",
+            "--params-file",
+            "/tmp/b2w-navigation-ab-20261023/course_sim/config/rl_sar_stop_brake.yaml",
+            "--params-file",
+            "/tmp/launch_params_pymqi77a"
+          ],
+          "mapped_or_executed_sha256": {
+            "/tmp/b2w-navigation-ab-20261023/install/b2w_controllers/lib/b2w_controllers/b2w_rl_sar_controller": "aa2e03e68e777cea84aea8e5a4e4f6d82477f5b9d3265df8a657bc7eb1ccacc5"
+          }
+        },
+        {
+          "pid": 2438205,
+          "start_ticks": 55583457,
+          "executable": "/tmp/b2w-navigation-ab-20261023/install/lio_sam/lib/lio_sam/lio_sam_imuPreintegration",
+          "cmdline": [
+            "/tmp/b2w-navigation-ab-20261023/install/lio_sam/lib/lio_sam/lio_sam_imuPreintegration",
+            "--ros-args",
+            "--params-file",
+            "/tmp/b2w-navigation-ab-20261023/install/course_slam/share/course_slam/config/lio_sam.yaml",
+            "-r",
+            "/tf:=/lio_internal/tf"
+          ],
+          "mapped_or_executed_sha256": {
+            "/tmp/b2w-navigation-ab-20261023/install/lio_sam/lib/lio_sam/lio_sam_imuPreintegration": "f0d6797a4037b103abd20ba6760c93f29cac0af3cc4ec002c37fb32c06b2b897"
+          }
+        },
+        {
+          "pid": 2438207,
+          "start_ticks": 55583457,
+          "executable": "/tmp/b2w-navigation-ab-20261023/install/lio_sam/lib/lio_sam/lio_sam_imageProjection",
+          "cmdline": [
+            "/tmp/b2w-navigation-ab-20261023/install/lio_sam/lib/lio_sam/lio_sam_imageProjection",
+            "--ros-args",
+            "--params-file",
+            "/tmp/b2w-navigation-ab-20261023/install/course_slam/share/course_slam/config/lio_sam.yaml",
+            "-r",
+            "/tf:=/lio_internal/tf"
+          ],
+          "mapped_or_executed_sha256": {
+            "/tmp/b2w-navigation-ab-20261023/install/lio_sam/lib/lio_sam/lio_sam_imageProjection": "951d4b5c1af27709158ec1d2836540cad2f71741639361692e3bffff958e97db"
+          }
+        },
+        {
+          "pid": 2438209,
+          "start_ticks": 55583457,
+          "executable": "/tmp/b2w-navigation-ab-20261023/install/lio_sam/lib/lio_sam/lio_sam_featureExtraction",
+          "cmdline": [
+            "/tmp/b2w-navigation-ab-20261023/install/lio_sam/lib/lio_sam/lio_sam_featureExtraction",
+            "--ros-args",
+            "--params-file",
+            "/tmp/b2w-navigation-ab-20261023/install/course_slam/share/course_slam/config/lio_sam.yaml",
+            "-r",
+            "/tf:=/lio_internal/tf"
+          ],
+          "mapped_or_executed_sha256": {
+            "/tmp/b2w-navigation-ab-20261023/install/lio_sam/lib/lio_sam/lio_sam_featureExtraction": "0859ec1f1782e83500315c434106ca7f721782aa40875fecd64bcbe6b869925a"
+          }
+        },
+        {
+          "pid": 2438211,
+          "start_ticks": 55583457,
+          "executable": "/tmp/b2w-navigation-ab-20261023/install/lio_sam/lib/lio_sam/lio_sam_mapOptimization",
+          "cmdline": [
+            "/tmp/b2w-navigation-ab-20261023/install/lio_sam/lib/lio_sam/lio_sam_mapOptimization",
+            "--ros-args",
+            "--params-file",
+            "/tmp/b2w-navigation-ab-20261023/install/course_slam/share/course_slam/config/lio_sam.yaml",
+            "-r",
+            "/tf:=/lio_internal/tf"
+          ],
+          "mapped_or_executed_sha256": {
+            "/tmp/b2w-navigation-ab-20261023/install/lio_sam/lib/lio_sam/lio_sam_mapOptimization": "808b83aecc6ae5f75b9dced7094b4c17b21f91a6c8aea58b8f33dfe7e4647a0a"
+          }
+        }
+      ],
+      "required": {
+        "/tmp/b2w-navigation-ab-20261023/install/b2w_controllers/lib/b2w_controllers/b2w_rl_sar_controller": "aa2e03e68e777cea84aea8e5a4e4f6d82477f5b9d3265df8a657bc7eb1ccacc5",
+        "/tmp/b2w-navigation-ab-20261023/install/lio_sam/lib/lio_sam/lio_sam_mapOptimization": "808b83aecc6ae5f75b9dced7094b4c17b21f91a6c8aea58b8f33dfe7e4647a0a",
+        "/tmp/b2w-navigation-ab-20261023/install/lio_sam/lib/lio_sam/lio_sam_imuPreintegration": "f0d6797a4037b103abd20ba6760c93f29cac0af3cc4ec002c37fb32c06b2b897",
+        "/tmp/b2w-navigation-ab-20261023/install/lio_sam/lib/lio_sam/lio_sam_imageProjection": "951d4b5c1af27709158ec1d2836540cad2f71741639361692e3bffff958e97db",
+        "/tmp/b2w-navigation-ab-20261023/install/lio_sam/lib/lio_sam/lio_sam_featureExtraction": "0859ec1f1782e83500315c434106ca7f721782aa40875fecd64bcbe6b869925a"
+      },
+      "missing": []
+    },
+    "early_pocket_diagnostic": {
+      "passed": true,
+      "motion_admitted": false,
+      "status": "diagnostic_before_required_rest"
+    },
+    "open_pocket_radius_m": 1.5,
+    "engine_probe": {
+      "result": "PASS",
+      "engine_plugin": "ignition::physics::dartsim::Plugin",
+      "engine_name": "dartsim-6.12.1",
+      "world": "contact_engine_probe",
+      "model": "b2w",
+      "expected_count": 26,
+      "constructed_shape_handles": 26,
+      "unique_constructed_names": 26,
+      "shapes": [
+        {
+          "name": "base_link::base_link_collision",
+          "nonnull_shape_handle": true
+        },
+        {
+          "name": "base_link::base_link_fixed_joint_lump__head_Link_collision_1",
+          "nonnull_shape_handle": true
+        },
+        {
+          "name": "base_link::base_link_fixed_joint_lump__lidar_link_collision_2",
+          "nonnull_shape_handle": true
+        },
+        {
+          "name": "base_link::base_link_fixed_joint_lump__tail_link_collision_3",
+          "nonnull_shape_handle": true
+        },
+        {
+          "name": "FL_hip::FL_hip_collision",
+          "nonnull_shape_handle": true
+        },
+        {
+          "name": "FL_thigh::FL_thigh_collision",
+          "nonnull_shape_handle": true
+        },
+        {
+          "name": "FL_calf::FL_calf_collision",
+          "nonnull_shape_handle": true
+        },
+        {
+          "name": "FL_calf::FL_calf_collision_1",
+          "nonnull_shape_handle": true
+        },
+        {
+          "name": "FL_foot::FL_foot_collision",
+          "nonnull_shape_handle": true
+        },
+        {
+          "name": "FR_hip::FR_hip_collision",
+          "nonnull_shape_handle": true
+        },
+        {
+          "name": "FR_thigh::FR_thigh_collision",
+          "nonnull_shape_handle": true
+        },
+        {
+          "name": "FR_calf::FR_calf_collision",
+          "nonnull_shape_handle": true
+        },
+        {
+          "name": "FR_calf::FR_calf_collision_1",
+          "nonnull_shape_handle": true
+        },
+        {
+          "name": "FR_foot::FR_foot_collision",
+          "nonnull_shape_handle": true
+        },
+        {
+          "name": "RL_hip::RL_hip_collision",
+          "nonnull_shape_handle": true
+        },
+        {
+          "name": "RL_thigh::RL_thigh_collision",
+          "nonnull_shape_handle": true
+        },
+        {
+          "name": "RL_calf::RL_calf_collision",
+          "nonnull_shape_handle": true
+        },
+        {
+          "name": "RL_calf::RL_calf_collision_1",
+          "nonnull_shape_handle": true
+        },
+        {
+          "name": "RL_foot::RL_foot_collision",
+          "nonnull_shape_handle": true
+        },
+        {
+          "name": "RR_hip::RR_hip_collision",
+          "nonnull_shape_handle": true
+        },
+        {
+          "name": "RR_thigh::RR_thigh_collision",
+          "nonnull_shape_handle": true
+        },
+        {
+          "name": "RR_calf::RR_calf_collision",
+          "nonnull_shape_handle": true
+        },
+        {
+          "name": "RR_calf::RR_calf_collision_1",
+          "nonnull_shape_handle": true
+        },
+        {
+          "name": "RR_foot::RR_foot_collision",
+          "nonnull_shape_handle": true
+        },
+        {
+          "name": "collision_plate::collision_plate_collision",
+          "nonnull_shape_handle": true
+        },
+        {
+          "name": "zed_x_camera::zed_x_camera_collision",
+          "nonnull_shape_handle": true
+        }
+      ],
+      "missing": [],
+      "unexpected": [],
+      "stepped_physics": false,
+      "gazebo_world_launched": false,
+      "motion_or_contacts_exercised": false
+    }
+  },
+  "post_audit_readmission": {
+    "start_sim": 18.5675,
+    "end_sim": 19.07,
+    "wall_s": 0.4046308670658618,
+    "required_clock_advance_s": 0.5
+  },
+  "initial_rest": {
+    "start_sim": 19.07,
+    "end_sim": 24.7225,
+    "wall_s": 6.036414925009012,
+    "max_displacement_m": 0.0003124502709917806,
+    "max_yaw_rad": 2.745244313609452e-07,
+    "whole_stop_max_displacement_m": 0.0003124502709917806,
+    "whole_stop_max_yaw_rad": 2.745244313609452e-07,
+    "measured_lio_rest": true,
+    "measured_ground_truth_rest": true,
+    "six_axis_final_zero": true
+  },
+  "final_motion_map": {
+    "stamp": 24.0,
+    "receipt_wall": 555846.802719964,
+    "simulation_age_s": 0.7225000000000001,
+    "wall_age_s": 0.7996005980530754
+  },
+  "final_motion_pocket": {
+    "required": true,
+    "passed": true,
+    "radius_m": 1.5,
+    "status": "passed"
+  },
+  "precheck_finish": {
+    "start_sensor": [
+      -0.34331015054906605,
+      0.00014681312194007837,
+      -4.926575514494404e-05
+    ],
+    "end_sensor": [
+      -0.2395671627197435,
+      0.0018881435801539135,
+      -0.013806816635628084
+    ],
+    "start_truth_evaluation": [
+      -0.05295030916634842,
+      -1.0105421160863604,
+      -0.05623603482093431
+    ],
+    "end_truth_evaluation": [
+      0.05199805706743536,
+      -1.0208480650062266,
+      -0.07008587842135032
+    ],
+    "translation_drift_m": 0.10545317519297037,
+    "yaw_drift_rad": -0.01384984360041601
+  },
+  "normal_rest": {
+    "start_sim": 27.965,
+    "end_sim": 33.3225,
+    "wall_s": 5.879369255970232,
+    "max_displacement_m": 0.008548421719820782,
+    "max_yaw_rad": 0.009149741396972444,
+    "whole_stop_max_displacement_m": 0.0303753103936783,
+    "whole_stop_max_yaw_rad": 0.1296163660744692,
+    "measured_lio_rest": true,
+    "measured_ground_truth_rest": true,
+    "six_axis_final_zero": true
+  },
+  "normal_cleanup": {
+    "passed": true,
+    "remaining": {},
+    "owned_pid_start_ticks": {
+      "2437356": "55581420",
+      "2437357": "55581422",
+      "2437358": "55581424",
+      "2437359": "55581426",
+      "2437360": "55581428",
+      "2437361": "55581435",
+      "2437362": "55581438",
+      "2437366": "55581441",
+      "2437400": "55581454",
+      "2437403": "55581454",
+      "2437407": "55581454",
+      "2437409": "55581454",
+      "2437411": "55581454",
+      "2437413": "55581454",
+      "2438205": "55583457",
+      "2438207": "55583457",
+      "2438209": "55583457",
+      "2438211": "55583457",
+      "2438213": "55583457"
+    },
+    "timeout_s": 8.0
+  },
+  "cleanup": {
+    "passed": true,
+    "remaining": {},
+    "owned_pid_start_ticks": {
+      "2437356": "55581420",
+      "2437357": "55581422",
+      "2437358": "55581424",
+      "2437359": "55581426",
+      "2437360": "55581428",
+      "2437361": "55581435",
+      "2437362": "55581438",
+      "2437366": "55581441",
+      "2437400": "55581454",
+      "2437403": "55581454",
+      "2437407": "55581454",
+      "2437409": "55581454",
+      "2437411": "55581454",
+      "2437413": "55581454",
+      "2438205": "55583457",
+      "2438207": "55583457",
+      "2438209": "55583457",
+      "2438211": "55583457",
+      "2438213": "55583457"
+    },
+    "timeout_s": 8.0
+  },
+  "truth_first_fault": null,
+  "readiness_first_fault": null,
+  "contact_failure": null,
+  "contact_sample_count": 653,
+  "localization_cleanup": {
+    "passed": true
+  },
+  "watchdog": {
+    "reason": "normal_shutdown",
+    "emergency": false
+  }
+}

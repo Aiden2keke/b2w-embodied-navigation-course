@@ -1,0 +1,13 @@
+{
+  "token": "d2f4791f75224ca8b4cd104aeb782b7a",
+  "parent": {
+    "pid": 1098384,
+    "start_ticks": 10501795,
+    "state": "R"
+  },
+  "server": null,
+  "heartbeat": "/tmp/b2w-navigation-ab-20261023/artifacts/trials/A-378d4598a652433cb950effe627a0a26/heartbeat.json",
+  "result": "/tmp/b2w-navigation-ab-20261023/artifacts/trials/A-378d4598a652433cb950effe627a0a26/watchdog-result.json",
+  "wall_limit_s": 420.0,
+  "stale_s": 1.0
+}

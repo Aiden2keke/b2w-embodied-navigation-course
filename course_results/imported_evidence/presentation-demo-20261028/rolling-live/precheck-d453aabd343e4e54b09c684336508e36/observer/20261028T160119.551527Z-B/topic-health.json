@@ -1,0 +1,196 @@
+{
+  "/clock": {
+    "expected_type": "rosgraph_msgs/msg/Clock",
+    "discovered_types": [
+      "rosgraph_msgs/msg/Clock"
+    ],
+    "messages": 13355,
+    "state": "recorded"
+  },
+  "/goal_pose": {
+    "expected_type": "geometry_msgs/msg/PoseStamped",
+    "discovered_types": [],
+    "messages": 0,
+    "state": "absent"
+  },
+  "/plan": {
+    "expected_type": "nav_msgs/msg/Path",
+    "discovered_types": [],
+    "messages": 0,
+    "state": "absent"
+  },
+  "/course_navigation/cmd_vel_raw": {
+    "expected_type": "geometry_msgs/msg/Twist",
+    "discovered_types": [],
+    "messages": 0,
+    "state": "absent"
+  },
+  "/course_navigation/cmd_vel": {
+    "expected_type": "geometry_msgs/msg/Twist",
+    "discovered_types": [],
+    "messages": 0,
+    "state": "absent"
+  },
+  "/path_manager/path_manager_ros/nav_vel": {
+    "expected_type": "geometry_msgs/msg/Twist",
+    "discovered_types": [
+      "geometry_msgs/msg/Twist"
+    ],
+    "messages": 806,
+    "state": "recorded"
+  },
+  "/slam/odom": {
+    "expected_type": "nav_msgs/msg/Odometry",
+    "discovered_types": [
+      "nav_msgs/msg/Odometry"
+    ],
+    "messages": 158,
+    "state": "recorded"
+  },
+  "/sim/ground_truth/odom": {
+    "expected_type": "nav_msgs/msg/Odometry",
+    "discovered_types": [
+      "nav_msgs/msg/Odometry"
+    ],
+    "messages": 3339,
+    "state": "recorded"
+  },
+  "/collision_plate/force_torque": {
+    "expected_type": "geometry_msgs/msg/WrenchStamped",
+    "discovered_types": [
+      "geometry_msgs/msg/WrenchStamped"
+    ],
+    "messages": 3340,
+    "state": "recorded"
+  },
+  "/navigate_to_pose/_action/status": {
+    "expected_type": "action_msgs/msg/GoalStatusArray",
+    "discovered_types": [],
+    "messages": 0,
+    "state": "absent"
+  },
+  "/follow_path/_action/status": {
+    "expected_type": "action_msgs/msg/GoalStatusArray",
+    "discovered_types": [],
+    "messages": 0,
+    "state": "absent"
+  },
+  "/behavior_tree_log": {
+    "expected_type": "nav2_msgs/msg/BehaviorTreeLog",
+    "discovered_types": [],
+    "messages": 0,
+    "state": "absent"
+  },
+  "/rosout": {
+    "expected_type": "rcl_interfaces/msg/Log",
+    "discovered_types": [
+      "rcl_interfaces/msg/Log"
+    ],
+    "messages": 125,
+    "state": "recorded"
+  },
+  "/tf": {
+    "expected_type": "tf2_msgs/msg/TFMessage",
+    "discovered_types": [
+      "tf2_msgs/msg/TFMessage"
+    ],
+    "messages": 825,
+    "state": "recorded"
+  },
+  "/tf_static": {
+    "expected_type": "tf2_msgs/msg/TFMessage",
+    "discovered_types": [
+      "tf2_msgs/msg/TFMessage"
+    ],
+    "messages": 1,
+    "state": "recorded"
+  },
+  "/local_costmap/costmap_raw": {
+    "expected_type": "nav2_msgs/msg/Costmap",
+    "discovered_types": [],
+    "messages": 0,
+    "state": "absent"
+  },
+  "/global_costmap/costmap_raw": {
+    "expected_type": "nav2_msgs/msg/Costmap",
+    "discovered_types": [],
+    "messages": 0,
+    "state": "absent"
+  },
+  "/local_costmap/published_footprint": {
+    "expected_type": "geometry_msgs/msg/PolygonStamped",
+    "discovered_types": [],
+    "messages": 0,
+    "state": "absent"
+  },
+  "/global_costmap/published_footprint": {
+    "expected_type": "geometry_msgs/msg/PolygonStamped",
+    "discovered_types": [],
+    "messages": 0,
+    "state": "absent"
+  },
+  "/network_input_debug": {
+    "expected_type": "std_msgs/msg/Float64MultiArray",
+    "discovered_types": [
+      "std_msgs/msg/Float64MultiArray"
+    ],
+    "messages": 1569,
+    "state": "recorded"
+  },
+  "/joint_commands": {
+    "expected_type": "std_msgs/msg/Float64MultiArray",
+    "discovered_types": [
+      "std_msgs/msg/Float64MultiArray"
+    ],
+    "messages": 1569,
+    "state": "recorded"
+  },
+  "/joint_torques": {
+    "expected_type": "std_msgs/msg/Float64MultiArray",
+    "discovered_types": [
+      "std_msgs/msg/Float64MultiArray"
+    ],
+    "messages": 6674,
+    "state": "recorded"
+  },
+  "/joint_states": {
+    "expected_type": "sensor_msgs/msg/JointState",
+    "discovered_types": [
+      "sensor_msgs/msg/JointState"
+    ],
+    "messages": 3339,
+    "state": "recorded"
+  },
+  "/sim/raw/imu": {
+    "expected_type": "sensor_msgs/msg/Imu",
+    "discovered_types": [
+      "sensor_msgs/msg/Imu"
+    ],
+    "messages": 6679,
+    "state": "recorded"
+  },
+  "/evaluation": {
+    "expected_type": "dwb_msgs/msg/LocalPlanEvaluation",
+    "discovered_types": [],
+    "messages": 0,
+    "state": "absent"
+  },
+  "/received_global_plan": {
+    "expected_type": "nav_msgs/msg/Path",
+    "discovered_types": [],
+    "messages": 0,
+    "state": "absent"
+  },
+  "/transformed_global_plan": {
+    "expected_type": "nav_msgs/msg/Path",
+    "discovered_types": [],
+    "messages": 0,
+    "state": "absent"
+  },
+  "/local_plan": {
+    "expected_type": "nav_msgs/msg/Path",
+    "discovered_types": [],
+    "messages": 0,
+    "state": "absent"
+  }
+}

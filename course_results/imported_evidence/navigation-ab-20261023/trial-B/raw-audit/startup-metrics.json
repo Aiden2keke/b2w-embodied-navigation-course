@@ -1,0 +1,24 @@
+{
+  "samples": 341,
+  "first": {
+    "simulation_s": 0.10500000000000001,
+    "world_x_m": 0.00042011174411483564,
+    "world_y_m": -5.063063142978559e-07,
+    "world_yaw_rad": 1.3574950074140397e-05
+  },
+  "minimum_world_x": {
+    "simulation_s": 2.125,
+    "world_x_m": -0.21213578434463257,
+    "world_y_m": 0.0002067654928622915,
+    "world_yaw_rad": 0.006353413117373107
+  },
+  "max_displacement_from_first_m": 0.2125559971482553,
+  "max_yaw_from_first_rad": 0.056359895443031306,
+  "last": {
+    "simulation_s": 34.7,
+    "world_x_m": -0.054555266872894,
+    "world_y_m": -0.010597628365541558,
+    "world_yaw_rad": -0.05634632049295717
+  },
+  "interpretation": "startup under zero final command; not a commanded stop or navigation path"
+}

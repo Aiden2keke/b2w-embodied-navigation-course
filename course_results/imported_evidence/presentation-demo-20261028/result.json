@@ -1,0 +1,87 @@
+{
+  "route_success": false,
+  "route_attempts": 0,
+  "rolling_diagnostic_attempts": 1,
+  "classification": "BLOCKED_ACTIVE_ROLLING_SIGNED_STEERING_FAILED",
+  "safety_pass": true,
+  "physical": {
+    "owner_window_yaw_rad": -0.14475548111236797,
+    "owner_zero_to_rest_yaw_rad": 0.130905991039653,
+    "yaw_during_delivery_rad": -0.1460381841318477,
+    "yaw_after_zero_to_rest_rad": 0.13218869405913272,
+    "net_yaw_rad": -0.013849490072714944,
+    "net_translation_m": 0.10542367668584592,
+    "whole": {
+      "max_translation_m": 0.1155548972406389,
+      "max_abs_yaw_rad": 0.1475292652199181,
+      "max_translational_speed_mps": 0.11911432437292266,
+      "max_abs_yaw_speed_rad_s": 0.21149661159142852
+    },
+    "after_zero": {
+      "max_translation_m": 0.028466435527092025,
+      "max_abs_yaw_rad": 0.13218869405913272,
+      "max_translational_speed_mps": 0.0962826265234841,
+      "max_abs_yaw_speed_rad_s": 0.21149661159142852
+    },
+    "zero_to_rest_end_sim_s": 7.344999999999999,
+    "zero_to_rest_start_sim_s": 1.9875000000000007,
+    "pose_sample_times": [
+      24.94,
+      25.98,
+      33.32
+    ]
+  },
+  "delivery": {
+    "first_nonzero_final": {
+      "sim_receive_s": 24.985,
+      "wall_monotonic_s": 555847.746295185,
+      "seq": 31084
+    },
+    "first_zero_final": {
+      "sim_receive_s": 25.9775,
+      "wall_monotonic_s": 555848.819561049,
+      "seq": 32334
+    },
+    "receive_clock_nonzero_interval_sim_s": 0.9924999999999997,
+    "receive_wall_interval_s": 1.0732658640481532,
+    "first_nonzero_model": {
+      "sim_receive_s": 25.005,
+      "wall_monotonic_s": 555847.766882504,
+      "seq": 31105
+    },
+    "first_zero_model": {
+      "sim_receive_s": 25.985,
+      "wall_monotonic_s": 555848.824712328,
+      "seq": 32343
+    },
+    "model_receive_interval_sim_s": 0.9800000000000004,
+    "owner_observed_interval_sim_s": 1.0300000000000011,
+    "nonzero_final_values": [
+      [
+        0.05,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.05
+      ]
+    ]
+  },
+  "cleanup": {
+    "remaining": {},
+    "registered_alive": [],
+    "lease_reacquired": true,
+    "normal_cleanup": true
+  },
+  "blocker": "Positive delivered yaw command causes negative yaw while rolling, before zero/rebound. No legitimate route-tracking admission.",
+  "next_executable_requirement": "Correct and independently validate a DEMO-only signed steering mapping for the preserved policy; no global sign flip or unconditional minimum-yaw rescale. No safe live inverse is currently established.",
+  "baseline_task_changed": false,
+  "source_hashes": {
+    "/tmp/b2w-presentation-demo-20261028/rolling-live/precheck-d453aabd343e4e54b09c684336508e36/observer/20261028T160119.551527Z-B/events.jsonl": "4824acbd10d46a30d146408c2005aba790046fa406cbf9dd0e5c6417c7482b9f",
+    "/tmp/b2w-presentation-demo-20261028/rolling-live/precheck-d453aabd343e4e54b09c684336508e36/session-report.json": "e68462ebe6891a0a927a5390eaff2eaa47819c60c419584739766c14f4242a5c",
+    "/tmp/b2w-presentation-demo-20261028/rolling-live/precheck-d453aabd343e4e54b09c684336508e36/monitor-events.jsonl": "3f9392e0e85542d31aa279622d4430987ef061bf22372b3017caf442be3d98aa"
+  },
+  "focused_tests_passed": 245,
+  "independent_review": "rolling source safety PASS, actual active tracking FAIL confirmed",
+  "complete_video_produced": false
+}

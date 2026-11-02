@@ -1,0 +1,6 @@
+{
+  "gpu_compute_empty": true,
+  "competing": [],
+  "gpu": "name, uuid, utilization.gpu [%], memory.used [MiB]\nNVIDIA RTX A4000, GPU-04245b67-87b5-7837-1cbf-bb0d55b1c646, 33 %, 4719 MiB\n"
+}
+Owned session evidence: /tmp/b2w-presentation-demo-20261028/rolling-live/precheck-d453aabd343e4e54b09c684336508e36
