@@ -1,0 +1,23 @@
+{
+  "upstream": "https://github.com/aws-robotics/aws-robomaker-small-warehouse-world.git",
+  "revision": "ee0af733315e78432408c3cd98d378ecee5f767c",
+  "license": "MIT-0",
+  "variant": "no_roof_small_warehouse",
+  "models": 25,
+  "changes": [
+    "Fortress systems and 400 Hz physics",
+    "flatten includes",
+    "absolute file URIs",
+    "remove unused invalid static-body inertias"
+  ],
+  "ground_friction_mu": 1.0,
+  "spawn": [
+    0.0,
+    0.0,
+    1.0
+  ],
+  "map_size_m": [
+    40.0,
+    40.0
+  ]
+}
